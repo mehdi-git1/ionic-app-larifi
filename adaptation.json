@@ -7,7 +7,7 @@
             "appName": "eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospnc",
             "version": "2.1.0",
-            "provisioningProfile": "d1e5c6ec-d806-4a5f-ac6e-88e840d40451"
+            "provisioningProfile": "89c0ebdc-591f-4bbf-85e4-0763550c1907"
         },
         {
             "name": "dev",
@@ -15,7 +15,7 @@
             "appName": "DEV eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV",
             "version": "2.1.0",
-            "provisioningProfile": "399df0cb-55df-4aeb-9f3a-1efbe662c106"
+            "provisioningProfile": "4327ba5d-8025-45ff-8026-091bc255ccda"
         },
         {
             "name": "rct",
@@ -23,30 +23,31 @@
             "appName": "RCT eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT",
             "version": "2.1.0",
-            "provisioningProfile": "2c6bc84a-a5dc-414e-99b0-2164e2686655"
+            "provisioningProfile": "f5f1c05c-0ce7-40c1-9978-55abfd7c3faa"
         },
-
         {
             "name": "preprod",
             "configFile": "./src/environments/preprod.ts",
             "appName": "PREPROD eDossierPNC ",
             "appId": "com.airfrance.mobile.inhouse.edospncPREPROD",
             "version": "2.1.0",
-            "provisioningProfile": "9df57435-868f-48b7-8aea-3665cfeaf8f4"
-        }, {
+            "provisioningProfile": "58d8c774-e550-4330-8650-eaf525f8bae8"
+        },
+        {
             "name": "dev2",
             "configFile": "./src/environments/dev2.ts",
             "appName": "DEV2 eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV2",
             "version": "2.1.0",
-            "provisioningProfile": "835ab94d-42b8-4991-affd-555ed7998de7"
-        }, {
+            "provisioningProfile": "313deeb4-17b5-42f4-ab5c-7c2f6f2dfd7f"
+        },
+        {
             "name": "rct2",
             "configFile": "./src/environments/rct2.ts",
             "appName": "RCT2 eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT2",
             "version": "2.1.0",
-            "provisioningProfile": "4a37d037-86ca-4ffc-8c37-c17216ee2265"
+            "provisioningProfile": "28b6b91d-fba4-45c4-a875-23290eb1cb9a"
         }
     ]
 }

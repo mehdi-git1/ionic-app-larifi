@@ -94,7 +94,7 @@ export class DevelopmentProgramPage {
      */
     initFilter() {
         this.careerObjectiveFilter = new CareerObjectiveFilterModel();
-        this.careerObjectiveFilter.categoryId = AppConstant.ALL;
+        this.careerObjectiveFilter.categoryCode = AppConstant.ALL;
     }
 
     ionViewDidEnter() {
@@ -214,7 +214,7 @@ export class DevelopmentProgramPage {
      * @param category la category concernée
      */
     filterCategory(category: string) {
-        this.careerObjectiveFilter.categoryId = category;
+        this.careerObjectiveFilter.categoryCode = category;
         this.searchCareerObjectives();
     }
 

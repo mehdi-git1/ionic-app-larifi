@@ -1,4 +1,3 @@
-import { HrDocumentCategory } from './hr-document/hr-document-category';
 
 export class HrDocumentFilterModel {
 
@@ -12,5 +11,5 @@ export class HrDocumentFilterModel {
 
     // Filtre de recherche
     matricule: string;
-    categoryId: string;
+    categoryCode: string;
 }

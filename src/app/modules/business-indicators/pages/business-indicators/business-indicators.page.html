@@ -22,21 +22,21 @@
                                 <span class="summary-value">{{ businessIndicatorSummary?.escoreAverage | number : '1.0-1' }}</span>
                             </div>
                         </div>
-                        <div class="summary-item">
+                        <div class="summary-item" *ngIf="canDisplayFlyingBlueAverage()">
                             <label>{{ 'BUSINESS_INDICATORS.PAST_SUMMARY.FLYING_BLUE_ERC_AVERAGE' | translate }}</label>
                             <div>
                                 <img class="file-icon" src="assets/imgs/business-indicators/fb-erc.svg" />
                                 <span class="summary-value">{{ businessIndicatorSummary?.flyingBlueAndERCAverage | number : '1.0-1' }}</span>
                             </div>
                         </div>
-                        <div class="summary-item">
-                            <label>{{ 'BUSINESS_INDICATORS.PAST_SUMMARY.UPGRADE_AVERAGE' | translate }}</label>
+                        <div class="summary-item" *ngIf="canDisplayUpgradeSum()">
+                            <label>{{ 'BUSINESS_INDICATORS.PAST_SUMMARY.UPGRADE_SUM' | translate }}</label>
                             <div>
                                 <img class="file-icon" src="assets/imgs/business-indicators/upgrade.svg" />
-                                <span class="summary-value">{{ businessIndicatorSummary?.upgradeAverage | number : '1.0-1' }}</span>
+                                <span class="summary-value">{{ businessIndicatorSummary?.upgradeSum }}</span>
                             </div>
                         </div>
-                        <div class="summary-item">
+                        <div class="summary-item" *ngIf="canDisplayOnTimeShuttleDepartureRatio()">
                             <label>{{ 'BUSINESS_INDICATORS.PAST_SUMMARY.ON_TIME_SHUTTLE_DEPARTURE_RATIO' | translate }}</label>
                             <div>
                                 <img class="file-icon" src="assets/imgs/business-indicators/shuttle-departure.svg" />

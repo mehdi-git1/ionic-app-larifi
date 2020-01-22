@@ -48,13 +48,13 @@ export class OfflineCareerObjectiveService {
     return new Promise((resolve, reject) => {
       const careerObjectiveList = this.storageService.findAll(EntityEnum.CAREER_OBJECTIVE);
       const pncCareerObjectives = careerObjectiveList.filter(careerObjective => {
-        if (AppConstant.ALL === careerObjectiveSearch.categoryId) {
+        if (AppConstant.ALL === careerObjectiveSearch.categoryCode) {
           return careerObjective.pnc.matricule === careerObjectiveSearch.matricule
             && careerObjective.offlineAction !== OfflineActionEnum.DELETE;
         } else {
           return careerObjective.pnc.matricule === careerObjectiveSearch.matricule
             && careerObjective.offlineAction !== OfflineActionEnum.DELETE
-            && careerObjective.category.id === careerObjectiveSearch.categoryId;
+            && careerObjective.category.id === careerObjectiveSearch.categoryCode;
         }
       });
       resolve(pncCareerObjectives);
