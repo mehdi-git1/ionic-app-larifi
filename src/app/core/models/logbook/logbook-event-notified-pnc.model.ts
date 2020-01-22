@@ -4,4 +4,5 @@ import { PncModel } from '../pnc.model';
 export class LogbookEventNotifiedPnc {
     pnc: PncModel;
     speciality: NotifiedPncSpecialityEnum;
+
 }

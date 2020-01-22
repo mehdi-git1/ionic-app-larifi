@@ -1,5 +1,5 @@
 export enum NotifiedPncSpecialityEnum {
-  RI = 'RI',
+  REFERENT_INSTRUCTOR = 'REFERENT_INSTRUCTOR',
   RDD = 'RDD',
   RDS = 'RDS',
   CSV = 'CSV'

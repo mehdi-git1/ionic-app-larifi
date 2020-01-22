@@ -910,7 +910,7 @@
             "NOTIFIED_PNCS": {
                 "TITLE": "Personnes notifiées",
                 "SPECIALITY": {
-                    "RI": "Manager",
+                    "REFERENT_INSTRUCTOR": "Manager",
                     "RDD": "RDD",
                     "RDS": "RDS",
                     "CSV": "CSV"

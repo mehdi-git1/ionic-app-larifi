@@ -1,4 +1,9 @@
 import * as _ from 'lodash';
+import { NotifiedPncSpecialityEnum } from 'src/app/core/enums/notified-pnc-speciality.enum';
+import {
+    LogbookEventNotifiedPnc
+} from 'src/app/core/models/logbook/logbook-event-notified-pnc.model';
+import { PncTransformerService } from 'src/app/core/services/pnc/pnc-transformer.service';
 
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -49,6 +54,7 @@ export class LogbookEventComponent implements OnInit {
 
     LogbookEventModeEnum = LogbookEventModeEnum;
     TextEditorModeEnum = TextEditorModeEnum;
+    NotifiedPncSpecialityEnum = NotifiedPncSpecialityEnum;
 
     cancelFromButton = false;
 
@@ -70,7 +76,8 @@ export class LogbookEventComponent implements OnInit {
         private events: Events,
         private alertCtrl: AlertController,
         private formBuilder: FormBuilder,
-        private cancelChangeService: CancelChangesService) {
+        private cancelChangeService: CancelChangesService,
+        private pncTransformer: PncTransformerService) {
         this.initForm();
     }
 
@@ -100,10 +107,31 @@ export class LogbookEventComponent implements OnInit {
             this.logbookEvent.eventDate = this.dateTransformer.transformDateToIso8601Format(eventDate);
             this.logbookEvent.notifiedPncs = new Array();
             if (this.pnc.pncInstructor && this.pnc.pncInstructor.matricule !== this.sessionService.getActiveUser().matricule) {
-                this.logbookEvent.notifiedPncs.push(this.pnc.pncInstructor);
+                const notifiedInstructor = new LogbookEventNotifiedPnc();
+                notifiedInstructor.pnc = new PncModel();
+                notifiedInstructor.pnc.matricule = this.pnc.pncInstructor.matricule;
+                notifiedInstructor.speciality = NotifiedPncSpecialityEnum.REFERENT_INSTRUCTOR;
+                this.logbookEvent.notifiedPncs.push(notifiedInstructor);
             }
 
+        } else if (this.mode === LogbookEventModeEnum.EDITION) {
+            // Mise a jour de la liste des pnc notifiés
+            this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(notifiedPnc => {
+                if (notifiedPnc.speciality === NotifiedPncSpecialityEnum.REFERENT_INSTRUCTOR
+                    && notifiedPnc.pnc.matricule !== this.pnc.pncInstructor.matricule) {
+                    notifiedPnc.pnc = this.pncTransformer.transformPncLightToPnc(this.pnc.pncInstructor);
+                }
+                if (notifiedPnc.speciality === NotifiedPncSpecialityEnum.RDD
+                    && notifiedPnc.pnc.matricule !== this.pnc.pncRdd.matricule) {
+                    notifiedPnc.pnc = this.pncTransformer.transformPncLightToPnc(this.pnc.pncRdd);
+                }
+                if (notifiedPnc.speciality === NotifiedPncSpecialityEnum.RDS
+                    && notifiedPnc.pnc.matricule !== this.pnc.pncRds.matricule) {
+                    notifiedPnc.pnc = this.pncTransformer.transformPncLightToPnc(this.pnc.pncRds);
+                }
+            });
         }
+
         this.logbookEvent.mode = this.mode;
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
         this.eventDateString =
@@ -320,8 +348,8 @@ export class LogbookEventComponent implements OnInit {
             return false;
         }
         let result: boolean;
-        this.logbookEvent.notifiedPncs.forEach(pnc => {
-            if (pnc.matricule === pncLight.matricule) {
+        this.logbookEvent.notifiedPncs.forEach(notifiedPnc => {
+            if (notifiedPnc.pnc.matricule === pncLight.matricule) {
                 result = true;
             }
         });
@@ -333,12 +361,16 @@ export class LogbookEventComponent implements OnInit {
      * @param myEvent l'event lié a la case à cocher
      * @param pncLight le pnc concerné
      */
-    updatePncNotifiedList(myEvent: any, pncLight: PncLightModel) {
+    updatePncNotifiedList(myEvent: any, pncLight: PncLightModel, speciality: NotifiedPncSpecialityEnum) {
         if (myEvent.detail.checked) {
-            this.logbookEvent.notifiedPncs.push(pncLight);
+            const notifiedPnc = new LogbookEventNotifiedPnc();
+            notifiedPnc.pnc = new PncModel();
+            notifiedPnc.pnc.matricule = pncLight.matricule;
+            notifiedPnc.speciality = speciality;
+            this.logbookEvent.notifiedPncs.push(notifiedPnc);
         } else {
-            this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(pnc =>
-                pnc.matricule !== pncLight.matricule);
+            this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(notifiedPnc =>
+                notifiedPnc.pnc.matricule !== pncLight.matricule);
         }
     }
 }
