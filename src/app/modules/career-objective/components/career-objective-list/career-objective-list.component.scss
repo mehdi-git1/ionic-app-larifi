@@ -21,13 +21,14 @@ ion-button {
         width: 380px;
         background: none;
         border: none;
-        border-bottom: inset;
-        border-width: 2px;
+        border-bottom: solid;
+        border-width: 2px !important;
         border-radius: unset;
         border-color: var(--ion-color-primarylight);
     }
 
     & > * {
         margin-right: 10px;
+        font-weight: bold;
     }
 }

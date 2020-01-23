@@ -57,6 +57,8 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
 
     originalPncComment: string;
 
+    prioritized: boolean;
+
     pnc: PncModel;
 
     // Permet d'exposer l'enum au template
@@ -118,6 +120,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
                     this.originCareerObjective = _.cloneDeep(foundCareerObjective);
                     this.careerObjective = foundCareerObjective;
                     this.originalPncComment = this.careerObjective.pncComment;
+                    this.prioritized = this.careerObjective.prioritized;
 
                     this.pncService.getPnc(foundCareerObjective.pnc.matricule).then(pnc => {
                         this.pnc = pnc;
@@ -137,6 +140,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             this.careerObjective.initiator = this.sessionService.getActiveUser().isManager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC;
             this.waypointList = [];
             this.originCareerObjective = _.cloneDeep(this.careerObjective);
+            this.prioritized = false;
         }
     }
 
@@ -622,8 +626,18 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      */
     selectedCategory() {
         if (this.careerObjective && this.careerObjective.category) {
-            this.careerObjective.category.code === 'FLIGHTS_SECURITY' ? this.careerObjective.prioritized = true
-                : this.careerObjective.prioritized = false;
+            this.careerObjective.category.code === 'FLIGHTS_SECURITY' ?
+                this.careerObjective.prioritized = true :
+                this.careerObjective.prioritized = this.prioritized;
+        }
+    }
+
+    /**
+     * recupere la modification de la case a cocher prioritaire.
+     */
+    priorityChange() {
+        if (this.careerObjective.category.code !== 'FLIGHTS_SECURITY') {
+            this.prioritized = this.careerObjective.prioritized;
         }
     }
 }
