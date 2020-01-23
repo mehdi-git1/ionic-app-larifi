@@ -74,7 +74,7 @@
                             </ion-label>
                         </div>
                         <div
-                            [ngClass]="{'no-value' : !logbookEvent.notifiedPncs && logbookEvent.notifiedRecipients || logbookEvent.notifiedPncs.length === 0 && logbookEvent.notifiedRecipients.length === 0}">
+                            [ngClass]="{'no-value' : !logbookEvent.notifiedPncs && !logbookEvent.notifiedRecipients || logbookEvent.notifiedPncs.length === 0 && logbookEvent.notifiedRecipients.length === 0}">
                             <span
                                 *ngFor="let notifiedPnc of logbookEvent.notifiedPncs; last as l">{{notifiedPnc.pnc.lastName}}
                                 {{notifiedPnc.pnc.firstName | titlecase}}&nbsp;<span
