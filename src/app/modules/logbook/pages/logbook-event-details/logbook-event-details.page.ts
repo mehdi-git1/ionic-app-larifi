@@ -122,15 +122,6 @@ export class LogbookEventDetailsPage implements OnInit {
                     });
                     if (this.logbookEvents.length > 0) {
                         this.logbookEvents = this.sortLogbookEventsByEventDate(this.logbookEvents);
-                        this.logbookEvents.forEach(logbookEvent => {
-                            logbookEvent.notifiedPncs.forEach(notifiedPnc => {
-                                if (pnc.pncInstructor && notifiedPnc.matricule === pnc.pncInstructor.matricule) {
-                                    notifiedPnc.isInstructor = true;
-                                } else if (pnc.pncRds && notifiedPnc.matricule === pnc.pncRds.matricule) {
-                                    notifiedPnc.isRds = true;
-                                }
-                            });
-                        });
                     }
                     resolve();
                 });

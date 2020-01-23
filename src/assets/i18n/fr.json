@@ -907,7 +907,15 @@
         "DETAILS": {
             "EVENT_DATE": "Evènement du ",
             "CREATED_THE": "Créé le ",
-            "NOTIFIED_PNCS": "Personnes notifiées",
+            "NOTIFIED_PNCS": {
+                "TITLE": "Personnes notifiées",
+                "SPECIALITY": {
+                    "REFERENT_INSTRUCTOR": "Manager",
+                    "RDD": "RDD",
+                    "RDS": "RDS",
+                    "CSV": "CSV"
+                }
+            },
             "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}",
             "WILL_BE_DISPLAYED_ON": "Sera affiché le {{date}}",
             "DISPLAYED": "Afficher",

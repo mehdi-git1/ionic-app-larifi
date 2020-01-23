@@ -5,6 +5,7 @@ import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
 import { PncLightModel } from '../pnc-light.model';
 import { LogbookEventCategory } from './logbook-event-category';
 import { LogbookEventNotifiedEmail } from './logbook-event-notified-email.model';
+import { LogbookEventNotifiedPnc } from './logbook-event-notified-pnc.model';
 
 export class LogbookEventModel extends EDossierPncObjectModel {
     pnc: PncLightModel;
@@ -21,7 +22,7 @@ export class LogbookEventModel extends EDossierPncObjectModel {
     title: string;
     content: string;
     groupId: number;
-    notifiedPncs: PncLightModel[];
+    notifiedPncs: LogbookEventNotifiedPnc[];
     notifiedRecipients: LogbookEventNotifiedEmail[];
     attachmentFiles: Array<DocumentModel> = new Array();
     mode: LogbookEventModeEnum;

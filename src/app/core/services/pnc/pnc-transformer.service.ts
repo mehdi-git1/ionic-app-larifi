@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { AssignmentModel } from '../../models/assignment.model';
 import { PncLightModel } from '../../models/pnc-light.model';
 import { PncModel } from '../../models/pnc.model';
 
@@ -32,5 +33,17 @@ export class PncTransformerService {
     pncLight.sector = pnc.assignment.sector;
     pncLight.ginq = pnc.assignment.ginq;
     return pncLight;
+  }
+
+  transformPncLightToPnc(pncLight: PncLightModel): PncModel {
+    const pnc = new PncModel();
+    pnc.matricule = pnc.matricule;
+    pnc.firstName = pnc.firstName;
+    pnc.lastName = pnc.lastName;
+    pnc.assignment = new AssignmentModel()
+    pnc.assignment.division = pnc.assignment.division;
+    pnc.assignment.sector = pnc.assignment.sector;
+    pnc.assignment.ginq = pnc.assignment.ginq;
+    return pnc;
   }
 }
