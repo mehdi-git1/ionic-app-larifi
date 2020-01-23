@@ -116,7 +116,7 @@ export class LogbookEventComponent implements OnInit {
 
         } else if (this.mode === LogbookEventModeEnum.EDITION) {
             // Mise a jour de la liste des pnc notifiés
-            this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(notifiedPnc => {
+            this.logbookEvent.notifiedPncs.forEach(notifiedPnc => {
                 if (notifiedPnc.speciality === NotifiedPncSpecialityEnum.REFERENT_INSTRUCTOR
                     && notifiedPnc.pnc.matricule !== this.pnc.pncInstructor.matricule) {
                     notifiedPnc.pnc = this.pncTransformer.transformPncLightToPnc(this.pnc.pncInstructor);
