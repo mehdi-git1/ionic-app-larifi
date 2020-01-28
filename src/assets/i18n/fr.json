@@ -319,7 +319,11 @@
             "MEDICAL_VISITS": "Visites médicales",
             "LANGUAGES": "Langues",
             "RELAYS": "Référents / Relais",
-            "TRAVEL_DOCUMENTS": "Documents / Visas"
+            "TRAVEL_DOCUMENTS": "Documents / Visas",
+            "MANIFEX": "Manifex"
+        },
+        "MANIFEX": {
+            "CREATION_DATE": "Depuis le"
         },
         "GENERALITY_SKILLS": {
             "START_DATE": "Depuis le",
