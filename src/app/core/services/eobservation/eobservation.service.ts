@@ -46,6 +46,8 @@ export class EObservationService extends BaseService {
                 return this.translateService.instant('EOBSERVATION.DETAIL.VAL_TITLE_OPTION');
             } else if (eObservation.formationFlight) {
                 return this.translateService.instant('EOBSERVATION.DETAIL.FORMATION_FLIGHT_TITLE_OPTION');
+            } else if (eObservation.ffc) {
+                return this.translateService.instant('EOBSERVATION.DETAIL.FFC_TITLE_OPTION');
             }
         }
         if (eObservation && eObservation.type === EObservationTypeEnum.E_ALT && eObservation.val) {

@@ -22,6 +22,6 @@ export class EObsTemporaryPeriodComponent {
   hasTemporaryPeriodToBeDisplayed(): boolean {
     return this.eObservation
       && (this.eObservation.type === EObservationTypeEnum.E_CC || this.eObservation.type === EObservationTypeEnum.E_CCP)
-      && (this.eObservation.formationFlight || this.eObservation.val);
+      && (this.eObservation.formationFlight || this.eObservation.val || this.eObservation.ffc);
   }
 }
