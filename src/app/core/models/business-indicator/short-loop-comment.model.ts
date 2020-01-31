@@ -1,6 +1,6 @@
 export class ShortLoopCommentModel {
     numberOfRespondants: number;
-    notation: number;
+    rating: number;
     appreciatedPoints: string;
     pointsToImprove: string;
 }

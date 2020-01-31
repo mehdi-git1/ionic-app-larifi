@@ -1,6 +1,6 @@
 export class EScoreCommentModel {
     numberOfRespondents: number;
-    notation: number;
+    rating: number;
     positivePersonalFeedbackReason: string;
     negativePersonalFeedbackReason: string;
     suggestions: string;

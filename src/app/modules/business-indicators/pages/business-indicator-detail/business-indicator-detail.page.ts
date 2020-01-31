@@ -23,7 +23,7 @@ import {
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { Utils } from '../../../../shared/utils/utils';
 
-const notationImagePath = 'assets/imgs/business-indicators/smiley-note-';
+const ratingImagePath = 'assets/imgs/business-indicators/smiley-note-';
 
 @Component({
     selector: 'page-business-indicator-detail',
@@ -38,8 +38,8 @@ export class BusinessIndicatorDetailPage {
     businessIndicator: BusinessIndicatorModel;
     shortLoopCommentsDataSource: MatTableDataSource<ShortLoopCommentModel>;
     escoreCommentsDataSource: MatTableDataSource<EScoreCommentModel>;
-    escoreCommentColumns: string[] = ['notation', 'positiveFeedbackReason', 'negativeFeedbackReason', 'suggestions'];
-    shortLoopCommentColumns: string[] = ['notation', 'positiveFeedbackReason', 'negativeFeedbackReason'];
+    escoreCommentColumns: string[] = ['rating', 'positiveFeedbackReason', 'negativeFeedbackReason', 'suggestions'];
+    shortLoopCommentColumns: string[] = ['rating', 'positiveFeedbackReason', 'negativeFeedbackReason'];
     constructor(
         private activatedRoute: ActivatedRoute,
         private pncService: PncService,
@@ -53,14 +53,14 @@ export class BusinessIndicatorDetailPage {
 
         this.onlineBusinessIndicatorService.getBusinessIndicator(id).then(businessIndicator => {
             this.businessIndicator = businessIndicator;
-            const escoreCommentsFiltered = this.filterValidEScoreComments(businessIndicator.flightDetailsCard.escoreComments);
+            const escoreCommentsFiltered = this.filterValidEScoreComments(businessIndicator.escoreComments);
             escoreCommentsFiltered.sort((escoreComment, otherEscoreComment) => {
-                return this.sortEscoreCommentByNotation(escoreComment, otherEscoreComment);
+                return this.sortEscoreCommentByRating(escoreComment, otherEscoreComment);
             });
             this.escoreCommentsDataSource = new MatTableDataSource<EScoreCommentModel>(escoreCommentsFiltered);
-            const shortLoopCommentsFiltered = this.filterValidShortLoopComments(businessIndicator.flightDetailsCard.shortLoopComments);
+            const shortLoopCommentsFiltered = this.filterValidShortLoopComments(businessIndicator.shortLoopComments);
             shortLoopCommentsFiltered.sort((shortLoopComment, otherShortLoopComment) => {
-                return this.sortShortLoopCommentCommentByNotation(shortLoopComment, otherShortLoopComment);
+                return this.sortShortLoopCommentCommentByRating(shortLoopComment, otherShortLoopComment);
             });
             this.shortLoopCommentsDataSource = new MatTableDataSource<ShortLoopCommentModel>(shortLoopCommentsFiltered);
         });
@@ -71,8 +71,8 @@ export class BusinessIndicatorDetailPage {
      * @param escoreComment commentaire eScore de base
      * @param otherEscoreComment commentaire eScore à comparer
      */
-    sortEscoreCommentByNotation(escoreComment: EScoreCommentModel, otherEscoreComment: EScoreCommentModel): number {
-        return escoreComment.notation < otherEscoreComment.notation ? 1 : -1;
+    sortEscoreCommentByRating(escoreComment: EScoreCommentModel, otherEscoreComment: EScoreCommentModel): number {
+        return escoreComment.rating < otherEscoreComment.rating ? 1 : -1;
     }
 
     /**
@@ -80,8 +80,8 @@ export class BusinessIndicatorDetailPage {
      * @param shortLoopComment commentaire boucle courte de base
      * @param otherShortLoopComment commentaire boucle courte à comparer
      */
-    sortShortLoopCommentCommentByNotation(shortLoopComment: ShortLoopCommentModel, otherShortLoopComment: ShortLoopCommentModel): number {
-        return shortLoopComment.notation < otherShortLoopComment.notation ? 1 : -1;
+    sortShortLoopCommentCommentByRating(shortLoopComment: ShortLoopCommentModel, otherShortLoopComment: ShortLoopCommentModel): number {
+        return shortLoopComment.rating < otherShortLoopComment.rating ? 1 : -1;
     }
 
     /**
@@ -116,7 +116,7 @@ export class BusinessIndicatorDetailPage {
      */
     isOnBoardActionsAvailable() {
         return !(this.businessIndicator.aboardSpeciality === SpecialityEnum.CC
-            && this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.LC);
+            && this.businessIndicator.flight.haulType === HaulTypeEnum.LC);
     }
 
     /**
@@ -125,8 +125,8 @@ export class BusinessIndicatorDetailPage {
      * @return la date de départ planifiée du vol
      */
     getPlannedDepartureDate(businessIndicator: BusinessIndicatorModel): Date {
-        return moment(businessIndicator.flightDetailsCard.legDepartureDate, AppConstant.isoDateFormat)
-            .subtract(businessIndicator.flightDetailsCard.d0, 'minutes').toDate();
+        return moment(businessIndicator.flight.legDepartureDate, AppConstant.isoDateFormat)
+            .subtract(businessIndicator.flight.d0, 'minutes').toDate();
     }
 
     /**
@@ -134,7 +134,7 @@ export class BusinessIndicatorDetailPage {
      * @return le départ navette D0
      */
     getShuttleDepartureD0(): number {
-        return this.businessIndicator.flightDetailsCard.operatingPerformances.shuttleDeparture - this.EXTRA_DELAY;
+        return this.businessIndicator.flight.operatingPerformance.shuttleDeparture - this.EXTRA_DELAY;
     }
 
     /**
@@ -165,23 +165,23 @@ export class BusinessIndicatorDetailPage {
 
     /**
      * Crée le chemin vers le fichier de l'icone de note escore
-     * @param notation note
+     * @param rating note
      * @return le chemin vers le fichier de l'icone
      */
-    getEscoreCommentNotationImagePath(notation: number) {
-        return notationImagePath + notation * 10 + '.svg';
+    getEscoreCommentRatingImagePath(rating: number) {
+        return ratingImagePath + rating * 10 + '.svg';
     }
 
     /**
-     * Crée un tableau vide de la taille du paramètre notation
-     * @param notation note
+     * Crée un tableau vide de la taille du paramètre rating
+     * @param rating note
      * @return le tableau
      */
-    getNotationArray(notation: number): Array<any> {
-        if (!notation || notation <= 0) {
+    getRatingArray(rating: number): Array<any> {
+        if (!rating || rating <= 0) {
             return new Array();
         }
-        return new Array(notation);
+        return new Array(rating);
     }
 
     /**
@@ -191,10 +191,10 @@ export class BusinessIndicatorDetailPage {
      */
     canDisplayShortLoopComment(): boolean {
         const isCcpAndLcFlight = this.businessIndicator.aboardSpeciality === SpecialityEnum.CCP
-            && this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.LC;
+            && this.businessIndicator.flight.haulType === HaulTypeEnum.LC;
         const isCcAndCcOrMcFlight = this.businessIndicator.aboardSpeciality === SpecialityEnum.CC
-            && (this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.CC
-                || this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.MC);
+            && (this.businessIndicator.flight.haulType === HaulTypeEnum.CC
+                || this.businessIndicator.flight.haulType === HaulTypeEnum.MC);
         return isCcpAndLcFlight || isCcAndCcOrMcFlight;
     }
 }

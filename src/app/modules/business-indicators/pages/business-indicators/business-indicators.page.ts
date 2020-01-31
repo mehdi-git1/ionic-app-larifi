@@ -89,18 +89,18 @@ export class BusinessIndicatorsPage implements AfterViewInit {
             return;
         }
 
-        this.businessIndicators = this.businessIndicators.sort((a, b) => {
+        this.businessIndicators = this.businessIndicators.sort((businessIndicator1, businessIndicator2) => {
             const isAsc = sort.direction === 'asc';
             switch (sort.active) {
                 case 'flightNumber':
-                    return this.compare(a.flightDetailsCard.flightNumber, b.flightDetailsCard.flightNumber, isAsc);
+                    return this.compare(businessIndicator1.flight.number, businessIndicator2.flight.number, isAsc);
                 case 'flightDate':
-                    return this.compareDate(this.getPlannedDepartureDate(a),
-                        this.getPlannedDepartureDate(b), isAsc);
+                    return this.compareDate(this.getPlannedDepartureDate(businessIndicator1),
+                        this.getPlannedDepartureDate(businessIndicator2), isAsc);
                 case 'eScore':
-                    return this.compare(a.flightDetailsCard.escore, b.flightDetailsCard.escore, isAsc);
+                    return this.compare(businessIndicator1.escore, businessIndicator2.escore, isAsc);
                 case 'flightActionsNumber':
-                    return this.compare(a.flightDetailsCard.flightActionsTotalNumber, b.flightDetailsCard.flightActionsTotalNumber, isAsc);
+                    return this.compare(businessIndicator1.flightActionsTotalNumber, businessIndicator2.flightActionsTotalNumber, isAsc);
                 default: return 0;
             }
         });
@@ -116,8 +116,8 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         if (!businessIndicator) {
             return null;
         }
-        return moment(businessIndicator.flightDetailsCard.legDepartureDate, AppConstant.isoDateFormat)
-            .subtract(businessIndicator.flightDetailsCard.d0, 'minutes').toDate();
+        return moment(businessIndicator.flight.legDepartureDate, AppConstant.isoDateFormat)
+            .subtract(businessIndicator.flight.d0, 'minutes').toDate();
     }
 
     compare(a: number | string, b: number | string, isAsc: boolean) {
@@ -216,8 +216,8 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         }
         return businessIndicator.aboardSpeciality === SpecialityEnum.CCP
             || (businessIndicator.aboardSpeciality === SpecialityEnum.CC
-                && (businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.MC
-                    || businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.CC));
+                && (businessIndicator.flight.haulType === HaulTypeEnum.MC
+                    || businessIndicator.flight.haulType === HaulTypeEnum.CC));
     }
 
     /**
@@ -231,7 +231,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         }
         return businessIndicator.aboardSpeciality === SpecialityEnum.CCP
             || (businessIndicator.aboardSpeciality === SpecialityEnum.CC
-                && businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.MC);
+                && businessIndicator.flight.haulType === HaulTypeEnum.MC);
     }
 
     /**
