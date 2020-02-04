@@ -1,4 +1,3 @@
-import { BusinessIndicatorsModule } from './modules/business-indicators/business-indicators.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -17,7 +16,7 @@ import { HttpModule } from './core/http/http.module';
 import { AppInitService } from './core/services/app-init/app-init.service';
 import { ServiceModule } from './core/services/service.module';
 import { StorageModule } from './core/storage/storage.module';
-import { AdminModule } from './modules/admin/admin.module';
+import { BusinessIndicatorsModule } from './modules/business-indicators/business-indicators.module';
 import { CareerObjectiveModule } from './modules/career-objective/career-objective.module';
 import {
     CongratulationLetterModule
@@ -81,7 +80,6 @@ export function appInitFactory(appInitService: AppInitService) {
     CongratulationLetterModule,
     LogbookModule,
     SynchronizationModule,
-    AdminModule,
     ComponentsModule,
     SharedModule,
     HttpModule,
