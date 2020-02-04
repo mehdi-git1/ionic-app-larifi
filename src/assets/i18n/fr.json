@@ -1030,12 +1030,12 @@
                 "LEGEND": "Nombre d'actions réalisée à bord par l'équipage"
             },
             "SHORT_LOOP_COMMENT": {
-                "NOTATION": "Note",
+                "RATING": "Note",
                 "APPRECIATED_POINTS": "Points appréciés / positifs",
                 "POINTS_TO_IMPROVE": "Points à améliorer / négatifs"
             },
             "ESCORE_COMMENT": {
-                "NOTATION": "Note",
+                "RATING": "Note",
                 "POSITIVE_FEEDBACK_REASON": "Raison retour personnel positif",
                 "NEGATIVE_FEEDBACK_REASON": "Raison retour personnel négatif",
                 "SUGGESTIONS": "Suggestions"

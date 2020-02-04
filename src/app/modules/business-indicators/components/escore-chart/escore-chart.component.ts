@@ -35,23 +35,23 @@ export class EscoreChartComponent implements OnInit {
     this.data = [
       {
         name: this.translateService.instant('BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.ESCORE_100'),
-        value: this.businessIndicator.flightDetailsCard.escore100
+        value: this.businessIndicator.escore100
       },
       {
         name: this.translateService.instant('BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.ESCORE_75'),
-        value: this.businessIndicator.flightDetailsCard.escore75
+        value: this.businessIndicator.escore75
       },
       {
         name: this.translateService.instant('BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.ESCORE_50'),
-        value: this.businessIndicator.flightDetailsCard.escore50
+        value: this.businessIndicator.escore50
       },
       {
         name: this.translateService.instant('BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.ESCORE_25'),
-        value: this.businessIndicator.flightDetailsCard.escore25
+        value: this.businessIndicator.escore25
       },
       {
         name: this.translateService.instant('BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.ESCORE_0'),
-        value: this.businessIndicator.flightDetailsCard.escore0
+        value: this.businessIndicator.escore0
       }
     ];
 
