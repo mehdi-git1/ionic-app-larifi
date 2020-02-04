@@ -240,14 +240,6 @@ export class LogbookPage {
     }
 
     /**
-     * Retourne le lien pointant vers l'historique Friendly des archives JDB
-     * @return le lien Friendly pointant vers l'historique Friendly
-     */
-    getFriendlyLink() {
-        return `${this.config.friendlyUrl}/portailWeb/portail.do?action=validerRechercheInd&matricule=${this.pnc.matricule}`;
-    }
-
-    /**
      * Vérifie que l'on est en mode connecté
      * @return true si on est en mode connecté, false sinon
      */
