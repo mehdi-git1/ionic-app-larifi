@@ -14,18 +14,18 @@ export class ManifexComponent implements OnInit {
   @Input() displayType: StatutoryCertificateDisplayTypeEnum;
 
   manifexDisplayedData;
-  tempManifexData;
+  formatedManifexData;
 
   constructor(private translateService: TranslateService) { }
 
   ngOnInit() {
-    this.tempManifexData = { creationDate: new Array() };
+    this.formatedManifexData = { creationDate: new Array() };
     if (this.manifexCreationDate) {
-      this.tempManifexData.creationDate.push(this.manifexCreationDate);
+      this.formatedManifexData.creationDate.push(this.manifexCreationDate);
     }
     this.manifexDisplayedData = {
       headers: [this.translateService.instant('STATUTORY_CERTIFICATE.MANIFEX.CREATION_DATE')],
-      values: this.manifexCreationDate ? [{ value: this.tempManifexData.creationDate, type: 'date' }] : null
+      values: this.manifexCreationDate ? [{ value: this.formatedManifexData.creationDate, type: 'date' }] : null
     };
   }
 }
