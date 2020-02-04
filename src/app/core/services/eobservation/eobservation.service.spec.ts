@@ -1,8 +1,8 @@
-
-
 import { EObservationTypeEnum } from '../../enums/e-observations-type.enum';
 import { EObservationModel } from '../../models/eobservation/eobservation.model';
 import { EObservationService } from './eobservation.service';
+
+
 
 const connectivityServiceMock = jasmine.createSpyObj('connectivityServiceMock', ['setConnected']);
 const onlineEObservationServiceMock = jasmine.createSpyObj('onlineEObservationServiceMock', ['']);
@@ -32,6 +32,13 @@ describe('EObservationComponent', () => {
             eObservation.val = true;
             eObservationService.getDetailOptionType(eObservation);
             expect(translateServiceMock.instant).toHaveBeenCalledWith('EOBSERVATION.DETAIL.VAL_TITLE_OPTION');
+        });
+        it(`Le détail doit être ' - FFC' si l'eobs est de type ECC et que ffc = true`, () => {
+            const eObservation = new EObservationModel();
+            eObservation.type = EObservationTypeEnum.E_CC;
+            eObservation.ffc = true;
+            eObservationService.getDetailOptionType(eObservation);
+            expect(translateServiceMock.instant).toHaveBeenCalledWith('EOBSERVATION.DETAIL.FFC_TITLE_OPTION');
         });
         it(`Le détail doit être ' - FOR' si l'eobs est de type ECC et que c'est un vol de formation`, () => {
             const eObservation = new EObservationModel();

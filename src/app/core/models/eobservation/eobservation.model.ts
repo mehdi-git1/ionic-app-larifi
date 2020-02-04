@@ -28,6 +28,7 @@ export class EObservationModel extends EDossierPncObjectModel {
     formationFlight: boolean;
     vac: boolean;
     val: boolean;
+    ffc: boolean;
     strongPoints: string;
     workingAxes: string;
     deleted: boolean;

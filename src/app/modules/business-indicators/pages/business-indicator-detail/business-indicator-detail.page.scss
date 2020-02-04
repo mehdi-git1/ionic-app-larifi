@@ -107,10 +107,13 @@ table {
         width: 25px;
     }
 
-    td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
+    td.mat-cell:first-of-type,
+    td.mat-footer-cell:first-of-type,
+    th.mat-header-cell:first-of-type {
         padding-left: 10px;
     }
-    .notation {
+
+    .rating {
         width: 150px;
         text-align: center;
         padding-right: 10px;
@@ -118,17 +121,17 @@ table {
 
     .positive-feedback-reason {
         min-width: 190px;
-        padding:  $cell-padding;
+        padding: $cell-padding;
     }
 
     .negative-feedback-reason {
         min-width: 190px;
-        padding:  $cell-padding;
+        padding: $cell-padding;
     }
 
     .suggestions {
         min-width: 100px;
-        padding:  $cell-padding;
+        padding: $cell-padding;
     }
 
     th.mat-header-cell:first-child {

@@ -87,7 +87,7 @@ export class HrDocumentsPage implements OnInit {
         // Tri
         this.hrDocumentFilter.sortColumn = 'creationDate';
         this.hrDocumentFilter.sortDirection = 'DESC';
-        this.hrDocumentFilter.categoryCode = this.valueAll;
+        this.hrDocumentFilter.categoryId = this.valueAll;
     }
 
     /**
@@ -204,7 +204,7 @@ export class HrDocumentsPage implements OnInit {
      * @param filter L'id de la categorie
      */
     filterCategory(filter: string) {
-        this.hrDocumentFilter.categoryCode = filter;
+        this.hrDocumentFilter.categoryId = filter;
         this.searchHrDocuments();
     }
 

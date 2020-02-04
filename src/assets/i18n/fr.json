@@ -560,8 +560,10 @@
             "FORMATION_FLIGHT": "Vol de formation",
             "FORMATION_FLIGHT_TITLE_OPTION": " - FOR",
             "VAL": "VAL",
+            "FFC": "Vol de formation faisant fonction CC",
             "VAL_TITLE_OPTION": " - VAL",
             "EVAL_TITLE_OPTION": " - EVAL",
+            "FFC_TITLE_OPTION": " - FFC",
             "BILAN_FLIGHT": "Vol Bilan",
             "EVAL": "EVAL",
             "APPRECIATION": "Appréciation",
@@ -1032,12 +1034,12 @@
                 "LEGEND": "Nombre d'actions réalisée à bord par l'équipage"
             },
             "SHORT_LOOP_COMMENT": {
-                "NOTATION": "Note",
+                "RATING": "Note",
                 "APPRECIATED_POINTS": "Points appréciés / positifs",
                 "POINTS_TO_IMPROVE": "Points à améliorer / négatifs"
             },
             "ESCORE_COMMENT": {
-                "NOTATION": "Note",
+                "RATING": "Note",
                 "POSITIVE_FEEDBACK_REASON": "Raison retour personnel positif",
                 "NEGATIVE_FEEDBACK_REASON": "Raison retour personnel négatif",
                 "SUGGESTIONS": "Suggestions"
