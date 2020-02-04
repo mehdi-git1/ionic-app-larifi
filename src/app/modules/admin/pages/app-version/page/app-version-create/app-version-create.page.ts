@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
-import { TabHeaderModeEnum } from '../../../../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../../../../core/enums/tab-header.enum';
 import { TextEditorModeEnum } from '../../../../../../core/enums/text-editor-mode.enum';
 import { AppVersionModel } from '../../../../../../core/models/admin/app-version.model';
@@ -18,7 +17,6 @@ import { SecurityService } from '../../../../../../core/services/security/securi
 import { ToastService } from '../../../../../../core/services/toast/toast.service';
 import { FormCanDeactivate } from '../../../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../../../shared/utils/date-transform';
-import { Utils } from '../../../../../../shared/utils/utils';
 
 @Component({
     selector: 'page-app-version-create',
@@ -28,8 +26,6 @@ import { Utils } from '../../../../../../shared/utils/utils';
 export class AppVersionCreatePage extends FormCanDeactivate {
 
     @ViewChild('form', { static: false }) form: NgForm;
-
-    TabHeaderModeEnum = TabHeaderModeEnum;
 
     TabHeaderEnum = TabHeaderEnum;
 
@@ -53,9 +49,9 @@ export class AppVersionCreatePage extends FormCanDeactivate {
         public securityService: SecurityService,
         private dateTransformer: DateTransform,
         private appVersionAlertService: AppVersionAlertService) {
-            super();
-            // Initialisation du formulaire
-            this.initForm();
+        super();
+        // Initialisation du formulaire
+        this.initForm();
     }
 
     ionViewDidEnter() {

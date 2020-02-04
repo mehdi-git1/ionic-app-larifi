@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Events, NavController } from '@ionic/angular';
 
-import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../core/enums/tab-header.enum';
 import { SessionService } from '../../../core/services/session/session.service';
 import { TabHeaderService } from '../../../core/services/tab-header/tab-header.service';
@@ -13,15 +12,11 @@ import { TabHeaderService } from '../../../core/services/tab-header/tab-header.s
 })
 export class TabHeaderComponent implements OnInit, AfterViewInit {
 
-  @Input() mode: TabHeaderModeEnum = TabHeaderModeEnum.EDOSSIER;
-
   @Input() activeTab: TabHeaderEnum;
 
   @ViewChild('tabListRef', { static: false }) tabListRef: ElementRef;
 
   tabList: Array<any>;
-
-  TabHeaderModeEnum = TabHeaderModeEnum;
 
   constructor(
     private events: Events,
@@ -49,7 +44,7 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
    * Initialise les onglets
    */
   initTabNav() {
-    this.tabList = this.tabHeaderService.getTabList(this.mode);
+    this.tabList = this.tabHeaderService.getTabList();
   }
 
   /**
@@ -57,12 +52,8 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
    * @param tab l'onglet vers lequel naviguer
    */
   openTab(tab: any) {
-    if (this.mode === TabHeaderModeEnum.EDOSSIER) {
-      if (this.sessionService.visitedPnc) {
-        this.navCtrl.navigateRoot(['tabs', 'visit', this.sessionService.visitedPnc.matricule, tab.route]);
-      } else {
-        this.navCtrl.navigateRoot([tab.route]);
-      }
+    if (this.sessionService.visitedPnc) {
+      this.navCtrl.navigateRoot(['tabs', 'visit', this.sessionService.visitedPnc.matricule, tab.route]);
     } else {
       this.navCtrl.navigateRoot([tab.route]);
     }

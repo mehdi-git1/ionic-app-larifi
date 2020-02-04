@@ -4,7 +4,7 @@
             <span> {{ 'ADMIN.PROFILE_MANAGEMENT.TITLE' | translate }}</span>
         </page-header>
     </ion-toolbar>
-    <tab-header [mode]="TabHeaderModeEnum.ADMIN" [activeTab]="TabHeaderEnum.PROFILE_MANAGEMENT_PAGE"></tab-header>
+    <tab-header [activeTab]="TabHeaderEnum.PROFILE_MANAGEMENT_PAGE"></tab-header>
 </ion-header>
 
 <ion-content>
@@ -33,8 +33,7 @@
                     <edossier-spinner *ngIf="userProfiles == undefined; else ProfileListBlock "></edossier-spinner>
                     <ng-template #ProfileListBlock>
 
-                        <ion-item class="profil-list" *ngFor="let userProfile of userProfiles"
-                            (click)="goToPermissionManagement(userProfile.name)">
+                        <ion-item class="profil-list" *ngFor="let userProfile of userProfiles" (click)="goToPermissionManagement(userProfile.name)">
                             <div class="input-group">
                                 <input type="radio" name="profileName" id="{{userProfile.name}}" />
                                 <label for="{{userProfile.name}}">{{ userProfile.name }}</label>
@@ -50,8 +49,7 @@
                         <ion-list>
                             <ion-item *ngFor="let permission of allPermissions">
                                 <ion-label left> {{ permission.name }} </ion-label>
-                                <ion-checkbox [(ngModel)]="permission.checked" [checked]="permission.checked" item-right
-                                    secondary>
+                                <ion-checkbox [(ngModel)]="permission.checked" [checked]="permission.checked" item-right secondary>
                                 </ion-checkbox>
                             </ion-item>
                         </ion-list>

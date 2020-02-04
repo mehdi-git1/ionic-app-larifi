@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
-import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
 import { UserMessageModel } from '../../../../core/models/admin/user-message.model';
@@ -31,8 +30,6 @@ export class UserMessageManagementPage {
     TextEditorModeEnum = TextEditorModeEnum;
 
     userMessages: UserMessageModel[];
-
-    TabHeaderModeEnum = TabHeaderModeEnum;
     TabHeaderEnum = TabHeaderEnum;
 
     constructor(

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { TabHeaderModeEnum } from '../../../../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../../../../core/enums/tab-header.enum';
 import { AppVersionModel } from '../../../../../../core/models/admin/app-version.model';
 import { AppVersionService } from '../../../../../../core/services/app-version/app-version.service';
@@ -13,7 +12,6 @@ import { AppVersionService } from '../../../../../../core/services/app-version/a
 })
 export class AppVersionListPage {
 
-  TabHeaderModeEnum = TabHeaderModeEnum;
   TabHeaderEnum = TabHeaderEnum;
 
   appVersions: AppVersionModel[];

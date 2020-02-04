@@ -4,7 +4,7 @@
             <span> {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.TITLE' | translate }}</span>
         </page-header>
     </ion-toolbar>
-    <tab-header [mode]="TabHeaderModeEnum.ADMIN" [activeTab]="TabHeaderEnum.USER_MESSAGE_MANAGEMENT_PAGE"></tab-header>
+    <tab-header [activeTab]="TabHeaderEnum.USER_MESSAGE_MANAGEMENT_PAGE"></tab-header>
 </ion-header>
 
 <ion-content>
@@ -15,12 +15,10 @@
                 <ion-row>
                     <ion-col size="4">
                         <ion-list>
-                            <ion-item button="true" *ngFor="let userMessage of userMessages"
-                                (click)="editUserMessage(userMessage)">
+                            <ion-item button="true" *ngFor="let userMessage of userMessages" (click)="editUserMessage(userMessage)">
                                 <div class="flex column">
                                     <ion-label class="user-message-label">{{ userMessage.label }}</ion-label>
-                                    <span
-                                        class="user-message-last-update">{{ userMessage.lastUpdateDate | date:'dd/MM/yyyy HH:mm' }}</span>
+                                    <span class="user-message-last-update">{{ userMessage.lastUpdateDate | date:'dd/MM/yyyy HH:mm' }}</span>
                                 </div>
                             </ion-item>
                         </ion-list>
@@ -34,23 +32,17 @@
                                     <ion-label position="floating">
                                         {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.TITLE' | translate }}
                                     </ion-label>
-                                    <ion-input formControlName="title" [(ngModel)]="selectedUserMessage.title"
-                                        type="text" maxlength="255"></ion-input>
+                                    <ion-input formControlName="title" [(ngModel)]="selectedUserMessage.title" type="text" maxlength="255"></ion-input>
                                 </ion-item>
                                 <ion-item>
-                                    <text-editor class="text-editor" [mode]="TextEditorModeEnum.FULL"
-                                        [(ngModel)]="selectedUserMessage.content" [ngModelOptions]="{standalone: true}"
-                                        [placeholder]="'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.CONTENT' | translate"
-                                        [parentForm]="userMessageForm" [controlForm]="'content'"></text-editor>
+                                    <text-editor class="text-editor" [mode]="TextEditorModeEnum.FULL" [(ngModel)]="selectedUserMessage.content" [ngModelOptions]="{standalone: true}" [placeholder]="'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.CONTENT' | translate" [parentForm]="userMessageForm" [controlForm]="'content'"></text-editor>
                                 </ion-item>
                                 <ion-item>
                                     <ion-label>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.ACTIVE' | translate }}
                                     </ion-label>
-                                    <ion-checkbox formControlName="active" [(ngModel)]="selectedUserMessage.active"
-                                        [checked]="selectedUserMessage.active"></ion-checkbox>
+                                    <ion-checkbox formControlName="active" [(ngModel)]="selectedUserMessage.active" [checked]="selectedUserMessage.active"></ion-checkbox>
                                 </ion-item>
-                                <ion-button color="primary" (click)="updateUserMessage()"
-                                    [disabled]="userMessageForm.invalid">
+                                <ion-button color="primary" (click)="updateUserMessage()" [disabled]="userMessageForm.invalid">
                                     <ion-icon name="md-create" ios="md-create"></ion-icon>
                                     {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.BUTTONS.UPDATE' | translate }}
                                 </ion-button>

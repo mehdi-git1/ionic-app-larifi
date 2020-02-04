@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 import { UserPermissionModel } from '../../../../core/models/admin/user-permission.model';
 import { UserProfileModel } from '../../../../core/models/admin/user-profile.model';
@@ -23,7 +22,6 @@ export class ProfileManagementPage {
     allPermissions: UserPermissionModel[];
     profilePermissions: UserPermissionModel[];
 
-    TabHeaderModeEnum = TabHeaderModeEnum;
     TabHeaderEnum = TabHeaderEnum;
 
     constructor(
