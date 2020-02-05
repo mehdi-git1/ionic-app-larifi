@@ -12,8 +12,8 @@
         </div>
         <span class="value suffix-tu">{{ getPlannedDepartureDate(businessIndicator) | date : 'dd/MM/yyyy HH:mm' :'UTC'}}</span>
         <span class="value">{{ businessIndicator.flight.departureStation }} - {{ businessIndicator.flight.arrivalStation }}</span>
-        <span class="value">{{ 'BUSINESS_INDICATORS.ESCORE' | translate }} : {{ businessIndicator.escore | number : '1.0-1' }}</span>
-        <span class="value">{{ 'BUSINESS_INDICATORS.FLIGHT_ACTIONS' | translate }} : {{ businessIndicator.flightActionsTotalNumber }}</span>
+        <span class="value">{{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }} : {{ businessIndicator.escore | number : '1.0-1' }}</span>
+        <span class="value">{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS' | translate }} : {{ businessIndicator.flightActionsTotalNumber }}</span>
     </div>
 </ion-header>
 <ion-content>
@@ -22,7 +22,7 @@
         <ng-template #pageBlock>
 
             <!-- Infos vol -->
-            <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.FLIGHT_INFORMATIONS' | translate}}">
+            <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_INFORMATIONS' | translate}}">
                 <div class="content">
                     <div class="item-list">
                         <div class="item">
@@ -76,7 +76,7 @@
             </edospnc-expandable-block>
 
             <!-- Actions à bord -->
-            <edospnc-expandable-block *ngIf="isOnBoardActionsAvailable()" mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.FLIGHT_ACTIONS' | translate}}">
+            <edospnc-expandable-block *ngIf="isOnBoardActionsAvailable()" mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS' | translate}}">
                 <div class="content">
                     <div class="item-list">
                         <div class="item">

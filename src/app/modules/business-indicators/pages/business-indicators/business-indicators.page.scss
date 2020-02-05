@@ -4,6 +4,13 @@ h3 {
 
 .flight-list-title {
     margin-top: 30px;
+    display: flex;
+    align-items: center;
+
+    ion-icon {
+        margin-left: 10px;
+        font-size: 1.6em;
+    }
 }
 
 .summary {
