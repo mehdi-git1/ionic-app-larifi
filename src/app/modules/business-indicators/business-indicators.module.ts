@@ -6,6 +6,9 @@ import { IonicModule } from '@ionic/angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { SharedModule } from '../../shared/shared.module';
+import {
+    BusinessIndicatorFlightLegendComponent
+} from './components/business-indicator-flight-legend/business-indicator-flight-legend.component';
 import { EscoreChartComponent } from './components/escore-chart/escore-chart.component';
 import {
     BusinessIndicatorDetailPage
@@ -16,7 +19,8 @@ import { BusinessIndicatorsPage } from './pages/business-indicators/business-ind
   declarations: [
     BusinessIndicatorsPage,
     BusinessIndicatorDetailPage,
-    EscoreChartComponent
+    EscoreChartComponent,
+    BusinessIndicatorFlightLegendComponent
   ],
   imports: [
     IonicModule,
@@ -28,7 +32,8 @@ import { BusinessIndicatorsPage } from './pages/business-indicators/business-ind
   ],
   entryComponents: [
     BusinessIndicatorsPage,
-    BusinessIndicatorDetailPage
+    BusinessIndicatorDetailPage,
+    BusinessIndicatorFlightLegendComponent
   ],
   exports: [],
   schemas: [

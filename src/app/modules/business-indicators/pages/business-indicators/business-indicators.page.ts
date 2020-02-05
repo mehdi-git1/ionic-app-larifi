@@ -10,6 +10,7 @@ import {
     MatPaginator, MatSort, MatTable, MatTableDataSource, PageEvent, Sort
 } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
 
 import { AppConstant } from '../../../../app.constant';
 import {
@@ -25,6 +26,9 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import {
     BusinessIndicatorService
 } from '../../../../core/services/business-indicator/business-indicator.service';
+import {
+    BusinessIndicatorFlightLegendComponent
+} from '../../components/business-indicator-flight-legend/business-indicator-flight-legend.component';
 
 @Component({
     selector: 'page-business-indicators',
@@ -52,7 +56,8 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         private router: Router,
         private pncService: PncService,
         private businessIndicatorService: BusinessIndicatorService,
-        private connectivityService: ConnectivityService
+        private connectivityService: ConnectivityService,
+        private popoverCtrl: PopoverController
     ) {
     }
 
@@ -263,5 +268,28 @@ export class BusinessIndicatorsPage implements AfterViewInit {
      */
     isConnected(): boolean {
         return this.connectivityService.isConnected();
+    }
+
+    /**
+     * Affiche le popup de légende
+     * @param event l'événement déclencheur
+     */
+    showLegend(event: any) {
+        this.popoverCtrl.create({
+            component: BusinessIndicatorFlightLegendComponent,
+            event: event,
+            translucent: true,
+            componentProps: { hasNeverFlownAsCcLc: this.hasNeverFlownAsCcLc() }
+        }).then(popover => {
+            popover.present();
+        });
+    }
+
+    /**
+     * Vérifie si parmi tous les vols, le PNC n'a jamais volé en tant que CC sur LC
+     * @return vrai si c'est le cas, faux sinon
+     */
+    hasNeverFlownAsCcLc(): boolean {
+        return this.businessIndicators.every(businessIndicator => !this.isCcLc(businessIndicator));
     }
 }

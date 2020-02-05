@@ -995,21 +995,28 @@
         "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
     "BUSINESS_INDICATORS": {
-        "PAST_SUMMARY": {
-            "TITLE": "Indicateurs Métier sur 6 mois glissants",
-            "ESCORE_AVERAGE": "Moyenne - eScore",
-            "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité - Départ Navette PN",
-            "UPGRADE_SUM": "Somme - Surclassements",
-            "FLYING_BLUE_ERC_AVERAGE": "Moyenne par tronçon - Enrôlement FB & ERC"
+        "LIST": {
+            "PAST_SUMMARY": {
+                "TITLE": "Indicateurs Métier sur 6 mois glissants",
+                "ESCORE_AVERAGE": "Moyenne - eScore",
+                "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité - Départ Navette PN",
+                "UPGRADE_SUM": "Somme - Surclassements",
+                "FLYING_BLUE_ERC_AVERAGE": "Moyenne par tronçon - Enrôlement FB & ERC"
+            },
+            "FLIGHT_CARD_12_LAST_MONTHS": "Fiches vols effectués sur l'année glissante",
+            "LEG_DATE": "Date tronçon",
+            "FLIGHT_NUMBER": "N° de Vol",
+            "STATIONS": "Escale départ / Escale arrivée",
+            "ESCORE": "eScore",
+            "FLIGHT_ACTIONS": "Actions à bord",
+            "FLIGHT_ACTIONS_NUMBER": "Nombre total d'actions à bord",
+            "FLIGHT_INFORMATIONS": "Infos Vol",
+            "LEGEND": {
+                "CC_LC_DASH": "Note eScore absente ; aucune réponse reçue sur la cabine du C/C <br>OU <br>cabine de travail du C/C non identifiée",
+                "CC_LC_NA": "Vous n'avez pas d'informations relatives aux actions à bord car l'ensemble de ces dernières sont attribuées au CCP du vol ",
+                "NOT_CC_LC": "Note eScore absente : aucune réponse reçue sur la cabine"
+            }
         },
-        "FLIGHT_CARD_12_LAST_MONTHS": "Fiches vols effectués sur l'année glissante",
-        "LEG_DATE": "Date tronçon",
-        "FLIGHT_NUMBER": "N° de Vol",
-        "STATIONS": "Escale départ / Escale arrivée",
-        "ESCORE": "eScore",
-        "FLIGHT_ACTIONS": "Actions à bord",
-        "FLIGHT_ACTIONS_NUMBER": "Nombre total d'actions à bord",
-        "FLIGHT_INFORMATIONS": "Infos Vol",
         "DETAIL": {
             "FLIGHT_INFO": {
                 "AIRCRAFT_TYPE": "Type Avion",

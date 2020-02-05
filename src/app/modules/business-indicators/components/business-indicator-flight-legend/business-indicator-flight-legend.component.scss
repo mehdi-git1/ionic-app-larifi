@@ -1,0 +1,22 @@
+:host {
+    padding: 16px;
+    max-width: 600px;
+
+    .legend-item {
+        display: flex;
+
+        &:not(:first-child) {
+            margin-top: 10px;
+        }
+
+        strong {
+            display: block;
+            width: 35px;
+            text-align: center;
+        }
+
+        div {
+            flex: 1;
+        }
+    }
+}
