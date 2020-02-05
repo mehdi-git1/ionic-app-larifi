@@ -57,6 +57,14 @@ h3 {
     }
 }
 
+.not-available {
+    visibility: hidden;
+
+    &:after {
+        content: 'NA' !important;
+        visibility: visible;
+    }
+}
 
 .flight-cards-table {
     width: 100%;

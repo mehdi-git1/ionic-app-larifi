@@ -235,6 +235,16 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     }
 
     /**
+     * Vérifie si le PNC a occupé un poste de CC sur un vol LC
+     * @param businessIndicator l'indicateur métier portant sur le vol à tester
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isCcLc(businessIndicator: BusinessIndicatorLightModel): boolean {
+        return businessIndicator.aboardSpeciality === SpecialityEnum.CC
+            && businessIndicator.flight.haulType === HaulTypeEnum.LC;
+    }
+
+    /**
      * Récupère l'indicateur métier le plus récent
      * @return l'indicateur métier portant sur le vol le plus récent
      */
