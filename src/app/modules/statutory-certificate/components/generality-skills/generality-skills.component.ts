@@ -53,16 +53,17 @@ export class GeneralitySkillsComponent implements OnInit {
       this.dueDateArray.push(_.get(this.generalitySkillsData, 'companyLeavingDate'));
     }
 
-    this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'));
-    this.startDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityStartDate'));
-    this.dueDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityEndDate'));
-
-    const pcbValidityStartDate = _.get(this.generalitySkillsData, 'pcb.validityStartDate');
-    if (pcbValidityStartDate === undefined || !pcbValidityStartDate) {
-      this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'));
-      this.startDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
-      this.dueDateArray.push(_.get(this.generalitySkillsData, 'gene.dueDate'));
+    const geneDueDate = _.get(this.generalitySkillsData, 'gene.dueDate');
+    if (geneDueDate === undefined || !geneDueDate) {
+      this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'));
+      this.startDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityStartDate'));
+      this.dueDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityEndDate'));
     }
+
+    this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'));
+    this.startDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
+    this.dueDateArray.push(_.get(this.generalitySkillsData, 'gene.dueDate'));
+
 
     if (this.generalitySkillsData && this.generalitySkillsData.probationaryPeriodDate) {
       this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PROBATIONARY_PERIOD_DATE.TITLE'));
