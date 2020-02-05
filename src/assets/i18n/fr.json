@@ -6,6 +6,12 @@
             "BACK": "Version serveur",
             "LABELS": {
                 "TITLE": "Nouveautés de la version"
+            },
+            "CONFIRM_VERSION_UPDATE": {
+                "TITLE": "Une nouvelle version d'EDOSPNC est disponible",
+                "MESSAGE": "Nous avons constaté que vous exécutiez la version {{ number }}. Si vous souhaitez effectuer une mise à jour vers la toute dernière version de cette application, cliquez sur Mettre à jour maintenant ",
+                "NOW": "Mettre à jour maintenant",
+                "CLOSE": "Plus tard"
             }
         },
         "AF_COMPANY": "AF",

@@ -1,14 +1,15 @@
-import { AppInitService } from './core/services/app-init/app-init.service';
 import * as moment from 'moment';
+import { Config } from 'src/environments/config';
 
-import { AfterViewInit, Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Events, Platform } from '@ionic/angular';
+import { AlertController, Events, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from './core/authentication/authentication.service';
 import { PinPadTypeEnum } from './core/enums/security/pin-pad-type.enum';
+import { AppInitService } from './core/services/app-init/app-init.service';
 import { ConnectivityService } from './core/services/connectivity/connectivity.service';
 import { DeviceService } from './core/services/device/device.service';
 import { ModalSecurityService } from './core/services/modal/modal-security.service';
@@ -42,7 +43,9 @@ export class AppComponent {
     private toastService: ToastService,
     private synchronizationProvider: SynchronizationService,
     private authenticationService: AuthenticationService,
-    private appInitService: AppInitService
+    private appInitService: AppInitService,
+    private alertCtrl: AlertController,
+    private config: Config
   ) {
     this.platform.ready().then(() => {
       this.pinPadModalActive = true;
@@ -51,6 +54,7 @@ export class AppComponent {
         if (!this.deviceService.isBrowser()) {
           this.appInitService.handleAuthenticationStatus();
         }
+        this.test();
       }
       );
     });
@@ -119,5 +123,26 @@ export class AppComponent {
    */
   isInternetExplorer() {
     return navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/) !== -1;
+  }
+
+
+
+  test() {
+    this.alertCtrl.create({
+      header: this.translateService
+        .instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.TITLE'),
+      message: this.translateService
+        .instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.MESSAGE', { number: this.config.appVersion }),
+      buttons: [
+        {
+          text: this.translateService.instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.NOW'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.CLOSE'),
+          role: 'cancel'
+        }
+      ]
+    }).then(alert => alert.present());
   }
 }
