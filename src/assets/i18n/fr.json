@@ -1012,9 +1012,9 @@
             "FLIGHT_ACTIONS_NUMBER": "Nombre total d'actions à bord",
             "FLIGHT_INFORMATIONS": "Infos Vol",
             "LEGEND": {
-                "CC_LC_DASH": "Note eScore absente ; aucune réponse reçue sur la cabine du C/C <br>OU <br>cabine de travail du C/C non identifiée",
-                "CC_LC_NA": "Vous n'avez pas d'informations relatives aux actions à bord car l'ensemble de ces dernières sont attribuées au CCP du vol ",
-                "NOT_CC_LC": "Note eScore absente : aucune réponse reçue sur la cabine"
+                "CC_LC_DASH": "Note eScore absente : <ul><li>Aucune réponse reçue sur la cabine du C/C ; OU</li><li>Cabine de travail du C/C non identifiée.</li>",
+                "CC_LC_NA": "Vous n'avez pas d'informations relatives aux actions à bord car l'ensemble de ces dernières sont attribuées au CCP du vol.",
+                "NOT_CC_LC": "Note eScore absente : aucune réponse client reçue sur la cabine."
             }
         },
         "DETAIL": {
