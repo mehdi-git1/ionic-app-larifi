@@ -70,7 +70,7 @@
                         <ng-container matColumnDef="flightActionsNumber">
                             <th mat-header-cell mat-sort-header *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.FLIGHT_ACTIONS_NUMBER' | translate }}</th>
                             <td mat-cell *matCellDef="let businessIndicator" class="flight-actions-number">
-                                <span [class.no-data]="!businessIndicator.flightActionsTotalNumber">{{ businessIndicator.flightActionsTotalNumber }}</span>
+                                <span [class.no-data]="!businessIndicator.flightActionsTotalNumber" [class.not-available]="isCcLc(businessIndicator)">{{ businessIndicator.flightActionsTotalNumber }}</span>
                             </td>
                         </ng-container>
                         <tr mat-header-row *matHeaderRowDef="businessIndicatorColumns"></tr>
