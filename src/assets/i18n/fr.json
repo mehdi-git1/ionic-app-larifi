@@ -1018,6 +1018,8 @@
             }
         },
         "DETAIL": {
+            "H_PLUS": "H+{{minuteCount}}minutes",
+            "H_MINUS": "H-{{minuteCount}}minutes",
             "FLIGHT_INFO": {
                 "AIRCRAFT_TYPE": "Type Avion",
                 "EXPLOITATION_VERSION": "Version d'exploitation",
@@ -1029,7 +1031,7 @@
                 "SHUTTLE_DEPARTURE_D0": "Départ navette D0",
                 "SHUTTLE_ARRIVAL": "Arrivée navette avion",
                 "D0": "Départ bloc",
-                "LEGEND": "Les données sont données en minutes, par rapport au standard"
+                "LEGEND": "Les valeurs sont données à titre informatif et sont à contextualiser selon les conditions d'exploitation départ."
             },
             "ONBOARD_ACTIONS": {
                 "ERC": "ERC",

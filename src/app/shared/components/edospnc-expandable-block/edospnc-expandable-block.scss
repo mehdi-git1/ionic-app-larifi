@@ -10,6 +10,17 @@ mat-expansion-panel-header {
     font-size: 18px !important;
     border-radius: 5px;
 
+    .header-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        ion-icon {
+            font-size: 1.6em;
+        }
+    }
+
     &.mat-expanded:hover,
     &.mat-expanded:focus,
     &.mat-expanded {
