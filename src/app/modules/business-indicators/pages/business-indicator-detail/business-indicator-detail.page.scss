@@ -21,6 +21,13 @@
     }
 }
 
+h3 {
+    color: var(--ion-color-primary);
+    margin-top: 30px !important;
+    margin-bottom: 0px !important;
+    font-size: 20px !important;
+}
+
 edospnc-expandable-block {
     .content {
         margin: 15px 0px;
@@ -96,7 +103,7 @@ table {
     $border-color: var(--ion-color-grey70);
     width: 100%;
     max-width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
     white-space: pre-wrap;
