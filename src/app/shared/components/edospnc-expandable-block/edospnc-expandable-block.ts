@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'edospnc-expandable-block',
@@ -17,8 +18,11 @@ export class EdospncExpandableBlockComponent {
 
   @Input() expanded = true;
 
-  constructor() {
-  }
+  @Input() legendComponent: any;
+
+  constructor(
+    private popoverCtrl: PopoverController
+  ) { }
 
   @Input()
   set mini(_mini: string) {
@@ -44,6 +48,28 @@ export class EdospncExpandableBlockComponent {
    */
   isDisabled(): boolean {
     return this.hideToggle;
+  }
+
+  /**
+   * Détermine si une légende doit être affichée (si on a un composant de légende disponible)
+   * @return vrai si c'est le cas, faux sinon
+   */
+  isLegendAvailable(): boolean {
+    return this.legendComponent !== undefined;
+  }
+
+  /**
+   * Affiche le popup de légende
+   * @param event l'événement déclencheur
+   */
+  showLegend(event: any) {
+    this.popoverCtrl.create({
+      component: this.legendComponent,
+      event: event,
+      translucent: true
+    }).then(popover => {
+      popover.present();
+    });
   }
 
 }

@@ -22,6 +22,9 @@ import {
 } from '../../../../core/services/business-indicator/online-business-indicator.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { Utils } from '../../../../shared/utils/utils';
+import {
+    BusinessIndicatorPerfopsLegendComponent
+} from '../../components/business-indicator-perfops-legend/business-indicator-perfops-legend.component';
 
 const ratingImagePath = 'assets/imgs/business-indicators/smiley-note-';
 
@@ -40,6 +43,10 @@ export class BusinessIndicatorDetailPage {
     escoreCommentsDataSource: MatTableDataSource<EScoreCommentModel>;
     escoreCommentColumns: string[] = ['rating', 'positiveFeedbackReason', 'negativeFeedbackReason', 'suggestions'];
     shortLoopCommentColumns: string[] = ['rating', 'positiveFeedbackReason', 'negativeFeedbackReason'];
+
+    // On expose le composant pour le passer en input du composant edospnc-expandable-content dans le template html
+    BusinessIndicatorPerfopsLegendComponent = BusinessIndicatorPerfopsLegendComponent;
+
     constructor(
         private activatedRoute: ActivatedRoute,
         private pncService: PncService,
@@ -134,7 +141,9 @@ export class BusinessIndicatorDetailPage {
      * @return le départ navette D0
      */
     getShuttleDepartureD0(): number {
-        return this.businessIndicator.flight.operatingPerformance.shuttleDeparture - this.EXTRA_DELAY;
+        return this.businessIndicator.flight.operatingPerformance.shuttleDeparture === undefined ?
+            undefined
+            : this.businessIndicator.flight.operatingPerformance.shuttleDeparture - this.EXTRA_DELAY;
     }
 
     /**
@@ -151,8 +160,26 @@ export class BusinessIndicatorDetailPage {
      * @param value la valeur à tester
      * @return vrai si c'est le cas, faux sinon
      */
-    isEmpty(value: any): boolean {
+    isEmptyOrZero(value: any): boolean {
         return !value || value === '0';
+    }
+
+    /**
+     * Vérifie si une valeur est présente
+     * @param value la valeur à tester
+     * @return vrai si c'est le cas, faux sinon
+     */
+    exists(value: any): boolean {
+        return value !== undefined;
+    }
+
+    /**
+     * Retourne la valeur absolue du nombre
+     * @param value le nombre à transformer
+     * @return la valeur absolue du nombre
+     */
+    absoluteValue(value: number): number {
+        return Math.abs(value);
     }
 
     /**

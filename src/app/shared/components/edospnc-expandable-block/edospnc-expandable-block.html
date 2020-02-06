@@ -1,7 +1,11 @@
 <mat-expansion-panel class="elevation-1" [disabled]="isDisabled()" [expanded]="isExpandedByDefault()" [hideToggle]="hideToggle">
     <mat-expansion-panel-header class="block-header-label" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="false">
-        {{title}}
+        <div class="header-container">
+            {{title}}
+            <ion-icon *ngIf="isLegendAvailable()" name="help-circle" (click)="showLegend($event)" class="clickable"> </ion-icon>
+        </div>
     </mat-expansion-panel-header>
+
     <no-data *ngIf="emptyCondition; else contentBlock"></no-data>
     <ng-template #contentBlock>
         <ng-content></ng-content>
