@@ -1041,11 +1041,13 @@
                 "LEGEND": "Nombre d'actions réalisée à bord par l'équipage"
             },
             "SHORT_LOOP_COMMENT": {
+                "TITLE": "Commentaires issus des questionnaires Boucles Courtes remis aux passagers",
                 "RATING": "Note",
                 "APPRECIATED_POINTS": "Points appréciés / positifs",
                 "POINTS_TO_IMPROVE": "Points à améliorer / négatifs"
             },
             "ESCORE_COMMENT": {
+                "TITLE": "Commentaires issus des questionnaires eScore remis aux passagers",
                 "RATING": "Note",
                 "POSITIVE_FEEDBACK_REASON": "Raison retour personnel positif",
                 "NEGATIVE_FEEDBACK_REASON": "Raison retour personnel négatif",
