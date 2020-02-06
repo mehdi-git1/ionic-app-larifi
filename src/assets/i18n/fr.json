@@ -1006,7 +1006,7 @@
             "FLIGHT_CARD_12_LAST_MONTHS": "Fiches vols effectués sur l'année glissante",
             "LEG_DATE": "Date tronçon",
             "FLIGHT_NUMBER": "N° de Vol",
-            "STATIONS": "Escale départ / Escale arrivée",
+            "STATIONS": "Escale départ / arrivée",
             "ESCORE": "eScore",
             "FLIGHT_ACTIONS": "Actions à bord",
             "FLIGHT_ACTIONS_NUMBER": "Nombre total d'actions à bord",
@@ -1021,12 +1021,12 @@
             "FLIGHT_INFO": {
                 "AIRCRAFT_TYPE": "Type Avion",
                 "EXPLOITATION_VERSION": "Version d'exploitation",
-                "PAX_VERSION": "Version PAX",
+                "PAX_VERSION": "Remplissage",
                 "PEQ": "Compo PEQ"
             },
             "PERF_OPS": {
                 "TITLE": "PerfOps",
-                "SHUTTLE_DEPARTURE_D0": "Départ navette D0",
+                "SHUTTLE_DEPARTURE_PN": "Départ navette PN",
                 "SHUTTLE_ARRIVAL": "Arrivée navette avion",
                 "D0": "Départ bloc",
                 "LEGEND": "Les données sont données en minutes, par rapport au standard"
@@ -1036,19 +1036,19 @@
                 "CUSTOMER_CONTINUITY": "Continuité client",
                 "FLYING_BLUE_ENROLMENT": "Enrôlement FB",
                 "GIFT_FOR_CARE": "GFC",
-                "UPGRADE": "Upgrade",
+                "UPGRADE": "Surclassements",
                 "KDO": "KDO",
-                "LEGEND": "Nombre d'actions réalisée à bord par l'équipage"
+                "LEGEND": "Nombre d'actions réalisées à bord par l'équipage"
             },
             "SHORT_LOOP_COMMENT": {
                 "RATING": "Note",
-                "APPRECIATED_POINTS": "Points appréciés / positifs",
-                "POINTS_TO_IMPROVE": "Points à améliorer / négatifs"
+                "APPRECIATED_POINTS": "Points appréciés",
+                "POINTS_TO_IMPROVE": "Points à améliorer"
             },
             "ESCORE_COMMENT": {
                 "RATING": "Note",
-                "POSITIVE_FEEDBACK_REASON": "Raison retour personnel positif",
-                "NEGATIVE_FEEDBACK_REASON": "Raison retour personnel négatif",
+                "POSITIVE_FEEDBACK": "Retour positif",
+                "NEGATIVE_FEEDBACK": "Retour négatif",
                 "SUGGESTIONS": "Suggestions"
             },
             "ESCORE_SUMMARY": {
