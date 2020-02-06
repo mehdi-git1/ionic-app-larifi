@@ -1007,6 +1007,7 @@
             "LEG_DATE": "Date tronçon",
             "FLIGHT_NUMBER": "N° de Vol",
             "STATIONS": "Escale départ / Escale arrivée",
+            "ABOARD_FUNCTION": "Fonction à bord",
             "ESCORE": "eScore",
             "FLIGHT_ACTIONS": "Actions à bord",
             "FLIGHT_ACTIONS_NUMBER": "Nombre total d'actions à bord",
