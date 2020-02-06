@@ -53,7 +53,7 @@
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.SHUTTLE_DEPARTURE_D0' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/shuttle-departure-d0.svg" />
-                                <span *ngIf="isEmpty(getShuttleDepartureD0()); else shuttleDepartureBlock" [class.no-data]="isEmpty(getShuttleDepartureD0())"></span>
+                                <span *ngIf="!exists(getShuttleDepartureD0()); else shuttleDepartureBlock" [class.no-data]="!exists(getShuttleDepartureD0())"></span>
                                 <ng-template #shuttleDepartureBlock>
                                     <span *ngIf="isOnTime(getShuttleDepartureD0()); else shuttleDepartureLateBlock" class="on-time value">
                                         {{ 'BUSINESS_INDICATORS.DETAIL.H_MINUS' | translate:{minuteCount:absoluteValue(getShuttleDepartureD0())} }}
@@ -68,7 +68,7 @@
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.SHUTTLE_ARRIVAL' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/shuttle-arrival.svg" />
-                                <span *ngIf="isEmpty(businessIndicator.flight.operatingPerformance.airplaneArrival); else shuttleArrivalBlock" [class.no-data]="isEmpty(businessIndicator.flight.operatingPerformance.airplaneArrival)"></span>
+                                <span *ngIf="!exists(businessIndicator.flight.operatingPerformance.airplaneArrival); else shuttleArrivalBlock" [class.no-data]="!exists(businessIndicator.flight.operatingPerformance.airplaneArrival)"></span>
                                 <ng-template #shuttleArrivalBlock>
                                     <span *ngIf="isOnTime(businessIndicator.flight.operatingPerformance.airplaneArrival); else shuttleArrivalLateBlock" class="on-time value">
                                         {{ 'BUSINESS_INDICATORS.DETAIL.H_MINUS' | translate:{minuteCount:absoluteValue(businessIndicator.flight.operatingPerformance.airplaneArrival)} }}
@@ -83,7 +83,7 @@
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.D0' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/d0.svg" />
-                                <span *ngIf="isEmpty(businessIndicator.flight.d0); else d0Block" [class.no-data]="isEmpty(businessIndicator.flight.d0)"></span>
+                                <span *ngIf="!exists(businessIndicator.flight.d0); else d0Block" [class.no-data]="!exists(businessIndicator.flight.d0)"></span>
                                 <ng-template #d0Block>
                                     <span *ngIf="isOnTime(businessIndicator.flight.d0); else d0LateBlock" class="on-time value">
                                         {{ 'BUSINESS_INDICATORS.DETAIL.H_MINUS' | translate:{minuteCount:absoluteValue(businessIndicator.flight.d0)} }}

@@ -165,12 +165,12 @@ export class BusinessIndicatorDetailPage {
     }
 
     /**
-     * Vérifie si une valeur est null/vide
+     * Vérifie si une valeur est présente
      * @param value la valeur à tester
      * @return vrai si c'est le cas, faux sinon
      */
-    isEmpty(value: any): boolean {
-        return value === undefined;
+    exists(value: any): boolean {
+        return value !== undefined;
     }
 
     /**
