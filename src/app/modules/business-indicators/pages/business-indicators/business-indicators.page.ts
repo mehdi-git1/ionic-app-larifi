@@ -44,7 +44,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     businessIndicatorSummary: BusinessIndicatorSummaryModel;
     businessIndicators: BusinessIndicatorLightModel[];
 
-    businessIndicatorColumns: string[] = ['flightNumber', 'flightDate', 'stations', 'eScore', 'flightActionsNumber'];
+    businessIndicatorColumns: string[] = ['flightNumber', 'flightDate', 'stations', 'aboardFunction', 'eScore', 'flightActionsNumber'];
 
     @ViewChild(MatSort, { static: false }) sort: MatSort;
     @ViewChild(MatTable, { static: false }) table: MatTable<any>;
