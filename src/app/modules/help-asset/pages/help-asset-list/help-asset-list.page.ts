@@ -204,7 +204,7 @@ export class HelpAssetListPage {
         helpAsset[1].url = `${this.pdfUrl}/commun/Visuel_Relais_RH_ Interactif_V12.pdf`;
         helpAsset[1].label = 'Fiches Missions Relais';
         helpAsset[1].helpAssetType = HelpAssetTypeEnum.PDF;
-        helpAsset[1].lastUpdateDate = '2019-08-08T00:00:00Z';
+        helpAsset[1].lastUpdateDate = '2020-02-25T00:00:00Z';
         return helpAsset;
     }
 }
