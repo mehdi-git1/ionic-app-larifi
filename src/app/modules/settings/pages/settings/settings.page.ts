@@ -39,6 +39,8 @@ export class SettingsPage {
   frontVersion: string;
   backVersion: string;
 
+  appVersion: AppVersion;
+
   isApp: boolean;
 
   constructor(
@@ -56,7 +58,6 @@ export class SettingsPage {
     private deviceService: DeviceService,
     private offlineSecurityProvider: OfflineSecurityService,
     private secMobilService: SecMobilService,
-    private appVersion: AppVersion,
     private versionService: VersionService,
     private securityService: SecurityService
   ) {
@@ -182,13 +183,6 @@ export class SettingsPage {
    */
   impersonateNewUser(): void {
     this.router.navigate(['admin', 'impersonate']);
-  }
-
-  /**
-   * Redirige vers la page de gestion des profils
-   */
-  goToAdminPage() {
-    this.router.navigate(['admin', 'profile-management']);
   }
 
   /**

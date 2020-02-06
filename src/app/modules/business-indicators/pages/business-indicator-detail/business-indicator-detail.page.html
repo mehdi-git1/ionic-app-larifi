@@ -134,6 +134,7 @@
             </edospnc-expandable-block>
 
             <!-- Commentaire eScore -->
+            <h3>{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.TITLE' | translate }}</h3>
             <span *ngIf="escoreCommentsDataSource && escoreCommentsDataSource.data.length <= 0 ">
                 <table class="escore-comment-table mat-table">
                     <thead>
@@ -183,6 +184,7 @@
             </span>
 
             <!-- Commentaire boucle courte -->
+            <h3>{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.TITLE' | translate }}</h3>
             <span *ngIf="shortLoopCommentsDataSource && shortLoopCommentsDataSource.data.length <= 0 ">
                 <table class="short-loop-comment-table mat-table">
                     <thead>

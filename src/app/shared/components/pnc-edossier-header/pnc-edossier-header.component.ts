@@ -4,7 +4,6 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Events } from '@ionic/angular';
 
-import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../core/enums/tab-header.enum';
 import { PncModel } from '../../../core/models/pnc.model';
 import { SessionService } from '../../../core/services/session/session.service';
@@ -20,8 +19,6 @@ export class PncEdossierHeaderComponent implements OnChanges {
     @Input() activeTab: TabHeaderEnum;
 
     pnc: PncModel;
-
-    TabHeaderModeEnum = TabHeaderModeEnum;
 
     constructor(
         private events: Events,

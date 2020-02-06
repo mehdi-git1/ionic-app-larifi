@@ -65,12 +65,6 @@
                 <ion-icon name="contacts" ios="md-contacts"></ion-icon>
             </ion-fab-button>
         </ion-item>
-        <ion-item *ngIf="isAdmin()">
-            <ion-label color="grey50">{{ 'SETTINGS.ADMIN_ACCESS.BUTTON' | translate }}</ion-label>
-            <ion-fab-button size="small" color="secondary" class="parameter-button" (click)="goToAdminPage()" [disabled]="!connected">
-                <ion-icon name="md-build"></ion-icon>
-            </ion-fab-button>
-        </ion-item>
 
         <div class="version-panel">
             <div *ngIf="frontVersion">{{ 'GLOBAL.APP_VERSION.FRONT' | translate }} : {{frontVersion}}</div>
