@@ -9,6 +9,9 @@ import { SharedModule } from '../../shared/shared.module';
 import {
     BusinessIndicatorFlightLegendComponent
 } from './components/business-indicator-flight-legend/business-indicator-flight-legend.component';
+import {
+    BusinessIndicatorPerfopsLegendComponent
+} from './components/business-indicator-perfops-legend/business-indicator-perfops-legend.component';
 import { EscoreChartComponent } from './components/escore-chart/escore-chart.component';
 import {
     BusinessIndicatorDetailPage
@@ -20,7 +23,8 @@ import { BusinessIndicatorsPage } from './pages/business-indicators/business-ind
     BusinessIndicatorsPage,
     BusinessIndicatorDetailPage,
     EscoreChartComponent,
-    BusinessIndicatorFlightLegendComponent
+    BusinessIndicatorFlightLegendComponent,
+    BusinessIndicatorPerfopsLegendComponent
   ],
   imports: [
     IonicModule,
@@ -33,7 +37,8 @@ import { BusinessIndicatorsPage } from './pages/business-indicators/business-ind
   entryComponents: [
     BusinessIndicatorsPage,
     BusinessIndicatorDetailPage,
-    BusinessIndicatorFlightLegendComponent
+    BusinessIndicatorFlightLegendComponent,
+    BusinessIndicatorPerfopsLegendComponent
   ],
   exports: [],
   schemas: [

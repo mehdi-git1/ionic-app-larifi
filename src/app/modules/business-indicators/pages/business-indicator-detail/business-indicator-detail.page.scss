@@ -91,12 +91,18 @@ edospnc-expandable-block {
     }
 }
 
-.signed:not(.no-data):not(.on-time):before {
-    content: '+';
+.on-time,
+.late {
+    font-size: 1.2em;
 }
 
 .on-time {
     color: var(--ion-color-green50);
+    font-weight: bold !important;
+}
+
+.late {
+    color: var(--ion-color-red80);
 }
 
 table {

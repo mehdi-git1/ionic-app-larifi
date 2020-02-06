@@ -64,6 +64,10 @@
                             <th mat-header-cell *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.STATIONS' | translate }}</th>
                             <td mat-cell *matCellDef="let businessIndicator">{{ businessIndicator.flight.departureStation }} - {{ businessIndicator.flight.arrivalStation }}</td>
                         </ng-container>
+                        <ng-container matColumnDef="aboardFunction">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.ABOARD_FUNCTION' | translate }}</th>
+                            <td mat-cell *matCellDef="let businessIndicator"> {{ businessIndicator.aboardSpeciality }} </td>
+                        </ng-container>
                         <ng-container matColumnDef="eScore">
                             <th mat-header-cell mat-sort-header *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }}</th>
                             <td mat-cell *matCellDef="let businessIndicator">
