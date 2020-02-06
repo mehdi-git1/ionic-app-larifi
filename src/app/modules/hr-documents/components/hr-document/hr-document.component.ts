@@ -19,6 +19,7 @@ import {
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
+import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'hr-document',
@@ -60,7 +61,7 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
         private pncService: PncService,
         private activatedRoute: ActivatedRoute) {
         super();
-		this.initForm();
+        this.initForm();
     }
 
     ngOnInit() {
@@ -85,8 +86,8 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
      */
     initForm() {
         if (this.sessionService.getActiveUser().appInitData !== undefined
-        && this.sessionService.getActiveUser().appInitData.hrDocumentCategories
-        && this.sessionService.getActiveUser().appInitData.hrDocumentCategories !== undefined) {
+            && this.sessionService.getActiveUser().appInitData.hrDocumentCategories
+            && this.sessionService.getActiveUser().appInitData.hrDocumentCategories !== undefined) {
             this.hrDocumentCategories =
                 this.sortProfessionalInterviewItems(this.sessionService.getActiveUser().appInitData.hrDocumentCategories);
         }
@@ -162,8 +163,9 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
      */
     isFormValid(): boolean {
         return this.connectivityService.isConnected() &&
-            this.hrDocumentForm.valid
-            && (this.hrDocument.attachmentFiles && this.hrDocument.attachmentFiles.length > 0);
+            (this.hrDocumentForm.valid
+                && (this.hrDocument.attachmentFiles && this.hrDocument.attachmentFiles.length > 0)
+                || !Utils.isEmpty(this.hrDocument.content));
     }
 
     /**
