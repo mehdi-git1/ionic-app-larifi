@@ -50,7 +50,7 @@
                 <div class="content">
                     <div class="item-list">
                         <div class="item">
-                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.SHUTTLE_DEPARTURE_D0' | translate}} </label>
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.SHUTTLE_DEPARTURE_PN' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/shuttle-departure-d0.svg" />
                                 <span *ngIf="!exists(getShuttleDepartureD0()); else shuttleDepartureBlock" [class.no-data]="!exists(getShuttleDepartureD0())"></span>
@@ -163,8 +163,8 @@
                     <thead>
                         <tr class="mat-header-row">
                             <th class="rating mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.RATING' | translate }}</th>
-                            <th class="positive-feedback-reason mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.POSITIVE_FEEDBACK_REASON' | translate }}</th>
-                            <th class="negative-feedback-reason mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.NEGATIVE_FEEDBACK_REASON' | translate }}</th>
+                            <th class="positive-feedback-reason mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.POSITIVE_FEEDBACK' | translate }}</th>
+                            <th class="negative-feedback-reason mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.NEGATIVE_FEEDBACK' | translate }}</th>
                             <th class="suggestions  mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.SUGGESTIONS' | translate }}</th>
                         </tr>
                     </thead>
@@ -184,13 +184,13 @@
                         <td mat-cell *matCellDef="let escoreComment" class="rating"> <img class="file-icon" [src]="getEscoreCommentRatingImagePath(escoreComment.rating)" /></td>
                     </ng-container>
                     <ng-container matColumnDef="positiveFeedbackReason">
-                        <th mat-header-cell *matHeaderCellDef class="positive-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.POSITIVE_FEEDBACK_REASON' | translate }}</th>
+                        <th mat-header-cell *matHeaderCellDef class="positive-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.POSITIVE_FEEDBACK' | translate }}</th>
                         <td mat-cell *matCellDef="let escoreComment" class="positive-feedback-reason">
                             <value-or-no-data [value]="escoreComment.positivePersonalFeedbackReason"></value-or-no-data>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="negativeFeedbackReason">
-                        <th mat-header-cell *matHeaderCellDef class="negative-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.NEGATIVE_FEEDBACK_REASON' | translate }}</th>
+                        <th mat-header-cell *matHeaderCellDef class="negative-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.NEGATIVE_FEEDBACK' | translate }}</th>
                         <td mat-cell *matCellDef="let escoreComment" class="negative-feedback-reason">
                             <value-or-no-data [value]="escoreComment.negativePersonalFeedbackReason"></value-or-no-data>
                         </td>
