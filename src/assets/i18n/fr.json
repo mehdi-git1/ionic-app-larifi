@@ -1018,8 +1018,8 @@
             }
         },
         "DETAIL": {
-            "H_PLUS": "H+{{minuteCount}}minutes",
-            "H_MINUS": "H-{{minuteCount}}minutes",
+            "H_PLUS": "H+{{minuteCount}} minutes",
+            "H_MINUS": "H-{{minuteCount}} minutes",
             "FLIGHT_INFO": {
                 "AIRCRAFT_TYPE": "Type Avion",
                 "EXPLOITATION_VERSION": "Version d'exploitation",
