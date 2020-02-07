@@ -9,14 +9,13 @@ import { PlaneSkillModel } from './statutory-certificate/plane-skill.model';
 import { RelayModel } from './statutory-certificate/relay.model';
 import { TravelDocumentsModel } from './statutory-certificate/travel-documents.model';
 
-
 export class StatutoryCertificateModel extends EDossierPncObjectModel {
     matricule: string;
     aircraftSkills: Array<string>;
     generalitySkills: GeneralitySkillsModel;
     planeSkills: Array<PlaneSkillModel>;
     familiarizationFlights: FamiliarizationFlightsModel;
-    masteringQualification: MasteringQualificationModel;
+    masteringQualifications: MasteringQualificationModel;
     annualElearning: AnnualElearningModel;
     medicalVisits: MedicalVisitsModel;
     languages: LanguageModel[];
