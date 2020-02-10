@@ -46,7 +46,7 @@
             </edospnc-expandable-block>
 
             <!-- PerfOps -->
-            <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.TITLE' | translate}}" [legendComponent]="BusinessIndicatorPerfopsLegendComponent">
+            <edospnc-expandable-block *ngIf="businessIndicator.flight.operatingPerformance" mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.TITLE' | translate}}" [legendComponent]="BusinessIndicatorPerfopsLegendComponent">
                 <div class="content">
                     <div class="item-list">
                         <div class="item">
