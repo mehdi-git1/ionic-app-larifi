@@ -1,4 +1,6 @@
 import * as _ from 'lodash';
+import * as moment from 'moment';
+import { AppConstant } from 'src/app/app.constant';
 
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -54,7 +56,7 @@ export class GeneralitySkillsComponent implements OnInit {
     }
 
     const geneDueDate = _.get(this.generalitySkillsData, 'gene.dueDate');
-    if (geneDueDate === undefined || !geneDueDate) {
+    if (geneDueDate === undefined || !geneDueDate || moment(geneDueDate, AppConstant.isoDateFormat).isBefore(moment())) {
       this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'));
       this.startDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityStartDate'));
       this.dueDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityEndDate'));
