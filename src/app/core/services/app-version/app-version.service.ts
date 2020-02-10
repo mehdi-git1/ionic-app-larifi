@@ -46,4 +46,11 @@ export class AppVersionService {
     delete(id: number): Promise<void> {
         return this.restService.delete(this.config.getBackEndUrl('deleteAppVersionById', [id]));
     }
+
+    /**
+     * Récupère la dernière version de l'application
+     */
+    public getLastAppVersion(): Promise<AppVersionModel> {
+        return this.restService.get(this.config.getBackEndUrl('getLastAppVersion'));
+    }
 }

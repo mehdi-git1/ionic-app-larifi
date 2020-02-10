@@ -7,9 +7,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AlertController, Events, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AppConstant } from './app.constant';
 import { AuthenticationService } from './core/authentication/authentication.service';
 import { PinPadTypeEnum } from './core/enums/security/pin-pad-type.enum';
 import { AppInitService } from './core/services/app-init/app-init.service';
+import { AppVersionService } from './core/services/app-version/app-version.service';
 import { ConnectivityService } from './core/services/connectivity/connectivity.service';
 import { DeviceService } from './core/services/device/device.service';
 import { ModalSecurityService } from './core/services/modal/modal-security.service';
@@ -25,10 +27,10 @@ import { ToastService } from './core/services/toast/toast.service';
 })
 export class AppComponent {
 
-  pinPadModalActive = false;
   switchToBackgroundDate: Date;
   pinPadShowupThresholdInSeconds = 120;
   pncSynchroThresholdInSeconds = 300;
+  today = new Date();
 
   constructor(
     private platform: Platform,
@@ -45,16 +47,16 @@ export class AppComponent {
     private authenticationService: AuthenticationService,
     private appInitService: AppInitService,
     private alertCtrl: AlertController,
-    private config: Config
+    private config: Config,
+    private appVersionService: AppVersionService
   ) {
     this.platform.ready().then(() => {
-      this.pinPadModalActive = true;
       this.appInitService.initAppOnIpad().then(() => {
         this.initializeApp();
         if (!this.deviceService.isBrowser()) {
           this.appInitService.handleAuthenticationStatus();
+          this.NewUpdateIsAvailable();
         }
-        this.test();
       }
       );
     });
@@ -70,13 +72,6 @@ export class AppComponent {
     } else {
       // MODE MOBILE
       this.statusBar.styleDefault();
-
-      /* On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher
-      un blur et une interdiction de cliquer avant d'avoir mis le bon code pin */
-      this.securityModalService.modalDisplayed.subscribe(data => {
-        this.pinPadModalActive = data;
-      });
-
       this.platform.resume.subscribe(() => {
         // Si on a depassé le temps d'inactivité, on affiche le pin pad
         if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.pinPadShowupThresholdInSeconds) {
@@ -125,9 +120,22 @@ export class AppComponent {
     return navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/) !== -1;
   }
 
-
-
-  test() {
+  /**
+   * Vérifie qu'une nouvelle version est disponible 
+   * Le message est affiché à partir de la date de la MEP + 1
+   */
+  NewUpdateIsAvailable() {
+    this.appVersionService.getLastAppVersion().then(lastAppVersion => {
+      const dayAfterRelease = moment(lastAppVersion.releaseDate, AppConstant.isoDateFormat).toDate().getDate() + 1;
+      if (lastAppVersion.number !== this.config.appVersion && this.today >= moment(dayAfterRelease, AppConstant.isoDateFormat).toDate()) {
+        this.displayAppVersionToUpdateAlert();
+      }
+    });
+  }
+  /**
+   * Présente une alerte pour informer l'utilisateur qu'une nouvelle version est disponible
+   */
+  displayAppVersionToUpdateAlert() {
     this.alertCtrl.create({
       header: this.translateService
         .instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.TITLE'),
@@ -142,7 +150,8 @@ export class AppComponent {
           text: this.translateService.instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.CLOSE'),
           role: 'cancel'
         }
-      ]
+      ],
+      cssClass: 'app-version-update-alert'
     }).then(alert => alert.present());
   }
 }

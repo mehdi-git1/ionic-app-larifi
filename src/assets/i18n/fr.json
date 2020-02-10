@@ -8,8 +8,8 @@
                 "TITLE": "Nouveautés de la version"
             },
             "CONFIRM_VERSION_UPDATE": {
-                "TITLE": "Une nouvelle version d'EDOSPNC est disponible",
-                "MESSAGE": "Nous avons constaté que vous exécutiez la version {{ number }}. Si vous souhaitez effectuer une mise à jour vers la toute dernière version de cette application, cliquez sur Mettre à jour maintenant ",
+                "TITLE": "Une nouvelle version de eDossierPNC est Disponible",
+                "MESSAGE": "cliquez sur \"Mettre à jour maintenant\" pour bénéficier des nouvelles fonctionnalités de l'application",
                 "NOW": "Mettre à jour maintenant",
                 "CLOSE": "Plus tard"
             }
