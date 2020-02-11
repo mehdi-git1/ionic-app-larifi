@@ -10,6 +10,7 @@ import {
     MatPaginator, MatSort, MatTable, MatTableDataSource, PageEvent, Sort
 } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
 
 import { AppConstant } from '../../../../app.constant';
 import {
@@ -25,6 +26,9 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import {
     BusinessIndicatorService
 } from '../../../../core/services/business-indicator/business-indicator.service';
+import {
+    BusinessIndicatorFlightLegendComponent
+} from '../../components/business-indicator-flight-legend/business-indicator-flight-legend.component';
 
 @Component({
     selector: 'page-business-indicators',
@@ -40,7 +44,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     businessIndicatorSummary: BusinessIndicatorSummaryModel;
     businessIndicators: BusinessIndicatorLightModel[];
 
-    businessIndicatorColumns: string[] = ['flightNumber', 'flightDate', 'stations', 'eScore', 'flightActionsNumber'];
+    businessIndicatorColumns: string[] = ['flightNumber', 'flightDate', 'stations', 'aboardFunction', 'eScore', 'flightActionsNumber'];
 
     @ViewChild(MatSort, { static: false }) sort: MatSort;
     @ViewChild(MatTable, { static: false }) table: MatTable<any>;
@@ -52,7 +56,8 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         private router: Router,
         private pncService: PncService,
         private businessIndicatorService: BusinessIndicatorService,
-        private connectivityService: ConnectivityService
+        private connectivityService: ConnectivityService,
+        private popoverCtrl: PopoverController
     ) {
     }
 
@@ -235,6 +240,16 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     }
 
     /**
+     * Vérifie si le PNC a occupé un poste de CC sur un vol LC
+     * @param businessIndicator l'indicateur métier portant sur le vol à tester
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isCcLc(businessIndicator: BusinessIndicatorLightModel): boolean {
+        return businessIndicator.aboardSpeciality === SpecialityEnum.CC
+            && businessIndicator.flight.haulType === HaulTypeEnum.LC;
+    }
+
+    /**
      * Récupère l'indicateur métier le plus récent
      * @return l'indicateur métier portant sur le vol le plus récent
      */
@@ -253,5 +268,28 @@ export class BusinessIndicatorsPage implements AfterViewInit {
      */
     isConnected(): boolean {
         return this.connectivityService.isConnected();
+    }
+
+    /**
+     * Affiche le popup de légende
+     * @param event l'événement déclencheur
+     */
+    showLegend(event: any) {
+        this.popoverCtrl.create({
+            component: BusinessIndicatorFlightLegendComponent,
+            event: event,
+            translucent: true,
+            componentProps: { hasNeverFlownAsCcLc: this.hasNeverFlownAsCcLc() }
+        }).then(popover => {
+            popover.present();
+        });
+    }
+
+    /**
+     * Vérifie si parmi tous les vols, le PNC n'a jamais volé en tant que CC sur LC
+     * @return vrai si c'est le cas, faux sinon
+     */
+    hasNeverFlownAsCcLc(): boolean {
+        return this.businessIndicators.every(businessIndicator => !this.isCcLc(businessIndicator));
     }
 }

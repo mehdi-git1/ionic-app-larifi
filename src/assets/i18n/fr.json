@@ -325,7 +325,11 @@
             "MEDICAL_VISITS": "Visites médicales",
             "LANGUAGES": "Langues",
             "RELAYS": "Référents / Relais",
-            "TRAVEL_DOCUMENTS": "Documents / Visas"
+            "TRAVEL_DOCUMENTS": "Documents / Visas",
+            "MANIFEX": "Manifex"
+        },
+        "MANIFEX": {
+            "CREATION_DATE": "Depuis le"
         },
         "GENERALITY_SKILLS": {
             "START_DATE": "Depuis le",
@@ -997,53 +1001,65 @@
         "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
     "BUSINESS_INDICATORS": {
-        "PAST_SUMMARY": {
-            "TITLE": "Indicateurs Métier sur 6 mois glissants",
-            "ESCORE_AVERAGE": "Moyenne - eScore",
-            "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité - Départ Navette PN",
-            "UPGRADE_SUM": "Somme - Surclassements",
-            "FLYING_BLUE_ERC_AVERAGE": "Moyenne par tronçon - Enrôlement FB & ERC"
+        "LIST": {
+            "PAST_SUMMARY": {
+                "TITLE": "Indicateurs Métier sur 6 mois glissants",
+                "ESCORE_AVERAGE": "Moyenne - eScore",
+                "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité - Départ Navette PN",
+                "UPGRADE_SUM": "Somme - Surclassements",
+                "FLYING_BLUE_ERC_AVERAGE": "Moyenne par tronçon - Enrôlement FB & ERC"
+            },
+            "FLIGHT_CARD_12_LAST_MONTHS": "Fiches vols effectués sur l'année glissante",
+            "LEG_DATE": "Date tronçon",
+            "FLIGHT_NUMBER": "N° de Vol",
+            "STATIONS": "Escale départ / arrivée",
+            "ABOARD_FUNCTION": "Fonction à bord",
+            "ESCORE": "eScore",
+            "FLIGHT_ACTIONS": "Actions à bord",
+            "FLIGHT_ACTIONS_NUMBER": "Nombre total d'actions à bord",
+            "FLIGHT_INFORMATIONS": "Infos Vol",
+            "LEGEND": {
+                "CC_LC_DASH": "Note eScore absente : <ul><li>Aucune réponse reçue sur la cabine du C/C ; OU</li><li>Cabine de travail du C/C non identifiée.</li>",
+                "CC_LC_NA": "Vous n'avez pas d'informations relatives aux actions à bord car l'ensemble de ces dernières sont attribuées au CCP du vol.",
+                "NOT_CC_LC": "Note eScore absente : aucune réponse client reçue sur la cabine."
+            }
         },
-        "FLIGHT_CARD_12_LAST_MONTHS": "Fiches vols effectués sur l'année glissante",
-        "LEG_DATE": "Date tronçon",
-        "FLIGHT_NUMBER": "N° de Vol",
-        "STATIONS": "Escale départ / Escale arrivée",
-        "ESCORE": "eScore",
-        "FLIGHT_ACTIONS": "Actions à bord",
-        "FLIGHT_ACTIONS_NUMBER": "Nombre total d'actions à bord",
-        "FLIGHT_INFORMATIONS": "Infos Vol",
         "DETAIL": {
+            "H_PLUS": "H+{{minuteCount}} minutes",
+            "H_MINUS": "H-{{minuteCount}} minutes",
             "FLIGHT_INFO": {
                 "AIRCRAFT_TYPE": "Type Avion",
                 "EXPLOITATION_VERSION": "Version d'exploitation",
-                "PAX_VERSION": "Version PAX",
+                "PAX_VERSION": "Remplissage",
                 "PEQ": "Compo PEQ"
             },
             "PERF_OPS": {
                 "TITLE": "PerfOps",
-                "SHUTTLE_DEPARTURE_D0": "Départ navette D0",
+                "SHUTTLE_DEPARTURE_PN": "Départ navette PN",
                 "SHUTTLE_ARRIVAL": "Arrivée navette avion",
                 "D0": "Départ bloc",
-                "LEGEND": "Les données sont données en minutes, par rapport au standard"
+                "LEGEND": "Les valeurs sont données à titre informatif et sont à contextualiser selon les conditions d'exploitation départ."
             },
             "ONBOARD_ACTIONS": {
                 "ERC": "ERC",
                 "CUSTOMER_CONTINUITY": "Continuité client",
                 "FLYING_BLUE_ENROLMENT": "Enrôlement FB",
                 "GIFT_FOR_CARE": "GFC",
-                "UPGRADE": "Upgrade",
+                "UPGRADE": "Surclassements",
                 "KDO": "KDO",
-                "LEGEND": "Nombre d'actions réalisée à bord par l'équipage"
+                "LEGEND": "Nombre d'actions réalisées à bord par l'équipage"
             },
             "SHORT_LOOP_COMMENT": {
+                "TITLE": "Commentaires issus des questionnaires Boucles Courtes remis aux passagers",
                 "RATING": "Note",
-                "APPRECIATED_POINTS": "Points appréciés / positifs",
-                "POINTS_TO_IMPROVE": "Points à améliorer / négatifs"
+                "APPRECIATED_POINTS": "Points appréciés",
+                "POINTS_TO_IMPROVE": "Points à améliorer"
             },
             "ESCORE_COMMENT": {
+                "TITLE": "Commentaires issus des questionnaires eScore remis aux passagers",
                 "RATING": "Note",
-                "POSITIVE_FEEDBACK_REASON": "Raison retour personnel positif",
-                "NEGATIVE_FEEDBACK_REASON": "Raison retour personnel négatif",
+                "POSITIVE_FEEDBACK": "Retour positif",
+                "NEGATIVE_FEEDBACK": "Retour négatif",
                 "SUGGESTIONS": "Suggestions"
             },
             "ESCORE_SUMMARY": {

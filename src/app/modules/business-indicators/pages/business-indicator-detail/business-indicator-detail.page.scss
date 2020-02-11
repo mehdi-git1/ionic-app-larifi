@@ -21,6 +21,13 @@
     }
 }
 
+h3 {
+    color: var(--ion-color-primary);
+    margin-top: 45px !important;
+    margin-bottom: 0px !important;
+    font-size: 20px !important;
+}
+
 edospnc-expandable-block {
     .content {
         margin: 15px 0px;
@@ -69,6 +76,7 @@ edospnc-expandable-block {
             color: var(--ion-color-grey20);
             text-align: center;
             font-style: italic;
+            width: 100%;
         }
     }
 
@@ -83,12 +91,18 @@ edospnc-expandable-block {
     }
 }
 
-.signed:not(.no-data):not(.on-time):before {
-    content: '+';
+.on-time,
+.late {
+    font-size: 1.2em;
 }
 
 .on-time {
     color: var(--ion-color-green50);
+    font-weight: bold !important;
+}
+
+.late {
+    color: var(--ion-color-red80);
 }
 
 table {
@@ -96,7 +110,7 @@ table {
     $border-color: var(--ion-color-grey70);
     width: 100%;
     max-width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
     white-space: pre-wrap;

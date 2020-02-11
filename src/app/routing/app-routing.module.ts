@@ -2,18 +2,6 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import {
-    AppVersionCreatePage
-} from '../modules/admin/pages/app-version/page/app-version-create/app-version-create.page';
-import {
-    AppVersionListPage
-} from '../modules/admin/pages/app-version/page/app-version-list/app-version-list.page';
-import {
-    ProfileManagementPage
-} from '../modules/admin/pages/profile-management/profile-management.page';
-import {
-    UserMessageManagementPage
-} from '../modules/admin/pages/user-message-management/user-message-management.page';
-import {
     BusinessIndicatorDetailPage
 } from '../modules/business-indicators/pages/business-indicator-detail/business-indicator-detail.page';
 import {
@@ -105,7 +93,6 @@ import {
     PageNotFoundComponent
 } from '../shared/components/page-not-found/page-not-found.component';
 import { TabNavComponent } from '../shared/components/tab-nav/tab-nav.component';
-import { AdminGuard } from './guards/admin.guard';
 import { CanDeactivateGuard } from './guards/form-changes.guard';
 import { HomeGuard } from './guards/home.guard';
 import { RealAdminGuard } from './guards/real-admin.guard';
@@ -402,18 +389,6 @@ const routes: Routes = [
   { path: 'synchronization-management', component: SynchronizationManagementPage },
   // ADMIN
   { path: 'admin/impersonate', canActivate: [RealAdminGuard], component: ImpersonatePage },
-  {
-    path: 'admin', canActivate: [AdminGuard], children: [
-      {
-        path: 'app-version', children: [
-          { path: 'list', component: AppVersionListPage },
-          { path: 'create/:appVersionId', component: AppVersionCreatePage, canDeactivate: [CanDeactivateGuard] }
-        ]
-      },
-      { path: 'profile-management', component: ProfileManagementPage },
-      { path: 'user-message-management', component: UserMessageManagementPage }
-    ]
-  },
   { path: '', component: BootstrapComponent, canActivate: [HomeGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -424,7 +399,6 @@ const routes: Routes = [
   ],
   providers: [
     HomeGuard,
-    AdminGuard,
     RealAdminGuard,
     CanDeactivateGuard,
     VisitEdossierGuard,

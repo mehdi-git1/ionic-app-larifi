@@ -1,0 +1,16 @@
+<ng-container *ngIf="hasNeverFlownAsCcLc; else ccLcBlock">
+    <div class="legend-item">
+        <strong class="dash">-</strong>
+        <div [innerHTML]="notCcLcLegend"></div>
+    </div>
+</ng-container>
+<ng-template #ccLcBlock>
+    <div class="legend-item">
+        <strong class="dash">-</strong>
+        <div [innerHTML]="ccLcLegend.dashLegend"></div>
+    </div>
+    <div class="legend-item">
+        <strong>NA</strong>
+        <div [innerHTML]="ccLcLegend.naLegend"></div>
+    </div>
+</ng-template>

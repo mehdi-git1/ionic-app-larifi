@@ -6,8 +6,7 @@
                     <ion-label class="required" position="stacked">
                         {{ 'HR_DOCUMENT.EDIT.CATEGORY' | translate }}
                     </ion-label>
-                    <ion-select interface="popover" [interfaceOptions]="customPopoverOptions"
-                        [compareWith]="compareCategories" [(ngModel)]="hrDocument.category" formControlName="category">
+                    <ion-select interface="popover" [interfaceOptions]="customPopoverOptions" [compareWith]="compareCategories" [(ngModel)]="hrDocument.category" formControlName="category">
                         <ion-select-option *ngFor="let category of hrDocumentCategories" [value]="category">
                             {{category?.label}}</ion-select-option>
                     </ion-select>
@@ -20,8 +19,7 @@
                     <ion-label class="required" position="stacked">
                         {{ 'HR_DOCUMENT.EDIT.DOCUMENT_TITLE' | translate }}
                     </ion-label>
-                    <ion-input #hrDocumentTitle type="text" class="document-title" [(ngModel)]="hrDocument.title"
-                        formControlName="title" autocorrect="on" [maxlength]="titleMaxLength"></ion-input>
+                    <ion-input #hrDocumentTitle type="text" class="document-title" [(ngModel)]="hrDocument.title" formControlName="title" autocorrect="on" [maxlength]="titleMaxLength"></ion-input>
                     <span class="document-length">{{hrDocumentTitle.value.length}}/{{titleMaxLength}}</span>
                 </ion-item>
             </ion-col>
@@ -32,9 +30,7 @@
                     <ion-label position="stacked">
                         {{ 'HR_DOCUMENT.EDIT.DOCUMENT_DESCRIPTION' | translate }}
                     </ion-label>
-                    <text-editor name="hrDocumentContent" [mode]="TextEditorModeEnum.FULL"
-                        [ngModelOptions]="{standalone: true}" [(ngModel)]="hrDocument.content" [placeholder]="''"
-                        [parentForm]="hrDocumentForm" [controlForm]="'content'">
+                    <text-editor name="hrDocumentContent" [mode]="TextEditorModeEnum.FULL" [ngModelOptions]="{standalone: true}" [(ngModel)]="hrDocument.content" [placeholder]="''" [parentForm]="hrDocumentForm" [controlForm]="'content'">
                     </text-editor>
                 </ion-item>
             </ion-col>
@@ -42,7 +38,7 @@
         <ion-row class="attachment-row">
             <ion-col col-12>
                 <ion-item lines="none">
-                    <ion-label class="required" position="stacked">{{ 'HR_DOCUMENT.EDIT.ATTACHMENT_FILES' | translate }}
+                    <ion-label position="stacked">{{ 'HR_DOCUMENT.EDIT.ATTACHMENT_FILES' | translate }}
                     </ion-label>
                     <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="false">
                     </document-manager>
@@ -58,13 +54,11 @@
                         {{ 'HR_DOCUMENT.BUTTONS.CANCEL' | translate }}
                     </ion-button>
                     <!-- Bouton enregistrer -->
-                    <ion-button *ngIf="mode === HrDocumentModeEnum.CREATION" color="primary" (click)="saveHrDocument()"
-                        [disabled]="!isFormValid()">
+                    <ion-button *ngIf="mode === HrDocumentModeEnum.CREATION" color="primary" (click)="saveHrDocument()" [disabled]="!isFormValid()">
                         {{ 'HR_DOCUMENT.BUTTONS.SAVE' | translate }}
                     </ion-button>
                     <!-- Bouton mettre à jour-->
-                    <ion-button #updateHrDocument *ngIf="mode === HrDocumentModeEnum.EDITION" color="primary"
-                        (click)="saveHrDocument()" [disabled]="!isFormValid()">
+                    <ion-button #updateHrDocument *ngIf="mode === HrDocumentModeEnum.EDITION" color="primary" (click)="saveHrDocument()" [disabled]="!isFormValid()">
                         {{ 'HR_DOCUMENT.BUTTONS.UPDATE' | translate }}
                     </ion-button>
                 </div>

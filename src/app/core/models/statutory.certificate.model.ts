@@ -9,6 +9,7 @@ import { PlaneSkillModel } from './statutory-certificate/plane-skill.model';
 import { RelayModel } from './statutory-certificate/relay.model';
 import { TravelDocumentsModel } from './statutory-certificate/travel-documents.model';
 
+
 export class StatutoryCertificateModel extends EDossierPncObjectModel {
     matricule: string;
     aircraftSkills: Array<string>;
@@ -21,6 +22,7 @@ export class StatutoryCertificateModel extends EDossierPncObjectModel {
     languages: LanguageModel[];
     relays: RelayModel[];
     travelDocuments: TravelDocumentsModel[];
+    manifexCreationDate: Date;
 
     getStorageId(): string {
         return `${this.matricule}`;
