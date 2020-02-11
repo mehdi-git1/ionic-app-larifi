@@ -8,8 +8,8 @@
                 "TITLE": "Nouveautés de la version"
             },
             "CONFIRM_VERSION_UPDATE": {
-                "TITLE": "Une nouvelle version de eDossierPNC est Disponible",
-                "MESSAGE": "cliquez sur \"Mettre à jour maintenant\" pour bénéficier des nouvelles fonctionnalités de l'application",
+                "TITLE": "Une nouvelle version de eDossierPNC est disponible",
+                "MESSAGE": "Cliquez sur \"Mettre à jour maintenant\" pour bénéficier des nouvelles fonctionnalités de l'application.",
                 "NOW": "Mettre à jour maintenant",
                 "CLOSE": "Plus tard"
             }
