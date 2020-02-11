@@ -31,6 +31,7 @@ export class AppComponent {
   pinPadShowupThresholdInSeconds = 120;
   pncSynchroThresholdInSeconds = 300;
   today = new Date();
+  afStoreUrl = 'https://afstore.airfrance.fr/Catalog/ViewCatalog';
 
   constructor(
     private platform: Platform,
@@ -121,7 +122,7 @@ export class AppComponent {
   }
 
   /**
-   * Vérifie qu'une nouvelle version est disponible 
+   * Vérifie qu'une nouvelle version est disponible
    * Le message est affiché à partir de la date de la MEP + 1
    */
   NewUpdateIsAvailable() {
@@ -144,14 +145,15 @@ export class AppComponent {
       buttons: [
         {
           text: this.translateService.instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.NOW'),
-          role: 'cancel'
+          handler: () => window.open(this.afStoreUrl, '_system', 'location=yes')
         },
         {
           text: this.translateService.instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.CLOSE'),
           role: 'cancel'
         }
       ],
-      cssClass: 'app-version-update-alert'
+      cssClass: 'app-version-update-alert',
+      backdropDismiss: false
     }).then(alert => alert.present());
   }
 }
