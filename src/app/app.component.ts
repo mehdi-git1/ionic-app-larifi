@@ -31,7 +31,7 @@ export class AppComponent {
   pinPadShowupThresholdInSeconds = 120;
   pncSynchroThresholdInSeconds = 300;
   today = new Date();
-  afStoreUrl = 'https://afstore.airfrance.fr/Catalog/ViewCatalog';
+  afStoreUrl = 'https://afstore.airfrance.fr/Catalog/ViewCatalog/glpeBe1JE9xMYYOZeLSRz2CuQBLw4DUiiXeiaLQFUVmypdXDVrMkicbCf8UHDW26/Apple';
 
   constructor(
     private platform: Platform,

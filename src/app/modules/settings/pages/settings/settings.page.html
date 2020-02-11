@@ -71,10 +71,6 @@
                 <ion-icon name="md-build"></ion-icon>
             </ion-fab-button>
         </ion-item>
-        <ion-item>
-            <a href="https://www.airfrance.fr" onclick="window.open(this.href, '_system', 'location=yes');">Test</a>
-        </ion-item>
-
         <div class="version-panel">
             <div *ngIf="frontVersion">{{ 'GLOBAL.APP_VERSION.FRONT' | translate }} : {{frontVersion}}</div>
             <div *ngIf="backVersion && connected"> - {{ 'GLOBAL.APP_VERSION.BACK' | translate }} : {{backVersion}}</div>
