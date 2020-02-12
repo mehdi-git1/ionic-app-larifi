@@ -9,7 +9,7 @@
             },
             "CONFIRM_VERSION_UPDATE": {
                 "TITLE": "Une nouvelle version de eDossierPNC est disponible",
-                "MESSAGE": "Afin de bénéficier des nouvelles fonctionnalités, veuillez mettre à jour l'application depuis le pnc Store.",
+                "MESSAGE": "Merci de mettre à jour votre application depuis le PNC Store afin de profiter pleinement des nouveautés eDossierPNC.",
                 "OK": "Ok"
             }
         },
