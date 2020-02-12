@@ -1021,6 +1021,7 @@
         "DETAIL": {
             "H_PLUS": "H+{{minuteCount}} minutes",
             "H_MINUS": "H-{{minuteCount}} minutes",
+            "SHOW_MORE_LINK": "Afficher plus",
             "FLIGHT_INFO": {
                 "AIRCRAFT_TYPE": "Type Avion",
                 "EXPLOITATION_VERSION": "Version d'exploitation",
