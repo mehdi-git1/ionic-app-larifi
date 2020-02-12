@@ -118,8 +118,8 @@ export class CongratulationLetterActionMenuComponent {
   }
 
   /**
-   * Verifie qu'il s'agit bien d'une lettre rédigée
-   * @return true s'il s'agit d'une lettre rédigée, false sinon
+   * Verifie qu'il s'agit bien du mode des lettres rédigées
+   * @return true s'il s'agit du mode des lettres rédigées, false sinon
    */
   isWrittenMode() {
     return this.mode === CongratulationLetterModeEnum.WRITTEN;
