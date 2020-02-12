@@ -17,7 +17,16 @@
             background: var(--ion-color-secondary);
             color: var(--ion-color-white);
             margin-right: 10px;
+
+            @media(max-width: 800px) {
+                height: 28px !important;
+                width: 28px;
+            }
         }
+    }
+
+    @media(max-width: 800px) {
+        font-size: 1.0em;
     }
 }
 
