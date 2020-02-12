@@ -158,10 +158,10 @@
 
             <!-- Commentaire eScore -->
             <h3>
-                <ng-container *ngIf="pncIsCcLc()">
+                <ng-container *ngIf="!isPncCcLc(); else escoreCommentTitleCcLc">
                     {{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.TITLE_CCP_CC_MC' | translate }}
                 </ng-container>
-                <ng-template #>
+                <ng-template #escoreCommentTitleCcLc>
                     {{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.TITLE_CC_LC' | translate }}
                 </ng-template>
             </h3>
