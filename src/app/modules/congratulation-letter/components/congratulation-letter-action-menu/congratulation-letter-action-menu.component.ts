@@ -117,6 +117,9 @@ export class CongratulationLetterActionMenuComponent {
     this.popoverCtrl.dismiss();
   }
 
+  /**
+   * Verifie qu'il s'agit bien d'une lettre rédigée
+   */
   isWrittenMode() {
     return this.mode === CongratulationLetterModeEnum.WRITTEN;
   }
