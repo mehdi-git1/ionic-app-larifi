@@ -1,5 +1,4 @@
 import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
-import { PncModel } from 'src/app/core/models/pnc.model';
 
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
