@@ -1,6 +1,6 @@
 <div class="line-clamp">
     <p #textTarget>
-        <value-or-no-data [value]="inputText"></value-or-no-data>
+        <value-or-no-data [displayedDash]="true" [value]="inputText"></value-or-no-data>
     </p>
     <div class="show-text">
         <a *ngIf="displayShowMoreLink()" (click)="showMore()">{{ 'BUSINESS_INDICATORS.DETAIL.SHOW_MORE_LINK' | translate }}</a>

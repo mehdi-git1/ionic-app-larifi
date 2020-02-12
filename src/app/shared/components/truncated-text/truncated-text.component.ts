@@ -20,7 +20,7 @@ export class TruncatedTextComponent {
   }
 
   /**
-   * Affiche le text complet dans une popup, quand on appuie sur le lien 'Afficher plus'
+   * Affiche le text complet dans une popup, en appuyant sur le lien 'Afficher plus'
    */
   showMore() {
     this.alertCtrl.create({
@@ -38,7 +38,7 @@ export class TruncatedTextComponent {
   }
 
   /**
-   * Verifie l'affichage du line 'Afficher plus' quand le text dépasse les 3 lignes
+   * Verifie l'affichage du lien 'Afficher plus' quand le text à afficher, dépasse les 3 lignes
    */
   displayShowMoreLink() {
     const textTargetHeight = this.textTarget.nativeElement.offsetHeight;

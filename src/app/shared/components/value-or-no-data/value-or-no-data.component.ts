@@ -1,5 +1,6 @@
-import { Utils } from './../../utils/utils';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { Utils } from '../../utils/utils';
 
 @Component({
   selector: 'value-or-no-data',
@@ -8,7 +9,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ValueOrNoDataComponent {
 
-  @Input() value;
+  @Input() value: string;
+
+  @Input() displayedDash = false;
 
   constructor() { }
 
