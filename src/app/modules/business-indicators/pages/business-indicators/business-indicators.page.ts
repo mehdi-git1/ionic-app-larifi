@@ -82,7 +82,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.pnc && this.businessIndicators !== undefined && this.businessIndicatorSummary !== undefined;
+        return this.pnc !== undefined && this.businessIndicators !== undefined && this.businessIndicatorSummary !== undefined;
     }
 
     /**
@@ -184,62 +184,6 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     }
 
     /**
-     * Vérifie si l'indicateur semestriel "moyenne enrôlement flying blue" peut être affiché
-     * @return vrai si c'est le cas, faux sinon
-     */
-    canDisplayFlyingBlueAverage(): boolean {
-        return this.pnc.manager
-            || this.isCcpOrCcMcCc(this.getMostRecentBusinessIndicator());
-    }
-
-    /**
-     * Vérifie si l'indicateur semestriel "somme des surclassements" peut être affiché
-     * @return vrai si c'est le cas, faux sinon
-     */
-    canDisplayUpgradeSum(): boolean {
-        return this.pnc.manager
-            || this.isCcpOrCcMc(this.getMostRecentBusinessIndicator());
-    }
-
-    /**
-     * Vérifie si l'indicateur semestriel "Pourcentage de départ navette à l'heure" peut être affiché
-     * @return vrai si c'est le cas, faux sinon
-     */
-    canDisplayOnTimeShuttleDepartureRatio(): boolean {
-        return this.pnc.manager
-            || this.isCcpOrCcMc(this.getMostRecentBusinessIndicator());
-    }
-
-    /**
-     * Vérifie si le PNC a occupé un poste de CCP ou CC sur MC/CC durant un vol
-     * @param businessIndicator l'indicateur métier portant sur le vol à tester
-     * @return vrai si c'est le cas, faux sinon
-     */
-    isCcpOrCcMcCc(businessIndicator: BusinessIndicatorLightModel): boolean {
-        if (businessIndicator === null) {
-            return false;
-        }
-        return businessIndicator.aboardSpeciality === SpecialityEnum.CCP
-            || (businessIndicator.aboardSpeciality === SpecialityEnum.CC
-                && (businessIndicator.flight.haulType === HaulTypeEnum.MC
-                    || businessIndicator.flight.haulType === HaulTypeEnum.CC));
-    }
-
-    /**
-     * Vérifie si le PNC a occupé un poste de CCP ou CC sur MC durant un vol
-     * @param businessIndicator l'indicateur métier portant sur le vol à tester
-     * @return vrai si c'est le cas, faux sinon
-     */
-    isCcpOrCcMc(businessIndicator: BusinessIndicatorLightModel): boolean {
-        if (businessIndicator === null) {
-            return false;
-        }
-        return businessIndicator.aboardSpeciality === SpecialityEnum.CCP
-            || (businessIndicator.aboardSpeciality === SpecialityEnum.CC
-                && businessIndicator.flight.haulType === HaulTypeEnum.MC);
-    }
-
-    /**
      * Vérifie si le PNC a occupé un poste de CC sur un vol LC
      * @param businessIndicator l'indicateur métier portant sur le vol à tester
      * @return vrai si c'est le cas, faux sinon
@@ -247,6 +191,14 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     isCcLc(businessIndicator: BusinessIndicatorLightModel): boolean {
         return businessIndicator.aboardSpeciality === SpecialityEnum.CC
             && businessIndicator.flight.haulType === HaulTypeEnum.LC;
+    }
+
+    /**
+     * Vérifie si le PNC est CC et vole sur LC
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isPncCcLc() {
+        return this.pncService.isCcLc(this.pnc);
     }
 
     /**
@@ -292,4 +244,15 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     hasNeverFlownAsCcLc(): boolean {
         return this.businessIndicators.every(businessIndicator => !this.isCcLc(businessIndicator));
     }
+
+    /**
+     * Teste si la valeur existe
+     * @param value la valeur à tester
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isDefined(value: any): boolean {
+        return value !== undefined;
+    }
+
+
 }

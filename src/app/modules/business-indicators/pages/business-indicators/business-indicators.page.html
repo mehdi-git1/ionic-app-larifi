@@ -16,27 +16,34 @@
                 <ion-card class="summary">
                     <ion-card-content>
                         <div class="summary-item">
-                            <label>{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE' | translate }}</label>
+                            <label>
+                                <ng-container *ngIf="!isPncCcLc(); else escoreAverageCcLcLabel">
+                                    {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE_CCP_CC_MC' | translate }}
+                                </ng-container>
+                                <ng-template #escoreAverageCcLcLabel>
+                                    {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE_CC_LC' | translate }}
+                                </ng-template>
+                            </label>
                             <div>
                                 <img class="file-icon" src="assets/imgs/business-indicators/e-score.svg" />
                                 <span class="summary-value">{{ businessIndicatorSummary?.escoreAverage | number : '1.0-1' }}</span>
                             </div>
                         </div>
-                        <div class="summary-item" *ngIf="canDisplayFlyingBlueAverage()">
+                        <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.flyingBlueAndERCAverage)">
                             <label>{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FLYING_BLUE_ERC_AVERAGE' | translate }}</label>
                             <div>
                                 <img class="file-icon" src="assets/imgs/business-indicators/fb-erc.svg" />
                                 <span class="summary-value">{{ businessIndicatorSummary?.flyingBlueAndERCAverage | number : '1.0-1' }}</span>
                             </div>
                         </div>
-                        <div class="summary-item" *ngIf="canDisplayUpgradeSum()">
+                        <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.upgradeSum)">
                             <label>{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.UPGRADE_SUM' | translate }}</label>
                             <div>
                                 <img class="file-icon" src="assets/imgs/business-indicators/upgrade.svg" />
                                 <span class="summary-value">{{ businessIndicatorSummary?.upgradeSum }}</span>
                             </div>
                         </div>
-                        <div class="summary-item" *ngIf="canDisplayOnTimeShuttleDepartureRatio()">
+                        <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.onTimeShuttleDepartureRatio)">
                             <label>{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ON_TIME_SHUTTLE_DEPARTURE_RATIO' | translate }}</label>
                             <div>
                                 <img class="file-icon" src="assets/imgs/business-indicators/shuttle-departure.svg" />
