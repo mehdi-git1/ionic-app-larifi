@@ -224,4 +224,12 @@ export class BusinessIndicatorDetailPage {
                 || this.businessIndicator.flight.haulType === HaulTypeEnum.MC);
         return isCcpAndLcFlight || isCcAndCcOrMcFlight;
     }
+
+    /**
+     * Vérifie si le PNC est CC et vole sur LC
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isPncCcLc() {
+        return this.pncService.isCcLc(this.pnc);
+    }
 }

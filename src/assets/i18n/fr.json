@@ -998,10 +998,11 @@
         "LIST": {
             "PAST_SUMMARY": {
                 "TITLE": "Indicateurs Métier sur 6 mois glissants",
-                "ESCORE_AVERAGE": "Moyenne - eScore",
-                "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité - Départ Navette PN",
-                "UPGRADE_SUM": "Somme - Surclassements",
-                "FLYING_BLUE_ERC_AVERAGE": "Moyenne par tronçon - Enrôlement FB & ERC"
+                "ESCORE_AVERAGE_CCP_CC_MC": "Moyenne eScore - retours global vol",
+                "ESCORE_AVERAGE_CC_LC": "Moyenne eScore - retours par cabine de travail",
+                "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité du départ de la Navette de la cité PN",
+                "UPGRADE_SUM": "Somme des surclassements réalisés par l'ensemble de l'équipage",
+                "FLYING_BLUE_ERC_AVERAGE": "Moyenne par tronçon des enrôlements FB & ERC réalisés par l'ensemble de l'équipage"
             },
             "FLIGHT_CARD_12_LAST_MONTHS": "Fiches vols effectués sur l'année glissante",
             "LEG_DATE": "Date tronçon",
@@ -1050,7 +1051,8 @@
                 "POINTS_TO_IMPROVE": "Points à améliorer"
             },
             "ESCORE_COMMENT": {
-                "TITLE": "Commentaires issus des questionnaires eScore remis aux passagers",
+                "TITLE_CCP_CC_MC": "Commentaires issus des questionnaires eScore remis aux passagers (global vol)",
+                "TITLE_CC_LC": "Commentaires issus des questionnaires eScore remis aux passagers sur la cabine de travail",
                 "RATING": "Note",
                 "POSITIVE_FEEDBACK": "Retour positif",
                 "NEGATIVE_FEEDBACK": "Retour négatif",

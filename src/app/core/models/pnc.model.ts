@@ -1,3 +1,5 @@
+import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
+
 import { GenderEnum } from '../enums/gender.enum';
 import { SpecialityEnum } from '../enums/speciality.enum';
 import { AssignmentModel } from './assignment.model';
@@ -34,6 +36,7 @@ export class PncModel extends EDossierPncObjectModel {
     acars: string;
     phoneNumber: string;
     documents: Array<DocumentModel> = new Array();
+    haulType: HaulTypeEnum;
 
     getStorageId(): string {
         return this.matricule;

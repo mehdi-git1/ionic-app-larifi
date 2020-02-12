@@ -1,3 +1,6 @@
+import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
+import { PncModel } from 'src/app/core/models/pnc.model';
+
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -116,4 +119,14 @@ export class PncService extends BaseService {
       return this.sessionService.getActiveUser().matricule;
     }
   }
+
+  /**
+   * Vérifie si le PNC est CC et vole sur LC
+   * @param pnc le pnc à tester
+   * @return vrai si c'est le cas, faux sinon
+   */
+  isCcLc(pnc: PncModel): boolean {
+    return pnc.currentSpeciality === SpecialityEnum.CC && pnc.haulType === HaulTypeEnum.LC;
+  }
+
 }

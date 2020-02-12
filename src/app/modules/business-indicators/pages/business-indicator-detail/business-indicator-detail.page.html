@@ -157,7 +157,14 @@
             </edospnc-expandable-block>
 
             <!-- Commentaire eScore -->
-            <h3>{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.TITLE' | translate }}</h3>
+            <h3>
+                <ng-container *ngIf="pncIsCcLc()">
+                    {{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.TITLE_CCP_CC_MC' | translate }}
+                </ng-container>
+                <ng-template #>
+                    {{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.TITLE_CC_LC' | translate }}
+                </ng-template>
+            </h3>
             <span *ngIf="escoreCommentsDataSource && escoreCommentsDataSource.data.length <= 0 ">
                 <table class="escore-comment-table mat-table">
                     <thead>
