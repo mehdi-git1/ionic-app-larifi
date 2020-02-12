@@ -9,9 +9,8 @@
             },
             "CONFIRM_VERSION_UPDATE": {
                 "TITLE": "Une nouvelle version de eDossierPNC est disponible",
-                "MESSAGE": "Cliquez sur \"Mettre à jour maintenant\" pour bénéficier des nouvelles fonctionnalités de l'application.",
-                "NOW": "Mettre à jour maintenant",
-                "CLOSE": "Plus tard"
+                "MESSAGE": "Afin de bénéficier des nouvelles fonctionnalités, veuillez mettre à jour l'application depuis le pnc Store.",
+                "OK": "Ok"
             }
         },
         "AF_COMPANY": "AF",

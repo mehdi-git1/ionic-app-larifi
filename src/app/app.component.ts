@@ -31,7 +31,6 @@ export class AppComponent {
   pinPadShowupThresholdInSeconds = 120;
   pncSynchroThresholdInSeconds = 300;
   today = new Date();
-  afStoreUrl = 'https://afstore.airfrance.fr/Catalog/ViewCatalog/glpeBe1JE9xMYYOZeLSRz2CuQBLw4DUiiXeiaLQFUVmypdXDVrMkicbCf8UHDW26/Apple';
 
   constructor(
     private platform: Platform,
@@ -141,14 +140,10 @@ export class AppComponent {
       header: this.translateService
         .instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.TITLE'),
       message: this.translateService
-        .instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.MESSAGE', { number: this.config.appVersion }),
+        .instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.MESSAGE'),
       buttons: [
         {
-          text: this.translateService.instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.NOW'),
-          handler: () => window.open(this.afStoreUrl, '_system', 'location=yes')
-        },
-        {
-          text: this.translateService.instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.CLOSE'),
+          text: this.translateService.instant('GLOBAL.APP_VERSION.CONFIRM_VERSION_UPDATE.OK'),
           role: 'cancel'
         }
       ],
