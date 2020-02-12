@@ -90,4 +90,10 @@ export class EscoreChartComponent implements OnInit {
   isMobile() {
     return !this.deviceService.isBrowser();
   }
+
+  onResize(event) {
+    console.log(event);
+    this.data = [];
+    setTimeout(() => this.initChart(), 200);
+  }
 }
