@@ -8,9 +8,9 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.0"
-   width="317pt"
-   height="315.84259pt"
-   viewBox="0 0 317 315.84259"
+   width="316pt"
+   height="316pt"
+   viewBox="0 0 316 316"
    preserveAspectRatio="xMidYMid meet"
    id="svg44"
    sodipodi:docname="customer-continuity.svg"
@@ -35,7 +35,7 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="1.331467"
-     inkscape:cx="51.203311"
+     inkscape:cx="-33.91138"
      inkscape:cy="262.95388"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
@@ -50,14 +50,14 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
     <dc:format>image/svg+xml</dc:format>
     <dc:type
        rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-    <dc:title />
+    <dc:title></dc:title>
   </cc:Work>
 </rdf:RDF>
 </metadata>
   <g
-     transform="matrix(0.1,0,0,-0.1,-30,345.792)"
+     transform="matrix(0.1,0,0,-0.1,-30,345.94941)"
      id="g42"
-     style="fill:#333333;stroke:none;fill-opacity:1">
+     style="fill:#333333;fill-opacity:1;stroke:none">
     <path
        d="m 1788,3440 c -79,-43 -122,-142 -99,-227 26,-98 97,-153 196,-153 199,0 279,239 122,364 -34,27 -48,31 -110,33 -57,3 -80,-1 -109,-17 z"
        id="path4"
