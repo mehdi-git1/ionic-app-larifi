@@ -11,7 +11,7 @@ export class ValueOrNoDataComponent {
 
   @Input() value: string;
 
-  @Input() displayedDash = false;
+  @Input() displayDash = false;
 
   constructor() { }
 
