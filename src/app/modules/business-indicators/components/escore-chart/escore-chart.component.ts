@@ -26,6 +26,7 @@ export class EscoreChartComponent implements OnInit {
     private deviceService: DeviceService,
     private screenOrientation: ScreenOrientation
   ) {
+    this.detectOrientation();
   }
 
   ngOnInit() {
@@ -112,6 +113,7 @@ export class EscoreChartComponent implements OnInit {
     this.screenOrientation.onChange().subscribe(
       () => {
 
+        this.currentOrientation = this.screenOrientation.ORIENTATIONS.LANDSCAPE;
         console.log('Orientation change');
         this.data = [];
         setTimeout(() => this.initChart(), 200);
