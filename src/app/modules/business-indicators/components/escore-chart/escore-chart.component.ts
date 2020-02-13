@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -18,9 +19,12 @@ export class EscoreChartComponent implements OnInit {
   data: any;
   xAxisLabel: string;
 
+  currentOrientation = '';
+
   constructor(
     private translateService: TranslateService,
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private screenOrientation: ScreenOrientation
   ) {
   }
 
@@ -91,9 +95,27 @@ export class EscoreChartComponent implements OnInit {
     return !this.deviceService.isBrowser();
   }
 
-  onResize(event) {
-    console.log(event);
-    this.data = [];
-    setTimeout(() => this.initChart(), 200);
+  getCurrentOrientation() {
+    this.currentOrientation = this.screenOrientation.type;
+    console.log(this.currentOrientation);
+  }
+
+  SetToLandScapeOrientation() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+  }
+
+  AllowToRotate() {
+    this.screenOrientation.unlock();
+  }
+
+  detectOrientation() {
+    this.screenOrientation.onChange().subscribe(
+      () => {
+
+        console.log('Orientation change');
+        this.data = [];
+        setTimeout(() => this.initChart(), 200);
+      }
+    );
   }
 }
