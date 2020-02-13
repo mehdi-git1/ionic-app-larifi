@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+import { AppConstant } from 'src/app/app.constant';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { EObservationModel } from 'src/app/core/models/eobservation/eobservation.model';
 import { PncModel } from 'src/app/core/models/pnc.model';
@@ -81,6 +83,7 @@ export class RedactionsPage {
 
         const careerObjectivesPromise = this.careerObjectiveService.findCareerObjectivesByRedactor(matricule).then(careerObjectives => {
             this.careerObjectives = careerObjectives;
+            this.careerObjectives.sort((priority1, priority2) => moment(priority1.creationDate, AppConstant.isoDateFormat).isAfter(moment(priority2.creationDate, AppConstant.isoDateFormat)) ? -1 : 1);
         });
 
         const professionalInterviewsPromise = this.professionalInterviewService.findProfessionalInterviewsByRedactor(matricule)
