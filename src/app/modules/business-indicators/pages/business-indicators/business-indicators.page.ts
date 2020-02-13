@@ -102,6 +102,8 @@ export class BusinessIndicatorsPage implements AfterViewInit {
                 case 'flightDate':
                     return this.compareDate(this.getPlannedDepartureDate(businessIndicator1),
                         this.getPlannedDepartureDate(businessIndicator2), isAsc);
+                case 'aboardFunction':
+                    return this.compare(businessIndicator1.aboardSpeciality, businessIndicator2.aboardSpeciality, isAsc);
                 case 'eScore':
                     return this.compare(businessIndicator1.escore, businessIndicator2.escore, isAsc);
                 case 'flightActionsNumber':
@@ -171,7 +173,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
      */
     getBusinessIndicatorsByPage(pageIndex: number) {
         const startIndex = pageIndex * this.pageSize;
-        const endIndex = (pageIndex + 1) * this.pageSize - 1;
+        const endIndex = (pageIndex + 1) * this.pageSize;
         if (this.businessIndicators) {
             const flightCardByPage = this.businessIndicators.slice(startIndex, endIndex);
             this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>(flightCardByPage);
