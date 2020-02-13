@@ -19,13 +19,13 @@ export class EscoreChartComponent implements OnInit {
   data: any;
   xAxisLabel: string;
 
-  currentOrientation = '';
-
   constructor(
     private translateService: TranslateService,
     private deviceService: DeviceService,
     private screenOrientation: ScreenOrientation
   ) {
+
+    console.log(this.screenOrientation.type);
     this.detectOrientation();
   }
 
@@ -96,27 +96,13 @@ export class EscoreChartComponent implements OnInit {
     return !this.deviceService.isBrowser();
   }
 
-  getCurrentOrientation() {
-    this.currentOrientation = this.screenOrientation.type;
-    console.log(this.currentOrientation);
-  }
-
-  SetToLandScapeOrientation() {
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
-  }
-
-  AllowToRotate() {
-    this.screenOrientation.unlock();
-  }
-
   detectOrientation() {
     this.screenOrientation.onChange().subscribe(
       () => {
-
-        this.currentOrientation = this.screenOrientation.ORIENTATIONS.LANDSCAPE;
         console.log('Orientation change');
-        this.data = [];
-        setTimeout(() => this.initChart(), 200);
+        console.log(this.screenOrientation.type);
+        //   this.data = [];
+        //   setTimeout(() => this.initChart(), 200);
       }
     );
   }
