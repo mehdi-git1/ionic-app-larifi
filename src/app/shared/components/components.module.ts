@@ -48,9 +48,10 @@ import { SecretQuestionComponent } from './secret-question/secret-question.compo
 import { TabHeaderComponent } from './tab-header/tab-header.component';
 import { TabNavComponent } from './tab-nav/tab-nav.component';
 import { TextEditorComponent } from './text-editor/text-editor.component';
+import { TruncatedTextComponent } from './truncated-text/truncated-text.component';
 import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
-import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.component';
 import { ValueOrNoDataComponent } from './value-or-no-data/value-or-no-data.component';
+import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.component';
 
 @NgModule({
     imports: [
@@ -99,7 +100,8 @@ import { ValueOrNoDataComponent } from './value-or-no-data/value-or-no-data.comp
         BootstrapComponent,
         ColumnSorterComponent,
         AlertDialogComponent,
-        ValueOrNoDataComponent
+        ValueOrNoDataComponent,
+        TruncatedTextComponent
     ],
     exports: [
         OfflineIndicatorComponent,
@@ -136,7 +138,8 @@ import { ValueOrNoDataComponent } from './value-or-no-data/value-or-no-data.comp
         BootstrapComponent,
         ColumnSorterComponent,
         AlertDialogComponent,
-        ValueOrNoDataComponent
+        ValueOrNoDataComponent,
+        TruncatedTextComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

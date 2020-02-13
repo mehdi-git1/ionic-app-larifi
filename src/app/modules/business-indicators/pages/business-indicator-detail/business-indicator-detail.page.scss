@@ -136,19 +136,25 @@ table {
         padding-left: 10px;
     }
 
-    .rating {
+    .escore-rating {
+        width: 50px;
+        text-align: center;
+        padding-right: 10px;
+    }
+
+    .short-loop-rating {
         width: 150px;
         text-align: center;
         padding-right: 10px;
     }
 
     .positive-feedback-reason {
-        min-width: 190px;
+        min-width: 130px;
         padding: $cell-padding;
     }
 
     .negative-feedback-reason {
-        min-width: 190px;
+        min-width: 130px;
         padding: $cell-padding;
     }
 
