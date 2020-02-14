@@ -129,13 +129,13 @@ export class BusinessIndicatorsPage implements AfterViewInit {
 
     compare(a: number | string, b: number | string, isAsc: boolean) {
         if ((!a || a === undefined) && b) {
-            return 1;
+            return 1 * (isAsc ? 1 : -1);
         }
         if (a && (!b || b === undefined)) {
-            return -1;
+            return -1 * (isAsc ? 1 : -1);
         }
         if ((!a || a === undefined) && (!b || b === undefined)) {
-            return -1;
+            return -1 * (isAsc ? 1 : -1);
         }
         return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
@@ -175,14 +175,30 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         const startIndex = pageIndex * this.pageSize;
         const endIndex = (pageIndex + 1) * this.pageSize;
         if (this.businessIndicators) {
-            const flightCardByPage = this.businessIndicators.slice(startIndex, endIndex);
-            this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>(flightCardByPage);
+            let businessIndicatorsPage = this.businessIndicators.slice(startIndex, endIndex);
+            businessIndicatorsPage = this.preProcessBusinessIndicators(businessIndicatorsPage);
+            this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>(businessIndicatorsPage);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
             this.dataSource._updateChangeSubscription();
         } else {
             this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>();
         }
+    }
+
+    /**
+     * Effectue les opérations de pre processing (pour affichage/tri) sur la liste des indicateurs métier passés en paramètre
+     * @param businessIndicators la liste des indicateurs à traiter
+     * @return la liste des indicateurs traitée
+     */
+    preProcessBusinessIndicators(businessIndicators: Array<BusinessIndicatorLightModel>): Array<BusinessIndicatorLightModel> {
+        businessIndicators.forEach(businessIndicator => {
+            // On indique une valeur négative pour que le tri soit cohérent à l'affichage (valeur remplacée par NA à l'affichage)
+            businessIndicator.flightActionsTotalNumber =
+                this.isCcLc(businessIndicator) ? -1 : businessIndicator.flightActionsTotalNumber;
+        });
+
+        return businessIndicators;
     }
 
     /**
