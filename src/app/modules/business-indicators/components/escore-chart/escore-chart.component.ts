@@ -26,15 +26,6 @@ export class EscoreChartComponent implements OnInit {
     private deviceService: DeviceService,
     private screenOrientation: ScreenOrientation
   ) {
-
-    console.log(this.screenOrientation.type);
-    if (this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY) {
-
-      this.view = [window.innerWidth - 80, 250];
-    }
-    if (this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY) {
-      this.view = [window.innerWidth - 100, 250];
-    }
     this.detectOrientation();
   }
 
@@ -115,17 +106,9 @@ export class EscoreChartComponent implements OnInit {
   detectOrientation() {
     this.screenOrientation.onChange().subscribe(
       () => {
-        if (this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY) {
-
-          this.view = [668, 250];
-        }
-        if (this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY) {
-          this.view = [944, 250];
-        }
         console.log('largeur', window.innerWidth);
         console.log(this.screenOrientation.type);
         console.log('Orientation change');
-        console.log(this.view);
 
         //   this.data = [];
         //   setTimeout(() => this.initChart(), 200);

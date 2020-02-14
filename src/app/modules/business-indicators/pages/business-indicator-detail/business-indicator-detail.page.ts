@@ -5,6 +5,7 @@ import { SpecialityEnum } from 'src/app/core/enums/speciality.enum';
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 import { AppConstant } from '../../../../app.constant';
 import {
@@ -47,16 +48,21 @@ export class BusinessIndicatorDetailPage {
     // On expose le composant pour le passer en input du composant edospnc-expandable-content dans le template html
     BusinessIndicatorPerfopsLegendComponent = BusinessIndicatorPerfopsLegendComponent;
 
+    currentOrientation: String;
+
     constructor(
         private activatedRoute: ActivatedRoute,
         private pncService: PncService,
-        private onlineBusinessIndicatorService: OnlineBusinessIndicatorService
+        private onlineBusinessIndicatorService: OnlineBusinessIndicatorService,
+        private screenOrientation: ScreenOrientation
     ) {
         const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         const id = +this.activatedRoute.snapshot.paramMap.get('id');
         this.pncService.getPnc(matricule).then(pnc => {
             this.pnc = pnc;
         });
+        this.currentOrientation = this.screenOrientation.type;
+        this.detectOrientation();
 
         this.onlineBusinessIndicatorService.getBusinessIndicator(id).then(businessIndicator => {
             this.businessIndicator = businessIndicator;
@@ -223,5 +229,19 @@ export class BusinessIndicatorDetailPage {
             && (this.businessIndicator.flight.haulType === HaulTypeEnum.CC
                 || this.businessIndicator.flight.haulType === HaulTypeEnum.MC);
         return isCcpAndLcFlight || isCcAndCcOrMcFlight;
+    }
+
+    detectOrientation() {
+        this.screenOrientation.onChange().subscribe(
+            () => {
+                this.currentOrientation = this.screenOrientation.type;
+                console.log('largeur', window.innerWidth);
+                console.log(this.screenOrientation.type);
+                console.log('Orientation change');
+
+                //   this.data = [];
+                //   setTimeout(() => this.initChart(), 200);
+            }
+        );
     }
 }
