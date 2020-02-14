@@ -19,6 +19,8 @@ export class EscoreChartComponent implements OnInit {
   data: any;
   xAxisLabel: string;
 
+  view: any[];
+
   constructor(
     private translateService: TranslateService,
     private deviceService: DeviceService,
@@ -26,13 +28,18 @@ export class EscoreChartComponent implements OnInit {
   ) {
 
     console.log(this.screenOrientation.type);
+    if (this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY) {
+
+      this.view = [window.innerWidth - 80, 250];
+    }
+    if (this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY) {
+      this.view = [window.innerWidth - 100, 250];
+    }
     this.detectOrientation();
   }
 
   ngOnInit() {
-    console.log(this.data);
-    setTimeout(() => this.initChart(), 2000);
-    console.log(this.data);
+    this.initChart();
   }
 
   /**
@@ -63,6 +70,13 @@ export class EscoreChartComponent implements OnInit {
     ];
 
     this.xAxisLabel = this.translateService.instant('BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.X_AXIS_LABEL');
+
+    if (this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY) {
+      this.view = [668, 250];
+    }
+    if (this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY) {
+      this.view = [944, 250];
+    }
   }
 
   /**
@@ -101,11 +115,20 @@ export class EscoreChartComponent implements OnInit {
   detectOrientation() {
     this.screenOrientation.onChange().subscribe(
       () => {
+        if (this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY) {
 
-        console.log('Orientation change');
+          this.view = [668, 250];
+        }
+        if (this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY) {
+          this.view = [944, 250];
+        }
+        console.log('largeur', window.innerWidth);
         console.log(this.screenOrientation.type);
-        this.data = [];
-        setTimeout(() => this.initChart(), 2000);
+        console.log('Orientation change');
+        console.log(this.view);
+
+        //   this.data = [];
+        //   setTimeout(() => this.initChart(), 200);
       }
     );
   }
