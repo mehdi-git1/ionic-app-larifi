@@ -7,8 +7,13 @@
         <img src="assets/imgs/business-indicators/smiley-note-25.svg">
         <img src="assets/imgs/business-indicators/smiley-note-0.svg">
     </legend>
-    <div class="chart-container">
-        <ngx-charts-bar-horizontal [view]="view" [results]="data" [customColors]="getBarColor" [xAxis]="true" [yAxis]="true" [showDataLabel]="true" [showXAxisLabel]="true" [xAxisLabel]="xAxisLabel" [xAxisTickFormatting]="formatXAxisTick">
-        </ngx-charts-bar-horizontal>
-    </div>
+
+    <edossier-spinner *ngIf="data == undefined; else chart"></edossier-spinner>
+    <ng-template #chart>
+        <div class="chart-container">
+            <ngx-charts-bar-horizontal [view]="view" [results]="data" [customColors]="getBarColor" [xAxis]="true" [yAxis]="true" [showDataLabel]="true" [showXAxisLabel]="true" [xAxisLabel]="xAxisLabel" [xAxisTickFormatting]="formatXAxisTick">
+            </ngx-charts-bar-horizontal>
+        </div>
+    </ng-template>
+
 </ng-template>

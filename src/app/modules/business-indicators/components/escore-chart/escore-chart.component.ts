@@ -30,7 +30,9 @@ export class EscoreChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initChart();
+    console.log(this.data);
+    setTimeout(() => this.initChart(), 2000);
+    console.log(this.data);
   }
 
   /**
@@ -99,10 +101,11 @@ export class EscoreChartComponent implements OnInit {
   detectOrientation() {
     this.screenOrientation.onChange().subscribe(
       () => {
+
         console.log('Orientation change');
         console.log(this.screenOrientation.type);
-        //   this.data = [];
-        //   setTimeout(() => this.initChart(), 200);
+        this.data = [];
+        setTimeout(() => this.initChart(), 2000);
       }
     );
   }
