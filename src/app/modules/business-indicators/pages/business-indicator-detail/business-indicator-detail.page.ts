@@ -2,7 +2,9 @@ import * as moment from 'moment';
 import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
 import { SpecialityEnum } from 'src/app/core/enums/speciality.enum';
 
-import { Component } from '@angular/core';
+import {
+    AfterViewInit, Component, TemplateRef, ViewChild, ViewContainerRef, ViewRef
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -34,7 +36,13 @@ const ratingImagePath = 'assets/imgs/business-indicators/smiley-note-';
     templateUrl: 'business-indicator-detail.page.html',
     styleUrls: ['./business-indicator-detail.page.scss']
 })
-export class BusinessIndicatorDetailPage {
+export class BusinessIndicatorDetailPage implements AfterViewInit {
+
+    @ViewChild('escoreChartContainer', { read: ViewContainerRef, static: false }) escoreChartContainer: ViewContainerRef;
+    @ViewChild('escoreChartTemplate', { read: TemplateRef, static: false }) escoreChartTemplate: TemplateRef<any>;
+
+    escoreChartRef: ViewRef;
+
     // Le délai en plus qu'on accorde pour le départ navette
     EXTRA_DELAY = 5;
 
@@ -49,6 +57,7 @@ export class BusinessIndicatorDetailPage {
     BusinessIndicatorPerfopsLegendComponent = BusinessIndicatorPerfopsLegendComponent;
 
     currentOrientation: String;
+
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -77,6 +86,11 @@ export class BusinessIndicatorDetailPage {
             });
             this.shortLoopCommentsDataSource = new MatTableDataSource<ShortLoopCommentModel>(shortLoopCommentsFiltered);
         });
+    }
+
+    ngAfterViewInit() {
+        setTimeout(() => this.escoreChartRef = this.escoreChartTemplate.createEmbeddedView(null), 2000);
+
     }
 
     /**
@@ -235,13 +249,15 @@ export class BusinessIndicatorDetailPage {
         this.screenOrientation.onChange().subscribe(
             () => {
                 this.currentOrientation = this.screenOrientation.type;
-                console.log('largeur', window.innerWidth);
-                console.log(this.screenOrientation.type);
-                console.log('Orientation change');
-
-                //   this.data = [];
-                //   setTimeout(() => this.initChart(), 200);
             }
         );
+    }
+
+    addChart() {
+        this.escoreChartContainer.insert(this.escoreChartRef);
+    }
+
+    removeChart() {
+        this.escoreChartContainer.detach();
     }
 }

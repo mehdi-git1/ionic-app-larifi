@@ -151,11 +151,13 @@
 
             <!-- Graphique d'eScore -->
             <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.TITLE' | translate}}">
-                <div class="content" *ngIf="currentOrientation === 'portrait-primary'">
-                    <escore-chart [businessIndicator]="businessIndicator"></escore-chart>
-                </div>
-                <div class="content" *ngIf="currentOrientation === 'landscape-primary'">
-                    <escore-chart [businessIndicator]="businessIndicator"></escore-chart>
+                <button (click)="addChart()">add</button>
+                <button (click)="removeChart()">remove</button>
+                <div class="content" #escoreChartContainer>
+
+                    <ng-template #escoreChartTemplate>
+                        <escore-chart [businessIndicator]="businessIndicator"></escore-chart>
+                    </ng-template>
                 </div>
             </edospnc-expandable-block>
 

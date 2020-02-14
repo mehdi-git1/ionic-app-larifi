@@ -61,13 +61,6 @@ export class EscoreChartComponent implements OnInit {
     ];
 
     this.xAxisLabel = this.translateService.instant('BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.X_AXIS_LABEL');
-
-    if (this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY) {
-      this.view = [668, 250];
-    }
-    if (this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY) {
-      this.view = [944, 250];
-    }
   }
 
   /**
