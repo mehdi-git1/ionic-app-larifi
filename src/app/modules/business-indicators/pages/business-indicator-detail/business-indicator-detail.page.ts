@@ -254,10 +254,16 @@ export class BusinessIndicatorDetailPage implements AfterViewInit {
     }
 
     addChart() {
+        this.escoreChartRef = this.escoreChartTemplate.createEmbeddedView(null)
         this.escoreChartContainer.insert(this.escoreChartRef);
     }
 
     removeChart() {
-        this.escoreChartContainer.detach();
+        this.escoreChartContainer.remove();
+    }
+
+    reload() {
+        this.removeChart();
+        setTimeout(() => this.addChart(), 2000);
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -13,7 +13,7 @@ import { DeviceService } from '../../../../core/services/device/device.service';
   styleUrls: ['./escore-chart.component.scss']
 })
 
-export class EscoreChartComponent implements OnInit {
+export class EscoreChartComponent implements OnInit, OnDestroy {
 
   @Input() businessIndicator: BusinessIndicatorModel;
   data: any;
@@ -31,6 +31,10 @@ export class EscoreChartComponent implements OnInit {
 
   ngOnInit() {
     this.initChart();
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy');
   }
 
   /**
