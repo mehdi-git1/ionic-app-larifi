@@ -99,7 +99,7 @@
             </edospnc-expandable-block>
 
             <!-- Actions à bord -->
-            <edospnc-expandable-block *ngIf="isOnBoardActionsAvailable()" mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS' | translate}}">
+            <edospnc-expandable-block *ngIf="!isCcLc()" mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS' | translate}}">
                 <div class="content">
                     <div class="item-list">
                         <div class="item">
@@ -158,7 +158,7 @@
 
             <!-- Commentaire eScore -->
             <h3>
-                <ng-container *ngIf="!isPncCcLc(); else escoreCommentTitleCcLc">
+                <ng-container *ngIf="!isCcLc(); else escoreCommentTitleCcLc">
                     {{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.TITLE_CCP_CC_MC' | translate }}
                 </ng-container>
                 <ng-template #escoreCommentTitleCcLc>
