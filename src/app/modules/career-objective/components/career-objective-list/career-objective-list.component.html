@@ -1,23 +1,26 @@
-<h3>
-    <span>{{ 'CAREER_OBJECTIVE_LIST.CAREER_OBJECTIVE_TITLE' | translate }} <span
-            *ngIf="careerObjectives && careerObjectives.length > 0">({{careerObjectives?.length}})</span></span>
+<div class="list-header">
+    <div class="title">
+        <h3>
+            <span>{{ 'CAREER_OBJECTIVE_LIST.CAREER_OBJECTIVE_TITLE' | translate }} <span *ngIf="careerObjectives && careerObjectives.length > 0">({{careerObjectives?.length}})</span></span>
+        </h3>
+    </div>
     <div class="filter">
         <ion-label class="input-label">{{ 'CAREER_OBJECTIVE_LIST.SEARCH.CATEGORY' | translate }}&nbsp;:</ion-label>
         <ion-select interface="popover" #optionValue (ionChange)="filterCategory(optionValue.value)">
             <ion-select-option [value]="valueAll" [selected]="true">
                 {{ 'CAREER_OBJECTIVE_LIST.SEARCH.ALL' | translate }}
             </ion-select-option>
-            <ion-select-option *ngFor="let careerObjectiveCategory of careerObjectiveCategories"
-                [value]="careerObjectiveCategory.code">
+            <ion-select-option *ngFor="let careerObjectiveCategory of careerObjectiveCategories" [value]="careerObjectiveCategory.code">
                 {{careerObjectiveCategory.label}} </ion-select-option>
         </ion-select>
     </div>
-    <ion-button *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS"
-        (click)="goToCareerObjectiveCreation()" color="primarylight">
-        <ion-icon name="add" ios="md-add"></ion-icon>
-        <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
-    </ion-button>
-</h3>
+    <div class="button">
+        <ion-button *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS" (click)="goToCareerObjectiveCreation()" color="primarylight">
+            <ion-icon name="add" ios="md-add"></ion-icon>
+            <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
+        </ion-button>
+    </div>
+</div>
 <div class="list-container">
     <career-objectives *ngIf="careerObjectives" [careerObjectives]="careerObjectives" [displayMode]="displayMode">
     </career-objectives>

@@ -16,40 +16,54 @@
         height: 40px;
         font-size: 15px;
 
+        span {
+            margin: 5px;
+        }
+
         .value {
             font-weight: normal;
             color: var(--ion-color-primarylight);
         }
 
         .career-objective-date {
-            min-width: 120px;
+            min-width: 80px;
+            flex: 1;
         }
 
         .career-objective-label {
+            min-width: 150px;
             flex: 2;
-            padding-right: 10px;
+            //padding-right: 10px;
         }
 
         .career-objective-category {
+            min-width: 105px;
             flex: 1;
-            padding-right: 10px;
+            //padding-right: 10px;
         }
 
         .career-objective-pnc {
+            min-width: 80px;
             flex: 1;
         }
 
-        .career-objective-status {
-            display: flex;
+        .career-objective-status-for-large-container {
             align-items: center;
+            min-width: 120px;
+            display: flex;
+        }
+
+        .career-objective-status-for-small-container {
+            align-items: center;
+            min-width: 25px;
+            display: flex;
         }
 
         .career-objective-icone {
-            min-width: 110px;
+            min-width: 94px;
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            padding: 3px 10px;
 
             span:not(:last-child) {
                 margin-right: 5px;
@@ -74,11 +88,6 @@
                 font-size: 15px;
                 padding: 8px 4px;
             }
-        }
-
-        .career-objective-status {
-            min-width: 120px;
-            display: flex;
         }
     }
 }
