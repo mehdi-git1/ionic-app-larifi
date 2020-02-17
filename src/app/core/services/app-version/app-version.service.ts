@@ -31,6 +31,7 @@ export class AppVersionService {
 
     /**
      * Récupère la dernière version de l'application
+     * @return la dernière version de l'application
      */
     public getLastAppVersion(): Promise<AppVersionModel> {
         return this.restService.get(this.config.getBackEndUrl('getLastAppVersion'));

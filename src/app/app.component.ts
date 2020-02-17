@@ -30,7 +30,6 @@ export class AppComponent {
   switchToBackgroundDate: Date;
   pinPadShowupThresholdInSeconds = 120;
   pncSynchroThresholdInSeconds = 300;
-  today = new Date();
 
   constructor(
     private platform: Platform,
@@ -55,7 +54,7 @@ export class AppComponent {
         this.initializeApp();
         if (!this.deviceService.isBrowser()) {
           this.appInitService.handleAuthenticationStatus();
-          this.NewUpdateIsAvailable();
+          this.isNewUpdateAvailable();
         }
       }
       );
@@ -124,10 +123,10 @@ export class AppComponent {
    * Vérifie qu'une nouvelle version est disponible
    * Le message est affiché à partir de la date de la MEP + 1
    */
-  NewUpdateIsAvailable() {
+  isNewUpdateAvailable() {
     this.appVersionService.getLastAppVersion().then(lastAppVersion => {
       const dayAfterRelease = moment(lastAppVersion.releaseDate, AppConstant.isoDateFormat).toDate().getDate() + 1;
-      if (lastAppVersion.number !== this.config.appVersion && this.today >= moment(dayAfterRelease, AppConstant.isoDateFormat).toDate()) {
+      if (lastAppVersion.number !== this.config.appVersion && new Date() >= moment(dayAfterRelease, AppConstant.isoDateFormat).toDate()) {
         this.displayAppVersionToUpdateAlert();
       }
     });
