@@ -171,6 +171,12 @@ export class HelpAssetListPage {
         helpAsset[11].label = 'Prepa Express Vol de Validation CCP';
         helpAsset[11].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[11].lastUpdateDate = updateDate20190808;
+        const pdf13 = 'Indicateurs_Metier_eDossier_guidelines.pdf';
+        helpAsset[12] = new HelpAssetModel();
+        helpAsset[12].url = `${this.pdfUrl}/cadre/${pdf13}`;
+        helpAsset[12].label = 'Les Indicateurs Métier dans eDossierPNC';
+        helpAsset[12].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[12].lastUpdateDate = '2020-02-25T00:00:00Z';
 
         return helpAsset;
     }
