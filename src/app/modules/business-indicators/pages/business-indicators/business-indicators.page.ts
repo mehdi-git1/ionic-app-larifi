@@ -82,7 +82,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.pnc && this.businessIndicators !== undefined && this.businessIndicatorSummary !== undefined;
+        return this.pnc !== undefined && this.businessIndicators !== undefined && this.businessIndicatorSummary !== undefined;
     }
 
     /**
@@ -102,6 +102,8 @@ export class BusinessIndicatorsPage implements AfterViewInit {
                 case 'flightDate':
                     return this.compareDate(this.getPlannedDepartureDate(businessIndicator1),
                         this.getPlannedDepartureDate(businessIndicator2), isAsc);
+                case 'aboardFunction':
+                    return this.compare(businessIndicator1.aboardSpeciality, businessIndicator2.aboardSpeciality, isAsc);
                 case 'eScore':
                     return this.compare(businessIndicator1.escore, businessIndicator2.escore, isAsc);
                 case 'flightActionsNumber':
@@ -127,13 +129,13 @@ export class BusinessIndicatorsPage implements AfterViewInit {
 
     compare(a: number | string, b: number | string, isAsc: boolean) {
         if ((!a || a === undefined) && b) {
-            return 1;
+            return 1 * (isAsc ? 1 : -1);
         }
         if (a && (!b || b === undefined)) {
-            return -1;
+            return -1 * (isAsc ? 1 : -1);
         }
         if ((!a || a === undefined) && (!b || b === undefined)) {
-            return -1;
+            return -1 * (isAsc ? 1 : -1);
         }
         return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
@@ -171,10 +173,11 @@ export class BusinessIndicatorsPage implements AfterViewInit {
      */
     getBusinessIndicatorsByPage(pageIndex: number) {
         const startIndex = pageIndex * this.pageSize;
-        const endIndex = (pageIndex + 1) * this.pageSize - 1;
+        const endIndex = (pageIndex + 1) * this.pageSize;
         if (this.businessIndicators) {
-            const flightCardByPage = this.businessIndicators.slice(startIndex, endIndex);
-            this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>(flightCardByPage);
+            let businessIndicatorsPage = this.businessIndicators.slice(startIndex, endIndex);
+            businessIndicatorsPage = this.preProcessBusinessIndicators(businessIndicatorsPage);
+            this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>(businessIndicatorsPage);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
             this.dataSource._updateChangeSubscription();
@@ -184,59 +187,18 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     }
 
     /**
-     * Vérifie si l'indicateur semestriel "moyenne enrôlement flying blue" peut être affiché
-     * @return vrai si c'est le cas, faux sinon
+     * Effectue les opérations de pre processing (pour affichage/tri) sur la liste des indicateurs métier passés en paramètre
+     * @param businessIndicators la liste des indicateurs à traiter
+     * @return la liste des indicateurs traitée
      */
-    canDisplayFlyingBlueAverage(): boolean {
-        return this.pnc.manager
-            || this.isCcpOrCcMcCc(this.getMostRecentBusinessIndicator());
-    }
+    preProcessBusinessIndicators(businessIndicators: Array<BusinessIndicatorLightModel>): Array<BusinessIndicatorLightModel> {
+        businessIndicators.forEach(businessIndicator => {
+            // On indique une valeur négative pour que le tri soit cohérent à l'affichage (valeur remplacée par NA à l'affichage)
+            businessIndicator.flightActionsTotalNumber =
+                this.isCcLc(businessIndicator) ? -1 : businessIndicator.flightActionsTotalNumber;
+        });
 
-    /**
-     * Vérifie si l'indicateur semestriel "somme des surclassements" peut être affiché
-     * @return vrai si c'est le cas, faux sinon
-     */
-    canDisplayUpgradeSum(): boolean {
-        return this.pnc.manager
-            || this.isCcpOrCcMc(this.getMostRecentBusinessIndicator());
-    }
-
-    /**
-     * Vérifie si l'indicateur semestriel "Pourcentage de départ navette à l'heure" peut être affiché
-     * @return vrai si c'est le cas, faux sinon
-     */
-    canDisplayOnTimeShuttleDepartureRatio(): boolean {
-        return this.pnc.manager
-            || this.isCcpOrCcMc(this.getMostRecentBusinessIndicator());
-    }
-
-    /**
-     * Vérifie si le PNC a occupé un poste de CCP ou CC sur MC/CC durant un vol
-     * @param businessIndicator l'indicateur métier portant sur le vol à tester
-     * @return vrai si c'est le cas, faux sinon
-     */
-    isCcpOrCcMcCc(businessIndicator: BusinessIndicatorLightModel): boolean {
-        if (businessIndicator === null) {
-            return false;
-        }
-        return businessIndicator.aboardSpeciality === SpecialityEnum.CCP
-            || (businessIndicator.aboardSpeciality === SpecialityEnum.CC
-                && (businessIndicator.flight.haulType === HaulTypeEnum.MC
-                    || businessIndicator.flight.haulType === HaulTypeEnum.CC));
-    }
-
-    /**
-     * Vérifie si le PNC a occupé un poste de CCP ou CC sur MC durant un vol
-     * @param businessIndicator l'indicateur métier portant sur le vol à tester
-     * @return vrai si c'est le cas, faux sinon
-     */
-    isCcpOrCcMc(businessIndicator: BusinessIndicatorLightModel): boolean {
-        if (businessIndicator === null) {
-            return false;
-        }
-        return businessIndicator.aboardSpeciality === SpecialityEnum.CCP
-            || (businessIndicator.aboardSpeciality === SpecialityEnum.CC
-                && businessIndicator.flight.haulType === HaulTypeEnum.MC);
+        return businessIndicators;
     }
 
     /**
@@ -247,6 +209,14 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     isCcLc(businessIndicator: BusinessIndicatorLightModel): boolean {
         return businessIndicator.aboardSpeciality === SpecialityEnum.CC
             && businessIndicator.flight.haulType === HaulTypeEnum.LC;
+    }
+
+    /**
+     * Vérifie si le PNC est CC et vole sur LC
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isPncCcLc() {
+        return this.pncService.isCcLc(this.pnc);
     }
 
     /**
@@ -292,4 +262,15 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     hasNeverFlownAsCcLc(): boolean {
         return this.businessIndicators.every(businessIndicator => !this.isCcLc(businessIndicator));
     }
+
+    /**
+     * Teste si la valeur existe
+     * @param value la valeur à tester
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isDefined(value: any): boolean {
+        return value !== undefined;
+    }
+
+
 }

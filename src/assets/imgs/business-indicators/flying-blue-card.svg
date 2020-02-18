@@ -7,9 +7,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="211.87965"
-   height="126.74468"
-   viewBox="0 0 211.87966 126.74468"
+   width="228.93456"
+   height="228.93149"
+   viewBox="0 0 228.93456 228.93148"
    version="1.1"
    xml:space="preserve"
    style="clip-rule:evenodd;fill-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41420996"
@@ -18,7 +18,7 @@
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"><metadata
    id="metadata105"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><sodipodi:namedview
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><sodipodi:namedview
    pagecolor="#ffffff"
    bordercolor="#666666"
    borderopacity="1"
@@ -32,18 +32,18 @@
    id="namedview103"
    showgrid="false"
    inkscape:zoom="1.78"
-   inkscape:cx="-23.370205"
-   inkscape:cy="57.442733"
+   inkscape:cx="82.152048"
+   inkscape:cy="152.98252"
    inkscape:window-x="-8"
    inkscape:window-y="-8"
    inkscape:window-maximized="1"
-   inkscape:current-layer="g60"
+   inkscape:current-layer="g46"
    fit-margin-top="0"
    fit-margin-left="0"
    fit-margin-right="0"
    fit-margin-bottom="0" />
     <g
-   transform="translate(-514.59045,-1309.6026)"
+   transform="translate(-506.06102,-1258.5112)"
    id="g87">
         <g
    id="FB-API"
@@ -62,7 +62,7 @@
    transform="matrix(0.939753,-0.0990922,0.0990922,0.939753,539.938,973.054)"
    id="g60">
                     <g
-   transform="matrix(0.92428531,0.09748502,-0.09748502,0.92428531,8245.4701,-183.27104)"
+   transform="matrix(0.72250073,-0.58463609,0.58463609,0.72250073,8467.1841,892.21549)"
    id="g8"
    style="fill:#333333;fill-opacity:1">
                         <g
@@ -77,7 +77,7 @@
                     </g>
                     <g
    id="g46"
-   transform="translate(4.5510622,-43.160555)">
+   transform="rotate(-45,9600.1792,102.92643)">
                         
                         <g
    transform="matrix(0.97647384,0.10298938,-0.10298938,0.97647384,9179.2584,-1316.6252)"
@@ -127,61 +127,35 @@
    id="rect26" />
                         </g>
                         
-                        <g
-   transform="matrix(0.97647384,0.10298938,-0.10298938,0.97647384,9321.1612,-1301.6586)"
-   id="g36"
-   style="fill:#686868;fill-opacity:1">
-                            <rect
-   x="537.89099"
-   y="1404.52"
-   width="20.759001"
-   height="20.759001"
-   style="fill:#686868;fill-opacity:1"
-   id="rect34" />
-                        </g>
+                        
                         <g
    transform="matrix(0.97647384,0.10298938,-0.10298938,0.97647384,9341.4288,-1299.521)"
    id="g40"
    style="fill:#aeaeae;fill-opacity:1">
-                            <rect
-   x="537.89099"
-   y="1404.52"
-   width="20.759001"
-   height="20.759001"
-   style="fill:#aeaeae;fill-opacity:1"
-   id="rect38" />
+                            
                         </g>
-                        <g
-   transform="matrix(0.97647384,0.10298938,-0.10298938,0.97647384,9361.7064,-1297.3823)"
-   id="g44"
-   style="fill:#757575;fill-opacity:1">
-                            <rect
-   x="537.89099"
-   y="1404.52"
-   width="20.759001"
-   height="20.759001"
-   style="fill:#757575;fill-opacity:1"
-   id="rect42" />
-                        </g>
+                        
                     <text
    xml:space="preserve"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:73.10605621px;line-height:1.25;font-family:opensans;-inkscape-font-specification:opensans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:1.58736384;stroke-miterlimit:1.41420996;stroke-dasharray:none;stroke-opacity:1"
-   x="9653.1562"
-   y="-942.05511"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:124.94113159px;line-height:1.25;font-family:opensans;-inkscape-font-specification:opensans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:2.7128675;stroke-miterlimit:1.41420996;stroke-dasharray:none;stroke-opacity:1"
+   x="-963.46118"
+   y="-9651.3701"
    id="text914"
-   transform="rotate(6.2227258)"><tspan
+   transform="rotate(96.222726)"><tspan
      sodipodi:role="line"
      id="tspan912"
-     x="9653.1562"
-     y="-942.05511"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:43.86362839px;font-family:Arial;-inkscape-font-specification:Arial;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1.58736384;stroke-miterlimit:1.41420996;stroke-dasharray:none;stroke-opacity:1">FB</tspan></text>
+     x="-963.46118"
+     y="-9651.3701"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:74.96466827px;font-family:Arial;-inkscape-font-specification:Arial;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:2.7128675;stroke-miterlimit:1.41420996;stroke-dasharray:none;stroke-opacity:1">FB</tspan></text>
+
+
 
 
 
 
 </g>
                     <g
-   transform="matrix(0.75198401,0.07931228,-0.08018276,0.76023723,9257.7696,-1050.4318)"
+   transform="matrix(0.58781524,-0.47565074,0.48087113,0.59426667,8569.8127,-436.76361)"
    id="g50"
    style="fill:#e4e4e4;fill-opacity:1">
                         <rect
@@ -194,7 +168,7 @@
                     </g>
                     
                     <g
-   transform="matrix(0.54392703,0.05736836,-0.08018276,0.76023723,9435.3845,-1031.6986)"
+   transform="matrix(0.42518005,-0.34404894,0.48087113,0.59426667,8708.6517,-549.10994)"
    id="g58">
                         <rect
    x="558.47601"

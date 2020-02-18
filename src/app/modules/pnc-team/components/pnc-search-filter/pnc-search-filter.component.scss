@@ -9,6 +9,10 @@
             background: var(--ion-color-primary);
         }
 
+        .mat-form-field-wrapper {
+            padding-bottom: 0;
+        }
+
         mat-expansion-panel-header {
             background: var(--ion-color-primary);
 
@@ -22,11 +26,6 @@
             max-width: 1200px;
             margin: auto;
             padding-bottom: 16px;
-        }
-
-        .clear-pnc-button,
-        .search-pnc-button {
-            width: 100%;
         }
 
         .hide-label {
@@ -48,9 +47,23 @@
             text-align: right;
         }
 
+        .first-row-filter {
+            margin: 10px 0;
+            align-items: flex-end;
+
+            ion-item {
+                --padding-start: 0;
+            }
+
+        }
+
         .select-list {
+            ion-select {
+                margin-top: 0;
+            }
+
             & > div {
-                padding: 0 16px;
+                padding: 0 8px;
 
                 ion-label {
                     padding-left: 0;
@@ -100,8 +113,5 @@
             }
         }
 
-        .search-pnc-button {
-            margin: 16px;
-        }
     }
 }

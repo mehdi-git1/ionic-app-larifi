@@ -8,9 +8,9 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
-   width="47.978928"
-   height="48.511532"
-   viewBox="0 0 47.978929 48.511533"
+   width="45"
+   height="45"
+   viewBox="0 0 45.000001 45.000001"
    id="svg4"
    sodipodi:docname="shuttle-arrival.svg"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
@@ -46,7 +46,7 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="10.429825"
-     inkscape:cx="12.570492"
+     inkscape:cx="-4.9274047"
      inkscape:cy="28.105551"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
@@ -57,22 +57,22 @@
      id="layer1"
      inkscape:label="Back"
      style="display:inline"
-     transform="translate(-18.509427,-11.816652)" />
+     transform="translate(-18.509427,-15.328184)" />
   <g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Avion"
-     transform="translate(-18.509427,-11.816652)"
+     transform="translate(-18.509427,-15.328184)"
      style="display:inline">
     <path
-       style="display:inline;fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0.8629443;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 36.512015,12.272117 c 2.642258,-0.04996 10.956964,2.448479 14.566665,5.462491 l 3.554955,4.508721 C 82.633099,33.591668 52.190464,42.664013 37.552491,42.532598 l -18.599262,0.336358 -0.01233,-30.620832 z"
+       style="display:inline;fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0.7985549;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 35.705925,15.914715 c 2.450332,-0.04611 10.161079,2.260951 13.508587,5.044158 l 3.296739,4.163338 C 78.476929,35.601405 50.24553,43.978879 36.670816,43.857556 L 18.988572,44.168233 18.977232,15.89268 Z"
        id="path1387"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc" />
     <path
-       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#333333;stroke-width:0.8629443;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 51.374938,18.310952 -2.914299,0.31284 -7.617838,-0.03063 v 4.383703 l 9.564445,-0.275894 3.924488,-0.486765 z"
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#333333;stroke-width:0.7985549;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 49.489254,21.49103 -2.702616,0.288756 -7.064504,-0.02646 v 4.04795 l 8.869716,-0.25474 3.639432,-0.449462 z"
        id="path1466"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc" />
@@ -81,21 +81,21 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Bus"
-     transform="translate(-18.509427,-11.816652)">
+     transform="translate(-18.509427,-15.328184)">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.05109692px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0.32627743"
-       x="53.092079"
-       y="58.569324"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.82783699px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0.49569595"
+       x="48.16972"
+       y="60.332829"
        id="text917"><tspan
          sodipodi:role="line"
          id="tspan915"
-         x="53.092079"
-         y="58.569324"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333;fill-opacity:1;stroke-width:0.32627743">A</tspan></text>
+         x="48.16972"
+         y="60.332829"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333;fill-opacity:1;stroke-width:0.49569595">A</tspan></text>
     <g
        id="g854"
-       transform="matrix(0.47453427,0,0,0.47453427,33.281651,16.911617)">
+       transform="matrix(0.43849935,0,0,0.43849935,32.159886,20.20856)">
       <path
          id="path16"
          data-old_color="#A9CB73"

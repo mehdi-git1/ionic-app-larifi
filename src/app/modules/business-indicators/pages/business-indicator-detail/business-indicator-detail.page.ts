@@ -152,12 +152,12 @@ export class BusinessIndicatorDetailPage implements OnInit, AfterViewChecked {
         );
     }
     /**
-     * Vérifie si le bloc "actions à bord" est visible
+     * Vérifie si le PNC est CC LC sur le vol courant
      * @return vrai si c'est le cas, faux sinon
      */
-    isOnBoardActionsAvailable() {
-        return !(this.businessIndicator.aboardSpeciality === SpecialityEnum.CC
-            && this.businessIndicator.flight.haulType === HaulTypeEnum.LC);
+    isCcLc() {
+        return this.businessIndicator.aboardSpeciality === SpecialityEnum.CC
+            && this.businessIndicator.flight.haulType === HaulTypeEnum.LC;
     }
 
     /**
@@ -289,6 +289,4 @@ export class BusinessIndicatorDetailPage implements OnInit, AfterViewChecked {
             this.escoreChartContainer.insert(this.escoreChartRef);
         }
     }
-
-
 }
