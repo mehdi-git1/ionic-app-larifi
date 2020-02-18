@@ -1,5 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -13,28 +12,20 @@ import { DeviceService } from '../../../../core/services/device/device.service';
   styleUrls: ['./escore-chart.component.scss']
 })
 
-export class EscoreChartComponent implements OnInit, OnDestroy {
+export class EscoreChartComponent implements OnInit {
 
   @Input() businessIndicator: BusinessIndicatorModel;
   data: any;
   xAxisLabel: string;
 
-  view: any[];
-
   constructor(
     private translateService: TranslateService,
-    private deviceService: DeviceService,
-    private screenOrientation: ScreenOrientation
+    private deviceService: DeviceService
   ) {
-    this.detectOrientation();
   }
 
   ngOnInit() {
     this.initChart();
-  }
-
-  ngOnDestroy() {
-    console.log('ngOnDestroy');
   }
 
   /**
@@ -98,18 +89,5 @@ export class EscoreChartComponent implements OnInit, OnDestroy {
    */
   isMobile() {
     return !this.deviceService.isBrowser();
-  }
-
-  detectOrientation() {
-    this.screenOrientation.onChange().subscribe(
-      () => {
-        console.log('largeur', window.innerWidth);
-        console.log(this.screenOrientation.type);
-        console.log('Orientation change');
-
-        //   this.data = [];
-        //   setTimeout(() => this.initChart(), 200);
-      }
-    );
   }
 }

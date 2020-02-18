@@ -3,7 +3,8 @@ import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
 import { SpecialityEnum } from 'src/app/core/enums/speciality.enum';
 
 import {
-    AfterViewInit, Component, TemplateRef, ViewChild, ViewContainerRef, ViewRef
+    AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef,
+    ViewChild, ViewContainerRef, ViewRef
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
@@ -34,9 +35,10 @@ const ratingImagePath = 'assets/imgs/business-indicators/smiley-note-';
 @Component({
     selector: 'page-business-indicator-detail',
     templateUrl: 'business-indicator-detail.page.html',
-    styleUrls: ['./business-indicator-detail.page.scss']
+    styleUrls: ['./business-indicator-detail.page.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BusinessIndicatorDetailPage implements AfterViewInit {
+export class BusinessIndicatorDetailPage implements OnInit, AfterViewChecked {
 
     @ViewChild('escoreChartContainer', { read: ViewContainerRef, static: false }) escoreChartContainer: ViewContainerRef;
     @ViewChild('escoreChartTemplate', { read: TemplateRef, static: false }) escoreChartTemplate: TemplateRef<any>;
@@ -56,24 +58,28 @@ export class BusinessIndicatorDetailPage implements AfterViewInit {
     // On expose le composant pour le passer en input du composant edospnc-expandable-content dans le template html
     BusinessIndicatorPerfopsLegendComponent = BusinessIndicatorPerfopsLegendComponent;
 
-    currentOrientation: String;
-
+    pncPromise: Promise<PncModel>;
+    businessIndicatorPromise: Promise<BusinessIndicatorModel>;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private pncService: PncService,
         private onlineBusinessIndicatorService: OnlineBusinessIndicatorService,
-        private screenOrientation: ScreenOrientation
+        private screenOrientation: ScreenOrientation,
+        private ref: ChangeDetectorRef
     ) {
+        //  if (!this.deviceService.isBrowser()) {
+        this.detectOrientation();
+        //   }
+
         const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         const id = +this.activatedRoute.snapshot.paramMap.get('id');
-        this.pncService.getPnc(matricule).then(pnc => {
+        this.pncPromise = this.pncService.getPnc(matricule);
+        this.pncPromise.then(pnc => {
             this.pnc = pnc;
         });
-        this.currentOrientation = this.screenOrientation.type;
-        this.detectOrientation();
-
-        this.onlineBusinessIndicatorService.getBusinessIndicator(id).then(businessIndicator => {
+        this.businessIndicatorPromise = this.onlineBusinessIndicatorService.getBusinessIndicator(id);
+        this.businessIndicatorPromise.then(businessIndicator => {
             this.businessIndicator = businessIndicator;
             const escoreCommentsFiltered = this.filterValidEScoreComments(businessIndicator.escoreComments);
             escoreCommentsFiltered.sort((escoreComment, otherEscoreComment) => {
@@ -83,14 +89,20 @@ export class BusinessIndicatorDetailPage implements AfterViewInit {
             const shortLoopCommentsFiltered = this.filterValidShortLoopComments(businessIndicator.shortLoopComments);
             shortLoopCommentsFiltered.sort((shortLoopComment, otherShortLoopComment) => {
                 return this.sortShortLoopCommentCommentByRating(shortLoopComment, otherShortLoopComment);
+
             });
             this.shortLoopCommentsDataSource = new MatTableDataSource<ShortLoopCommentModel>(shortLoopCommentsFiltered);
         });
     }
 
-    ngAfterViewInit() {
-        setTimeout(() => this.escoreChartRef = this.escoreChartTemplate.createEmbeddedView(null), 2000);
+    ngOnInit() {
+        Promise.all([this.pncPromise, this.businessIndicatorPromise]).then(() => {
+            this.ref.markForCheck();
+        });
+    }
 
+    ngAfterViewChecked() {
+        this.insertEscoreChartTemplate();
     }
 
     /**
@@ -245,25 +257,38 @@ export class BusinessIndicatorDetailPage implements AfterViewInit {
         return isCcpAndLcFlight || isCcAndCcOrMcFlight;
     }
 
+    /**
+     * Détecte le changement d'orientation (portrait ou paysage)
+     */
     detectOrientation() {
         this.screenOrientation.onChange().subscribe(
             () => {
-                this.currentOrientation = this.screenOrientation.type;
+                this.removeEscoreChartTemplate();
+                this.insertEscoreChartTemplate();
+
             }
         );
     }
 
-    addChart() {
-        this.escoreChartRef = this.escoreChartTemplate.createEmbeddedView(null)
-        this.escoreChartContainer.insert(this.escoreChartRef);
-    }
-
-    removeChart() {
+    /**
+     * Détruit le composant qui affiche le diagramme des eScores
+     */
+    removeEscoreChartTemplate() {
         this.escoreChartContainer.remove();
+        this.escoreChartRef = undefined;
     }
 
-    reload() {
-        this.removeChart();
-        setTimeout(() => this.addChart(), 2000);
+    /**
+     * Forme le composant qui affiche le diagramme des eScores
+     */
+    insertEscoreChartTemplate() {
+        if (this.escoreChartRef === undefined && this.escoreChartTemplate !== undefined) {
+
+
+            this.escoreChartRef = this.escoreChartTemplate.createEmbeddedView(null);
+            this.escoreChartContainer.insert(this.escoreChartRef);
+        }
     }
+
+
 }
