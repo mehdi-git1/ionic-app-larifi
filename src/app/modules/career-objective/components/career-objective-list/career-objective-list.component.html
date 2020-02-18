@@ -14,8 +14,8 @@
                 {{careerObjectiveCategory.label}} </ion-select-option>
         </ion-select>
     </div>
-    <div class="button">
-        <ion-button *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS" (click)="goToCareerObjectiveCreation()" color="primarylight">
+    <div *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS">
+        <ion-button (click)="goToCareerObjectiveCreation()" color="primarylight">
             <ion-icon name="add" ios="md-add"></ion-icon>
             <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
         </ion-button>
