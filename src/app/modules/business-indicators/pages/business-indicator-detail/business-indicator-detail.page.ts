@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
 import { SpecialityEnum } from 'src/app/core/enums/speciality.enum';
+import { DeviceService } from 'src/app/core/services/device/device.service';
 
 import {
     AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef,
@@ -66,11 +67,12 @@ export class BusinessIndicatorDetailPage implements OnInit, AfterViewChecked {
         private pncService: PncService,
         private onlineBusinessIndicatorService: OnlineBusinessIndicatorService,
         private screenOrientation: ScreenOrientation,
-        private ref: ChangeDetectorRef
+        private changeDetectorRef: ChangeDetectorRef,
+        private deviceService: DeviceService
     ) {
-        //  if (!this.deviceService.isBrowser()) {
-        this.detectOrientation();
-        //   }
+        if (!this.deviceService.isBrowser()) {
+            this.detectOrientation();
+        }
 
         const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         const id = +this.activatedRoute.snapshot.paramMap.get('id');
@@ -97,7 +99,7 @@ export class BusinessIndicatorDetailPage implements OnInit, AfterViewChecked {
 
     ngOnInit() {
         Promise.all([this.pncPromise, this.businessIndicatorPromise]).then(() => {
-            this.ref.markForCheck();
+            this.changeDetectorRef.markForCheck();
         });
     }
 
@@ -283,8 +285,6 @@ export class BusinessIndicatorDetailPage implements OnInit, AfterViewChecked {
      */
     insertEscoreChartTemplate() {
         if (this.escoreChartRef === undefined && this.escoreChartTemplate !== undefined) {
-
-
             this.escoreChartRef = this.escoreChartTemplate.createEmbeddedView(null);
             this.escoreChartContainer.insert(this.escoreChartRef);
         }
