@@ -18,12 +18,12 @@
         </career-objective>
     </ng-template>
 </mat-expansion-panel>
-<div *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS && careerObjectives.length > 0" class="information-container">
+<div class="information-container" *ngIf="careerObjectives.length > 0">
     <div class="small-device status-legend">
         <span class="career-objective-status-dot draft-dot"></span>{{'CAREER_OBJECTIVE_LIST.STATUS.DRAFT' | translate}}
         <span class="career-objective-status-dot registered-dot"></span>{{'CAREER_OBJECTIVE_LIST.STATUS.REGISTERED' | translate}}
         <span class="career-objective-status-dot validated-dot"></span>{{'CAREER_OBJECTIVE_LIST.STATUS.VALIDATED' | translate}}
         <span class="career-objective-status-dot abandoned-dot"></span>{{'CAREER_OBJECTIVE_LIST.STATUS.ABANDONED' | translate}}
     </div>
-    <div class="information-message">{{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}</div>
+    <div *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS" class="information-message">{{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}</div>
 </div>
