@@ -6,6 +6,11 @@
             "BACK": "Version serveur",
             "LABELS": {
                 "TITLE": "Nouveautés de la version"
+            },
+            "CONFIRM_VERSION_UPDATE": {
+                "TITLE": "Une nouvelle version de eDossierPNC est disponible",
+                "MESSAGE": "Merci de mettre à jour votre application depuis le PNC Store afin de profiter pleinement des nouveautés eDossierPNC.",
+                "OK": "Ok"
             }
         },
         "AF_COMPANY": "AF",
