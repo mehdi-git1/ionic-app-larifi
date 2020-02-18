@@ -2,7 +2,7 @@
     <offline-indicator [object]="careerObjective" type="CAREER_OBJECTIVE"></offline-indicator>
     <ion-card-content class="ion-no-padding">
         <span class="value career-objective-date">{{careerObjective.creationDate | date : 'dd/MM/yyyy' : 'UTC'}}</span>
-        <span class="value career-objective-label">{{ careerObjective.title }}</span>
+        <span class="value career-objective-title">{{ careerObjective.title }}</span>
         <span class="value career-objective-category">{{ careerObjective.category.label }}</span>
         <span *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS" class="value career-objective-date">{{careerObjective.encounterDate | date : 'dd/MM/yyyy' : 'UTC'}}</span>
         <span *ngIf="displayMode === CareerObjectiveDisplayModeEnum.REDACTIONS" class="value career-objective-pnc">{{careerObjective.pnc.lastName}}

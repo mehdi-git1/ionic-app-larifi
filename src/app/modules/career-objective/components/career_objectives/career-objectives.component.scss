@@ -17,7 +17,7 @@ mat-expansion-panel {
         }
 
         &.mat-expansion-panel-header {
-            padding: 6px 20px 6px 15px;
+            padding: 6px 20px 6px 20px;
         }
 
         &.mat-expanded:hover,
@@ -32,29 +32,41 @@ mat-expansion-panel {
         }
 
         .career-objective-date {
-            min-width: 120px;
+            min-width: 98px;
+            flex: 1;
+        }
+
+        .career-objective-rappel-date {
+            min-width: 82px;
+            flex: 1;
+        }
+
+        .career-objective-fixed-date {
+            min-width: 94px;
             flex: 1;
         }
 
         .career-objective-title {
             flex: 2;
+            min-width: 182px;
         }
 
         .career-objective-category {
             flex: 1;
-            padding-right: 6px;
+            min-width: 117px;
         }
 
         .career-objective-pnc {
+            min-width: 95px;
             flex: 1;
         }
 
         .career-objective-status {
-            min-width: 140px;
+            min-width: 114px;
         }
 
         .career-objective-icone {
-            min-width: 62px;
+            min-width: 79px;
             justify-content: flex-end;
             display: flex;
         }
@@ -63,5 +75,27 @@ mat-expansion-panel {
     .mat-expansion-panel-body {
         padding: 0;
         margin: 0;
+    }
+}
+
+.information-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    .status-legend {
+        flex: 2;
+
+        .career-objective-status-dot {
+            margin-right: 5px;
+        }
+
+        .career-objective-status-dot:not(:first-child) {
+            margin-left: 10px;
+        }
+    }
+
+    .message-information {
+        flex: 1;
     }
 }
