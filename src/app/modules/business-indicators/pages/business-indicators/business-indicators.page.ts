@@ -129,10 +129,10 @@ export class BusinessIndicatorsPage implements AfterViewInit {
 
     compare(a: number | string, b: number | string, isAsc: boolean) {
         if ((!a || a === undefined) && b) {
-            return 1 * (isAsc ? 1 : -1);
+            return -1 * (isAsc ? 1 : -1);
         }
         if (a && (!b || b === undefined)) {
-            return -1 * (isAsc ? 1 : -1);
+            return 1 * (isAsc ? 1 : -1);
         }
         if ((!a || a === undefined) && (!b || b === undefined)) {
             return -1 * (isAsc ? 1 : -1);
