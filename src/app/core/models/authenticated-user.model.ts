@@ -20,7 +20,8 @@ export class AuthenticatedUserModel extends EDossierPncObjectModel {
     permissions: string[];
     appInitData: AppInitDataModel;
     userMessage: UserMessageModel;
-    appVersion: AppVersionModel;
+    currentAppVersion: AppVersionModel;
+    isUpToDate: boolean;
 
     getStorageId(): string {
         return this.matricule;

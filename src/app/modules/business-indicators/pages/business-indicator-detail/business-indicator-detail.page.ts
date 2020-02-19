@@ -118,12 +118,12 @@ export class BusinessIndicatorDetailPage {
         );
     }
     /**
-     * Vérifie si le bloc "actions à bord" est visible
+     * Vérifie si le PNC est CC LC sur le vol courant
      * @return vrai si c'est le cas, faux sinon
      */
-    isOnBoardActionsAvailable() {
-        return !(this.businessIndicator.aboardSpeciality === SpecialityEnum.CC
-            && this.businessIndicator.flight.haulType === HaulTypeEnum.LC);
+    isCcLc() {
+        return this.businessIndicator.aboardSpeciality === SpecialityEnum.CC
+            && this.businessIndicator.flight.haulType === HaulTypeEnum.LC;
     }
 
     /**
@@ -225,11 +225,4 @@ export class BusinessIndicatorDetailPage {
         return isCcpAndLcFlight || isCcAndCcOrMcFlight;
     }
 
-    /**
-     * Vérifie si le PNC est CC et vole sur LC
-     * @return vrai si c'est le cas, faux sinon
-     */
-    isPncCcLc() {
-        return this.pncService.isCcLc(this.pnc);
-    }
 }

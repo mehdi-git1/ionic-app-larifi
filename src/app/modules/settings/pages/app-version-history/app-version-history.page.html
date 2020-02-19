@@ -20,18 +20,14 @@
                 <ion-row>
                     <ion-col size="4">
                         <ion-list>
-                            <ion-item *ngFor="let appVersion of appVersions" (click)="editAppVersion(appVersion)"
-                                class="edit-app-version" [ngClass]="{'active':isAppVersionSelected(appVersion)}"
-                                class="clickable">
+                            <ion-item *ngFor="let appVersion of appVersions" (click)="editAppVersion(appVersion)" class="edit-app-version" [ngClass]="{'active':isAppVersionSelected(appVersion)}" class="clickable">
                                 <div class="circle">
                                     <ion-icon name="information-circle"></ion-icon>
                                 </div>
                                 <div class="description">
-                                    <span
-                                        class="app-version-number">{{ 'APP_VERSION_HISTORY.LABELS.NUMBER' | translate }}
+                                    <span class="app-version-number">{{ 'APP_VERSION_HISTORY.LABELS.NUMBER' | translate }}
                                         {{ appVersion.number }}</span>
-                                    <span
-                                        class="app-version-release-date">{{ 'APP_VERSION_HISTORY.LABELS.RELEASE_DATE' | translate }}
+                                    <span class="app-version-release-date">{{ 'APP_VERSION_HISTORY.LABELS.RELEASE_DATE' | translate }}
                                         {{ appVersion.releaseDate | date:'dd MMM yyyy':'UTC' }}</span>
                                 </div>
                             </ion-item>
@@ -44,10 +40,8 @@
                             <h3>{{ 'APP_VERSION_HISTORY.LABELS.VERSION_NOTE' | translate }}
                                 {{ selectedAppVersion.number }}
                             </h3>
-                            <div [innerHTML]="selectedAppVersion.changelog"></div>
                             <p class="content">
-                                <text-editor [mode]="TextEditorModeEnum.READ_ONLY"
-                                    [ngModel]="selectedAppVersion.changelog">
+                                <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="selectedAppVersion.changelog">
                                 </text-editor>
                             </p>
                         </ng-template>

@@ -1,0 +1,21 @@
+.show-text {
+    margin: 0.5em 0;
+    overflow: hidden;
+
+    a {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.line-clamp p {
+    margin: 0;
+    overflow: hidden;
+    text-align: justify;
+}
+
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}

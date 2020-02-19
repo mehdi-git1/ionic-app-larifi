@@ -28,4 +28,12 @@ export class AppVersionService {
     public getAppVersionById(id: number): Promise<AppVersionModel> {
         return this.restService.get(this.config.getBackEndUrl('getAppVersionById', [id]));
     }
+
+    /**
+     * Récupère la dernière version de l'application
+     * @return la dernière version de l'application
+     */
+    public getLastAppVersion(): Promise<AppVersionModel> {
+        return this.restService.get(this.config.getBackEndUrl('getLastAppVersion'));
+    }
 }

@@ -1,2 +1,2 @@
 <span *ngIf="valueIsValid()">{{value}}</span>
-<span *ngIf="!valueIsValid()" class="no-data" >{{'GLOBAL.DATA_NOT_AVAILABLE' | translate}}</span>
+<span *ngIf="!valueIsValid()" class="no-data"><span *ngIf="displayDash">-</span><span *ngIf="!displayDash">{{'GLOBAL.DATA_NOT_AVAILABLE' | translate}}</span></span>
