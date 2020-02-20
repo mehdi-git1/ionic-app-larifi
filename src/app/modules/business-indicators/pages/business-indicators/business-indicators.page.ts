@@ -220,19 +220,6 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     }
 
     /**
-     * Récupère l'indicateur métier le plus récent
-     * @return l'indicateur métier portant sur le vol le plus récent
-     */
-    getMostRecentBusinessIndicator(): BusinessIndicatorLightModel {
-        const sortedBusinessIndicators = this.businessIndicators.sort((businessIndicator1, businessIndicator2) => {
-            return this.compareDate(this.getPlannedDepartureDate(businessIndicator1),
-                this.getPlannedDepartureDate(businessIndicator2), false);
-        });
-
-        return sortedBusinessIndicators.length > 0 ? sortedBusinessIndicators[0] : null;
-    }
-
-    /**
      * Vérifie si l'on est connecté
      * @return true si on est connecté, false sinon
      */
