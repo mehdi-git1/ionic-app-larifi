@@ -59,15 +59,14 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
      * Recharge la liste des pncs de l'autocompletion aprés 500ms
      */
     initAutocompleteList() {
-        this.pncList = this.searchTerms
+        this.searchTerms
             .debounceTime(500)
             .distinctUntilChanged()
             .switchMap(
                 term => this.getAutoCompleteDataReturn(term)
             )
-            .catch(error => {
-                this.autoCompleteRunning = false;
-                return Observable.of<PncModel[]>([]);
+            .subscribe(pncList => {
+                this.handleAutoCompleteResponse(pncList);
             });
     }
 
@@ -95,7 +94,6 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
 
     /**
      * Gére plus finement le retour de l'autocomplete
-     * => Permet de gérer l'affichage du spinner et de forcer la position de l'autocompléte
      * @param term termes à rechercher pour l'autocomplete
      * @return Liste des pnc retrouvé par l'autocomplete
      */
@@ -103,18 +101,24 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
         if (term) {
             return from(this.pncService.pncAutoComplete(term).then(
                 data => {
-                    this.autoCompleteRunning = false;
-                    $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
                     return data;
                 }).catch(err => {
-                    this.autoCompleteRunning = false;
                     return err;
-                }
-                ));
+                })
+            );
         } else {
-            this.autoCompleteRunning = false;
             return Observable.of<PncModel[]>([]);
         }
+    }
+
+    /**
+     * Gère l'affichage du spinner et force la position de l'autocompléte et affiche une liste de PNC
+     * @param pncList la liste de PNC à afficher
+     */
+    handleAutoCompleteResponse(pncList: PncModel[]) {
+        this.autoCompleteRunning = false;
+        $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
+        this.pncList = Observable.of(pncList);
     }
 
     /**
