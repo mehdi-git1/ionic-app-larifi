@@ -26,6 +26,10 @@
             "DONE": "Valider",
             "CLEAR": "Vider"
         },
+        "PAGINATOR": {
+            "ITEM_PAR_PAGE_LABEL": "Nombre d'éléments par page",
+            "OF": "de"
+        },
         "MONTH": {
             "LONGNAME": "Janvier, Février, Mars , Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre"
         },
