@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="943.29651"
+   height="943.29651"
+   viewBox="0 0 943.29651 943.29651"
+   version="1.1"
+   id="svg88"
+   sodipodi:docname="favicon.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   inkscape:export-filename="E:\git\edospnc-cs\src\assets\icon\favicon.png"
+   inkscape:export-xdpi="6.5133286"
+   inkscape:export-ydpi="6.5133286">
+  <metadata
+     id="metadata92">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>SPLASHSCREEN EDOSSIER</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     id="namedview90"
+     showgrid="false"
+     inkscape:zoom="0.44948755"
+     inkscape:cx="35.136447"
+     inkscape:cy="263.3251"
+     inkscape:window-x="1791"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="SPLASHSCREEN-EDOSSIER"
+     inkscape:snap-bbox="true" />
+  <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+  <title
+     id="title66">SPLASHSCREEN EDOSSIER</title>
+  <desc
+     id="desc68">Created with Sketch.</desc>
+  <defs
+     id="defs75">
+    <linearGradient
+       id="linearGradient2311"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#f90000;stop-opacity:1;"
+         offset="0"
+         id="stop2309" />
+    </linearGradient>
+    <linearGradient
+       x1="0.52172446"
+       y1="0.68637055"
+       x2="0.64375585"
+       y2="0.55536211"
+       id="linearGradient-1">
+      <stop
+         stop-color="#D2010D"
+         offset="0%"
+         id="stop70" />
+      <stop
+         stop-color="#F90000"
+         offset="100%"
+         id="stop72" />
+    </linearGradient>
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(4.3543383,0,0,2.8198708,-2238.087,810.29798)"
+       x1="886.45703"
+       y1="95.291107"
+       x2="896.6756"
+       y2="93.713196"
+       id="linearGradient-1-7"
+       xlink:href="#linearGradient-1">
+      <stop
+         stop-color="#D2010D"
+         offset="0%"
+         id="stop258"
+         style="stop-color:#f90000;stop-opacity:1" />
+      <stop
+         stop-color="#F90000"
+         offset="100%"
+         id="stop260" />
+    </linearGradient>
+  </defs>
+  <g
+     id="SPLASHSCREEN-EDOSSIER"
+     style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1"
+     transform="translate(-912.14978,-582.88599)">
+    <rect
+       id="Background-color"
+       x="912.14978"
+       y="582.88599"
+       width="943.29651"
+       height="943.29651"
+       style="fill:#00818e;fill-opacity:1;stroke-width:0.55497384"
+       ry="471.64825"
+       inkscape:export-xdpi="6.5133286"
+       inkscape:export-ydpi="6.5133286"
+       inkscape:export-filename="C:\Users\M429676\favicon.png" />
+    <g
+       id="Txt-+-Accent"
+       transform="translate(785,1387)" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient-1-7);stroke-width:3.50409293;fill-opacity:1;stroke:none;stroke-opacity:1"
+       d="M 1514.4729,926.01615 1246.898,1297.8846 c -35.2334,48.9469 -92.3654,96.0565 -161.4067,101.0896 v 11.4347 h 297.5818 c 79.0253,0 136.6383,-49.3978 175.6787,-103.8343 l 274.7208,-380.55845 z"
+       id="Fill-1" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;fill-rule:nonzero;stroke-width:3.58454275"
+       d="m 1186.9122,1142.3548 c 29.2928,0 56.1446,-5.1532 80.5553,-15.46 24.4109,-10.3066 45.2953,-25.4956 62.6542,-45.5667 v 0 L 1281.3,1025.1832 c -11.3915,13.5619 -25.0885,24.1397 -41.0912,31.7341 -16.0024,7.5945 -32.9545,11.3915 -50.8555,11.3915 -25.4955,0 -46.6513,-7.1873 -63.4682,-21.5624 -16.8161,-14.3755 -26.3089,-33.7685 -28.479,-58.17921 v 0 h 246.5485 c 4.3397,-62.9253 -9.0861,-113.10316 -40.2778,-150.53294 -31.1919,-37.42978 -74.1814,-56.14469 -128.9699,-56.14469 -49.9061,0 -91.1337,16.81652 -123.6812,50.44886 -32.5478,33.63266 -48.8215,76.21599 -48.8215,127.74954 0,55.33094 17.0873,99.54164 51.2627,132.63164 34.175,33.0903 78.6569,49.6352 133.4453,49.6352 z m 65.0952,-214.81448 h -155.4149 c 1.0849,-22.78343 8.8149,-41.36239 23.1903,-55.73788 14.3752,-14.37512 32.6832,-21.56285 54.9241,-21.56285 22.7831,0 41.0912,7.05225 54.924,21.15598 13.8327,14.10414 21.2914,32.81901 22.3765,56.14475 z"
+       id="eDOSSIER"
+       sodipodi:nodetypes="scccccsccccsscscscccscc"
+       inkscape:transform-center-x="-66.102279"
+       inkscape:transform-center-y="-63.741495" />
+  </g>
+</svg>

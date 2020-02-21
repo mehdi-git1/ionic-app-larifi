@@ -26,7 +26,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
 
   @Input() searchMode: PncSearchModeEnum;
 
-  @Output() searchButtonClicked: EventEmitter<any> = new EventEmitter();
+  @Output() filterChange: EventEmitter<any> = new EventEmitter();
 
   @Output() pncSelected: EventEmitter<any> = new EventEmitter();
 
@@ -82,7 +82,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Déclenche une recherche (quand l'utilisateur clique sur le bouton rafraichir)
    */
   search(): void {
-    this.searchButtonClicked.next();
+    this.filterChange.next();
   }
 
   ngAfterViewInit() {
