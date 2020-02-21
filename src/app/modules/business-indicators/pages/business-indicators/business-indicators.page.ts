@@ -1,3 +1,9 @@
+import { Subject } from 'rxjs/Rx';
+import { BusinessIndicatorModel } from './../../../../core/models/business-indicator/business-indicator.model';
+import { from } from 'rxjs/observable/from';
+import { PagedBusinessIndicatorModel } from './../../../../core/models/business-indicator/paged-businessIndicator.model';
+import { Observable } from 'rxjs';
+import { BusinessIndicatorFilterModel } from './../../../../core/models/business-indicator/business-indicator-filter-model';
 import * as moment from 'moment';
 import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
 import { SpecialityEnum } from 'src/app/core/enums/speciality.enum';
@@ -5,7 +11,7 @@ import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import {
     MatPaginator, MatSort, MatTable, MatTableDataSource, PageEvent, Sort
 } from '@angular/material';
@@ -19,9 +25,6 @@ import {
 import {
     BusinessIndicatorSummaryModel
 } from '../../../../core/models/business-indicator/business-indicator-summary.model';
-import {
-    BusinessIndicatorModel
-} from '../../../../core/models/business-indicator/business-indicator.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
     BusinessIndicatorService
@@ -29,27 +32,27 @@ import {
 import {
     BusinessIndicatorFlightLegendComponent
 } from '../../components/business-indicator-flight-legend/business-indicator-flight-legend.component';
+import { switchMap } from 'rxjs-compat/operator/switchMap';
+import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
+import { BusinessIndicatorSortColumnEnum } from 'src/app/core/enums/business-indicators/business-indicators-sort-columns-enum';
 
 @Component({
     selector: 'page-business-indicators',
     templateUrl: 'business-indicators.page.html',
     styleUrls: ['./business-indicators.page.scss']
 })
-export class BusinessIndicatorsPage implements AfterViewInit {
+export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
 
-    pageSize = 20;
 
     TabHeaderEnum = TabHeaderEnum;
+    totalElements: number;
     pnc: PncModel;
     businessIndicatorSummary: BusinessIndicatorSummaryModel;
-    businessIndicators: BusinessIndicatorLightModel[];
-
+    businessIndicators: BusinessIndicatorModel[];
+    businessIndicatorsFilter: BusinessIndicatorFilterModel;
+    dataSource: MatTableDataSource<BusinessIndicatorModel>;
     businessIndicatorColumns: string[] = ['flightNumber', 'flightDate', 'stations', 'aboardFunction', 'eScore', 'flightActionsNumber'];
-
-    @ViewChild(MatSort, { static: false }) sort: MatSort;
-    @ViewChild(MatTable, { static: false }) table: MatTable<any>;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    dataSource: MatTableDataSource<BusinessIndicatorLightModel>;
+    businessIndicatorRequestSubject: Subject<any>;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -71,18 +74,25 @@ export class BusinessIndicatorsPage implements AfterViewInit {
             this.businessIndicatorSummary = businessIndicatorSummary;
         });
 
-        this.businessIndicatorService.findPncBusinessIndicators(matricule).then(businessIndicators => {
-            this.businessIndicators = businessIndicators;
-            this.getBusinessIndicatorsByPage(0);
-        });
+        this.getIndicatorsByFilter(matricule).subscribe(pagedIndicator => this.processRequestResult(pagedIndicator));
+        this.businessIndicatorRequestSubject
+            .switchMap(v => this.getIndicatorsByFilter(matricule))
+            .subscribe(pagedIndicator => this.processRequestResult(pagedIndicator));
     }
 
+    ngOnInit(): void {
+        this.businessIndicatorsFilter = new BusinessIndicatorFilterModel();
+        this.businessIndicatorsFilter.size = AppConstant.pageSize;
+        this.businessIndicatorsFilter.page = 0;
+        this.dataSource = new MatTableDataSource<BusinessIndicatorModel>(this.businessIndicators);
+        this.businessIndicatorRequestSubject = new Subject();
+    }
     /**
      * Vérifie que le chargement est terminé
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.pnc !== undefined && this.businessIndicators !== undefined && this.businessIndicatorSummary !== undefined;
+        return (this.pnc !== undefined && this.businessIndicators !== undefined && this.businessIndicatorSummary !== undefined);
     }
 
     /**
@@ -90,28 +100,28 @@ export class BusinessIndicatorsPage implements AfterViewInit {
      * @param sort évènement de tri
      */
     sortBusinessIndicators(sort: Sort) {
-        if (!this.businessIndicators || !sort.active || sort.direction === '') {
-            return;
-        }
+        const activeColumn = sort.active;
+        switch (activeColumn) {
+            case 'flightNumber':
+                this.businessIndicatorsFilter.sortColumn = BusinessIndicatorSortColumnEnum.FLIGHT_NUMBER;
+                break;
 
-        this.businessIndicators = this.businessIndicators.sort((businessIndicator1, businessIndicator2) => {
-            const isAsc = sort.direction === 'asc';
-            switch (sort.active) {
-                case 'flightNumber':
-                    return this.compare(businessIndicator1.flight.number, businessIndicator2.flight.number, isAsc);
-                case 'flightDate':
-                    return this.compareDate(this.getPlannedDepartureDate(businessIndicator1),
-                        this.getPlannedDepartureDate(businessIndicator2), isAsc);
-                case 'aboardFunction':
-                    return this.compare(businessIndicator1.aboardSpeciality, businessIndicator2.aboardSpeciality, isAsc);
-                case 'eScore':
-                    return this.compare(businessIndicator1.escore, businessIndicator2.escore, isAsc);
-                case 'flightActionsNumber':
-                    return this.compare(businessIndicator1.flightActionsTotalNumber, businessIndicator2.flightActionsTotalNumber, isAsc);
-                default: return 0;
-            }
-        });
-        this.getBusinessIndicatorsByPage(0);
+            case 'flightDate':
+                this.businessIndicatorsFilter.sortColumn = BusinessIndicatorSortColumnEnum.THEORETICAL_DATE;
+                break;
+            case 'aboardFunction':
+                this.businessIndicatorsFilter.sortColumn = BusinessIndicatorSortColumnEnum.ABOARD_SPECIALITY;
+                break;
+            case 'eScore':
+                this.businessIndicatorsFilter.sortColumn = BusinessIndicatorSortColumnEnum.ESCORE;
+                break;
+            default:
+                this.businessIndicatorsFilter.sortColumn = BusinessIndicatorSortColumnEnum.FLIGHT_ACTIONS_NUMBER;
+                break;
+        }
+        this.businessIndicatorsFilter.sortDirection = sort.direction === 'asc' ? SortDirection.ASC : SortDirection.DESC;
+        this.businessIndicatorRequestSubject.next();
+
     }
 
     /**
@@ -164,27 +174,10 @@ export class BusinessIndicatorsPage implements AfterViewInit {
      * @param event évènement déclenché
      */
     handlePage(event: PageEvent) {
-        this.getBusinessIndicatorsByPage(event.pageIndex);
+        this.businessIndicatorsFilter.page = event.pageIndex;
+        this.businessIndicatorRequestSubject.next();
     }
 
-    /**
-     * Récupère uniquement les indicateurs métier d'une page
-     * @param pageIndex index de la page
-     */
-    getBusinessIndicatorsByPage(pageIndex: number) {
-        const startIndex = pageIndex * this.pageSize;
-        const endIndex = (pageIndex + 1) * this.pageSize;
-        if (this.businessIndicators) {
-            let businessIndicatorsPage = this.businessIndicators.slice(startIndex, endIndex);
-            businessIndicatorsPage = this.preProcessBusinessIndicators(businessIndicatorsPage);
-            this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>(businessIndicatorsPage);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-            this.dataSource._updateChangeSubscription();
-        } else {
-            this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>();
-        }
-    }
 
     /**
      * Effectue les opérations de pre processing (pour affichage/tri) sur la liste des indicateurs métier passés en paramètre
@@ -232,23 +225,17 @@ export class BusinessIndicatorsPage implements AfterViewInit {
      * @param event l'événement déclencheur
      */
     showLegend(event: any) {
+
         this.popoverCtrl.create({
             component: BusinessIndicatorFlightLegendComponent,
-            event: event,
+            event,
             translucent: true,
-            componentProps: { hasNeverFlownAsCcLc: this.hasNeverFlownAsCcLc() }
+            componentProps: { hasNeverFlownAsCcLc: this.businessIndicatorSummary.hasNeverFlownAsCcLc }
         }).then(popover => {
             popover.present();
         });
     }
 
-    /**
-     * Vérifie si parmi tous les vols, le PNC n'a jamais volé en tant que CC sur LC
-     * @return vrai si c'est le cas, faux sinon
-     */
-    hasNeverFlownAsCcLc(): boolean {
-        return this.businessIndicators.every(businessIndicator => !this.isCcLc(businessIndicator));
-    }
 
     /**
      * Teste si la valeur existe
@@ -259,5 +246,45 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         return value !== undefined;
     }
 
+    /**
+     * Recupère les indicateurs metiers du pnc.
+     * @param matricule le matricule du pnc
+     * @return un observable contenant
+     * les indicateurs metiers dans la requete.
+     */
+    getIndicatorsByFilter(matricule: string): Observable<PagedBusinessIndicatorModel> {
+        return from(
+            this.businessIndicatorService.findPncBusinessIndicators
+                (matricule, this.businessIndicatorsFilter)
+        );
+    }
 
+    /**
+     * traite le resultat de la réquete
+     * de récherche d'indicateurs métiers.
+     *
+     * @param businessIndicators la liste des indicateurs metiers reçus.
+     */
+    processRequestResult(pagedBusinessIndicators: PagedBusinessIndicatorModel): void {
+        this.businessIndicators = pagedBusinessIndicators.content;
+        this.dataSource.data = this.businessIndicators;
+        this.totalElements = pagedBusinessIndicators.totalElements;
+    }
+
+
+    /**
+     * @return le nombre d'élements maximum
+     * affiché par page.
+     */
+    getPageSize(): number {
+        return this.businessIndicatorsFilter.size;
+    }
+
+    /**
+     * Le nombre total d'élements
+     * correspondant au filtre.
+     */
+    getTotalElements(): number {
+        return this.totalElements;
+    }
 }
