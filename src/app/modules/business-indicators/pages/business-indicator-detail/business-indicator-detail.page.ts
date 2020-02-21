@@ -1,10 +1,15 @@
 import * as moment from 'moment';
 import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
 import { SpecialityEnum } from 'src/app/core/enums/speciality.enum';
+import { DeviceService } from 'src/app/core/services/device/device.service';
 
-import { Component } from '@angular/core';
+import {
+    AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef,
+    ViewChild, ViewContainerRef, ViewRef
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 import { AppConstant } from '../../../../app.constant';
 import {
@@ -31,9 +36,16 @@ const ratingImagePath = 'assets/imgs/business-indicators/smiley-note-';
 @Component({
     selector: 'page-business-indicator-detail',
     templateUrl: 'business-indicator-detail.page.html',
-    styleUrls: ['./business-indicator-detail.page.scss']
+    styleUrls: ['./business-indicator-detail.page.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BusinessIndicatorDetailPage {
+export class BusinessIndicatorDetailPage implements OnInit, AfterViewChecked {
+
+    @ViewChild('escoreChartContainer', { read: ViewContainerRef, static: false }) escoreChartContainer: ViewContainerRef;
+    @ViewChild('escoreChartTemplate', { read: TemplateRef, static: false }) escoreChartTemplate: TemplateRef<any>;
+
+    escoreChartRef: ViewRef;
+
     // Le délai en plus qu'on accorde pour le départ navette
     EXTRA_DELAY = 5;
 
@@ -47,18 +59,29 @@ export class BusinessIndicatorDetailPage {
     // On expose le composant pour le passer en input du composant edospnc-expandable-content dans le template html
     BusinessIndicatorPerfopsLegendComponent = BusinessIndicatorPerfopsLegendComponent;
 
+    pncPromise: Promise<PncModel>;
+    businessIndicatorPromise: Promise<BusinessIndicatorModel>;
+
     constructor(
         private activatedRoute: ActivatedRoute,
         private pncService: PncService,
-        private onlineBusinessIndicatorService: OnlineBusinessIndicatorService
+        private onlineBusinessIndicatorService: OnlineBusinessIndicatorService,
+        private screenOrientation: ScreenOrientation,
+        private changeDetectorRef: ChangeDetectorRef,
+        private deviceService: DeviceService
     ) {
+        if (!this.deviceService.isBrowser()) {
+            this.detectOrientation();
+        }
+
         const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         const id = +this.activatedRoute.snapshot.paramMap.get('id');
-        this.pncService.getPnc(matricule).then(pnc => {
+        this.pncPromise = this.pncService.getPnc(matricule);
+        this.pncPromise.then(pnc => {
             this.pnc = pnc;
         });
-
-        this.onlineBusinessIndicatorService.getBusinessIndicator(id).then(businessIndicator => {
+        this.businessIndicatorPromise = this.onlineBusinessIndicatorService.getBusinessIndicator(id);
+        this.businessIndicatorPromise.then(businessIndicator => {
             this.businessIndicator = businessIndicator;
             const escoreCommentsFiltered = this.filterValidEScoreComments(businessIndicator.escoreComments);
             escoreCommentsFiltered.sort((escoreComment, otherEscoreComment) => {
@@ -68,9 +91,20 @@ export class BusinessIndicatorDetailPage {
             const shortLoopCommentsFiltered = this.filterValidShortLoopComments(businessIndicator.shortLoopComments);
             shortLoopCommentsFiltered.sort((shortLoopComment, otherShortLoopComment) => {
                 return this.sortShortLoopCommentCommentByRating(shortLoopComment, otherShortLoopComment);
+
             });
             this.shortLoopCommentsDataSource = new MatTableDataSource<ShortLoopCommentModel>(shortLoopCommentsFiltered);
         });
+    }
+
+    ngOnInit() {
+        Promise.all([this.pncPromise, this.businessIndicatorPromise]).then(() => {
+            this.changeDetectorRef.markForCheck();
+        });
+    }
+
+    ngAfterViewChecked() {
+        this.insertEscoreChartTemplate();
     }
 
     /**
@@ -225,4 +259,34 @@ export class BusinessIndicatorDetailPage {
         return isCcpAndLcFlight || isCcAndCcOrMcFlight;
     }
 
+    /**
+     * Détecte le changement d'orientation (portrait ou paysage)
+     */
+    detectOrientation() {
+        this.screenOrientation.onChange().subscribe(
+            () => {
+                this.removeEscoreChartTemplate();
+                this.insertEscoreChartTemplate();
+
+            }
+        );
+    }
+
+    /**
+     * Détruit le composant qui affiche le diagramme des eScores
+     */
+    removeEscoreChartTemplate() {
+        this.escoreChartContainer.remove();
+        this.escoreChartRef = undefined;
+    }
+
+    /**
+     * Forme le composant qui affiche le diagramme des eScores
+     */
+    insertEscoreChartTemplate() {
+        if (this.escoreChartRef === undefined && this.escoreChartTemplate !== undefined) {
+            this.escoreChartRef = this.escoreChartTemplate.createEmbeddedView(null);
+            this.escoreChartContainer.insert(this.escoreChartRef);
+        }
+    }
 }
