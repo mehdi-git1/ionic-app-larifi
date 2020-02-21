@@ -6,6 +6,9 @@ import {
     EObservationItemModel
 } from '../../../../core/models/eobservation/eobservation-item.model';
 import {
+    ReferentialItemLevelModel
+} from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
+import {
     ReferentialThemeModel
 } from '../../../../core/models/eobservation/eobservation-referential-theme.model';
 import {
@@ -51,6 +54,15 @@ export class EObsThemeComponent {
    */
   hasSubThemes(): boolean {
     return !(this.theme.subThemes === null || this.theme.subThemes.length === 0);
+  }
+
+  /**
+   * Trie la liste des levels
+   * @param levelList la liste des levels
+   * @return la liste des levels trié par ordre desc
+   */
+  sortLevelList(levelList: ReferentialItemLevelModel[]): ReferentialItemLevelModel[] {
+    return levelList.sort((a, b) => a.level < b.level ? 1 : -1);
   }
 
   /**
