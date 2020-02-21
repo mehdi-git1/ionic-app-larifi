@@ -1,4 +1,7 @@
+import { from, Observable, Subject } from 'rxjs';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
+import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
+import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,12 +29,10 @@ export class PncSearchPage implements AfterViewInit {
     searchInProgress = false;
 
     totalPncs: number;
-    pageSize: number;
     pageSizeOptions: number[];
     itemOffset: number;
 
-    page: number;
-    sizeOfThePage: number;
+    pageNumber: number;
     offset: number;
     sortColumn: string;
     sortDirection: string;
@@ -39,6 +40,8 @@ export class PncSearchPage implements AfterViewInit {
     searchMode: PncSearchModeEnum;
 
     pnc: PncModel;
+
+    searchFilters = new Subject<PncFilterModel>();
 
     // Expose l'enum au template
     TabHeaderEnum = TabHeaderEnum;
@@ -55,22 +58,27 @@ export class PncSearchPage implements AfterViewInit {
         private activatedRoute: ActivatedRoute,
         private router: Router
     ) {
-        this.sizeOfThePage = 0;
         this.searchMode = this.activatedRoute.snapshot.paramMap.get('mode') ?
             PncSearchModeEnum[this.activatedRoute.snapshot.paramMap.get('mode')]
             : PncSearchModeEnum.FULL;
+
+        this.searchFilters
+            .switchMap(filter => this.handlePncSearch(filter))
+            .subscribe(pagedPnc => {
+                this.handleSearchResponse(pagedPnc);
+            });
     }
 
     ngAfterViewInit() {
-        this.initSearchConfig();
-        this.searchPncs();
+        this.initPage();
     }
 
     /**
      * Initialisation du contenu de la page.
      */
     initPage() {
-        this.ngAfterViewInit();
+        this.initSearchConfig();
+        this.searchPncs();
     }
 
     /**
@@ -78,10 +86,8 @@ export class PncSearchPage implements AfterViewInit {
      */
     initSearchConfig() {
         this.totalPncs = 0;
-        this.pageSize = AppConstant.pageSize;
         this.itemOffset = 0;
-        this.page = 0;
-        this.sizeOfThePage = 0;
+        this.pageNumber = 0;
         this.sortColumn = '';
         this.sortDirection = '';
     }
@@ -90,29 +96,40 @@ export class PncSearchPage implements AfterViewInit {
      * recupere 10 pnc correspondant aux criteres saisis du filtre.
      */
     searchPncs() {
+        this.searchFilters.next(this.pncSearchFilter.pncFilter);
+    }
+
+    /**
+     * Gère l'affichage de l'effectif à afficher en fonction des filtres
+     * @param filter les filtres à appliquer
+     * @Return la liste de PNC filtrée
+     */
+    handlePncSearch(filter: PncFilterModel): Observable<PagedPncModel> {
         this.searchInProgress = true;
         this.infiniteScroll.disabled = false;
-        this.buildFilter();
+        this.pageNumber = this.itemOffset / AppConstant.pageSize;
+        this.filteredPncs = [];
 
-        this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+        return from(this.pncService.getFilteredPncs(filter, this.pageNumber, AppConstant.pageSize).then(pagedPnc => {
+            return pagedPnc;
+        }).catch((err) => {
+            return null;
+        }));
+    }
+
+    /**
+     * Gère L'affichage du contenu de la page
+     * @param pagedPnc le contenu de la page filtrée à afficher
+     */
+    handleSearchResponse(pagedPnc: PagedPncModel) {
+        if (pagedPnc !== null) {
             this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
             this.filteredPncs = pagedPnc.content;
             this.totalPncs = pagedPnc.page.totalElements;
             this.searchInProgress = false;
-        }).catch((err) => {
-            this.searchInProgress = false;
-        });
+        }
     }
 
-    /**
-     * Initialise le filtre de recherche.
-     */
-    buildFilter() {
-        // Pagination
-        this.page = this.itemOffset / this.pageSize;
-        this.sizeOfThePage = this.pageSize;
-        this.filteredPncs = [];
-    }
 
     /**
      * Permet de recharger les éléments dans la liste à scroller quand on arrive a la fin de la liste.
@@ -121,8 +138,8 @@ export class PncSearchPage implements AfterViewInit {
     doInfinite(event) {
         if (this.filteredPncs.length < this.totalPncs) {
             if (this.connectivityService.isConnected()) {
-                ++this.page;
-                this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+                ++this.pageNumber;
+                this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.pageNumber, AppConstant.pageSize).then(pagedPnc => {
                     this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
                     this.filteredPncs.push(...pagedPnc.content);
                     event.target.complete();
