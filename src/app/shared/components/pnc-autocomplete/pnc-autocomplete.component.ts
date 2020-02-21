@@ -112,8 +112,8 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
     }
 
     /**
-     * Gère l'affichage du spinner et force la position de l'autocompléte et affiche une liste de PNC
-     * @param pncList la liste de PNC à afficher
+     * Gère l'affichage du spinner, force la position de l'autocompléte et instancie une liste de PNC
+     * @param pncList la liste de PNC à instancier
      */
     handleAutoCompleteResponse(pncList: PncModel[]) {
         this.autoCompleteRunning = false;
