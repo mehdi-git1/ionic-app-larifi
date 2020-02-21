@@ -61,7 +61,7 @@
                     {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_CARD_12_LAST_MONTHS' | translate }}
                     <ion-icon name="help-circle" (click)="showLegend($event)" class="clickable"> </ion-icon>
                 </h3>
-                <div class="mat-elevation-z8 test">
+                <div class="mat-elevation-z8">
                     <table mat-table matSort matSortActive="flightDate" matSortDirection="desc"
                         (matSortChange)="sortBusinessIndicators($event)" [dataSource]="dataSource"
                         class="flight-cards-table mat-elevation-z8">
