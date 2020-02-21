@@ -23,7 +23,7 @@
                         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}
                         </ion-label>
 
-                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="divisionControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="divisionControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
                             <ion-select-option *ngIf="!divisionList || divisionList.length != 1" [value]="valueAll">
                                 {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
                             </ion-select-option>
@@ -38,7 +38,7 @@
                     <div class="flex2">
                         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}
                         </ion-label>
-                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="sectorControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
+                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="sectorControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
                             <ion-select-option *ngIf="!sectorList || sectorList.length != 1" [value]="valueAll">
                                 {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                             </ion-select-option>
@@ -50,7 +50,7 @@
                     <div class="flex2">
                         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}
                         </ion-label>
-                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="ginqControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
+                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="ginqControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
                             <ion-select-option *ngIf="!ginqList || ginqList.length != 1" [value]="valueAll">
                                 {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                             </ion-select-option>
@@ -75,7 +75,7 @@
                     <div class="flex1" *ngIf="!isAlternantSearch()">
                         <ion-label class="input-label">
                             {{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
-                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="specialityControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="specialityControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
                             <ion-select-option *ngIf="!specialityList || specialityList.length != 1" [value]="valueAll">
                                 {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
                             </ion-select-option>
@@ -87,7 +87,7 @@
                     <div class="flex1">
                         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}
                         </ion-label>
-                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="aircraftSkillControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="aircraftSkillControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
                             <ion-select-option *ngIf="!aircraftSkillList || aircraftSkillList.length != 1" [value]="valueAll">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
                             </ion-select-option>
                             <ion-select-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{aircraftSkillKey}}</ion-select-option>
@@ -97,7 +97,7 @@
                     <div class="flex1" *ngIf="!isAlternantSearch()">
                         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.RELAY' | translate }}
                         </ion-label>
-                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="relayControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
+                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="relayControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
                             <ion-select-option *ngIf="!relayList || relayList.length != 1" [value]="valueAll">
                                 {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                             </ion-select-option>
@@ -111,7 +111,7 @@
                     <div class="flex1" *ngIf="!isAlternantSearch()">
                         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.PRIORITY_CATEGORY' | translate }}
                         </ion-label>
-                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="priorityCategoryControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+                        <ion-select interface="popover" [compareWith]="compareFn" formControlName="priorityCategoryControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
                             <ion-select-option *ngIf="!priorityCategoryList || priorityCategoryList.length != 1" [value]="valueAll">
                                 {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
                             </ion-select-option>
@@ -131,18 +131,18 @@
                         <ion-label>
                             <div>{{ 'PNC_SEARCH.CRITERIA.PRIORITIZED' | translate }}</div><span class="edospnc-flag prioritized"></span>
                         </ion-label>
-                        <ion-checkbox slot="start" [(ngModel)]="prioritized" [disabled]="noPriority || areFiltersDisabled()" formControlName="prioritizedControl">
+                        <ion-checkbox slot="start" [(ngModel)]="prioritized" formControlName="prioritizedControl">
                         </ion-checkbox>
                     </ion-item>
                     <!-- En cours -->
                     <ion-item lines="none" class="flex3">
                         <ion-label>{{ 'PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS' | translate }}<span class="edospnc-flag at-least-one-priority"></span></ion-label>
-                        <ion-checkbox slot="start" [(ngModel)]="priority" [disabled]="noPriority || areFiltersDisabled()" formControlName="hasAtLeastOnePriorityInProgressControl"></ion-checkbox>
+                        <ion-checkbox slot="start" [(ngModel)]="priority" formControlName="hasAtLeastOnePriorityInProgressControl"></ion-checkbox>
                     </ion-item>
                     <!-- Pas de priorité -->
                     <ion-item lines="none" class="flex4">
                         <ion-label>{{ 'PNC_SEARCH.CRITERIA.NO_PRIORITY' | translate }}</ion-label>
-                        <ion-checkbox slot="start" [(ngModel)]="noPriority" [disabled]="prioritized || priority || areFiltersDisabled()" formControlName="hasNoPriorityControl">
+                        <ion-checkbox slot="start" [(ngModel)]="noPriority" formControlName="hasNoPriorityControl">
                         </ion-checkbox>
                     </ion-item>
                 </div>
