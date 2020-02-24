@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
   selector: 'work-rate-circle',
@@ -6,7 +6,7 @@ import { AfterViewChecked, Component, Input } from '@angular/core';
   styleUrls: ['./work-rate-circle.component.scss']
 })
 
-export class WorkRateCircleComponent implements AfterViewChecked {
+export class WorkRateCircleComponent implements OnInit, OnChanges {
 
   @Input() workRate: number;
   @Input() diameter: number;
@@ -17,11 +17,22 @@ export class WorkRateCircleComponent implements AfterViewChecked {
   circumference: number;
   offset: number;
 
-  ngAfterViewChecked() {
+  ngOnInit() {
+    this.initWorkRateCircle();
+
+  }
+
+  ngOnChanges() {
+    this.initWorkRateCircle();
+  }
+
+  /**
+   * instancie les paramètres necessaire à l'affichage du work rate circle
+   */
+  initWorkRateCircle() {
     this.radius = (this.diameter / 2) - this.strokeWidth;
     this.center = this.diameter / 2;
     this.circumference = this.radius * 2 * Math.PI;
     this.offset = this.circumference - this.workRate / 100 * this.circumference;
   }
-
 }
