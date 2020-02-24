@@ -18,7 +18,6 @@ export class WorkRateCircleComponent implements OnChanges {
   offset: number;
 
   ngOnChanges() {
-    console.log('test');
     this.initWorkRateCircle();
   }
 
