@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'work-rate-circle',
@@ -6,7 +6,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
   styleUrls: ['./work-rate-circle.component.scss']
 })
 
-export class WorkRateCircleComponent implements OnInit, OnChanges {
+export class WorkRateCircleComponent implements OnChanges {
 
   @Input() workRate: number;
   @Input() diameter: number;
@@ -17,12 +17,8 @@ export class WorkRateCircleComponent implements OnInit, OnChanges {
   circumference: number;
   offset: number;
 
-  ngOnInit() {
-    this.initWorkRateCircle();
-
-  }
-
   ngOnChanges() {
+    console.log('test');
     this.initWorkRateCircle();
   }
 
