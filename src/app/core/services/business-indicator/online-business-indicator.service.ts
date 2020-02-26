@@ -22,10 +22,10 @@ export class OnlineBusinessIndicatorService {
     /**
      * Récupère les indicateurs métier du Pnc
      * @param matricule le matricule du Pnc
-     * @param filtres filtres à appliquer à la requete
+     * @param filters filtres à appliquer à la requete
      * @return Les indicateurs métiers du PNC
      */
-    findPncBusinessIndicators(matricule: string, filtres: BusinessIndicatorFilterModel): Promise<BusinessIndicatorLightModel[]> {
+    findPncBusinessIndicators(matricule: string, filters: BusinessIndicatorFilterModel): Promise<BusinessIndicatorLightModel[]> {
         return this.restService.get(this.config.getBackEndUrl('findPncBusinessIndicators', [matricule]), filtres);
     }
 

@@ -34,7 +34,7 @@ export class EdossierPaginationIntl extends MatPaginatorIntl {
     }
 
     translateLabels() {
-        this.itemsPerPageLabel = this.translateService.instant('GLOBAL.PAGINATOR.ITEM_PAR_PAGE_LABEL');
+        this.itemsPerPageLabel = this.translateService.instant('GLOBAL.PAGINATOR.ITEM_BY_PAGE_LABEL');
         this.ofLabel = this.translateService.instant('GLOBAL.PAGINATOR.OF');
     }
 }

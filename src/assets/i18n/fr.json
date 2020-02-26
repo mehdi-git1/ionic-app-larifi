@@ -27,7 +27,7 @@
             "CLEAR": "Vider"
         },
         "PAGINATOR": {
-            "ITEM_PAR_PAGE_LABEL": "Nombre d'éléments par page",
+            "ITEM_BY_PAGE_LABEL": "Nombre d'éléments par page",
             "OF": "de"
         },
         "MONTH": {
