@@ -1,27 +1,29 @@
-<mat-expansion-panel id="matExpansionPanelCareerObjective" [expanded]="true"
-    [ngClass]="{'no-data' : careerObjectives.length === 0}">
-    <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight"
-        hideToggle="true" class="elevation-2">
+<mat-expansion-panel id="matExpansionPanelCareerObjective" [expanded]="true" [ngClass]="{'no-data' : careerObjectives.length === 0}">
+    <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true" class="elevation-2">
         <label class="career-objective-date"> {{ 'CAREER_OBJECTIVE_LIST.LIST.CREATION_DATE' | translate }} </label>
         <label class="career-objective-title"> {{ 'CAREER_OBJECTIVE_LIST.LIST.TITLE' | translate }} </label>
         <label class="career-objective-category"> {{ 'CAREER_OBJECTIVE_LIST.LIST.CATEGORY' | translate }} </label>
-        <label *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS" class="career-objective-date">
+        <label *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS" class="career-objective-fixed-date">
             {{ 'CAREER_OBJECTIVE_LIST.LIST.ENCOUNTER_DATE' | translate }} </label>
         <label *ngIf="displayMode === CareerObjectiveDisplayModeEnum.REDACTIONS" class="career-objective-pnc">
             {{ 'CAREER_OBJECTIVE_LIST.LIST.PNC' | translate }} </label>
-        <label class="career-objective-date"> {{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}
+        <label class="career-objective-rappel-date"> {{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}
         </label>
         <label class="career-objective-status"> {{ 'CAREER_OBJECTIVE_LIST.LIST.STATUS' | translate }} </label>
         <label class="career-objective-icone"></label>
     </mat-expansion-panel-header>
     <no-data *ngIf="careerObjectives.length === 0; else careerObjectivesDataBlock"></no-data>
     <ng-template #careerObjectivesDataBlock>
-        <career-objective *ngFor="let careerObjective of careerObjectives" [careerObjective]="careerObjective"
-            [offlineAction]="careerObjective.offlineAction" [displayMode]="displayMode"
-            (click)="openCareerObjective(careerObjective)">
+        <career-objective *ngFor="let careerObjective of careerObjectives" [careerObjective]="careerObjective" [offlineAction]="careerObjective.offlineAction" [displayMode]="displayMode" (click)="openCareerObjective(careerObjective)">
         </career-objective>
     </ng-template>
 </mat-expansion-panel>
-<div *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS && careerObjectives.length > 0">
-    <div class="information-message">{{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}</div>
+<div class="information-container" *ngIf="careerObjectives.length > 0">
+    <div class="small-device status-legend">
+        <span class="career-objective-status-dot draft-dot"></span>{{'CAREER_OBJECTIVE_LIST.STATUS.DRAFT' | translate}}
+        <span class="career-objective-status-dot registered-dot"></span>{{'CAREER_OBJECTIVE_LIST.STATUS.REGISTERED' | translate}}
+        <span class="career-objective-status-dot validated-dot"></span>{{'CAREER_OBJECTIVE_LIST.STATUS.VALIDATED' | translate}}
+        <span class="career-objective-status-dot abandoned-dot"></span>{{'CAREER_OBJECTIVE_LIST.STATUS.ABANDONED' | translate}}
+    </div>
+    <div *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS" class="information-message">{{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}</div>
 </div>

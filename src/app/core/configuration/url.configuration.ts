@@ -77,7 +77,8 @@ export class UrlConfiguration {
     'getDwhHistory': `${urlGroupEnum.DWH_HISTORY}/{matricule}`,
     'findPncBusinessIndicators': `${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/list`,
     'getBusinessIndicatorSummary': `${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/summary`,
-    'getBusinessIndicator': `${urlGroupEnum.BUSINESS_INDICATORS}/{id}`
+    'getBusinessIndicator': `${urlGroupEnum.BUSINESS_INDICATORS}/{id}`,
+    getLastAppVersion: `${urlGroupEnum.APP_VERSION}/last`
   };
 
   /**

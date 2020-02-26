@@ -22,7 +22,7 @@ export class AppVersionAlertService {
    * Gère l'affichage des versions
    */
   handleAppVersion() {
-    const appVersion = this.sessionService.authenticatedUser.appVersion;
+    const appVersion = this.sessionService.authenticatedUser.currentAppVersion;
     if (appVersion && this.isAppVersionToDisplay(appVersion)) {
       this.displayAppVersion(appVersion);
     }

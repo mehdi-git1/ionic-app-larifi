@@ -6,7 +6,7 @@
         </page-header>
     </ion-toolbar>
     <pnc-edossier-header [activeTab]="TabHeaderEnum.ALTERNANT_SEARCH"></pnc-edossier-header>
-    <pnc-search-filter [searchMode]="searchMode" (searchButtonClicked)="searchPncs()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
+    <pnc-search-filter [searchMode]="searchMode" (filterChange)="searchPncs()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
 </ion-header>
 
 <ion-content no-bounce>
