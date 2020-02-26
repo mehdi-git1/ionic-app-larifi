@@ -1,3 +1,5 @@
+import { BusinessIndicatorFilterModel } from './../../models/business-indicator/business-indicator-filter-model';
+import { PagedBusinessIndicatorModel } from './../../models/business-indicator/paged-businessIndicator.model';
 import { OnlineBusinessIndicatorService } from './online-business-indicator.service';
 import { OfflineBusinessIndicatorService } from './offline-business-indicator.service';
 import { ConnectivityService } from './../connectivity/connectivity.service';
@@ -24,16 +26,18 @@ export class BusinessIndicatorService extends BaseService {
             connectivityService,
             onlineBusinessIndicatorService,
             offlineBusinessIndicatorService
-          );
-     }
+        );
+    }
 
     /**
      * Récupère les indicateurs métier du Pnc
      * @param matricule le matricule du Pnc
+     * @param filters les filtres à appliquer à la requete
+     * 
      * @return Les indicateurs métiers du PNC
      */
-    findPncBusinessIndicators(matricule: string): Promise<BusinessIndicatorLightModel[]> {
-        return this.execFunctionService('findPncBusinessIndicators', matricule);
+    findPncBusinessIndicators(matricule: string, filters: BusinessIndicatorFilterModel): Promise<PagedBusinessIndicatorModel> {
+        return this.execFunctionService('findPncBusinessIndicators', matricule, filters);
     }
 
     /**

@@ -1,3 +1,4 @@
+import { BusinessIndicatorFilterModel } from './../../models/business-indicator/business-indicator-filter-model';
 import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
@@ -21,10 +22,11 @@ export class OnlineBusinessIndicatorService {
     /**
      * Récupère les indicateurs métier du Pnc
      * @param matricule le matricule du Pnc
+     * @param filters filtres à appliquer à la requete
      * @return Les indicateurs métiers du PNC
      */
-    findPncBusinessIndicators(matricule: string): Promise<BusinessIndicatorLightModel[]> {
-        return this.restService.get(this.config.getBackEndUrl('findPncBusinessIndicators', [matricule]));
+    findPncBusinessIndicators(matricule: string, filters: BusinessIndicatorFilterModel): Promise<BusinessIndicatorLightModel[]> {
+        return this.restService.get(this.config.getBackEndUrl('findPncBusinessIndicators', [matricule]), filtres);
     }
 
     /**

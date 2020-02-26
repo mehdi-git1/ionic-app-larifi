@@ -1,4 +1,5 @@
-import { EdosPncMatPaginatorIntl } from './material.paginator.international';
+import { TranslateService } from '@ngx-translate/core';
+import { EdossierPaginationIntl } from './Edossier-Pagination-Intl';
 import { NgModule } from '@angular/core';
 import {
     DateAdapter, MAT_DATE_LOCALE, MatAutocompleteModule, MatButtonModule, MatCardModule,
@@ -38,9 +39,10 @@ import { MatSelectModule } from '@angular/material/select';
         MatCardModule
     ],
     providers: [
+        TranslateService,
         { provide: DateAdapter, useClass: NativeDateAdapter },
         { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
-        { provide: MatPaginatorIntl, useClass: EdosPncMatPaginatorIntl}
+        { provide: MatPaginatorIntl, useClass: EdossierPaginationIntl },
     ]
 })
 export class AppMaterialModule { }
