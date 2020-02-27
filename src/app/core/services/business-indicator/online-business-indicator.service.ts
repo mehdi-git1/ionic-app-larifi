@@ -1,8 +1,10 @@
-import { BusinessIndicatorFilterModel } from './../../models/business-indicator/business-indicator-filter-model';
 import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { RestService } from '../../http/rest/rest.base.service';
+import {
+    BusinessIndicatorFilterModel
+} from '../../models/business-indicator/business-indicator-filter-model';
 import {
     BusinessIndicatorLightModel
 } from '../../models/business-indicator/business-indicator-light.model';
@@ -26,7 +28,7 @@ export class OnlineBusinessIndicatorService {
      * @return Les indicateurs métiers du PNC
      */
     findPncBusinessIndicators(matricule: string, filters: BusinessIndicatorFilterModel): Promise<BusinessIndicatorLightModel[]> {
-        return this.restService.get(this.config.getBackEndUrl('findPncBusinessIndicators', [matricule]), filtres);
+        return this.restService.get(this.config.getBackEndUrl('findPncBusinessIndicators', [matricule]), filters);
     }
 
     /**
