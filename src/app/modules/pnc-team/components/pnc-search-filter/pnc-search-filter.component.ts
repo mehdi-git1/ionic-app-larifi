@@ -1,7 +1,7 @@
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
 
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Events, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -60,7 +60,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
 
   constructor(
     private sessionService: SessionService,
-    private formBuilder: FormBuilder,
     private connectivityService: ConnectivityService,
     private events: Events,
     public popoverCtrl: PopoverController,
@@ -69,6 +68,11 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
       this.search();
+      if (!connected) {
+        this.searchForm.disable();
+      } else {
+        this.searchForm.enable();
+      }
     });
 
     this.events.subscribe('user:authenticationDone', () => {
@@ -90,23 +94,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.initFilter();
     // Initialisation du formulaire
     this.initForm();
-  }
-
-  getFormattedPriorityFilter(): string {
-    let filterValues = '';
-    if (this.prioritized) {
-      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITIZED_SHORT') + ',';
-    }
-    if (this.priority) {
-      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS_SHORT') + ',';
-    }
-    if (this.noPriority) {
-      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.NO_PRIORITY_SHORT') + ',';
-    }
-    if (filterValues.length > 0 && filterValues.charAt(filterValues.length - 1) === ',') {
-      filterValues = filterValues.substr(0, filterValues.length - 1);
-    }
-    return filterValues;
   }
 
   /**
