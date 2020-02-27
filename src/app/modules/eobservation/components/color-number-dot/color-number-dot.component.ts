@@ -20,14 +20,14 @@ export class ColorNumberDotComponent {
    * @return la classe à utiliser
    */
   getNumberDotColorClass(): string {
-    if (this.numberText == EObservationLevelEnum.getLabel(EObservationLevelEnum.LEVEL_1)) {
+    if (this.numberText === EObservationLevelEnum.getLabel(EObservationLevelEnum.LEVEL_1)) {
       return 'number-dot-1';
-    } else if (this.numberText == EObservationLevelEnum.getLabel(EObservationLevelEnum.LEVEL_2)) {
+    } else if (this.numberText === EObservationLevelEnum.getLabel(EObservationLevelEnum.LEVEL_2)) {
       return 'number-dot-2';
-    } else if (this.numberText == EObservationLevelEnum.getLabel(EObservationLevelEnum.LEVEL_3)
-      || this.numberText == EObservationLevelEnum.getLabel(EObservationLevelEnum.C)) {
+    } else if (this.numberText === EObservationLevelEnum.getLabel(EObservationLevelEnum.LEVEL_3)
+      || this.numberText === EObservationLevelEnum.getLabel(EObservationLevelEnum.C)) {
       return 'number-dot-3';
-    } else if (this.numberText == EObservationLevelEnum.getLabel(EObservationLevelEnum.LEVEL_4)) {
+    } else if (this.numberText === EObservationLevelEnum.getLabel(EObservationLevelEnum.LEVEL_4)) {
       return 'number-dot-4';
     } else {
       return 'number-dot-default';
