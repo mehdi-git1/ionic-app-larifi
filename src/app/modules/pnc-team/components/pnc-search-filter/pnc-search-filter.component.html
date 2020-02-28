@@ -131,18 +131,18 @@
                         <ion-label>
                             <div>{{ 'PNC_SEARCH.CRITERIA.PRIORITIZED' | translate }}</div><span class="edospnc-flag prioritized"></span>
                         </ion-label>
-                        <ion-checkbox slot="start" [(ngModel)]="prioritized" formControlName="prioritizedControl">
+                        <ion-checkbox slot="start" [(ngModel)]="prioritized" [disabled]="noPriority" formControlName="prioritizedControl">
                         </ion-checkbox>
                     </ion-item>
                     <!-- En cours -->
                     <ion-item lines="none" class="flex3">
                         <ion-label>{{ 'PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS' | translate }}<span class="edospnc-flag at-least-one-priority"></span></ion-label>
-                        <ion-checkbox slot="start" [(ngModel)]="priority" formControlName="hasAtLeastOnePriorityInProgressControl"></ion-checkbox>
+                        <ion-checkbox slot="start" [(ngModel)]="priority" [disabled]="noPriority" formControlName="hasAtLeastOnePriorityInProgressControl"></ion-checkbox>
                     </ion-item>
                     <!-- Pas de priorité -->
                     <ion-item lines="none" class="flex4">
                         <ion-label>{{ 'PNC_SEARCH.CRITERIA.NO_PRIORITY' | translate }}</ion-label>
-                        <ion-checkbox slot="start" [(ngModel)]="noPriority" formControlName="hasNoPriorityControl">
+                        <ion-checkbox slot="start" [(ngModel)]="noPriority" [disabled]="prioritized || priority" formControlName="hasNoPriorityControl">
                         </ion-checkbox>
                     </ion-item>
                 </div>
