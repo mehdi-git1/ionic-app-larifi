@@ -70,9 +70,8 @@ export class BusinessIndicatorDetailPage implements OnInit, AfterViewChecked {
         private changeDetectorRef: ChangeDetectorRef,
         private deviceService: DeviceService
     ) {
-        if (!this.deviceService.isBrowser()) {
-            this.detectOrientation();
-        }
+        this.detectOrientation();
+
 
         const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         const id = +this.activatedRoute.snapshot.paramMap.get('id');

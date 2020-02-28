@@ -151,6 +151,8 @@
 
             <!-- Graphique d'eScore -->
             <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.TITLE' | translate}}">
+                <button (click)="removeEscoreChartTemplate()">removeEscoreChartTemplate</button>
+                <button (click)="insertEscoreChartTemplate()">insertEscoreChartTemplate</button>
                 <div class="content" #escoreChartContainer></div>
                 <ng-template #escoreChartTemplate>
                     <escore-chart [businessIndicator]="businessIndicator"></escore-chart>
