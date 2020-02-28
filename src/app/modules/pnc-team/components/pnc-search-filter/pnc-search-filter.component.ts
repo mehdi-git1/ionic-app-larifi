@@ -1,7 +1,7 @@
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
 
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Events, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -60,7 +60,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
 
   constructor(
     private sessionService: SessionService,
-    private formBuilder: FormBuilder,
     private connectivityService: ConnectivityService,
     private events: Events,
     public popoverCtrl: PopoverController,
@@ -69,6 +68,11 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
       this.search();
+      if (!connected) {
+        this.searchForm.disable();
+      } else {
+        this.searchForm.enable();
+      }
     });
 
     this.events.subscribe('user:authenticationDone', () => {
@@ -90,23 +94,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.initFilter();
     // Initialisation du formulaire
     this.initForm();
-  }
-
-  getFormattedPriorityFilter(): string {
-    let filterValues = '';
-    if (this.prioritized) {
-      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITIZED_SHORT') + ',';
-    }
-    if (this.priority) {
-      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS_SHORT') + ',';
-    }
-    if (this.noPriority) {
-      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.NO_PRIORITY_SHORT') + ',';
-    }
-    if (filterValues.length > 0 && filterValues.charAt(filterValues.length - 1) === ',') {
-      filterValues = filterValues.substr(0, filterValues.length - 1);
-    }
-    return filterValues;
   }
 
   /**
@@ -174,7 +161,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('prioritizedControl').setValue(false);
     this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(false);
     this.searchForm.get('hasNoPriorityControl').setValue(false);
-    this.searchForm.get('priorityControl').setValue(new Array());
     this.searchForm.get('hasDefaultHiddenEventsControl').setValue(false);
     this.searchForm.get('hasHiddenEventsControl').setValue(false);
     this.search();
@@ -192,20 +178,55 @@ export class PncSearchFilterComponent implements AfterViewInit {
       SpecialityEnum.ALT
       : (this.pncFilter.speciality ? this.pncFilter.speciality : AppConstant.ALL);
 
-    this.searchForm = this.formBuilder.group({
-      divisionControl: [this.pncFilter.division ? this.pncFilter.division : AppConstant.ALL],
-      sectorControl: [this.pncFilter.sector ? this.pncFilter.sector : AppConstant.ALL],
-      ginqControl: [this.pncFilter.ginq ? this.pncFilter.ginq : AppConstant.ALL],
-      specialityControl: [specialityInitValue],
-      aircraftSkillControl: [this.pncFilter.aircraftSkill ? this.pncFilter.aircraftSkill : AppConstant.ALL],
-      relayControl: [this.pncFilter.relay ? this.pncFilter.relay : AppConstant.ALL],
-      priorityCategoryControl: [this.pncFilter ? this.pncFilter.priorityCategoryCode : AppConstant.ALL],
-      priorityControl: [new Array()],
-      prioritizedControl: [false],
-      hasAtLeastOnePriorityInProgressControl: [false],
-      hasNoPriorityControl: [false],
-      hasDefaultHiddenEventsControl: [false],
-      hasHiddenEventsControl: [false]
+    this.searchForm = new FormGroup({
+      divisionControl: new FormControl({
+        value: [this.pncFilter.division ? this.pncFilter.division : AppConstant.ALL],
+        disabled: this.areFiltersDisabled()
+      }),
+      sectorControl: new FormControl({
+        value: [this.pncFilter.sector ? this.pncFilter.sector : AppConstant.ALL],
+        disabled: this.areFiltersDisabled()
+      }),
+      ginqControl: new FormControl({
+        value: [this.pncFilter.ginq ? this.pncFilter.ginq : AppConstant.ALL],
+        disabled: this.areFiltersDisabled()
+      }),
+      specialityControl: new FormControl({
+        value: [specialityInitValue],
+        disabled: this.areFiltersDisabled()
+      }),
+      aircraftSkillControl: new FormControl({
+        value: [this.pncFilter.aircraftSkill ? this.pncFilter.aircraftSkill : AppConstant.ALL],
+        disabled: this.areFiltersDisabled()
+      }),
+      relayControl: new FormControl({
+        value: [this.pncFilter.relay ? this.pncFilter.relay : AppConstant.ALL],
+        disabled: this.areFiltersDisabled()
+      }),
+      priorityCategoryControl: new FormControl({
+        value: [this.pncFilter ? this.pncFilter.priorityCategoryCode : AppConstant.ALL],
+        disabled: this.areFiltersDisabled()
+      }),
+      prioritizedControl: new FormControl({
+        value: [false],
+        disabled: this.noPriority || this.areFiltersDisabled()
+      }),
+      hasAtLeastOnePriorityInProgressControl: new FormControl({
+        value: [false],
+        disabled: this.noPriority || this.areFiltersDisabled()
+      }),
+      hasNoPriorityControl: new FormControl({
+        value: [false],
+        disabled: this.prioritized || this.noPriority || this.areFiltersDisabled()
+      }),
+      hasDefaultHiddenEventsControl: new FormControl({
+        value: [false],
+        disabled: this.areFiltersDisabled()
+      }),
+      hasHiddenEventsControl: new FormControl({
+        value: [false],
+        disabled: this.areFiltersDisabled()
+      })
     });
     if (this.connectivityService.isConnected()) {
       this.resetFilterValues();
