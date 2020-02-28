@@ -26,14 +26,16 @@
                             </label>
                             <div>
                                 <img class="file-icon" src="assets/imgs/business-indicators/e-score.svg" />
-                                <span class="summary-value">{{ businessIndicatorSummary?.escoreAverage | number : '1.0-1' }}</span>
+                                <span
+                                    class="summary-value">{{ businessIndicatorSummary?.escoreAverage | number : '1.0-1' }}</span>
                             </div>
                         </div>
                         <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.flyingBlueAndERCAverage)">
                             <label>{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FLYING_BLUE_ERC_AVERAGE' | translate }}</label>
                             <div>
                                 <img class="file-icon" src="assets/imgs/business-indicators/fb-erc.svg" />
-                                <span class="summary-value">{{ businessIndicatorSummary?.flyingBlueAndERCAverage | number : '1.0-1' }}</span>
+                                <span
+                                    class="summary-value">{{ businessIndicatorSummary?.flyingBlueAndERCAverage | number : '1.0-1' }}</span>
                             </div>
                         </div>
                         <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.upgradeSum)">
@@ -43,11 +45,13 @@
                                 <span class="summary-value">{{ businessIndicatorSummary?.upgradeSum }}</span>
                             </div>
                         </div>
-                        <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.onTimeShuttleDepartureRatio)">
+                        <div class="summary-item"
+                            *ngIf="isDefined(businessIndicatorSummary?.onTimeShuttleDepartureRatio)">
                             <label>{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ON_TIME_SHUTTLE_DEPARTURE_RATIO' | translate }}</label>
                             <div>
                                 <img class="file-icon" src="assets/imgs/business-indicators/shuttle-departure.svg" />
-                                <span class="summary-value">{{ businessIndicatorSummary?.onTimeShuttleDepartureRatio | percent : '1.0-1' }}</span>
+                                <span
+                                    class="summary-value">{{ businessIndicatorSummary?.onTimeShuttleDepartureRatio | percent : '1.0-1' }}</span>
                             </div>
                         </div>
                     </ion-card-content>
@@ -58,44 +62,61 @@
                     <ion-icon name="help-circle" (click)="showLegend($event)" class="clickable"> </ion-icon>
                 </h3>
                 <div class="mat-elevation-z8">
-                    <table mat-table matSort matSortActive="flightDate" matSortDirection="desc" (matSortChange)="sortBusinessIndicators($event)" [dataSource]="dataSource" class="flight-cards-table mat-elevation-z8">
+                    <table mat-table matSort matSortActive="flightDate" matSortDirection="desc"
+                        (matSortChange)="sortBusinessIndicators($event)" [dataSource]="dataSource"
+                        class="flight-cards-table mat-elevation-z8">
                         <ng-container matColumnDef="flightNumber">
-                            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_NUMBER' | translate }}</th>
-                            <td mat-cell *matCellDef="let businessIndicator">{{ 'GLOBAL.AF_COMPANY' | translate }}{{ businessIndicator.flight.number }}</td>
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_NUMBER' | translate }}</th>
+                            <td mat-cell *matCellDef="let businessIndicator">
+                                {{ 'GLOBAL.AF_COMPANY' | translate }}{{ businessIndicator.flight.number }}</td>
                         </ng-container>
                         <ng-container matColumnDef="flightDate">
-                            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.LEG_DATE' | translate }}</th>
-                            <td mat-cell *matCellDef="let businessIndicator" class="suffix-tu">{{ getPlannedDepartureDate(businessIndicator) | date : 'dd/MM/yyyy HH:mm':'UTC' }}</td>
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                {{ 'BUSINESS_INDICATORS.LIST.LEG_DATE' | translate }}</th>
+                            <td mat-cell *matCellDef="let businessIndicator" class="suffix-tu">
+                                {{ getPlannedDepartureDate(businessIndicator) | date : 'dd/MM/yyyy HH:mm':'UTC' }}</td>
                         </ng-container>
                         <ng-container matColumnDef="stations">
-                            <th mat-header-cell *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.STATIONS' | translate }}</th>
-                            <td mat-cell *matCellDef="let businessIndicator">{{ businessIndicator.flight.departureStation }} - {{ businessIndicator.flight.arrivalStation }}</td>
+                            <th mat-header-cell *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.STATIONS' | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let businessIndicator">
+                                {{ businessIndicator.flight.departureStation }} -
+                                {{ businessIndicator.flight.arrivalStation }}</td>
                         </ng-container>
                         <ng-container matColumnDef="aboardFunction">
-                            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.ABOARD_FUNCTION' | translate }}</th>
-                            <td mat-cell *matCellDef="let businessIndicator"> {{ businessIndicator.aboardSpeciality }} </td>
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                {{ 'BUSINESS_INDICATORS.LIST.ABOARD_FUNCTION' | translate }}</th>
+                            <td mat-cell *matCellDef="let businessIndicator"> {{ businessIndicator.aboardSpeciality }}
+                            </td>
                         </ng-container>
                         <ng-container matColumnDef="eScore">
-                            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }}</th>
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                {{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }}</th>
                             <td mat-cell *matCellDef="let businessIndicator" class="escore">
                                 <span *ngIf="!businessIndicator.escore" class="no-data"></span>
-                                <span *ngIf="businessIndicator.escore">{{ businessIndicator.escore | number :'1.0-1' }}</span>
+                                <span
+                                    *ngIf="businessIndicator.escore">{{ businessIndicator.escore | number :'1.0-1' }}</span>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="flightActionsNumber">
-                            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS_NUMBER' | translate }}</th>
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS_NUMBER' | translate }}</th>
                             <td mat-cell *matCellDef="let businessIndicator" class="flight-actions-number">
                                 <span *ngIf="isCcLc(businessIndicator)" class="not-available"></span>
                                 <span *ngIf="!isCcLc(businessIndicator)">
                                     <span *ngIf="!businessIndicator.flightActionsTotalNumber" class="no-data"></span>
-                                    <span *ngIf="businessIndicator.flightActionsTotalNumber">{{ businessIndicator.flightActionsTotalNumber }}</span>
+                                    <span
+                                        *ngIf="businessIndicator.flightActionsTotalNumber">{{ businessIndicator.flightActionsTotalNumber }}</span>
                                 </span>
                             </td>
                         </ng-container>
                         <tr mat-header-row *matHeaderRowDef="businessIndicatorColumns"></tr>
-                        <tr mat-row *matRowDef="let businessIndicator; columns: businessIndicatorColumns;" (click)="goToBusinessIndicatorDetail(businessIndicator)"></tr>
+                        <tr mat-row *matRowDef="let businessIndicator; columns: businessIndicatorColumns;"
+                            (click)="goToBusinessIndicatorDetail(businessIndicator)"></tr>
                     </table>
-                    <mat-paginator color="black" [pageSize]="pageSize" [length]=" this.businessIndicators.length" (page)="handlePage($event)" showFirstLastButtons></mat-paginator>
+                    <mat-paginator MatPaginatorIntl="red" [pageSize]="getPageSize()" [length]="getTotalElements()"
+                        (page)="handlePage($event)" showFirstLastButtons></mat-paginator>
                 </div>
             </span>
             <ng-template #notConnectedBlock>
