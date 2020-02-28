@@ -267,6 +267,7 @@ export class BusinessIndicatorDetailPage implements OnInit, AfterViewChecked {
             () => {
                 this.removeEscoreChartTemplate();
                 this.insertEscoreChartTemplate();
+                this.changeDetectorRef.markForCheck();
 
             }
         );
