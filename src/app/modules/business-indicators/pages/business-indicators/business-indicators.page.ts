@@ -178,30 +178,13 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
         this.businessIndicatorRequestSubject.next();
     }
 
-
-    /**
-     * Effectue les opérations de pre processing (pour affichage/tri) sur la liste des indicateurs métier passés en paramètre
-     * @param businessIndicators la liste des indicateurs à traiter
-     * @return la liste des indicateurs traitée
-     */
-    preProcessBusinessIndicators(businessIndicators: Array<BusinessIndicatorLightModel>): Array<BusinessIndicatorLightModel> {
-        businessIndicators.forEach(businessIndicator => {
-            // On indique une valeur négative pour que le tri soit cohérent à l'affichage (valeur remplacée par NA à l'affichage)
-            businessIndicator.flightActionsTotalNumber =
-                this.isCcLc(businessIndicator) ? -1 : businessIndicator.flightActionsTotalNumber;
-        });
-
-        return businessIndicators;
-    }
-
     /**
      * Vérifie si le PNC a occupé un poste de CC sur un vol LC
      * @param businessIndicator l'indicateur métier portant sur le vol à tester
      * @return vrai si c'est le cas, faux sinon
      */
     isCcLc(businessIndicator: BusinessIndicatorLightModel): boolean {
-        return businessIndicator.aboardSpeciality === SpecialityEnum.CC
-            && businessIndicator.flight.haulType === HaulTypeEnum.LC;
+        return businessIndicator.flightActionsTotalNumber === - 1;
     }
 
     /**
