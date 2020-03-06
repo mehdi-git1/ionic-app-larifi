@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { RestService } from '../../http/rest/rest.base.service';
+import {
+    ReferentialItemLevelModel
+} from '../../models/eobservation/eobservation-referential-item-level.model';
 import { EObservationModel } from '../../models/eobservation/eobservation.model';
 import { EObservationTransformerService } from './eobservation-transformer.service';
 
@@ -71,6 +74,15 @@ export class OnlineEObservationService {
      */
     public findEObservationsByRedactor(matricule: string): Promise<EObservationModel[]> {
         return this.restServiceGetEObservations('getEObservationsByRedactorMatricule', matricule);
+    }
+
+    /**
+     * Récupères les eObsersaction par rédacteur
+     * @param version la version du fomulaire epcb
+     * @return les niveaux des items référentiels
+     */
+    public getAllPcbReferentialItemLevelsByVersion(version: string): Promise<ReferentialItemLevelModel[]> {
+        return this.restService.get(this.config.getBackEndUrl('getAllPcbReferentialItemLevelsByVersion', [version]));
     }
 
 }

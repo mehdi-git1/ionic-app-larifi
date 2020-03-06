@@ -33,6 +33,20 @@
 
     }
 
+    ion-item {
+        --min-height: 0px;
+        --height: 20px;
+        --inner-border-width: 0;
+
+        button {
+            box-shadow: none;
+        }
+    }
+
+    ion-radio {
+        margin: 0 10px 0 0px;
+    }
+
 
     radio-and-label {
         .container {
@@ -65,6 +79,7 @@
         border-right: solid var(--ion-color-grey75) 1px;
     }
 }
+
 .line {
     padding-left: 24px;
 }

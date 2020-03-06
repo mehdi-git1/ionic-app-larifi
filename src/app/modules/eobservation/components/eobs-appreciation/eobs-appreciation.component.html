@@ -4,7 +4,7 @@
         <span class="column-50 sub-theme-label">{{ 'EOBSERVATION.DETAIL.STRONG_POINTS' | translate }}</span>
     </div>
     <div class="pcb-grid">
-        <div class="line" *ngFor="let subTheme of theme.subThemes">
+        <div class="line" *ngFor="let subTheme of theme.subThemes, index as i">
             <!-- Aptitudes Conforme / Améliorable -->
             <span class="column-50">
                 <span class="pcb-skills">
@@ -13,8 +13,16 @@
                     </span>
                     <span class="skills-value">
                         <span class="skills-value-list">
-                            <radio-and-label disabled="true" [conditionValue]="subTheme.eobservationItems[0].refItemLevel.level === 'CONFORME'" label="{{ 'EOBSERVATION.DETAIL.CONFORM' | translate }}"></radio-and-label>
-                            <radio-and-label disabled="true" [conditionValue]="subTheme.eobservationItems[0].refItemLevel.level === 'AMELIORABLE'" label="{{ 'EOBSERVATION.DETAIL.IMPROVABLE' | translate }}"></radio-and-label>
+                            <ion-radio-group *ngIf="editMode; else viewLevelBlock" [(ngModel)]="subTheme.eobservationItems[0].refItemLevel.techId">
+                                <ion-item *ngFor="let level of sortLevelList(subTheme.eobservationItems[0].refItemLevel.item.levels)">
+                                    <ion-label>{{ level.levelDescription }}</ion-label>
+                                    <ion-radio slot="start" [value]="level.techId"></ion-radio>
+                                </ion-item>
+                            </ion-radio-group>
+                            <ng-template #viewLevelBlock>
+                                <radio-and-label disabled="true" [conditionValue]="subTheme.eobservationItems[0].refItemLevel.level === 'CONFORME'" label="{{ 'EOBSERVATION.DETAIL.CONFORM' | translate }}"></radio-and-label>
+                                <radio-and-label disabled="true" [conditionValue]="subTheme.eobservationItems[0].refItemLevel.level === 'AMELIORABLE'" label="{{ 'EOBSERVATION.DETAIL.IMPROVABLE' | translate }}"></radio-and-label>
+                            </ng-template>
                         </span>
                     </span>
                 </span>
@@ -23,11 +31,23 @@
             <!-- Points forts -->
             <span class="column-50">
                 <span class="pcb-strong-points">
-                    <span class="skills-value-list" *ngIf="subTheme && subTheme.subThemes && subTheme.subThemes.length > 0 && subTheme.subThemes[0].eobservationItems" lines="none">
-                        <span *ngFor="let eobservationItem of subTheme.subThemes[0].eobservationItems">
-                            <checkbox-and-label disabled="true" [value]="true" label="{{eobservationItem.refItemLevel.item.label}}"></checkbox-and-label>
+                    <span *ngIf="editMode; else viewLabelBlock">
+                        <span *ngIf="referentialItemLevels && referentialItemLevels.length > 0">
+                            <span *ngFor="let refItemLevel of getReferentialItemLevels(subTheme.id)">
+                                <ion-item lines="none">
+                                    <label>{{refItemLevel.item.label}}</label>
+                                    <ion-checkbox slot="start" [checked]="isChecked(refItemLevel.item)" (ionChange)="addOrRemoveCheckedOption($event,i, refItemLevel)"></ion-checkbox>
+                                </ion-item>
+                            </span>
                         </span>
                     </span>
+                    <ng-template #viewLabelBlock>
+                        <span class="skills-value-list" *ngIf="subTheme && subTheme.subThemes && subTheme.subThemes.length > 0 && subTheme.subThemes[0].eobservationItems" lines="none">
+                            <span *ngFor="let eobservationItem of subTheme.subThemes[0].eobservationItems">
+                                <checkbox-and-label disabled="true" [value]="true" label="{{eobservationItem.refItemLevel.item.label}}"></checkbox-and-label>
+                            </span>
+                        </span>
+                    </ng-template>
                 </span>
             </span>
         </div>

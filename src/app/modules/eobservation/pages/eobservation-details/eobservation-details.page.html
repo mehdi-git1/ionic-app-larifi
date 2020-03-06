@@ -44,7 +44,7 @@
                     <eobs-theme *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme" [editMode]="editMode"></eobs-theme>
                 </span>
                 <ng-template #appreciationPcb>
-                    <eobs-appreciation *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme"></eobs-appreciation>
+                    <eobs-appreciation *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme" [editMode]="editMode"></eobs-appreciation>
                 </ng-template>
 
                 <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [editMode]="editMode"></eobs-comment>
