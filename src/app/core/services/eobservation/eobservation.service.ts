@@ -109,6 +109,11 @@ export class EObservationService extends BaseService {
         return this.execFunctionService('findEObservationsByRedactor', matricule);
     }
 
+    /**
+     * Récupères les eObsersaction par rédacteur
+     * @param version la version du fomulaire epcb
+     * @return les niveaux des items référentiels
+     */
     public getAllPcbReferentialItemLevelsByVersion(version: string): Promise<ReferentialItemLevelModel[]> {
         return this.execFunctionService('getAllPcbReferentialItemLevelsByVersion', version);
     }

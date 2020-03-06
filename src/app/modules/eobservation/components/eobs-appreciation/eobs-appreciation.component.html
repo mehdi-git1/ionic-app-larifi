@@ -20,8 +20,8 @@
                                 </ion-item>
                             </ion-radio-group>
                             <ng-template #viewLevelBlock>
-                                <radio-and-label [disabled]="true" [conditionValue]="subTheme.eobservationItems[0].refItemLevel.level === 'CONFORME'" label="{{ 'EOBSERVATION.DETAIL.CONFORM' | translate }}"></radio-and-label>
-                                <radio-and-label [disabled]="true" [conditionValue]="subTheme.eobservationItems[0].refItemLevel.level === 'AMELIORABLE'" label="{{ 'EOBSERVATION.DETAIL.IMPROVABLE' | translate }}"></radio-and-label>
+                                <radio-and-label disabled="true" [conditionValue]="subTheme.eobservationItems[0].refItemLevel.level === 'CONFORME'" label="{{ 'EOBSERVATION.DETAIL.CONFORM' | translate }}"></radio-and-label>
+                                <radio-and-label disabled="true" [conditionValue]="subTheme.eobservationItems[0].refItemLevel.level === 'AMELIORABLE'" label="{{ 'EOBSERVATION.DETAIL.IMPROVABLE' | translate }}"></radio-and-label>
                             </ng-template>
                         </span>
                     </span>
@@ -44,7 +44,7 @@
                     <ng-template #viewLabelBlock>
                         <span class="skills-value-list" *ngIf="subTheme && subTheme.subThemes && subTheme.subThemes.length > 0 && subTheme.subThemes[0].eobservationItems" lines="none">
                             <span *ngFor="let eobservationItem of subTheme.subThemes[0].eobservationItems">
-                                <checkbox-and-label [disabled]="true" [value]="true" label="{{eobservationItem.refItemLevel.item.label}}"></checkbox-and-label>
+                                <checkbox-and-label disabled="true" [value]="true" label="{{eobservationItem.refItemLevel.item.label}}"></checkbox-and-label>
                             </span>
                         </span>
                     </ng-template>

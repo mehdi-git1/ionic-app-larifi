@@ -54,16 +54,32 @@ export class EObsAppreciationComponent implements AfterViewInit {
     return levelList.sort((a, b) => a.level < b.level ? 1 : -1);
   }
 
+  /**
+   * Verifie si l'item est coché ou pas
+   * @param eobservationItem l'item concerné
+   * @Return vrai si oui, faux sinon
+   */
   isChecked(eobservationItem: EObservationItemModel): boolean {
     return this.hasItems() ? this.theme.subThemes.find(theme => {
       return theme.subThemes && theme.subThemes.length > 0 && theme.subThemes[0].eobservationItems.find(item => eobservationItem.techId === item.refItemLevel.item.techId) !== undefined;
     }) !== undefined : false;
   }
 
+  /**
+   * Renvoie les items référentiels du thème concerné
+   * @param subThemeId l'id du thème concerné
+   * @return la liste des items référentiels concernés
+   */
   getReferentialItemLevels(subThemeId: number): ReferentialItemLevelModel[] {
     return this.referentialItemLevels.filter(refItemLevel => refItemLevel.item.theme.parent.id === subThemeId);
   }
 
+  /**
+   * Ajout/supprime un item à la liste des itéms d'une eobs
+   * @param event l'évent quand l'item est sélectionné/déselectionné
+   * @param subThemeIndex l'index du subthème concerné dans la liste des subthèmes de l'eobservation
+   * @param refItemLevel l'item référentiel à associé a l'item à ajouter
+   */
   addOrRemoveCheckedOption(event: any, subThemeIndex: number, refItemLevel: ReferentialItemLevelModel) {
     if (event.detail.checked) {
       const eObservationItem = new EObservationItemModel();
