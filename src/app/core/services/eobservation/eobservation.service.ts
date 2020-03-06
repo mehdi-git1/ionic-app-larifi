@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { EObservationTypeEnum } from '../../enums/e-observations-type.enum';
+import {
+    ReferentialItemLevelModel
+} from '../../models/eobservation/eobservation-referential-item-level.model';
 import { EObservationModel } from '../../models/eobservation/eobservation.model';
 import { PncModel } from '../../models/pnc.model';
 import { BaseService } from '../base/base.service';
@@ -104,5 +107,9 @@ export class EObservationService extends BaseService {
      */
     public findEObservationsByRedactor(matricule: string): Promise<EObservationModel[]> {
         return this.execFunctionService('findEObservationsByRedactor', matricule);
+    }
+
+    public getAllPcbReferentialItemLevelsByVersion(version: string): Promise<ReferentialItemLevelModel[]> {
+        return this.execFunctionService('getAllPcbReferentialItemLevelsByVersion', version);
     }
 }
