@@ -151,6 +151,7 @@ export class BusinessIndicatorDetailPage implements OnInit, AfterViewChecked {
                     Utils.isEmpty(shortLoopComment.pointsToImprove))
         );
     }
+
     /**
      * Vérifie si le PNC est CC LC sur le vol courant
      * @return vrai si c'est le cas, faux sinon
