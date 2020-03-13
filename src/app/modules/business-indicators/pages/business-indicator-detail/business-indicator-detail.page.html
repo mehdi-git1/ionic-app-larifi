@@ -151,11 +151,7 @@
 
             <!-- Graphique d'eScore -->
             <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.TITLE' | translate}}">
-                <div class="content" #escoreChartContainer></div>
-                <ng-template #escoreChartTemplate>
                     <escore-chart [businessIndicator]="businessIndicator"></escore-chart>
-                </ng-template>
-
             </edospnc-expandable-block>
 
             <!-- Commentaire eScore -->
