@@ -360,12 +360,12 @@ export class LogbookEventComponent implements OnInit {
      * Ajoute le pnc coché a la liste des pnc à notifier
      * @param myEvent l'event lié a la case à cocher
      * @param pncLight le pnc concerné
+     * @param speciality la spécialité du pnc concerné
      */
     updatePncNotifiedList(myEvent: any, pncLight: PncLightModel, speciality: NotifiedPncSpecialityEnum) {
-        if (myEvent.detail.checked) {
+        if (myEvent.detail.checked && pncLight.matricule) {
             const notifiedPnc = new LogbookEventNotifiedPnc();
-            notifiedPnc.pnc = new PncModel();
-            notifiedPnc.pnc.matricule = pncLight.matricule;
+            notifiedPnc.pnc = this.pncTransformer.transformPncLightToPnc(pncLight);
             notifiedPnc.speciality = speciality;
             this.logbookEvent.notifiedPncs.push(notifiedPnc);
         } else {
