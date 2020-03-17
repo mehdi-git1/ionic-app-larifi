@@ -23,8 +23,6 @@ export class ReferentialItemModel extends EDossierPncObjectModel {
 
     type: EObservationTypeEnum;
 
-    checked: boolean;
-
     getStorageId(): string {
         return `${this.techId}`;
     }

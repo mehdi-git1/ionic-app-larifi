@@ -76,6 +76,11 @@ export class OnlineEObservationService {
         return this.restServiceGetEObservations('getEObservationsByRedactorMatricule', matricule);
     }
 
+    /**
+     * Récupères les eObsersaction par rédacteur
+     * @param version la version du fomulaire epcb
+     * @return les niveaux des items référentiels
+     */
     public getAllPcbReferentialItemLevelsByVersion(version: string): Promise<ReferentialItemLevelModel[]> {
         return this.restService.get(this.config.getBackEndUrl('getAllPcbReferentialItemLevelsByVersion', [version]));
     }
