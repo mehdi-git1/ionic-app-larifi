@@ -186,6 +186,7 @@ const routes: Routes = [
           { path: '', component: BootstrapComponent, canActivate: [VisitEdossierRedirectionGuard] },
           {
             path: ':matricule', canActivate: [VisitEdossierGuard], children: [
+              { path: '', component: BootstrapComponent, canActivate: [VisitEdossierRedirectionGuard] },
               { path: 'statutory-certificate', component: StatutoryCertificatePage },
               { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
               { path: 'help-asset', component: HelpAssetListPage },
