@@ -1,5 +1,4 @@
 export enum SpecialityEnum {
-  ALT = 'ALT',
   CAD = 'CAD',
   CCP = 'CCP',
   CCPT = 'CCPT',
@@ -7,5 +6,8 @@ export enum SpecialityEnum {
   CCT = 'CCT',
   HOT = 'HOT',
   STW = 'STW',
-  SAI = 'SAI'
+  ALT = 'ALT',
+  SAI = 'SAI',
+  PCB = 'PCB',
+  STA = 'STA'
 }

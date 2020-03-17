@@ -63,6 +63,9 @@ export class EObservationListComponent {
         if (this.allowCreation
             && this.sessionService.appContext.lastConsultedRotation
             && this.sessionService.visitedPnc
+            && this.pnc.currentSpeciality !== SpecialityEnum.ALT
+            && this.pnc.currentSpeciality !== SpecialityEnum.PCB
+            && this.pnc.speciality !== SpecialityEnum.SAI
             && !this.deviceService.isBrowser()) {
             return true;
         } else {
