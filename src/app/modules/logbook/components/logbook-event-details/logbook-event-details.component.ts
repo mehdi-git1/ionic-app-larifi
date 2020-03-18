@@ -1,5 +1,8 @@
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import {
+    LogbookEventNotifiedPnc
+} from 'src/app/core/models/logbook/logbook-event-notified-pnc.model';
 
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
@@ -85,6 +88,7 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
         this.eventDateString = this.logbookEvent ? this.logbookEvent.eventDate
             : this.dateTransformer.transformDateToIso8601Format(new Date());
+        this.logbookEvent.notifiedPncs = this.sortNotifiedPncByGrade(this.logbookEvent.notifiedPncs);
     }
 
     /**
@@ -290,5 +294,22 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
      */
     showInformationMessage() {
         return this.logbookEvent.lastUpdateAuthor && this.logbookEvent.lastUpdateDate !== this.logbookEvent.creationDate;
+    }
+
+    /**
+     * Effectue un tri des personnes notifiées
+     *
+     * @param notifiedPncs la liste des personnes notifiées à trier
+     * @returns la liste triée.
+     */
+    sortNotifiedPncByGrade(notifiedPncs: Array<LogbookEventNotifiedPnc>): Array<LogbookEventNotifiedPnc> {
+
+        const sortedNotifiedPnc = notifiedPncs.sort((pnc1, pnc2) => {
+            const pnc1GradeOrder = AppConstant.notifiedPncGradOrdered.indexOf(pnc1.speciality);
+            const pnc2GradeOrder = AppConstant.notifiedPncGradOrdered.indexOf(pnc2.speciality);
+            return (pnc2GradeOrder === pnc1GradeOrder) ?
+                pnc1.pnc.lastName.localeCompare(pnc2.pnc.lastName) : pnc1GradeOrder - pnc2GradeOrder;
+        });
+        return sortedNotifiedPnc;
     }
 }

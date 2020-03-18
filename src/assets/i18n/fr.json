@@ -240,6 +240,7 @@
         "REFERENT_INSTRUCTOR": "Manager",
         "RDS": "RDS",
         "RDD": "RDD",
+        "CSV": "CSV",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
         "WORKRATE": "Rythme",
