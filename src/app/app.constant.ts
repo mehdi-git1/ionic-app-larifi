@@ -1,3 +1,5 @@
+import { NotifiedPncSpecialityEnum } from './core/enums/notified-pnc-speciality.enum';
+
 export class AppConstant {
     public static isoDateFormat = 'YYYY-MM-DDTHH:mm:ss';
     public static iso8601DateTimeFormat = 'yyyy-MM-ddTHH:mm:ss\'ZZZZZ';
@@ -5,6 +7,10 @@ export class AppConstant {
     public static pageSize = 10;
     public static datepickerMaxDate = '2050';
     public static ALL = 'ALL';
+    public static notifiedPncGradOrdered = [
+        NotifiedPncSpecialityEnum.RDD, NotifiedPncSpecialityEnum.RDS, NotifiedPncSpecialityEnum.REFERENT_INSTRUCTOR,
+        NotifiedPncSpecialityEnum.CSV
+    ];
 
     // Profiles Habile
     public static P_EDOSPNC_ADMIN = 'P_EDOSPNC_ADMIN';

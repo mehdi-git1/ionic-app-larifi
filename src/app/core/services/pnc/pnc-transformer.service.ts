@@ -37,13 +37,13 @@ export class PncTransformerService {
 
   transformPncLightToPnc(pncLight: PncLightModel): PncModel {
     const pnc = new PncModel();
-    pnc.matricule = pnc.matricule;
-    pnc.firstName = pnc.firstName;
-    pnc.lastName = pnc.lastName;
-    pnc.assignment = new AssignmentModel()
-    pnc.assignment.division = pnc.assignment.division;
-    pnc.assignment.sector = pnc.assignment.sector;
-    pnc.assignment.ginq = pnc.assignment.ginq;
+    pnc.matricule = pncLight.matricule;
+    pnc.firstName = pncLight.firstName;
+    pnc.lastName = pncLight.lastName;
+    pnc.assignment = new AssignmentModel();
+    pnc.assignment.division = pncLight.division;
+    pnc.assignment.sector = pncLight.sector;
+    pnc.assignment.ginq = pncLight.ginq;
     return pnc;
   }
 }

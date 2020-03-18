@@ -24,6 +24,7 @@ export class PncModel extends EDossierPncObjectModel {
     pncInstructor: PncLightModel;
     pncRds: PncLightModel;
     pncRdd: PncLightModel;
+    pncCsv: PncLightModel;
     manager: boolean;
     workRate: number;
     prioritized: boolean;
