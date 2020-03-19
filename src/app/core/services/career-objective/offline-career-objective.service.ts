@@ -49,10 +49,10 @@ export class OfflineCareerObjectiveService {
       const careerObjectiveList = this.storageService.findAll(EntityEnum.CAREER_OBJECTIVE);
       const pncCareerObjectives = careerObjectiveList.filter(careerObjective => {
         if (AppConstant.ALL === careerObjectiveSearch.categoryCode) {
-          return careerObjective.pnc.matricule === careerObjectiveSearch.matricule
+          return careerObjective.pnc.matricule === careerObjectiveSearch.pncMatricule
             && careerObjective.offlineAction !== OfflineActionEnum.DELETE;
         } else {
-          return careerObjective.pnc.matricule === careerObjectiveSearch.matricule
+          return careerObjective.pnc.matricule === careerObjectiveSearch.pncMatricule
             && careerObjective.offlineAction !== OfflineActionEnum.DELETE
             && careerObjective.category.id === careerObjectiveSearch.categoryCode;
         }
