@@ -6,7 +6,7 @@
     </div>
     <div class="filter">
         <ion-label class="input-label">{{ 'CAREER_OBJECTIVE_LIST.SEARCH.CATEGORY' | translate }}&nbsp;:</ion-label>
-        <ion-select interface="popover" #optionValue (ionChange)="filterCategory(optionValue.value)">
+        <ion-select interface="popover" #optionValue (ionChange)="filterCategory(optionValue.value)" [disabled]="!isConnected()">
             <ion-select-option [value]="valueAll" [selected]="true">
                 {{ 'CAREER_OBJECTIVE_LIST.SEARCH.ALL' | translate }}
             </ion-select-option>

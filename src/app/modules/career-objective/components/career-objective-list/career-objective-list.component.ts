@@ -1,5 +1,6 @@
 import { AppConstant } from 'src/app/app.constant';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
+import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 import { SessionService } from 'src/app/core/services/session/session.service';
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -34,7 +35,8 @@ export class CareerObjectiveListComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private pncService: PncService,
-    private sessionService: SessionService) {
+    private sessionService: SessionService,
+    private connectivityService: ConnectivityService) {
 
     if (this.sessionService.getActiveUser().appInitData !== undefined) {
       this.careerObjectiveCategories = this.sessionService.getActiveUser().appInitData.careerObjectiveCategories;
@@ -63,5 +65,13 @@ export class CareerObjectiveListComponent {
    */
   filterCategory(filter: string) {
     this.categorySelected.emit(filter);
+  }
+
+  /**
+   * Vérifie si l'on est connecté
+   * @return true si on est connecté, false sinon
+   */
+  isConnected(): boolean {
+    return this.connectivityService.isConnected();
   }
 }
