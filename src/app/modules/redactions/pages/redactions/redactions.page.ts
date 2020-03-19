@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 import { AppConstant } from 'src/app/app.constant';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
+import { CareerObjectiveFilterModel } from 'src/app/core/models/career-objective-filter.model';
 import { EObservationModel } from 'src/app/core/models/eobservation/eobservation.model';
 import { PncModel } from 'src/app/core/models/pnc.model';
 import { DeviceService } from 'src/app/core/services/device/device.service';
@@ -42,6 +43,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 })
 export class RedactionsPage {
 
+    matricule: string;
     tabList: Array<any>;
     pnc: PncModel;
     selectedTab: any;
@@ -56,6 +58,8 @@ export class RedactionsPage {
     careerObjectives: Array<CareerObjectiveModel>;
     professionalInterviews: Array<ProfessionalInterviewModel>;
 
+    careerObjectiveFilter: CareerObjectiveFilterModel;
+
     constructor(
         private activatedRoute: ActivatedRoute,
         private connectivityService: ConnectivityService,
@@ -68,25 +72,33 @@ export class RedactionsPage {
         private professionalInterviewService: ProfessionalInterviewService,
         private securityService: SecurityService
     ) {
+        this.initFilter();
+    }
 
+    /**
+     * Initialise les filtres utilisés pour la recherche
+     */
+    initFilter() {
+        this.careerObjectiveFilter = new CareerObjectiveFilterModel();
+        this.careerObjectiveFilter.categoryCode = AppConstant.ALL;
     }
 
     ionViewDidEnter() {
-        const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
-        this.pncService.getPnc(matricule).then(pnc => {
+        this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
+        this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         });
 
-        const eObservationsPromise = this.eObservationService.findEObservationsByRedactor(matricule).then(eObservations => {
+        const eObservationsPromise = this.eObservationService.findEObservationsByRedactor(this.matricule).then(eObservations => {
             this.eObservations = eObservations;
         });
 
-        const careerObjectivesPromise = this.careerObjectiveService.findCareerObjectivesByRedactor(matricule).then(careerObjectives => {
+        const careerObjectivesPromise = this.careerObjectiveService.findCareerObjectivesByRedactor(this.matricule).then(careerObjectives => {
             this.careerObjectives = careerObjectives;
             this.careerObjectives.sort((priority1, priority2) => moment(priority1.creationDate, AppConstant.isoDateFormat).isAfter(moment(priority2.creationDate, AppConstant.isoDateFormat)) ? -1 : 1);
         });
 
-        const professionalInterviewsPromise = this.professionalInterviewService.findProfessionalInterviewsByRedactor(matricule)
+        const professionalInterviewsPromise = this.professionalInterviewService.findProfessionalInterviewsByRedactor(this.matricule)
             .then(professionalInterviews => {
                 this.professionalInterviews = professionalInterviews;
             });
@@ -197,5 +209,28 @@ export class RedactionsPage {
      */
     isBrowser() {
         return this.deviceService.isBrowser();
+    }
+
+    /**
+     * Recherche toutes les priorités de la catégorie concernée
+     * @param category la category concernée
+     */
+    filterCategory(category: string) {
+        this.careerObjectiveFilter.categoryCode = category;
+        this.searchCareerObjectives();
+    }
+
+    /**
+     * Récupère la liste des priorités
+     */
+    searchCareerObjectives() {
+        this.careerObjectiveFilter.redactorMatricule = this.matricule;
+
+        this.careerObjectiveService.getCareerObjectivesByFilter(this.careerObjectiveFilter).then(result => {
+            result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
+                return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
+            });
+            this.careerObjectives = result;
+        }, error => { });
     }
 }
