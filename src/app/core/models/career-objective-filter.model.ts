@@ -3,6 +3,7 @@
 export class CareerObjectiveFilterModel {
 
     // Filtre de recherche
-    matricule: string;
+    pncMatricule: string;
+    redactorMatricule: string;
     categoryCode: string;
 }

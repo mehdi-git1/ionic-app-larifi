@@ -222,7 +222,7 @@ export class DevelopmentProgramPage {
      * Récupère la liste des objectifs
      */
     searchCareerObjectives() {
-        this.careerObjectiveFilter.matricule = this.matricule;
+        this.careerObjectiveFilter.pncMatricule = this.matricule;
 
         this.careerObjectiveService.getCareerObjectivesByFilter(this.careerObjectiveFilter).then(result => {
             result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
