@@ -1,7 +1,3 @@
-import { HrDocumentService } from './hr-documents/hr-document.service';
-import { OfflineBusinessIndicatorService } from './business-indicator/offline-business-indicator.service';
-import { BusinessIndicatorService } from './business-indicator/business-indicator.service';
-import { OnlineBusinessIndicatorService } from './business-indicator/online-business-indicator.service';
 import { NgModule } from '@angular/core';
 
 import { AlertDialogService } from './alertDialog/alert-dialog.service';
@@ -10,6 +6,13 @@ import { AppVersionAlertService } from './app-version/app-version-alert.service'
 import { AppVersionTransformerService } from './app-version/app-version-transformer.service';
 import { AppVersionService } from './app-version/app-version.service';
 import { AuthorizationService } from './authorization/authorization.service';
+import { BusinessIndicatorService } from './business-indicator/business-indicator.service';
+import {
+    OfflineBusinessIndicatorService
+} from './business-indicator/offline-business-indicator.service';
+import {
+    OnlineBusinessIndicatorService
+} from './business-indicator/online-business-indicator.service';
 import { CancelChangesService } from './cancel_changes/cancel-changes.service';
 import {
     CareerObjectiveStatusService
@@ -41,12 +44,15 @@ import { OnlineEObservationService } from './eobservation/online-eobservation.se
 import { FormsEObservationService } from './forms/forms-e-observation.service';
 import { GenderService } from './gender/gender.service';
 import { HelpAssetService } from './help-asset/help-asset.service';
+import { HrDocumentService } from './hr-documents/hr-document.service';
+import { OfflineHrDocumentService } from './hr-documents/offline-hr-document.service';
 import { OnlineHrDocumentService } from './hr-documents/online-hr-document.service';
 import { LegTransformerService } from './leg/leg-transformer.service';
 import { LegService } from './leg/leg.service';
 import { OfflineLegService } from './leg/offline-leg.service';
 import { OnlineLegService } from './leg/online-leg.service';
 import { OnlineLogbookEventService } from './logbook/online-logbook-event.service';
+import { ManifexService } from './manifex/manifex.service';
 import { ModalSecurityService } from './modal/modal-security.service';
 import { OfflineService } from './offline/offline.service';
 import { PdfGeneratorService } from './pdf-generator/pdf-generator.service';
@@ -132,7 +138,6 @@ import { OfflineWaypointService } from './waypoint/offline-waypoint.service';
 import { OnlineWaypointService } from './waypoint/online-waypoint.service';
 import { WaypointTransformerService } from './waypoint/waypoint-transformer.service';
 import { WaypointService } from './waypoint/waypoint.service';
-import { OfflineHrDocumentService } from './hr-documents/offline-hr-document.service';
 
 @NgModule({
     declarations: [
@@ -235,7 +240,8 @@ import { OfflineHrDocumentService } from './hr-documents/offline-hr-document.ser
         OnlineBusinessIndicatorService,
         OfflineBusinessIndicatorService,
         HrDocumentService,
-        OfflineHrDocumentService
+        OfflineHrDocumentService,
+        ManifexService
     ]
 })
 export class ServiceModule { }

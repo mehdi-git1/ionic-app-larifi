@@ -1,0 +1,33 @@
+ ion-grid {
+     border-radius: 5px;
+     margin-bottom: 15px;
+     padding: 0;
+     box-shadow: 0px 0px 5px var(--ion-color-grey70);
+     background: var(--ion-color-white);
+     color: var(--ion-color-grey60);
+
+     .title {
+         background: var(--ion-color-primary);
+         color: var(--ion-color-white);
+
+         &:first-child {
+             border-radius: 5px 5px 0 0;
+         }
+     }
+
+     label {
+         color: var(--ion-color-primary);
+     }
+
+     .no-data-found {
+         font-size: 1.1em;
+         margin: 5px;
+         padding: 0px;
+     }
+
+     ion-button {
+         ion-spinner {
+             margin-left: 8px;
+         }
+     }
+ }

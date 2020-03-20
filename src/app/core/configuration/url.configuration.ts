@@ -79,7 +79,8 @@ export class UrlConfiguration {
     'findPncBusinessIndicators': `${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/list`,
     'getBusinessIndicatorSummary': `${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/summary`,
     'getBusinessIndicator': `${urlGroupEnum.BUSINESS_INDICATORS}/{id}`,
-    getLastAppVersion: `${urlGroupEnum.APP_VERSION}/last`
+    'getLastAppVersion': `${urlGroupEnum.APP_VERSION}/last`,
+    'downloadManifexPdfById': `${urlGroupEnum.PDFS}/manifex/{id}`
   };
 
   /**

@@ -1,2 +1,24 @@
-<statutory-certificate-data *ngIf="manifexDisplayedData" [title]="title" [displayType]="displayType"
-  [statutoryCertificateData]="manifexDisplayedData"></statutory-certificate-data>
+<ion-grid>
+    <ion-row class="title">
+        <ion-col>
+            {{ 'STATUTORY_CERTIFICATE.CATEGORIES.MANIFEX' | translate }}
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col *ngIf="!manifex; else manifexBlock">
+            <no-data></no-data>
+        </ion-col>
+        <ng-template #manifexBlock>
+            <ion-col class="flex align-center">
+                <label>{{ 'STATUTORY_CERTIFICATE.MANIFEX.CREATION_DATE' | translate }}</label>&nbsp;:&nbsp;{{ this.manifex.creationDate | date:'dd/MM/yyyy' }}
+            </ion-col>
+            <ion-col class="flex justify-end">
+                <ion-button (click)="openPdfManifex()" [disabled]="loadingPdf" color="primary" fill="outline" *ngIf="canOpenManifexPdf()">
+                    <ion-icon name="download"></ion-icon>
+                    {{ 'STATUTORY_CERTIFICATE.MANIFEX.CONSULT_MANIFEX' | translate }}
+                    <ion-spinner *ngIf="loadingPdf"></ion-spinner>
+                </ion-button>
+            </ion-col>
+        </ng-template>
+    </ion-row>
+</ion-grid>
