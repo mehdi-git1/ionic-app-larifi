@@ -33,7 +33,7 @@ export class FileService {
      * @param type Type de fichier a afficher
      * @param url url du fichier à afficher
      */
-    displayFile(type, url) {
+    displayFile(type: FileTypeEnum, url: string) {
         if (this.deviceService.isBrowser() || type === FileTypeEnum.URL) {
             this.htmlService.displayHTML(url);
         } else if (type === FileTypeEnum.PDF) {

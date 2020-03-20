@@ -67,7 +67,7 @@ export class DocumentViewerComponent {
         .bypassSecurityTrustResourceUrl('data:' + document.mimeType + ';base64,' + document.content);
     } else if (document.type === DocumentTypeEnum.PDF) {
       await this.popoverCtrl.dismiss();
-      this.fileService.displayFile(FileTypeEnum.PDF, this.fileService.base64FiletoUrl(document.content, document.mimeType))
+      this.fileService.displayFile(FileTypeEnum.PDF, this.fileService.base64FiletoUrl(document.content, document.mimeType));
     } else {
       this.previewUnavailable();
     }

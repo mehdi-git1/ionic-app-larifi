@@ -1,4 +1,5 @@
 import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
+import { ManifexLightModel } from './manifex/manifex-light.model';
 import { AnnualElearningModel } from './statutory-certificate/annual-e-learning.model';
 import { FamiliarizationFlightsModel } from './statutory-certificate/familiarization-flights.model';
 import { GeneralitySkillsModel } from './statutory-certificate/generality-skills.model';
@@ -21,7 +22,7 @@ export class StatutoryCertificateModel extends EDossierPncObjectModel {
     languages: LanguageModel[];
     relays: RelayModel[];
     travelDocuments: TravelDocumentsModel[];
-    manifexCreationDate: Date;
+    manifex: ManifexLightModel;
 
     getStorageId(): string {
         return `${this.matricule}`;

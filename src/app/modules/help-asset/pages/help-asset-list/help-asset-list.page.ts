@@ -87,7 +87,7 @@ export class HelpAssetListPage {
      * Ouvre une fenetre de navigation avec l'url conçernée (lien web ou URL PDF).
      * @param helpAsseturl la ressource d'aide concernée
      */
-    displayHelpAsset(helpAsset: HelpAssetModel, type: string) {
+    displayHelpAsset(helpAsset: HelpAssetModel, type: FileTypeEnum) {
         this.fileService.displayFile(type, helpAsset.url);
     }
 

@@ -8,6 +8,4 @@
 <pnc-languages [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [languagesData]="statutoryCertificate?.languages" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.LANGUAGES' | translate"></pnc-languages>
 <pnc-relays [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [relaysData]="statutoryCertificate?.relays" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.RELAYS' | translate"></pnc-relays>
 <travel-documents [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [travelDocumentsData]="statutoryCertificate?.travelDocuments" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.TRAVEL_DOCUMENTS' | translate"></travel-documents>
-
-<pnc-manifex [manifexCreationDate]="statutoryCertificate?.manifexCreationDate" [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MANIFEX' | translate">
-</pnc-manifex>
+<pnc-manifex [manifexCreationDate]="statutoryCertificate?.manifexCreationDate" [manifex]="statutoryCertificate?.manifex"></pnc-manifex>

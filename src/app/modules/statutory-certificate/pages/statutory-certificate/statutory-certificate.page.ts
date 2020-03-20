@@ -1,10 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 
 import {
-  StatutoryCertificateDisplayTypeEnum
+    StatutoryCertificateDisplayTypeEnum
 } from '../../../../core/enums/statutory-certificate-display-type.enum';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 import { DwhHistoryModel } from '../../../../core/models/dwh-history/dwh-history.model';
@@ -13,7 +12,7 @@ import { StatutoryCertificateModel } from '../../../../core/models/statutory.cer
 import { DwhHistoryService } from '../../../../core/services/dwh-history/dwh-history.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import {
-  StatutoryCertificateService
+    StatutoryCertificateService
 } from '../../../../core/services/statutory-certificate/statutory-certificate.service';
 
 @Component({
@@ -39,9 +38,8 @@ export class StatutoryCertificatePage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private pncService: PncService,
-    private statutoryCertificateProvider: StatutoryCertificateService,
+    private statutoryCertificateService: StatutoryCertificateService,
     private dwhHistoryService: DwhHistoryService,
-    private translateService: TranslateService,
     private router: Router,
     private location: Location
   ) {
@@ -86,7 +84,7 @@ export class StatutoryCertificatePage implements OnInit {
       this.pnc = pnc;
       this.formatedSpeciality = this.pncService.getFormatedSpeciality(pnc);
     }, error => { });
-    this.statutoryCertificateProvider.getStatutoryCertificate(this.matricule).then(statutoryCertificate => {
+    this.statutoryCertificateService.getStatutoryCertificate(this.matricule).then(statutoryCertificate => {
       this.statutoryCertificate = statutoryCertificate;
     }, error => { });
     this.dwhHistoryService.getDwhHistory(this.matricule).then(dwhHistory => {
