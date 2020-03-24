@@ -101,6 +101,10 @@ edospnc-expandable-block {
     }
 }
 
+.not-available:after {
+    content: 'NA';
+}
+
 .on-time,
 .late {
     font-size: 1.2em;
