@@ -12,8 +12,16 @@
         </div>
         <span class="value suffix-tu">{{ getPlannedDepartureDate(businessIndicator) | date : 'dd/MM/yyyy HH:mm' :'UTC'}}</span>
         <span class="value">{{ businessIndicator.flight.departureStation }} - {{ businessIndicator.flight.arrivalStation }}</span>
-        <span class="value">{{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }} : {{ businessIndicator.escore | number : '1.0-1' }}</span>
-        <span class="value">{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS' | translate }} : {{ businessIndicator.flightActionsTotalNumber }}</span>
+        <span class="value">
+            {{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }} :
+            <span *ngIf="!businessIndicator.escore; else escoreBlock" class="no-data"></span>
+            <ng-template #escoreBlock>{{ businessIndicator.escore | number : '1.0-1' }}</ng-template>
+        </span>
+        <span class="value">
+            {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS' | translate }} :
+            <span *ngIf="isCcLc(businessIndicator); else flightActionsTotalNumberBlock" class="not-available"></span>
+            <ng-template #flightActionsTotalNumberBlock>{{ businessIndicator.flightActionsTotalNumber }}</ng-template>
+        </span>
     </div>
 </ion-header>
 <ion-content>
@@ -151,7 +159,7 @@
 
             <!-- Graphique d'eScore -->
             <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.TITLE' | translate}}">
-                    <escore-chart [businessIndicator]="businessIndicator"></escore-chart>
+                <escore-chart [businessIndicator]="businessIndicator"></escore-chart>
             </edospnc-expandable-block>
 
             <!-- Commentaire eScore -->
