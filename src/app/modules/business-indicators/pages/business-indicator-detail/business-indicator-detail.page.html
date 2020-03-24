@@ -19,8 +19,8 @@
         </span>
         <span class="value">
             {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS' | translate }} :
-            <span *ngIf="isCcLc(businessIndicator)" class="not-available"></span>
-            <span *ngIf="!isCcLc(businessIndicator)">{{ businessIndicator.flightActionsTotalNumber }}</span>
+            <span *ngIf="isCcLc(businessIndicator); else flightActionsTotalNumberBlock" class="not-available"></span>
+            <ng-template #flightActionsTotalNumberBlock>{{ businessIndicator.flightActionsTotalNumber }}</ng-template>
         </span>
     </div>
 </ion-header>
