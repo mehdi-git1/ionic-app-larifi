@@ -94,4 +94,14 @@
         font-weight: bold;
         color: var(--ion-color-danger);
     }
+
+    .verbatim-read-only {
+        margin-top: 10px;
+        padding: 0 10px;
+        border-radius: 3px;
+        background: var(--ion-color-grey95);
+        border: 1px solid var(--ion-color-grey70);
+        white-space: pre-line;
+        min-height: 35px;
+    }
 }
