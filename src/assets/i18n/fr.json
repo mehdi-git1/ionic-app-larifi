@@ -992,7 +992,8 @@
             "CANCEL": "Annuler"
         },
         "ACTION_MENU": {
-            "MODIFY": "Modifier"
+            "MODIFY": "Modifier",
+            "DELETE": "Supprimer"
         },
         "SEARCH": {
             "ALL": "Toutes",
