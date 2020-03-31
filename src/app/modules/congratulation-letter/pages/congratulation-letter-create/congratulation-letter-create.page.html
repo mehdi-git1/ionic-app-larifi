@@ -104,7 +104,7 @@
                                 {{ 'CONGRATULATION_LETTER_CREATE.FORM.VERBATIM' | translate }}
                                 <strong class="verbatim-info-message" [hidden]="verbatimCanBeEdited()">&nbsp;({{ 'CONGRATULATION_LETTER_CREATE.VERBATIM_EDITABLE_BY_REDACTOR_ONLY' | translate }})</strong>
                             </label>
-                            <div [ngClass]="!verbatimCanBeEdited() ? 'verbatim-read-only' : ''">
+                            <div [ngClass]="{'verbatim-read-only': !verbatimCanBeEdited()}">
                                 <text-editor name="letterVerbatim" [mode]="getVerbatimMode()" [ngModelOptions]="{standalone: true}" [parentForm]="congratulationLetterForm" [placeholder]="''" [controlForm]="'verbatimControl'" [(ngModel)]="congratulationLetter.verbatim">
                                 </text-editor>
                             </div>
