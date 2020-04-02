@@ -52,7 +52,7 @@
                                         {{ 'HR_DOCUMENT.ACTIONS' | translate }}
                                     </ion-col>
                                 </ion-row>
-                                <ion-row class="hr-document-row" *ngFor="let hrDocument of hrDocuments">
+                                <ion-row class="hr-document-row clickable" *ngFor="let hrDocument of hrDocuments" (click)="viewDocumentDetails(hrDocument)">
                                     <ion-col class="column-date">{{hrDocument.creationDate | date:'dd/MM/yyyy' }}
                                     </ion-col>
                                     <ion-col class="column-category">
