@@ -832,7 +832,10 @@
         },
         "BUTTONS": {
             "CANCEL": "Annuler",
-            "SUBMIT": "Valider"
+            "SUBMIT": "Valider",
+            "FIX_RECIPIENT": "Corriger le destinataire",
+            "UPDATE_CONGRATULATION_LETTER": "Modifier",
+            "DELETE_CONGRATULATION_LETTER": "Supprimer"
         },
         "SUCCESS": {
             "LETTER_CREATED": "Lettre de félicitations créée",

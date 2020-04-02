@@ -112,7 +112,7 @@ export class CongratulationLetterCardComponent {
 
       popover.onDidDismiss().then((dismissEvent) => {
         if (dismissEvent.data === 'congratulationLetter:update') {
-          this.router.navigate(['create', congratulationLetter.techId], { relativeTo: this.activatedRoute });
+          this.router.navigate(['create', congratulationLetter.techId], { state: { mode: this.mode }, relativeTo: this.activatedRoute });
         }
       });
     });
