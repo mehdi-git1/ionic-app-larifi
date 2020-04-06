@@ -1,7 +1,7 @@
 
 import { PncLightModel } from '../pnc-light.model';
 
-export class ManifexPdfModel {
+export class PdfModel {
     pnc: PncLightModel;
     pdf: string;
 }

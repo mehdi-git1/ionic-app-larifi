@@ -59,8 +59,11 @@
             </div>
 
             <div class="button-bar button-bar-right margin-top-10 margin-bottom-10">
-                <pdf-button [elementToPrint]="eObservationInformations" [pncCard]="pncCard" [pdfFileName]="pdfFileName">
-                </pdf-button>
+                <ion-button *isBrowser (click)="downloadPdf()" color="primary" fill="outline" [disabled]="pdfDownloadInProgress">
+                    <ion-icon name="cloud-download" class="ion-margin-end"></ion-icon>
+                    {{ 'EOBSERVATION.BUTTONS.DOWNLOAD' | translate }}
+                    <ion-spinner *ngIf="pdfDownloadInProgress"></ion-spinner>
+                </ion-button>
                 <span *hasPermission="EOBS_FULL_EDITION">
                     <ng-container *ngIf="!editMode; else editModeButtonsBlock">
                         <!-- Bouton supprimer l'eobs -->

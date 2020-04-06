@@ -80,7 +80,8 @@ export class UrlConfiguration {
     'getBusinessIndicatorSummary': `${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/summary`,
     'getBusinessIndicator': `${urlGroupEnum.BUSINESS_INDICATORS}/{id}`,
     'getLastAppVersion': `${urlGroupEnum.APP_VERSION}/last`,
-    'downloadManifexPdfById': `${urlGroupEnum.PDFS}/manifex/{id}`
+    'downloadManifexPdfById': `${urlGroupEnum.PDFS}/manifex/{id}`,
+    'downloadEObservationPdfById': `${urlGroupEnum.PDFS}/eobservation/{id}`
   };
 
   /**

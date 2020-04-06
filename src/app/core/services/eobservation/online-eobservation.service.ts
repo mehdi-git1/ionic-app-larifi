@@ -6,6 +6,7 @@ import {
     ReferentialItemLevelModel
 } from '../../models/eobservation/eobservation-referential-item-level.model';
 import { EObservationModel } from '../../models/eobservation/eobservation.model';
+import { PdfModel } from '../../models/manifex/manifex-pdf.model';
 import { EObservationTransformerService } from './eobservation-transformer.service';
 
 @Injectable({ providedIn: 'root' })
@@ -83,6 +84,15 @@ export class OnlineEObservationService {
      */
     public getAllPcbReferentialItemLevelsByVersion(version: string): Promise<ReferentialItemLevelModel[]> {
         return this.restService.get(this.config.getBackEndUrl('getAllPcbReferentialItemLevelsByVersion', [version]));
+    }
+
+    /**
+     * Récupère le PDF d'une eObservation
+     * @param id l'id de l'eObservation qu'on souhaite avoir en PDF
+     * @return le PDF de l'eObservation
+     */
+    public getEObservationPdf(id: number): Promise<PdfModel> {
+        return this.restService.get(this.config.getBackEndUrl('downloadEObservationPdfById', [id]));
     }
 
 }

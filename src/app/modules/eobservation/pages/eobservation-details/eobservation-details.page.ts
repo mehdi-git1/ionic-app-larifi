@@ -8,13 +8,10 @@ import { AlertController, LoadingController, NavController } from '@ionic/angula
 import { TranslateService } from '@ngx-translate/core';
 
 import { PermissionConstant } from '../../../../core/constants/permission.constant';
-import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
+import { FileService } from '../../../../core/file/file.service';
 import { CrewMemberModel } from '../../../../core/models/crew-member.model';
-import {
-    ReferentialItemLevelModel
-} from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
@@ -46,7 +43,7 @@ export class EobservationDetailsPage extends FormCanDeactivate {
   originEObservation: EObservationModel;
 
   editMode = false;
-  pdfFileName: string;
+  pdfDownloadInProgress = false;
 
   constructor(
     private navCtrl: NavController,
@@ -54,6 +51,7 @@ export class EobservationDetailsPage extends FormCanDeactivate {
     private eObservationService: EObservationService,
     private sessionService: SessionService,
     private translateService: TranslateService,
+    private fileService: FileService,
     private toastService: ToastService,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
@@ -74,9 +72,6 @@ export class EobservationDetailsPage extends FormCanDeactivate {
         .then(eObservation => {
           this.eObservation = eObservation;
           this.originEObservation = _.cloneDeep(this.eObservation);
-          const redactionDateString = this.datePipe.transform(this.eObservation.redactionDate, 'yyyyMMddHHmmss');
-          const pncMatricule = this.eObservation && this.eObservation.pnc ? this.eObservation.pnc.matricule : '';
-          this.pdfFileName = 'EOBS_' + pncMatricule + '_' + redactionDateString + '.pdf';
           if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
             this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
               this.pnc = pnc;
@@ -88,7 +83,6 @@ export class EobservationDetailsPage extends FormCanDeactivate {
 
   /**
    * Vérifie si la page peut être quitter sans confirmation
-   * 
    * @return true si on peut quitter la page sans demander confirmation
    */
   canDeactivate(): boolean {
@@ -102,37 +96,14 @@ export class EobservationDetailsPage extends FormCanDeactivate {
     return Utils.getHashCode(this.originEObservation) !== Utils.getHashCode(this.eObservation);
   }
 
-  /** Crée un objet CrewMember à partir d'un objet PncModel
+  /**
+   * Crée un objet CrewMember à partir d'un objet PncModel
    * @param pnc pnc à transformer
    */
   createCrewMemberObjectFromPnc(pnc: PncModel) {
     const crewMember: CrewMemberModel = new CrewMemberModel();
     crewMember.pnc = pnc;
     return crewMember;
-  }
-
-  /**
-   * Récupère les itemLevels referentiel de le l'item referentiel
-   * @return la liste des ReferentialItemLevelModel
-   */
-  getRefItemLevelsByRefItem(): ReferentialItemLevelModel[] {
-    const refItemLevels = new Array<ReferentialItemLevelModel>();
-    let refItemLevel = new ReferentialItemLevelModel();
-    refItemLevel.level = EObservationLevelEnum.LEVEL_1;
-    refItemLevels.push(refItemLevel);
-    refItemLevel = new ReferentialItemLevelModel();
-    refItemLevel.level = EObservationLevelEnum.LEVEL_2;
-    refItemLevels.push(refItemLevel);
-    refItemLevel = new ReferentialItemLevelModel();
-    refItemLevel.level = EObservationLevelEnum.LEVEL_3;
-    refItemLevels.push(refItemLevel);
-    refItemLevel = new ReferentialItemLevelModel();
-    refItemLevel.level = EObservationLevelEnum.LEVEL_4;
-    refItemLevels.push(refItemLevel);
-    refItemLevel = new ReferentialItemLevelModel();
-    refItemLevel.level = EObservationLevelEnum.NO;
-    refItemLevels.push(refItemLevel);
-    return refItemLevels;
   }
 
   /**
@@ -324,5 +295,21 @@ export class EobservationDetailsPage extends FormCanDeactivate {
    */
   getLastUpdateDate(): string {
     return this.datePipe.transform(this.eObservation.lastUpdateDate, 'dd/MM/yyyy HH:mm');
+  }
+
+  /**
+   * Télécharge le PDF de la fiche manifex
+   */
+  public downloadPdf() {
+    this.pdfDownloadInProgress = true;
+    this.eObservationService.getEObservationPdf(this.eObservation.techId).then(eObservationPdf => {
+      this.fileService.downloadFile(
+        'application/pdf',
+        `EObservation ${eObservationPdf.pnc.lastName} ${eObservationPdf.pnc.firstName}.pdf`,
+        eObservationPdf.pdf
+      );
+    }).then(() => {
+      this.pdfDownloadInProgress = false;
+    });
   }
 }

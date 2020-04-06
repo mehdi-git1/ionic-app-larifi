@@ -612,7 +612,8 @@
             "EDIT": "Modifier",
             "CANCEL": "Annuler",
             "UPDATE": "Mettre à jour",
-            "DELETE": "Supprimer"
+            "DELETE": "Supprimer",
+            "DOWNLOAD": "Télécharger"
         }
     },
     "PROFESSIONAL_LEVEL": {

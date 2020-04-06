@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { EntityEnum } from '../../enums/entity.enum';
 import { OfflineActionEnum } from '../../enums/offline-action.enum';
 import { EObservationModel } from '../../models/eobservation/eobservation.model';
+import { PdfModel } from '../../models/manifex/manifex-pdf.model';
 import { StorageService } from '../../storage/storage.service';
 
 @Injectable({ providedIn: 'root' })
@@ -60,6 +61,15 @@ export class OfflineEObservationService {
      * @return une promesse nulle car les observations par rédacteur ne sont pas disponibles hors ligne
      */
     public findEObservationsByRedactor(matricule: string): Promise<EObservationModel[]> {
+        return Promise.resolve(null);
+    }
+
+    /**
+     * En offline, pas de récupération de PDF possible
+     * @param id l'id de l'eObservation qu'on souhaite avoir en PDF
+     * @return une promesse vide
+     */
+    public getEObservationPdf(id: number): Promise<PdfModel> {
         return Promise.resolve(null);
     }
 }
