@@ -67,14 +67,13 @@ export class OnlineCongratulationLetterService {
         if (localCongratulationLetter) {
           // On filtre le PNC concernés
           const filteredConcernedPnc = localCongratulationLetter.concernedPncs.filter(pnc => {
-            return pnc.matricule != pncMatricule;
+            return pnc.matricule !== pncMatricule;
           });
 
-          if (filteredConcernedPnc.length == 0) {
+          if (filteredConcernedPnc.length === 0) {
             // S'il n'y a plus de pnc concerné, on efface la lettre
             this.storageService.delete(EntityEnum.CONGRATULATION_LETTER, `${id}`);
-          }
-          else {
+          } else {
             localCongratulationLetter.concernedPncs = filteredConcernedPnc;
             this.storageService.save(EntityEnum.CONGRATULATION_LETTER, localCongratulationLetter, true);
           }

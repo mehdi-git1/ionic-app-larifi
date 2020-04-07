@@ -80,9 +80,14 @@ export class OnlineWaypointService {
    * @return le point d'étape supprimé
    */
   delete(id: number): Promise<WaypointModel> {
-    this.storageService.delete(EntityEnum.WAYPOINT, `${id}`);
-    this.storageService.persistOfflineMap();
-    return this.restService.delete(this.config.getBackEndUrl('deleteWaypointsById', [id]));
+    const wayPointPromise = this.restService.delete(this.config.getBackEndUrl('deleteWaypointsById', [id]));
+
+    wayPointPromise.then(() => {
+      this.storageService.delete(EntityEnum.WAYPOINT, `${id}`);
+      this.storageService.persistOfflineMap();
+    });
+
+    return wayPointPromise;
   }
 
 }
