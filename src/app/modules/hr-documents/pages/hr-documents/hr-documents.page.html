@@ -15,7 +15,8 @@
                     <div class="filter">
                         <ion-label class="input-label">{{ 'HR_DOCUMENT.SEARCH.CATEGORY' | translate }}&nbsp;:</ion-label>
                         <ion-select interface="popover" #optionValue (ionChange)="filterCategory(optionValue.value)">
-                            <ion-select-option [value]="valueAll" [selected]="true"> {{ 'HR_DOCUMENT.SEARCH.ALL' | translate }} </ion-select-option>
+                            <ion-select-option [value]="valueAll" [selected]="true"> {{ 'HR_DOCUMENT.SEARCH.ALL' | translate }}
+                            </ion-select-option>
                             <ion-select-option *ngFor="let hrDocumentCategorie of hrDocumentCategories" [value]="hrDocumentCategorie.id"> {{hrDocumentCategorie.label}} </ion-select-option>
                         </ion-select>
                     </div>
@@ -52,13 +53,14 @@
                                         {{ 'HR_DOCUMENT.ACTIONS' | translate }}
                                     </ion-col>
                                 </ion-row>
-                                <ion-row class="hr-document-row clickable" *ngFor="let hrDocument of hrDocuments" (click)="viewDocumentDetails(hrDocument)">
+                                <ion-row class="hr-document-row" *ngFor="let hrDocument of hrDocuments">
                                     <ion-col class="column-date">{{hrDocument.creationDate | date:'dd/MM/yyyy' }}
                                     </ion-col>
                                     <ion-col class="column-category">
                                         <div class="category-label">{{hrDocument.category?.label}}</div>
                                     </ion-col>
                                     <ion-col class="column-title">
+                                        <ion-icon *ngIf="hasAttachement(hrDocument)" name="attach"></ion-icon>
                                         <span class="truncate-text">{{hrDocument.title}}</span>
                                     </ion-col>
                                     <ion-col class="column-redactor">
