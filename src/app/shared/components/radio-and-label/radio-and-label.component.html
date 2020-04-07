@@ -1,9 +1,10 @@
-<span class="container" >
+<span class="container">
   <span *ngIf="!disabled">
-    <ion-radio slot="start" mode="md" disabled="{{disabled}}" checked="{{conditionValue}}" value="{{conditionValue}}"></ion-radio>
+    <ion-radio slot="start" mode="md" [disabled]="disabled" [checked]="conditionValue" [value]="conditionValue">
+    </ion-radio>
     <label>{{ label }}</label>
   </span>
   <span *ngIf="disabled">
-    <mat-checkbox  disabled="{{disabled}}" [(ngModel)]="conditionValue">{{ label }}</mat-checkbox>
+    <mat-checkbox [disabled]="disabled" [value]="conditionValue" [checked]="conditionValue">{{ label }}</mat-checkbox>
   </span>
 </span>
