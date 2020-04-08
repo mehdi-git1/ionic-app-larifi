@@ -21,21 +21,6 @@ $block-border-radius: 5px;
 
 .button-bar {
     margin-top: 10px;
-
-    pdf-button {
-
-        .button .button-md .button-ios {
-            background-color: var(--ion-color-white);
-            color: var(--ion-color-grey20);
-            border-color: var(--ion-color-grey20);
-        }
-
-        .button:hover .button-md:hover .button-ios:hover {
-            background-color: var(--ion-color-white);
-            color: var(--ion-color-grey20);
-            border-color: var(--ion-color-grey20);
-        }
-    }
 }
 
 .information-message {

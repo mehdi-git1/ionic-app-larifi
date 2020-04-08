@@ -35,7 +35,6 @@ import { NoDataComponent } from './no-data/no-data.component';
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
 import { PageHeaderComponent } from './page-header/page-header.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { PdfButtonComponent } from './pdf-button/pdf-button.component';
 import { PinPadComponent } from './pin-pad/pin-pad.component';
 import { PncAutoCompleteComponent } from './pnc-autocomplete/pnc-autocomplete.component';
 import { PncCardComponent } from './pnc-card/pnc-card.component';
@@ -87,7 +86,6 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         RadioAndLabelComponent,
         CheckboxAndLabelComponent,
         UserMessageAlertComponent,
-        PdfButtonComponent,
         AppVersionAlertComponent,
         TextEditorComponent,
         DocumentManagerComponent,
@@ -126,7 +124,6 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         RadioAndLabelComponent,
         CheckboxAndLabelComponent,
         UserMessageAlertComponent,
-        PdfButtonComponent,
         AppVersionAlertComponent,
         DocumentManagerComponent,
         PncAutoCompleteComponent,
