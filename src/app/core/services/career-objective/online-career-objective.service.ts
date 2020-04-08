@@ -92,9 +92,12 @@ export class OnlineCareerObjectiveService {
    * @return l'objectif supprimé
    */
   delete(id: number): Promise<CareerObjectiveModel> {
-    this.storageService.delete(EntityEnum.CAREER_OBJECTIVE, `${id}`);
-    this.storageService.persistOfflineMap();
-    return this.restService.delete(this.config.getBackEndUrl('deleteCareerObjectivesById', [id]));
+    const carreerObjectPromise = this.restService.delete(this.config.getBackEndUrl('deleteCareerObjectivesById', [id]));
+    carreerObjectPromise.then(() => {
+      this.storageService.persistOfflineMap();
+      this.storageService.delete(EntityEnum.CAREER_OBJECTIVE, `${id}`);
+    });
+    return carreerObjectPromise;
   }
 
   /**

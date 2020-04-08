@@ -58,15 +58,12 @@ export class OnlineProfessionalInterviewService {
      * @return une promesse disant que la suppression s'est bien passée, ou pas
      */
     public delete(id: number): Promise<any> {
-        return new Promise((resolve, reject) => {
+        const professionalInterviewPromise = this.restService.delete(this.config.getBackEndUrl('deleteProfessionalInterviewById', [id]));
+        professionalInterviewPromise.then(() => {
             this.storageService.delete(EntityEnum.PROFESSIONAL_INTERVIEW, `${id}`);
             this.storageService.persistOfflineMap();
-            this.restService.delete(this.config.getBackEndUrl('deleteProfessionalInterviewById', [id])).then(() => {
-                resolve();
-            }).catch(() => {
-                reject();
-            });
         });
+        return professionalInterviewPromise;
     }
 
 
