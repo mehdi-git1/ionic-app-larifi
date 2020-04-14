@@ -9,7 +9,7 @@ import {
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
     AlertController, Events, LoadingController, NavController, PopoverController
 } from '@ionic/angular';
@@ -68,7 +68,6 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
     readonly AF = 'AF';
 
     constructor(
-        private router: Router,
         private activatedRoute: ActivatedRoute,
         private congratulationLetterService: CongratulationLetterService,
         private pncService: PncService,
