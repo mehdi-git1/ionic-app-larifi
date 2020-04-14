@@ -135,7 +135,7 @@
                                     {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.SUBMIT' | translate }}
                                 </ion-button>
                                 <!-- Bouton Modifier le rédacteur d'une lettre de félicitation -->
-                                <ion-button fill="outline" color="primary" (click)="fixRecipient($event)" *ngIf="!isCreationMode() && !isWrittenMode()">
+                                <ion-button fill="outline" color="primary" (click)="fixRecipient($event)" *ngIf="!isCreationMode() && isReceivedMode()">
                                     <span class="edospnc-fix-recipient ion-margin-end" name="edospnc-fix-recipient"></span>
                                     {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.FIX_RECIPIENT' | translate }}</ion-button>
                                 <!-- Bouton supprimer une lettre de félicitation -->

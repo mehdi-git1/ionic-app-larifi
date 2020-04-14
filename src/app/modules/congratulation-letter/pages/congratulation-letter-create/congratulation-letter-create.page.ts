@@ -102,10 +102,6 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
             this.congratulationLetter.concernedPncs.push(this.pnc);
         }, error => { });
 
-        if (this.router.getCurrentNavigation().extras.state) {
-            this.mode = this.router.getCurrentNavigation().extras.state.mode;
-        }
-
         if (this.activatedRoute.snapshot.paramMap.get('congratulationLetterId')
             && this.activatedRoute.snapshot.paramMap.get('congratulationLetterId') !== '0') {
             // Mode édition
@@ -114,6 +110,11 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
                 parseInt(this.activatedRoute.snapshot.paramMap.get('congratulationLetterId'), 10))
                 .then(congratulationLetter => {
                     this.congratulationLetter = congratulationLetter;
+                    if (this.isReceivedMode()) {
+                        this.mode = CongratulationLetterModeEnum.RECEIVED;
+                    } else {
+                        this.mode = CongratulationLetterModeEnum.WRITTEN;
+                    }
                     if (this.congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC) {
                         this.selectedRedactor = this.congratulationLetter.redactor;
                         this.displayPncSelection = true;
@@ -332,12 +333,13 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
     }
 
     /**
-     * Verifie qu'il s'agit bien du mode des lettres rédigées
-     * @return true s'il s'agit du mode des lettres rédigées, false sinon
+     * Verifie qu'il s'agit bien du mode des lettres reçu
+     * @return true s'il s'agit du mode des lettres reçu, false sinon
      */
-    isWrittenMode() {
-        console.log(this.mode);
-        return this.mode === CongratulationLetterModeEnum.WRITTEN || this.mode === undefined;
+    isReceivedMode(): boolean {
+        return this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC
+            || !this.congratulationLetter.redactor
+            || (this.congratulationLetter.redactor && this.congratulationLetter.redactor.matricule !== this.pnc.matricule);
     }
 
     /**
