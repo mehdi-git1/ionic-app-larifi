@@ -54,7 +54,7 @@ export class LogbookEventActionMenuComponent {
   }
 
   /**
-   * Envoie un event avec l'évènement à editer, à la page parente.
+   * Lance le processus de modification d'un évènement
    */
   editLogbookEvent() {
     this.logbookEvent.mode = LogbookEventModeEnum.EDITION;
@@ -63,43 +63,12 @@ export class LogbookEventActionMenuComponent {
   }
 
   /**
-   * Présente une alerte pour confirmer la suppression du brouillon
+   * Lance le processus de suppression d'un évènement
    */
   confirmDeleteLogBookEvent() {
     this.logbookEvent.mode = LogbookEventModeEnum.DELETION;
     this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
-    this.alertCtrl.create({
-      header: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.TITLE'),
-      message: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.MESSAGE'),
-      buttons: [
-        {
-          text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-          role: 'cancel'
-        },
-        {
-          text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-          handler: () => this.deleteLogbookEvent()
-        }
-      ]
-    }).then(alert => alert.present());
-  }
-
-  /**
-   * Supprime un évènement
-   */
-  deleteLogbookEvent() {
-    this.loadingCtrl.create().then(loading => {
-      loading.present();
-
-      this.onlineLogbookEventService.delete(this.logbookEvent.techId)
-        .then(deletedlogbookEvent => {
-          this.toastService.success(this.translateService.instant('LOGBOOK.DELETE.SUCCESS'));
-          loading.dismiss();
-        },
-          error => {
-            loading.dismiss();
-          });
-    });
+    this.popoverCtrl.dismiss('logbookEvent:delete');
   }
 
   /**

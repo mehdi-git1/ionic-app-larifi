@@ -1,10 +1,11 @@
 import * as moment from 'moment';
+import { ToastService } from 'src/app/core/services/toast/toast.service';
 
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
+import { AlertController, LoadingController, PopoverController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
-import { Config } from '../../../../../environments/config';
 import { AppConstant } from '../../../../app.constant';
 import { LogbookEventTypeEnum } from '../../../../core/enums/logbook-event/logbook-event-type.enum';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
@@ -51,7 +52,10 @@ export class LogbookPage {
         private onlineLogbookEventService: OnlineLogbookEventService,
         private popoverCtrl: PopoverController,
         private connectivityService: ConnectivityService,
-        private config: Config
+        private alertCtrl: AlertController,
+        private translateService: TranslateService,
+        private toastService: ToastService,
+        private loadingCtrl: LoadingController
     ) {
     }
 
@@ -225,7 +229,49 @@ export class LogbookPage {
                         , relativeTo: this.activatedRoute
                     });
                 }
+                if (dismissEvent.data === 'logbookEvent:delete') {
+                    this.confirmDeleteLogBookEvent(logbookEvent.techId);
+                }
             });
+        });
+    }
+
+    /**
+     * Présente une alerte afin de confirmer la suppression de l'évènement
+     */
+    confirmDeleteLogBookEvent(logbookEventTechId: number) {
+        this.alertCtrl.create({
+            header: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.TITLE'),
+            message: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.MESSAGE'),
+            buttons: [
+                {
+                    text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                    role: 'cancel'
+                },
+                {
+                    text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                    handler: () => this.deleteLogbookEvent(logbookEventTechId)
+                }
+            ]
+        }).then(alert => alert.present());
+    }
+
+    /**
+     * Supprime un évènement puis met à jour la liste d'évènement
+     */
+    deleteLogbookEvent(logbookEventTechId: number) {
+        this.loadingCtrl.create().then(loading => {
+            loading.present();
+
+            this.onlineLogbookEventService.delete(logbookEventTechId)
+                .then(deletedlogbookEvent => {
+                    this.toastService.success(this.translateService.instant('LOGBOOK.DELETE.SUCCESS'));
+                    this.getLogbookEvents(this.pnc.matricule);
+                    loading.dismiss();
+                },
+                    error => {
+                        loading.dismiss();
+                    });
         });
     }
 
