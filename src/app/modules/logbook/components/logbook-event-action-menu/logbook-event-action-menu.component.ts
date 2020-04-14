@@ -2,16 +2,11 @@ import * as _ from 'lodash';
 import { LogbookEventModeEnum } from 'src/app/core/enums/logbook-event/logbook-event-mode.enum';
 import { LogbookEventTypeEnum } from 'src/app/core/enums/logbook-event/logbook-event-type.enum';
 import { PncModel } from 'src/app/core/models/pnc.model';
-import {
-    OnlineLogbookEventService
-} from 'src/app/core/services/logbook/online-logbook-event.service';
 import { SecurityService } from 'src/app/core/services/security/security.service';
 import { SessionService } from 'src/app/core/services/session/session.service';
-import { ToastService } from 'src/app/core/services/toast/toast.service';
 
 import { Component } from '@angular/core';
-import { AlertController, LoadingController, NavParams, PopoverController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { NavParams, PopoverController } from '@ionic/angular';
 
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
 
@@ -35,12 +30,7 @@ export class LogbookEventActionMenuComponent {
     private navParams: NavParams,
     private popoverCtrl: PopoverController,
     private sessionService: SessionService,
-    private securityService: SecurityService,
-    private alertCtrl: AlertController,
-    private translateService: TranslateService,
-    private loadingCtrl: LoadingController,
-    private onlineLogbookEventService: OnlineLogbookEventService,
-    private toastService: ToastService) {
+    private securityService: SecurityService) {
     this.logbookEvent = this.navParams.get('logbookEvent');
     this.pnc = this.navParams.get('pnc');
     this.logbookEventIndex = this.navParams.get('logbookEventIndex');
@@ -66,8 +56,6 @@ export class LogbookEventActionMenuComponent {
    * Lance le processus de suppression d'un évènement
    */
   confirmDeleteLogBookEvent() {
-    this.logbookEvent.mode = LogbookEventModeEnum.DELETION;
-    this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
     this.popoverCtrl.dismiss('logbookEvent:delete');
   }
 

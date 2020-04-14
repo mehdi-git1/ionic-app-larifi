@@ -9,8 +9,7 @@
         <div class="draw-ligne"></div>
     </div>
 
-    <ion-card class="selectable logbook-event-card"
-        [ngClass]="{'clickable':logbookEvent.disabled,'disabled':logbookEvent.disabled}">
+    <ion-card class="selectable logbook-event-card" [ngClass]="{'clickable':logbookEvent.disabled,'disabled':logbookEvent.disabled}">
 
         <ion-card-content class="ion-no-padding pnc-info-panel">
             <div class="flex">
@@ -67,25 +66,19 @@
                         </document-manager>
                     </div>
                     <!-- Pnc notifiés-->
-                    <div class="logbook-notified-pnc"
-                        *ngIf="isManager() && logbookEvent.type !== LogbookEventTypeEnum.FRIENDLY">
+                    <div class="logbook-notified-pnc" *ngIf="isManager() && logbookEvent.type !== LogbookEventTypeEnum.FRIENDLY">
                         <div>
                             <ion-label position="stacked">{{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS.TITLE' | translate }} :
                             </ion-label>
                         </div>
-                        <div
-                            [ngClass]="{'no-value' : !logbookEvent.notifiedPncs && !logbookEvent.notifiedRecipients || logbookEvent.notifiedPncs.length === 0 && logbookEvent.notifiedRecipients.length === 0}">
-                            <span
-                                *ngFor="let notifiedPnc of logbookEvent.notifiedPncs; last as l">{{notifiedPnc.pnc.lastName}}
-                                {{notifiedPnc.pnc.firstName | titlecase}}&nbsp;<span
-                                    *ngIf="notifiedPnc.speciality">({{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS.SPECIALITY.' + notifiedPnc.speciality | translate }})</span>
+                        <div [ngClass]="{'no-value' : !logbookEvent.notifiedPncs && !logbookEvent.notifiedRecipients || logbookEvent.notifiedPncs.length === 0 && logbookEvent.notifiedRecipients.length === 0}">
+                            <span *ngFor="let notifiedPnc of logbookEvent.notifiedPncs; last as l">{{notifiedPnc.pnc.lastName}}
+                                {{notifiedPnc.pnc.firstName | titlecase}}&nbsp;<span *ngIf="notifiedPnc.speciality">({{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS.SPECIALITY.' + notifiedPnc.speciality | translate }})</span>
                                 <span *ngIf="!l">;&nbsp;</span>
                             </span>
                         </div>
                         <div *ngIf="logbookEvent.notifiedRecipients">
-                            <span
-                                *ngFor="let email of logbookEvent.notifiedRecipients; last as l">{{ email.emailAddress }}<span
-                                    *ngIf="!l">;&nbsp;</span>
+                            <span *ngFor="let email of logbookEvent.notifiedRecipients; last as l">{{ email.emailAddress }}<span *ngIf="!l">;&nbsp;</span>
                             </span>
                         </div>
                     </div>
@@ -98,9 +91,7 @@
                 <div class="small-width-devices  visibility-for-small-container">
                     <form #form="ngForm" [formGroup]="visibilityForm">
                         <ion-radio-group [(ngModel)]="visibilitySelected" formControlName="visibilityControl">
-                            <ion-item
-                                *ngIf="getDisplayDate() && (logbookEvent.type === LogbookEventTypeEnum.CCO || logbookEvent.type === LogbookEventTypeEnum.ISCV)"
-                                lines="none">
+                            <ion-item *ngIf="getDisplayDate() && (logbookEvent.type === LogbookEventTypeEnum.CCO || logbookEvent.type === LogbookEventTypeEnum.ISCV)" lines="none">
                                 <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}">
                                 </ion-radio>
                                 <ion-label>
@@ -123,25 +114,20 @@
                 <div class="large-width-devices  visibility-for-large-container">
                     <form #form="ngForm" [formGroup]="visibilityForm">
                         <ion-radio-group [(ngModel)]="visibilitySelected" formControlName="visibilityControl">
-                            <ion-item
-                                *ngIf="getDisplayDate() && (logbookEvent.type === LogbookEventTypeEnum.CCO || logbookEvent.type === LogbookEventTypeEnum.ISCV)"
-                                lines="none">
-                                <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}"
-                                    (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON)">
+                            <ion-item *ngIf="getDisplayDate() && (logbookEvent.type === LogbookEventTypeEnum.CCO || logbookEvent.type === LogbookEventTypeEnum.ISCV)" lines="none">
+                                <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON)">
                                 </ion-radio>
                                 <ion-label>
                                     {{ 'LOGBOOK.DETAILS.WILL_BE_DISPLAYED_ON' | translate:{date:getDisplayDate()} }}
                                 </ion-label>
                             </ion-item>
                             <ion-item lines="none">
-                                <ion-radio value="{{EventCcoVisibilityEnum.DISPLAYED}}"
-                                    (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.DISPLAYED)">
+                                <ion-radio [disabled]="editionMode" value="{{EventCcoVisibilityEnum.DISPLAYED}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.DISPLAYED)">
                                 </ion-radio>
                                 <ion-label>{{ 'LOGBOOK.DETAILS.DISPLAYED' | translate }}</ion-label>
                             </ion-item>
                             <ion-item lines="none">
-                                <ion-radio value="{{EventCcoVisibilityEnum.HIDDEN}}"
-                                    (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.HIDDEN)">
+                                <ion-radio [disabled]="editionMode" value="{{EventCcoVisibilityEnum.HIDDEN}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.HIDDEN)">
                                 </ion-radio>
                                 <ion-label>{{ 'LOGBOOK.DETAILS.HIDDEN' | translate }}</ion-label>
                             </ion-item>
@@ -150,14 +136,13 @@
                 </div>
                 <div class="logbook-button-bar button-bar button-bar-right " *ngIf="canEditEvent()">
                     <!-- Bouton supprimer -->
-                    <button ion-button color="primary" (click)="deleteLogbookEvent()">
+                    <ion-button fill="clear" [disabled]="editionMode" color="dark" (click)="deleteLogbookEvent()">
                         {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
-                    </button>
+                    </ion-button>
                     <!-- Bouton modifier -->
-                    <button ion-button color="primary" *ngIf="canModifyEvent()" (click)="editLogbookEvent()">
+                    <ion-button fill="clear" [disabled]="editionMode" color="dark" *ngIf="canModifyEvent()" (click)="editLogbookEvent()">
                         {{ 'LOGBOOK.BUTTONS.MODIFY' | translate }}
-                    </button>
-
+                    </ion-button>
                 </div>
             </div>
         </ion-card-content>
