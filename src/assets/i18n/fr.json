@@ -946,7 +946,8 @@
             "DISPLAY": "Visualiser",
             "ADD_LINKED_EVENT": "Ajouter un évènement lié",
             "FORWARD": "Transférer",
-            "DELETE_ALL": "Supprimer tout"
+            "DELETE_ALL": "Supprimer tout",
+            "DELETE": "Supprimer"
         }
     },
     "HR_DOCUMENT": {

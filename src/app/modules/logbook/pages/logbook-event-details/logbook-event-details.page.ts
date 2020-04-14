@@ -1,8 +1,10 @@
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
-import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+    AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, Events, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -27,7 +29,7 @@ import { LogbookEventComponent } from '../../components/logbook-event/logbook-ev
     templateUrl: 'logbook-event-details.page.html',
     styleUrls: ['./logbook-event-details.page.scss']
 })
-export class LogbookEventDetailsPage implements OnInit {
+export class LogbookEventDetailsPage implements OnInit, AfterViewInit {
 
     logbookEvents: LogbookEventModel[];
     pnc: PncModel;
@@ -45,7 +47,7 @@ export class LogbookEventDetailsPage implements OnInit {
 
     @ViewChildren('logbookEventCreate') logbookEventCreate: LogbookEventComponent[];
 
-    @ViewChildren('logbookEventDetails') logbookEventDetails: LogbookEventDetailsComponent[];
+    @ViewChildren('logbookEventDetails') logbookEventDetails: QueryList<LogbookEventDetailsComponent>;
 
     @ViewChild('linkedLogbookEventCreate', { static: false }) linkedLogbookEventCreate: LogbookEventComponent;
 
@@ -61,8 +63,21 @@ export class LogbookEventDetailsPage implements OnInit {
         private translateService: TranslateService,
         private securityService: SecurityService,
         private toastService: ToastService,
-        private loadingCtrl: LoadingController
+        private loadingCtrl: LoadingController,
+        private router: Router
     ) { }
+
+    ngAfterViewInit() {
+        const currentNavigation = this.router.getCurrentNavigation();
+        if (this.groupId) {
+            // Permet d'obtenir tous les Events pour pouvoir selectionner celui à modifier
+            this.onlineLogbookEventService.getLogbookEventsByGroupId(this.groupId).then(logbookEvents => {
+                if (currentNavigation.extras.state) {
+                    this.selectedLogbookEvent(currentNavigation.extras.state.logbookEvent);
+                }
+            });
+        }
+    }
 
     ngOnInit() {
         if (this.activatedRoute.snapshot.paramMap.get('createLinkedEvent')) {
@@ -116,7 +131,9 @@ export class LogbookEventDetailsPage implements OnInit {
                 logbookEvents => {
                     this.logbookEvents = new Array();
                     logbookEvents.forEach(logbookEvent => {
-                        if (this.sessionService.getActiveUser().isManager || pnc.matricule === this.sessionService.getActiveUser().matricule && !this.isHidden(logbookEvent)) {
+                        if (this.sessionService.getActiveUser().isManager
+                            || pnc.matricule === this.sessionService.getActiveUser().matricule
+                            && !this.isHidden(logbookEvent)) {
                             this.logbookEvents.push(logbookEvent);
                         }
                     });
@@ -133,7 +150,7 @@ export class LogbookEventDetailsPage implements OnInit {
      * @param logbookEvent l'évènement à tester
      */
     isHidden(logbookEvent: LogbookEventModel) {
-        if (logbookEvent.type != LogbookEventTypeEnum.EDOSPNC) {
+        if (logbookEvent.type !== LogbookEventTypeEnum.EDOSPNC) {
             const now = moment();
             const broadcastDate = moment(logbookEvent.creationDate, AppConstant.isoDateFormat);
             const hiddenDuration = moment.duration(now.diff(broadcastDate)).asMilliseconds();

@@ -97,7 +97,9 @@ export class LogbookPage {
             this.groupedEvents = new Array<LogbookEventGroupModel>();
             const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
             logbookEvents.forEach(logbookEvent => {
-                if (this.sessionService.getActiveUser().isManager || matricule === this.sessionService.getActiveUser().matricule && !this.isHidden(logbookEvent)) {
+                if (this.sessionService.getActiveUser().isManager
+                    || matricule === this.sessionService.getActiveUser().matricule
+                    && !this.isHidden(logbookEvent)) {
                     if (!groupedEventsMap.has(logbookEvent.groupId)) {
                         groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
                     }
@@ -197,11 +199,15 @@ export class LogbookPage {
      * @param event  event
      * @param logbookEvent l'évènement JDB concerné
      */
-    openActionsMenu(event: Event, logbookEvent: LogbookEventModel) {
+    openActionsMenu(event: Event, logbookEvent: LogbookEventModel, logbookEventIndex: number) {
         event.stopPropagation();
         this.popoverCtrl.create({
             component: LogbookEventActionMenuComponent,
-            componentProps: { logbookEvent: logbookEvent },
+            componentProps: {
+                logbookEvent: logbookEvent,
+                pnc: this.pnc,
+                logbookEventIndex: logbookEventIndex
+            },
             event: event,
             cssClass: 'action-menu-popover'
         }).then(popover => {
@@ -210,6 +216,14 @@ export class LogbookPage {
             popover.onDidDismiss().then(dismissEvent => {
                 if (dismissEvent.data === 'logbookEvent:create') {
                     this.router.navigate(['detail', logbookEvent.groupId, true], { relativeTo: this.activatedRoute });
+                }
+                if (dismissEvent.data === 'logbookEvent:update') {
+                    this.router.navigate(['detail', logbookEvent.groupId, false], {
+                        state: {
+                            logbookEvent: logbookEvent
+                        }
+                        , relativeTo: this.activatedRoute
+                    });
                 }
             });
         });

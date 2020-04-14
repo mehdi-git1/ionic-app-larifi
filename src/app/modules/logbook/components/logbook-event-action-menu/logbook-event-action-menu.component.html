@@ -1,1 +1,3 @@
-<div class="clickable" (click)="addLinkedEvent()">{{ 'LOGBOOK.ACTION_MENU.ADD_LINKED_EVENT' | translate }}</div>
+<div class="clickable" *ngIf="logbookEventIndex === 0" (click)="addLinkedEvent()">{{ 'LOGBOOK.ACTION_MENU.ADD_LINKED_EVENT' | translate }}</div>
+<div class="clickable" *ngIf="canEditEvent() && canModifyEvent()" (click)="editLogbookEvent()">{{ 'LOGBOOK.ACTION_MENU.MODIFY' | translate }}</div>
+<div class="clickable" *ngIf="canEditEvent()" (click)="confirmDeleteLogBookEvent()">{{ 'LOGBOOK.ACTION_MENU.DELETE' | translate }}</div>
