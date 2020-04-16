@@ -2,12 +2,17 @@ import * as _ from 'lodash';
 import { Observable } from 'rxjs/Observable';
 import { pairwise } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import {
+    CongratulationLetterModeEnum
+} from 'src/app/core/enums/congratulation-letter/congratulation-letter-mode.enum';
 
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import {
+    AlertController, Events, LoadingController, NavController, PopoverController
+} from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -29,6 +34,7 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
 import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
+import { FixRecipientComponent } from '../../components/fix-recipient/fix-recipient.component';
 
 @Component({
     selector: 'congratulation-letter-create',
@@ -36,6 +42,8 @@ import { Utils } from '../../../../shared/utils/utils';
     styleUrls: ['./congratulation-letter-create.page.scss']
 })
 export class CongratulationLetterCreatePage extends FormCanDeactivate implements OnInit {
+
+    mode: CongratulationLetterModeEnum;
 
     pnc: PncModel;
     creationMode = true;
@@ -70,7 +78,11 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
         private dateTransformer: DateTransform,
         private connectivityService: ConnectivityService,
         private datePipe: DatePipe,
-        public translateService: TranslateService
+        public translateService: TranslateService,
+        private popoverCtrl: PopoverController,
+        private alertCtrl: AlertController,
+        private loadingCtrl: LoadingController,
+        private events: Events
     ) {
         super();
         this.initForm();
@@ -97,6 +109,11 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
                 parseInt(this.activatedRoute.snapshot.paramMap.get('congratulationLetterId'), 10))
                 .then(congratulationLetter => {
                     this.congratulationLetter = congratulationLetter;
+                    if (this.isReceivedMode()) {
+                        this.mode = CongratulationLetterModeEnum.RECEIVED;
+                    } else {
+                        this.mode = CongratulationLetterModeEnum.WRITTEN;
+                    }
                     if (this.congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC) {
                         this.selectedRedactor = this.congratulationLetter.redactor;
                         this.displayPncSelection = true;
@@ -305,5 +322,85 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
                 || (this.congratulationLetter.creationAuthor !== undefined
                     && this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule)
             );
+    }
+
+    /**
+     * Teste si la lettre de félicitation est en mode création ou édition
+     */
+    isCreationMode() {
+        return this.creationMode;
+    }
+
+    /**
+     * Verifie qu'il s'agit bien du mode des lettres reçu
+     * @return true s'il s'agit du mode des lettres reçu, false sinon
+     */
+    isReceivedMode(): boolean {
+        return this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC
+            || !this.congratulationLetter.redactor
+            || (this.congratulationLetter.redactor && this.congratulationLetter.redactor.matricule !== this.pnc.matricule);
+    }
+
+    /**
+     * Corrige le destinataire
+     * @param event événement de la page
+     */
+    fixRecipient(event: Event) {
+        event.stopPropagation();
+        this.popoverCtrl.create({
+            component: FixRecipientComponent,
+            componentProps: { congratulationLetter: this.congratulationLetter, pnc: this.pnc },
+            cssClass: 'fix-recipient-popover'
+        }).then(popover => popover.present());
+        this.popoverCtrl.dismiss();
+    }
+
+    /**
+     * Présente une alerte pour confirmer la suppression de la priorité
+     */
+    confirmDeleteCongratulationLetter() {
+        this.alertCtrl.create({
+            header: this.translateService.instant('CONGRATULATION_LETTERS.CONFIRM_DELETE.TITLE'),
+            message: this.translateService.instant('CONGRATULATION_LETTERS.CONFIRM_DELETE.MESSAGE'),
+            buttons: [
+                {
+                    text: this.translateService.instant('CONGRATULATION_LETTERS.CONFIRM_DELETE.CANCEL'),
+                    role: 'cancel',
+                    handler: () => this.closePopover()
+                },
+                {
+                    text: this.translateService.instant('CONGRATULATION_LETTERS.CONFIRM_DELETE.CONFIRM'),
+                    handler: () => this.deleteCongratulationLetter()
+                }
+            ]
+        }).then(alert => alert.present());
+    }
+
+    /**
+     * Ferme la popover
+     */
+    closePopover() {
+        this.popoverCtrl.dismiss();
+    }
+
+    /**
+     * Efface une lettre de félicitation
+     */
+    deleteCongratulationLetter() {
+        this.loadingCtrl.create().then(loading => {
+            loading.present();
+
+            this.congratulationLetterService
+                .delete(this.congratulationLetter.techId, this.pnc.matricule, this.mode)
+                .then(deletedcongratulationLetter => {
+                    this.toastService.success(this.translateService.instant('CONGRATULATION_LETTERS.TOAST.DELETE_SUCCESS'));
+                    this.events.publish('CongratulationLetter:deleted');
+                    loading.dismiss();
+                }, error => {
+                    loading.dismiss();
+                });
+        });
+
+        this.popoverCtrl.dismiss();
     }
 }

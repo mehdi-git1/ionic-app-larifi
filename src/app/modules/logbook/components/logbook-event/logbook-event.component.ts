@@ -5,7 +5,7 @@ import {
 } from 'src/app/core/models/logbook/logbook-event-notified-pnc.model';
 import { PncTransformerService } from 'src/app/core/services/pnc/pnc-transformer.service';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, Events, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -77,7 +77,8 @@ export class LogbookEventComponent implements OnInit {
         private alertCtrl: AlertController,
         private formBuilder: FormBuilder,
         private cancelChangeService: CancelChangesService,
-        private pncTransformer: PncTransformerService) {
+        private pncTransformer: PncTransformerService,
+        public elementRef: ElementRef) {
         this.initForm();
     }
 

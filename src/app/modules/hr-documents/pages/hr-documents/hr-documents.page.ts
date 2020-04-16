@@ -1,6 +1,14 @@
+import {
+    OnlineHrDocumentService
+} from 'src/app/core/services/hr-documents/online-hr-document.service';
+import { ToastService } from 'src/app/core/services/toast/toast.service';
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
+import {
+    AlertController, LoadingController, NavController, PopoverController
+} from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../../app.constant';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
@@ -13,7 +21,7 @@ import { HrDocumentService } from '../../../../core/services/hr-documents/hr-doc
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import {
-  HrDocumentActionMenuComponent
+    HrDocumentActionMenuComponent
 } from '../hr-document-action-menu/hr-document-action-menu.component';
 
 @Component({
@@ -42,7 +50,13 @@ export class HrDocumentsPage implements OnInit {
     private hrDocumentService: HrDocumentService,
     private securityService: SecurityService,
     private connectivityService: ConnectivityService,
-    private popoverCtrl: PopoverController) {
+    private popoverCtrl: PopoverController,
+    private alertCtrl: AlertController,
+    private translateService: TranslateService,
+    private onlineHrDocumentService: OnlineHrDocumentService,
+    private navCtrl: NavController,
+    private loadingCtrl: LoadingController,
+    private toastService: ToastService) {
     this.sizeOfThePage = 0;
     this.initFilter();
   }
@@ -245,6 +259,66 @@ export class HrDocumentsPage implements OnInit {
         if (dismissEvent.data === 'hrDocument:create') {
           this.router.navigate(['create', hrDocument.techId], { relativeTo: this.activatedRoute });
         }
+        if (dismissEvent.data === 'hrDocument:delete') {
+          this.confirmDeleteHrDocument(hrDocument.techId);
+        }
+      });
+    });
+  }
+
+  /**
+   * Confirmation de suppression du document RH à supprimer
+   */
+  confirmDeleteHrDocument(hrDocumentId: number) {
+    this.alertCtrl.create({
+      header: this.translateService.instant('HR_DOCUMENT.CONFIRM_DELETE.TITLE'),
+      message: this.translateService.instant('HR_DOCUMENT.CONFIRM_DELETE.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('HR_DOCUMENT.CONFIRM_DELETE.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('HR_DOCUMENT.CONFIRM_DELETE.CONFIRM'),
+          handler: () => this.markedAsDeleted(hrDocumentId)
+        }
+      ]
+    }).then(alert => {
+      alert.present();
+    });
+  }
+
+  /**
+   * Marque le document RH comme supprimé et appelle la méthode pour la mise à jour
+   * @param hrDocumentId l'id du document RH à supprimer
+   */
+  markedAsDeleted(hrDocumentId: number) {
+    this.hrDocumentService.getHrDocument(hrDocumentId).then(hrDocument => {
+      hrDocument.deleted = true;
+      hrDocument.attachmentFiles = new Array();
+      this.saveHrDocument(hrDocument);
+
+    });
+  }
+
+  /**
+   * Enregistre le document RH
+   */
+  saveHrDocument(hrDocument: HrDocumentModel) {
+    return new Promise((resolve, reject) => {
+      this.loadingCtrl.create().then(loading => {
+        loading.present();
+
+        this.onlineHrDocumentService.createOrUpdate(hrDocument)
+          .then(savedHrDocument => {
+            this.toastService.success(this.translateService.instant('HR_DOCUMENT.DELETE.HR_DOCUMENT_DELETED'));
+            this.navCtrl.pop();
+            this.searchHrDocuments();
+            loading.dismiss();
+
+          }, error => {
+            loading.dismiss();
+          });
       });
     });
   }

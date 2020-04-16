@@ -833,7 +833,10 @@
         },
         "BUTTONS": {
             "CANCEL": "Annuler",
-            "SUBMIT": "Valider"
+            "SUBMIT": "Valider",
+            "FIX_RECIPIENT": "Corriger le destinataire",
+            "UPDATE_CONGRATULATION_LETTER": "Modifier",
+            "DELETE_CONGRATULATION_LETTER": "Supprimer"
         },
         "SUCCESS": {
             "LETTER_CREATED": "Lettre de félicitations créée",
@@ -944,7 +947,8 @@
             "DISPLAY": "Visualiser",
             "ADD_LINKED_EVENT": "Ajouter un évènement lié",
             "FORWARD": "Transférer",
-            "DELETE_ALL": "Supprimer tout"
+            "DELETE_ALL": "Supprimer tout",
+            "DELETE": "Supprimer"
         }
     },
     "HR_DOCUMENT": {
@@ -993,7 +997,8 @@
             "CANCEL": "Annuler"
         },
         "ACTION_MENU": {
-            "MODIFY": "Modifier"
+            "MODIFY": "Modifier",
+            "DELETE": "Supprimer"
         },
         "SEARCH": {
             "ALL": "Toutes",

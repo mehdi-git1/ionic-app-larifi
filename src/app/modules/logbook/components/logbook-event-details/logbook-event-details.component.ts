@@ -38,6 +38,7 @@ import { DateUtils } from '../../../../shared/utils/date-utils';
 export class LogbookEventDetailsComponent extends AbstractValueAccessor implements OnInit {
 
     @Input() logbookEvent: LogbookEventModel;
+    @Input() isEditionMode: boolean;
 
     @Output() editionOrDeletion: EventEmitter<any> = new EventEmitter();
 

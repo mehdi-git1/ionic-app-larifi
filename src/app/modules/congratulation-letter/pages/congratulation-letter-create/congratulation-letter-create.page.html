@@ -123,13 +123,28 @@
                         </ion-col>
                     </ion-row>
                     <ion-row>
+                        <!-- Barre de boutons -->
                         <ion-col>
                             <div class="button-bar button-bar-right margin-top-10">
+                                <!-- Bouton annuler d'une lettre de félicitation -->
                                 <ion-button fill="outline" (click)="cancelCreation()" color="primary">
                                     {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.CANCEL' | translate }}</ion-button>
-                                <ion-button [disabled]="!isFormValid() || submitInProgress" (click)="submitLetter()" color="primary">
+                                <!-- Bouton sauvegarder une lettre de félicitation -->
+                                <ion-button [disabled]="!isFormValid() || submitInProgress" (click)="submitLetter()" color="primary" *ngIf="isCreationMode()">
                                     <ion-spinner *ngIf="submitInProgress"></ion-spinner>
                                     {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.SUBMIT' | translate }}
+                                </ion-button>
+                                <!-- Bouton Modifier le rédacteur d'une lettre de félicitation -->
+                                <ion-button fill="outline" color="primary" (click)="fixRecipient($event)" *ngIf="!isCreationMode() && isReceivedMode()">
+                                    <span class="edospnc-fix-recipient ion-margin-end" name="edospnc-fix-recipient"></span>
+                                    {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.FIX_RECIPIENT' | translate }}</ion-button>
+                                <!-- Bouton supprimer une lettre de félicitation -->
+                                <ion-button color="danger" (click)="confirmDeleteCongratulationLetter()" *ngIf="!isCreationMode()">
+                                    {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.DELETE_CONGRATULATION_LETTER' | translate }}</ion-button>
+                                <!-- Bouton modifier une lettre de félicitation -->
+                                <ion-button [disabled]="!isFormValid() || submitInProgress" (click)="submitLetter()" color="primary" *ngIf="!isCreationMode()">
+                                    <ion-spinner *ngIf="submitInProgress"></ion-spinner>
+                                    {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.UPDATE_CONGRATULATION_LETTER' | translate }}
                                 </ion-button>
                             </div>
                         </ion-col>
