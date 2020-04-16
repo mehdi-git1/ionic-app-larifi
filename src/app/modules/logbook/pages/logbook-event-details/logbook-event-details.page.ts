@@ -39,17 +39,21 @@ export class LogbookEventDetailsPage implements OnInit, AfterViewInit {
     logbookEventCanceled = false;
 
     createLinkedEvent = false;
-    editionMode = false;
+    isEditionMode = false;
     groupId: number;
     logbookEventTechId: number;
 
+    currentNavigation;
+    logbookEventToUpdate: LogbookEventModel;
+
     LogbookEventModeEnum = LogbookEventModeEnum;
 
-    @ViewChildren('logbookEventCreate') logbookEventCreate: LogbookEventComponent[];
+    @ViewChildren('logbookEventCreate') logbookEventCreateComponent: LogbookEventComponent[];
 
-    @ViewChildren('logbookEventDetails') logbookEventDetails: QueryList<LogbookEventDetailsComponent>;
+    @ViewChildren('logbookEventDetails', { read: LogbookEventDetailsComponent })
+    logbookEventDetailsComponent: QueryList<LogbookEventDetailsComponent>;
 
-    @ViewChild('linkedLogbookEventCreate', { static: false }) linkedLogbookEventCreate: LogbookEventComponent;
+    @ViewChild('linkedLogbookEventCreate', { static: false }) linkedLogbookEventCreateComponent: LogbookEventComponent;
 
     selectedLogbookEventComponent: LogbookEventComponent;
 
@@ -68,15 +72,13 @@ export class LogbookEventDetailsPage implements OnInit, AfterViewInit {
     ) { }
 
     ngAfterViewInit() {
-        const currentNavigation = this.router.getCurrentNavigation();
-        if (this.groupId) {
-            // Permet d'obtenir tous les Events pour pouvoir selectionner celui à modifier
-            this.onlineLogbookEventService.getLogbookEventsByGroupId(this.groupId).then(logbookEvents => {
-                if (currentNavigation.extras.state) {
-                    this.selectedLogbookEvent(currentNavigation.extras.state.logbookEvent);
-                }
-            });
-        }
+        this.currentNavigation = this.router.getCurrentNavigation();
+        this.onlineLogbookEventService.getLogbookEventsByGroupId(this.groupId).then(logbookEvent => {
+            if (this.currentNavigation.extras.state) {
+                this.logbookEventToUpdate = this.currentNavigation.extras.state.logbookEvent;
+                this.handleLogbookEventUpdateOrDelete(this.logbookEventToUpdate);
+            }
+        });
     }
 
     ngOnInit() {
@@ -98,14 +100,14 @@ export class LogbookEventDetailsPage implements OnInit, AfterViewInit {
             this.logbookEventSaved = true;
             this.createLinkedEvent = false;
             this.logbookEventTechId = null;
-            this.editionMode = false;
+            this.isEditionMode = false;
             this.getLogbookEventsByGroupId(this.groupId, this.pnc);
         });
         this.events.subscribe('LogbookEvent:canceled', () => {
             this.logbookEventCanceled = true;
             this.createLinkedEvent = false;
             this.logbookEventTechId = null;
-            this.editionMode = false;
+            this.isEditionMode = false;
         });
     }
 
@@ -114,10 +116,10 @@ export class LogbookEventDetailsPage implements OnInit, AfterViewInit {
      * @return true si l'event lié est sauvegardé ou annulé
      */
     canDeactivate(): boolean {
-        if (this.linkedLogbookEventCreate === undefined) {
+        if (this.linkedLogbookEventCreateComponent === undefined) {
             return true;
         }
-        return !this.linkedLogbookEventCreate.formHasBeenModified();
+        return !this.linkedLogbookEventCreateComponent.formHasBeenModified();
     }
 
     /**
@@ -193,31 +195,42 @@ export class LogbookEventDetailsPage implements OnInit, AfterViewInit {
     }
 
     /**
-     * Determine l'évènement à modifier ou à supprimer, et bloque la modification et la suppression des autres évènements liés.
+     * Gère l'évènement à modifier ou à supprimer, et bloque la modification et la suppression des autres évènements liés.
      * @param logbookEvent L'évènement à modifier
      */
-    selectedLogbookEvent(logbookEvent: LogbookEventModel) {
-        if (logbookEvent.techId && !this.editionMode && !this.createLinkedEvent) {
+    handleLogbookEventUpdateOrDelete(logbookEvent: LogbookEventModel) {
+        if (logbookEvent.techId && !this.isEditionMode && !this.createLinkedEvent) {
             this.logbookEventTechId = logbookEvent.techId;
-            this.logbookEventDetails.forEach(item => {
-                if (item.logbookEvent.techId === logbookEvent.techId) {
+            this.logbookEventDetailsComponent.forEach(logBookEventDetail => {
+                if (logBookEventDetail.logbookEvent.techId === logbookEvent.techId) {
                     if (logbookEvent.mode === LogbookEventModeEnum.DELETION) {
                         this.logbookEvent = logbookEvent;
                         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
                         this.confirmDeleteLogBookEvent();
                     } else if (logbookEvent.mode === LogbookEventModeEnum.EDITION) {
-                        item.editEvent = true;
-                        this.editionMode = true;
+                        logBookEventDetail.editEvent = true;
+                        this.isEditionMode = true;
                     }
                 }
             });
-            this.logbookEventCreate.forEach(item => {
-                if (item.logbookEvent.techId === logbookEvent.techId && logbookEvent.mode === LogbookEventModeEnum.EDITION) {
-                    this.selectedLogbookEventComponent = item;
-                    item.editEvent = true;
-                }
-            });
+
+            this.displayLogbookEventToUpdate(logbookEvent);
         }
+    }
+
+    /**
+     * Affiche le formulaire de modification d'un évènement
+     * @param logbookEvent l'évènement à modifier
+     */
+    displayLogbookEventToUpdate(logbookEvent: LogbookEventModel) {
+        this.logbookEventCreateComponent.forEach(logbookEventCreate => {
+            if (logbookEventCreate.logbookEvent.techId === logbookEvent.techId && logbookEvent.mode === LogbookEventModeEnum.EDITION) {
+                this.selectedLogbookEventComponent = logbookEventCreate;
+                logbookEventCreate.editEvent = true;
+                logbookEventCreate.elementRef.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+
+            }
+        });
     }
 
     /**

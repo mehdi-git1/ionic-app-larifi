@@ -38,7 +38,7 @@ import { DateUtils } from '../../../../shared/utils/date-utils';
 export class LogbookEventDetailsComponent extends AbstractValueAccessor implements OnInit {
 
     @Input() logbookEvent: LogbookEventModel;
-    @Input() editionMode: boolean;
+    @Input() isEditionMode: boolean;
 
     @Output() editionOrDeletion: EventEmitter<any> = new EventEmitter();
 
@@ -68,8 +68,6 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
         private onlineLogbookEventService: OnlineLogbookEventService,
         private toastService: ToastService) {
         super();
-
-        console.log(this.logbookEvent);
         this.events.subscribe('LogbookEvent:canceled', () => {
             this.editEvent = false;
         });

@@ -122,12 +122,12 @@
                                 </ion-label>
                             </ion-item>
                             <ion-item lines="none">
-                                <ion-radio [disabled]="editionMode" value="{{EventCcoVisibilityEnum.DISPLAYED}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.DISPLAYED)">
+                                <ion-radio [disabled]="isEditionMode" value="{{EventCcoVisibilityEnum.DISPLAYED}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.DISPLAYED)">
                                 </ion-radio>
                                 <ion-label>{{ 'LOGBOOK.DETAILS.DISPLAYED' | translate }}</ion-label>
                             </ion-item>
                             <ion-item lines="none">
-                                <ion-radio [disabled]="editionMode" value="{{EventCcoVisibilityEnum.HIDDEN}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.HIDDEN)">
+                                <ion-radio [disabled]="isEditionMode" value="{{EventCcoVisibilityEnum.HIDDEN}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.HIDDEN)">
                                 </ion-radio>
                                 <ion-label>{{ 'LOGBOOK.DETAILS.HIDDEN' | translate }}</ion-label>
                             </ion-item>
@@ -136,11 +136,11 @@
                 </div>
                 <div class="logbook-button-bar button-bar button-bar-right " *ngIf="canEditEvent()">
                     <!-- Bouton supprimer -->
-                    <ion-button fill="clear" [disabled]="editionMode" color="dark" (click)="deleteLogbookEvent()">
+                    <ion-button fill="clear" [disabled]="isEditionMode" color="dark" (click)="deleteLogbookEvent()">
                         {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
                     </ion-button>
                     <!-- Bouton modifier -->
-                    <ion-button fill="clear" [disabled]="editionMode" color="dark" *ngIf="canModifyEvent()" (click)="editLogbookEvent()">
+                    <ion-button fill="clear" [disabled]="isEditionMode" color="dark" *ngIf="canModifyEvent()" (click)="editLogbookEvent()">
                         {{ 'LOGBOOK.BUTTONS.MODIFY' | translate }}
                     </ion-button>
                 </div>
