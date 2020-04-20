@@ -13,11 +13,14 @@
             <div *ngIf="isConnected(); else notConnectedBlock">
                 <div class="top-container">
                     <div class="filter">
-                        <ion-label class="input-label">{{ 'HR_DOCUMENT.SEARCH.CATEGORY' | translate }}&nbsp;:</ion-label>
+                        <ion-label class="input-label">{{ 'HR_DOCUMENT.SEARCH.CATEGORY' | translate }}&nbsp;:
+                        </ion-label>
                         <ion-select interface="popover" #optionValue (ionChange)="filterCategory(optionValue.value)">
-                            <ion-select-option [value]="valueAll" [selected]="true"> {{ 'HR_DOCUMENT.SEARCH.ALL' | translate }}
+                            <ion-select-option [value]="valueAll" [selected]="true">
+                                {{ 'HR_DOCUMENT.SEARCH.ALL' | translate }}
                             </ion-select-option>
-                            <ion-select-option *ngFor="let hrDocumentCategorie of hrDocumentCategories" [value]="hrDocumentCategorie.id"> {{hrDocumentCategorie.label}} </ion-select-option>
+                            <ion-select-option *ngFor="let hrDocumentCategorie of hrDocumentCategories"
+                                [value]="hrDocumentCategorie.id"> {{hrDocumentCategorie.label}} </ion-select-option>
                         </ion-select>
                     </div>
                     <div class="button-bar button-bar-right" *ngIf="canCreateDocument()">
@@ -33,14 +36,20 @@
                         <div *ngIf="hrDocuments && hrDocuments.length > 0">
                             <ion-grid class="hr-document-grid selectable">
                                 <ion-row class="headers ion-align-items-center">
-                                    <ion-col class="column-date" columnName="creationDate" (click)="sortColumn('creationDate')">
+                                    <ion-col class="column-date" columnName="creationDate"
+                                        (click)="sortColumn('creationDate')">
                                         {{ 'HR_DOCUMENT.CREATION_DATE' | translate }}
-                                        <edospnc-column-sorter columnName="creationDate" [sortColumn]="hrDocumentFilter.sortColumn" [sortDirection]="hrDocumentFilter.sortDirection">
+                                        <edospnc-column-sorter columnName="creationDate"
+                                            [sortColumn]="hrDocumentFilter.sortColumn"
+                                            [sortDirection]="hrDocumentFilter.sortDirection">
                                         </edospnc-column-sorter>
                                     </ion-col>
-                                    <ion-col class="column-category" columnName="category" (click)="sortColumn('category')">
+                                    <ion-col class="column-category" columnName="category"
+                                        (click)="sortColumn('category')">
                                         {{ 'HR_DOCUMENT.CATEGORY' | translate }}
-                                        <edospnc-column-sorter columnName="category" [sortColumn]="hrDocumentFilter.sortColumn" [sortDirection]="hrDocumentFilter.sortDirection">
+                                        <edospnc-column-sorter columnName="category"
+                                            [sortColumn]="hrDocumentFilter.sortColumn"
+                                            [sortDirection]="hrDocumentFilter.sortDirection">
                                         </edospnc-column-sorter>
                                     </ion-col>
                                     <ion-col class="column-title" columnName="event">
@@ -53,15 +62,18 @@
                                         {{ 'HR_DOCUMENT.ACTIONS' | translate }}
                                     </ion-col>
                                 </ion-row>
-                                <ion-row class="hr-document-row clickable" *ngFor="let hrDocument of hrDocuments" (click)="viewDocumentDetails(hrDocument)">
+                                <ion-row class="hr-document-row clickable" *ngFor="let hrDocument of hrDocuments"
+                                    (click)="viewDocumentDetails(hrDocument)">
                                     <ion-col class="column-date">{{hrDocument.creationDate | date:'dd/MM/yyyy' }}
                                     </ion-col>
                                     <ion-col class="column-category">
                                         <div class="category-label">{{hrDocument.category?.label}}</div>
                                     </ion-col>
                                     <ion-col class="column-title">
-                                        <ion-icon *ngIf="hasAttachement(hrDocument)" name="attach"></ion-icon>
-                                        <span class="truncate-text">{{hrDocument.title}}</span>
+                                        <ion-icon class="attach-icon" *ngIf="hasAttachement(hrDocument)" name="attach">
+                                        </ion-icon>
+                                        <span class="truncate-text"
+                                            [ngClass]="{'no-attach': !hasAttachement(hrDocument)}">{{hrDocument.title}}</span>
                                     </ion-col>
                                     <ion-col class="column-redactor">
                                         <span class="truncate-text">{{hrDocument.redactor?.lastName}}
@@ -69,10 +81,12 @@
                                         </span>
                                     </ion-col>
                                     <ion-col class="user-actions">
-                                        <ion-fab-button color="primarylight" class="detail-button" (click)="viewDocumentDetails(hrDocument)">
+                                        <ion-fab-button color="primarylight" class="detail-button"
+                                            (click)="viewDocumentDetails(hrDocument)">
                                             <span class="edospnc-memo"></span>
                                         </ion-fab-button>
-                                        <div class="more-actions clickable" *ngIf="isManager()" (click)="openActionsMenu($event, hrDocument)">
+                                        <div class="more-actions clickable" *ngIf="isManager()"
+                                            (click)="openActionsMenu($event, hrDocument)">
                                             <ion-icon ios="md-more" md="md-more">
                                             </ion-icon>
                                         </div>
@@ -94,7 +108,8 @@
                         </div>
                         <ng-template #nextPageBlock>
                             <!-- Bouton "afficher la page suivante" -->
-                            <ion-button (click)="loadNextPage()" *ngIf="!isLastPageReached(); else searchEndBlock" color="white">
+                            <ion-button (click)="loadNextPage()" *ngIf="!isLastPageReached(); else searchEndBlock"
+                                color="white">
                                 {{ 'HR_DOCUMENT.BUTTONS.NEXT_PAGE' | translate:{pageSize:hrDocumentFilter.size} }}
                             </ion-button>
                             <!-- Fin de la recherche atteint -->
