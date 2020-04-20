@@ -5,8 +5,11 @@
             <div class="line" *ngFor="let eObservationItem of subTheme.eobservationItems">
                 <span class="column-90 item-label">{{eObservationItem.refItemLevel.item.label}}</span>
                 <span class="column-10 symbol">
-                    <ion-select *ngIf="editMode; else viewLevelBlock" interface="popover" [(ngModel)]="eObservationItem.refItemLevel.techId">
-                        <ion-select-option *ngFor="let level of sortLevelList(eObservationItem.refItemLevel.item.levels)" [value]="level.techId">
+                    <ion-select *ngIf="editMode; else viewLevelBlock" interface="popover"
+                        [(ngModel)]="eObservationItem.refItemLevel.techId">
+                        <ion-select-option
+                            *ngFor="let level of sortLevelList(eObservationItem.refItemLevel.item.levels)"
+                            [value]="level.techId">
                             {{getLevelLabel(level.level)}}</ion-select-option>
                     </ion-select>
                     <ng-template #viewLevelBlock>
@@ -28,10 +31,12 @@
     </span>
     <div *ngIf="!hasSubThemes()">
         <span class="line" *ngFor="let eObservationItem of theme.eobservationItems">
-            <span class=" column-90 item-label">{{eObservationItem.refItemLevel.item?.label}}</span>
+            <span class=" column-90 item-label" [innerHTML]="eObservationItem.refItemLevel.item?.label"></span>
             <span class="column-10 symbol">
-                <ion-select *ngIf="editMode; else viewLevelBlock" interface="popover" [(ngModel)]="eObservationItem.refItemLevel.techId">
-                    <ion-select-option *ngFor="let level of sortLevelList(eObservationItem.refItemLevel.item.levels)" [value]="level.techId">
+                <ion-select *ngIf="editMode; else viewLevelBlock" interface="popover"
+                    [(ngModel)]="eObservationItem.refItemLevel.techId">
+                    <ion-select-option *ngFor="let level of sortLevelList(eObservationItem.refItemLevel.item.levels)"
+                        [value]="level.techId">
                         {{getLevelLabel(level.level)}}</ion-select-option>
                 </ion-select>
                 <ng-template #viewLevelBlock>
