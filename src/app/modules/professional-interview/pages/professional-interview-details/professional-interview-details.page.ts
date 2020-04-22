@@ -2,28 +2,28 @@ import * as _ from 'lodash';
 
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import {
-    ProfessionalInterviewCommentItemTypeEnum
+  ProfessionalInterviewCommentItemTypeEnum
 } from '../../../../core/enums/professional-interview/professional-interview-comment-item-type.enum';
 import {
-    ProfessionalInterviewStateEnum
+  ProfessionalInterviewStateEnum
 } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 import {
-    ProfessionalInterviewTypeEnum
+  ProfessionalInterviewTypeEnum
 } from '../../../../core/enums/professional-interview/professional-interview-type.enum';
 import { DocumentModel } from '../../../../core/models/document.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
-    ProfessionalInterviewThemeModel
+  ProfessionalInterviewThemeModel
 } from '../../../../core/models/professional-interview/professional-interview-theme.model';
 import {
-    ProfessionalInterviewModel
+  ProfessionalInterviewModel
 } from '../../../../core/models/professional-interview/professional-interview.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
@@ -31,13 +31,13 @@ import { OfflinePncService } from '../../../../core/services/pnc/offline-pnc.ser
 import { PncTransformerService } from '../../../../core/services/pnc/pnc-transformer.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import {
-    OfflineProfessionalInterviewService
+  OfflineProfessionalInterviewService
 } from '../../../../core/services/professional-interview/offline-professional-interview.service';
 import {
-    ProfessionalInterviewStatusService
+  ProfessionalInterviewStatusService
 } from '../../../../core/services/professional-interview/professional-interview-status.service';
 import {
-    ProfessionalInterviewService
+  ProfessionalInterviewService
 } from '../../../../core/services/professional-interview/professional-interview.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -63,6 +63,8 @@ export class ProfessionalInterviewDetailsPage {
   editionMode = false;
 
   isPncCommentEditable = false;
+
+  pncCommentMaxLength = 4000;
 
   professionalInterviewForm: FormGroup;
   interviewThemes: FormArray;
@@ -131,7 +133,7 @@ export class ProfessionalInterviewDetailsPage {
       });
     }
     group['professionalInterviewDateControl'] = new FormControl('');
-    group['pncCommentControl'] = new FormControl('');
+    group['pncCommentControl'] = new FormControl('', Validators.maxLength(this.pncCommentMaxLength));
     group['pncAcknowledgementControl'] = new FormControl('');
     this.professionalInterviewForm = this.formBuilder.group(group);
   }

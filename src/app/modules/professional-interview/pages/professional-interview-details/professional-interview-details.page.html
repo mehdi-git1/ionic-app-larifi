@@ -127,13 +127,16 @@
                         [emptyCondition]="!isPncCommentEditable && !editionMode && !professionalInterview.pncComment"
                         *ngIf="isConcernedPnc() || (!isPncCommentEditable && pncCommentIsNotEmpty()) || isAdminModeAvailable()"
                         class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
-                        <div>
+                        <div class="pnc-comment">
                             <p *ngIf="!isPncCommentEditable && !editionMode; else editPncCommentBlock">
                                 {{professionalInterview.pncComment}}</p>
                             <ng-template #editPncCommentBlock>
-                                <ion-textarea [(ngModel)]="professionalInterview.pncComment" autocorrect="on"
-                                    formControlName="pncCommentControl">
+                                <ion-textarea #pncComment [(ngModel)]="professionalInterview.pncComment"
+                                    autocorrect="on" formControlName="pncCommentControl">
                                 </ion-textarea>
+                                <span class="word-counter">
+                                    {{pncComment.value ? pncComment.value.length : 0}}/{{pncCommentMaxLength}}
+                                </span>
                             </ng-template>
                         </div>
                     </edospnc-expandable-block>

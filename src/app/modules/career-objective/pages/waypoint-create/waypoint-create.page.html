@@ -26,11 +26,15 @@
                                 <ion-label position="floating" class="input-label required">
                                     {{ 'WAYPOINT_CREATE.FORM.CONTEXT' | translate }}
                                 </ion-label>
-                                <ion-textarea [(ngModel)]="waypoint.context" formControlName="contextControl"
-                                    name="context" [readonly]="readOnlyByUserConnected()"
+                                <ion-textarea #wayPointContext [(ngModel)]="waypoint.context"
+                                    formControlName="contextControl" name="context"
+                                    [readonly]="readOnlyByUserConnected()"
                                     [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"
                                     autocorrect="on">
                                 </ion-textarea>
+                                <span class="word-counter">
+                                    {{wayPointContext.value ? wayPointContext.value.length : 0}}/{{wayPointContextMaxLength}}
+                                </span>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -44,12 +48,15 @@
                                     <span
                                         *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
                                 </ion-label>
-                                <ion-textarea [(ngModel)]="waypoint.actionPerformed"
+                                <ion-textarea #actionsDone [(ngModel)]="waypoint.actionPerformed"
                                     formControlName="actionPerformedControl" name="actionPerformed"
                                     [readonly]="readOnlyByUserConnected()"
                                     [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"
                                     autocorrect="on">
                                 </ion-textarea>
+                                <span class="word-counter">
+                                    {{actionsDone.value ? actionsDone.value.length : 0}}/{{actionsDoneMaxLength}}
+                                </span>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -60,12 +67,15 @@
                                 <ion-label class="input-label" position="floating">
                                     {{ 'WAYPOINT_CREATE.FORM.MANAGER_COMMENT' | translate }}
                                 </ion-label>
-                                <ion-textarea [(ngModel)]="waypoint.managerComment"
+                                <ion-textarea #managerComment [(ngModel)]="waypoint.managerComment"
                                     formControlName="managerCommentControl" name="managerComment"
                                     [readonly]="readOnlyByUserConnected()"
                                     [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"
                                     autocorrect="on">
                                 </ion-textarea>
+                                <span class="word-counter">
+                                    {{managerComment.value ? managerComment.value.length : 0}}/{{managerCommentMaxLength}}
+                                </span>
                             </ion-item>
                         </ion-col>
                         <ion-col size="6">
@@ -74,8 +84,12 @@
                                 <ion-label class="input-label" position="floating">
                                     {{ 'WAYPOINT_CREATE.FORM.PNC_COMMENT' | translate }}
                                 </ion-label>
-                                <ion-textarea [(ngModel)]="waypoint.pncComment" formControlName="pncCommentControl"
-                                    name="pncComment" autocorrect="on"></ion-textarea>
+                                <ion-textarea #pncComment [(ngModel)]="waypoint.pncComment"
+                                    formControlName="pncCommentControl" name="pncComment" autocorrect="on">
+                                </ion-textarea>
+                                <span class="word-counter">
+                                    {{pncComment.value ? pncComment.value.length : 0}}/{{pncCommentMaxLength}}
+                                </span>
                             </ion-item>
                         </ion-col>
                     </ion-row>

@@ -61,6 +61,12 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
 
     pnc: PncModel;
 
+    titleMaxLength = 255;
+    contextMaxLength = 4000;
+    actionPlanMaxLength = 5000;
+    managerCommentMaxLength = 4000;
+    pncCommentMaxLength = 4000;
+
     // Permet d'exposer l'enum au template
     CareerObjectiveStatus = CareerObjectiveStatusEnum;
     WaypointStatus = WaypointStatusEnum;
@@ -175,11 +181,11 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
         this.creationForm = this.formBuilder.group({
             initiatorControl: ['', Validators.required],
             categoryControl: ['', Validators.required],
-            titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
-            contextControl: ['', Validators.maxLength(4000)],
-            actionPlanControl: ['', Validators.maxLength(5000)],
-            managerCommentControl: ['', Validators.maxLength(4000)],
-            pncCommentControl: ['', Validators.maxLength(4000)],
+            titleControl: ['', Validators.compose([Validators.maxLength(this.titleMaxLength), Validators.required])],
+            contextControl: ['', Validators.maxLength(this.contextMaxLength)],
+            actionPlanControl: ['', Validators.maxLength(this.actionPlanMaxLength)],
+            managerCommentControl: ['', Validators.maxLength(this.managerCommentMaxLength)],
+            pncCommentControl: ['', Validators.maxLength(this.pncCommentMaxLength)],
             encounterDateControl: [''],
             nextEncounterDateControl: [''],
             prioritizedControl: [false],

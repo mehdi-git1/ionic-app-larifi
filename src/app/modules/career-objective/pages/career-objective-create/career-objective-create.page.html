@@ -51,9 +51,12 @@
                                     <ion-item lines="none">
                                         <ion-label class="required" position="stacked">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
-                                        <ion-input type="text" [(ngModel)]="careerObjective.title"
+                                        <ion-input #objectiveTitle type="text" [(ngModel)]="careerObjective.title"
                                             formControlName="titleControl" [readonly]="readOnlyByUserConnected()"
                                             [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on"></ion-input>
+                                        <span class="word-counter">
+                                            {{objectiveTitle.value ? objectiveTitle.value.length : 0}}/{{titleMaxLength}}
+                                        </span>
                                     </ion-item>
                                 </ion-col>
                             </ion-row>
@@ -64,11 +67,14 @@
                                         <ion-label position="stacked">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.CONTEXT' | translate }}
                                         </ion-label>
-                                        <ion-textarea [(ngModel)]="careerObjective.context"
+                                        <ion-textarea #objectiveContext [(ngModel)]="careerObjective.context"
                                             formControlName="contextControl" name="context"
                                             [readonly]="readOnlyByUserConnected()"
                                             [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
                                         </ion-textarea>
+                                        <span class="word-counter">
+                                            {{objectiveContext.value ? objectiveContext.value.length : 0}}/{{contextMaxLength}}
+                                        </span>
                                     </ion-item>
                                 </ion-col>
                             </ion-row>
@@ -79,11 +85,14 @@
                                         <ion-label position="stacked">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.ACTION_PLAN' | translate }}
                                         </ion-label>
-                                        <ion-textarea [(ngModel)]="careerObjective.actionPlan"
+                                        <ion-textarea #actionPlan [(ngModel)]="careerObjective.actionPlan"
                                             formControlName="actionPlanControl" name="actionPlan"
                                             [readonly]="readOnlyByUserConnected()"
                                             [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
                                         </ion-textarea>
+                                        <span class="word-counter">
+                                            {{actionPlan.value ? actionPlan.value.length : 0}}/{{actionPlanMaxLength}}
+                                        </span>
                                     </ion-item>
                                 </ion-col>
                             </ion-row>
@@ -94,11 +103,14 @@
                                         <ion-label position="stacked">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.MANAGER_COMMENT' | translate }}
                                         </ion-label>
-                                        <ion-textarea [(ngModel)]="careerObjective.managerComment"
+                                        <ion-textarea #cadComment [(ngModel)]="careerObjective.managerComment"
                                             formControlName="managerCommentControl" name="managerComment"
                                             [readonly]="readOnlyByUserConnected()"
                                             [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
                                         </ion-textarea>
+                                        <span class="word-counter">
+                                            {{cadComment.value ? cadComment.value.length : 0}}/{{managerCommentMaxLength}}
+                                        </span>
                                     </ion-item>
                                 </ion-col>
                                 <ion-col size="6">
@@ -107,9 +119,12 @@
                                         <ion-label position="stacked">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.PNC_COMMENT' | translate }}
                                         </ion-label>
-                                        <ion-textarea [(ngModel)]="careerObjective.pncComment"
+                                        <ion-textarea #pncComment [(ngModel)]="careerObjective.pncComment"
                                             formControlName="pncCommentControl" name="pncComment" autocorrect="on">
                                         </ion-textarea>
+                                        <span class="word-counter">
+                                            {{pncComment.value ? pncComment.value.length : 0}}/{{pncCommentMaxLength}}
+                                        </span>
                                     </ion-item>
                                 </ion-col>
                             </ion-row>

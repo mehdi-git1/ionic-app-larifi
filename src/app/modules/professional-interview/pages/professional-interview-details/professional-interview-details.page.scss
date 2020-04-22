@@ -1,268 +1,264 @@
 :host {
+  $border-grid: 1px solid var(--ion-color-grey75);
+  $block-border-radius: 5px;
 
-    $border-grid: 1px solid var(--ion-color-grey75);
-    $block-border-radius: 5px;
+  .rotation-number {
+    color: var(--ion-color-blue55);
+  }
+  .rotation-info {
+    display: flex;
+    justify-content: flex-start;
 
-    .rotation-number {
-        color: var(--ion-color-blue55);
-    }
+    ion-row:first-child {
+      display: flex;
+      align-items: center;
 
-    .rotation-info {
-        display: flex;
-        justify-content: flex-start;
-
-        ion-row:first-child {
-            display: flex;
-            align-items: center;
-
-            ion-col:first-child {
-                padding-left: 24px;
-            }
-        }
-    }
-
-    ion-grid {
-        padding: 0 0 5px 0;
-    }
-
-    ion-grid.rotation-grid {
-        .flight-header {
-            color: var(--ion-color-blue55);
-        }
-
-        ion-row {
-            ion-col:first-child {
-                padding-left: 24px;
-            }
-        }
-
-        ion-row:first-child {
-            border-top: $border-grid;
-            border-bottom: $border-grid;
-        }
-
-        ion-col {
-            border-right: $border-grid;
-        }
-
-        ion-row:nth-child(even) {
-            background: var(--ion-color-grey95);
-        }
-
-        ion-col:last-child {
-            border: initial;
-        }
-    }
-
-    .mat-expansion-panel-body .ng-star-inserted:first-child .sub-title-block {
-        margin-top: 0px;
-    }
-
-    .state-block,
-    .comment-block,
-    .sub-title-block {
-        height: 32px;
-        padding-right: 24px;
+      ion-col:first-child {
         padding-left: 24px;
-        display: flex;
+      }
+    }
+  }
+
+  ion-grid {
+    padding: 0 0 5px 0;
+  }
+
+  ion-grid.rotation-grid {
+    .flight-header {
+      color: var(--ion-color-blue55);
+    }
+
+    ion-row {
+      ion-col:first-child {
+        padding-left: 24px;
+      }
+    }
+
+    ion-row:first-child {
+      border-top: $border-grid;
+      border-bottom: $border-grid;
+    }
+
+    ion-col {
+      border-right: $border-grid;
+    }
+
+    ion-row:nth-child(even) {
+      background: var(--ion-color-grey95);
+    }
+
+    ion-col:last-child {
+      border: initial;
+    }
+  }
+
+  .mat-expansion-panel-body .ng-star-inserted:first-child .sub-title-block {
+    margin-top: 0px;
+  }
+
+  .state-block,
+  .comment-block,
+  .sub-title-block {
+    height: 32px;
+    padding-right: 24px;
+    padding-left: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--ion-color-bluegrey30);
+    color: var(--ion-color-white);
+    border-radius: $block-border-radius;
+
+    &.comment-block {
+      margin-bottom: 16px;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+      background: var(--ion-color-primarylight);
+    }
+
+    &.sub-title-block {
+      background: var(--ion-color-primarylight);
+      margin: 10px -15px 10px -15px;
+      font-size: 17px;
+    }
+
+    &.state-block {
+      color-status-point {
+        padding-right: 0px;
+      }
+    }
+  }
+
+  ::ng-deep edospnc-datetime {
+    ion-item,
+    ion-icon {
+      color: var(--ion-color-white) !important;
+      --color-hover: var(--ion-color-white) !important;
+      --color-activated: var(--ion-color-white) !important;
+    }
+  }
+
+  .date-block-justify {
+    justify-content: center;
+    margin-bottom: 15px;
+    background-color: var(--ion-color-bluegrey30);
+
+    .date-display {
+      color: var(--ion-color-white);
+    }
+
+    .date-label {
+      padding-right: 5px;
+    }
+
+    .item-md.item-block .item-inner,
+    .item-ios.item-block .item-inner {
+      padding-right: 0px;
+      border-bottom: 0px;
+
+      .input-wrapper {
+        height: 25px;
+        background-color: var(--ion-color-white);
         align-items: center;
-        justify-content: space-between;
-        background: var(--ion-color-bluegrey30);
-        color: var(--ion-color-white);
-        border-radius: $block-border-radius;
+        align-content: center;
+        margin-top: 9px;
+        padding: 0px 8px 0px 0px;
+        border-radius: 5px;
+      }
 
-        &.comment-block {
-            margin-bottom: 16px;
-            border-top-left-radius: 0px;
-            border-top-right-radius: 0px;
-            background: var(--ion-color-primarylight);
-        }
+      .label-md,
+      .label-ios {
+        margin: 13px 0px 13px 10px;
+      }
 
-        &.sub-title-block {
-            background: var(--ion-color-primarylight);
-            margin: 10px -15px 10px -15px;
-            font-size: 17px;
-        }
-
-        &.state-block {
-
-            color-status-point {
-                padding-right: 0px;
-            }
-        }
-    }
-
-    ::ng-deep edospnc-datetime {
-
-        ion-item,
-        ion-icon {
-            color: var(--ion-color-white) !important;
-            --color-hover: var(--ion-color-white) !important;
-            --color-activated: var(--ion-color-white) !important;
-        }
-    }
-
-
-    .date-block-justify {
-        justify-content: center;
-        margin-bottom: 15px;
-        background-color: var(--ion-color-bluegrey30);
-
-        .date-display {
-            color: var(--ion-color-white);
-        }
-
-        .date-label {
-            padding-right: 5px;
-        }
-
-        .item-md.item-block .item-inner,
-        .item-ios.item-block .item-inner {
-            padding-right: 0px;
-            border-bottom: 0px;
-
-            .input-wrapper {
-                height: 25px;
-                background-color: var(--ion-color-white);
-                align-items: center;
-                align-content: center;
-                margin-top: 9px;
-                padding: 0px 8px 0px 0px;
-                border-radius: 5px;
-            }
-
-            .label-md,
-            .label-ios {
-                margin: 13px 0px 13px 10px;
-            }
-
-            .datetime-md,
-            .datetime-ios {
-                padding: 0px;
-            }
-
-            .datetime-text {
-                background: var(--ion-color-white);
-                padding: 5px;
-                font-size: 14px;
-                border-radius: 5px;
-            }
-
-            ion-input.input,
-            div.mat-input-infix,
-            div.mat-form-field-infix,
-            ion-datetime.input-like {
-                border-radius: 4px;
-                border: none;
-            }
-        }
-
-
-    }
-
-    .speciality-grid {
+      .datetime-md,
+      .datetime-ios {
         padding: 0px;
-        margin-bottom: 16px;
-        box-sizing: border-box;
-        border-radius: $block-border-radius;
-        background: var(--ion-color-white);
+      }
 
-        .grid {
-            padding: initial;
-        }
+      .datetime-text {
+        background: var(--ion-color-white);
+        padding: 5px;
+        font-size: 14px;
+        border-radius: 5px;
+      }
+
+      ion-input.input,
+      div.mat-input-infix,
+      div.mat-form-field-infix,
+      ion-datetime.input-like {
+        border-radius: 4px;
+        border: none;
+      }
+    }
+  }
+
+  .speciality-grid {
+    padding: 0px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border-radius: $block-border-radius;
+    background: var(--ion-color-white);
+
+    .grid {
+      padding: initial;
+    }
+  }
+
+  .speciality-header {
+    height: 32px;
+    padding-right: 24px;
+    padding-left: 24px;
+    background: var(--ion-color-blue55);
+    color: var(--ion-color-white);
+    font-size: 18px !important;
+    border-radius: $block-border-radius;
+    display: flex;
+    align-items: center;
+  }
+
+  .speciality-label {
+    padding-left: 24px;
+    background: var(--ion-color-white);
+
+    ion-col {
+      background: var(--ion-color-white);
     }
 
-    .speciality-header {
-        height: 32px;
-        padding-right: 24px;
-        padding-left: 24px;
-        background: var(--ion-color-blue55);
-        color: var(--ion-color-white);
-        font-size: 18px !important;
-        border-radius: $block-border-radius;
+    .assignment {
+      padding-right: 15px;
+    }
+  }
+
+  .comment {
+    textarea {
+      resize: none;
+    }
+    .pnc-comment {
+      display: flex;
+      flex-direction: column;
+      .word-counter {
+        width: 100%;
+        font-size: smaller;
+        align-items: flex-end;
+        text-align: right;
+      }
+    }
+    p {
+      padding: 10px;
+      border-radius: 3px;
+      background: var(--ion-color-grey95);
+      border: 1px solid var(--ion-color-grey70);
+      white-space: pre-line;
+    }
+
+    ::ng-deep .mat-expansion-panel-body {
+      padding: 15px;
+
+      label {
+        font-size: 17px;
+        margin: 0px 0px 10px 0px;
         display: flex;
         align-items: center;
+        color: var(--ion-color-grey10);
+
+        span {
+          font-weight: normal;
+          color: var(--ion-color-blue55);
+          margin-right: 15px;
+        }
+      }
+
+      label.required:after {
+        content: '*';
+        padding-left: 5px;
+        color: var(--ion-color-red80);
+      }
+
+      div.ng-star-inserted div.ng-star-inserted:first-child label:first-child {
+        margin-top: 0px;
+      }
     }
+  }
 
-    .speciality-label {
-        padding-left: 24px;
-        background: var(--ion-color-white);
-
-        ion-col {
-            background: var(--ion-color-white);
-        }
-
-        .assignment {
-            padding-right: 15px;
-        }
+  .expandable-comment-block {
+    .mat-expansion-panel {
+      margin-bottom: 0px;
     }
+  }
 
+  .button-bar {
+    margin-top: 10px;
+  }
 
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
 
-    .comment {
-
-        textarea {
-            resize: none;
-        }
-
-        p {
-            padding: 10px;
-            border-radius: 3px;
-            background: var(--ion-color-grey95);
-            border: 1px solid var(--ion-color-grey70);
-            white-space: pre-line;
-        }
-
-        ::ng-deep .mat-expansion-panel-body {
-            padding: 15px;
-
-            label {
-                font-size: 17px;
-                margin: 0px 0px 10px 0px;
-                display: flex;
-                align-items: center;
-                color: var(--ion-color-grey10);
-
-                span {
-                    font-weight: normal;
-                    color: var(--ion-color-blue55);
-                    margin-right: 15px;
-                }
-            }
-
-
-            label.required:after {
-                content: '*';
-                padding-left: 5px;
-                color: var(--ion-color-red80);
-            }
-
-            div.ng-star-inserted div.ng-star-inserted:first-child label:first-child {
-                margin-top: 0px;
-            }
-        }
+    label {
+      color: var(--ion-color-primary);
+      padding-left: 5px;
     }
-
-    .expandable-comment-block {
-        .mat-expansion-panel {
-            margin-bottom: 0px;
-
-        }
-    }
-
-    .button-bar {
-        margin-top: 10px;
-    }
-
-    .checkbox-container {
-        display: flex;
-        align-items: center;
-        padding-right: 20px;
-
-        label {
-            color: var(--ion-color-primary);
-            padding-left: 5px;
-        }
-
-    }
+  }
 }

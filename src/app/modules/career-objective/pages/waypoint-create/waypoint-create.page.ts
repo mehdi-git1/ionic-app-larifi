@@ -51,6 +51,10 @@ export class WaypointCreatePage extends FormCanDeactivate {
     originalPncComment: string;
 
     pnc: PncModel;
+    wayPointContextMaxLength = 4000;
+    actionsDoneMaxLength = 5000;
+    managerCommentMaxLength = 4000;
+    pncCommentMaxLength = 4000;
 
     // Permet d'exposer l'enum au template
     WaypointStatus = WaypointStatusEnum;
@@ -156,10 +160,10 @@ export class WaypointCreatePage extends FormCanDeactivate {
      */
     initForm() {
         this.creationForm = this.formBuilder.group({
-            contextControl: ['', Validators.compose([Validators.maxLength(4000), Validators.required])],
-            actionPerformedControl: ['', Validators.maxLength(5000)],
-            managerCommentControl: ['', Validators.maxLength(4000)],
-            pncCommentControl: ['', Validators.maxLength(4000)],
+            contextControl: ['', Validators.compose([Validators.maxLength(this.wayPointContextMaxLength), Validators.required])],
+            actionPerformedControl: ['', Validators.maxLength(this.actionsDoneMaxLength)],
+            managerCommentControl: ['', Validators.maxLength(this.managerCommentMaxLength)],
+            pncCommentControl: ['', Validators.maxLength(this.pncCommentMaxLength)],
             encounterDateControl: [''],
         });
     }
