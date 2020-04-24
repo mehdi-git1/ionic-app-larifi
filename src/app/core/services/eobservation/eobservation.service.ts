@@ -41,22 +41,31 @@ export class EObservationService extends BaseService {
     }
 
     /**
-     * Récupère le label de l'option du type de l'eObs
-     * @return le label à afficher
+     * Récupère le label du type de l'eObservation
+     * @param eObservation l'eObservation dont on souhaite récupérer le label du type
+     * @return le label du type de l'eObservation
      */
-    public getDetailOptionType(eObservation): string {
-        if (eObservation && (eObservation.type === EObservationTypeEnum.E_CC || eObservation.type === EObservationTypeEnum.E_CCP)) {
-            if (eObservation.val) {
-                return this.translateService.instant('EOBSERVATION.DETAIL.VAL_TITLE_OPTION');
-            } else if (eObservation.formationFlight) {
-                return this.translateService.instant('EOBSERVATION.DETAIL.FORMATION_FLIGHT_TITLE_OPTION');
-            } else if (eObservation.ffc) {
-                return this.translateService.instant('EOBSERVATION.DETAIL.FFC_TITLE_OPTION');
+    public getEObservationTypeLabel(eObservation: EObservationModel): string {
+        if (eObservation) {
+            let typeLabel = EObservationTypeEnum.getLabel(eObservation.type);
+
+            let typeSuffix = '';
+            if (eObservation && (eObservation.type === EObservationTypeEnum.E_CC || eObservation.type === EObservationTypeEnum.E_CCP)) {
+                if (eObservation.val) {
+                    typeSuffix = this.translateService.instant('EOBSERVATION.DETAIL.VAL_TITLE_OPTION');
+                } else if (eObservation.formationFlight) {
+                    typeSuffix = this.translateService.instant('EOBSERVATION.DETAIL.FORMATION_FLIGHT_TITLE_OPTION');
+                } else if (eObservation.ffc) {
+                    typeSuffix = this.translateService.instant('EOBSERVATION.DETAIL.FFC_TITLE_OPTION');
+                }
             }
+            if (eObservation && eObservation.type === EObservationTypeEnum.E_ALT && eObservation.val) {
+                typeSuffix = this.translateService.instant('EOBSERVATION.DETAIL.EVAL_TITLE_OPTION');
+            }
+
+            return `${typeLabel} ${typeSuffix}`;
         }
-        if (eObservation && eObservation.type === EObservationTypeEnum.E_ALT && eObservation.val) {
-            return this.translateService.instant('EOBSERVATION.DETAIL.EVAL_TITLE_OPTION');
-        }
+
         return '';
     }
 

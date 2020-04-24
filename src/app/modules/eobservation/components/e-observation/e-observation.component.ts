@@ -3,13 +3,13 @@ import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
 import {
-    EObservationDisplayModeEnum
+  EObservationDisplayModeEnum
 } from '../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import {
-    EObservationItemModel
+  EObservationItemModel
 } from '../../../../core/models/eobservation/eobservation-item.model';
 import {
-    ReferentialThemeModel
+  ReferentialThemeModel
 } from '../../../../core/models/eobservation/eobservation-referential-theme.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
@@ -86,15 +86,6 @@ export class EObservationComponent implements OnChanges {
   }
 
   /**
-   * Récupère le label à afficher par rapport type d'eObservation donné
-   * @param level le niveau de l'eObservation
-   * @return le label à afficher
-   */
-  getEObservationTypeLabel(eObservationType: EObservationTypeEnum) {
-    return EObservationTypeEnum.getLabel(eObservationType);
-  }
-
-  /**
    * Vérifie si un élément de l'eObservation est en "écart de notation"
    * @param eObservationItem l'élément à vérifier
    *  @return vrai si l'élément est en écart, faux sinon
@@ -127,10 +118,10 @@ export class EObservationComponent implements OnChanges {
   }
 
   /**
-   * Récupère le label de l'option du type de l'eObs
-   * @return le label à afficher
+   * Récupère le label du type de l'eObservation
+   * @return le label du type de l'eObservation
    */
-  getDetailOptionType(): string {
-    return this.eObservationService.getDetailOptionType(this.eObservation);
+  getEObservationTypeLabel(): string {
+    return this.eObservationService.getEObservationTypeLabel(this.eObservation);
   }
 }
