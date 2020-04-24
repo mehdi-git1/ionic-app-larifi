@@ -15,7 +15,7 @@ import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
-    CancelChangesService
+  CancelChangesService
 } from '../../../../core/services/cancel_changes/cancel-changes.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
@@ -107,22 +107,11 @@ export class EobservationDetailsPage extends FormCanDeactivate {
   }
 
   /**
-   * Récupère le label du type de l'eObs
-   * @return le label à afficher
+   * Récupère le label du type de l'eObservation
+   * @return le label du type de l'eObservation
    */
-  getTypeLabel(): string {
-    if (!this.eObservation) {
-      return '';
-    }
-    return EObservationTypeEnum.getLabel(this.eObservation.type);
-  }
-
-  /**
-   * Récupère le label de l'option du type de l'eObs
-   * @return le label à afficher
-   */
-  getDetailOptionType(): string {
-    return this.eObservationService.getDetailOptionType(this.eObservation);
+  getEObservationTypeLabel(): string {
+    return this.eObservationService.getEObservationTypeLabel(this.eObservation);
   }
 
   /**
@@ -305,7 +294,7 @@ export class EobservationDetailsPage extends FormCanDeactivate {
     this.eObservationService.getEObservationPdf(this.eObservation.techId).then(eObservationPdf => {
       this.fileService.downloadFile(
         'application/pdf',
-        `EObservation ${eObservationPdf.pnc.lastName} ${eObservationPdf.pnc.firstName}.pdf`,
+        `EObservation ${this.eObservationService.getEObservationTypeLabel(this.eObservation)} ${eObservationPdf.pnc.lastName} ${eObservationPdf.pnc.firstName}.pdf`,
         eObservationPdf.pdf
       );
     }).then(() => {
