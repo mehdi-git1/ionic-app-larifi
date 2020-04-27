@@ -8,8 +8,8 @@
     </thead>
     <tbody>
         <tr *ngFor="let eObservationItem of abnormalEObservationItems">
-            <td>{{ eObservationItem.refItemLevel.item.theme.label }}</td>
-            <td>{{ eObservationItem.refItemLevel.item.label }}</td>
+            <td [innerHTML]="eObservationItem.refItemLevel.item.theme.label"></td>
+            <td [innerHTML]="eObservationItem.refItemLevel.item.label"></td>
             <td>{{ getLevelLabel(eObservationItem.refItemLevel.level) }}</td>
         </tr>
     </tbody>
