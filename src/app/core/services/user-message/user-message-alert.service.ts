@@ -49,8 +49,7 @@ export class UserMessageAlertService {
    */
   private isUserMessageToDisplay(userMessage: UserMessageModel): boolean {
     const storedUserMessage = this.storageService.findOne(EntityEnum.USER_MESSAGE, UserMessageKeyEnum.INSTRUCTOR_MESSAGE);
-    return !this.deviceService.isBrowser() &&
-      (!storedUserMessage || !storedUserMessage.lastUpdateDate || this.userMessageIsFresher(userMessage, storedUserMessage));
+    return !storedUserMessage || !storedUserMessage.lastUpdateDate || this.userMessageIsFresher(userMessage, storedUserMessage);
   }
 
   /**
