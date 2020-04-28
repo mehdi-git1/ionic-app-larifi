@@ -1,11 +1,12 @@
 .page-container {
   height: 100%;
 }
-.word-counter {
+
+.character-counter {
   width: 100%;
   font-size: smaller;
-  align-content: flex-end;
   text-align: right;
+  background-color: red;
 }
 
 form {

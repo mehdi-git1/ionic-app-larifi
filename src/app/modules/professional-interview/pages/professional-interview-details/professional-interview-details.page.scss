@@ -5,6 +5,7 @@
   .rotation-number {
     color: var(--ion-color-blue55);
   }
+
   .rotation-info {
     display: flex;
     justify-content: flex-start;
@@ -197,10 +198,9 @@
     .pnc-comment {
       display: flex;
       flex-direction: column;
-      .word-counter {
-        width: 100%;
+
+      .character-counter {
         font-size: smaller;
-        align-items: flex-end;
         text-align: right;
       }
     }
