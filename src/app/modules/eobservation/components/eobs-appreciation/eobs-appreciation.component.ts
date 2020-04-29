@@ -75,7 +75,7 @@ export class EObsAppreciationComponent implements AfterViewInit {
   }
 
   /**
-   * Ajout/supprime un item à la liste des itéms d'une eobs
+   * Ajoute/supprime un item à la liste des items d'une eobs
    * @param event l'évent quand l'item est sélectionné/déselectionné
    * @param subThemeIndex l'index du subthème concerné dans la liste des subthèmes de l'eobservation
    * @param refItemLevel l'item référentiel à associé a l'item à ajouter

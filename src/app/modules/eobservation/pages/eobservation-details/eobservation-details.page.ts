@@ -15,7 +15,7 @@ import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
-  CancelChangesService
+    CancelChangesService
 } from '../../../../core/services/cancel_changes/cancel-changes.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
@@ -94,6 +94,28 @@ export class EobservationDetailsPage extends FormCanDeactivate {
    */
   formHasBeenModified() {
     return Utils.getHashCode(this.originEObservation) !== Utils.getHashCode(this.eObservation);
+  }
+
+  /**
+   * Vérifie si le formulaire est valide ou non
+   * @return vrai si le formulaire est valide, faux sinon
+   */
+  isFormValid(): boolean {
+    return this.formHasBeenModified() && this.hasAtLeastOneStrongPointForEachItem();
+  }
+
+  /**
+   * Vérifie que l'eObs (PCB uniquement) a au moins un point fort coché pour chaque item
+   * @return vrai chaque item a au moins un item sélectionné, faux sinon
+   */
+  hasAtLeastOneStrongPointForEachItem(): boolean {
+    if (this.eObservation.type !== EObservationTypeEnum.E_PCB) {
+      return true;
+    }
+
+    return this.eObservation.eobservationThemes[0].subThemes.every(subTheme => {
+      return subTheme.subThemes[0].eobservationItems.length > 0;
+    });
   }
 
   /**
