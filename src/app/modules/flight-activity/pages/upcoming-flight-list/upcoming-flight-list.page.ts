@@ -1,32 +1,66 @@
 import * as moment from 'moment';
 
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { AppConstant } from '../../../../app.constant';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
+import { LegModel } from '../../../../core/models/leg.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { RotationModel } from '../../../../core/models/rotation.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../../core/services/session/session.service';
 
 @Component({
     selector: 'page-upcoming-flight-list',
     templateUrl: 'upcoming-flight-list.page.html',
-    styleUrls: ['./upcoming-flight-list.page.scss']
+    styleUrls: ['./upcoming-flight-list.page.scss'],
+    animations: [
+        trigger(
+            'selectRotationAnimation',
+            [
+                transition(
+                    ':enter',
+                    [
+                        style({ top: -100, opacity: 0 }),
+                        animate('300ms ease-out',
+                            style({ top: 0, opacity: 1 }))
+                    ]
+                ),
+                transition(
+                    ':leave',
+                    [
+                        style({ top: 0, opacity: 1 }),
+                        animate('300ms ease-in',
+                            style({ top: 100, opacity: 0 }))
+                    ]
+                )
+            ]
+        )
+    ]
 })
 export class UpcomingFlightListPage {
     matricule: string;
 
     pnc: PncModel;
 
-    upcomingRotations: RotationModel[];
-    lastPerformedRotations: RotationModel[];
+    rotationList: RotationModel[];
+
+    activeRotation: RotationModel;
 
     TabHeaderEnum = TabHeaderEnum;
 
+    isMenuOpened = false;
+    isDeleteAnimationOver = true;
+
+    // Le nombre d'heure de marge qu'on se donne pour considérer le vol démarré/terminé
+    FLIGHT_START_END_HOURS_THRESHOLD = 1;
+
     constructor(
+        private router: Router,
         private activatedRoute: ActivatedRoute,
-        private pncService: PncService) {
+        private pncService: PncService,
+        private sessionService: SessionService) {
     }
 
     ionViewDidEnter() {
@@ -42,56 +76,13 @@ export class UpcomingFlightListPage {
             this.pnc = pnc;
         }, error => { });
 
-        this.lastPerformedRotations = undefined;
-        this.upcomingRotations = undefined;
-        this.pncService.getAllRotations(this.matricule).then(allRotations => {
+        this.rotationList = undefined;
+
+        this.pncService.getAllRotations(this.matricule).then(rotationList => {
             // Tri des rotations par date ascendante
-            allRotations = this.sortByAscendingDepartureDate(allRotations);
-
-            this.lastPerformedRotations = this.getLastPerformedRotations(allRotations);
-            this.upcomingRotations = this.getUpcomingRotations(allRotations);
+            this.rotationList = rotationList;
+            this.isMenuOpened = true;
         }, error => { });
-    }
-
-    /**
-     * Retourne les deux dernières rotations passées
-     * @param rotations une liste de rotations
-     * @return les deux dernières rotations passées
-     */
-    private getLastPerformedRotations(rotations: Array<RotationModel>): Array<RotationModel> {
-        return rotations.filter(rotation => {
-            return moment(rotation.departureDate).isBefore(moment());
-        }).slice(-2);
-    }
-
-    /**
-     * Retourne les rotations à venir
-     * @param rotations une liste de rotations
-     * @return les rotations à venir
-     */
-    private getUpcomingRotations(rotations: Array<RotationModel>): Array<RotationModel> {
-        return rotations.filter(rotation => {
-            return moment(rotation.departureDate).isAfter(moment());
-        });
-    }
-
-    /**
-     * Tri les rotations et tronçons par date de départ ascendante
-     * @param rotations une liste de rotations
-     * @return la liste des rotations triée par date de rotation
-     */
-    private sortByAscendingDepartureDate(rotations: Array<RotationModel>) {
-        rotations.forEach(rotation => {
-            rotation.legs.sort((leg1, leg2) => {
-                return moment(leg1.departureDate, AppConstant.isoDateFormat)
-                    .isBefore(moment(leg2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
-            });
-        });
-
-        return rotations.sort((rotation1, rotation2) => {
-            return moment(rotation1.departureDate, AppConstant.isoDateFormat)
-                .isBefore(moment(rotation2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
-        });
     }
 
     /**
@@ -99,22 +90,51 @@ export class UpcomingFlightListPage {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.lastPerformedRotations !== undefined && this.upcomingRotations !== undefined;
+        return this.rotationList !== undefined;
     }
 
     /**
-     * Vérifie s'il existe des rotations à venir
-     * @return true si c'est le cas, false sinon
+     * Met à jour la rotation active
+     * @param rotation la rotation à rendre active
      */
-    hasUpcomingRotations() {
-        return this.upcomingRotations && this.upcomingRotations.length > 0;
+    updateActiveRotation(rotation: RotationModel) {
+        if (this.activeRotation !== rotation) {
+            this.isDeleteAnimationOver = false;
+            setTimeout(() => {
+                this.isDeleteAnimationOver = true;
+                this.activeRotation = rotation;
+            }, 300);
+        }
     }
 
     /**
-     * Vérifie s'il existe des rotations passées
-     * @return true si c'est le cas, false sinon
+     * Redirige vers la liste équipage du vol
+     * @param leg le vol dont on souhaite consulter la liste équipage
      */
-    hasLastPerformedRotations() {
-        return this.lastPerformedRotations && this.lastPerformedRotations.length > 0;
+    goToFlightCrewListPage(leg: LegModel) {
+        this.sessionService.appContext.lastConsultedRotation = this.activeRotation;
+        this.router.navigate(['crew-list'],
+            {
+                relativeTo: this.activatedRoute,
+                state: {
+                    data: { leg: leg }
+                }
+            });
+    }
+
+    /**
+     * Vérifie si un vol est en cours
+     * @param flight le vol à tester
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isFlightActive(flight: LegModel): boolean {
+        const now = moment().utc();
+
+        if (flight && flight.departureDate && flight.arrivalDate) {
+            return now.isBetween(
+                moment(flight.departureDate).subtract(this.FLIGHT_START_END_HOURS_THRESHOLD, 'hours'),
+                moment(flight.arrivalDate).add(this.FLIGHT_START_END_HOURS_THRESHOLD, 'hours'));
+        }
+        return false;
     }
 }

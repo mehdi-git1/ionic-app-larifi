@@ -79,7 +79,7 @@ export class TabNavService {
                 id: TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE,
                 title: this.translateService.instant('GLOBAL.MY_UPCOMING_FLIGHT'),
                 page: UpcomingFlightListPage,
-                icon: 'md-jet',
+                icon: 'airplane',
                 route: 'flight',
                 display: this.securityService.isManager()
             },

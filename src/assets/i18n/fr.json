@@ -307,10 +307,11 @@
         "ERROR": "Erreur lors de la récupération de la liste équipage du vol {{flightNumber}}"
     },
     "UPCOMING_FLIGHT_LIST": {
-        "TITLE": "Liste de vos prochains vols rencontre",
-        "LAST_FLIGHTS": "Mes derniers vols",
-        "UPCOMING_FLIGHTS": "Mes prochains vols",
-        "NO_FLIGHTS": "Aucun vol trouvé"
+        "TITLE": "Rotations",
+        "UPCOMING": "A venir",
+        "IN_PROGRESS": "En cours",
+        "LAST_PERFORMED": "Passées",
+        "NO_FLIGHT": "Aucune activité vol trouvée"
     },
     "ACTIVITY": {
         "REGULARITY": "Régularité",
@@ -1089,13 +1090,7 @@
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
-        "PNC_SAVED_OFFLINE_ERROR": "Le PNC {{ matricule }} n'a pas pu être synchronisé",
-        "ROTATION_SAVED_OFFLINE": "Les PNC de la rotation {{ rotationNumber }} ont été synchronisés",
-        "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés",
-        "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
-        "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés",
-        "FLIGHT_SERVICE_CALL_ERROR": "Le chargement des PNC du vol {{ flightNumber }} a échoué.",
-        "ROTATION_SERVICE_CALL_ERROR": "Le chargement des PNC de la rotation {{ rotationNumber }} a échoué."
+        "PNC_SAVED_OFFLINE_ERROR": "Le PNC {{ matricule }} n'a pas pu être synchronisé"
     },
     "PIN_PAD": {
         "TITLE": {

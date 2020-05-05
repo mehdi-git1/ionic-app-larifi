@@ -1,6 +1,14 @@
-<div class="leg-infos">
-    <span>{{ leg.company }}{{ leg.number }}</span>
-    <span class="suffix-tu">{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
-    <span>{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
-    <span>{{ leg.aircraftType }}</span>
+<div class="icon-container">
+    <ion-icon name="airplane"></ion-icon>
+</div>
+<div>
+    <span class="flight-number">{{ flight.company }}{{ flight.number }}</span>
+    <span class="flight-stations">{{ flight.departureStation }} - {{ flight.arrivalStation }}</span>
+    <span class="aircraft-type">{{ flight.aircraftType }}</span>
+</div>
+<div>
+    <span class="flight-date suffix-tu">{{ flight.departureDate | date : 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
+    <ion-button fill="clear" color="secondarydark">
+        <span class="edospnc-pnc"></span>
+    </ion-button>
 </div>
