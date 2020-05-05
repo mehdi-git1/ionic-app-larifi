@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="eObservation?.pnc">
-            <span> {{ 'EOBSERVATION.DETAIL.TITLE' | translate }} {{getTypeLabel()}} {{getDetailOptionType()}}</span>
+            <span> {{ 'EOBSERVATION.DETAIL.TITLE' | translate }} {{ getEObservationTypeLabel() }}</span>
         </page-header>
     </ion-toolbar>
     <span #pncCard>
@@ -84,7 +84,7 @@
                             {{ 'EOBSERVATION.BUTTONS.CANCEL' | translate }}
                         </ion-button>
                         <!-- Bouton mettre à jour l'eobs -->
-                        <ion-button color="green50" (click)="updateEObservation()" [disabled]="!formHasBeenModified()">
+                        <ion-button color="green50" (click)="updateEObservation()" [disabled]="!isFormValid()">
                             <ion-icon name="md-checkmark" ios="md-checkmark" class="ion-margin-end"></ion-icon>
                             {{ 'EOBSERVATION.BUTTONS.UPDATE' | translate }}
                         </ion-button>

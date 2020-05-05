@@ -97,6 +97,28 @@ export class EobservationDetailsPage extends FormCanDeactivate {
   }
 
   /**
+   * Vérifie si le formulaire est valide ou non
+   * @return vrai si le formulaire est valide, faux sinon
+   */
+  isFormValid(): boolean {
+    return this.formHasBeenModified() && this.hasAtLeastOneStrongPointForEachItem();
+  }
+
+  /**
+   * Vérifie que l'eObs (PCB uniquement) a au moins un point fort coché pour chaque item
+   * @return vrai chaque item a au moins un item sélectionné, faux sinon
+   */
+  hasAtLeastOneStrongPointForEachItem(): boolean {
+    if (this.eObservation.type !== EObservationTypeEnum.E_PCB) {
+      return true;
+    }
+
+    return this.eObservation.eobservationThemes[0].subThemes.every(subTheme => {
+      return subTheme.subThemes[0].eobservationItems.length > 0;
+    });
+  }
+
+  /**
    * Crée un objet CrewMember à partir d'un objet PncModel
    * @param pnc pnc à transformer
    */
@@ -107,22 +129,11 @@ export class EobservationDetailsPage extends FormCanDeactivate {
   }
 
   /**
-   * Récupère le label du type de l'eObs
-   * @return le label à afficher
+   * Récupère le label du type de l'eObservation
+   * @return le label du type de l'eObservation
    */
-  getTypeLabel(): string {
-    if (!this.eObservation) {
-      return '';
-    }
-    return EObservationTypeEnum.getLabel(this.eObservation.type);
-  }
-
-  /**
-   * Récupère le label de l'option du type de l'eObs
-   * @return le label à afficher
-   */
-  getDetailOptionType(): string {
-    return this.eObservationService.getDetailOptionType(this.eObservation);
+  getEObservationTypeLabel(): string {
+    return this.eObservationService.getEObservationTypeLabel(this.eObservation);
   }
 
   /**
@@ -305,7 +316,7 @@ export class EobservationDetailsPage extends FormCanDeactivate {
     this.eObservationService.getEObservationPdf(this.eObservation.techId).then(eObservationPdf => {
       this.fileService.downloadFile(
         'application/pdf',
-        `EObservation ${eObservationPdf.pnc.lastName} ${eObservationPdf.pnc.firstName}.pdf`,
+        `EObservation ${this.eObservationService.getEObservationTypeLabel(this.eObservation)} ${eObservationPdf.pnc.lastName} ${eObservationPdf.pnc.firstName}.pdf`,
         eObservationPdf.pdf
       );
     }).then(() => {

@@ -1,11 +1,15 @@
 <mat-expansion-panel class="elevation-1" *ngIf="eObservation" [disabled]="!canOpen()">
-    <mat-expansion-panel-header class="e-observation elevation-1" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
+    <mat-expansion-panel-header class="e-observation elevation-1" [expandedHeight]="matPanelHeaderHeight"
+        [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
         <label class="e-observation-date">{{eObservation.rotationDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
-        <label class="e-observation-type">{{ getEObservationTypeLabel(eObservation.type) }}
-            {{getDetailOptionType()}}</label>
+        <label class="e-observation-type">{{ getEObservationTypeLabel() }}</label>
         <label class="e-observation-writer">
-            <span *ngIf="eObservationDisplayMode !== EObservationDisplayModeEnum.REDACTIONS && eObservation.redactor?.lastName">{{eObservation.redactor.lastName}} <span class="firstname">{{eObservation.redactor.firstName}}</span></span>
-            <span *ngIf="eObservationDisplayMode === EObservationDisplayModeEnum.REDACTIONS && eObservation.pnc?.lastName">{{eObservation.pnc.lastName}} <span class="firstname">{{eObservation.pnc.firstName}}</span></span>
+            <span
+                *ngIf="eObservationDisplayMode !== EObservationDisplayModeEnum.REDACTIONS && eObservation.redactor?.lastName">{{eObservation.redactor.lastName}}
+                <span class="firstname">{{eObservation.redactor.firstName}}</span></span>
+            <span
+                *ngIf="eObservationDisplayMode === EObservationDisplayModeEnum.REDACTIONS && eObservation.pnc?.lastName">{{eObservation.pnc.lastName}}
+                <span class="firstname">{{eObservation.pnc.firstName}}</span></span>
         </label>
         <div class="e-observation-detail">
             <ion-fab-button size="small" (click)="goToEObservationDetail($event)" color="primarydark">
@@ -16,5 +20,6 @@
             <!-- espace réservé au bouton d'ouverture qui disparait quand aucun écart de notation n'est présent -->
         </div>
     </mat-expansion-panel-header>
-    <abnormal-level *ngIf="eObservationDisplayMode !== EObservationDisplayModeEnum.REDACTIONS" [abnormalEObservationItems]="abnormalEObservationItems"></abnormal-level>
+    <abnormal-level *ngIf="eObservationDisplayMode !== EObservationDisplayModeEnum.REDACTIONS"
+        [abnormalEObservationItems]="abnormalEObservationItems"></abnormal-level>
 </mat-expansion-panel>
