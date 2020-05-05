@@ -1,2 +1,2 @@
 <div class="clickable" (click)="editHrDocument()">{{ 'HR_DOCUMENT.ACTION_MENU.MODIFY' | translate }}</div>
-<div class="clickable" (click)="confirmDeleteHrDocument()">{{'HR_DOCUMENT.ACTION_MENU.DELETE' | translate }}</div>
+<div class="clickable" *hasPermission="'DELETE_HR_DOCUMENT'" (click)="confirmDeleteHrDocument()">{{'HR_DOCUMENT.ACTION_MENU.DELETE' | translate }}</div>
