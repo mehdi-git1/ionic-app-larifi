@@ -52,7 +52,8 @@
                       {{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
                     <ion-input #careerObjectiveTitle type="text" [(ngModel)]="careerObjective.title"
                       formControlName="titleControl" [readonly]="readOnlyByUserConnected()"
-                      [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on"></ion-input>
+                      [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on" [maxlength]="titleMaxLength">
+                    </ion-input>
                     <span class="character-counter">
                       {{careerObjectiveTitle.value ? careerObjectiveTitle.value.length : 0}}/{{titleMaxLength}}
                     </span>
@@ -68,9 +69,9 @@
                     </ion-label>
                     <ion-textarea #careerObjectiveContext [(ngModel)]="careerObjective.context"
                       formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()"
-                      [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
+                      [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on" [maxlength]="contextMaxLength">
                     </ion-textarea>
-                    <span class="character-counter">
+                    <span class=" character-counter">
                       {{careerObjectiveContext.value ? careerObjectiveContext.value.length : 0}}/{{contextMaxLength}}
                     </span>
                   </ion-item>
@@ -85,7 +86,7 @@
                     </ion-label>
                     <ion-textarea #actionPlan [(ngModel)]="careerObjective.actionPlan"
                       formControlName="actionPlanControl" name="actionPlan" [readonly]="readOnlyByUserConnected()"
-                      [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
+                      [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on" [maxlength]="actionPlanMaxLength">
                     </ion-textarea>
                     <span class="character-counter">
                       {{actionPlan.value ? actionPlan.value.length : 0}}/{{actionPlanMaxLength}}
@@ -103,7 +104,7 @@
                     <ion-textarea #managerComment [(ngModel)]="careerObjective.managerComment"
                       formControlName="managerCommentControl" name="managerComment"
                       [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()"
-                      autocorrect="on">
+                      autocorrect="on" [maxlength]="managerCommentMaxLength">
                     </ion-textarea>
                     <span class="character-counter">
                       {{managerComment.value ? managerComment.value.length : 0}}/{{managerCommentMaxLength}}
@@ -117,7 +118,8 @@
                       {{ 'CAREER_OBJECTIVE_CREATE.FORM.PNC_COMMENT' | translate }}
                     </ion-label>
                     <ion-textarea #pncComment [(ngModel)]="careerObjective.pncComment"
-                      formControlName="pncCommentControl" name="pncComment" autocorrect="on">
+                      formControlName="pncCommentControl" name="pncComment" autocorrect="on"
+                      [maxlength]="pncCommentMaxLength">
                     </ion-textarea>
                     <span class="character-counter">
                       {{pncComment.value ? pncComment.value.length : 0}}/{{pncCommentMaxLength}}
