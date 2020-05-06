@@ -1,24 +1,64 @@
 :host {
 
-    .rotation-list > h3 {
-        font-weight: normal;
-        padding: 15px 10px;
-        font-size: 1.2em;
-        color: var(--ion-color-primary);
-        border-radius: 5px
+    mat-sidenav-container {
+        height: 100%;
     }
 
-    ::ng-deep .last-performed-rotations {
-        ion-card-header {
-            background: var(--ion-color-primarylight);
+    mat-sidenav {
+        width: 300px;
+        padding: 8px;
+        background: var(--ion-color-white);
+        box-shadow: 3px 0px 4px -2px rgba(51, 51, 51, 0.75);
+    }
+
+    mat-sidenav-content {
+
+        h4 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             color: var(--ion-color-white);
+            background: var(--ion-color-primary);
+            padding: 8px;
+            margin: 0;
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+
+        .flight-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+            margin: 0 -8px;
+
+            @media (max-width: 1200px) {
+                grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+            }
+
+            @media (max-width: 800px) {
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            }
+
+            flight-card.active {
+                border: 1px solid var(--ion-color-secondary);
+            }
         }
     }
 
-    ::ng-deep .upcoming-rotations {
-        ion-card-header {
-            background: var(--ion-color-primarydark);
-            color: var(--ion-color-white);
+    .no-flight {
+        color: var(--ion-color-grey50);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        ion-icon {
+            font-size: 5em;
+            transform: rotate(45deg);
+        }
+
+        span {
+            font-size: 1.5em;
         }
     }
 }

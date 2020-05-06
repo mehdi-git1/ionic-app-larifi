@@ -1,15 +1,58 @@
 :host {
-
-    height: 60px;
-    display: flex;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--ion-color-grey70);
+    background: var(--ion-color-white);
     cursor: pointer;
-    padding: 0;
+    font-size: 1.1em;
 
-    .leg-infos {
+    .icon-container {
         display: flex;
-        flex: 1;
+        justify-content: center;
+
+        ion-icon {
+            color: var(--ion-color-primary);
+            border: 2px solid var(--ion-color-primary);
+            border-radius: 100%;
+            padding: 4px;
+            font-size: 2em;
+        }
+    }
+
+    div {
+        display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px;
+        padding: 8px;
+
+        .flight-number {
+            color: var(--ion-color-primary);
+            font-weight: bold;
+        }
+
+        .flight-stations {
+            color: var(--ion-color-primary);
+            font-weight: bold;
+        }
+
+        .aircraft-type {
+            color: var(--ion-color-primary);
+        }
+
+        .flight-date {
+            color: var(--ion-color-secondarydark);
+        }
     }
+
+    ion-button {
+        margin: 0;
+        --padding-start: 0;
+        --padding-end: 0;
+    }
+
+}
+
+:host:hover {
+    background: var(--ion-color-grey95);
 }
