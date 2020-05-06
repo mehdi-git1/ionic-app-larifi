@@ -22,17 +22,17 @@ import { SessionService } from '../../../../core/services/session/session.servic
                 transition(
                     ':enter',
                     [
-                        style({ top: -100, opacity: 0 }),
+                        style({ marginTop: -100, opacity: 0 }),
                         animate('300ms ease-out',
-                            style({ top: 0, opacity: 1 }))
+                            style({ marginTop: 0, opacity: 1 }))
                     ]
                 ),
                 transition(
                     ':leave',
                     [
-                        style({ top: 0, opacity: 1 }),
+                        style({ marginTop: 0, opacity: 1 }),
                         animate('300ms ease-in',
-                            style({ top: 100, opacity: 0 }))
+                            style({ marginTop: 100, opacity: 0 }))
                     ]
                 )
             ]
