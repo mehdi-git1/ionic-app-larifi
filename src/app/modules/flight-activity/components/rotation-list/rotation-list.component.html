@@ -1,17 +1,17 @@
 <h2>{{ 'UPCOMING_FLIGHT_LIST.TITLE' | translate }}</h2>
-<ng-container *ngIf="hasUpcomingRotations()">
-    <h3>{{ 'UPCOMING_FLIGHT_LIST.UPCOMING' | translate }}</h3>
-    <ul>
-        <li *ngFor="let rotation of upcomingRotations" (click)="selectRotation(rotation)" [class.active]="isActive(rotation)">
-            <span class=" rotation-date suffix-tu">{{ rotation.departureDate | date : 'dd/MM/yyyy' : 'UTC' }}</span> <span class="rotation-number">{{ rotation.number }}</span>
-        </li>
-    </ul>
-</ng-container>
 <ng-container *ngIf="hasInProgressRotation()">
     <h3>{{ 'UPCOMING_FLIGHT_LIST.IN_PROGRESS' | translate }}</h3>
     <ul>
         <li [class.active]="isActive(inProgressRotation)" (click)="selectRotation(inProgressRotation)" [class.active]="isActive(inProgressRotation)">
             <span class=" rotation-date suffix-tu">{{ inProgressRotation.departureDate | date : 'dd/MM/yyyy' : 'UTC' }}</span> <span class="rotation-number">{{ inProgressRotation.number }}</span>
+        </li>
+    </ul>
+</ng-container>
+<ng-container *ngIf="hasUpcomingRotations()">
+    <h3>{{ 'UPCOMING_FLIGHT_LIST.UPCOMING' | translate }}</h3>
+    <ul>
+        <li *ngFor="let rotation of upcomingRotations" (click)="selectRotation(rotation)" [class.active]="isActive(rotation)">
+            <span class=" rotation-date suffix-tu">{{ rotation.departureDate | date : 'dd/MM/yyyy' : 'UTC' }}</span> <span class="rotation-number">{{ rotation.number }}</span>
         </li>
     </ul>
 </ng-container>

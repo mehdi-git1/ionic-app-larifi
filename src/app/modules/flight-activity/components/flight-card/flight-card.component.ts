@@ -10,4 +10,5 @@ import { LegModel } from '../../../../core/models/leg.model';
 export class FlightCardComponent {
 
     @Input() flight: LegModel;
+    @Input() isFlightActive = false;
 }

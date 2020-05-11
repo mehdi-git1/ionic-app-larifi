@@ -53,8 +53,8 @@ export class UpcomingFlightListPage {
     isMenuOpened = false;
     isDeleteAnimationOver = true;
 
-    // Le nombre d'heure de marge qu'on se donne pour considérer le vol démarré/terminé
-    FLIGHT_START_END_HOURS_THRESHOLD = 1;
+    // Le nombre de minutes de marge qu'on se donne pour considérer le vol démarré/terminé
+    FLIGHT_START_END_MINUTES_THRESHOLD = 30;
 
     constructor(
         private router: Router,
@@ -132,9 +132,10 @@ export class UpcomingFlightListPage {
 
         if (flight && flight.departureDate && flight.arrivalDate) {
             return now.isBetween(
-                moment(flight.departureDate).subtract(this.FLIGHT_START_END_HOURS_THRESHOLD, 'hours'),
-                moment(flight.arrivalDate).add(this.FLIGHT_START_END_HOURS_THRESHOLD, 'hours'));
+                moment(flight.departureDate).subtract(this.FLIGHT_START_END_MINUTES_THRESHOLD, 'minutes'),
+                moment(flight.arrivalDate).add(this.FLIGHT_START_END_MINUTES_THRESHOLD, 'minutes'));
         }
         return false;
     }
+
 }

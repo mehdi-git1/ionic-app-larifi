@@ -14,21 +14,18 @@
     mat-sidenav-content {
 
         h4 {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--ion-color-white);
-            background: var(--ion-color-primary);
-            padding: 8px;
+            color: var(--ion-color-primary);
             margin: 0;
-            margin-bottom: 8px;
-            border-radius: 4px;
         }
 
         .flight-card-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
             margin: 0 -8px;
+
+            @media (max-width: 1400px) {
+                grid-template-columns: repeat(auto-fill, minmax(33.33%, 1fr));
+            }
 
             @media (max-width: 1200px) {
                 grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));

@@ -27,7 +27,7 @@ export class RotationListComponent implements OnInit {
     LAST_PERFORMED_ROTATION_COUNT = 3;
 
     ngOnInit() {
-        this.rotationList = this.sortByDescendingDepartureDate();
+        this.rotationList = this.sortLegsByAscendingDepartureDate();
 
         this.lastPerformedRotations = this.getLastPerformedRotations();
         this.upcomingRotations = this.getUpcomingRotations();
@@ -44,7 +44,10 @@ export class RotationListComponent implements OnInit {
     getLastPerformedRotations(): Array<RotationModel> {
         return this.rotationList.filter(rotation => {
             return moment(rotation.departureDate).isBefore(moment());
-        }).slice(-this.LAST_PERFORMED_ROTATION_COUNT);
+        }).sort((rotation1, rotation2) => {
+            return moment(rotation1.departureDate, AppConstant.isoDateFormat)
+                .isAfter(moment(rotation2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
+        }).slice(0, this.LAST_PERFORMED_ROTATION_COUNT);
     }
 
     /**
@@ -54,6 +57,9 @@ export class RotationListComponent implements OnInit {
     getUpcomingRotations(): Array<RotationModel> {
         return this.rotationList.filter(rotation => {
             return moment(rotation.departureDate).isAfter(moment());
+        }).sort((rotation1, rotation2) => {
+            return moment(rotation1.departureDate, AppConstant.isoDateFormat)
+                .isBefore(moment(rotation2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
         });
     }
 
@@ -78,12 +84,12 @@ export class RotationListComponent implements OnInit {
             }
         }
         if (inProgressRotation === null && this.upcomingRotations.length > 0) {
-            const rotation = this.upcomingRotations[this.upcomingRotations.length - 1];
+            const rotation = this.upcomingRotations[0];
             // On considère la rotation "en cours" si celle ci s'apprête à démarrer
             // Pour cela, on se base sur la date de début de la rotation on prend une marge de 5 heures.
             if (rotation.legs && rotation.legs.length > 0) {
                 if (moment(rotation.departureDate).subtract(this.ROTATION_START_END_HOURS_THRESHOLD, 'hours').isBefore(now)) {
-                    inProgressRotation = this.upcomingRotations.pop();
+                    inProgressRotation = this.upcomingRotations.shift();
                 }
             }
         }
@@ -101,16 +107,16 @@ export class RotationListComponent implements OnInit {
             return this.inProgressRotation;
         }
         if (this.upcomingRotations.length > 0) {
-            return this.upcomingRotations[this.upcomingRotations.length - 1];
+            return this.upcomingRotations[0];
         }
         return this.lastPerformedRotations[0];
     }
 
     /**
-     * Tri les rotations par date descendante et les tronçons par date de départ ascendante     
-     * @return la liste des rotations triée
+     * Tri les tronçons par date ascendante
+     * @return la liste des rotations avec leurs tronçons triés
      */
-    sortByDescendingDepartureDate() {
+    sortLegsByAscendingDepartureDate() {
         this.rotationList.forEach(rotation => {
             rotation.legs.sort((leg1, leg2) => {
                 return moment(leg1.departureDate, AppConstant.isoDateFormat)
@@ -118,10 +124,7 @@ export class RotationListComponent implements OnInit {
             });
         });
 
-        return this.rotationList.sort((rotation1, rotation2) => {
-            return moment(rotation1.departureDate, AppConstant.isoDateFormat)
-                .isAfter(moment(rotation2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
-        });
+        return this.rotationList;
     }
 
     /**

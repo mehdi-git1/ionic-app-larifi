@@ -6,16 +6,17 @@ h2 {
 }
 
 h3 {
-    color: var(--ion-color-grey20);
+    color: var(--ion-color-secondary);
     margin: 0;
     padding: 8px 0;
     border-top: 1px solid var(--ion-color-grey70);
-    font-size: 1.1em;
+    font-size: 1em;
 }
 
 ul {
     list-style: none;
     margin: 0;
+    margin-bottom: 4px;
     padding: 0;
     display: flex;
     flex-direction: column;

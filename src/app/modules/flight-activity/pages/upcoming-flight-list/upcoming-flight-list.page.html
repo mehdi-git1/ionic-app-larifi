@@ -21,11 +21,11 @@
             <mat-sidenav-content>
                 <div class="page-container" @selectRotationAnimation *ngIf="isDeleteAnimationOver">
                     <h4>
-                        <span class=" rotation-date suffix-tu">{{ activeRotation.departureDate | date : 'dd/MM/yyyy' : 'UTC' }}</span> <span class="rotation-number">{{ activeRotation.number }}</span>
+                        <span class=" rotation-date suffix-tu">{{ activeRotation.departureDate | date : 'dd/MM/yyyy' : 'UTC' }}</span> - <span class="rotation-number">{{ activeRotation.number }}</span>
                     </h4>
 
                     <div class="flight-card-container">
-                        <flight-card *ngFor="let flight of activeRotation.legs" [flight]="flight" (click)="goToFlightCrewListPage(flight)" [class.active]="isFlightActive(flight)"></flight-card>
+                        <flight-card *ngFor="let flight of activeRotation.legs" [flight]="flight" (click)="goToFlightCrewListPage(flight)" [class.active]="isFlightActive(flight)" [isFlightActive]="isFlightActive(flight)"></flight-card>
                     </div>
                 </div>
             </mat-sidenav-content>
