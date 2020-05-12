@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import {
     AlertController, Events, LoadingController, NavParams, PopoverController
 } from '@ionic/angular';
@@ -33,8 +32,6 @@ export class CongratulationLetterActionMenuComponent {
 
   constructor(
     private navParams: NavParams,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     public congratulationLetterService: CongratulationLetterService,
     public translateService: TranslateService,
     public loadingCtrl: LoadingController,

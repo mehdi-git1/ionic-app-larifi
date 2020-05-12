@@ -9,7 +9,7 @@ import {
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
     AlertController, Events, LoadingController, NavController, PopoverController
 } from '@ionic/angular';
@@ -82,7 +82,8 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
         private popoverCtrl: PopoverController,
         private alertCtrl: AlertController,
         private loadingCtrl: LoadingController,
-        private events: Events
+        private events: Events,
+        private router: Router
     ) {
         super();
         this.initForm();
@@ -113,6 +114,10 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
                         this.mode = CongratulationLetterModeEnum.RECEIVED;
                     } else {
                         this.mode = CongratulationLetterModeEnum.WRITTEN;
+                    }
+                    // on instancie le verbatim dans le formControl pour pouvoir valider le formulaire
+                    if (!this.verbatimCanBeEdited()) {
+                        this.congratulationLetterForm.get('verbatimControl').setValue(this.congratulationLetter.verbatim);
                     }
                     if (this.congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC) {
                         this.selectedRedactor = this.congratulationLetter.redactor;
@@ -259,10 +264,16 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
     }
 
     /**
-     * Annule la création de la lettre
+     * Annule la création/edition de la lettre de félicitation
+     * et route vers la page d'acceuil des lettres de félicitation du dossier en cours
      */
-    cancelCreation() {
-        this.navCtrl.pop();
+    goToCongratulationList() {
+        if (this.congratulationLetter && this.sessionService.isActiveUserMatricule(this.pnc.matricule)
+            && this.pnc.manager) {
+            this.router.navigate(['tabs', 'home', 'congratulation-letter']);
+        } else {
+            this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'congratulation-letter']);
+        }
     }
 
     /**
@@ -291,6 +302,7 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
      * Vérifie si le formulaire est valide
      */
     isFormValid(): boolean {
+        console.log();
         return this.connectivityService.isConnected() &&
             this.congratulationLetterForm.valid
             && (!Utils.isEmpty(this.congratulationLetterForm.get('verbatimControl').value)
@@ -389,18 +401,17 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
     deleteCongratulationLetter() {
         this.loadingCtrl.create().then(loading => {
             loading.present();
-
             this.congratulationLetterService
                 .delete(this.congratulationLetter.techId, this.pnc.matricule, this.mode)
                 .then(deletedcongratulationLetter => {
                     this.toastService.success(this.translateService.instant('CONGRATULATION_LETTERS.TOAST.DELETE_SUCCESS'));
                     this.events.publish('CongratulationLetter:deleted');
+                    this.goToCongratulationList();
                     loading.dismiss();
                 }, error => {
                     loading.dismiss();
                 });
         });
 
-        this.popoverCtrl.dismiss();
     }
 }
