@@ -26,7 +26,6 @@ export class FixRecipientComponent {
     pnc: PncModel;
     selectedPnc: PncModel;
     congratulationLetter: CongratulationLetterModel;
-    goBack: boolean;
 
     constructor(
         private navParams: NavParams,
@@ -40,7 +39,6 @@ export class FixRecipientComponent {
         private sessionService: SessionService) {
         this.congratulationLetter = this.navParams.get('congratulationLetter');
         this.pnc = this.navParams.get('pnc');
-        this.goBack = this.navParams.get('goBack');
     }
 
     /**

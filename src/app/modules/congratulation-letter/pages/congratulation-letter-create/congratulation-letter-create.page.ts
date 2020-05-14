@@ -355,7 +355,7 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
         if (this.congratulationLetter.creationAuthor === undefined) {
             return false;
         }
-        return this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule
+        return this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule;
     }
 
     /**
@@ -418,7 +418,7 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
     }
 
     /**
-     * Efface une lettre de félicitation
+     * Efface une lettre de félicitation puis route vers la page d'acceuil des lettres de félicitation du dossier en cours
      */
     deleteCongratulationLetter() {
         this.loadingCtrl.create().then(loading => {

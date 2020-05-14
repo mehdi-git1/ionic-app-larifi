@@ -167,7 +167,7 @@ export class CongratulationLetterDetailPage {
     }
 
     /**
-     * Efface une lettre de félicitation
+     * Efface une lettre de félicitation puis route vers la page d'acceuil des lettres de félicitation du dossier en cours
      */
     deleteCongratulationLetter() {
         this.loadingCtrl.create().then(loading => {
@@ -220,6 +220,3 @@ export class CongratulationLetterDetailPage {
         }
     }
 }
-
-
-

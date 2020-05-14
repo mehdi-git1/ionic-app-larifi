@@ -212,6 +212,9 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
         this.deleteHrDocument();
     }
 
+    /**
+     * Supprime le document RH puis route vers la page d'acceuil des documents RH du dossier en cours
+     */
     deleteHrDocument() {
         return new Promise((resolve, reject) => {
             this.loadingCtrl.create().then(loading => {
