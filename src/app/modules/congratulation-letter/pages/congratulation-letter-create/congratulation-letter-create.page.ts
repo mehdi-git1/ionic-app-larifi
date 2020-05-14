@@ -302,7 +302,6 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
      * Vérifie si le formulaire est valide
      */
     isFormValid(): boolean {
-        console.log();
         return this.connectivityService.isConnected() &&
             this.congratulationLetterForm.valid
             && (!Utils.isEmpty(this.congratulationLetterForm.get('verbatimControl').value)
