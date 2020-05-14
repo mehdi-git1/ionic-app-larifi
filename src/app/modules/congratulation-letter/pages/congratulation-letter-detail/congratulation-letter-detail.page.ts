@@ -140,7 +140,7 @@ export class CongratulationLetterDetailPage {
         event.stopPropagation();
         this.popoverCtrl.create({
             component: FixRecipientComponent,
-            componentProps: { congratulationLetter: this.congratulationLetter, pnc: this.pnc, goBack: true },
+            componentProps: { congratulationLetter: this.congratulationLetter, pnc: this.pnc },
             cssClass: 'fix-recipient-popover'
         }).then(popover => popover.present());
         this.popoverCtrl.dismiss();
