@@ -1,0 +1,53 @@
+h2 {
+    font-size: 1.3em;
+    margin: 0;
+    padding: 16px 0;
+    color: var(--ion-color-secondary);
+}
+
+h3 {
+    color: var(--ion-color-secondary);
+    margin: 0;
+    padding: 8px 0;
+    border-top: 1px solid var(--ion-color-grey70);
+    font-size: 1em;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    margin-bottom: 4px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+    li {
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+
+        .rotation-date {
+            color: var(--ion-color-primary);
+        }
+    }
+
+    li:hover {
+        background: var(--ion-color-primarylight);
+        color: var(--ion-color-white);
+
+        .rotation-date {
+            color: var(--ion-color-white);
+        }
+    }
+
+    li.active {
+        background: var(--ion-color-primary);
+        color: var(--ion-color-white);
+
+        .rotation-date {
+            color: var(--ion-color-white);
+        }
+    }
+}

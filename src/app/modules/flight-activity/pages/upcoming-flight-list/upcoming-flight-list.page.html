@@ -10,21 +10,33 @@
 </ion-header>
 
 <ion-content>
-    <div class="page-container">
-        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-        <ng-template #pageBlock>
-            <div class="rotation-list margin-top-10">
-                <h3>{{ 'UPCOMING_FLIGHT_LIST.LAST_FLIGHTS' | translate }}</h3>
-                <rotation-card *ngFor=" let lastPerformedRotation of lastPerformedRotations"
-                    [rotation]="lastPerformedRotation" class="last-performed-rotations"></rotation-card>
-                <div class="no-data-found" *ngIf="!hasLastPerformedRotations()">
-                    {{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
-                <h3>{{ 'UPCOMING_FLIGHT_LIST.UPCOMING_FLIGHTS' | translate }}</h3>
-                <rotation-card *ngFor="let upcomingRotation of upcomingRotations" [rotation]="upcomingRotation"
-                    class="upcoming-rotations"></rotation-card>
-                <div class="no-data-found" *ngIf="!hasUpcomingRotations()">
-                    {{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+
+        <mat-sidenav-container *ngIf="rotationList.length>0; else noDataBlock">
+            <mat-sidenav [(opened)]="isMenuOpened" mode="side">
+                <rotation-list [rotationList]="rotationList" (activeRotationChange)="updateActiveRotation($event)"></rotation-list>
+            </mat-sidenav>
+
+            <mat-sidenav-content>
+                <div class="page-container" @selectRotationAnimation *ngIf="isDeleteAnimationOver">
+                    <h4>
+                        <span class=" rotation-date suffix-tu">{{ activeRotation.departureDate | date : 'dd/MM/yyyy' : 'UTC' }}</span> - <span class="rotation-number">{{ activeRotation.number }}</span>
+                    </h4>
+
+                    <div class="flight-card-container">
+                        <flight-card *ngFor="let flight of activeRotation.legs" [flight]="flight" (click)="goToFlightCrewListPage(flight)" [class.active]="isFlightActive(flight)" [isFlightActive]="isFlightActive(flight)"></flight-card>
+                    </div>
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+
+        <ng-template #noDataBlock>
+            <div class="no-flight">
+                <ion-icon name="airplane"></ion-icon>
+                <span>{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHT' | translate }}</span>
             </div>
         </ng-template>
-    </div>
+
+    </ng-template>
 </ion-content>

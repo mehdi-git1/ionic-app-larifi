@@ -1,17 +1,16 @@
-import { TranslateService } from '@ngx-translate/core';
-import { EdossierPaginationIntl } from './Edossier-Pagination-Intl';
 import { NgModule } from '@angular/core';
 import {
     DateAdapter, MAT_DATE_LOCALE, MatAutocompleteModule, MatButtonModule, MatCardModule,
     MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatIconModule, MatInputModule,
-    MatListModule, MatNativeDateModule, MatProgressBarModule, MatProgressSpinnerModule,
-    MatRadioModule, MatSortModule, MatTableModule, MatToolbarModule, MatTooltipModule,
-    NativeDateAdapter,
-    MatPaginatorModule,
-    MatPaginatorIntl
+    MatListModule, MatNativeDateModule, MatPaginatorIntl, MatPaginatorModule, MatProgressBarModule,
+    MatProgressSpinnerModule, MatRadioModule, MatSidenavModule, MatSortModule, MatTableModule,
+    MatToolbarModule, MatTooltipModule, NativeDateAdapter
 } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
+import { TranslateService } from '@ngx-translate/core';
+
+import { EdossierPaginationIntl } from './Edossier-Pagination-Intl';
 
 @NgModule({
     exports: [
@@ -36,7 +35,8 @@ import { MatSelectModule } from '@angular/material/select';
         MatDialogModule,
         MatRadioModule,
         MatCheckboxModule,
-        MatCardModule
+        MatCardModule,
+        MatSidenavModule
     ],
     providers: [
         TranslateService,

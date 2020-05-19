@@ -29,7 +29,7 @@
                 <!--  Activité vols -->
                 <div class="button-parent">
                     <button (click)="goToUpcomingFlightList()">
-                        <ion-icon name="md-jet" ios="md-jet"></ion-icon>
+                        <ion-icon name="md-airplane" ios="md-airplane"></ion-icon>
                         <h3>{{ 'GLOBAL.MY_UPCOMING_FLIGHT' | translate }}</h3>
                     </button>
                 </div>
@@ -42,11 +42,11 @@
                 </div>
                 <!--  Indicateurs Métier -->
                 <div class="button-parent" *hasPermission="'VIEW_BUSINESS_INDICATORS'">
-                        <button (click)="goToBusinessIndicators()">
-                            <span class="edospnc-customer-review"></span>
-                            <h3>{{ 'GLOBAL.MY_BUSINESS_INDICATORS' | translate }}</h3>
-                        </button>
-                    </div>
+                    <button (click)="goToBusinessIndicators()">
+                        <span class="edospnc-customer-review"></span>
+                        <h3>{{ 'GLOBAL.MY_BUSINESS_INDICATORS' | translate }}</h3>
+                    </button>
+                </div>
                 <!--  Lettres de félicitation -->
                 <div class="button-parent">
                     <button (click)="goToCongratulationLetters()">

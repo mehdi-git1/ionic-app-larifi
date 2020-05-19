@@ -140,7 +140,7 @@ export class HelpAssetListPage {
         helpAsset[6].url = `${this.pdfUrl}/cadre/${pdf7}`;
         helpAsset[6].label = 'Les Bilans Pro dans eDossierPNC';
         helpAsset[6].helpAssetType = HelpAssetTypeEnum.PDF;
-        helpAsset[6].lastUpdateDate = '2019-05-24T00:00:00Z';
+        helpAsset[6].lastUpdateDate = '2020-05-15T00:00:00Z';
         const pdf8 = 'JDB-dans-eDossierPNC-V2.pdf';
         helpAsset[7] = new HelpAssetModel();
         helpAsset[7].url = `${this.pdfUrl}/cadre/${pdf8}`;

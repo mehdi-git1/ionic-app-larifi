@@ -1,15 +1,90 @@
 :host {
-
-    height: 60px;
-    display: flex;
+    position: relative;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--ion-color-grey70);
+    background: var(--ion-color-white);
     cursor: pointer;
-    padding: 0;
+    font-size: 1.1em;
 
-    .leg-infos {
-        display: flex;
-        flex: 1;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
+    .in-progress-container {
+        overflow: hidden;
+        position: absolute;
+        height: 90px;
+        right: 0;
+        top: 0;
+        padding: 0;
+
+        .in-progress {
+            display: block;
+            position: relative;
+            left: 24px;
+            top: -20px;
+            text-align: center;
+            width: 100px;
+            transform: rotate(45deg);
+            font-size: 0.8em;
+            padding: 4px 8px;
+            background: var(--ion-color-secondary);
+            color: var(--ion-color-white);
+        }
     }
+
+
+    .icon-container {
+        display: flex;
+        justify-content: center;
+
+        ion-icon {
+            color: var(--ion-color-primary);
+            border: 2px solid var(--ion-color-primary);
+            border-radius: 100%;
+            padding: 4px;
+            font-size: 2em;
+        }
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px;
+
+
+
+        .flight-number {
+            flex: 1;
+            color: var(--ion-color-primary);
+            font-weight: bold;
+        }
+
+        .flight-stations {
+            flex: 1;
+            text-align: center;
+            color: var(--ion-color-primary);
+            font-weight: bold;
+        }
+
+        .aircraft-type {
+            flex: 1;
+            text-align: right;
+            color: var(--ion-color-primary);
+        }
+
+        .flight-date {
+            color: var(--ion-color-secondarydark);
+        }
+    }
+
+    ion-button {
+        margin: 0;
+        --padding-start: 0;
+        --padding-end: 0;
+    }
+
+}
+
+:host:hover {
+    background: var(--ion-color-grey95);
 }

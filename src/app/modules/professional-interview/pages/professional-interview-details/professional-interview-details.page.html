@@ -126,7 +126,7 @@
                 {{professionalInterview.pncComment}}</p>
               <ng-template #editPncCommentBlock>
                 <ion-textarea #pncComment [(ngModel)]="professionalInterview.pncComment" autocorrect="on"
-                  formControlName="pncCommentControl">
+                  formControlName="pncCommentControl" [maxlength]="pncCommentMaxLength">
                 </ion-textarea>
                 <span class="character-counter">
                   {{pncComment.value ? pncComment.value.length : 0}}/{{pncCommentMaxLength}}

@@ -28,7 +28,8 @@
                 </ion-label>
                 <ion-textarea #waypointContext [(ngModel)]="waypoint.context" formControlName="contextControl"
                   name="context" [readonly]="readOnlyByUserConnected()"
-                  [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }" autocorrect="on">
+                  [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }" autocorrect="on"
+                  [maxlength]="waypointContextMaxLength">
                 </ion-textarea>
                 <span class="character-counter">
                   {{waypointContext.value ? waypointContext.value.length : 0}}/{{waypointContextMaxLength}}
@@ -48,7 +49,8 @@
                 </ion-label>
                 <ion-textarea #actionPerformed [(ngModel)]="waypoint.actionPerformed"
                   formControlName="actionPerformedControl" name="actionPerformed" [readonly]="readOnlyByUserConnected()"
-                  [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }" autocorrect="on">
+                  [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }" autocorrect="on"
+                  [maxlength]="actionPerformedMaxLength">
                 </ion-textarea>
                 <span class="character-counter">
                   {{actionPerformed.value ? actionPerformed.value.length : 0}}/{{actionPerformedMaxLength}}
@@ -65,7 +67,8 @@
                 </ion-label>
                 <ion-textarea #managerComment [(ngModel)]="waypoint.managerComment"
                   formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()"
-                  [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }" autocorrect="on">
+                  [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }" autocorrect="on"
+                  [maxlength]="managerCommentMaxLength">
                 </ion-textarea>
                 <span class="character-counter">
                   {{managerComment.value ? managerComment.value.length : 0}}/{{managerCommentMaxLength}}
@@ -79,7 +82,7 @@
                   {{ 'WAYPOINT_CREATE.FORM.PNC_COMMENT' | translate }}
                 </ion-label>
                 <ion-textarea #pncComment [(ngModel)]="waypoint.pncComment" formControlName="pncCommentControl"
-                  name="pncComment" autocorrect="on">
+                  name="pncComment" autocorrect="on" [maxlength]="pncCommentMaxLength">
                 </ion-textarea>
                 <span class="character-counter">
                   {{pncComment.value ? pncComment.value.length : 0}}/{{pncCommentMaxLength}}
