@@ -67,25 +67,21 @@
                 <span *hasPermission="EOBS_FULL_EDITION">
                     <ng-container *ngIf="!editMode; else editModeButtonsBlock">
                         <!-- Bouton supprimer l'eobs -->
-                        <ion-button color="danger" (click)="confirmDeleteEObservation()" [disabled]="isConnected()">
-                            <ion-icon name="ios-trash-outline" md="md-trash" ios="ios-trash-outline" class="ion-margin-end"></ion-icon>
+                        <ion-button color="secondary" fill="outline" (click)="confirmDeleteEObservation()" [disabled]="isConnected()">
                             {{ 'EOBSERVATION.BUTTONS.DELETE' | translate }}
                         </ion-button>
                         <!-- Bouton modifier l'eobs -->
-                        <ion-button color="grey20" (click)="enterEditMode()" [disabled]="isConnected()">
-                            <ion-icon name="md-create" ios="md-create" class="ion-margin-end"></ion-icon>
+                        <ion-button color="secondary" (click)="enterEditMode()" [disabled]="isConnected()">
                             {{ 'EOBSERVATION.BUTTONS.EDIT' | translate }}
                         </ion-button>
                     </ng-container>
                     <ng-template #editModeButtonsBlock>
                         <!-- Bouton annuler modification de l'eobs -->
-                        <ion-button color="grey20" fill="outline" (click)="cancelEditMode()">
-                            <ion-icon name="md-close" ios="md-close" class="ion-margin-end"></ion-icon>
+                        <ion-button color="primary" fill="outline" (click)="cancelEditMode()">
                             {{ 'EOBSERVATION.BUTTONS.CANCEL' | translate }}
                         </ion-button>
                         <!-- Bouton mettre à jour l'eobs -->
-                        <ion-button color="green50" (click)="updateEObservation()" [disabled]="!isFormValid()">
-                            <ion-icon name="md-checkmark" ios="md-checkmark" class="ion-margin-end"></ion-icon>
+                        <ion-button color="primary" (click)="updateEObservation()" [disabled]="!isFormValid()">
                             {{ 'EOBSERVATION.BUTTONS.UPDATE' | translate }}
                         </ion-button>
                     </ng-template>

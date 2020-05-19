@@ -62,11 +62,11 @@
                             <span class="edospnc-fix-recipient ion-margin-end" name="edospnc-fix-recipient"></span>
                             {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.FIX_RECIPIENT' | translate }}</ion-button>
                         <!-- Bouton supprimer une lettre de félicitation -->
-                        <ion-button color="danger" (click)="confirmDeleteCongratulationLetter()">
-                            {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.DELETE_CONGRATULATION_LETTER' | translate }}</ion-button>
+                        <ion-button color="secondary" fill="outline" (click)="confirmDeleteCongratulationLetter()">
+                            {{ 'CONGRATULATION_LETTER_DETAIL.BUTTONS.DELETE_CONGRATULATION_LETTER' | translate }}</ion-button>
                         <!-- Bouton modifier une lettre de félicitation -->
-                        <ion-button color="primary" (click)="updateCongratulationLetter()">
-                            {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.UPDATE_CONGRATULATION_LETTER' | translate }}</ion-button>
+                        <ion-button color="secondary" (click)="updateCongratulationLetter()">
+                            {{ 'CONGRATULATION_LETTER_DETAIL.BUTTONS.UPDATE_CONGRATULATION_LETTER' | translate }}</ion-button>
                     </div>
                 </div>
                 <div class="information-message align-left" *ngIf="congratulationLetter.creationAuthor">

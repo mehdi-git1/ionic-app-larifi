@@ -139,29 +139,21 @@
     align-items: flex-end;
     padding-left: 52px;
 
-    .logbook-button-bar {
-        width: 100%;
-        button{
-            height: 50px;
-        }
-    }
-
-    ion-radio-group ion-radio{
+    ion-radio-group ion-radio {
         margin: 10px 10px;
     }
 
-    .logbook-button-bar button, 
-     ion-radio-group ion-label{
-            font-size: 14px;
-            font-weight: bold;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 2.29;
-            letter-spacing: 0.7px;
-            background-color: transparent;
-            color: var(--ion-color-grey10);
-            box-shadow: none;
-        }
+    ion-radio-group ion-label {
+        font-size: 14px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.29;
+        letter-spacing: 0.7px;
+        background-color: transparent;
+        color: var(--ion-color-grey10);
+        box-shadow: none;
+    }
 
     .visibility-for-large-container {
         height: 100%;
@@ -179,4 +171,3 @@
     }
 
 }
-
