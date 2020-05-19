@@ -127,7 +127,7 @@
                         <ion-col>
                             <div class="button-bar button-bar-right margin-top-10">
                                 <!-- Bouton annuler d'une lettre de félicitation -->
-                                <ion-button fill="outline" (click)="cancelCreation()" color="primary">
+                                <ion-button fill="outline" (click)="goToCongratulationList()" color="primary">
                                     {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.CANCEL' | translate }}</ion-button>
                                 <!-- Bouton sauvegarder une lettre de félicitation -->
                                 <ion-button [disabled]="!isFormValid() || submitInProgress" (click)="submitLetter()" color="primary" *ngIf="isCreationMode()">

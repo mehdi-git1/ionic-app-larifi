@@ -306,4 +306,19 @@ export class LogbookPage {
     isConnected(): boolean {
         return this.connectivityService.isConnected();
     }
+
+    /**
+     * Vérifie si le PNC connecté est le rédacteur de l'évènement, ou bien l'instructeur du pnc observé, ou bien son RDS
+     * @return vrai si le PNC est redacteur, instructeur ou rds du pnc observé, faux sinon
+     */
+    canEditEvent(logbookEvent: LogbookEventModel): boolean {
+        const redactor = logbookEvent.redactor
+            && this.sessionService.getActiveUser().matricule === logbookEvent.redactor.matricule;
+        const instructor = this.pnc && this.pnc.pncInstructor
+            && this.sessionService.getActiveUser().matricule === this.pnc.pncInstructor.matricule;
+        const rds = this.pnc && this.pnc.pncRds && this.sessionService.getActiveUser().matricule === this.pnc.pncRds.matricule;
+        const ccoIscvAdmin = this.pnc && this.securityService.isAdminCcoIscv(this.sessionService.getActiveUser());
+        return redactor || instructor || rds || (ccoIscvAdmin
+            && (logbookEvent.type === LogbookEventTypeEnum.CCO || logbookEvent.type === LogbookEventTypeEnum.ISCV));
+    }
 }

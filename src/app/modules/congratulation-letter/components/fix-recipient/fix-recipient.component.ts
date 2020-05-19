@@ -1,4 +1,7 @@
+import { SessionService } from 'src/app/core/services/session/session.service';
+
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, Events, NavParams, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -26,12 +29,14 @@ export class FixRecipientComponent {
 
     constructor(
         private navParams: NavParams,
+        private router: Router,
         public congratulationLetterService: CongratulationLetterService,
         public translateService: TranslateService,
         private toastService: ToastService,
         private popoverCtrl: PopoverController,
         private alertCtrl: AlertController,
-        private events: Events) {
+        private events: Events,
+        private sessionService: SessionService) {
         this.congratulationLetter = this.navParams.get('congratulationLetter');
         this.pnc = this.navParams.get('pnc');
     }
@@ -41,6 +46,18 @@ export class FixRecipientComponent {
      */
     cancel() {
         this.popoverCtrl.dismiss();
+    }
+
+    /**
+     * Annule la création/edition de la lettre de félicitation
+     * et route vers la page d'acceuil des lettres de félicitation du dossier en cours
+     */
+    goToCongratulationList() {
+        if (this.congratulationLetter && this.sessionService.isActiveUserMatricule(this.pnc.matricule)) {
+            this.router.navigate(['tabs', 'home', 'congratulation-letter']);
+        } else {
+            this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'congratulation-letter']);
+        }
     }
 
     /**
@@ -74,6 +91,7 @@ export class FixRecipientComponent {
                             .then(congratulationLetter => {
                                 this.events.publish('CongratulationLetterList:refresh');
                                 this.popoverCtrl.dismiss();
+                                this.goToCongratulationList();
                                 this.toastService
                                     .info(this.translateService.instant('CONGRATULATION_LETTERS.FIX_RECIPIENT.RECIPIENT_FIXED'));
                             }

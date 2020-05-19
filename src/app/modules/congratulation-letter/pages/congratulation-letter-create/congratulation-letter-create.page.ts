@@ -9,7 +9,7 @@ import {
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
     AlertController, Events, LoadingController, NavController, PopoverController
 } from '@ionic/angular';
@@ -82,7 +82,8 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
         private popoverCtrl: PopoverController,
         private alertCtrl: AlertController,
         private loadingCtrl: LoadingController,
-        private events: Events
+        private events: Events,
+        private router: Router
     ) {
         super();
         this.initForm();
@@ -94,32 +95,40 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
     }
 
     ngOnInit() {
+        let congratulationPromise = null;
+        const allPromises = new Array();
 
         const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
-        this.pncService.getPnc(matricule).then(pnc => {
+        const pncPromise = this.pncService.getPnc(matricule);
+        allPromises.push(pncPromise);
+        pncPromise.then(pnc => {
             this.pnc = pnc;
-            this.congratulationLetter.concernedPncs.push(this.pnc);
         }, error => { });
 
         if (this.activatedRoute.snapshot.paramMap.get('congratulationLetterId')
             && this.activatedRoute.snapshot.paramMap.get('congratulationLetterId') !== '0') {
             // Mode édition
             this.creationMode = false;
-            this.congratulationLetterService.getCongratulationLetter(
-                parseInt(this.activatedRoute.snapshot.paramMap.get('congratulationLetterId'), 10))
-                .then(congratulationLetter => {
-                    this.congratulationLetter = congratulationLetter;
-                    if (this.isReceivedMode()) {
-                        this.mode = CongratulationLetterModeEnum.RECEIVED;
-                    } else {
-                        this.mode = CongratulationLetterModeEnum.WRITTEN;
-                    }
-                    if (this.congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC) {
-                        this.selectedRedactor = this.congratulationLetter.redactor;
-                        this.displayPncSelection = true;
-                    }
-                    this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
-                });
+            congratulationPromise = this.congratulationLetterService.getCongratulationLetter(
+                parseInt(this.activatedRoute.snapshot.paramMap.get('congratulationLetterId'), 10));
+            allPromises.push(congratulationPromise);
+            congratulationPromise.then(congratulationLetter => {
+                this.congratulationLetter = congratulationLetter;
+                if (this.isReceivedMode()) {
+                    this.mode = CongratulationLetterModeEnum.RECEIVED;
+                } else {
+                    this.mode = CongratulationLetterModeEnum.WRITTEN;
+                }
+                // on instancie le verbatim dans le formControl pour pouvoir valider le formulaire
+                if (!this.verbatimCanBeEdited()) {
+                    this.congratulationLetterForm.get('verbatimControl').setValue(this.congratulationLetter.verbatim);
+                }
+                if (this.congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC) {
+                    this.selectedRedactor = this.congratulationLetter.redactor;
+                    this.displayPncSelection = true;
+                }
+                this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
+            });
         } else {
             // Mode création
             this.creationMode = true;
@@ -127,6 +136,11 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
             this.congratulationLetter = this.buildNewCongratulationLetter();
             this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
         }
+
+        Promise.all(allPromises).then(() => {
+            // On ajoute à la lettre le PNC destinataire de celle ci, après que le PNC et la lettre ont été récupérés
+            this.congratulationLetter.concernedPncs.push(this.pnc);
+        });
     }
 
     /**
@@ -259,10 +273,16 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
     }
 
     /**
-     * Annule la création de la lettre
+     * Annule la création/edition de la lettre de félicitation
+     * et route vers la page d'acceuil des lettres de félicitation du dossier en cours
      */
-    cancelCreation() {
-        this.navCtrl.pop();
+    goToCongratulationList() {
+        if (this.congratulationLetter && this.sessionService.isActiveUserMatricule(this.pnc.matricule)
+            && this.pnc.manager) {
+            this.router.navigate(['tabs', 'home', 'congratulation-letter']);
+        } else {
+            this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'congratulation-letter']);
+        }
     }
 
     /**
@@ -309,19 +329,33 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
     }
 
     /**
-     * Teste si le verbatim peut être modifié.<br>
+     * Teste si le verbatim peut être modifié.
      * Le verbatim peut être modifié qu'en cas de création, ou de modification quand l'auteur de
      * la modification est le rédacteur de la lettre
      * @return vrai si le verbatim peut être modifié, faux sinon
      */
     verbatimCanBeEdited() {
-        return this.creationMode
-            || (
-                (this.congratulationLetter.redactor !== undefined
-                    && this.sessionService.getActiveUser().matricule === this.congratulationLetter.redactor.matricule)
-                || (this.congratulationLetter.creationAuthor !== undefined
-                    && this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule)
-            );
+        return this.creationMode || this.isRedactorActiveUser() || this.isCreationAuthorActiveUser();
+    }
+
+    /**
+     * Teste si le rédacteur de la lettre est l'utilisateur actuel
+     */
+    isRedactorActiveUser(): boolean {
+        if (this.congratulationLetter.redactor === undefined || this.congratulationLetter.redactor === null) {
+            return false;
+        }
+        return this.sessionService.getActiveUser().matricule === this.congratulationLetter.redactor.matricule;
+    }
+
+    /**
+     * Teste si l'auteur de la lettre est l'utilisateur actuel
+     */
+    isCreationAuthorActiveUser(): boolean {
+        if (this.congratulationLetter.creationAuthor === undefined) {
+            return false;
+        }
+        return this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule;
     }
 
     /**
@@ -384,23 +418,22 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
     }
 
     /**
-     * Efface une lettre de félicitation
+     * Efface une lettre de félicitation puis route vers la page d'acceuil des lettres de félicitation du dossier en cours
      */
     deleteCongratulationLetter() {
         this.loadingCtrl.create().then(loading => {
             loading.present();
-
             this.congratulationLetterService
                 .delete(this.congratulationLetter.techId, this.pnc.matricule, this.mode)
                 .then(deletedcongratulationLetter => {
                     this.toastService.success(this.translateService.instant('CONGRATULATION_LETTERS.TOAST.DELETE_SUCCESS'));
                     this.events.publish('CongratulationLetter:deleted');
+                    this.goToCongratulationList();
                     loading.dismiss();
                 }, error => {
                     loading.dismiss();
                 });
         });
 
-        this.popoverCtrl.dismiss();
     }
 }

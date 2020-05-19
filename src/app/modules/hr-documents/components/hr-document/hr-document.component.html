@@ -50,9 +50,15 @@
                 <!-- Barre de boutons -->
                 <div class="button-bar-right button-bar">
                     <!-- Bouton Annuler -->
-                    <ion-button color="primary" fill="outline" (click)="cancel()">
+                    <ion-button color="primary" fill="outline" (click)="goToHrDocumentList()">
                         {{ 'HR_DOCUMENT.BUTTONS.CANCEL' | translate }}
                     </ion-button>
+                    <div *hasPermission="'DELETE_HR_DOCUMENT'">
+                        <ion-button color="danger" (click)="confirmDeleteDocument()">
+                            <ion-icon name="trash" ios="ios-trash-outline" class="ion-margin-end"></ion-icon>
+                            {{ 'LOGBOOK.BUTTONS.DELETE' |translate }}
+                        </ion-button>
+                    </div>
                     <!-- Bouton enregistrer -->
                     <ion-button *ngIf="mode === HrDocumentModeEnum.CREATION" color="primary" (click)="saveHrDocument()" [disabled]="!isFormValid()">
                         {{ 'HR_DOCUMENT.BUTTONS.SAVE' | translate }}

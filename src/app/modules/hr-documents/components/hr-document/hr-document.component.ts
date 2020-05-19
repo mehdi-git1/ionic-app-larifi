@@ -4,7 +4,7 @@ import { PncService } from 'src/app/core/services/pnc/pnc.service';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-document-mode.enum';
@@ -59,7 +59,8 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
         private navCtrl: NavController,
         private formBuilder: FormBuilder,
         private pncService: PncService,
-        private activatedRoute: ActivatedRoute) {
+        private activatedRoute: ActivatedRoute,
+        private alertCtrl: AlertController) {
         super();
         this.initForm();
     }
@@ -171,11 +172,63 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
     /**
      * Annule la création/edition du document RH et route vers la page d'acceuil des documents RH du dossier en cours
      */
-    cancel() {
-        if (this.hrDocument && this.hrDocument.pnc && this.hrDocument.pnc.matricule && this.sessionService.isActiveUserMatricule(this.hrDocument.pnc.matricule)) {
+    goToHrDocumentList() {
+        if (this.hrDocument && this.hrDocument.pnc && this.hrDocument.pnc.matricule
+            && this.sessionService.isActiveUserMatricule(this.hrDocument.pnc.matricule)) {
             this.router.navigate(['tabs', 'hr-document']);
         } else {
             this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'hr-document']);
         }
+    }
+
+    /**
+     * Confirmation de suppression du document à supprimer
+     */
+    confirmDeleteDocument() {
+        this.alertCtrl.create({
+            header: this.translateService.instant('HR_DOCUMENT.CONFIRM_DELETE.TITLE'),
+            message: this.translateService.instant('HR_DOCUMENT.CONFIRM_DELETE.MESSAGE'),
+            buttons: [
+                {
+                    text: this.translateService.instant('HR_DOCUMENT.CONFIRM_DELETE.CANCEL'),
+                    role: 'cancel'
+                },
+                {
+                    text: this.translateService.instant('HR_DOCUMENT.CONFIRM_DELETE.CONFIRM'),
+                    handler: () => this.markedAsDeleted()
+                }
+            ]
+        }).then(alert => {
+            alert.present();
+        });
+    }
+
+    /**
+     * Marque le document RH comme supprimé et appelle la méthode pour la mise à jour"
+     */
+    markedAsDeleted() {
+        this.hrDocument.deleted = true;
+        this.hrDocument.attachmentFiles = new Array();
+        this.deleteHrDocument();
+    }
+
+    /**
+     * Supprime le document RH puis route vers la page d'acceuil des documents RH du dossier en cours
+     */
+    deleteHrDocument() {
+        return new Promise((resolve, reject) => {
+            this.loadingCtrl.create().then(loading => {
+                loading.present();
+
+                this.onlineHrDocumentService.createOrUpdate(this.hrDocument)
+                    .then(savedHrDocument => {
+                        this.toastService.success(this.translateService.instant('HR_DOCUMENT.DELETE.HR_DOCUMENT_DELETED'));
+                        this.goToHrDocumentList();
+                        loading.dismiss();
+                    }, error => {
+                        loading.dismiss();
+                    });
+            });
+        });
     }
 }

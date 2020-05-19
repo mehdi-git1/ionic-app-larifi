@@ -56,6 +56,18 @@
                         <document-manager [documents]="congratulationLetter.documents" [readonly]="true">
                         </document-manager>
                     </div>
+                    <div class="button-bar button-bar-right margin-top-10" *ngIf="isManager() && isConnected()">
+                        <!-- Bouton Modifier le rédacteur d'une lettre de félicitation -->
+                        <ion-button fill="outline" color="primary" (click)="fixRecipient($event)" *ngIf="isReceivedMode()">
+                            <span class="edospnc-fix-recipient ion-margin-end" name="edospnc-fix-recipient"></span>
+                            {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.FIX_RECIPIENT' | translate }}</ion-button>
+                        <!-- Bouton supprimer une lettre de félicitation -->
+                        <ion-button color="danger" (click)="confirmDeleteCongratulationLetter()">
+                            {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.DELETE_CONGRATULATION_LETTER' | translate }}</ion-button>
+                        <!-- Bouton modifier une lettre de félicitation -->
+                        <ion-button color="primary" (click)="updateCongratulationLetter()">
+                            {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.UPDATE_CONGRATULATION_LETTER' | translate }}</ion-button>
+                    </div>
                 </div>
                 <div class="information-message align-left" *ngIf="congratulationLetter.creationAuthor">
                     {{ 'CONGRATULATION_LETTER_CREATE.CREATED_BY' | translate }}
