@@ -134,13 +134,13 @@
                         </ion-radio-group>
                     </form>
                 </div>
-                <div class="logbook-button-bar button-bar button-bar-right " *ngIf="canEditEvent()">
+                <div class=" button-bar button-bar-right " *ngIf="canEditEvent()">
                     <!-- Bouton supprimer -->
-                    <ion-button fill="clear" [disabled]="isEditionMode" color="dark" (click)="deleteLogbookEvent()">
+                    <ion-button fill="outline" [disabled]="isEditionMode" color="secondary" (click)="deleteLogbookEvent()">
                         {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
                     </ion-button>
                     <!-- Bouton modifier -->
-                    <ion-button fill="clear" [disabled]="isEditionMode" color="dark" *ngIf="canModifyEvent()" (click)="editLogbookEvent()">
+                    <ion-button [disabled]="isEditionMode" color="secondary" *ngIf="canModifyEvent()" (click)="editLogbookEvent()">
                         {{ 'LOGBOOK.BUTTONS.MODIFY' | translate }}
                     </ion-button>
                 </div>

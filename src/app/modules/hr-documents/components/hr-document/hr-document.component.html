@@ -53,9 +53,9 @@
                     <ion-button color="primary" fill="outline" (click)="goToHrDocumentList()">
                         {{ 'HR_DOCUMENT.BUTTONS.CANCEL' | translate }}
                     </ion-button>
+                    <!-- Bouton supprimer le document RH -->
                     <div *hasPermission="'DELETE_HR_DOCUMENT'">
-                        <ion-button color="danger" (click)="confirmDeleteDocument()">
-                            <ion-icon name="trash" ios="ios-trash-outline" class="ion-margin-end"></ion-icon>
+                        <ion-button color="secondary" fill="outline" (click)="confirmDeleteDocument()">
                             {{ 'LOGBOOK.BUTTONS.DELETE' |translate }}
                         </ion-button>
                     </div>

@@ -485,8 +485,8 @@
                 "BILAN": "Bilan professionnel"
             },
             "BUTTONS": {
-                "DELETE_DRAFT": "Supprimer le brouillon",
-                "SAVE_DRAFT": "Sauvegarder le brouillon",
+                "DELETE_DRAFT": "Supprimer brouillon",
+                "SAVE_DRAFT": "Sauvegarder brouillon",
                 "TAKE_INTO_ACCOUNT": "Prendre en compte",
                 "SAVE": "Enregistrer",
                 "VALIDATE": "Valider",
@@ -805,6 +805,10 @@
                 "TITLE": "Visualisation indisponible",
                 "MESSAGE": "Les pièces jointes ne sont pas disponibles en mode déconnecté."
             }
+        },
+        "BUTTONS": {
+            "DELETE_CONGRATULATION_LETTER": "Supprimer",
+            "UPDATE_CONGRATULATION_LETTER": "Modifier"
         }
     },
     "CONGRATULATION_LETTER_CREATE": {
@@ -834,9 +838,9 @@
         },
         "BUTTONS": {
             "CANCEL": "Annuler",
-            "SUBMIT": "Valider",
+            "SUBMIT": "Enregistrer",
             "FIX_RECIPIENT": "Corriger le destinataire",
-            "UPDATE_CONGRATULATION_LETTER": "Modifier",
+            "UPDATE_CONGRATULATION_LETTER": "Mettre à jour",
             "DELETE_CONGRATULATION_LETTER": "Supprimer"
         },
         "SUCCESS": {

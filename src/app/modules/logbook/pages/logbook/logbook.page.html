@@ -86,7 +86,7 @@
                                             </span>
                                         </ion-col>
                                         <ion-col class="column-actions" *ngIf="isManager()">
-                                            <div class="clickable" *ngIf="canEditEvent(logbookEvent)" (click)="openActionsMenu($event, logbookEvent, logbookEventIndex)">
+                                            <div class="clickable" *ngIf="canEditEvent(logbookEvent, logbookEventIndex)" (click)="openActionsMenu($event, logbookEvent, logbookEventIndex)">
                                                 <ion-icon ios="md-more" md="md-more">
                                                 </ion-icon>
                                             </div>

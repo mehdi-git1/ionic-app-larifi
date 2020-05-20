@@ -24,18 +24,17 @@
                                     date:getLastUpdateDate()} }}
             </div>
             <div *ngIf="isManager()">
-                <div class="hr-document-button-bar button-bar button-bar-right ">
+                <div class="button-bar button-bar-right ">
                     <!-- Bouton supprimer -->
                     <div *hasPermission="'DELETE_HR_DOCUMENT'">
-                        <button ion-button color="primary" (click)="confirmDeleteDocument()">
-                            <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'LOGBOOK.BUTTONS.DELETE' |
-                            translate }}
-                        </button>
+                        <ion-button color="secondary" fill="outline" (click)="confirmDeleteDocument()">
+                            {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
+                        </ion-button>
                     </div>
                     <!-- Bouton modifier -->
-                    <button ion-button color="primary" (click)="editHrDocument()">
+                    <ion-button color="secondary" (click)="editHrDocument()">
                         {{ 'HR_DOCUMENT.BUTTONS.MODIFY' | translate }}
-                    </button>
+                    </ion-button>
                 </div>
             </div>
         </div>
