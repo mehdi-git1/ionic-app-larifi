@@ -6,17 +6,19 @@
             <div class="pnc-name">{{ pnc.firstName }}&nbsp;{{ pnc.lastName }}</div>
             <div class="pnc-speciality" [ngClass]="{'no-value' : !getFormatedSpeciality() }">
                 {{ getFormatedSpeciality() }}
-                <span class="pnc-taf" *ngIf="pnc.taf">({{ 'PNC_IDENTITY.TAF' | translate }})</span>
             </div>
 
             <div class="pnc-matricule">{{ pnc.matricule }}<span *ngIf="pnc.acars"> - {{pnc.acars}}</span></div>
             <div class="work-rate-container small-size">
-                <div class="work-rate">{{ pnc.workRate }}%</div>
+                <div class="work-rate">
+                    {{ pnc.workRate }}%
+                    <span class="pnc-taf" *ngIf="pnc.taf">({{ 'PNC_IDENTITY.TAF' | translate }})</span>
+                </div>
             </div>
         </div>
         <div class="full-size">
             <div class="work-rate-container">
-                <work-rate-circle workRate="{{pnc.workRate}}" diameter="70" strokeWidth="6"></work-rate-circle>
+                <work-rate-circle workRate="{{pnc.workRate}}" diameter="70" strokeWidth="6" [isTaf]="pnc.taf"></work-rate-circle>
             </div>
         </div>
         <div class="data-container">
