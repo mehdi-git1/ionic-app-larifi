@@ -194,7 +194,10 @@
                 <table mat-table [dataSource]="escoreCommentsDataSource" class="escore-comment-table">
                     <ng-container matColumnDef="rating">
                         <th mat-header-cell *matHeaderCellDef class="escore-rating">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.RATING' | translate }}</th>
-                        <td mat-cell *matCellDef="let escoreComment" class="escore-rating"> <img class="file-icon" [src]="getEscoreCommentRatingImagePath(escoreComment.rating)" /></td>
+                        <td mat-cell *matCellDef="let escoreComment" class="escore-rating">
+                            <img *ngIf="escoreComment.rating !== undefined" class="file-icon" [src]="getEscoreCommentRatingImagePath(escoreComment.rating)" />
+                            <truncated-text *ngIf="escoreComment.rating === undefined" [inputText]="escoreComment.rating"></truncated-text>
+                        </td>
                     </ng-container>
                     <ng-container matColumnDef="positiveFeedbackReason">
                         <th mat-header-cell *matHeaderCellDef class="positive-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.POSITIVE_FEEDBACK' | translate }}</th>
