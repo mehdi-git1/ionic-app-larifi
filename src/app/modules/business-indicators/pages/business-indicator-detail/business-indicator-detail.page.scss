@@ -147,10 +147,34 @@ table {
         padding-right: 10px;
     }
 
+    .no-escore-rating {
+        min-width: 130px;
+        padding: $cell-padding;
+
+        .line-clamp p {
+            margin: 0 0 1em 0;
+            text-align: center;
+            overflow: hidden;
+            color: var(--ion-color-grey50);
+        }
+    }
+
     .short-loop-rating {
         width: 150px;
         text-align: center;
         padding-right: 10px;
+    }
+
+    .no-short-loop-rating {
+        min-width: 130px;
+        padding: $cell-padding;
+
+        .line-clamp p {
+            margin: 0 0 1em 0;
+            text-align: center;
+            overflow: hidden;
+            color: var(--ion-color-grey50);
+        }
     }
 
     .positive-feedback-reason {
