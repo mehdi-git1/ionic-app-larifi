@@ -131,7 +131,6 @@ table {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 
     img {
-        height: 25px;
         width: 25px;
     }
 
@@ -150,13 +149,6 @@ table {
     .no-escore-rating {
         min-width: 130px;
         padding: $cell-padding;
-
-        .line-clamp p {
-            margin: 0 0 1em 0;
-            text-align: center;
-            overflow: hidden;
-            color: var(--ion-color-grey50);
-        }
     }
 
     .short-loop-rating {
@@ -168,13 +160,6 @@ table {
     .no-short-loop-rating {
         min-width: 130px;
         padding: $cell-padding;
-
-        .line-clamp p {
-            margin: 0 0 1em 0;
-            text-align: center;
-            overflow: hidden;
-            color: var(--ion-color-grey50);
-        }
     }
 
     .positive-feedback-reason {
