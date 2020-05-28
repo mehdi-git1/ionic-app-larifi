@@ -11,6 +11,7 @@ export class WorkRateCircleComponent implements OnChanges {
   @Input() workRate: number;
   @Input() diameter: number;
   @Input() strokeWidth: number;
+  @Input() isTaf: boolean;
 
   radius: number;
   center: number;
