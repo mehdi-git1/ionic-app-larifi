@@ -1,13 +1,9 @@
 import { FileTypeEnum } from 'src/app/core/enums/file-type.enum';
 import { FileService } from 'src/app/core/file/file.service';
-
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
 import { ManifexLightModel } from '../../../../core/models/manifex/manifex-light.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { ManifexService } from '../../../../core/services/manifex/manifex.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { StatutoryCertificateDisplayTypeEnum } from 'src/app/core/enums/statutory-certificate-display-type.enum';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,41 +17,21 @@ export class ManifexComponent implements OnInit {
 
   @Input() manifexCreationDate: Date;
   @Input() manifexDeletionDate: Date;
-  @Input() title: string;
-  @Input() displayType: StatutoryCertificateDisplayTypeEnum;
+  @Input() manifex: ManifexLightModel;
 
   matricule: string;
-  formatedManifexData;
-  manifexDisplayedData;
   loadingPdf: boolean;
-  manifexService: any;
-  manifex: any;
-  fileService: any;
-  sessionService: any;
-  connectivityService: any;
-  constructor(private translateService: TranslateService) {
+
+  constructor(
+    private translateService: TranslateService,
+    private manifexService: ManifexService,
+    private fileService: FileService,
+    private sessionService: SessionService,
+    private connectivityService: ConnectivityService
+  ) {
   }
 
   ngOnInit() {
-    this.formatedManifexData = { creationDate: new Array(), deletionDate: new Array() };
-    if (this.manifexCreationDate) {
-      this.formatedManifexData.creationDate.push(this.manifexCreationDate);
-    }
-    if (this.manifexDeletionDate) {
-      this.formatedManifexData.deletionDate.push(this.manifexDeletionDate);
-    }
-    this.manifexDisplayedData = {
-      headers: [this.translateService.instant('STATUTORY_CERTIFICATE.MANIFEX.CREATION_DATE'),
-      this.translateService.instant('STATUTORY_CERTIFICATE.MANIFEX.DELETION_DATE')],
-      values: this.manifexCreationDate ? [
-        {
-          value: this.formatedManifexData.creationDate, type: 'date'
-        },
-        {
-          value: this.manifexDeletionDate ? this.formatedManifexData.deletionDate : null, type: 'date'
-        }
-      ] : null
-    };
   }
   /**
    * Télécharge et ouvre le PDF de la fiche manifex du PNC

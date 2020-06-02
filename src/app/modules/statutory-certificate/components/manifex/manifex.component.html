@@ -12,10 +12,10 @@
             <ion-col class="flex align-center">
                 <label>{{ 'STATUTORY_CERTIFICATE.MANIFEX.CREATION_DATE' | translate }}</label>&nbsp;:&nbsp;{{ this.getManifexCreationDate() | date:'dd/MM/yyyy' }}
             </ion-col>
-            <ion-col class="flex align-center" *ngIf="manifexDeletionDate">
+            <ion-col *ngIf="manifexDeletionDate">
                 <label>{{ 'STATUTORY_CERTIFICATE.MANIFEX.MISSION_END_DATE' | translate }}</label>&nbsp;:&nbsp;{{ this.manifexDeletionDate | date:'dd/MM/yyyy' }}
             </ion-col>
-            <ion-col class="flex justify-end" *ngIf="manifex">
+            <ion-col class="flex justify-end" *ngIf="manifex && canOpenManifexPdf()">
                 <ion-button (click)="openPdfManifex()" [disabled]="loadingPdf" color="primary" fill="outline">
                     <ion-icon name="download"></ion-icon>
                     {{ 'STATUTORY_CERTIFICATE.MANIFEX.CONSULT_MANIFEX' | translate }}
