@@ -20,7 +20,7 @@ export class ManifexComponent implements OnInit {
   @Input() manifex: ManifexLightModel;
 
   matricule: string;
-  loadingPdf: boolean;
+  loadingPdf = false;
 
   constructor(
     private translateService: TranslateService,
