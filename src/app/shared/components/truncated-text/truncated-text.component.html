@@ -2,7 +2,7 @@
     <p #textTarget>
         <value-or-no-data [displayDash]="true" [value]="inputText"></value-or-no-data>
     </p>
-    <div class="show-text">
-        <a *ngIf="displayShowMoreLink()" (click)="showMore()">{{ 'BUSINESS_INDICATORS.DETAIL.SHOW_MORE_LINK' | translate }}</a>
+    <div class="show-text" *ngIf="displayShowMoreLink()">
+        <a (click)="showMore()">{{ 'BUSINESS_INDICATORS.DETAIL.SHOW_MORE_LINK' | translate }}</a>
     </div>
 </div>
