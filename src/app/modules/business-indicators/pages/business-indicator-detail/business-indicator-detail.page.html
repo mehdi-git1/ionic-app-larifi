@@ -163,6 +163,9 @@
             </edospnc-expandable-block>
 
             <!-- Commentaire eScore -->
+            <ng-template #noRatingTemplate>
+                <span class="no-data"></span>
+            </ng-template>
             <h3>
                 <ng-container *ngIf="!isCcLc(); else escoreCommentTitleCcLc">
                     {{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.TITLE_CCP_CC_MC' | translate }}
@@ -198,9 +201,6 @@
                             <ng-container *ngIf="escoreComment.rating; else noRatingTemplate">
                                 <img [src]="getEscoreCommentRatingImagePath(escoreComment.rating)" />
                             </ng-container>
-                            <ng-template #noRatingTemplate>
-                                <span class="no-data"></span>
-                            </ng-template>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="positiveFeedbackReason">
@@ -251,14 +251,10 @@
                     <table *ngIf="canDisplayShortLoopComment() && shortLoopCommentsDataSource && shortLoopCommentsDataSource.data.length > 0 " mat-table [dataSource]="shortLoopCommentsDataSource" class="short-loop-comment-table">
                         <ng-container matColumnDef="rating">
                             <th mat-header-cell *matHeaderCellDef class="short-loop-rating">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.RATING' | translate }}</th>
-
                             <td mat-cell *matCellDef="let shortLoopComment" [ngClass]="shortLoopComment.rating ? 'short-loop-rating' : 'no-short-loop-rating'">
-                                <ng-container *ngIf="shortLoopComment.rating; else noRatingItemTemplate">
+                                <ng-container *ngIf="shortLoopComment.rating; else noRatingTemplate">
                                     <img *ngFor="let ratingItem of getRatingArray(shortLoopComment.rating)" src="assets/imgs/business-indicators/star.svg" />
                                 </ng-container>
-                                <ng-template #noRatingItemTemplate>
-                                    <span class="no-data"></span>
-                                </ng-template>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="positiveFeedbackReason">
