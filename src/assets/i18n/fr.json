@@ -335,6 +335,7 @@
         },
         "MANIFEX": {
             "CREATION_DATE": "Depuis le",
+            "MISSION_END_DATE": "Fin de mission",
             "CONSULT_MANIFEX": "Consulter la fiche Manifex"
         },
         "GENERALITY_SKILLS": {

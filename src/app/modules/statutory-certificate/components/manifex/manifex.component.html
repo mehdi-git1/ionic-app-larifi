@@ -5,15 +5,18 @@
         </ion-col>
     </ion-row>
     <ion-row>
-        <ion-col *ngIf="!manifex; else manifexBlock">
+        <ion-col *ngIf="this.pncNeverHadManifex(); else manifexBlock">
             <no-data></no-data>
         </ion-col>
         <ng-template #manifexBlock>
             <ion-col class="flex align-center">
-                <label>{{ 'STATUTORY_CERTIFICATE.MANIFEX.CREATION_DATE' | translate }}</label>&nbsp;:&nbsp;{{ this.manifex.creationDate | date:'dd/MM/yyyy' }}
+                <label>{{ 'STATUTORY_CERTIFICATE.MANIFEX.CREATION_DATE' | translate }}</label>&nbsp;:&nbsp;{{ this.getManifexCreationDate() | date:'dd/MM/yyyy' }}
             </ion-col>
-            <ion-col class="flex justify-end">
-                <ion-button (click)="openPdfManifex()" [disabled]="loadingPdf" color="primary" fill="outline" *ngIf="canOpenManifexPdf()">
+            <ion-col *ngIf="manifexDeletionDate">
+                <label>{{ 'STATUTORY_CERTIFICATE.MANIFEX.MISSION_END_DATE' | translate }}</label>&nbsp;:&nbsp;{{ this.manifexDeletionDate | date:'dd/MM/yyyy' }}
+            </ion-col>
+            <ion-col class="flex justify-end" *ngIf="manifex && canOpenManifexPdf()">
+                <ion-button (click)="openPdfManifex()" [disabled]="loadingPdf" color="primary" fill="outline">
                     <ion-icon name="download"></ion-icon>
                     {{ 'STATUTORY_CERTIFICATE.MANIFEX.CONSULT_MANIFEX' | translate }}
                     <ion-spinner *ngIf="loadingPdf"></ion-spinner>
