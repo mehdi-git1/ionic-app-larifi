@@ -55,7 +55,7 @@ export class ManifexComponent implements OnInit {
   }
 
   /**
-   * Verifie qu'un pnc n'a jamais eu de fiche manifex
+   * Verifie si le pnc n'a jamais eu de fiche manifex
    * @return true si pnc n'a jamais eu fiche, false sinon.
    */
   public pncNeverHadManifex(): boolean {
