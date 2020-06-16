@@ -334,7 +334,7 @@
             "MANIFEX": "Manifex"
         },
         "MANIFEX": {
-            "CREATION_DATE": "Depuis le",
+            "PNC_AGREEMENT_DATE": "Depuis le",
             "MISSION_END_DATE": "Fin de mission",
             "CONSULT_MANIFEX": "Consulter la fiche Manifex"
         },

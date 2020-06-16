@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ManifexComponent implements OnInit {
 
-  @Input() manifexCreationDate: Date;
+  @Input() manifexPncAgreementDate: Date;
   @Input() manifexDeletionDate: Date;
   @Input() manifex: ManifexLightModel;
 
@@ -29,6 +29,7 @@ export class ManifexComponent implements OnInit {
     private sessionService: SessionService,
     private connectivityService: ConnectivityService
   ) {
+
   }
 
   ngOnInit() {
@@ -59,15 +60,15 @@ export class ManifexComponent implements OnInit {
    * @return true si pnc n'a jamais eu fiche, false sinon.
    */
   public pncNeverHadManifex(): boolean {
-    return !(this.manifex || this.manifexCreationDate);
+    return !(this.manifex || this.manifexPncAgreementDate);
   }
 
   /**
-   * Récupère la date de création de la fiche manifex
+   * Récupère la date d'agrément du pnc de la fiche manifex
    *
-   * @return la date de création de la fiche manifex
+   * @return la date d'agrément du pnc.
    */
-  getManifexCreationDate(): Date {
-    return (this.manifex ? this.manifex.creationDate : this.manifexCreationDate);
+  getManifexPncAgreementDate(): Date {
+    return (this.manifex ? this.manifex.pncAgreementDate : this.manifexPncAgreementDate);
   }
 }
