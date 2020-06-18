@@ -91,7 +91,6 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
         this.handlePncSelectionDisplay();
 
         this.handleAutocompleteSearch();
-
     }
 
     ngOnInit() {
@@ -127,19 +126,18 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
                     this.selectedRedactor = this.congratulationLetter.redactor;
                     this.displayPncSelection = true;
                 }
-                this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
             });
         } else {
             // Mode création
             this.creationMode = true;
             this.displayPncSelection = true;
             this.congratulationLetter = this.buildNewCongratulationLetter();
-            this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
         }
 
         Promise.all(allPromises).then(() => {
             // On ajoute à la lettre le PNC destinataire de celle ci, après que le PNC et la lettre ont été récupérés
             this.congratulationLetter.concernedPncs.push(this.pnc);
+            this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
         });
     }
 
@@ -311,8 +309,9 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
      * Vérifie si le formulaire est valide
      */
     isFormValid(): boolean {
-        return this.connectivityService.isConnected() &&
-            this.congratulationLetterForm.valid
+        return this.formHasBeenModified()
+            && this.connectivityService.isConnected()
+            && this.congratulationLetterForm.valid
             && (!Utils.isEmpty(this.congratulationLetterForm.get('verbatimControl').value)
                 || this.congratulationLetter.documents.length > 0)
             && (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC
@@ -435,5 +434,12 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
                 });
         });
 
+    }
+
+    /**
+     * Vérifie si le formulaire a été modifié sans être enregistré
+     */
+    formHasBeenModified() {
+        return Utils.getHashCode(this.originCongratulationLetter) !== Utils.getHashCode(this.congratulationLetter);
     }
 }
