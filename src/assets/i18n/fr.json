@@ -1023,7 +1023,7 @@
                 "TITLE": "Indicateurs Métier sur 6 mois glissants",
                 "ESCORE_AVERAGE_CCP_CC_MC": "Moyenne eScore - retours global vol",
                 "ESCORE_AVERAGE_CC_LC": "Moyenne eScore - retours par cabine de travail",
-                "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité du départ de la Navette de la cité PN",
+                "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Conformité départ navette de la cité PN",
                 "UPGRADE_SUM": "Somme des surclassements réalisés par l'ensemble de l'équipage",
                 "FLYING_BLUE_ERC_AVERAGE": "Moyenne par tronçon des enrôlements FB & ERC réalisés par l'ensemble de l'équipage"
             },
