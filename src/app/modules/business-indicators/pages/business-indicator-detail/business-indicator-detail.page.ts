@@ -37,9 +37,6 @@ const ratingImagePath = 'assets/imgs/business-indicators/smiley-note-';
 })
 export class BusinessIndicatorDetailPage {
 
-    // Le délai en plus qu'on accorde pour le départ navette
-    EXTRA_DELAY = 5;
-
     pnc: PncModel;
     businessIndicator: BusinessIndicatorModel;
     shortLoopCommentsDataSource: MatTableDataSource<ShortLoopCommentModel>;
@@ -152,9 +149,7 @@ export class BusinessIndicatorDetailPage {
      * @return le départ navette D0
      */
     getShuttleDepartureD0(): number {
-        return this.businessIndicator.flight.operatingPerformance.shuttleDeparture === undefined ?
-            undefined
-            : this.businessIndicator.flight.operatingPerformance.shuttleDeparture - this.EXTRA_DELAY;
+        return this.businessIndicator.flight.operatingPerformance.shuttleDeparture;
     }
 
     /**
