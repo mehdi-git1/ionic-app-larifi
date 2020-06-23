@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -44,6 +44,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
+import { AlertDialogService } from 'src/app/core/services/alertDialog/alert-dialog.service';
 
 @Component({
   selector: 'page-professional-interview-details',
@@ -89,7 +90,9 @@ export class ProfessionalInterviewDetailsPage {
     private connectivityService: ConnectivityService,
     private alertCtrl: AlertController,
     private datePipe: DatePipe,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alertDialogService: AlertDialogService,
+    private router: Router
   ) {
     this.initPage();
     this.initForm();
@@ -190,8 +193,8 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * 
-   * @param key 
+   *
+   * @param key
    */
   isWishSection(key: string): boolean {
     return (key === 'wish');
@@ -218,6 +221,16 @@ export class ProfessionalInterviewDetailsPage {
     this.editionMode = true;
   }
 
+  /**
+   * Affiche la pop de confirmation d'annulation
+   * si un changement a été effectué sans etre enregistré.
+   *
+   */
+  confirmationDialog(): void {
+    if (!this.professionalInterviewForm.pristine) {
+      this.router.navigateByUrl('tabs/visit/'.concat(this.professionalInterview.matricule).concat('/development-program'));
+    }
+  }
   /**
    * Vérifie si le formulaire a été modifié sans être enregistré
    * @return true si il n'y a pas eu de modifications
