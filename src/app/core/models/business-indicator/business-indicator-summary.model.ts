@@ -5,6 +5,7 @@ export class BusinessIndicatorSummaryModel {
     escoreAverage: number;
     onTimeShuttleDepartureRatio: number;
     upgradeSum: number;
-    flyingBlueAndERCAverage: number;
+    flyingBlueAverage: number;
+    ercAverage: number;
     hasNeverFlownAsCcLc: boolean;
 }
