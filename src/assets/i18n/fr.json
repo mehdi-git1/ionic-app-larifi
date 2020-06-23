@@ -1023,9 +1023,16 @@
                 "TITLE": "Indicateurs Métier sur 6 mois glissants",
                 "ESCORE_AVERAGE_CCP_CC_MC": "Moyenne eScore - retours global vol",
                 "ESCORE_AVERAGE_CC_LC": "Moyenne eScore - retours par cabine de travail",
+                "ESCORE_AVERAGE_SHORT_LABEL": "Moyenne eScore",
                 "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité du départ de la Navette de la cité PN",
+                "ON_TIME_SHUTTLE_DEPARTURE_RATIO_SHORT_LABEL": "Conformité départ navette de la cité PN",
                 "UPGRADE_SUM": "Somme des surclassements réalisés par l'ensemble de l'équipage",
-                "FLYING_BLUE_ERC_AVERAGE": "Moyenne par tronçon des enrôlements FB & ERC réalisés par l'ensemble de l'équipage"
+                "UPGRADE_SUM_SHORT_LABEL": "Surclassements",
+                "FLYING_BLUE_AVERAGE": "Moyenne par tronçon des enrôlements FB réalisés par l'ensemble de l'équipage",
+                "FLYING_BLUE_AVERAGE_SHORT_LABEL": "Moyenne enrôlement FB",
+                "ERC_AVERAGE": "Moyenne par tronçon des ERC réalisés par l'ensemble de l'équipage",
+                "ERC_AVERAGE_SHORT_LABEL": "Moyenne ERC",
+                "LEGEND": "Passer en mode paysage pour voir l'intitulé complet des indicateurs"
             },
             "FLIGHT_CARD_12_LAST_MONTHS": "Fiches vols effectués sur l'année glissante",
             "LEG_DATE": "Date tronçon",
