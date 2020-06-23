@@ -1,40 +1,45 @@
-import { Subject } from 'rxjs/Rx';
-import { BusinessIndicatorModel } from './../../../../core/models/business-indicator/business-indicator.model';
-import { from } from 'rxjs/observable/from';
-import { PagedBusinessIndicatorModel } from './../../../../core/models/business-indicator/paged-businessIndicator.model';
-import { Observable } from 'rxjs';
-import { BusinessIndicatorFilterModel } from './../../../../core/models/business-indicator/business-indicator-filter-model';
 import * as moment from 'moment';
-import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
-import { SpecialityEnum } from 'src/app/core/enums/speciality.enum';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs-compat/operator/switchMap';
+import { from } from 'rxjs/observable/from';
+import { Subject } from 'rxjs/Rx';
+import {
+    BusinessIndicatorSortColumnEnum
+} from 'src/app/core/enums/business-indicators/business-indicators-sort-columns-enum';
+import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
-import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
-import {
-    MatPaginator, MatSort, MatTable, MatTableDataSource, PageEvent, Sort
-} from '@angular/material';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { MatTableDataSource, PageEvent, Sort } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 
 import { AppConstant } from '../../../../app.constant';
+import {
+    BusinessIndicatorFilterModel
+} from '../../../../core/models/business-indicator/business-indicator-filter-model';
 import {
     BusinessIndicatorLightModel
 } from '../../../../core/models/business-indicator/business-indicator-light.model';
 import {
     BusinessIndicatorSummaryModel
 } from '../../../../core/models/business-indicator/business-indicator-summary.model';
+import {
+    BusinessIndicatorModel
+} from '../../../../core/models/business-indicator/business-indicator.model';
+import {
+    PagedBusinessIndicatorModel
+} from '../../../../core/models/business-indicator/paged-businessIndicator.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
     BusinessIndicatorService
 } from '../../../../core/services/business-indicator/business-indicator.service';
+import { DeviceService } from '../../../../core/services/device/device.service';
 import {
     BusinessIndicatorFlightLegendComponent
 } from '../../components/business-indicator-flight-legend/business-indicator-flight-legend.component';
-import { switchMap } from 'rxjs-compat/operator/switchMap';
-import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
-import { BusinessIndicatorSortColumnEnum } from 'src/app/core/enums/business-indicators/business-indicators-sort-columns-enum';
 
 @Component({
     selector: 'page-business-indicators',
@@ -60,7 +65,8 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
         private pncService: PncService,
         private businessIndicatorService: BusinessIndicatorService,
         private connectivityService: ConnectivityService,
-        private popoverCtrl: PopoverController
+        private popoverCtrl: PopoverController,
+        private deviceService: DeviceService
     ) {
     }
 
@@ -269,5 +275,13 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
      */
     getTotalElements(): number {
         return this.totalElements;
+    }
+
+    /**
+     * Teste si on est sur mobile
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isMobile(): boolean {
+        return !this.deviceService.isBrowser();
     }
 }
