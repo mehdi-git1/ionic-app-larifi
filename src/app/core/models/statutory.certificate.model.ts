@@ -24,7 +24,7 @@ export class StatutoryCertificateModel extends EDossierPncObjectModel {
     travelDocuments: TravelDocumentsModel[];
     manifex: ManifexLightModel;
     manifexDeletionDate: Date;
-    manifexCreationDate: Date;
+    manifexPncAgreementDate: Date;
 
     getStorageId(): string {
         return `${this.matricule}`;

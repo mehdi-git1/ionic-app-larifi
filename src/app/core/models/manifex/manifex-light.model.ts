@@ -2,5 +2,5 @@
 
 export class ManifexLightModel {
   techId: number;
-  creationDate: Date;
+  pncAgreementDate: Date;
 }
