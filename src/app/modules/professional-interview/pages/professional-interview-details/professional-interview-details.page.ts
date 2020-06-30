@@ -44,7 +44,6 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
-import { AlertDialogService } from 'src/app/core/services/alertDialog/alert-dialog.service';
 
 @Component({
   selector: 'page-professional-interview-details',
@@ -91,7 +90,6 @@ export class ProfessionalInterviewDetailsPage {
     private alertCtrl: AlertController,
     private datePipe: DatePipe,
     private formBuilder: FormBuilder,
-    private alertDialogService: AlertDialogService,
     private router: Router
   ) {
     this.initPage();
