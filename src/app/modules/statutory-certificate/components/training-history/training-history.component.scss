@@ -1,0 +1,44 @@
+ion-grid {
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 0;
+  box-shadow: 0px 0px 5px var(--ion-color-grey70);
+  background: var(--ion-color-white);
+
+  .title {
+    background: var(--ion-color-primary);
+    color: var(--ion-color-white);
+
+    &:first-child {
+      border-radius: 5px 5px 0 0;
+    }
+  }
+
+  .odd {
+    background: var(--ion-color-grey95);
+  }
+
+  ion-row:nth-child(even) {
+    background: var(--ion-color-grey95);
+  }
+  .training-history-tab {
+    .col {
+      border-bottom: 1px solid var(--ion-color-grey75);
+      border-right: 1px solid var(--ion-color-grey75);
+    }
+
+    .training-history-data {
+      .col {
+        border-right: 1px solid var(--ion-color-grey75);
+      }
+    }
+  }
+  .training-history-header {
+    font-size: 1em !important;
+    background-color: transparent !important;
+    color: var(--ion-color-primary);
+  }
+  .training-history-data {
+    color: var(--ion-color-grey60);
+  }
+}

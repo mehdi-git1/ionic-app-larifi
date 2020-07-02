@@ -1,33 +1,34 @@
 <span *ngIf="isOffline() && !hasHistory()">
-    {{ 'STATUTORY_CERTIFICATE.HISTORY.UNAIVALABLE_OFFLINE' | translate }}
+  {{ 'STATUTORY_CERTIFICATE.HISTORY.UNAIVALABLE_OFFLINE' | translate }}
 </span>
 <span *ngIf="!isOffline() && !hasHistory()">
-    {{ 'GLOBAL.NO_DATA' | translate }}
+  {{ 'GLOBAL.NO_DATA' | translate }}
 </span>
 <span *ngIf="hasHistory()">
-    <statutory-certificate-data *ngIf="assignmentData && history.assignmentHistory.length > 0"
-        [statutoryCertificateData]="assignmentData"
-        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.ASSIGNMENT.TITLE' | translate}}"
-        [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
-    </statutory-certificate-data>
-    <statutory-certificate-data *ngIf="employmentLevelData && history.employmentLevelHistory.length > 0"
-        [statutoryCertificateData]="employmentLevelData"
-        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.EMPLOYMENT_LEVEL.TITLE' | translate}}"
-        [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
-    </statutory-certificate-data>
-    <statutory-certificate-data *ngIf="instrumentData && history.instrumentHistory.length > 0"
-        [statutoryCertificateData]="instrumentData"
-        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.INSTRUMENT.TITLE' | translate}}"
-        [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
-    </statutory-certificate-data>
-    <statutory-certificate-data *ngIf="seniorityDateData && history.seniorityDateHistory.length > 0"
-        [statutoryCertificateData]="seniorityDateData"
-        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.SENIORITY_DATE.TITLE' | translate}}"
-        [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
-    </statutory-certificate-data>
-    <statutory-certificate-data *ngIf="examData && history.examHistory.length > 0" [statutoryCertificateData]="examData"
-        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.EXAM_DATE.TITLE' | translate}}"
-        [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
-    </statutory-certificate-data>
+  <statutory-certificate-data *ngIf="assignmentData && history.assignmentHistory.length > 0"
+    [statutoryCertificateData]="assignmentData"
+    title="{{ 'STATUTORY_CERTIFICATE.HISTORY.ASSIGNMENT.TITLE' | translate}}"
+    [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+  </statutory-certificate-data>
+  <statutory-certificate-data *ngIf="employmentLevelData && history.employmentLevelHistory.length > 0"
+    [statutoryCertificateData]="employmentLevelData"
+    title="{{ 'STATUTORY_CERTIFICATE.HISTORY.EMPLOYMENT_LEVEL.TITLE' | translate}}"
+    [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+  </statutory-certificate-data>
+  <statutory-certificate-data *ngIf="instrumentData && history.instrumentHistory.length > 0"
+    [statutoryCertificateData]="instrumentData"
+    title="{{ 'STATUTORY_CERTIFICATE.HISTORY.INSTRUMENT.TITLE' | translate}}"
+    [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+  </statutory-certificate-data>
+  <statutory-certificate-data *ngIf="seniorityDateData && history.seniorityDateHistory.length > 0"
+    [statutoryCertificateData]="seniorityDateData"
+    title="{{ 'STATUTORY_CERTIFICATE.HISTORY.SENIORITY_DATE.TITLE' | translate}}"
+    [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+  </statutory-certificate-data>
+  <statutory-certificate-data *ngIf="examData && history.examHistory.length > 0" [statutoryCertificateData]="examData"
+    title="{{ 'STATUTORY_CERTIFICATE.HISTORY.EXAM_DATE.TITLE' | translate}}"
+    [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+  </statutory-certificate-data>
 </span>
+<training-history [trainingHistory]="history.trainingsAndLabels"></training-history>
 <career-history *ngIf="isBrowser()"></career-history>
