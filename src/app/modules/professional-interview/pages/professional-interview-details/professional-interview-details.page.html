@@ -190,8 +190,8 @@
               </ion-checkbox>
               <label>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.ACKNOWLEDGEMENT' | translate }}</label>
             </span>
-            <div class="actions-buttons">
-              <div class="submission-buttons">
+            <div class="utton-bar">
+              <div class="button-bar-right">
                 <!-- Bouton annuler bilan professionnel en brouillon -->
                 <ion-button color="primary" fill="outline"
                   *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.DRAFT)" (click)="confirmationDialog()">
