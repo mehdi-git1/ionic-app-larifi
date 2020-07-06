@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="switch-to-landscape-legend small-device">
+                        <div class="switch-to-landscape-legend small-device" *ngIf="isMobile()">
                             {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.LEGEND' | translate }}</div>
                     </ion-card-content>
                 </ion-card>
