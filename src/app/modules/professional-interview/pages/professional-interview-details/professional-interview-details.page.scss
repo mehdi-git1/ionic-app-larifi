@@ -230,7 +230,7 @@
       }
 
       label.required:after {
-        content: "*";
+        content: '*';
         padding-left: 5px;
         color: var(--ion-color-red80);
       }
@@ -264,9 +264,6 @@
   .actions-buttons {
     display: flex;
     width: 100%;
-    justify-content: space-between;
-    .cancel-button {
-      flex-grow: 1;
-    }
+    justify-content: flex-end;
   }
 }
