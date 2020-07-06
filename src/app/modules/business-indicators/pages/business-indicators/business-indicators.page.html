@@ -33,7 +33,7 @@
                                     *ngIf="!businessIndicatorSummary || businessIndicatorSummary.escoreAverage == 0 else displayValueEscoreAverage"
                                     class="no-data"></span>
                                 <ng-template #displayValueEscoreAverage>
-                                    <span class="summary-value">bonjour
+                                    <span class="summary-value">
                                         {{ businessIndicatorSummary?.escoreAverage | number : '1.0-1' }}</span>
                                 </ng-template>
                             </div>
