@@ -29,7 +29,7 @@
                                 <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE_SHORT_LABEL' | translate }}</label>
                                 <div>
                                     <img class="file-icon" src="assets/imgs/business-indicators/e-score.svg" />
-                                    <span *ngIf="!businessIndicatorSummary || businessIndicatorSummary.escoreAverage == 0 else displayValueEscoreAverage" class="no-data"></span>
+                                    <span *ngIf="businessIndicatorSummary.escoreAverage === -1 else displayValueEscoreAverage" class="no-data"></span>
                                     <ng-template #displayValueEscoreAverage>
                                         <span class="summary-value">
                                             {{ businessIndicatorSummary?.escoreAverage | number : '1.0-1' }}</span>
@@ -41,7 +41,7 @@
                                 <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FLYING_BLUE_AVERAGE_SHORT_LABEL' | translate }}</label>
                                 <div>
                                     <img class="file-icon" src="assets/imgs/business-indicators/flying-blue-card-colored.svg" />
-                                    <span *ngIf="!businessIndicatorSummary || businessIndicatorSummary?.flyingBlueAverage == 0 else displayValueFlyingBlueAverage" class="no-data"></span>
+                                    <span *ngIf="businessIndicatorSummary?.flyingBlueAverage === -1 else displayValueFlyingBlueAverage" class="no-data"></span>
                                     <ng-template #displayValueFlyingBlueAverage>
                                         <span class="summary-value">{{ businessIndicatorSummary?.flyingBlueAverage | number : '1.0-1' }}</span>
                                     </ng-template>
@@ -53,7 +53,7 @@
                                 <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ERC_AVERAGE_SHORT_LABEL' | translate }}</label>
                                 <div>
                                     <img class="file-icon" src="assets/imgs/business-indicators/erc-colored.svg" />
-                                    <span *ngIf="!businessIndicatorSummary || businessIndicatorSummary?.ercAverage  == 0 else displayValueErcAverage" class="no-data"></span>
+                                    <span *ngIf="businessIndicatorSummary?.ercAverage === -1 else displayValueErcAverage" class="no-data"></span>
                                     <ng-template #displayValueErcAverage>
                                         <span class="summary-value">{{ businessIndicatorSummary?.ercAverage | number : '1.0-1' }}</span>
                                     </ng-template>
@@ -65,7 +65,7 @@
                                 <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.UPGRADE_SUM_SHORT_LABEL' | translate }}</label>
                                 <div>
                                     <img class="file-icon" src="assets/imgs/business-indicators/upgrade.svg" />
-                                    <span *ngIf="!businessIndicatorSummary || businessIndicatorSummary?.upgradeSum  == 0 else DisplayValueUpgradeSum" class="no-data">
+                                    <span *ngIf="businessIndicatorSummary?.upgradeSum === -1 else DisplayValueUpgradeSum" class="no-data">
                                     </span>
                                     <ng-template #DisplayValueUpgradeSum>
                                         <span class="summary-value">{{ businessIndicatorSummary?.upgradeSum }}</span>
@@ -79,7 +79,7 @@
                                 <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ON_TIME_SHUTTLE_DEPARTURE_RATIO_SHORT_LABEL' | translate }}</label>
                                 <div>
                                     <img class="file-icon" src="assets/imgs/business-indicators/shuttle-departure.svg" />
-                                    <span *ngIf="!businessIndicatorSummary || businessIndicatorSummary?.onTimeShuttleDepartureRatio  == 0 else DisplayValueOnTimeShuttleDepartureRatio" class="no-data">
+                                    <span *ngIf="businessIndicatorSummary?.onTimeShuttleDepartureRatio === -1 else DisplayValueOnTimeShuttleDepartureRatio" class="no-data">
                                     </span>
                                     <ng-template #DisplayValueOnTimeShuttleDepartureRatio>
                                         <span class="summary-value">{{ businessIndicatorSummary?.onTimeShuttleDepartureRatio | percent : '1.0-1' }}</span>
