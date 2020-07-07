@@ -190,14 +190,13 @@
               </ion-checkbox>
               <label>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.ACKNOWLEDGEMENT' | translate }}</label>
             </span>
-            <div class="actions-buttons">
-              <div class="cancel-button">
-                <ion-button color="primary" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.DRAFT)"
-                  (click)="confirmationDialog()">
+            <div class="button-bar">
+              <div class="button-bar-right">
+                <!-- Bouton annuler bilan professionnel en brouillon -->
+                <ion-button color="primary" fill="outline"
+                  *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.DRAFT)" (click)="confirmationDialog()">
                   {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.CANCEL' | translate }}
                 </ion-button>
-              </div>
-              <div class="submission-buttons">
                 <!-- Bouton supprimer bilan professionnel en brouillon -->
                 <ion-button color="secondary" fill="outline" (click)="confirmDeleteProfessionalInterviewDraft()"
                   *ngIf="canBeDeleted()">

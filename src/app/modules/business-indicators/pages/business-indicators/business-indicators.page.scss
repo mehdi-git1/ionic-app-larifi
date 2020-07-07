@@ -19,9 +19,13 @@ h3 {
     font-size: 1.1em;
 
     ion-card-content {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
+
+        .summary-item-list {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
 
         @media (max-width:800px) {
             .summary-item {
@@ -52,7 +56,8 @@ h3 {
                     margin-right: 15px;
                 }
 
-                .summary-value {
+                .summary-value,
+                .no-data {
                     margin-left: 15px;
                     font-weight: bold;
                     font-size: 2em;
