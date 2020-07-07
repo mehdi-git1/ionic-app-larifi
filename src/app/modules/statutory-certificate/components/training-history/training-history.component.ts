@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TrainingLabelModel } from 'src/app/core/models/dwh-history/Training-Label.model';
+import { TrainingLabelModel } from 'src/app/core/models/dwh-history/training-Label.model';
 
 @Component({
   selector: 'training-history',

@@ -1,4 +1,6 @@
-import { TrainingModel } from './Training.model';
+import { TrainingModel } from './training.model';
+
+
 
 export class TrainingLabelModel {
 
