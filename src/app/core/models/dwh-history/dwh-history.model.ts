@@ -4,7 +4,7 @@ import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
 import { SeniorityDateHistoryModel } from './seniority-date-history.model';
 import { ExamHistoryModel } from './exam-history.model';
 import { InstrumentHistoryModel } from './instrument-history.model';
-import { TrainingLabelModel } from './training-Label.model';
+import { TrainingLabelModel } from './training-label.model';
 
 export class DwhHistoryModel extends EDossierPncObjectModel {
 
