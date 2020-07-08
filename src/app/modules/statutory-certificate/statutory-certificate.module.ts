@@ -28,6 +28,7 @@ import {
 } from './components/statutory-certificate/statutory-certificate.component';
 import { TravelDocumentsComponent } from './components/travel-documents/travel-documents.component';
 import { StatutoryCertificatePage } from './pages/statutory-certificate/statutory-certificate.page';
+import { TrainingHistoryComponent } from './components/training-history/training-history.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { StatutoryCertificatePage } from './pages/statutory-certificate/statutor
     StatutoryCertificateComponent,
     HistoryComponent,
     ContactComponent,
-    ManifexComponent
+    ManifexComponent,
+    TrainingHistoryComponent
   ],
   imports: [
     IonicModule,

@@ -1,0 +1,16 @@
+<ion-grid class="training-history-tab">
+  <ion-row>
+    <ion-col class="title">{{'STATUTORY_CERTIFICATE.HISTORY.TRAINING_HISTORY.TITLE' | translate}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="training-history-header">{{'STATUTORY_CERTIFICATE.HISTORY.TRAINING_HISTORY.CODE' | translate}}
+    </ion-col>
+    <ion-col class="training-history-header">{{'STATUTORY_CERTIFICATE.HISTORY.TRAINING_HISTORY.DATE' | translate}}
+    </ion-col>
+  </ion-row>
+  <ion-row *ngFor="let training of trainingHistory">
+    <ion-col class="training-history-data"> {{training.training.code}} {{training.training.additionalCode}} -
+      {{ training.label }}</ion-col>
+    <ion-col class="training-history-data"> {{ training.training.startDate | date : 'dd/MM/yyyy' }}</ion-col>
+  </ion-row>
+</ion-grid>
