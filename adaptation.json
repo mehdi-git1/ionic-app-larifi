@@ -6,7 +6,7 @@
             "configFile": "./src/environments/prod.ts",
             "appName": "eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospnc",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "provisioningProfile": "89c0ebdc-591f-4bbf-85e4-0763550c1907"
         },
         {
@@ -14,7 +14,7 @@
             "configFile": "./src/environments/dev.ts",
             "appName": "DEV eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "provisioningProfile": "4327ba5d-8025-45ff-8026-091bc255ccda"
         },
         {
@@ -22,7 +22,7 @@
             "configFile": "./src/environments/rct.ts",
             "appName": "RCT eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "provisioningProfile": "f5f1c05c-0ce7-40c1-9978-55abfd7c3faa"
         },
         {
@@ -30,7 +30,7 @@
             "configFile": "./src/environments/preprod.ts",
             "appName": "PREPROD eDossierPNC ",
             "appId": "com.airfrance.mobile.inhouse.edospncPREPROD",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "provisioningProfile": "58d8c774-e550-4330-8650-eaf525f8bae8"
         },
         {
@@ -38,7 +38,7 @@
             "configFile": "./src/environments/dev2.ts",
             "appName": "DEV2 eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV2",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "provisioningProfile": "313deeb4-17b5-42f4-ab5c-7c2f6f2dfd7f"
         },
         {
@@ -46,7 +46,7 @@
             "configFile": "./src/environments/rct2.ts",
             "appName": "RCT2 eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT2",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "provisioningProfile": "28b6b91d-fba4-45c4-a875-23290eb1cb9a"
         }
     ]
