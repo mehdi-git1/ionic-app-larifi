@@ -61,12 +61,12 @@ export class DocumentViewerComponent {
    * Affiche le document
    * @param document le document à afficher
    */
-  async displayDocument(document: DocumentModel) {
+  displayDocument(document: DocumentModel) {
     if (document.type === DocumentTypeEnum.IMAGE) {
       this.base64FileContentAndType = this.domSanitizer
         .bypassSecurityTrustResourceUrl('data:' + document.mimeType + ';base64,' + document.content);
     } else if (document.type === DocumentTypeEnum.PDF) {
-      await this.popoverCtrl.dismiss();
+      setTimeout(() => this.popoverCtrl.dismiss(), 500);
       this.fileService.displayFile(FileTypeEnum.PDF, this.fileService.base64FiletoUrl(document.content, document.mimeType));
     } else {
       this.previewUnavailable();
@@ -93,16 +93,16 @@ export class DocumentViewerComponent {
   /**
    * Affiche un message de prévisualiation non disponible
    */
-  private async previewUnavailable() {
-    await this.popoverCtrl.dismiss();
+  private previewUnavailable() {
+    setTimeout(() => this.popoverCtrl.dismiss(), 500);
     this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.PREVIEW_NOT_AVAILABLE'));
   }
 
   /**
    * Ferme le viewer
    */
-  async closeDocumentViewer() {
-    await this.popoverCtrl.dismiss();
+  closeDocumentViewer() {
+    this.popoverCtrl.dismiss();
   }
 
   /**

@@ -60,6 +60,7 @@
 
             .icon-and-filename {
                 display: flex;
+                align-items: center;
                 width: 90%;
 
                 .file-icon {
@@ -74,7 +75,6 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                     font-family: OpenSans, Arial, Helvetica, sans-serif;
-                    padding-top: 5px;
                 }
             }
 
