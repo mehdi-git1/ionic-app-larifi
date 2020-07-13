@@ -1,13 +1,14 @@
-import { DateTransform } from './../../../../shared/utils/date-transform';
-import { EFormsUrlParamsModel } from './../../../../core/models/e-forms/e-forms-url-params.model';
-
-
 import { HtmlService } from 'src/app/core/file/html/html.service';
 import { AppParameterModel } from 'src/app/core/models/app-parameter.model';
 import { SessionService } from 'src/app/core/services/session/session.service';
 
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { EFormsFormTypeEnum } from '../../../../core/enums/e-forms/e-forms-form-type.enum';
+import { EFormsUrlParamsModel } from '../../../../core/models/e-forms/e-forms-url-params.model';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { DateTransform } from '../../../../shared/utils/date-transform';
 
 @Component({
     selector: 'career-history',
@@ -23,12 +24,14 @@ export class CareerHistoryComponent implements OnInit {
     constructor(
         private sessionService: SessionService,
         private htmlService: HtmlService,
-        private dateTransform: DateTransform) {
+        private dateTransform: DateTransform,
+        private pncService: PncService,
+        private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {
         this.careerHistoryLinks = this.sessionService.getActiveUser().appInitData.careerHistoryLinks;
-        this.matricule = this.sessionService.visitedPnc.matricule;
+        this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
     }
 
     goToLink(link: string) {

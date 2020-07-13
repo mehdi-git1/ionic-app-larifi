@@ -120,7 +120,6 @@ const routes: Routes = [
             ]
           },
           { path: 'statutory-certificate', component: StatutoryCertificatePage },
-          { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
           {
             path: 'congratulation-letter', children: [
               { path: '', component: CongratulationLettersPage },
@@ -188,7 +187,6 @@ const routes: Routes = [
             path: ':matricule', canActivate: [VisitEdossierGuard], children: [
               { path: '', component: BootstrapComponent, canActivate: [VisitEdossierRedirectionGuard] },
               { path: 'statutory-certificate', component: StatutoryCertificatePage },
-              { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
               { path: 'help-asset', component: HelpAssetListPage },
               { path: 'redactions', component: RedactionsPage },
               {
@@ -373,7 +371,6 @@ const routes: Routes = [
     ]
   },
   { path: 'statutory-certificate', component: StatutoryCertificatePage },
-  { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
   { path: 'redactions', component: RedactionsPage },
   {
     path: 'business-indicators', children: [
