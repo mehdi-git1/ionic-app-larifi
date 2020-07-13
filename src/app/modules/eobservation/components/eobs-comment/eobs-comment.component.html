@@ -40,7 +40,7 @@
                     <span class="comment-length">{{eObservation && eObservation.pncComment ? eObservation.pncComment.length:0}}/{{maxCommentLength}}</span>
                     <div class="button-bar button-bar-right margin-top" *ngIf="canEditPncComment">
                         <!-- Bouton valider commentaire pnc -->
-                        <ion-button color="green50" (click)="confirmValidatePncComment()" [disabled]="this.eObservation.pncComment === '' || this.eObservation.pncComment === 'undefined' || (this.eObservation.pncComment && this.eObservation.pncComment.length > maxCommentLength)">
+                        <ion-button color="green50" (click)="confirmValidatePncComment()" [disabled]="!canValidatePncComment()">
                             <ion-icon name="md-checkmark" ios="md-checkmark" class="ion-margin-end"></ion-icon>
                             {{ 'EOBSERVATION.BUTTONS.VALIDATE_PNC_COMMENT' | translate }}
                         </ion-button>
