@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'edossier-spinner',
@@ -7,10 +7,4 @@ import { Component, Input } from '@angular/core';
 })
 
 export class EdossierSpinnerComponent {
-
-  @Input() verticalMargin = 0;
-  @Input() diameter = 100;
-
-  constructor() { }
-
 }
