@@ -15,7 +15,7 @@ import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
-    CancelChangesService
+  CancelChangesService
 } from '../../../../core/services/cancel_changes/cancel-changes.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
@@ -86,7 +86,8 @@ export class EobservationDetailsPage extends FormCanDeactivate {
    * @return true si on peut quitter la page sans demander confirmation
    */
   canDeactivate(): boolean {
-    return !this.editMode || !this.formHasBeenModified();
+    return !this.formHasBeenModified();
+
   }
 
   /**
