@@ -13,147 +13,145 @@
         <ng-template #onlineBlock>
             <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
             <ng-template #pageBlock>
-                <span *ngIf="isConnected(); else notConnectedBlock">
-                    <h3 class="summary-title"> {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.TITLE' | translate }}
-                    </h3>
-                    <ion-card class="summary">
-                        <ion-card-content>
-                            <div class="summary-item-list">
-                                <div class="summary-item">
-                                    <label class="large-device">
-                                        <ng-container *ngIf="!isPncCcLc(); else escoreAverageCcLcLabel">
-                                            {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE_CCP_CC_MC' | translate }}
-                                        </ng-container>
-                                        <ng-template #escoreAverageCcLcLabel>
-                                            {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE_CC_LC' | translate }}
-                                        </ng-template>
-                                    </label>
-                                    <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE_SHORT_LABEL' | translate }}</label>
-                                    <div>
-                                        <img class="file-icon" src="assets/imgs/business-indicators/e-score.svg" />
-                                        <span *ngIf="businessIndicatorSummary.escoreAverage === -1 else displayValueEscoreAverage" class="no-data"></span>
-                                        <ng-template #displayValueEscoreAverage>
-                                            <span class="summary-value">
-                                                {{ businessIndicatorSummary?.escoreAverage | number : '1.0-1' }}</span>
-                                        </ng-template>
-                                    </div>
-                                </div>
-                                <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.flyingBlueAverage)">
-                                    <label class="large-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FLYING_BLUE_AVERAGE' | translate }}</label>
-                                    <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FLYING_BLUE_AVERAGE_SHORT_LABEL' | translate }}</label>
-                                    <div>
-                                        <img class="file-icon" src="assets/imgs/business-indicators/flying-blue-card-colored.svg" />
-                                        <span *ngIf="businessIndicatorSummary?.flyingBlueAverage === -1 else displayValueFlyingBlueAverage" class="no-data"></span>
-                                        <ng-template #displayValueFlyingBlueAverage>
-                                            <span class="summary-value">{{ businessIndicatorSummary?.flyingBlueAverage | number : '1.0-1' }}</span>
-                                        </ng-template>
-
-                                    </div>
-                                </div>
-                                <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.ercAverage)">
-                                    <label class="large-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ERC_AVERAGE' | translate }}</label>
-                                    <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ERC_AVERAGE_SHORT_LABEL' | translate }}</label>
-                                    <div>
-                                        <img class="file-icon" src="assets/imgs/business-indicators/erc-colored.svg" />
-                                        <span *ngIf="businessIndicatorSummary?.ercAverage === -1 else displayValueErcAverage" class="no-data"></span>
-                                        <ng-template #displayValueErcAverage>
-                                            <span class="summary-value">{{ businessIndicatorSummary?.ercAverage | number : '1.0-1' }}</span>
-                                        </ng-template>
-
-                                    </div>
-                                </div>
-                                <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.upgradeSum)">
-                                    <label class="large-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.UPGRADE_SUM' | translate }}</label>
-                                    <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.UPGRADE_SUM_SHORT_LABEL' | translate }}</label>
-                                    <div>
-                                        <img class="file-icon" src="assets/imgs/business-indicators/upgrade.svg" />
-                                        <span *ngIf="businessIndicatorSummary?.upgradeSum === -1 else DisplayValueUpgradeSum" class="no-data">
-                                        </span>
-                                        <ng-template #DisplayValueUpgradeSum>
-                                            <span class="summary-value">{{ businessIndicatorSummary?.upgradeSum }}</span>
-                                        </ng-template>
-
-                                    </div>
-
-                                </div>
-                                <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.onTimeShuttleDepartureRatio)">
-                                    <label class="large-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ON_TIME_SHUTTLE_DEPARTURE_RATIO' | translate }}</label>
-                                    <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ON_TIME_SHUTTLE_DEPARTURE_RATIO_SHORT_LABEL' | translate }}</label>
-                                    <div>
-                                        <img class="file-icon" src="assets/imgs/business-indicators/shuttle-departure.svg" />
-                                        <span *ngIf="businessIndicatorSummary?.onTimeShuttleDepartureRatio === -1 else DisplayValueOnTimeShuttleDepartureRatio" class="no-data">
-                                        </span>
-                                        <ng-template #DisplayValueOnTimeShuttleDepartureRatio>
-                                            <span class="summary-value">{{ businessIndicatorSummary?.onTimeShuttleDepartureRatio | percent : '1.0-1' }}</span>
-                                        </ng-template>
-                                    </div>
+                <h3 class="summary-title"> {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.TITLE' | translate }}
+                </h3>
+                <ion-card class="summary">
+                    <ion-card-content>
+                        <div class="summary-item-list">
+                            <div class="summary-item">
+                                <label class="large-device">
+                                    <ng-container *ngIf="!isPncCcLc(); else escoreAverageCcLcLabel">
+                                        {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE_CCP_CC_MC' | translate }}
+                                    </ng-container>
+                                    <ng-template #escoreAverageCcLcLabel>
+                                        {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE_CC_LC' | translate }}
+                                    </ng-template>
+                                </label>
+                                <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE_SHORT_LABEL' | translate }}</label>
+                                <div>
+                                    <img class="file-icon" src="assets/imgs/business-indicators/e-score.svg" />
+                                    <span *ngIf="businessIndicatorSummary.escoreAverage === -1 else displayValueEscoreAverage" class="no-data"></span>
+                                    <ng-template #displayValueEscoreAverage>
+                                        <span class="summary-value">
+                                            {{ businessIndicatorSummary?.escoreAverage | number : '1.0-1' }}</span>
+                                    </ng-template>
                                 </div>
                             </div>
-                            <div class="switch-to-landscape-legend small-device" *ngIf="isMobile()">
-                                {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.LEGEND' | translate }}</div>
-                        </ion-card-content>
-                    </ion-card>
-
-                    <h3 class="flight-list-title">
-                        {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_CARD_12_LAST_MONTHS' | translate }}
-                        <ion-icon name="help-circle" (click)="showLegend($event)" class="clickable"> </ion-icon>
-                    </h3>
-                    <div class="mat-elevation-z8">
-                        <table mat-table matSort matSortActive="flightDate" matSortDirection="desc" (matSortChange)="sortBusinessIndicators($event)" [dataSource]="dataSource" class="flight-cards-table mat-elevation-z8">
-                            <ng-container matColumnDef="flightNumber">
-                                <th mat-header-cell mat-sort-header *matHeaderCellDef>
-                                    {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_NUMBER' | translate }}</th>
-                                <td mat-cell *matCellDef="let businessIndicator">
-                                    {{ 'GLOBAL.AF_COMPANY' | translate }}{{ businessIndicator.flight.number }}</td>
-                            </ng-container>
-                            <ng-container matColumnDef="flightDate">
-                                <th mat-header-cell mat-sort-header *matHeaderCellDef>
-                                    {{ 'BUSINESS_INDICATORS.LIST.LEG_DATE' | translate }}</th>
-                                <td mat-cell *matCellDef="let businessIndicator" class="suffix-tu">
-                                    {{ getPlannedDepartureDate(businessIndicator) | date : 'dd/MM/yyyy HH:mm':'UTC' }}</td>
-                            </ng-container>
-                            <ng-container matColumnDef="stations">
-                                <th mat-header-cell *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.STATIONS' | translate }}
-                                </th>
-                                <td mat-cell *matCellDef="let businessIndicator">
-                                    {{ businessIndicator.flight.departureStation }} -
-                                    {{ businessIndicator.flight.arrivalStation }}</td>
-                            </ng-container>
-                            <ng-container matColumnDef="aboardFunction">
-                                <th mat-header-cell mat-sort-header *matHeaderCellDef>
-                                    {{ 'BUSINESS_INDICATORS.LIST.ABOARD_FUNCTION' | translate }}</th>
-                                <td mat-cell *matCellDef="let businessIndicator"> {{ businessIndicator.aboardSpeciality }}
-                                </td>
-                            </ng-container>
-                            <ng-container matColumnDef="eScore">
-                                <th mat-header-cell mat-sort-header *matHeaderCellDef>
-                                    {{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }}</th>
-                                <td mat-cell *matCellDef="let businessIndicator" class="escore">
-                                    <span *ngIf="businessIndicator.escore == -1 else displayEscore" class="no-data"></span>
-                                    <ng-template #displayEscore>
-                                        <span>
-                                            {{ businessIndicator.escore | number :'1.0-1' }}
-                                        </span>
+                            <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.flyingBlueAverage)">
+                                <label class="large-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FLYING_BLUE_AVERAGE' | translate }}</label>
+                                <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FLYING_BLUE_AVERAGE_SHORT_LABEL' | translate }}</label>
+                                <div>
+                                    <img class="file-icon" src="assets/imgs/business-indicators/flying-blue-card-colored.svg" />
+                                    <span *ngIf="businessIndicatorSummary?.flyingBlueAverage === -1 else displayValueFlyingBlueAverage" class="no-data"></span>
+                                    <ng-template #displayValueFlyingBlueAverage>
+                                        <span class="summary-value">{{ businessIndicatorSummary?.flyingBlueAverage | number : '1.0-1' }}</span>
                                     </ng-template>
-                                </td>
-                            </ng-container>
-                            <ng-container matColumnDef="flightActionsNumber">
-                                <th mat-header-cell mat-sort-header *matHeaderCellDef>
-                                    {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS_NUMBER' | translate }}</th>
-                                <td mat-cell *matCellDef="let businessIndicator" class="flight-actions-number">
-                                    <span *ngIf="isCcLc(businessIndicator)" class="not-available"></span>
-                                    <span *ngIf="!isCcLc(businessIndicator)">
-                                        <span *ngIf="!businessIndicator.flightActionsTotalNumber" class="no-data"></span>
-                                        <span *ngIf="businessIndicator.flightActionsTotalNumber">{{ businessIndicator.flightActionsTotalNumber }}</span>
+
+                                </div>
+                            </div>
+                            <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.ercAverage)">
+                                <label class="large-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ERC_AVERAGE' | translate }}</label>
+                                <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ERC_AVERAGE_SHORT_LABEL' | translate }}</label>
+                                <div>
+                                    <img class="file-icon" src="assets/imgs/business-indicators/erc-colored.svg" />
+                                    <span *ngIf="businessIndicatorSummary?.ercAverage === -1 else displayValueErcAverage" class="no-data"></span>
+                                    <ng-template #displayValueErcAverage>
+                                        <span class="summary-value">{{ businessIndicatorSummary?.ercAverage | number : '1.0-1' }}</span>
+                                    </ng-template>
+
+                                </div>
+                            </div>
+                            <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.upgradeSum)">
+                                <label class="large-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.UPGRADE_SUM' | translate }}</label>
+                                <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.UPGRADE_SUM_SHORT_LABEL' | translate }}</label>
+                                <div>
+                                    <img class="file-icon" src="assets/imgs/business-indicators/upgrade.svg" />
+                                    <span *ngIf="businessIndicatorSummary?.upgradeSum === -1 else DisplayValueUpgradeSum" class="no-data">
                                     </span>
-                                </td>
-                            </ng-container>
-                            <tr mat-header-row *matHeaderRowDef="businessIndicatorColumns"></tr>
-                            <tr mat-row *matRowDef="let businessIndicator; columns: businessIndicatorColumns;" (click)="goToBusinessIndicatorDetail(businessIndicator)"></tr>
-                        </table>
-                        <mat-paginator MatPaginatorIntl="red" [pageSize]="getPageSize()" [length]="getTotalElements()" (page)="handlePage($event)" showFirstLastButtons></mat-paginator>
-                    </div>
-                </span>
+                                    <ng-template #DisplayValueUpgradeSum>
+                                        <span class="summary-value">{{ businessIndicatorSummary?.upgradeSum }}</span>
+                                    </ng-template>
+
+                                </div>
+
+                            </div>
+                            <div class="summary-item" *ngIf="isDefined(businessIndicatorSummary?.onTimeShuttleDepartureRatio)">
+                                <label class="large-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ON_TIME_SHUTTLE_DEPARTURE_RATIO' | translate }}</label>
+                                <label class="small-device">{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ON_TIME_SHUTTLE_DEPARTURE_RATIO_SHORT_LABEL' | translate }}</label>
+                                <div>
+                                    <img class="file-icon" src="assets/imgs/business-indicators/shuttle-departure.svg" />
+                                    <span *ngIf="businessIndicatorSummary?.onTimeShuttleDepartureRatio === -1 else DisplayValueOnTimeShuttleDepartureRatio" class="no-data">
+                                    </span>
+                                    <ng-template #DisplayValueOnTimeShuttleDepartureRatio>
+                                        <span class="summary-value">{{ businessIndicatorSummary?.onTimeShuttleDepartureRatio | percent : '1.0-1' }}</span>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="switch-to-landscape-legend small-device" *ngIf="isMobile()">
+                            {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.LEGEND' | translate }}</div>
+                    </ion-card-content>
+                </ion-card>
+
+                <h3 class="flight-list-title">
+                    {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_CARD_12_LAST_MONTHS' | translate }}
+                    <ion-icon name="help-circle" (click)="showLegend($event)" class="clickable"> </ion-icon>
+                </h3>
+                <div class="mat-elevation-z8">
+                    <table mat-table matSort matSortActive="flightDate" matSortDirection="desc" (matSortChange)="sortBusinessIndicators($event)" [dataSource]="dataSource" class="flight-cards-table mat-elevation-z8">
+                        <ng-container matColumnDef="flightNumber">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_NUMBER' | translate }}</th>
+                            <td mat-cell *matCellDef="let businessIndicator">
+                                {{ 'GLOBAL.AF_COMPANY' | translate }}{{ businessIndicator.flight.number }}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="flightDate">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                {{ 'BUSINESS_INDICATORS.LIST.LEG_DATE' | translate }}</th>
+                            <td mat-cell *matCellDef="let businessIndicator" class="suffix-tu">
+                                {{ getPlannedDepartureDate(businessIndicator) | date : 'dd/MM/yyyy HH:mm':'UTC' }}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="stations">
+                            <th mat-header-cell *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.STATIONS' | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let businessIndicator">
+                                {{ businessIndicator.flight.departureStation }} -
+                                {{ businessIndicator.flight.arrivalStation }}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="aboardFunction">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                {{ 'BUSINESS_INDICATORS.LIST.ABOARD_FUNCTION' | translate }}</th>
+                            <td mat-cell *matCellDef="let businessIndicator"> {{ businessIndicator.aboardSpeciality }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="eScore">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                {{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }}</th>
+                            <td mat-cell *matCellDef="let businessIndicator" class="escore">
+                                <span *ngIf="businessIndicator.escore == -1 else displayEscore" class="no-data"></span>
+                                <ng-template #displayEscore>
+                                    <span>
+                                        {{ businessIndicator.escore | number :'1.0-1' }}
+                                    </span>
+                                </ng-template>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="flightActionsNumber">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS_NUMBER' | translate }}</th>
+                            <td mat-cell *matCellDef="let businessIndicator" class="flight-actions-number">
+                                <span *ngIf="isCcLc(businessIndicator)" class="not-available"></span>
+                                <span *ngIf="!isCcLc(businessIndicator)">
+                                    <span *ngIf="!businessIndicator.flightActionsTotalNumber" class="no-data"></span>
+                                    <span *ngIf="businessIndicator.flightActionsTotalNumber">{{ businessIndicator.flightActionsTotalNumber }}</span>
+                                </span>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="businessIndicatorColumns"></tr>
+                        <tr mat-row *matRowDef="let businessIndicator; columns: businessIndicatorColumns;" (click)="goToBusinessIndicatorDetail(businessIndicator)"></tr>
+                    </table>
+                    <mat-paginator MatPaginatorIntl="red" [pageSize]="getPageSize()" [length]="getTotalElements()" (page)="handlePage($event)" showFirstLastButtons></mat-paginator>
+                </div>
             </ng-template>
         </ng-template>
     </div>
