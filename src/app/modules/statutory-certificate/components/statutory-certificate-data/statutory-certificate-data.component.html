@@ -2,7 +2,7 @@
     <ion-row>
         <ion-col class="title">{{title}}</ion-col>
     </ion-row>
-    <no-data *ngIf="statutoryCertificateData.values === null ; else statutoryCertificateDataBlock"></no-data>
+    <no-data *ngIf="hasNoData(); else statutoryCertificateDataBlock"></no-data>
     <ng-template #statutoryCertificateDataBlock>
         <div *ngIf="displayType===StatutoryCertificateDisplayTypeEnum.TAB" class="statutory-data-tab">
             <ion-row class="statutory-certificate-header">

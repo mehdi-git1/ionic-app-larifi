@@ -1,10 +1,12 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import {
-  StatutoryCertificateDisplayTypeEnum
+    StatutoryCertificateDisplayTypeEnum
 } from '../../../../core/enums/statutory-certificate-display-type.enum';
+import {
+    StatutoryCertificateTabEnum
+} from '../../../../core/enums/statutory-certificate/statutory-certificate-tab.enum';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 import { DwhHistoryModel } from '../../../../core/models/dwh-history/dwh-history.model';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -12,7 +14,7 @@ import { StatutoryCertificateModel } from '../../../../core/models/statutory.cer
 import { DwhHistoryService } from '../../../../core/services/dwh-history/dwh-history.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import {
-  StatutoryCertificateService
+    StatutoryCertificateService
 } from '../../../../core/services/statutory-certificate/statutory-certificate.service';
 
 @Component({
@@ -21,7 +23,7 @@ import {
   styleUrls: ['./statutory-certificate.page.scss']
 })
 
-export class StatutoryCertificatePage implements OnInit {
+export class StatutoryCertificatePage {
 
   pnc: PncModel;
   formatedSpeciality: string;
@@ -39,21 +41,10 @@ export class StatutoryCertificatePage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private pncService: PncService,
     private statutoryCertificateService: StatutoryCertificateService,
-    private dwhHistoryService: DwhHistoryService,
-    private router: Router,
-    private location: Location
+    private dwhHistoryService: DwhHistoryService
   ) {
     this.statutoryCertificateTab = StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE;
 
-  }
-
-  ngOnInit() {
-    if (this.activatedRoute.snapshot.paramMap.get('selectedTab')) {
-      const selectedTab = StatutoryCertificateTabEnum[this.activatedRoute.snapshot.paramMap.get('selectedTab')];
-      if (selectedTab) {
-        this.statutoryCertificateTab = selectedTab;
-      }
-    }
   }
 
   /**
@@ -62,11 +53,6 @@ export class StatutoryCertificatePage implements OnInit {
    */
   displaySubTab(statutoryCertificateTab: StatutoryCertificateTabEnum) {
     this.statutoryCertificateTab = statutoryCertificateTab;
-    // On force l'url en fonction de l'onglet sélectionné
-    const currentUrl = this.router.url;
-    const newUrl = currentUrl.replace('/statutory-certificate',
-      '/statutory-certificate/' + StatutoryCertificateTabEnum[statutoryCertificateTab]);
-    this.location.go(newUrl);
   }
 
   /**
@@ -100,6 +86,5 @@ export class StatutoryCertificatePage implements OnInit {
     return typeof this.statutoryCertificate !== 'undefined' && typeof this.dwhHistory !== 'undefined';
   }
 }
-export enum StatutoryCertificateTabEnum {
-  STATUTORY_CERTIFICATE, HISTORY, CONTACT
-}
+
+

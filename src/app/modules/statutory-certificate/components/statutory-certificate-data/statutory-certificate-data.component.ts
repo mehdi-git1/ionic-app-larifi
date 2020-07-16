@@ -44,4 +44,15 @@ export class StatutoryCertificateDataComponent {
   loadingIsOver(): boolean {
     return this.statutoryCertificateData !== undefined;
   }
+
+  /**
+   * Teste s'il y a des données à afficher
+   * @return vrai si c'est le cas, faux sinon
+   */
+  hasNoData(): boolean {
+    return !this.statutoryCertificateData
+      || !this.statutoryCertificateData.values
+      || this.statutoryCertificateData.values.length === 0
+      || this.statutoryCertificateData.values[0].value.length === 0;
+  }
 }
