@@ -9,9 +9,10 @@
 </ion-header>
 <ion-content>
     <div class="page-container">
-        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-        <ng-template #pageBlock>
-            <span *ngIf="isConnected(); else notConnectedBlock">
+        <div *ngIf="!isConnected(); else onlineBlock">{{ 'BUSINESS_INDICATORS.UNAIVALABLE_OFFLINE' | translate }}</div>
+        <ng-template #onlineBlock>
+            <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+            <ng-template #pageBlock>
                 <h3 class="summary-title"> {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.TITLE' | translate }}
                 </h3>
                 <ion-card class="summary">
@@ -151,9 +152,6 @@
                     </table>
                     <mat-paginator MatPaginatorIntl="red" [pageSize]="getPageSize()" [length]="getTotalElements()" (page)="handlePage($event)" showFirstLastButtons></mat-paginator>
                 </div>
-            </span>
-            <ng-template #notConnectedBlock>
-                {{ 'GLOBAL.UNAIVALABLE_OFFLINE' | translate }}
             </ng-template>
         </ng-template>
     </div>

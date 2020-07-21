@@ -60,9 +60,9 @@ export class EObsCommentComponent {
   }
 
   /**
- * Teste si le commentaire à afficher est celui du PNC
- * @return vrai si c'est le cas, faux sinon
- */
+   * Teste si le commentaire à afficher est celui du PNC
+   * @return vrai si c'est le cas, faux sinon
+   */
   isPncComment(): boolean {
     return this.type === PncRoleEnum.PNC;
   }
@@ -93,6 +93,17 @@ export class EObsCommentComponent {
 
   confirmValidatePncComment(): void {
     this.validatePncComment.next();
+  }
+
+  /**
+   * Teste si le commentaire du PNC peut être validé
+   * @return vrai si c'est le cas, faux sinon
+   */
+  canValidatePncComment(): boolean {
+    return this.eObservation.pncComment !== ''
+      && this.eObservation.pncComment !== undefined
+      && this.eObservation.pncComment.length > 0
+      && this.eObservation.pncComment.length <= this.maxCommentLength;
   }
 
 }
