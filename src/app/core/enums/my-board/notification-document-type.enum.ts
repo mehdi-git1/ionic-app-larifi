@@ -1,0 +1,9 @@
+export enum NotificationDocumentTypeEnum {
+  CONGRATULATION_LETTER,
+  EOBS,
+  CAREER_OBJECTIVE,
+  WAYPOINT,
+  PROFESSIONAL_INTERVIEW,
+  LOGBOOK,
+  HR_DOCUMENT
+}

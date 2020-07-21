@@ -7,10 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../../shared/components/components.module';
 import { SharedModule } from '../../shared/shared.module';
 import {
-    LogbookEventActionMenuComponent
+  LogbookEventActionMenuComponent
 } from './components/logbook-event-action-menu/logbook-event-action-menu.component';
 import {
-    LogbookEventDetailsComponent
+  LogbookEventDetailsComponent
 } from './components/logbook-event-details/logbook-event-details.component';
 import { LogbookEventComponent } from './components/logbook-event/logbook-event.component';
 import { LogbookCreatePage } from './pages/logbook-create/logbook-create.page';
