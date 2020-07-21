@@ -1,7 +1,7 @@
 import { NotificationDocumentTypeEnum } from '../../enums/my-board/notification-document-type.enum';
 import { PncModel } from '../pnc.model';
 
-export class MyBoardNotification {
+export class MyBoardNotificationModel {
   techid: number;
   documentType: NotificationDocumentTypeEnum;
   documentId: number;
@@ -9,4 +9,5 @@ export class MyBoardNotification {
   notifiedPnc: PncModel;
   title: string;
   checked: boolean;
+  creationDate: Date;
 }

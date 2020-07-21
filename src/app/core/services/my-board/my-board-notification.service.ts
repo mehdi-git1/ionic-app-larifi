@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
-import { MyBoardNotificationFilter } from '../../models/my-board/my-board-notification-filter';
-import { MyBoardNotification } from '../../models/my-board/my-board-notification';
+import { MyBoardNotificationFilterModel } from '../../models/my-board/my-board-notification-filter.model';
+import { MyBoardNotificationModel } from '../../models/my-board/my-board-notification.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class MyBoardNotificationService {
    * @param filter les filtres à appliquer à la requete
    * @return une promesse avec la liste des notifications
    */
-  getNotificationByMatricule(matricule: string, filter: MyBoardNotificationFilter): Promise<MyBoardNotification[]> {
+  getNotificationByMatricule(matricule: string, filter: MyBoardNotificationFilterModel): Promise<MyBoardNotificationModel[]> {
     return null;
   }
 }

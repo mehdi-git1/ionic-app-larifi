@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-notification.model';
 
 @Component({
   selector: 'app-my-board-notifications-list',
@@ -7,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyBoardNotificationsListComponent implements OnInit {
 
+  @Input()
+  notificationList: MyBoardNotificationModel[];
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 }
