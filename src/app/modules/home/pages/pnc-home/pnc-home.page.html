@@ -12,25 +12,11 @@
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
             <div id="nav-tile-grid" *ngIf="pnc">
-                <!--  Recherche effectif -->
-                <div class="button-parent">
-                    <button (click)="goToPncSearch()">
-                        <ion-icon name="md-contacts" ios="md-contacts"></ion-icon>
-                        <h3>{{ 'GLOBAL.MY_PNC_TEAM' | translate }}</h3>
-                    </button>
-                </div>
                 <!--  Niveau professionnel -->
                 <div class="button-parent">
                     <button (click)="goToProfessionalLevel()">
                         <span class="icon-af icon-af-C-metier-niv-pro"></span>
                         <h3>{{ 'GLOBAL.MY_PROFESSIONAL_LEVEL' | translate }}</h3>
-                    </button>
-                </div>
-                <!--  Activité vols -->
-                <div class="button-parent">
-                    <button (click)="goToUpcomingFlightList()">
-                        <ion-icon name="md-airplane" ios="md-airplane"></ion-icon>
-                        <h3>{{ 'GLOBAL.MY_UPCOMING_FLIGHT' | translate }}</h3>
                     </button>
                 </div>
                 <!--  Attestation réglementaire -->
@@ -59,13 +45,6 @@
                     <button (click)="goToRedactions()">
                         <span class="edospnc-writing"></span>
                         <h3>{{ 'GLOBAL.MY_REDACTIONS' | translate }}</h3>
-                    </button>
-                </div>
-                <!-- Ressource d'aide -->
-                <div class="button-parent">
-                    <button (click)="goToHelpAssetList()">
-                        <ion-icon name="md-help-circle" ios="md-help-circle"></ion-icon>
-                        <h3>{{ 'GLOBAL.MY_HELP_CENTER' | translate }}</h3>
                     </button>
                 </div>
             </div>
