@@ -1,6 +1,18 @@
-<p>
-  my-board-home works!
-</p>
-<!--
-  On insera là, le composant d'affichage de la liste après le filtre
--->
+<ion-header>
+  <ion-toolbar>
+    <page-header [pnc]="pnc">
+      <span *ngIf="pnc">
+        {{'MY_BOARD.TITLE' | translate}}
+      </span>
+    </page-header>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="page-container">
+    <edossier-spinner *ngIf="!pncNotifications; else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+      <my-board-notifications-list [notificationList]="pncNotifications"></my-board-notifications-list>
+    </ng-template>
+
+  </div>
+</ion-content>
