@@ -7,11 +7,12 @@
           <p class="concerned-pnc-infos">
             <span>{{notification.concerned.lastName }}</span>
             <span>{{notification.concerned.firstName }}</span>
-            <span>{{notification.concerned.matricule }}</span>
+            <span class="matricule-item"> ( {{notification.concerned.matricule }} )</span>
             <span>{{notification.concerned.currentSpeciality}}</span>
           </p>
           <p class="document-type-item">
-            <ion-badge>{{getDocumentTypeTranslation(notification.documentType)}}</ion-badge>
+            <ion-badge class="{{getClass(notification.documentType)}}">
+              {{getDocumentTypeTranslation(notification.documentType)}}</ion-badge>
           </p>
         </div>
         <p class="notification-title">{{ notification.title}}</p>

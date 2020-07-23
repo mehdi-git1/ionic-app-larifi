@@ -1,11 +1,12 @@
-import { AppConstant } from './../../../../app.constant';
-import { MyBoardNotificationFilterModel } from './../../../../core/models/my-board/my-board-notification-filter.model';
 import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-notification.model';
-import { MyBoardNotificationService } from './../../../../core/services/my-board/my-board-notification.service';
-import { Component, OnInit } from '@angular/core';
-import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 import { PncModel } from 'src/app/core/models/pnc.model';
 import { SecurityService } from 'src/app/core/services/security/security.service';
+
+import { Component, OnInit } from '@angular/core';
+
+import { AppConstant } from '../../../../app.constant';
+import { MyBoardNotificationFilterModel } from '../../../../core/models/my-board/my-board-notification-filter.model';
+import { MyBoardNotificationService } from '../../../../core/services/my-board/my-board-notification.service';
 
 @Component({
   selector: 'my-board-home',
@@ -17,10 +18,14 @@ export class MyBoardHomePage implements OnInit {
   pncNotifications: MyBoardNotificationModel[];
   filter: MyBoardNotificationFilterModel;
 
-  constructor(private securityService: SecurityService, private myBoardNotificationService: MyBoardNotificationService) { }
+  constructor(
+    private securityService: SecurityService,
+    private myBoardNotificationService: MyBoardNotificationService
+  ) { }
 
   ngOnInit() {
-    this.securityService.getAuthenticatedUser().then(authenticated => {
+    this.pncNotifications = new Array();
+    this.securityService.getAuthenticatedUser().then((authenticated) => {
       this.pnc = authenticated.authenticatedPnc;
 
       this.filter = new MyBoardNotificationFilterModel();
@@ -29,11 +34,31 @@ export class MyBoardHomePage implements OnInit {
       this.filter.offset = 0;
       this.filter.page = 0;
       this.filter.size = AppConstant.pageSize;
-      this.myBoardNotificationService.getNotifications(this.filter).then(pagedNotification => {
-        this.pncNotifications = pagedNotification.content;
-      });
+      this.getPncNotifications(this.filter);
     });
-
   }
 
+  /**
+   * charge les données supplémentaires
+   * @param event evenement déclenché
+   */
+  loadMoreData(event) {
+    this.filter.page += 1;
+    this.filter.offset = this.filter.page * this.filter.size;
+    this.getPncNotifications(this.filter);
+    event.target.complete();
+  }
+
+  /**
+   * recupérè les notifications correspondants au filtre.
+   * @param filter le filtre à appliquer à la requete
+   */
+  getPncNotifications(filter: MyBoardNotificationFilterModel): void {
+    this.myBoardNotificationService
+      .getNotifications(filter)
+      .then((pagedNotification) => {
+        this.pncNotifications = this.pncNotifications.concat(pagedNotification.content);
+        this.filter.page = pagedNotification.page.number;
+      });
+  }
 }

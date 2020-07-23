@@ -1,25 +1,66 @@
 .notification-card-container {
-  background-color: white !important;
+    background-color: white !important;
 }
+
 .notification-infos {
-  display: flex;
-  flex-direction: row;
-  align-content: space-between;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    justify-content: space-between;
 }
+
 .date-item {
-  flex-grow: 1;
+    flex-grow: 1;
 }
+
 .notification-title {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .document-type-item {
-  flex-grow: 1;
+    flex-grow: 1;
+}
+
+.test {
+  background-color: yellow !important;
 }
 .concerned-pnc-infos {
-  flex-grow: 2;
-  span {
-    margin: 4px;
-  }
+    flex-grow: 2;
+
+    span {
+        margin: 4px;
+    }
+    .matricule-item {
+           margin: 8px;
+    }
+}
+// Background des types
+// la classe egale à l'enum en miniscule
+@mixin set-bg-color($color) {
+  background-color: $color !important;
+}
+
+.logbook {
+ @include set-bg-color(var(--ion-color-primary))
+}
+.eobs {
+  @include set-bg-color(var(--ion-color-medium-tint))
+}
+
+.congratulation_letter {
+  @include set-bg-color(var(--ion-color-secondary-tint))
+}
+.career_objective {
+ @include set-bg-color(var(--ion-color-tertiary-tint))
+}
+
+.waypoint  {
+  @include set-bg-color(var(--ion-color-success-tint))
+}
+
+.professinal_interview {
+  @include set-bg-color(var( --ion-color-dark-tint))
+}
+.hr_document {
+ @include set-bg-color(var( --ion-color-green50-tint))
 }

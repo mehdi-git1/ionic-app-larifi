@@ -27,8 +27,17 @@ export class MyBoardNotificationsListComponent implements OnInit {
    * @return la traduction
    */
   getDocumentTypeTranslation(documentType: NotificationDocumentTypeEnum): string {
-    const name = NotificationDocumentTypeEnum[documentType];
-    return this.translateService.instant('MY_BOARD.DOCUMENT_TYPE.'.concat(name));
+    return this.translateService.instant('MY_BOARD.DOCUMENT_TYPE.'.concat(documentType.toString()));
+  }
+
+  /**
+   * retourne la classe css à appliquer pour le type de document passé en paramètre.
+   *
+   * @param documentType type de document concerné par la notification
+   * @return la classe css
+   */
+  getClass(documentType: NotificationDocumentTypeEnum): string {
+    return documentType.toString().toLocaleLowerCase();
   }
 
 }
