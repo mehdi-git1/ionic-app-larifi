@@ -738,6 +738,19 @@
         "WORK_ACCIDENT_AND_WORK_PERIOD": "Liste des accidents de travail et des périodes de travail au sol sur 36 mois glissants",
         "ABSENCES_AND_LATENESS": "Liste des absences et retards sur 36 mois glissants"
     },
+    "MY_BOARD": {
+        "TITLE": "Mes notifications Myboard",
+        "DOCUMENT_TYPE": {
+            "ALL": "Tous",
+            "CONGRATULATION_LETTER": "Félicitations",
+            "EOBS": "eObs",
+            "CAREER_OBJECTIVE": "Priorités",
+            "WAYPOINT": "Bilan Pro",
+            "PROFESSIONAL_INTERVIEW": "Bilan Pro",
+            "LOGBOOK": "JDB",
+            "HR_DOCUMENT": "Documents RH"
+        }
+    },
     "HELP_ASSET_LIST": {
         "WEB_HELP_ASSET": "Ressources web",
         "PDF_HELP_ASSET": "Ressources pdf",

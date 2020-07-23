@@ -1,0 +1,25 @@
+.notification-card-container {
+  background-color: white !important;
+}
+.notification-infos {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  justify-content: space-between;
+}
+.date-item {
+  flex-grow: 1;
+}
+.notification-title {
+  font-weight: bold;
+}
+
+.document-type-item {
+  flex-grow: 1;
+}
+.concerned-pnc-infos {
+  flex-grow: 2;
+  span {
+    margin: 4px;
+  }
+}
