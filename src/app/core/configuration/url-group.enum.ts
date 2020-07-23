@@ -26,5 +26,6 @@ export enum urlGroupEnum {
   'HR_DOCUMENT' = 'hr_documents',
   'DWH_HISTORY' = 'dwh_history',
   'BUSINESS_INDICATORS' = 'business_indicators',
-  'PDFS' = 'pdfs'
+  'PDFS' = 'pdfs',
+  'MY_BOARD' = 'myboard'
 }
