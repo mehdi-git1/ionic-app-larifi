@@ -1,22 +1,27 @@
-<div class="notification-card-container" *ngFor="let notification of notificationList">
-  <ion-card>
-    <ion-card-content>
-      <div>
-        <div class="notification-infos">
-          <p class="date-item"> {{notification.creationDate | date: 'dd/mm/yyyy' }}</p>
-          <p class="concerned-pnc-infos">
-            <span>{{notification.concerned.lastName }}</span>
-            <span>{{notification.concerned.firstName }}</span>
-            <span class="matricule-item"> ( {{notification.concerned.matricule }} )</span>
-            <span>{{notification.concerned.currentSpeciality}}</span>
-          </p>
-          <p class="document-type-item">
-            <ion-badge class="{{getClass(notification.documentType)}}">
-              {{getDocumentTypeTranslation(notification.documentType)}}</ion-badge>
-          </p>
-        </div>
-        <p class="notification-title">{{ notification.title}}</p>
-      </div>
-    </ion-card-content>
-  </ion-card>
+<div *ngIf="!dataToDisplay() else displayData">
+  <no-data> </no-data>
 </div>
+<ng-template #displayData>
+  <div class="notification-card-container" *ngFor="let notification of notificationList">
+    <ion-card>
+      <ion-card-content>
+        <div>
+          <div class="notification-infos">
+            <p class="date-item"> {{notification.creationDate | date: 'dd/mm/yyyy' }}</p>
+            <p class="concerned-pnc-infos">
+              <span>{{notification.concernedPnc.lastName }}</span>
+              <span>{{notification.concernedPnc.firstName }}</span>
+              <span class="matricule-item"> ( {{notification.concernedPnc.matricule }} )</span>
+              <span>{{notification.concernedPnc.currentSpeciality}}</span>
+            </p>
+            <p class="document-type-item">
+              <ion-badge class="{{getClass(notification.documentType)}}">
+                {{getDocumentTypeTranslation(notification.documentType)}}</ion-badge>
+            </p>
+          </div>
+          <p class="notification-title">{{ notification.title}}</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ng-template>
