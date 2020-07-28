@@ -13,22 +13,37 @@ import { DocumentTypeEnum } from 'src/app/core/models/document.model';
 export class MyBoardNotificationsListComponent implements OnInit {
 
   @Input()
-  notificationList: MyBoardNotificationModel[] = [];
+  notificationList: MyBoardNotificationModel[];
 
   constructor(private translateService: TranslateService) { }
 
   ngOnInit() {
-
   }
 
+  /**
+   * Determine s'il y a des données à afficher.
+   * @return true si oui, false si non.
+   */
+  dataToDisplay(): boolean {
+    return (this.notificationList && this.notificationList.length > 0);
+  }
   /**
    * Récupère le libellé du type document dans la locale
    * @param documentType type de document concerné par la notification
    * @return la traduction
    */
   getDocumentTypeTranslation(documentType: NotificationDocumentTypeEnum): string {
-    const name = NotificationDocumentTypeEnum[documentType];
-    return this.translateService.instant('MY_BOARD.DOCUMENT_TYPE.'.concat(name));
+    return this.translateService.instant('MY_BOARD.DOCUMENT_TYPE.'.concat(documentType.toString()));
+  }
+
+  /**
+   * retourne la classe css à appliquer pour le type de document passé en paramètre.
+   *
+   * @param documentType type de document concerné par la notification
+   * @return la classe css
+   */
+  getClass(documentType: NotificationDocumentTypeEnum): string {
+    return documentType.toString().toLocaleLowerCase();
   }
 
 }
