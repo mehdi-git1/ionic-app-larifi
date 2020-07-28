@@ -123,7 +123,8 @@
             "FILE_MAX_SIZE": "La taille totale des fichiers ne doit pas dépasser {{filesMaxSize}} Mo",
             "ERROR_MAX_FILES_SIZE_REACHED": "Impossible d'ajouter le fichier {{fileName}}. La taille totale des fichiers ne doit pas dépasser {{maxSize}} Mo",
             "ERROR_MULTI_MAX_FILES_SIZE_REACHED": "Impossible d'ajouter les fichier sélectionnés. La taille totale des fichiers ne doit pas dépasser {{maxSize}} Mo"
-        }
+        },
+        "MY_BOARD": "My Board"
     },
     "AUTHENT": {
         "AUTHENTICATION": "Authentification",
@@ -736,6 +737,19 @@
         "SCHEDULED_AND_DONE": "Planning prévu et réalisé",
         "WORK_ACCIDENT_AND_WORK_PERIOD": "Liste des accidents de travail et des périodes de travail au sol sur 36 mois glissants",
         "ABSENCES_AND_LATENESS": "Liste des absences et retards sur 36 mois glissants"
+    },
+    "MY_BOARD": {
+        "TITLE": "Mes notifications Myboard",
+        "DOCUMENT_TYPE": {
+            "ALL": "Tous",
+            "CONGRATULATION_LETTER": "Félicitations",
+            "EOBS": "eObs",
+            "CAREER_OBJECTIVE": "Priorités",
+            "WAYPOINT": "Bilan Pro",
+            "PROFESSIONAL_INTERVIEW": "Bilan Pro",
+            "LOGBOOK": "JDB",
+            "HR_DOCUMENT": "Documents RH"
+        }
     },
     "HELP_ASSET_LIST": {
         "WEB_HELP_ASSET": "Ressources web",

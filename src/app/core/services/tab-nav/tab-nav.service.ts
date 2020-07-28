@@ -2,6 +2,7 @@ import { PncService } from 'src/app/core/services/pnc/pnc.service';
 import {
     DevelopmentProgramPage
 } from 'src/app/modules/development-program/pages/development-program/development-program.page';
+import { MyBoardHomePage } from 'src/app/modules/my-board/pages/my-board-home/my-board-home.page';
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -66,6 +67,14 @@ export class TabNavService {
                 icon: 'md-home',
                 route: 'home',
                 display: true
+            },
+            {
+                id: TabNavEnum.MY_BOARD_PAGE,
+                title: this.translateService.instant('GLOBAL.MY_BOARD'),
+                page: MyBoardHomePage,
+                icon: 'ios-speedometer',
+                route: 'board',
+                display: this.securityService.isManager()
             },
             {
                 id: TabNavEnum.PNC_SEARCH_PAGE,
