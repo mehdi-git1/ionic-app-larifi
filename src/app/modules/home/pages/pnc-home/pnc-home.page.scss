@@ -9,16 +9,28 @@
     justify-content: center;
 
     .button-parent {
-        width: 33%;
+        min-width: 33%;
+        min-height: 30%;
         padding: 20px;
         display: flex;
         flex-direction: column;
+
+        @media (max-width: 800px) {
+            min-width: 100%;
+            min-height: 0%;
+            flex-direction: row;
+        }
 
         h3 {
             font-size: 2rem;
             font-family: Excellence, OpenSans, Arial;
             font-weight: bold;
-            padding: 5px 5px;
+            padding: 5px;
+
+            @media (max-width: 800px) {
+                flex: 2;
+                text-align: left;
+            }
         }
 
         button {
@@ -29,12 +41,14 @@
             flex: 1;
             border-radius: 10px;
             white-space: normal;
-
-            display: flex;
             justify-content: center;
             align-items: center;
             background: var(--ion-color-white);
             box-shadow: 0 5px 8px 0 rgba(37, 177, 190, 0.2);
+
+            @media (max-width: 800px) {
+                flex-direction: row;
+            }
 
             ion-icon,
             .icon-af-C-metier-niv-pro {
@@ -46,22 +60,31 @@
                     font-size: 6rem;
                 }
 
+                @media (max-width: 800px) {
+                    flex: 1;
+                }
+
                 color: var(--ion-color-primarylight);
             }
 
+        }
+
+        .edospnc-writing,
+        .edospnc-customer-review {
+
+            @media (max-width: 800px) {
+                flex: 1;
+            }
         }
 
         .edospnc-writing:before {
             color: var(--ion-color-primarylight);
             font-size: 60px;
         }
+
         .edospnc-customer-review:before {
             color: var(--ion-color-primarylight);
             font-size: 55px;
-        }
-        .edospnc-customer-satisfaction:before {
-            color: var(--ion-color-primarylight);
-            font-size: 60px;
         }
     }
 }
