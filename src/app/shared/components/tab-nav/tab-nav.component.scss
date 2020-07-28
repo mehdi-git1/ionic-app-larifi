@@ -17,6 +17,10 @@ ion-tabs {
             &.tab-selected {
                 background: var(--ion-color-primary);
                 --color-selected: var(--ion-color-white);
+
+                ion-label {
+                    display: initial !important;
+                }
             }
         }
     }

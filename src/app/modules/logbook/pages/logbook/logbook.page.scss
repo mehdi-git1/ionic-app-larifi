@@ -1,13 +1,5 @@
 $nbLinesMaxOnRow: 2;
 
-// ion-content {
-//     .scroll-content {
-//         display: flex;
-//         flex-direction: column;
-//         padding-top: 40px !important;
-//     }
-// }
-
 .button-bar {
     margin-bottom: 10px;
 
@@ -164,7 +156,7 @@ $nbLinesMaxOnRow: 2;
     .column-actions {
         flex: 0 0 40px !important;
         text-align: center;
-        
+
         ion-icon {
             font-size: 2em;
         }
@@ -186,8 +178,8 @@ $nbLinesMaxOnRow: 2;
         flex: 0 0 20px !important;
         min-width: 25px;
         max-width: 25px;
-        
-        ion-icon{
+
+        ion-icon {
             font-size: 1.2em;
         }
     }
