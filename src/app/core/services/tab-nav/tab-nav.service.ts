@@ -73,7 +73,7 @@ export class TabNavService {
                 title: this.translateService.instant('GLOBAL.MY_BOARD'),
                 page: MyBoardHomePage,
                 icon: 'ios-speedometer',
-                route: 'board',
+                route: 'myboard',
                 display: this.securityService.isManager()
             },
             {

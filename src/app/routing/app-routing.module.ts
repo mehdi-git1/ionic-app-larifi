@@ -171,7 +171,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'board', children: [
+        path: 'myboard', children: [
           { path: '', component: MyBoardHomePage }
         ]
       },

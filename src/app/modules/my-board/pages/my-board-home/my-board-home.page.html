@@ -1,24 +1,22 @@
 <ion-header>
-  <ion-toolbar>
-    <page-header [pnc]="pnc">
-      <span *ngIf="pnc">
-        {{'MY_BOARD.TITLE' | translate}}
-      </span>
-    </page-header>
-  </ion-toolbar>
+    <ion-toolbar>
+        <page-header>
+            {{'MY_BOARD.TITLE' | translate}}
+        </page-header>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div class="page-container">
-    <no-data *ngIf="!canDisplayNotifications() else displayData"></no-data>
-    <ng-template #displayData>
-      <edossier-spinner *ngIf="!isDataLoadingOver(); else pageBlock"></edossier-spinner>
-      <ng-template #pageBlock>
-        <my-board-notifications-list [notificationList]="pncNotifications"></my-board-notifications-list>
-        <ion-infinite-scroll (ionInfinite)="loadMoreData($event)">
-          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-          </ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-      </ng-template>
-    </ng-template>
-  </div>
+    <div class="page-container">
+        <no-data *ngIf="!canDisplayNotifications() else displayData"></no-data>
+        <ng-template #displayData>
+            <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>
+            <ng-template #pageBlock>
+                <my-board-notifications-list [notificationList]="pncNotifications"></my-board-notifications-list>
+                <ion-infinite-scroll (ionInfinite)="loadMoreData($event)">
+                    <ion-infinite-scroll-content>
+                    </ion-infinite-scroll-content>
+                </ion-infinite-scroll>
+            </ng-template>
+        </ng-template>
+    </div>
 </ion-content>
