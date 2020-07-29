@@ -58,6 +58,7 @@
         "MY_DEVELOPMENT_PROGRAM": "Mon parcours de développement",
         "HELP_CENTER": "Ressources d'aide",
         "MY_HELP_CENTER": "Mes ressources d'aide",
+        "MY_BOARD": "MyBoard",
         "PNC_TEAM": "Effectif PNC",
         "MY_PNC_TEAM": "Mon effectif PNC",
         "ALTERNANT_TEAM": "Effectif Alternants",
@@ -83,8 +84,8 @@
         "MY_HR_DOCUMENT": "Mes documents RH",
         "REDACTIONS": "Rédactions",
         "MY_REDACTIONS": "Mes rédactions",
-        "BUSINESS_INDICATORS": "Indicateurs Métier",
-        "MY_BUSINESS_INDICATORS": "Mes Indicateurs Métier",
+        "BUSINESS_INDICATORS": "Indicateurs métier",
+        "MY_BUSINESS_INDICATORS": "Mes indicateurs métier",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
             "ERROR": {
@@ -123,8 +124,7 @@
             "FILE_MAX_SIZE": "La taille totale des fichiers ne doit pas dépasser {{filesMaxSize}} Mo",
             "ERROR_MAX_FILES_SIZE_REACHED": "Impossible d'ajouter le fichier {{fileName}}. La taille totale des fichiers ne doit pas dépasser {{maxSize}} Mo",
             "ERROR_MULTI_MAX_FILES_SIZE_REACHED": "Impossible d'ajouter les fichier sélectionnés. La taille totale des fichiers ne doit pas dépasser {{maxSize}} Mo"
-        },
-        "MY_BOARD": "My Board"
+        }
     },
     "AUTHENT": {
         "AUTHENTICATION": "Authentification",
@@ -739,7 +739,7 @@
         "ABSENCES_AND_LATENESS": "Liste des absences et retards sur 36 mois glissants"
     },
     "MY_BOARD": {
-        "TITLE": "Mes notifications Myboard",
+        "TITLE": "MyBoard",
         "DOCUMENT_TYPE": {
             "ALL": "Tous",
             "CONGRATULATION_LETTER": "Félicitations",
@@ -747,7 +747,7 @@
             "CAREER_OBJECTIVE": "Priorités",
             "WAYPOINT": "Point d'étape",
             "PROFESSIONAL_INTERVIEW": "Bilan Pro",
-            "LOGBOOK": "JDB",
+            "LOGBOOK": "Journal de bord",
             "HR_DOCUMENT": "Documents RH"
         }
     },
@@ -1040,7 +1040,7 @@
         "UNAIVALABLE_OFFLINE": "Les indicateurs métier ne sont pas disponibles hors connexion",
         "LIST": {
             "PAST_SUMMARY": {
-                "TITLE": "Indicateurs Métier sur 6 mois glissants",
+                "TITLE": "Indicateurs métier sur 6 mois glissants",
                 "ESCORE_AVERAGE_CCP_CC_MC": "Moyenne eScore - retours global vol",
                 "ESCORE_AVERAGE_CC_LC": "Moyenne eScore - retours par cabine de travail",
                 "ESCORE_AVERAGE_SHORT_LABEL": "Moyenne eScore",

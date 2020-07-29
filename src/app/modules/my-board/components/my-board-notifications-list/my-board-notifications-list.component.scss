@@ -1,28 +1,43 @@
 ion-card {
     background: var(--ion-color-white);
+    color: var(--ion-color-grey10);
 
     .notification-infos {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 5px;
 
-        .date-item {
-            width: 100px;
+        .concerned-pnc-infos {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
-        .document-type-item {
-            width: 100px;
+        .metadata-container {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            width: 200px;
+
+            ion-badge {
+                width: 100px;
+            }
         }
 
     }
 
     .notification-title {
-        font-weight: bold;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
+}
 
-
+.unread {
+    .notification-title {
+        font-weight: bold;
+        color: var(--ion-color-primary-shade);
+    }
 }
 
 // Background des types de document
@@ -32,11 +47,11 @@ ion-card {
 }
 
 .logbook {
-    @include set-bg-color(var(--ion-color-primary))
+    @include set-bg-color(var(--ion-color-blue70))
 }
 
 .eobs {
-    @include set-bg-color(var(--ion-color-medium-tint))
+    @include set-bg-color(var(--ion-color-warning-tint))
 }
 
 .congratulation_letter {
@@ -44,7 +59,7 @@ ion-card {
 }
 
 .career_objective {
-    @include set-bg-color(var(--ion-color-tertiary-tint))
+    @include set-bg-color(var(--ion-color-success-tint))
 }
 
 .waypoint {
@@ -52,7 +67,7 @@ ion-card {
 }
 
 .professional_interview {
-    @include set-bg-color(var(--ion-color-dark-tint))
+    @include set-bg-color(var(--ion-color-tertiary-tint))
 }
 
 .hr_document {

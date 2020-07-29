@@ -1,9 +1,11 @@
-import { TranslateService } from '@ngx-translate/core';
-import { NotificationDocumentTypeEnum } from './../../../../core/enums/my-board/notification-document-type.enum';
-import { Component, OnInit, Input } from '@angular/core';
 import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-notification.model';
-import { MenuController } from '@ionic/angular';
-import { DocumentTypeEnum } from 'src/app/core/models/document.model';
+
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+import {
+    NotificationDocumentTypeEnum
+} from '../../../../core/enums/my-board/notification-document-type.enum';
 
 @Component({
   selector: 'my-board-notifications-list',
@@ -12,8 +14,9 @@ import { DocumentTypeEnum } from 'src/app/core/models/document.model';
 })
 export class MyBoardNotificationsListComponent implements OnInit {
 
-  @Input()
-  notificationList: MyBoardNotificationModel[];
+  @Input() notificationList: MyBoardNotificationModel[];
+
+  @Output() notificationClicked = new EventEmitter<MyBoardNotificationModel>();
 
   constructor(private translateService: TranslateService) { }
 
@@ -44,6 +47,14 @@ export class MyBoardNotificationsListComponent implements OnInit {
    */
   getClass(documentType: NotificationDocumentTypeEnum): string {
     return documentType.toString().toLocaleLowerCase();
+  }
+
+  /**
+   * Indique au composant parent qu'une notification a été cliquée
+   * @param notification la notification cliquée
+   */
+  openNotification(notification: MyBoardNotificationModel) {
+    this.notificationClicked.emit(notification);
   }
 
 }

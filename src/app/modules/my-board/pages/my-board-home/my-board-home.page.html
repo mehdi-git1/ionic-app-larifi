@@ -11,7 +11,7 @@
         <ng-template #displayData>
             <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>
             <ng-template #pageBlock>
-                <my-board-notifications-list [notificationList]="pncNotifications"></my-board-notifications-list>
+                <my-board-notifications-list [notificationList]="pncNotifications" (notificationClicked)="openNotification($event)"></my-board-notifications-list>
                 <ion-infinite-scroll (ionInfinite)="loadMoreData($event)">
                     <ion-infinite-scroll-content>
                     </ion-infinite-scroll-content>

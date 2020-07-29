@@ -82,7 +82,8 @@ export class UrlConfiguration {
     'getLastAppVersion': `${urlGroupEnum.APP_VERSION}/last`,
     'downloadManifexPdfById': `${urlGroupEnum.PDFS}/manifex/{id}`,
     'downloadEObservationPdfById': `${urlGroupEnum.PDFS}/eobservation/{id}`,
-    'getMyBoardNotification': `${urlGroupEnum.MY_BOARD}`
+    'getMyBoardNotification': `${urlGroupEnum.MY_BOARD}`,
+    'readMyBoardNotification': `${urlGroupEnum.MY_BOARD}/{id}/checked`
   };
 
   /**

@@ -3,7 +3,7 @@
         <offline-indicator [object]="pnc" type="PNC"></offline-indicator>
         <pnc-photo [pnc]="pnc" [size]="70"></pnc-photo>
         <div class="pnc-info-container">
-            <div class="pnc-name">{{ pnc.firstName }}&nbsp;{{ pnc.lastName }}</div>
+            <div class="pnc-name"><span class="lastname">{{ pnc.lastName }}</span>&nbsp;<span class="firstname">{{ pnc.firstName }}</span></div>
             <div class="pnc-speciality" [ngClass]="{'no-value' : !getFormatedSpeciality() }">
                 {{ getFormatedSpeciality() }}
             </div>
@@ -50,7 +50,7 @@
         <div class="pnc-instructor" *ngIf="!pnc.manager">
             <ion-icon ios="md-school" name="md-school"></ion-icon>
             <div class="pnc-info-data">
-                <span [ngClass]="{'no-value' : !pnc?.pncInstructor }"><span class="firstname">{{pnc?.pncInstructor?.firstName}}</span>&nbsp;<span class="lastname">{{pnc?.pncInstructor?.lastName}}</span></span>
+                <span [ngClass]="{'no-value' : !pnc?.pncInstructor }"><span class="lastname">{{pnc?.pncInstructor?.lastName}}</span>&nbsp;<span class="firstname">{{pnc?.pncInstructor?.firstName}}</span></span>
             </div>
         </div>
         <div class="button-container">

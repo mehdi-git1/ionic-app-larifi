@@ -1,11 +1,17 @@
-import { PagedMyBoardNotificationModel } from './../../models/my-board/paged-my-board-notification.model';
+
+
 import { Injectable } from '@angular/core';
+
+import {
+    MyBoardNotificationFilterModel
+} from '../../models/my-board/my-board-notification-filter.model';
+import {
+    PagedMyBoardNotificationModel
+} from '../../models/my-board/paged-my-board-notification.model';
 import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
-import { MyBoardNotificationFilterModel } from '../../models/my-board/my-board-notification-filter.model';
-import { MyBoardNotificationModel } from '../../models/my-board/my-board-notification.model';
-import { MyBoardNotificationOnlineService } from './my-board-notification-online.service';
 import { MyBoardNotificationOfflineService } from './my-board-notification-offline.service';
+import { MyBoardNotificationOnlineService } from './my-board-notification-online.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +34,14 @@ export class MyBoardNotificationService extends BaseService {
    */
   getNotifications(filter: MyBoardNotificationFilterModel): Promise<PagedMyBoardNotificationModel> {
     return this.execFunctionService('getNotifications', filter);
+  }
+
+  /**
+   * Marque une notification comme lue
+   *
+   * @param notificationId l'id de la notification à marquer comme lue
+   */
+  readNotification(notificationId: number) {
+    return this.execFunctionService('readNotification', notificationId);
   }
 }

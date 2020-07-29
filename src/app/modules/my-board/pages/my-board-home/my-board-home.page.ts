@@ -85,4 +85,12 @@ export class MyBoardHomePage implements OnInit {
   canDisplayNotifications(): boolean {
     return this.connectivityService.isConnected();
   }
+
+  /**
+   * Ouvre la notification en la marquant lue et en redirigant l'utilisateur vers le document concerné
+   * @param notification la notification à ouvrir
+   */
+  openNotification(notification: MyBoardNotificationModel) {
+    this.myBoardNotificationService.readNotification(notification.techId);
+  }
 }

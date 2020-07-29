@@ -1,9 +1,8 @@
 import { NotificationDocumentTypeEnum } from '../../enums/my-board/notification-document-type.enum';
+import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
 import { PncModel } from '../pnc.model';
-import { SpecialityEnum } from '../../enums/speciality.enum';
 
-export class MyBoardNotificationModel {
-  techid: number;
+export class MyBoardNotificationModel extends EDossierPncObjectModel {
   documentType: NotificationDocumentTypeEnum;
   documentId: number;
   concernedPnc: PncModel;
@@ -11,4 +10,8 @@ export class MyBoardNotificationModel {
   title: string;
   checked: boolean;
   creationDate: Date;
+
+  getStorageId(): string {
+    return `${this.techId}`;
+  }
 }
