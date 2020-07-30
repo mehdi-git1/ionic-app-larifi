@@ -33,8 +33,9 @@ export class MyBoardNotificationOnlineService {
    * Marque une notification comme lue
    *
    * @param notificationId l'id de la notification à marquer comme lue
+   * @param isRead si la notification doit être marquée lue/non lue
    */
-  readNotification(notificationId: number) {
-    return this.restService.put(this.urlConfiguration.getBackEndUrl('readMyBoardNotification', [notificationId]), null);
+  readNotification(notificationId: number, isRead: boolean) {
+    return this.restService.put(this.urlConfiguration.getBackEndUrl('readMyBoardNotification', [notificationId, isRead]), null);
   }
 }

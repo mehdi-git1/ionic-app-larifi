@@ -22,9 +22,9 @@ export class RestWebService extends RestService {
                 (success) => {
                     resolve(success);
                 },
-                (err) => {
-                    console.error('RestWebService:call failure : ' + err);
-                    reject(err);
+                (error) => {
+                    console.error('HttpRequest failure', error);
+                    reject(error);
                 });
         });
     }

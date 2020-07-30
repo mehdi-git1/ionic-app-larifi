@@ -1,5 +1,5 @@
  <div class="title">
-     <h1 *ngIf="!isActiveUser()">{{ pnc?.lastName }} {{ pnc?.firstName }}</h1>
+     <h1 *ngIf="!isActiveUser()"><span class="lastname">{{ pnc?.lastName }}</span>&nbsp;<span class="firstname">{{ pnc?.firstName }}</span></h1>
      <h1 [ngClass]="{'active-user': pnc && !isActiveUser()}">
          <ng-content></ng-content>
      </h1>

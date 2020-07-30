@@ -37,11 +37,12 @@ export class MyBoardNotificationService extends BaseService {
   }
 
   /**
-   * Marque une notification comme lue
+   * Marque une notification comme lue/non lue
    *
    * @param notificationId l'id de la notification à marquer comme lue
+   * @param isRead si la notification doit être marquée lue/non lue
    */
-  readNotification(notificationId: number) {
-    return this.execFunctionService('readNotification', notificationId);
+  readNotification(notificationId: number, isRead: boolean) {
+    return this.execFunctionService('readNotification', notificationId, isRead);
   }
 }

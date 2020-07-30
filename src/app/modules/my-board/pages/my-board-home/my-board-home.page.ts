@@ -2,8 +2,11 @@ import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { AppConstant } from '../../../../app.constant';
+import {
+    NotificationDocumentTypeEnum
+} from '../../../../core/enums/my-board/notification-document-type.enum';
 import {
     MyBoardNotificationFilterModel
 } from '../../../../core/models/my-board/my-board-notification-filter.model';
@@ -26,21 +29,24 @@ export class MyBoardHomePage implements OnInit {
   totalNotifications: number;
   isLoading = false;
 
+  PAGE_SIZE = 15;
+
   constructor(
     private sessionService: SessionService,
     private myBoardNotificationService: MyBoardNotificationService,
-    private connectivityService: ConnectivityService
+    private connectivityService: ConnectivityService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.filter.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
-    this.filter.offset = 0;
-    this.filter.page = 0;
-    this.filter.size = AppConstant.pageSize;
+    this.filter.size = this.PAGE_SIZE;
   }
 
   ionViewDidEnter() {
     this.pncNotifications = new Array<MyBoardNotificationModel>();
+    this.filter.offset = 0;
+    this.filter.page = 0;
     this.isLoading = true;
     this.getPncNotifications(this.filter);
   }
@@ -91,6 +97,32 @@ export class MyBoardHomePage implements OnInit {
    * @param notification la notification à ouvrir
    */
   openNotification(notification: MyBoardNotificationModel) {
-    this.myBoardNotificationService.readNotification(notification.techId);
+    if (!notification.checked) {
+      this.myBoardNotificationService.readNotification(notification.techId, true);
+    }
+
+    this.router.navigate([this.getDocumentRoute(notification.documentType, notification.concernedPnc.matricule, notification.documentId)]);
+  }
+
+  /**
+   * Récupère la route d'un document
+   * @param documentType le type de document
+   * @param matricule le matricule du PNC auquel le document appartient
+   * @param documentId l'id du document
+   * @return la route vers le document du PNC
+   */
+  getDocumentRoute(documentType: NotificationDocumentTypeEnum, matricule: string, documentId: number): string {
+    const pncEDossierRoute = `/tabs/visit/${matricule}`;
+    const routes = {
+      [NotificationDocumentTypeEnum.CONGRATULATION_LETTER]: `${pncEDossierRoute}/congratulation-letter/detail/${documentId}`,
+      [NotificationDocumentTypeEnum.EOBS]: `${pncEDossierRoute}/eobservation/detail/${documentId}`,
+      [NotificationDocumentTypeEnum.CAREER_OBJECTIVE]: `${pncEDossierRoute}/career-objective/create/${documentId}`,
+      [NotificationDocumentTypeEnum.WAYPOINT]: `${pncEDossierRoute}/career-objective/waypoint/0/${documentId}`,
+      [NotificationDocumentTypeEnum.PROFESSIONAL_INTERVIEW]: `${pncEDossierRoute}/professional-interview/detail/${documentId}`,
+      [NotificationDocumentTypeEnum.LOGBOOK]: `${pncEDossierRoute}/logbook/detail/${documentId}/false`,
+      [NotificationDocumentTypeEnum.HR_DOCUMENT]: `${pncEDossierRoute}/hr-document/detail/${documentId}`,
+      [NotificationDocumentTypeEnum.PROFESSIONAL_LEVEL]: `${pncEDossierRoute}/professional-level`
+    };
+    return routes[documentType];
   }
 }

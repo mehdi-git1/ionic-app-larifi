@@ -124,7 +124,8 @@
             "FILE_MAX_SIZE": "La taille totale des fichiers ne doit pas dépasser {{filesMaxSize}} Mo",
             "ERROR_MAX_FILES_SIZE_REACHED": "Impossible d'ajouter le fichier {{fileName}}. La taille totale des fichiers ne doit pas dépasser {{maxSize}} Mo",
             "ERROR_MULTI_MAX_FILES_SIZE_REACHED": "Impossible d'ajouter les fichier sélectionnés. La taille totale des fichiers ne doit pas dépasser {{maxSize}} Mo"
-        }
+        },
+        "LOADING_EDOSSIER_MESSAGE": "Chargement du eDossier..."
     },
     "AUTHENT": {
         "AUTHENTICATION": "Authentification",

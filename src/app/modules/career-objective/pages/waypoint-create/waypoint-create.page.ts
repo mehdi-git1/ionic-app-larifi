@@ -12,13 +12,10 @@ import { CareerObjectiveModel } from '../../../../core/models/career-objective.m
 import { PncModel } from '../../../../core/models/pnc.model';
 import { WaypointModel } from '../../../../core/models/waypoint.model';
 import {
-  CancelChangesService
+    CancelChangesService
 } from '../../../../core/services/cancel_changes/cancel-changes.service';
 import {
-  CareerObjectiveService
-} from '../../../../core/services/career-objective/career-objective.service';
-import {
-  OfflineCareerObjectiveService
+    OfflineCareerObjectiveService
 } from '../../../../core/services/career-objective/offline-career-objective.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
@@ -26,10 +23,10 @@ import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import {
-  WaypointStatusService
+    WaypointStatusService
 } from '../../../../core/services/waypoint-status/waypoint-status.service';
 import {
-  OfflineWaypointService
+    OfflineWaypointService
 } from '../../../../core/services/waypoint/offline-waypoint.service';
 import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
 import { DateTransform } from '../../../../shared/utils/date-transform';
@@ -43,7 +40,6 @@ import { Utils } from '../../../../shared/utils/utils';
 export class WaypointCreatePage extends FormCanDeactivate {
 
   creationForm: FormGroup;
-  careerObjectiveId: number;
   waypoint: WaypointModel;
   originWaypoint: WaypointModel;
   requiredOnEncounterDay: boolean;
@@ -68,7 +64,6 @@ export class WaypointCreatePage extends FormCanDeactivate {
     private navCtrl: NavController,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private careerObjectiveService: CareerObjectiveService,
     private waypointService: WaypointService,
     private toastService: ToastService,
     private loadingCtrl: LoadingController,
@@ -93,14 +88,8 @@ export class WaypointCreatePage extends FormCanDeactivate {
   /**
    * Initialisation du contenu de la page.
    */
-  initPage() {
-
-    this.careerObjectiveId = parseInt(this.activatedRoute.snapshot.paramMap.get('careerObjectiveId'), 10);
-    this.careerObjectiveService.getCareerObjective(this.careerObjectiveId).then(careerObjective => {
-      this.pncService.getPnc(careerObjective.pnc.matricule).then(pnc => {
-        this.pnc = pnc;
-      }, error => { });
-    });
+  async initPage() {
+    this.pnc = await this.pncService.getPnc(this.pncService.getRequestedPncMatricule(this.activatedRoute));
 
     if (this.activatedRoute.snapshot.paramMap.get('waypointId')
       && parseInt(this.activatedRoute.snapshot.paramMap.get('waypointId'), 10) !== 0) {
@@ -115,7 +104,7 @@ export class WaypointCreatePage extends FormCanDeactivate {
       // Création
       this.waypoint = new WaypointModel();
       this.waypoint.careerObjective = new CareerObjectiveModel();
-      this.waypoint.careerObjective.techId = this.careerObjectiveId;
+      this.waypoint.careerObjective.techId = parseInt(this.activatedRoute.snapshot.paramMap.get('careerObjectiveId'), 10);
       this.originWaypoint = _.cloneDeep(this.waypoint);
     }
   }
@@ -197,7 +186,7 @@ export class WaypointCreatePage extends FormCanDeactivate {
         loading.present();
 
         this.waypointService
-          .createOrUpdate(waypointToSave, this.careerObjectiveId)
+          .createOrUpdate(waypointToSave, this.waypoint.careerObjective.techId)
           .then(savedWaypoint => {
             this.originWaypoint = _.cloneDeep(savedWaypoint);
             this.waypoint = savedWaypoint;
@@ -205,8 +194,8 @@ export class WaypointCreatePage extends FormCanDeactivate {
             // Si on est connecté et que l'objectif dont dépend le point d'étape est en cache, on met en cache le point d'étape
             if (this.deviceService.isOfflineModeAvailable()
               && this.connectivityService.isConnected()
-              && this.offlineCareerObjectiveService.careerObjectiveExists(this.careerObjectiveId)) {
-              this.offlineWaypointService.createOrUpdate(this.waypoint, this.careerObjectiveId, true);
+              && this.offlineCareerObjectiveService.careerObjectiveExists(this.waypoint.careerObjective.techId)) {
+              this.offlineWaypointService.createOrUpdate(this.waypoint, this.waypoint.careerObjective.techId, true);
             }
 
             if (this.waypoint.waypointStatus === WaypointStatusEnum.DRAFT) {
@@ -214,10 +203,9 @@ export class WaypointCreatePage extends FormCanDeactivate {
             } else {
               this.toastService.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
             }
-            loading.dismiss();
             this.navCtrl.pop();
             resolve();
-          }, error => {
+          }).finally(() => {
             loading.dismiss();
           });
       });

@@ -17,6 +17,7 @@ import {
 } from '../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
 import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
 import { PncSearchPage } from '../../../modules/pnc-team/pages/pnc-search/pnc-search.page';
+import { Utils } from '../../../shared/utils/utils';
 import { TabNavEnum } from '../../enums/tab-nav.enum';
 import { PncModel } from '../../models/pnc.model';
 import { SecurityService } from '../security/security.service';
@@ -64,7 +65,7 @@ export class TabNavService {
                 id: TabNavEnum.PNC_HOME_PAGE,
                 title: this.translateService.instant('PNC_HOME.MY_TITLE'),
                 page: this.sessionService.getActiveUser().isManager ? PncHomePage : DevelopmentProgramPage,
-                icon: 'md-home',
+                icon: 'home',
                 route: 'home',
                 display: true
             },
@@ -72,7 +73,7 @@ export class TabNavService {
                 id: TabNavEnum.MY_BOARD_PAGE,
                 title: this.translateService.instant('GLOBAL.MY_BOARD'),
                 page: MyBoardHomePage,
-                icon: 'ios-speedometer',
+                icon: 'speedometer',
                 route: 'myboard',
                 display: this.securityService.isManager()
             },
@@ -80,7 +81,7 @@ export class TabNavService {
                 id: TabNavEnum.PNC_SEARCH_PAGE,
                 title: this.translateService.instant('GLOBAL.MY_PNC_TEAM'),
                 page: PncSearchPage,
-                icon: 'md-contacts',
+                icon: 'contacts',
                 route: 'search',
                 display: this.securityService.isManager()
             },
@@ -88,7 +89,7 @@ export class TabNavService {
                 id: TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE,
                 title: this.translateService.instant('GLOBAL.MY_UPCOMING_FLIGHT'),
                 page: UpcomingFlightListPage,
-                icon: 'airplane',
+                icon: 'jet',
                 route: 'flight',
                 display: this.securityService.isManager()
             },
@@ -96,7 +97,7 @@ export class TabNavService {
                 id: TabNavEnum.VISITED_PNC,
                 title: ' ',
                 page: DevelopmentProgramPage,
-                icon: 'md-person',
+                icon: 'person',
                 route: 'visit',
                 display: false
             },
@@ -104,7 +105,7 @@ export class TabNavService {
                 id: TabNavEnum.HELP_ASSET_LIST_PAGE,
                 title: this.translateService.instant('GLOBAL.MY_HELP_CENTER'),
                 page: HelpAssetListPage,
-                icon: 'md-help-circle',
+                icon: 'help-circle',
                 route: 'help',
                 display: this.securityService.isManager()
             }
@@ -138,7 +139,9 @@ export class TabNavService {
      * @return une promesse, résolue quand le PNC est chargé en session
      */
     loadVisitedPnc(matricule: string): Promise<PncModel> {
-        return this.loadingCtrl.create().then(loading => {
+        return this.loadingCtrl.create({
+            message: this.translateService.instant('GLOBAL.LOADING_EDOSSIER_MESSAGE')
+        }).then(loading => {
             loading.present();
 
             return this.pncService.getPnc(matricule).then(pncFound => {
@@ -157,7 +160,7 @@ export class TabNavService {
      * @param pnc le pnc à ajouter à la tabNav
      */
     addEDossierTab(pnc: PncModel) {
-        this.getTab(TabNavEnum.VISITED_PNC).title = `${pnc.firstName} ${pnc.lastName}`;
+        this.getTab(TabNavEnum.VISITED_PNC).title = `${pnc.lastName} ${Utils.capitalize(pnc.firstName)}`;
         this.getTab(TabNavEnum.VISITED_PNC).display = true;
     }
 
