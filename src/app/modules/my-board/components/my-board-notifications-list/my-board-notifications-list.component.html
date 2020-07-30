@@ -3,7 +3,7 @@
 </div>
 <ng-template #displayData>
     <div class="notification-card-container" [class.unread]="!notification.checked" *ngFor="let notification of notificationList">
-        <ion-card [class.read]="notification.checked" class="clickable" (click)="openNotification(notification)">
+        <ion-card class="clickable" (click)="openNotification(notification)">
             <ion-card-content>
                 <div class="notification-infos">
                     <div class="concerned-pnc-infos">
