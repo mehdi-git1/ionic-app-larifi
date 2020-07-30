@@ -23,9 +23,10 @@ export class VisitEdossierGuard implements CanActivate {
             return false;
         }
 
-        // Si le PNC visité n'est pas en session, c'est qu'on accède directement à cette page via l'url
-        // Il faut donc charger le PNC visité
-        if (this.sessionService.visitedPnc === undefined) {
+        // On déclenche la "visite" d'un dossier :
+        // 1. Si aucun PNC visité n'est présent en session
+        // 2. Si le matricule présent dans l'url est différent de celui présent en session
+        if (this.sessionService.visitedPnc === undefined || this.sessionService.visitedPnc.matricule !== route.paramMap.get('matricule')) {
             return this.tabNavService.loadVisitedPnc(route.paramMap.get('matricule')).then(() => true);
         } else {
             return true;

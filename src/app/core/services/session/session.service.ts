@@ -26,7 +26,7 @@ export class SessionService {
      */
     isActiveUser(pnc: PncModel): boolean {
         if (!pnc) {
-            return false;
+            return true;
         }
         return pnc.matricule === (this.getActiveUser() && this.getActiveUser().matricule);
     }

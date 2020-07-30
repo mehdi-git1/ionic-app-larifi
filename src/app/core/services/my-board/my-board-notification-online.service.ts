@@ -1,8 +1,15 @@
-import { UrlConfiguration } from './../../configuration/url.configuration';
+
+
 import { Injectable } from '@angular/core';
+
+import { UrlConfiguration } from '../../configuration/url.configuration';
 import { RestService } from '../../http/rest/rest.base.service';
-import { PagedMyBoardNotificationModel } from '../../models/my-board/paged-my-board-notification.model';
-import { MyBoardNotificationFilterModel } from '../../models/my-board/my-board-notification-filter.model';
+import {
+    MyBoardNotificationFilterModel
+} from '../../models/my-board/my-board-notification-filter.model';
+import {
+    PagedMyBoardNotificationModel
+} from '../../models/my-board/paged-my-board-notification.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +27,15 @@ export class MyBoardNotificationOnlineService {
    */
   getNotifications(filters: MyBoardNotificationFilterModel): Promise<PagedMyBoardNotificationModel> {
     return this.restService.get(this.urlConfiguration.getBackEndUrl('getMyBoardNotification'), filters);
+  }
+
+  /**
+   * Marque une notification comme lue
+   *
+   * @param notificationId l'id de la notification à marquer comme lue
+   * @param isRead si la notification doit être marquée lue/non lue
+   */
+  readNotification(notificationId: number, isRead: boolean) {
+    return this.restService.put(this.urlConfiguration.getBackEndUrl('readMyBoardNotification', [notificationId, isRead]), null);
   }
 }

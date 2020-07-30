@@ -1,27 +1,24 @@
 <div *ngIf="!dataToDisplay() else displayData">
-  <no-data> </no-data>
+    <no-data> </no-data>
 </div>
 <ng-template #displayData>
-  <div class="notification-card-container" *ngFor="let notification of notificationList">
-    <ion-card>
-      <ion-card-content>
-        <div>
-          <div class="notification-infos">
-            <p class="date-item"> {{notification.creationDate | date: 'dd/mm/yyyy' }}</p>
-            <p class="concerned-pnc-infos">
-              <span>{{notification.concernedPnc.lastName }}</span>
-              <span>{{notification.concernedPnc.firstName }}</span>
-              <span class="matricule-item"> ( {{notification.concernedPnc.matricule }} )</span>
-              <span>{{notification.concernedPnc.currentSpeciality}}</span>
-            </p>
-            <p class="document-type-item">
-              <ion-badge class="{{getClass(notification.documentType)}}">
-                {{getDocumentTypeTranslation(notification.documentType)}}</ion-badge>
-            </p>
-          </div>
-          <p class="notification-title">{{ notification.title}}</p>
-        </div>
-      </ion-card-content>
-    </ion-card>
-  </div>
+    <div class="notification-card-container" [class.unread]="!notification.checked" *ngFor="let notification of notificationList">
+        <ion-card class="clickable" (click)="openNotification(notification)">
+            <ion-card-content>
+                <div class="notification-infos">
+                    <div class="concerned-pnc-infos">
+                        <span>{{notification.concernedPnc.lastName }}</span>&nbsp;
+                        <span class="firstname">{{notification.concernedPnc.firstName }}</span>&nbsp;
+                        <span>({{notification.concernedPnc.matricule }})</span>&nbsp;
+                        <span>{{notification.concernedPnc.currentSpeciality}}</span>
+                    </div>
+                    <div class="metadata-container">
+                        <div class="date-item"> {{notification.creationDate | date: 'dd/MM/yyyy' }}</div>
+                        <ion-badge class="{{getClass(notification.documentType)}}">{{getDocumentTypeTranslation(notification.documentType)}}</ion-badge>
+                    </div>
+                </div>
+                <div class="notification-title">{{ notification.title}}</div>
+            </ion-card-content>
+        </ion-card>
+    </div>
 </ng-template>

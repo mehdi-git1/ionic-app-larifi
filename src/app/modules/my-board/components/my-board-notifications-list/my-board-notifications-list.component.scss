@@ -1,66 +1,75 @@
-.notification-card-container {
-    background-color: white !important;
-}
+ion-card {
+    background: var(--ion-color-white);
+    color: var(--ion-color-grey10);
 
-.notification-infos {
-    display: flex;
-    flex-direction: row;
-    align-content: space-between;
-    justify-content: space-between;
-}
+    .notification-infos {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
 
-.date-item {
-    flex-grow: 1;
-}
+        .concerned-pnc-infos {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
 
-.notification-title {
-    font-weight: bold;
-}
+        .metadata-container {
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
 
-.document-type-item {
-    flex-grow: 1;
-}
+            ion-badge {
+                width: 100px;
+            }
+        }
 
-.test {
-  background-color: yellow !important;
-}
-.concerned-pnc-infos {
-    flex-grow: 2;
-
-    span {
-        margin: 4px;
     }
-    .matricule-item {
-           margin: 8px;
+
+    .notification-title {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+}
+
+.unread {
+    .notification-title {
+        font-weight: bold;
+        color: var(--ion-color-primary-shade);
     }
 }
-// Background des types
-// la classe egale à l'enum en miniscule
+
+// Background des types de document
+// la classe est égale à l'enum en miniscule
 @mixin set-bg-color($color) {
-  background-color: $color !important;
+    background-color: $color !important;
 }
 
 .logbook {
- @include set-bg-color(var(--ion-color-primary))
+    @include set-bg-color(var(--ion-color-blue70))
 }
+
 .eobs {
-  @include set-bg-color(var(--ion-color-medium-tint))
+    @include set-bg-color(var(--ion-color-warning-tint))
 }
 
 .congratulation_letter {
-  @include set-bg-color(var(--ion-color-secondary-tint))
+    @include set-bg-color(var(--ion-color-secondary-tint))
 }
+
 .career_objective {
- @include set-bg-color(var(--ion-color-tertiary-tint))
+    @include set-bg-color(var(--ion-color-success-tint))
 }
 
-.waypoint  {
-  @include set-bg-color(var(--ion-color-success-tint))
+.waypoint {
+    @include set-bg-color(var(--ion-color-success-tint))
 }
 
-.professinal_interview {
-  @include set-bg-color(var( --ion-color-dark-tint))
+.professional_interview {
+    @include set-bg-color(var(--ion-color-tertiary-tint))
 }
+
 .hr_document {
- @include set-bg-color(var( --ion-color-green50-tint))
+    @include set-bg-color(var(--ion-color-green50-tint))
 }
