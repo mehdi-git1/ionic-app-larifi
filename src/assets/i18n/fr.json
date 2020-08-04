@@ -741,6 +741,8 @@
     },
     "MY_BOARD": {
         "TITLE": "MyBoard",
+        "NO_NOTIFICATIONS": "Aucune notification trouvée",
+        "UNAVAILABLE_OFFLINE": "MyBoard non disponible en déconnecté",
         "DOCUMENT_TYPE": {
             "ALL": "Tous",
             "CONGRATULATION_LETTER": "Félicitations",

@@ -11,6 +11,9 @@ export class MyBoardNotificationModel extends EDossierPncObjectModel {
   checked: boolean;
   creationDate: Date;
 
+  // Transient
+  pageNumber: number;
+
   getStorageId(): string {
     return `${this.techId}`;
   }
