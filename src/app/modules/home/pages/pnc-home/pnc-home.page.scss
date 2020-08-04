@@ -34,7 +34,15 @@
                     align-items: flex-end;
                     margin: auto;
 
+                    ion-icon,
+                    .icon-af-C-metier-niv-pro,
+                    .edospnc-customer-review,
+                    .edospnc-writing {
+                        color: var(--ion-color-primarylight);
+                    }
+
                     ion-icon {
+
                         @media (max-width: 800px) {
                             font-size: 4rem;
                         }
@@ -42,12 +50,9 @@
                         @media (min-width: 800px) {
                             font-size: 6rem;
                         }
-
-                        color: var(--ion-color-primarylight);
                     }
 
                     .icon-af-C-metier-niv-pro {
-
 
                         @media (max-width: 800px) {
                             font-size: 4rem;
@@ -57,10 +62,7 @@
                         @media (min-width: 800px) {
                             font-size: 5rem;
                             margin: 0.5rem;
-
                         }
-
-                        color: var(--ion-color-primarylight);
                     }
 
                     .edospnc-customer-review {
@@ -69,15 +71,11 @@
                             margin: 8px;
                         }
 
-                        @media (max-width: 800px) {}
-
                         @media (min-width: 800px) {
                             margin: 13px;
                         }
 
-
                         &:before {
-                            color: var(--ion-color-primarylight);
 
                             @media (max-width: 800px) {
                                 font-size: 43.2px;
@@ -87,7 +85,6 @@
                                 font-size: 60px;
                             }
                         }
-
                     }
 
                     .edospnc-writing {
@@ -101,7 +98,6 @@
                         }
 
                         &:before {
-                            color: var(--ion-color-primarylight);
 
                             @media (max-width: 800px) {
                                 font-size: 50px;
