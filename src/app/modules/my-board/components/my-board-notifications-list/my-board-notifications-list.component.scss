@@ -40,36 +40,30 @@ ion-card {
     }
 }
 
-// Background des types de document
-// la classe est égale à l'enum en miniscule
-@mixin set-bg-color($color) {
-    background-color: $color !important;
-}
-
 .logbook {
-    @include set-bg-color(var(--ion-color-blue70))
+    background: var(--ion-color-blue70) !important;
 }
 
 .eobs {
-    @include set-bg-color(var(--ion-color-warning-tint))
+    background: var(--ion-color-warning-tint) !important;
 }
 
 .congratulation_letter {
-    @include set-bg-color(var(--ion-color-secondary-tint))
+    background: var(--ion-color-secondary-tint) !important;
 }
 
 .career_objective {
-    @include set-bg-color(var(--ion-color-success-tint))
+    background: var(--ion-color-success-tint) !important;
 }
 
 .waypoint {
-    @include set-bg-color(var(--ion-color-success-tint))
+    background: var(--ion-color-success-tint) !important;
 }
 
 .professional_interview {
-    @include set-bg-color(var(--ion-color-tertiary-tint))
+    background: var(--ion-color-tertiary-tint) !important;
 }
 
 .hr_document {
-    @include set-bg-color(var(--ion-color-green50-tint))
+    background: var(--ion-color-green50-tint) !important;
 }

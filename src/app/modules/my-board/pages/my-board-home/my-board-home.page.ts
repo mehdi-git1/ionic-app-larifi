@@ -18,6 +18,9 @@ import {
 } from '../../../../core/services/my-board/my-board-notification.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 
+enum PagePosition {
+  PREVIOUS, NEXT
+}
 @Component({
   selector: 'my-board-home',
   templateUrl: './my-board-home.page.html',
@@ -29,7 +32,10 @@ export class MyBoardHomePage implements OnInit {
   totalNotifications: number;
   isLoading = false;
 
-  PAGE_SIZE = 15;
+  PAGE_SIZE = 10;
+
+  previousPageNumber: number;
+  nextPageNumber: number;
 
   constructor(
     private sessionService: SessionService,
@@ -39,43 +45,76 @@ export class MyBoardHomePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.filter.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
     this.filter.size = this.PAGE_SIZE;
+    this.filter.offset = 0;
+    this.filter.page = 0;
   }
 
   ionViewDidEnter() {
     this.pncNotifications = new Array<MyBoardNotificationModel>();
-    this.filter.offset = 0;
-    this.filter.page = 0;
+    this.filter.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
     this.isLoading = true;
-    this.getPncNotifications(this.filter);
+    this.initPageNumbers();
+    this.getPncNotifications(this.filter, PagePosition.NEXT);
   }
 
   /**
-   * Charge les données supplémentaires
-   * @param event evenement déclenché
+   * Initialise les numéros de page afin de gérer la pagination bi-directionnelle
    */
-  loadMoreData(event) {
-    if (this.pncNotifications.length < this.totalNotifications) {
-      this.filter.page += 1;
+  initPageNumbers() {
+    this.previousPageNumber = this.filter.page - 1;
+    this.nextPageNumber = this.filter.page + 1;
+  }
+
+  /**
+   * Charge la page précédente
+   * @param event événement déclenché
+   */
+  loadPreviousPage(event) {
+    if (this.previousPageNumber >= 0) {
+      this.filter.page = this.previousPageNumber--;
       this.filter.offset = this.filter.page * this.filter.size;
-      this.getPncNotifications(this.filter).then(() => {
+      this.getPncNotifications(this.filter, PagePosition.PREVIOUS).then(() => {
         event.target.complete();
       });
     } else {
-      event.target.complete();
+      event.target.disabled = true;
+    }
+  }
+
+  /**
+   * Charge la page suivante
+   * @param event événement déclenché
+   */
+  loadNextPage(event) {
+    if (this.nextPageNumber < (this.totalNotifications / this.PAGE_SIZE)) {
+      this.filter.page = this.nextPageNumber++;
+      this.filter.offset = this.filter.page * this.filter.size;
+      this.getPncNotifications(this.filter, PagePosition.NEXT).then(() => {
+        event.target.complete();
+      });
+    } else {
+      event.target.disabled = true;
     }
   }
 
   /**
    * Récupère les notifications correspondants au filtre.
    * @param filter le filtre à appliquer à la requête
+   * @param pagePosition la position de la page
    */
-  getPncNotifications(filter: MyBoardNotificationFilterModel): Promise<PagedMyBoardNotificationModel> {
-    const promise = this.myBoardNotificationService
-      .getNotifications(filter);
+  getPncNotifications(filter: MyBoardNotificationFilterModel, pagePosition: PagePosition): Promise<PagedMyBoardNotificationModel> {
+    const promise = this.myBoardNotificationService.getNotifications(filter);
     promise.then((pagedNotification) => {
-      this.pncNotifications = this.pncNotifications.concat(pagedNotification.content);
+      // Ajoute le numéro de page sur chaque notification afin de pouvoir retomber sur cette page à l'ouverte d'une notif
+      pagedNotification.content.forEach(notification => {
+        notification.pageNumber = filter.page;
+      });
+      if (pagePosition === PagePosition.NEXT) {
+        this.pncNotifications = this.pncNotifications.concat(pagedNotification.content);
+      } else {
+        this.pncNotifications.unshift(...pagedNotification.content);
+      }
       this.filter.page = pagedNotification.page.number;
       this.totalNotifications = pagedNotification.page.totalElements;
     }).finally(() => {
@@ -97,6 +136,8 @@ export class MyBoardHomePage implements OnInit {
    * @param notification la notification à ouvrir
    */
   openNotification(notification: MyBoardNotificationModel) {
+    this.filter.page = notification.pageNumber;
+
     if (!notification.checked) {
       this.myBoardNotificationService.readNotification(notification.techId, true);
     }
@@ -126,3 +167,5 @@ export class MyBoardHomePage implements OnInit {
     return routes[documentType];
   }
 }
+
+
