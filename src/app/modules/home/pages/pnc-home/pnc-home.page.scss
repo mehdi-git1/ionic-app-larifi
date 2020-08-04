@@ -1,89 +1,137 @@
 .page-container {
     height: 100%;
-}
 
-#nav-tile-grid {
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    .button-parent {
-        min-width: 33%;
-        min-height: 30%;
-        padding: 20px;
+    #nav-tile-grid {
+        height: 100%;
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
 
-        @media (max-width: 800px) {
-            min-width: 100%;
-            min-height: 0%;
-        }
-
-        h3 {
-            font-size: 2rem;
-            font-family: Excellence, OpenSans, Arial;
-            font-weight: bold;
-            padding: 5px;
-
-            @media (max-width: 800px) {
-                flex: 2;
-                text-align: left;
-            }
-        }
-
-        button {
+        .button-parent {
+            width: 33%;
+            min-height: 50%;
             display: flex;
-            flex-direction: column;
-            font-size: 3vmin;
-            width: 100%;
-            flex: 1;
-            border-radius: 10px;
-            white-space: normal;
-            justify-content: center;
-            align-items: center;
-            background: var(--ion-color-white);
-            box-shadow: 0 5px 8px 0 rgba(37, 177, 190, 0.2);
+            padding: 20px;
 
-            @media (max-width: 800px) {
-                flex-direction: row;
+            @media (max-width:800px) {
+                width: 50%;
+                min-height: 33%;
             }
 
-            ion-icon,
-            .icon-af-C-metier-niv-pro {
-                @media (max-height: 800px) {
-                    font-size: 4rem;
-                }
+            .button {
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                border-radius: 10px;
+                padding: 20px;
+                background: var(--ion-color-white);
+                box-shadow: 0 5px 8px 0 rgba(37, 177, 190, 0.2);
 
-                @media (min-height: 800px) {
-                    font-size: 6rem;
-                }
-
-                @media (max-width: 800px) {
+                .icon-container {
                     flex: 1;
+                    display: flex;
+                    align-items: flex-end;
+                    margin: auto;
+
+                    ion-icon,
+                    .icon-af-C-metier-niv-pro,
+                    .edospnc-customer-review,
+                    .edospnc-writing {
+                        color: var(--ion-color-primarylight);
+                    }
+
+                    ion-icon {
+
+                        @media (max-width: 800px) {
+                            font-size: 4rem;
+                        }
+
+                        @media (min-width: 800px) {
+                            font-size: 6rem;
+                        }
+                    }
+
+                    .icon-af-C-metier-niv-pro {
+
+                        @media (max-width: 800px) {
+                            font-size: 4rem;
+                            margin: 8px;
+                        }
+
+                        @media (min-width: 800px) {
+                            font-size: 5rem;
+                            margin: 0.5rem;
+                        }
+                    }
+
+                    .edospnc-customer-review {
+
+                        @media (max-width: 800px) {
+                            margin: 8px;
+                        }
+
+                        @media (min-width: 800px) {
+                            margin: 13px;
+                        }
+
+                        &:before {
+
+                            @media (max-width: 800px) {
+                                font-size: 43.2px;
+                            }
+
+                            @media (min-width: 800px) {
+                                font-size: 60px;
+                            }
+                        }
+                    }
+
+                    .edospnc-writing {
+
+                        @media (max-width: 800px) {
+                            margin: 8px;
+                        }
+
+                        @media (min-width: 800px) {
+                            margin: 10px;
+                        }
+
+                        &:before {
+
+                            @media (max-width: 800px) {
+                                font-size: 50px;
+                            }
+
+                            @media (min-width: 800px) {
+                                font-size: 70px;
+                            }
+                        }
+                    }
                 }
 
-                color: var(--ion-color-primarylight);
+                .title-container {
+                    flex: 1;
+                    margin: auto;
+                    height: 50%;
+
+                    h3 {
+                        font-size: 2rem;
+                        font-family: Excellence, OpenSans, Arial;
+                        font-weight: bold;
+                        text-align: center;
+
+                        @media (max-width: 800px) {
+                            margin: 8px 0px 0px 0px;
+                        }
+
+                        @media (min-width: 800px) {
+                            margin: 10px 0px 0px 0px;
+                        }
+
+                    }
+                }
             }
-
-        }
-
-        .edospnc-writing,
-        .edospnc-customer-review {
-
-            @media (max-width: 800px) {
-                flex: 1;
-            }
-        }
-
-        .edospnc-writing:before {
-            color: var(--ion-color-primarylight);
-            font-size: 60px;
-        }
-
-        .edospnc-customer-review:before {
-            color: var(--ion-color-primarylight);
-            font-size: 55px;
         }
     }
 }

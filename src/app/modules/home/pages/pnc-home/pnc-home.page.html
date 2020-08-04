@@ -12,40 +12,60 @@
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
             <div id="nav-tile-grid" *ngIf="pnc">
-                <!--  Niveau professionnel -->
-                <div class="button-parent">
-                    <button (click)="goToProfessionalLevel()">
-                        <span class="icon-af icon-af-C-metier-niv-pro"></span>
-                        <h3>{{ 'GLOBAL.MY_PROFESSIONAL_LEVEL' | translate }}</h3>
-                    </button>
-                </div>
                 <!--  Attestation réglementaire -->
                 <div class="button-parent">
-                    <button (click)="goToStatutoryCertificate()">
-                        <ion-icon name="md-person" ios="md-person"></ion-icon>
-                        <h3>{{ 'GLOBAL.MY_STATUTORY_CERTIFICATE' | translate }}</h3>
-                    </button>
+                    <div class="button" (click)="goToStatutoryCertificate()">
+                        <div class="icon-container">
+                            <ion-icon name="md-person" ios="md-person"></ion-icon>
+                        </div>
+                        <div class="title-container">
+                            <h3>{{ 'GLOBAL.MY_STATUTORY_CERTIFICATE' | translate }}</h3>
+                        </div>
+                    </div>
                 </div>
                 <!--  Indicateurs Métier -->
                 <div class="button-parent" *hasPermission="'VIEW_BUSINESS_INDICATORS'">
-                    <button (click)="goToBusinessIndicators()">
-                        <span class="edospnc-customer-review"></span>
-                        <h3>{{ 'GLOBAL.MY_BUSINESS_INDICATORS' | translate }}</h3>
-                    </button>
+                    <div class="button" (click)="goToBusinessIndicators()">
+                        <div class="icon-container">
+                            <span class="edospnc-customer-review"></span>
+                        </div>
+                        <div class="title-container">
+                            <h3>{{ 'GLOBAL.MY_BUSINESS_INDICATORS' | translate }}</h3>
+                        </div>
+                    </div>
                 </div>
-                <!--  Lettres de félicitation -->
+                <!--  Niveau professionnel -->
                 <div class="button-parent">
-                    <button (click)="goToCongratulationLetters()">
-                        <ion-icon name="md-mail" ios="ios-mail"></ion-icon>
-                        <h3>{{ 'GLOBAL.MY_CONGRATULATION_LETTERS' | translate }}</h3>
-                    </button>
+                    <div class="button" (click)="goToProfessionalLevel()">
+                        <div class="icon-container">
+                            <span class="icon-af icon-af-C-metier-niv-pro"></span>
+                        </div>
+                        <div class="title-container">
+                            <h3>{{ 'GLOBAL.MY_PROFESSIONAL_LEVEL' | translate }}</h3>
+                        </div>
+                    </div>
                 </div>
                 <!--  Rédactions -->
                 <div class="button-parent">
-                    <button (click)="goToRedactions()">
-                        <span class="edospnc-writing"></span>
-                        <h3>{{ 'GLOBAL.MY_REDACTIONS' | translate }}</h3>
-                    </button>
+                    <div class="button" (click)="goToRedactions()">
+                        <div class="icon-container">
+                            <span class="edospnc-writing"></span>
+                        </div>
+                        <div class="title-container">
+                            <h3>{{ 'GLOBAL.MY_REDACTIONS' | translate }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <!--  Lettres de félicitation -->
+                <div class="button-parent">
+                    <div class="button" (click)="goToCongratulationLetters()">
+                        <div class="icon-container">
+                            <ion-icon name="md-mail" ios="ios-mail"></ion-icon>
+                        </div>
+                        <div class="title-container">
+                            <h3>{{ 'GLOBAL.MY_CONGRATULATION_LETTERS' | translate }}</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
         </ng-template>
