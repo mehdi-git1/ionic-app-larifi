@@ -32,7 +32,7 @@ export class MyBoardHomePage implements OnInit {
   totalNotifications: number;
   isLoading = false;
 
-  PAGE_SIZE = 10;
+  PAGE_SIZE = 15;
 
   previousPageNumber: number;
   nextPageNumber: number;
