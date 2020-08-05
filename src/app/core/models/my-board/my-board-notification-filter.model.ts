@@ -5,7 +5,7 @@ export class MyBoardNotificationFilterModel {
   creationDate: Date;
   notifiedPncMatricule: string;
   concernedPncMatricule: string;
-  documentType: NotificationDocumentTypeEnum;
+  documentTypes: Set<NotificationDocumentTypeEnum>;
   sortColumn: string;
   sortDirection: SortDirection;
 

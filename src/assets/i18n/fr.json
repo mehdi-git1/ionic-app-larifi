@@ -752,6 +752,9 @@
             "PROFESSIONAL_INTERVIEW": "Bilan Pro",
             "LOGBOOK": "Journal de bord",
             "HR_DOCUMENT": "Documents RH"
+        },
+        "FILTERS": {
+            "TITLE": "Filtres"
         }
     },
     "HELP_ASSET_LIST": {
