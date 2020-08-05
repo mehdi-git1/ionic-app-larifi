@@ -2,23 +2,25 @@
     <no-data> </no-data>
 </div>
 <ng-template #displayData>
-    <div class="notification-card-container" [class.unread]="!notification.checked" *ngFor="let notification of notificationList">
-        <ion-card class="clickable" (click)="openNotification(notification)">
-            <ion-card-content>
-                <div class="notification-infos">
-                    <div class="concerned-pnc-infos">
-                        <span>{{notification.concernedPnc.lastName }}</span>&nbsp;
-                        <span class="firstname">{{notification.concernedPnc.firstName }}</span>&nbsp;
-                        <span>({{notification.concernedPnc.matricule }})</span>&nbsp;
-                        <span>{{notification.concernedPnc.currentSpeciality}}</span>
+    <div class="notification-list-container">
+        <div class="notification-card-container" [class.unread]="!notification.checked" *ngFor="let notification of notificationList">
+            <ion-card class="clickable" (click)="openNotification(notification)">
+                <ion-card-content>
+                    <div class="notification-infos">
+                        <div class="concerned-pnc-infos">
+                            <span>{{notification.concernedPnc.lastName }}</span>&nbsp;
+                            <span class="firstname">{{notification.concernedPnc.firstName }}</span>&nbsp;
+                            <span>({{notification.concernedPnc.matricule }})</span>&nbsp;
+                            <span>{{notification.concernedPnc.currentSpeciality}}</span>
+                        </div>
+                        <div class="metadata-container">
+                            <div class="date-item"> {{notification.creationDate | date: 'dd/MM/yyyy' }}</div>
+                            <ion-badge class="{{getClass(notification.documentType)}}">{{getDocumentTypeTranslation(notification.documentType)}}</ion-badge>
+                        </div>
                     </div>
-                    <div class="metadata-container">
-                        <div class="date-item"> {{notification.creationDate | date: 'dd/MM/yyyy' }}</div>
-                        <ion-badge class="{{getClass(notification.documentType)}}">{{getDocumentTypeTranslation(notification.documentType)}}</ion-badge>
-                    </div>
-                </div>
-                <div class="notification-title">{{ notification.title}}</div>
-            </ion-card-content>
-        </ion-card>
+                    <div class="notification-title">{{ notification.title}}</div>
+                </ion-card-content>
+            </ion-card>
+        </div>
     </div>
 </ng-template>
