@@ -3,6 +3,7 @@ import { CareerObjectiveCategory } from './career-objective-category';
 import { DivisionModel } from './division.model';
 import { HrDocumentCategory } from './hr-document/hr-document-category';
 import { LogbookEventCategory } from './logbook/logbook-event-category';
+import { MyBoardInitDataModel } from './my-board/my-board-init-data.model';
 import { ProfessionalInterviewModel } from './professional-interview/professional-interview.model';
 import { RelayModel } from './statutory-certificate/relay.model';
 
@@ -37,4 +38,6 @@ export class AppInitDataModel {
     eformsWrittenUrl: string;
 
     cabinReportsWrittenUrl: string;
+
+    myBoardInitData: MyBoardInitDataModel;
 }

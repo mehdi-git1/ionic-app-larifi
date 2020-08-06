@@ -751,10 +751,12 @@
             "WAYPOINT": "Point d'étape",
             "PROFESSIONAL_INTERVIEW": "Bilan Pro",
             "LOGBOOK": "Journal de bord",
-            "HR_DOCUMENT": "Documents RH"
+            "HR_DOCUMENT": "Documents RH",
+            "PROFESSIONAL_LEVEL": "NivPro"
         },
         "FILTERS": {
-            "TITLE": "Filtres"
+            "TITLE": "Filtres",
+            "DOCUMENT_TYPE": "Type de document"
         }
     },
     "HELP_ASSET_LIST": {
