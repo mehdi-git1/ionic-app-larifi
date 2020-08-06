@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <page-header (refreshPage)="initPage()" [showRefreshIcon]="true" [pnc]="pnc">
-            <span *ngIf="pnc">
+            <span *ngIf="pnc" slot="center">
                 {{ 'GLOBAL.UPCOMING_FLIGHT' | isMyPage:pnc | translate }}
             </span>
         </page-header>

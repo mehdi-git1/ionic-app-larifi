@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
-            <span *ngIf="pnc"> {{ 'CONGRATULATION_LETTERS.TITLE' | isMyPage: pnc | translate }}</span>
+            <span *ngIf="pnc" slot="center"> {{ 'CONGRATULATION_LETTERS.TITLE' | isMyPage: pnc | translate }}</span>
         </page-header>
     </ion-toolbar>
 </ion-header>

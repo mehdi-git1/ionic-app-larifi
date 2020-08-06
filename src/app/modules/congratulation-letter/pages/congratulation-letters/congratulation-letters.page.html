@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true" [showSettingsIcon]="true" [pnc]="pnc">
-            <span *ngIf="pnc"> {{ 'CONGRATULATION_LETTERS.TITLE' | isMyPage: pnc | translate }}</span>
+            <span *ngIf="pnc" slot="center"> {{ 'CONGRATULATION_LETTERS.TITLE' | isMyPage: pnc | translate }}</span>
         </page-header>
     </ion-toolbar>
     <pnc-edossier-header [activeTab]="TabHeaderEnum.CONGRATULATION_LETTERS_PAGE"></pnc-edossier-header>
@@ -10,12 +10,10 @@
 <ion-content no-bounce>
     <div class="page-container">
         <nav class="tabs">
-            <button (click)="displayReceivedLetters()"
-                [ngClass]="{'active': isTabActive(CongratulationLetterModeEnum.RECEIVED)}">
+            <button (click)="displayReceivedLetters()" [ngClass]="{'active': isTabActive(CongratulationLetterModeEnum.RECEIVED)}">
                 {{ 'CONGRATULATION_LETTERS.TABS.RECEIVED_LETTERS' | translate }}
             </button>
-            <button (click)="displayWrittenLetters()"
-                [ngClass]="{'active': isTabActive(CongratulationLetterModeEnum.WRITTEN)}">
+            <button (click)="displayWrittenLetters()" [ngClass]="{'active': isTabActive(CongratulationLetterModeEnum.WRITTEN)}">
                 {{ 'CONGRATULATION_LETTERS.TABS.WRITTEN_LETTERS' | translate }}
             </button>
         </nav>
@@ -23,8 +21,7 @@
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
 
-            <div class="button-bar button-bar-right"
-                *ngIf="canCreateLetter() && isTabActive(CongratulationLetterModeEnum.RECEIVED)">
+            <div class="button-bar button-bar-right" *ngIf="canCreateLetter() && isTabActive(CongratulationLetterModeEnum.RECEIVED)">
                 <ion-button (click)="createNewLetter()" color="primarylight">
                     <ion-icon name="md-add" ios="md-add"></ion-icon>
                     {{ 'CONGRATULATION_LETTERS.BUTTONS.CREATE_NEW_LETTER' | translate }}
@@ -32,14 +29,10 @@
             </div>
 
             <!-- Lettres reçues -->
-            <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.RECEIVED)"
-                [mode]="CongratulationLetterModeEnum.RECEIVED" [congratulationLetters]="receivedCongratulationLetters"
-                [pnc]="pnc"></congratulation-letter-list>
+            <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.RECEIVED)" [mode]="CongratulationLetterModeEnum.RECEIVED" [congratulationLetters]="receivedCongratulationLetters" [pnc]="pnc"></congratulation-letter-list>
 
             <!-- Lettres rédigées -->
-            <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.WRITTEN)"
-                [mode]="CongratulationLetterModeEnum.WRITTEN" [congratulationLetters]="writtenCongratulationLetters"
-                [pnc]="pnc"></congratulation-letter-list>
+            <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.WRITTEN)" [mode]="CongratulationLetterModeEnum.WRITTEN" [congratulationLetters]="writtenCongratulationLetters" [pnc]="pnc"></congratulation-letter-list>
         </ng-template>
     </div>
 </ion-content>

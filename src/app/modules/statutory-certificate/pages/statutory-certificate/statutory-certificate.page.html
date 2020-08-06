@@ -2,7 +2,9 @@
     <ion-toolbar>
         <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
-            <span *ngIf="pnc">{{ 'STATUTORY_CERTIFICATE.TITLE' | isMyPage: pnc | translate }}</span>
+            <ng-container slot="center">
+                <span *ngIf="pnc">{{ 'STATUTORY_CERTIFICATE.TITLE' | isMyPage: pnc | translate }}</span>
+            </ng-container>
         </page-header>
     </ion-toolbar>
     <pnc-edossier-header [activeTab]="TabHeaderEnum.STATUTORY_CERTIFICATE_PAGE"></pnc-edossier-header>

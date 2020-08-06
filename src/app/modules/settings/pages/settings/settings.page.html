@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="false">
-            {{ 'SETTINGS.TITLE' | translate }}
+            <ng-container slot="center">{{ 'SETTINGS.TITLE' | translate }}</ng-container>
         </page-header>
     </ion-toolbar>
 </ion-header>

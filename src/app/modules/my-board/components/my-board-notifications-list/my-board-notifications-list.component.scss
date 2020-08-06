@@ -19,10 +19,12 @@
              .metadata-container {
                  display: flex;
                  justify-content: space-between;
-                 width: 200px;
+                 min-width: 200px;
+                 margin-left: 10px;
 
                  ion-badge {
                      width: 110px;
+                     background: var(--ion-color-grey40);
                  }
              }
 
@@ -36,39 +38,37 @@
      }
  }
 
-
-
  .unread {
      .notification-title {
          font-weight: bold;
          color: var(--ion-color-primary-shade);
      }
- }
 
- .logbook {
-     background: var(--ion-color-blue70) !important;
- }
+     .logbook {
+         background: var(--ion-color-blue70) !important;
+     }
 
- .eobs {
-     background: var(--ion-color-warning-tint) !important;
- }
+     .eobs {
+         background: var(--ion-color-warning-tint) !important;
+     }
 
- .congratulation_letter {
-     background: var(--ion-color-secondary-tint) !important;
- }
+     .congratulation_letter {
+         background: var(--ion-color-secondary-tint) !important;
+     }
 
- .career_objective {
-     background: var(--ion-color-success-tint) !important;
- }
+     .career_objective {
+         background: var(--ion-color-success-tint) !important;
+     }
 
- .waypoint {
-     background: var(--ion-color-success-tint) !important;
- }
+     .waypoint {
+         background: var(--ion-color-success-tint) !important;
+     }
 
- .professional_interview {
-     background: var(--ion-color-tertiary-tint) !important;
- }
+     .professional_interview {
+         background: var(--ion-color-tertiary-tint) !important;
+     }
 
- .hr_document {
-     background: var(--ion-color-green50-tint) !important;
+     .hr_document {
+         background: var(--ion-color-green50-tint) !important;
+     }
  }

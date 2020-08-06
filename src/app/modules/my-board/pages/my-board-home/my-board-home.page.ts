@@ -5,16 +5,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
-    NotificationDocumentTypeEnum
+  NotificationDocumentTypeEnum
 } from '../../../../core/enums/my-board/notification-document-type.enum';
 import {
-    MyBoardNotificationFilterModel
+  MyBoardNotificationFilterModel
 } from '../../../../core/models/my-board/my-board-notification-filter.model';
 import {
-    PagedMyBoardNotificationModel
+  PagedMyBoardNotificationModel
 } from '../../../../core/models/my-board/paged-my-board-notification.model';
 import {
-    MyBoardNotificationService
+  MyBoardNotificationService
 } from '../../../../core/services/my-board/my-board-notification.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 
@@ -28,9 +28,10 @@ enum PagePosition {
 })
 export class MyBoardHomePage implements OnInit {
   pncNotifications: Array<MyBoardNotificationModel>;
-  filter = new MyBoardNotificationFilterModel();
+  filters = new MyBoardNotificationFilterModel();
   totalNotifications: number;
   isLoading = false;
+  isMenuOpened = true;
 
   PAGE_SIZE = 15;
 
@@ -45,25 +46,47 @@ export class MyBoardHomePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.filter.size = this.PAGE_SIZE;
-    this.filter.offset = 0;
-    this.filter.page = 0;
+    this.filters.size = this.PAGE_SIZE;
+    this.resetPageNumber();
   }
 
   ionViewDidEnter() {
+    this.launchFirstSearch();
+  }
+
+  /**
+   * Lance une recherche suite à une mise à jour des filtres
+   */
+  applyFilters() {
+    this.resetPageNumber();
+    this.launchFirstSearch();
+  }
+
+  /**
+   * Remet à zéro le numéro de page
+   */
+  resetPageNumber() {
+    this.filters.offset = 0;
+    this.filters.page = 0;
+  }
+
+  /**
+   * Lance la recherche initiale
+   */
+  launchFirstSearch() {
     this.pncNotifications = new Array<MyBoardNotificationModel>();
-    this.filter.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
+    this.filters.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
     this.isLoading = true;
     this.initPageNumbers();
-    this.getPncNotifications(this.filter, PagePosition.NEXT);
+    this.getPncNotifications(this.filters, PagePosition.NEXT);
   }
 
   /**
    * Initialise les numéros de page afin de gérer la pagination bi-directionnelle
    */
   initPageNumbers() {
-    this.previousPageNumber = this.filter.page - 1;
-    this.nextPageNumber = this.filter.page + 1;
+    this.previousPageNumber = this.filters.page - 1;
+    this.nextPageNumber = this.filters.page + 1;
   }
 
   /**
@@ -72,13 +95,9 @@ export class MyBoardHomePage implements OnInit {
    */
   loadPreviousPage(event) {
     if (this.previousPageNumber >= 0) {
-      this.filter.page = this.previousPageNumber--;
-      this.filter.offset = this.filter.page * this.filter.size;
-      this.getPncNotifications(this.filter, PagePosition.PREVIOUS).then(() => {
-        event.target.complete();
-      });
-    } else {
-      event.target.disabled = true;
+      this.filters.page = this.previousPageNumber--;
+      this.filters.offset = this.filters.page * this.filters.size;
+      this.getPncNotifications(this.filters, PagePosition.PREVIOUS);
     }
   }
 
@@ -88,13 +107,9 @@ export class MyBoardHomePage implements OnInit {
    */
   loadNextPage(event) {
     if (this.nextPageNumber < (this.totalNotifications / this.PAGE_SIZE)) {
-      this.filter.page = this.nextPageNumber++;
-      this.filter.offset = this.filter.page * this.filter.size;
-      this.getPncNotifications(this.filter, PagePosition.NEXT).then(() => {
-        event.target.complete();
-      });
-    } else {
-      event.target.disabled = true;
+      this.filters.page = this.nextPageNumber++;
+      this.filters.offset = this.filters.page * this.filters.size;
+      this.getPncNotifications(this.filters, PagePosition.NEXT);
     }
   }
 
@@ -115,7 +130,7 @@ export class MyBoardHomePage implements OnInit {
       } else {
         this.pncNotifications.unshift(...pagedNotification.content);
       }
-      this.filter.page = pagedNotification.page.number;
+      this.filters.page = pagedNotification.page.number;
       this.totalNotifications = pagedNotification.page.totalElements;
     }).finally(() => {
       this.isLoading = false;
@@ -136,7 +151,7 @@ export class MyBoardHomePage implements OnInit {
    * @param notification la notification à ouvrir
    */
   openNotification(notification: MyBoardNotificationModel) {
-    this.filter.page = notification.pageNumber;
+    this.filters.page = notification.pageNumber;
 
     if (!notification.checked) {
       this.myBoardNotificationService.readNotification(notification.techId, true);
@@ -165,6 +180,13 @@ export class MyBoardHomePage implements OnInit {
       [NotificationDocumentTypeEnum.PROFESSIONAL_LEVEL]: `${pncEDossierRoute}/professional-level`
     };
     return routes[documentType];
+  }
+
+  /**
+   * Ouvre/ferme le menu latéral contenant les filtres
+   */
+  toggleFiltersMenu() {
+    this.isMenuOpened = !this.isMenuOpened;
   }
 }
 

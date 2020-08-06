@@ -1,7 +1,10 @@
- <div class="title">
-     <h1 *ngIf="!isActiveUser()"><span class="lastname">{{ pnc?.lastName }}</span>&nbsp;<span class="firstname">{{ pnc?.firstName }}</span></h1>
-     <h1 [ngClass]="{'active-user': pnc && !isActiveUser()}">
-         <ng-content></ng-content>
-     </h1>
- </div>
- <edossier-indicators [showSettingsIcon]="showSettingsIcon" [showRefreshIcon]="showRefreshIcon" (refreshPage)="refresh()"></edossier-indicators>
+<div class="start">
+    <ng-content select="[slot=start]"></ng-content>
+</div>
+<div class="title">
+    <h1 *ngIf="!isActiveUser()"><span class="lastname">{{ pnc?.lastName }}</span>&nbsp;<span class="firstname">{{ pnc?.firstName }}</span></h1>
+    <h1 [ngClass]="{'active-user': pnc && !isActiveUser()}">
+        <ng-content select="[slot=center]"></ng-content>
+    </h1>
+</div>
+<edossier-indicators [showSettingsIcon]="showSettingsIcon" [showRefreshIcon]="showRefreshIcon" (refreshPage)="refresh()"></edossier-indicators>

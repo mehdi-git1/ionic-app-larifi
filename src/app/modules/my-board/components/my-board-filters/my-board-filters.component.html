@@ -1,0 +1,13 @@
+<h2>{{ 'MY_BOARD.FILTERS.TITLE' | translate }}</h2>
+<form [formGroup]="filterForm">
+    <div class="filter">
+        <ion-label>{{ 'MY_BOARD.FILTERS.DOCUMENT_TYPE' | translate }}</ion-label>
+        <mat-select formControlName="documentTypes" (selectionChange)="documentTypesChanged($event)" multiple>
+            <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.value" (onSelectionChange)="documentTypesChanged($event)">
+                {{ documentType.label }}
+            </mat-option>
+        </mat-select>
+    </div>
+
+    <ion-button class="reinit-button" color="primary" fill="outline" (click)="resetFilters()">{{ 'MY_BOARD.FILTERS.REINIT_BUTTON' | translate }}</ion-button>
+</form>
