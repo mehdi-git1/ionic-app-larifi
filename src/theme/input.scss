@@ -38,13 +38,18 @@ ion-input {
     }
 }
 
-mat-select {
-    height: 40px;
+.mat-select-trigger {
+    height: 40px !important;
 
-    input {
+    .mat-select-value {
         padding: 10px 5px !important;
     }
 }
+
+mat-option {
+    background: var(--ion-color-white) !important;
+}
+
 
 .input-md,
 ion-datetime.input-like,
