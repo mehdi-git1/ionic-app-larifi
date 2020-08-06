@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="eObservation?.pnc">
-            <span> {{ 'EOBSERVATION.DETAIL.TITLE' | translate }} {{ getEObservationTypeLabel() }}</span>
+            <span slot="center"> {{ 'EOBSERVATION.DETAIL.TITLE' | translate }} {{ getEObservationTypeLabel() }}</span>
         </page-header>
     </ion-toolbar>
     <span #pncCard>

@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
-            {{ 'LOGBOOK.EDIT.EVENT_CREATION' | translate }}
+            <ng-container slot="center"> {{ 'LOGBOOK.EDIT.EVENT_CREATION' | translate }}</ng-container>
         </page-header>
     </ion-toolbar>
 </ion-header>

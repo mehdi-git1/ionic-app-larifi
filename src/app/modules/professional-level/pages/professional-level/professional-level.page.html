@@ -2,7 +2,9 @@
     <ion-toolbar>
         <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
-            <span *ngIf="pnc"> {{ 'PROFESSIONAL_LEVEL.TITLE' | isMyPage: pnc | translate }}</span>
+            <ng-container slot="center">
+                <span *ngIf="pnc"> {{ 'PROFESSIONAL_LEVEL.TITLE' | isMyPage: pnc | translate }}</span>
+            </ng-container>
         </page-header>
     </ion-toolbar>
     <pnc-edossier-header [activeTab]="TabHeaderEnum.PROFESSIONAL_LEVEL_PAGE"></pnc-edossier-header>

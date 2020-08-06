@@ -1,7 +1,10 @@
 <ion-header>
     <ion-toolbar>
         <ion-back-button color="white" slot="start"></ion-back-button>
-        <page-header [showSettingsIcon]="false" [showRefreshIcon]="false">{{ 'GLOBAL.APP_NAME' | translate }}
+        <page-header [showSettingsIcon]="false" [showRefreshIcon]="false">
+            <ng-container slot="center">
+                {{ 'GLOBAL.APP_NAME' | translate }}
+            </ng-container>
         </page-header>
     </ion-toolbar>
 </ion-header>
@@ -12,12 +15,10 @@
         <div class="container">
             <ion-card>
                 <ion-card-content>
-                    <pnc-autocomplete [(ngModel)]="selectedPnc" (onSelectPnc)="impersonateUser($event)"
-                        [ngModelOptions]="{standalone: true}"></pnc-autocomplete>
+                    <pnc-autocomplete [(ngModel)]="selectedPnc" (onSelectPnc)="impersonateUser($event)" [ngModelOptions]="{standalone: true}"></pnc-autocomplete>
                     <div class="impersonated-user" *ngIf="isImpersonatedUserComplete()">
                         <label>{{ 'IMPERSONATE.IMPERSONATED_USER' | translate }}</label>
-                        <span
-                            class="value">{{ sessionService.impersonatedUser.lastName + ' ' + sessionService.impersonatedUser.firstName + ' (' + sessionService.impersonatedUser.matricule + ')'}}</span>
+                        <span class="value">{{ sessionService.impersonatedUser.lastName + ' ' + sessionService.impersonatedUser.firstName + ' (' + sessionService.impersonatedUser.matricule + ')'}}</span>
                     </div>
                     <ion-button *ngIf="canGetMyIdentityBack()" (click)="getMyIdentityBack()">
                         {{'IMPERSONATE.BUTTONS.GET_MY_IDENTITY_BACK' | translate}}</ion-button>

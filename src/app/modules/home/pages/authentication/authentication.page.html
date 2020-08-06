@@ -1,13 +1,14 @@
 <ion-header>
     <ion-toolbar>
-        <page-header [showSettingsIcon]="false">{{ 'AUTHENT.AUTHENTICATION' | translate }}</page-header>
+        <page-header [showSettingsIcon]="false">
+            <ng-container slot="center">{{ 'AUTHENT.AUTHENTICATION' | translate }}</ng-container>
+        </page-header>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <div class="page-container">
-        <form #form="ngForm" class="row justify-content-center form-auth" [formGroup]="loginForm"
-            (ngSubmit)="sendAuthent()">
+        <form #form="ngForm" class="row justify-content-center form-auth" [formGroup]="loginForm" (ngSubmit)="sendAuthent()">
             <ion-item>
                 <ion-label position="floating">{{ 'AUTHENT.LOGIN' | translate }}</ion-label>
                 <ion-input formControlName="login" type="text"></ion-input>

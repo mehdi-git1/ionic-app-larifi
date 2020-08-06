@@ -93,4 +93,13 @@ export class MyBoardFiltersComponent implements OnInit {
         }
     }
 
+    /**
+     * Réinitialise tous les filtres
+     */
+    resetFilters() {
+        this.initForm();
+        this.filters.documentTypes = new Array();
+        this.filtersChanged.emit();
+    }
+
 }

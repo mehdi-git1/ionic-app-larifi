@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
-            <ng-container *ngIf="pnc">
+            <ng-container *ngIf="pnc" slot="center">
                 <span *ngIf="creationMode; else updateTitle">{{ 'CONGRATULATION_LETTER_CREATE.TITLE_CREATE' | isMyPage: pnc | translate }}</span>
                 <ng-template #updateTitle>{{ 'CONGRATULATION_LETTER_CREATE.TITLE_UPDATE' | translate }}
                 </ng-template>

@@ -2,11 +2,37 @@
   "metadata": {
     "name": "EDossierPNC",
     "lastOpened": 0,
-    "created": 1585818643922
+    "created": 1596727291864
   },
   "iconSets": [
     {
       "icons": [
+        {
+          "id": 20,
+          "paths": [
+            "M32 240h960v96h-960v-96z",
+            "M192 464h640v96h-640v-96z",
+            "M384 688h256v96h-256v-96z"
+          ],
+          "attrs": [
+            {},
+            {},
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "grid": 0,
+          "tags": [
+            "filter-sharp"
+          ],
+          "colorPermutations": {
+            "1710771941511651": [
+              {},
+              {},
+              {}
+            ]
+          }
+        },
         {
           "id": 19,
           "paths": [
@@ -650,12 +676,20 @@
       },
       "selection": [
         {
+          "order": 60,
+          "id": 18,
+          "name": "filter-sharp",
+          "prevSize": 32,
+          "code": 59667,
+          "tempChar": ""
+        },
+        {
           "order": 59,
           "id": 17,
           "name": "fixRecipient",
           "prevSize": 32,
           "code": 59666,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 57,
@@ -663,7 +697,7 @@
           "name": "customer-review",
           "prevSize": 32,
           "code": 59665,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 53,
@@ -671,7 +705,7 @@
           "name": "writing",
           "prevSize": 32,
           "code": 59656,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 47,
@@ -679,7 +713,7 @@
           "name": "important",
           "prevSize": 32,
           "code": 59664,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 48,
@@ -687,7 +721,7 @@
           "name": "pnc",
           "prevSize": 32,
           "code": 59652,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 43,
@@ -695,7 +729,7 @@
           "name": "pdf",
           "prevSize": 32,
           "code": 59663,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 41,
@@ -703,7 +737,7 @@
           "name": "archive",
           "prevSize": 32,
           "code": 59662,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 40,
@@ -711,7 +745,7 @@
           "name": "flag",
           "prevSize": 32,
           "code": 59661,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 38,
@@ -719,7 +753,7 @@
           "name": "memo",
           "prevSize": 32,
           "code": 59660,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 37,
@@ -727,7 +761,7 @@
           "name": "plus",
           "prevSize": 32,
           "code": 59659,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 34,
@@ -735,7 +769,7 @@
           "name": "speechBubble",
           "prevSize": 32,
           "code": 59658,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 30,
@@ -743,7 +777,7 @@
           "name": "home",
           "prevSize": 32,
           "code": 59648,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 33,
@@ -751,7 +785,7 @@
           "name": "myBoard",
           "prevSize": 32,
           "code": 59651,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 22,
@@ -759,7 +793,7 @@
           "name": "professionalLevel",
           "prevSize": 32,
           "code": 59654,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 23,
@@ -767,7 +801,7 @@
           "name": "developmentProgram",
           "prevSize": 32,
           "code": 59649,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 24,
@@ -775,7 +809,7 @@
           "name": "helpCenter",
           "prevSize": 32,
           "code": 59650,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 31,
@@ -783,7 +817,7 @@
           "name": "pncTeam",
           "prevSize": 32,
           "code": 59653,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 27,
@@ -791,7 +825,7 @@
           "name": "statutoryCertificate",
           "prevSize": 32,
           "code": 59655,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 29,
@@ -799,7 +833,7 @@
           "name": "upcomingFlight",
           "prevSize": 32,
           "code": 59657,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "prevSize": 32,

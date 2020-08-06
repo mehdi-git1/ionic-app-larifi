@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <page-header [pnc]="pnc">
-            <span *ngIf="pnc">
+            <span *ngIf="pnc" slot="center">
                 {{'HELP_ASSET_LIST.TITLE' | isMyPage:pnc | translate}}
             </span>
         </page-header>

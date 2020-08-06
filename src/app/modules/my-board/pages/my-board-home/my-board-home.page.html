@@ -1,36 +1,41 @@
 <ion-header>
     <ion-toolbar>
         <page-header>
-            {{'MY_BOARD.TITLE' | translate}}
+            <span slot="start">
+                <ion-fab-button (click)="toggleFiltersMenu()" size="small" color="primarydark">
+                    <span class="edospnc-filter-sharp"></span>
+                </ion-fab-button>
+            </span>
+            <span slot="center">{{'MY_BOARD.TITLE' | translate}}</span>
         </page-header>
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <div class="page-container">
-        <div *ngIf="!canDisplayNotifications() else onlineBlock">{{ 'MY_BOARD.UNAVAILABLE_OFFLINE' | translate }}</div>
-        <ng-template #onlineBlock>
-            <my-board-filters [filters]="filters" (filtersChanged)="applyFilters()"></my-board-filters>
-            <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>
-            <ng-template #pageBlock>
-                <ng-container *ngIf="pncNotifications && pncNotifications.length > 0; else noDataBlock">
-                    <ion-infinite-scroll (ionInfinite)="loadPreviousPage($event)" position="top" *ngIf="previousPageNumber >= 0">
-                        <ion-infinite-scroll-content>
-                        </ion-infinite-scroll-content>
-                    </ion-infinite-scroll>
-                    <my-board-notifications-list [notificationList]="pncNotifications" (notificationClicked)="openNotification($event)"></my-board-notifications-list>
-                    <ion-infinite-scroll (ionInfinite)="loadNextPage($event)">
-                        <ion-infinite-scroll-content>
-                        </ion-infinite-scroll-content>
-                    </ion-infinite-scroll>
-                </ng-container>
+    <div *ngIf="!canDisplayNotifications() else onlineBlock">{{ 'MY_BOARD.UNAVAILABLE_OFFLINE' | translate }}</div>
+    <ng-template #onlineBlock>
+        <mat-sidenav-container>
+            <mat-sidenav [(opened)]="isMenuOpened" mode="side">
+                <my-board-filters [filters]="filters" (filtersChanged)="applyFilters()"></my-board-filters>
+            </mat-sidenav>
 
-                <ng-template #noDataBlock>
-                    <div class="no-data-splash">
-                        <ion-icon name="speedometer"></ion-icon>
-                        <span>{{ 'MY_BOARD.NO_NOTIFICATIONS' | translate }}</span>
-                    </div>
-                </ng-template>
-            </ng-template>
-        </ng-template>
-    </div>
+            <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="1.5" [infiniteScrollThrottle]="50" (scrolled)="loadNextPage()" (scrolledUp)="loadPreviousPage()">
+                <div class="page-container">
+                    <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>
+                    <ng-template #pageBlock>
+                        <ng-container *ngIf="pncNotifications && pncNotifications.length > 0; else noDataBlock">
+                            <my-board-notifications-list [notificationList]="pncNotifications" (notificationClicked)="openNotification($event)"></my-board-notifications-list>
+                        </ng-container>
+
+                        <ng-template #noDataBlock>
+                            <div class="no-data-splash">
+                                <ion-icon name="speedometer"></ion-icon>
+                                <span>{{ 'MY_BOARD.NO_NOTIFICATIONS' | translate }}</span>
+                            </div>
+                        </ng-template>
+                    </ng-template>
+                </div>
+
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </ng-template>
 </ion-content>

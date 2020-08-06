@@ -1,6 +1,7 @@
 <ion-header>
     <ion-toolbar>
-        <page-header [showSettingsIcon]="false">{{ 'GLOBAL.APP_NAME' | translate }}
+        <page-header [showSettingsIcon]="false">
+            <ng-container slot="center">{{ 'GLOBAL.APP_NAME' | translate }}</ng-container>
         </page-header>
     </ion-toolbar>
 </ion-header>

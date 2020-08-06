@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
-            {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
+            <ng-container slot="center">{{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}</ng-container>
         </page-header>
     </ion-toolbar>
 </ion-header>

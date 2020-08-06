@@ -756,7 +756,8 @@
         },
         "FILTERS": {
             "TITLE": "Filtres",
-            "DOCUMENT_TYPE": "Type de document"
+            "DOCUMENT_TYPE": "Type de document",
+            "REINIT_BUTTON": "Réinitialiser"
         }
     },
     "HELP_ASSET_LIST": {

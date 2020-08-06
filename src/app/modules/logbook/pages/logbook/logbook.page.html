@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <page-header [showSettingsIcon]="true" [pnc]="pnc" (refreshPage)="refreshPage()" [showRefreshIcon]="true">
-            {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
+            <ng-container slot="center"> {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}</ng-container>
         </page-header>
     </ion-toolbar>
     <pnc-edossier-header [activeTab]="TabHeaderEnum.LOGBOOK_PAGE"></pnc-edossier-header>

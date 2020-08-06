@@ -12,3 +12,12 @@ h3 {
     border-top: 1px solid var(--ion-color-grey70);
     font-size: 1em;
 }
+
+.reinit-button {
+    width: 100%;
+    margin: 10px 0;
+}
+
+::ng-deep .mat-select-panel {
+    max-height: none !important;
+}

@@ -31,6 +31,7 @@ export class MyBoardHomePage implements OnInit {
   filters = new MyBoardNotificationFilterModel();
   totalNotifications: number;
   isLoading = false;
+  isMenuOpened = true;
 
   PAGE_SIZE = 15;
 
@@ -96,11 +97,7 @@ export class MyBoardHomePage implements OnInit {
     if (this.previousPageNumber >= 0) {
       this.filters.page = this.previousPageNumber--;
       this.filters.offset = this.filters.page * this.filters.size;
-      this.getPncNotifications(this.filters, PagePosition.PREVIOUS).then(() => {
-        event.target.complete();
-      });
-    } else {
-      event.target.disabled = true;
+      this.getPncNotifications(this.filters, PagePosition.PREVIOUS);
     }
   }
 
@@ -112,11 +109,7 @@ export class MyBoardHomePage implements OnInit {
     if (this.nextPageNumber < (this.totalNotifications / this.PAGE_SIZE)) {
       this.filters.page = this.nextPageNumber++;
       this.filters.offset = this.filters.page * this.filters.size;
-      this.getPncNotifications(this.filters, PagePosition.NEXT).then(() => {
-        event.target.complete();
-      });
-    } else {
-      event.target.disabled = true;
+      this.getPncNotifications(this.filters, PagePosition.NEXT);
     }
   }
 
@@ -187,6 +180,13 @@ export class MyBoardHomePage implements OnInit {
       [NotificationDocumentTypeEnum.PROFESSIONAL_LEVEL]: `${pncEDossierRoute}/professional-level`
     };
     return routes[documentType];
+  }
+
+  /**
+   * Ouvre/ferme le menu latéral contenant les filtres
+   */
+  toggleFiltersMenu() {
+    this.isMenuOpened = !this.isMenuOpened;
   }
 }
 

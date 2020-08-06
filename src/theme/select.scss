@@ -9,3 +9,19 @@ ion-select {
         border-color: var(--ion-color-primary);
     }
 }
+
+.mat-select-trigger {
+    height: 40px !important;
+
+    .mat-select-value {
+        padding: 10px 5px !important;
+    }
+}
+
+mat-option {
+    background: var(--ion-color-white) !important;
+}
+
+.mat-select-panel {
+    border: 1px solid var(--ion-color-grey75)
+}
