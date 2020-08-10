@@ -5,16 +5,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
-  NotificationDocumentTypeEnum
+    NotificationDocumentTypeEnum
 } from '../../../../core/enums/my-board/notification-document-type.enum';
 import {
-  MyBoardNotificationFilterModel
+    MyBoardNotificationFilterModel
 } from '../../../../core/models/my-board/my-board-notification-filter.model';
 import {
-  PagedMyBoardNotificationModel
+    PagedMyBoardNotificationModel
 } from '../../../../core/models/my-board/paged-my-board-notification.model';
 import {
-  MyBoardNotificationService
+    MyBoardNotificationService
 } from '../../../../core/services/my-board/my-board-notification.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 
@@ -31,7 +31,7 @@ export class MyBoardHomePage implements OnInit {
   filters = new MyBoardNotificationFilterModel();
   totalNotifications: number;
   isLoading = false;
-  isMenuOpened = true;
+  isMenuOpened = false;
 
   PAGE_SIZE = 15;
 

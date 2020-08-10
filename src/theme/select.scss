@@ -11,7 +11,7 @@ ion-select {
 }
 
 .mat-select-trigger {
-    height: 40px !important;
+    height: 36px !important;
 
     .mat-select-value {
         padding: 10px 5px !important;
@@ -24,4 +24,8 @@ mat-option {
 
 .mat-select-panel {
     border: 1px solid var(--ion-color-grey75)
+}
+
+.mat-select-placeholder {
+    color: var(--ion-color-grey40)
 }
