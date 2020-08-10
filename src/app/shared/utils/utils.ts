@@ -75,10 +75,10 @@ export class Utils {
     }
 
     /**
-    * Supprime les espaces de la chaine de caractère donnée
-    * @param text le texte à traiter
-    * @return le nouveau texte, dépourvu de tout espace
-    */
+     * Supprime les espaces de la chaine de caractère donnée
+     * @param text le texte à traiter
+     * @return le nouveau texte, dépourvu de tout espace
+     */
     public static removeSpaces(text: string): string {
         return text.replace(/\s+/g, '');
     }

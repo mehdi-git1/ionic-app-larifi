@@ -2,10 +2,13 @@ import { NotificationDocumentTypeEnum } from '../../enums/my-board/notification-
 import { SortDirection } from '../../enums/sort-direction-enum';
 
 export class MyBoardNotificationFilterModel {
-  creationDate: Date;
   notifiedPncMatricule: string;
-  concernedPncMatricule: string;
   documentTypes: Array<NotificationDocumentTypeEnum>;
+
+  creationStartDate: string;
+  creationEndDate: string;
+
+  // Tri
   sortColumn: string;
   sortDirection: SortDirection;
 

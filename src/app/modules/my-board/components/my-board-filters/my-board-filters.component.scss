@@ -13,6 +13,15 @@ h3 {
     font-size: 1em;
 }
 
+.filter {
+    margin-bottom: 10px;
+}
+
+.filter-dual {
+    display: flex;
+    justify-content: space-between;
+}
+
 .reinit-button {
     width: 100%;
     margin: 10px 0;
@@ -20,4 +29,16 @@ h3 {
 
 ::ng-deep .mat-select-panel {
     max-height: none !important;
+}
+
+::ng-deep edospnc-datetime {
+    ion-item {
+        --padding-start: 0;
+        --inner-padding-end: 0;
+
+        ion-datetime.input-like {
+            margin-top: 0;
+            width: 110px;
+        }
+    }
 }
