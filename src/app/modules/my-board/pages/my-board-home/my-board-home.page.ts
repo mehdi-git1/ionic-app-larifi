@@ -78,7 +78,11 @@ export class MyBoardHomePage implements OnInit {
     this.filters.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
     this.isLoading = true;
     this.initPageNumbers();
-    this.getPncNotifications(this.filters, PagePosition.NEXT);
+    this.getPncNotifications(this.filters, PagePosition.NEXT).then((pncNotifications) => {
+      // Dans le cas où on revient sur la dernière page, on charge la page précédente pour être sûr
+      // d'avoir assez de contenu pour avoir une scrollbar
+      this.loadPreviousPage(null);
+    });
   }
 
   /**
