@@ -20,10 +20,27 @@ ion-select {
 
 mat-option {
     background: var(--ion-color-white) !important;
+
+    mat-pseudo-checkbox {
+        border-color: var(--ion-color-secondary) !important;
+
+        &::after {
+            color: var(--ion-color-secondary)
+        }
+    }
+
+    .mat-option-text {
+        font-family: var(--ion-font-family, inherit);
+    }
+}
+
+.mat-select-panel-wrap {
+    flex-basis: 80% !important;
 }
 
 .mat-select-panel {
-    border: 1px solid var(--ion-color-grey75)
+    border: 1px solid var(--ion-color-grey75);
+    min-width: 285px !important;
 }
 
 .mat-select-placeholder {

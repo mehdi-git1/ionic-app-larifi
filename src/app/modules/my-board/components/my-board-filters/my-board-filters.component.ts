@@ -1,19 +1,22 @@
+import * as moment from 'moment';
 import {
     MyBoardNotificationFilterModel
 } from 'src/app/core/models/my-board/my-board-notification-filter.model';
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 import { SessionService } from '../../../../core/services/session/session.service';
+import { FormsUtil } from '../../../../shared/utils/forms-util';
+import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'my-board-filters',
     templateUrl: './my-board-filters.component.html',
     styleUrls: ['./my-board-filters.component.scss'],
 })
-export class MyBoardFiltersComponent implements OnInit {
+export class MyBoardFiltersComponent implements AfterViewInit {
 
     @Input() filters: MyBoardNotificationFilterModel;
     @Output() filtersChanged = new EventEmitter<MyBoardNotificationFilterModel>();
@@ -26,14 +29,14 @@ export class MyBoardFiltersComponent implements OnInit {
         private sessionService: SessionService,
         private formBuilder: FormBuilder,
         private translateService: TranslateService
-
     ) {
         this.documentTypes = this.initDocumentTypes();
 
         this.initForm();
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
+        this.resetFilters();
     }
 
     /**
@@ -42,6 +45,17 @@ export class MyBoardFiltersComponent implements OnInit {
     initForm() {
         this.filterForm = this.formBuilder.group({
             documentTypes: [''],
+            creationStartDate: [''],
+            creationEndDate: ['']
+        });
+
+        this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
+            this.filters.documentTypes = [...newForm.documentTypes];
+            this.filters.creationStartDate = Utils.isEmpty(newForm.creationStartDate) ? '' : new Date(newForm.creationStartDate)
+                .toISOString();
+            this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
+                .toISOString();
+            this.filtersChanged.next();
         });
     }
 
@@ -80,26 +94,29 @@ export class MyBoardFiltersComponent implements OnInit {
     }
 
     /**
-     * Déclenché quand les types de document sont mis à jour
-     * @param event l'événement déclenché
-     */
-    documentTypesChanged(event) {
-        if (event.value !== undefined) {
-            this.filters.documentTypes = new Array();
-            for (const documentType of event.value) {
-                this.filters.documentTypes.push(documentType);
-            }
-            this.filtersChanged.emit();
-        }
-    }
-
-    /**
      * Réinitialise tous les filtres
      */
     resetFilters() {
-        this.initForm();
         this.filters.documentTypes = new Array();
-        this.filtersChanged.emit();
+        this.filters.creationStartDate = this.getDefaultCreationStartDate();
+        this.filters.creationEndDate = this.getDefaultCreationEndDate();
+        FormsUtil.reset(this.filterForm, this.filters);
+    }
+
+    /**
+     * Récupère la date de début par défaut
+     * @return la date de début par défaut
+     */
+    getDefaultCreationStartDate(): string {
+        return moment().subtract(60, 'days').toISOString();
+    }
+
+    /**
+     * Récupère la date de fin par défaut
+     * @return la date de fin par défaut
+     */
+    getDefaultCreationEndDate(): string {
+        return moment().toISOString();
     }
 
 }

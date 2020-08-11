@@ -1,6 +1,5 @@
 import { HtmlService } from 'src/app/core/file/html/html.service';
 import { PncModel } from 'src/app/core/models/pnc.model';
-import { DeviceService } from 'src/app/core/services/device/device.service';
 import { SessionService } from 'src/app/core/services/session/session.service';
 
 import { Component, Input, OnInit } from '@angular/core';
@@ -19,9 +18,9 @@ export class ContactComponent implements OnInit {
     phoneNumbers: string[];
     contactPNLink: AppParameterModel;
 
-    constructor(private sessionService: SessionService,
+    constructor(
+        private sessionService: SessionService,
         private htmlService: HtmlService,
-        private deviceService: DeviceService,
         private securityService: SecurityService) {
     }
 
@@ -50,10 +49,4 @@ export class ContactComponent implements OnInit {
         return this.securityService.isManager();
     }
 
-    /**
-     * Verifie si on est en mode Web
-     */
-    isBrowser() {
-        return this.deviceService.isBrowser();
-    }
 }

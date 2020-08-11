@@ -14,7 +14,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class MyBoardNotificationOnlineService {
+export class OnlineMyBoardNotificationService {
 
   constructor(
     private restService: RestService,

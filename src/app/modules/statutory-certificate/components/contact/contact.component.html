@@ -8,13 +8,12 @@
         </div>
     </li>
 
-    <li *ngIf="isManager() && isBrowser()" (click)="goToLink(contactPNLink.value)" class="clickable">
+    <li *ngIf="isManager()" (click)="goToLink(contactPNLink.value)" class="clickable">
         <ion-thumbnail>
             <ion-icon name="link"></ion-icon>
         </ion-thumbnail>
         <div class="content">
-            <h4>{{'STATUTORY_CERTIFICATE.CONTACT.CONTACT_PN_LINK' | translate }}
-            </h4>
+            <h4>{{'STATUTORY_CERTIFICATE.CONTACT.CONTACT_PN_LINK' | translate }}</h4>
         </div>
     </li>
 </ul>

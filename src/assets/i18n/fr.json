@@ -757,6 +757,8 @@
         "FILTERS": {
             "TITLE": "Filtres",
             "DOCUMENT_TYPE": "Type de document",
+            "START_DATE": "Du",
+            "END_DATE": "Au",
             "REINIT_BUTTON": "Réinitialiser"
         }
     },

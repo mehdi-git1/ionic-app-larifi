@@ -5,12 +5,13 @@ h2 {
     color: var(--ion-color-secondary);
 }
 
-h3 {
-    color: var(--ion-color-secondary);
-    margin: 0;
-    padding: 8px 0;
-    border-top: 1px solid var(--ion-color-grey70);
-    font-size: 1em;
+.filter {
+    margin-bottom: 10px;
+}
+
+.filter-dual {
+    display: flex;
+    justify-content: space-between;
 }
 
 .reinit-button {
@@ -20,4 +21,16 @@ h3 {
 
 ::ng-deep .mat-select-panel {
     max-height: none !important;
+}
+
+::ng-deep edospnc-datetime {
+    ion-item {
+        --padding-start: 0;
+        --inner-padding-end: 0;
+
+        ion-datetime.input-like {
+            margin-top: 0;
+            width: 110px;
+        }
+    }
 }

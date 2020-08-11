@@ -1,5 +1,3 @@
-
-
 import { Injectable } from '@angular/core';
 
 import {
@@ -10,8 +8,8 @@ import {
 } from '../../models/my-board/paged-my-board-notification.model';
 import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
-import { MyBoardNotificationOfflineService } from './my-board-notification-offline.service';
-import { MyBoardNotificationOnlineService } from './my-board-notification-online.service';
+import { OfflineMyBoardNotificationService } from './offline-my-board-notification.service';
+import { OnlineMyBoardNotificationService } from './online-my-board-notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +18,8 @@ export class MyBoardNotificationService extends BaseService {
 
   constructor(
     public connectivityService: ConnectivityService,
-    private onlineService: MyBoardNotificationOnlineService,
-    private offlineService: MyBoardNotificationOfflineService,
+    private onlineService: OnlineMyBoardNotificationService,
+    private offlineService: OfflineMyBoardNotificationService,
   ) {
     super(connectivityService, onlineService, offlineService);
   }
