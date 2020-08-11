@@ -1,8 +1,8 @@
 <h2>{{ 'MY_BOARD.FILTERS.TITLE' | translate }}</h2>
 <form [formGroup]="filterForm">
     <div class="filter">
-        <mat-select formControlName="documentTypes" (selectionChange)="documentTypesChanged($event)" multiple placeholder="{{ 'MY_BOARD.FILTERS.DOCUMENT_TYPE' | translate }}">
-            <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.value" (onSelectionChange)="documentTypesChanged($event)">
+        <mat-select formControlName="documentTypes" multiple placeholder="{{ 'MY_BOARD.FILTERS.DOCUMENT_TYPE' | translate }}">
+            <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.value">
                 {{ documentType.label }}
             </mat-option>
         </mat-select>
