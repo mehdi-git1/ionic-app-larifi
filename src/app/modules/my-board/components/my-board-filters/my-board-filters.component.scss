@@ -17,6 +17,10 @@ h2 {
 .reinit-button {
     width: 100%;
     margin: 10px 0;
+
+    ion-label {
+        margin-left: 10px;
+    }
 }
 
 ::ng-deep .mat-select-panel {
@@ -32,6 +36,16 @@ h2 {
             margin-top: 0;
             width: 110px;
         }
+    }
+}
+
+.date-filter {
+    margin-top: 24px;
+}
+
+.archived-filter {
+    ion-label {
+        margin-left: 10px;
     }
 }
 

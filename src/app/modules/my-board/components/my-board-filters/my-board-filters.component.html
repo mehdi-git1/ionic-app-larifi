@@ -7,7 +7,7 @@
             </mat-option>
         </mat-select>
     </div>
-    <div class="filter-dual">
+    <div class="filter-dual date-filter">
         <div class="filter flex align-center">
             <label class="start-date-label"> {{ 'MY_BOARD.FILTERS.START_DATE' | translate }}</label>&nbsp;
             <edospnc-datetime class="start-date" [edospncFormGroup]="filterForm" edospncFormControlName="creationStartDate" [displayIcon]="false" inputLike="true"></edospnc-datetime>
@@ -17,12 +17,15 @@
             <edospnc-datetime class="end-date" [edospncFormGroup]="filterForm" edospncFormControlName="creationEndDate" [displayIcon]="false" inputLike="true"></edospnc-datetime>
         </div>
     </div>
-    <div class="filter">
-        <ion-item>
-            <ion-label>{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}</ion-label>
+    <div class="filter archived-filter">
+        <ion-item lines="none">
             <ion-checkbox formControlName="archived" placeholder="{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}"></ion-checkbox>
+            <ion-label>{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}</ion-label>
         </ion-item>
     </div>
 
-    <ion-button class=" reinit-button" color="primary" fill="outline" (click)="resetFilters()">{{ 'MY_BOARD.FILTERS.REINIT_BUTTON' | translate }}</ion-button>
+    <ion-button class=" reinit-button" color="primary" fill="outline" (click)="resetFilters()">
+        <ion-icon name="close"></ion-icon>
+        <ion-label>{{ 'MY_BOARD.FILTERS.REINIT_BUTTON' | translate }}</ion-label>
+    </ion-button>
 </form>
