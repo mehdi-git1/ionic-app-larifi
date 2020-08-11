@@ -17,6 +17,12 @@
             <edospnc-datetime class="end-date" [edospncFormGroup]="filterForm" edospncFormControlName="creationEndDate" [displayIcon]="false" inputLike="true"></edospnc-datetime>
         </div>
     </div>
+    <div class="filter">
+        <ion-item>
+            <ion-label>{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}</ion-label>
+            <ion-checkbox formControlName="archived" placeholder="{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}"></ion-checkbox>
+        </ion-item>
+    </div>
 
     <ion-button class=" reinit-button" color="primary" fill="outline" (click)="resetFilters()">{{ 'MY_BOARD.FILTERS.REINIT_BUTTON' | translate }}</ion-button>
 </form>

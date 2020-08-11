@@ -1,10 +1,22 @@
-.button-bar {
-    & > button:not(:first-child) {
+.button-bar,
+.button-bar-right {
+    display: flex;
+
+    & > button:not(:first-child),
+    ion-button:not(:first-child) {
         margin-left: 10px;
+    }
+
+    button,
+    ion-button {
+
+        label,
+        ion-label {
+            margin-left: 8px;
+        }
     }
 }
 
 .button-bar-right {
-    display: flex;
     justify-content: flex-end;
 }

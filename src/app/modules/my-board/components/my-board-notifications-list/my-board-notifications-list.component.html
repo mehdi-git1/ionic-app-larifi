@@ -3,6 +3,6 @@
 </div>
 <ng-template #displayData>
     <div class="notification-list-container">
-        <my-board-notification-card *ngFor="let notification of notificationList" [notification]="notification"></my-board-notification-card>
+        <my-board-notification-card *ngFor="let notification of notificationList" [notification]="notification" (click)="openNotification(notification)"></my-board-notification-card>
     </div>
 </ng-template>

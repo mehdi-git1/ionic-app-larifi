@@ -249,20 +249,30 @@ export class MyBoardHomePage {
    * Archive les notificaitons sélectionnées
    */
   archiveSelectedNotifications() {
-    this.myBoardNotificationService.archiveNotifications(this.getSelectedNotificationIds(), true).then(() => {
-      this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_ARCHIVED'));
-      this.launchFirstSearch();
-    });
+    const selectedNotificationIds = this.getSelectedNotificationIds();
+    if (selectedNotificationIds.length === 0) {
+      this.toastService.warning(this.translateService.instant('MY_BOARD.MESSAGES.WARNING.NO_SELECTED_ITEM'));
+    } else {
+      this.myBoardNotificationService.archiveNotifications(selectedNotificationIds, true).then(() => {
+        this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_ARCHIVED'));
+        this.launchFirstSearch();
+      });
+    }
   }
 
   /**
    * Supprime les notifications sélectionnées
    */
   deleteSelectedNotifications() {
-    this.myBoardNotificationService.deleteNotifications(this.getSelectedNotificationIds()).then(() => {
-      this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_DELETED'));
-      this.launchFirstSearch();
-    });
+    const selectedNotificationIds = this.getSelectedNotificationIds();
+    if (selectedNotificationIds.length === 0) {
+      this.toastService.warning(this.translateService.instant('MY_BOARD.MESSAGES.WARNING.NO_SELECTED_ITEM'));
+    } else {
+      this.myBoardNotificationService.deleteNotifications(selectedNotificationIds).then(() => {
+        this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_DELETED'));
+        this.launchFirstSearch();
+      });
+    }
   }
 
   /**

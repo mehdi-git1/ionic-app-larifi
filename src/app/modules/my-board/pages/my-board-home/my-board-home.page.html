@@ -26,10 +26,12 @@
                             <div class="button-bar">
                                 <ion-button (click)="archiveSelectedNotifications()" color="primarylight">
                                     <ion-icon name="archive"></ion-icon>
+                                    <ion-label>{{ 'MY_BOARD.BUTTONS.ARCHIVE' | translate }}</ion-label>
                                 </ion-button>
 
-                                <ion-button (click)="deleteSelectedNotifications()" color="primarylight" outline>
+                                <ion-button (click)="deleteSelectedNotifications()" color="secondary" fill="outline">
                                     <ion-icon name="trash"></ion-icon>
+                                    <ion-label>{{ 'MY_BOARD.BUTTONS.DELETE' | translate }}</ion-label>
                                 </ion-button>
                             </div>
 

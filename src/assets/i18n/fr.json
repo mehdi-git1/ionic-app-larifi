@@ -759,13 +759,21 @@
             "DOCUMENT_TYPE": "Type de document",
             "START_DATE": "Du",
             "END_DATE": "Au",
+            "ARCHIVED": "Archivé",
             "REINIT_BUTTON": "Réinitialiser"
         },
         "MESSAGES": {
             "SUCCESS": {
                 "NOTIFICATIONS_ARCHIVED": "Notifications archivées",
                 "NOTIFICATIONS_DELETED": "Notifications supprimées"
+            },
+            "WARNING": {
+                "NO_SELECTED_ITEM": "Aucune notification n'a été sélectionnée"
             }
+        },
+        "BUTTONS": {
+            "ARCHIVE": "Archiver",
+            "DELETE": "Supprimer"
         }
     },
     "HELP_ASSET_LIST": {
