@@ -1,9 +1,8 @@
-
-
 import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { RestService } from '../../http/rest/rest.base.service';
+import { IdsModel } from '../../models/ids.model';
 import {
     MyBoardNotificationFilterModel
 } from '../../models/my-board/my-board-notification-filter.model';
@@ -37,5 +36,23 @@ export class OnlineMyBoardNotificationService {
    */
   readNotification(notificationId: number, isRead: boolean) {
     return this.restService.put(this.urlConfiguration.getBackEndUrl('readMyBoardNotification', [notificationId, isRead]), null);
+  }
+
+  /**
+   * Archive/désarchive une liste de notifications
+   * @param notificationIds les ids des notifications à traiter
+   * @param isArchived si les notifications doivent être archivées/désarchivées
+   */
+  archiveNotifications(notificationIds: Array<number>, isArchived: boolean) {
+    return this.restService.put(this.urlConfiguration.getBackEndUrl('archiveNotifications', [isArchived]), new IdsModel(notificationIds));
+  }
+
+  /**
+   * Supprime une liste de notifications
+   * @param notificationIds les ids des notifications à supprimer
+   */
+  deleteNotifications(notificationIds: Array<number>) {
+    return this.restService
+      .post(this.urlConfiguration.getBackEndUrl('deleteNotifications'), new IdsModel(notificationIds));
   }
 }

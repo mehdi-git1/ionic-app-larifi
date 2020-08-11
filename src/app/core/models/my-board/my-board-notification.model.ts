@@ -13,6 +13,7 @@ export class MyBoardNotificationModel extends EDossierPncObjectModel {
 
   // Transient
   pageNumber: number;
+  selected: boolean;
 
   getStorageId(): string {
     return `${this.techId}`;

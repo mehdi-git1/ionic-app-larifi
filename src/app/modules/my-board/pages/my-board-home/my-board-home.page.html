@@ -23,6 +23,16 @@
                     <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>
                     <ng-template #pageBlock>
                         <ng-container *ngIf="pncNotifications && pncNotifications.length > 0; else noDataBlock">
+                            <div class="button-bar">
+                                <ion-button (click)="archiveSelectedNotifications()" color="primarylight">
+                                    <ion-icon name="archive"></ion-icon>
+                                </ion-button>
+
+                                <ion-button (click)="deleteSelectedNotifications()" color="primarylight" outline>
+                                    <ion-icon name="trash"></ion-icon>
+                                </ion-button>
+                            </div>
+
                             <my-board-notifications-list [notificationList]="pncNotifications" (notificationClicked)="openNotification($event)"></my-board-notifications-list>
                         </ng-container>
 

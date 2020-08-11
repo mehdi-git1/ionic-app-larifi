@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 
 import { MyBoardFiltersComponent } from './components/my-board-filters/my-board-filters.component';
 import {
-  MyBoardNotificationsListComponent
+    MyBoardNotificationCardComponent
+} from './components/my-board-notification-card/my-board-notification-card.component';
+import {
+    MyBoardNotificationsListComponent
 } from './components/my-board-notifications-list/my-board-notifications-list.component';
 import { MyBoardHomePage } from './pages/my-board-home/my-board-home.page';
 
 @NgModule({
   declarations: [
     MyBoardNotificationsListComponent,
+    MyBoardNotificationCardComponent,
     MyBoardFiltersComponent,
     MyBoardHomePage
   ],

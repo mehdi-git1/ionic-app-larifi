@@ -43,4 +43,25 @@ export class MyBoardNotificationService extends BaseService {
   readNotification(notificationId: number, isRead: boolean) {
     return this.execFunctionService('readNotification', notificationId, isRead);
   }
+
+  /**
+   * Archive/désarchive une liste de notifications
+   * @param notificationIds les ids des notifications à traiter
+   * @param isArchived si les notifications doivent être archivées/désarchivées
+   */
+  archiveNotifications(notificationIds: Array<number>, isArchived: boolean) {
+    if (notificationIds.length > 0) {
+      return this.execFunctionService('archiveNotifications', notificationIds, isArchived);
+    }
+  }
+
+  /**
+   * Supprime une liste de notifications
+   * @param notificationIds les ids des notifications à supprimer
+   */
+  deleteNotifications(notificationIds: Array<number>) {
+    if (notificationIds.length > 0) {
+      return this.execFunctionService('deleteNotifications', notificationIds);
+    }
+  }
 }

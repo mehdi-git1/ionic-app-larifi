@@ -760,6 +760,12 @@
             "START_DATE": "Du",
             "END_DATE": "Au",
             "REINIT_BUTTON": "Réinitialiser"
+        },
+        "MESSAGES": {
+            "SUCCESS": {
+                "NOTIFICATIONS_ARCHIVED": "Notifications archivées",
+                "NOTIFICATIONS_DELETED": "Notifications supprimées"
+            }
         }
     },
     "HELP_ASSET_LIST": {

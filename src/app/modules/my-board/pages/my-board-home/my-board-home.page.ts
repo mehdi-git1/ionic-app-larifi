@@ -4,6 +4,7 @@ import { ConnectivityService } from 'src/app/core/services/connectivity/connecti
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import {
     NotificationDocumentTypeEnum
@@ -18,6 +19,7 @@ import {
     MyBoardNotificationService
 } from '../../../../core/services/my-board/my-board-notification.service';
 import { SessionService } from '../../../../core/services/session/session.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
 
 enum PagePosition {
   FIRST, PREVIOUS, NEXT
@@ -47,6 +49,8 @@ export class MyBoardHomePage {
     private sessionService: SessionService,
     private myBoardNotificationService: MyBoardNotificationService,
     private connectivityService: ConnectivityService,
+    private toastService: ToastService,
+    private translateService: TranslateService,
     private router: Router
   ) {
     this.filters.size = this.PAGE_SIZE;
@@ -239,6 +243,36 @@ export class MyBoardHomePage {
    */
   toggleFiltersMenu() {
     this.isMenuOpened = !this.isMenuOpened;
+  }
+
+  /**
+   * Archive les notificaitons sélectionnées
+   */
+  archiveSelectedNotifications() {
+    this.myBoardNotificationService.archiveNotifications(this.getSelectedNotificationIds(), true).then(() => {
+      this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_ARCHIVED'));
+      this.launchFirstSearch();
+    });
+  }
+
+  /**
+   * Supprime les notifications sélectionnées
+   */
+  deleteSelectedNotifications() {
+    this.myBoardNotificationService.deleteNotifications(this.getSelectedNotificationIds()).then(() => {
+      this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_DELETED'));
+      this.launchFirstSearch();
+    });
+  }
+
+  /**
+   * Récupère la liste des ids des notifications sélectionnées
+   * @return la liste des ids des notifications sélectionnées
+   */
+  getSelectedNotificationIds(): Array<number> {
+    return this.pncNotifications
+      .filter(pncNotification => pncNotification.selected)
+      .map(pncNotification => pncNotification.techId);
   }
 }
 

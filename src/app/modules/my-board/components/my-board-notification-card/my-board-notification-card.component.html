@@ -1,0 +1,20 @@
+<div class="notification-card-container clickable" [class.unread]="!notification.checked">
+    <div class="checkbox-container" (click)="selectNotification(notification, $event)">
+        <ion-checkbox [(ngModel)]="notification.selected" (click)="$event.stopPropagation()"></ion-checkbox>
+    </div>
+    <div class="notification-content">
+        <div class="notification-infos">
+            <div class="concerned-pnc-infos">
+                <span>{{notification.concernedPnc.lastName }}</span>&nbsp;
+                <span class="firstname">{{notification.concernedPnc.firstName }}</span>&nbsp;
+                <span>({{notification.concernedPnc.matricule }})</span>&nbsp;
+                <span>{{notification.concernedPnc.currentSpeciality}}</span>
+            </div>
+            <div class="metadata-container">
+                <div class="date-item"> {{notification.creationDate | date: 'dd/MM/yyyy' }}</div>
+                <ion-badge class="{{getClass(notification.documentType)}}">{{getDocumentTypeTranslation(notification.documentType)}}</ion-badge>
+            </div>
+        </div>
+        <div class="notification-title">{{ notification.title}}</div>
+    </div>
+</div>
