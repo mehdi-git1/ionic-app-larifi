@@ -8,6 +8,8 @@ export class MyBoardNotificationFilterModel {
   creationStartDate: string;
   creationEndDate: string;
 
+  archived: boolean;
+
   // Tri
   sortColumn: string;
   sortDirection: SortDirection;

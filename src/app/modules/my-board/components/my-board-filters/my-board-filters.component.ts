@@ -46,7 +46,8 @@ export class MyBoardFiltersComponent implements AfterViewInit {
         this.filterForm = this.formBuilder.group({
             documentTypes: [''],
             creationStartDate: [''],
-            creationEndDate: ['']
+            creationEndDate: [''],
+            archived: [false]
         });
 
         this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
@@ -55,6 +56,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
                 .toISOString();
             this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
                 .toISOString();
+            this.filters.archived = newForm.archived;
             this.filtersChanged.next();
         });
     }
@@ -100,6 +102,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
         this.filters.documentTypes = new Array();
         this.filters.creationStartDate = this.getDefaultCreationStartDate();
         this.filters.creationEndDate = this.getDefaultCreationEndDate();
+        this.filters.archived = false;
         FormsUtil.reset(this.filterForm, this.filters);
     }
 

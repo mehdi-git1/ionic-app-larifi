@@ -13,7 +13,41 @@ mat-sidenav {
     height: 100%;
 }
 
-
 .edospnc-filter-sharp {
     transform: scale(0.8);
+}
+
+.button-bar {
+    align-items: center;
+
+    @media only screen and (max-width:768px) {
+        flex-direction: column;
+    }
+
+    .left-data-container {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+
+        .select-all-container {
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+
+            ion-checkbox {
+                margin-right: 8px;
+            }
+        }
+
+        .total-notifications,
+        .total-selected-notifications {
+            margin-left: 20px;
+        }
+    }
+
+    .button-bar-right {
+        flex: 1;
+        align-self: flex-end;
+    }
 }

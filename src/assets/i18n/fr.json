@@ -743,6 +743,8 @@
         "TITLE": "MyBoard",
         "NO_NOTIFICATIONS": "Aucune notification trouvée",
         "UNAVAILABLE_OFFLINE": "MyBoard non disponible en déconnecté",
+        "TOTAL": "Total : {{total}}",
+        "TOTAL_SELECTED": "Sélectionnées : {{total}}",
         "DOCUMENT_TYPE": {
             "ALL": "Tous",
             "CONGRATULATION_LETTER": "Félicitations",
@@ -759,7 +761,26 @@
             "DOCUMENT_TYPE": "Type de document",
             "START_DATE": "Du",
             "END_DATE": "Au",
+            "ARCHIVED": "Notifications archivées",
             "REINIT_BUTTON": "Réinitialiser"
+        },
+        "MESSAGES": {
+            "SUCCESS": {
+                "NOTIFICATIONS_ARCHIVED": "Notifications archivées",
+                "NOTIFICATIONS_DELETED": "Notifications supprimées"
+            },
+            "WARNING": {
+                "NO_SELECTED_ITEM": "Aucune notification n'a été sélectionnée"
+            }
+        },
+        "CONFIRM_DELETION_ALERT": {
+            "TITLE": "Confirmation de suppression",
+            "MESSAGE": "La suppression est définitive. Confirmez vous la suppression ?"
+        },
+        "BUTTONS": {
+            "ARCHIVE": "Archiver",
+            "DELETE": "Supprimer",
+            "SELECT_ALL": "Tout sélectionner"
         }
     },
     "HELP_ASSET_LIST": {

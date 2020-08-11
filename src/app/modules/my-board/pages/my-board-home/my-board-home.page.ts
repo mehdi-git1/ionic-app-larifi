@@ -3,7 +3,9 @@ import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 
 import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import {
     NotificationDocumentTypeEnum
@@ -14,10 +16,12 @@ import {
 import {
     PagedMyBoardNotificationModel
 } from '../../../../core/models/my-board/paged-my-board-notification.model';
+import { AlertDialogService } from '../../../../core/services/alertDialog/alert-dialog.service';
 import {
     MyBoardNotificationService
 } from '../../../../core/services/my-board/my-board-notification.service';
 import { SessionService } from '../../../../core/services/session/session.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
 
 enum PagePosition {
   FIRST, PREVIOUS, NEXT
@@ -38,6 +42,8 @@ export class MyBoardHomePage {
   isLoading = false;
   isMenuOpened = false;
 
+  selectAllCheckboxValue = false;
+
   PAGE_SIZE = 15;
 
   previousPageNumber: number;
@@ -47,6 +53,10 @@ export class MyBoardHomePage {
     private sessionService: SessionService,
     private myBoardNotificationService: MyBoardNotificationService,
     private connectivityService: ConnectivityService,
+    private toastService: ToastService,
+    private translateService: TranslateService,
+    private alertDialogService: AlertDialogService,
+    private formBuilder: FormBuilder,
     private router: Router
   ) {
     this.filters.size = this.PAGE_SIZE;
@@ -113,6 +123,7 @@ export class MyBoardHomePage {
    */
   handleFirstPageSearch(filters: MyBoardNotificationFilterModel): Observable<PagedMyBoardNotificationModel> {
     this.isLoading = true;
+    this.selectAllCheckboxValue = false;
     return this.getPncNotifications(filters);
   }
 
@@ -187,6 +198,9 @@ export class MyBoardHomePage {
     } else {
       this.pncNotifications = pagedNotification.content;
     }
+
+    this.selectAllCheckboxValue = false;
+
     this.totalNotifications = pagedNotification.page.totalElements;
   }
 
@@ -239,6 +253,82 @@ export class MyBoardHomePage {
    */
   toggleFiltersMenu() {
     this.isMenuOpened = !this.isMenuOpened;
+  }
+
+  /**
+   * Archive les notificaitons sélectionnées
+   */
+  archiveSelectedNotifications() {
+    const selectedNotificationIds = this.getSelectedNotificationIds();
+    if (selectedNotificationIds.length === 0) {
+      this.toastService.warning(this.translateService.instant('MY_BOARD.MESSAGES.WARNING.NO_SELECTED_ITEM'));
+    } else {
+      this.myBoardNotificationService.archiveNotifications(selectedNotificationIds, true).then(() => {
+        this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_ARCHIVED'));
+        this.launchFirstSearch();
+      });
+    }
+  }
+
+  /**
+   * Ouvre une popup de confirmation pour la demande de suppression
+   */
+  confirmNotificationsDeletion() {
+    if (this.getSelectedNotificationIds().length === 0) {
+      this.toastService.warning(this.translateService.instant('MY_BOARD.MESSAGES.WARNING.NO_SELECTED_ITEM'));
+    } else {
+      const dialogForm = this.formBuilder.group({
+        dialogTitle: [this.translateService.instant('MY_BOARD.CONFIRM_DELETION_ALERT.TITLE')],
+        dialogMsg: [this.translateService.instant('MY_BOARD.CONFIRM_DELETION_ALERT.MESSAGE')],
+        dialogType: ['confirm'],
+        okBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.CONFIRM')],
+        cancelBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.CANCEL')]
+      });
+      const dialogRef = this.alertDialogService.openAlertDialog(dialogForm.value);
+      dialogRef.afterClosed().toPromise().then((result) => {
+        if (result === 'ok' || result === 'true') {
+          this.deleteSelectedNotifications();
+        }
+      });
+    }
+  }
+
+  /**
+   * Supprime les notifications sélectionnées
+   */
+  deleteSelectedNotifications() {
+    this.myBoardNotificationService.deleteNotifications(this.getSelectedNotificationIds()).then(() => {
+      this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_DELETED'));
+      this.launchFirstSearch();
+    });
+  }
+
+  /**
+   * Récupère la liste des ids des notifications sélectionnées
+   * @return la liste des ids des notifications sélectionnées
+   */
+  getSelectedNotificationIds(): Array<number> {
+    return this.pncNotifications
+      .filter(pncNotification => pncNotification.selected)
+      .map(pncNotification => pncNotification.techId);
+  }
+
+  /**
+   * Sélectionne/déselectionne toutes les notifications
+   */
+  toggleSelectAll() {
+    this.selectAllCheckboxValue = !this.selectAllCheckboxValue;
+    this.pncNotifications.forEach(pncNotification => {
+      pncNotification.selected = this.selectAllCheckboxValue;
+    });
+  }
+
+  /**
+   * Récupère le nombre de notifications sélectionnées
+   * @return le nombre de notifications sélectionnées
+   */
+  getSelectedNotificationTotal(): number {
+    return this.pncNotifications.filter(pncNotification => pncNotification.selected).length;
   }
 }
 

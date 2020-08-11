@@ -1,74 +1,7 @@
  .notification-list-container {
      padding-bottom: 20px;
 
-     ion-card {
-         background: var(--ion-color-white);
-         color: var(--ion-color-grey10);
-
-         .notification-infos {
-             display: flex;
-             justify-content: space-between;
-             margin-bottom: 5px;
-
-             .concerned-pnc-infos {
-                 text-overflow: ellipsis;
-                 white-space: nowrap;
-                 overflow: hidden;
-             }
-
-             .metadata-container {
-                 display: flex;
-                 justify-content: space-between;
-                 min-width: 210px;
-                 margin-left: 10px;
-
-                 ion-badge {
-                     width: 120px;
-                     background: var(--ion-color-grey40);
-                 }
-             }
-
-         }
-
-         .notification-title {
-             text-overflow: ellipsis;
-             white-space: nowrap;
-             overflow: hidden;
-         }
-     }
- }
-
- .unread {
-     .notification-title {
-         font-weight: bold;
-         color: var(--ion-color-primary-shade);
-     }
-
-     .logbook {
-         background: var(--ion-color-blue70) !important;
-     }
-
-     .eobs {
-         background: var(--ion-color-warning-tint) !important;
-     }
-
-     .congratulation_letter {
-         background: var(--ion-color-secondary-tint) !important;
-     }
-
-     .career_objective {
-         background: var(--ion-color-success-tint) !important;
-     }
-
-     .waypoint {
-         background: var(--ion-color-success-tint) !important;
-     }
-
-     .professional_interview {
-         background: var(--ion-color-tertiary-tint) !important;
-     }
-
-     .hr_document {
-         background: var(--ion-color-green50-tint) !important;
+     ::ng-deep .notification-card-container {
+         margin: 10px 0;
      }
  }
