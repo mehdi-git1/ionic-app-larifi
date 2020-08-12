@@ -12,7 +12,6 @@ export class MyBoardNotificationModel extends EDossierPncObjectModel {
   creationDate: Date;
 
   // Transient
-  pageNumber: number;
   selected: boolean;
 
   getStorageId(): string {

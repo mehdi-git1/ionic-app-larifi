@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {
     NotificationDocumentTypeEnum
 } from '../../../../core/enums/my-board/notification-document-type.enum';
+import { PagePositionEnum } from '../../../../core/enums/page-position.enum';
 import {
     MyBoardNotificationFilterModel
 } from '../../../../core/models/my-board/my-board-notification-filter.model';
@@ -23,9 +24,6 @@ import {
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 
-enum PagePosition {
-  FIRST, NEXT
-}
 @Component({
   selector: 'my-board-home',
   templateUrl: './my-board-home.page.html',
@@ -34,8 +32,7 @@ enum PagePosition {
 export class MyBoardHomePage {
   pncNotifications = new Array<MyBoardNotificationModel>();
   filters = new MyBoardNotificationFilterModel();
-  nextPageSubject = new Subject<MyBoardNotificationFilterModel>();
-  firstPageSubject = new Subject<MyBoardNotificationFilterModel>();
+  filtersSubject = new Subject<MyBoardNotificationFilterModel>();
 
   totalNotifications: number;
   isLoading = false;
@@ -44,9 +41,6 @@ export class MyBoardHomePage {
   selectAllCheckboxValue = false;
 
   PAGE_SIZE = 15;
-
-  previousPageNumber: number;
-  nextPageNumber: number;
 
   constructor(
     private sessionService: SessionService,
@@ -61,16 +55,10 @@ export class MyBoardHomePage {
     this.filters.size = this.PAGE_SIZE;
     this.resetPageNumber();
 
-    this.nextPageSubject
-      .switchMap((filters) => this.handleNextPageSearch(filters))
+    this.filtersSubject
+      .switchMap((filters) => this.handlePageSearch(filters))
       .subscribe(pncNotifications => {
-        this.handleNotificationSearchResponse(pncNotifications, PagePosition.NEXT);
-      });
-
-    this.firstPageSubject
-      .switchMap((filters) => this.handleFirstPageSearch(filters))
-      .subscribe(pncNotifications => {
-        this.handleNotificationSearchResponse(pncNotifications, PagePosition.FIRST);
+        this.handleNotificationSearchResponse(pncNotifications);
       });
   }
 
@@ -90,8 +78,8 @@ export class MyBoardHomePage {
    */
   applyFilters() {
     this.resetPageNumber();
-    this.initPageNumbers();
-    this.firstPageSubject.next(this.filters);
+    this.filters.pagePosition = PagePositionEnum.FIRST;
+    this.filtersSubject.next(this.filters);
   }
 
   /**
@@ -106,45 +94,37 @@ export class MyBoardHomePage {
    * Lance la recherche initiale
    */
   launchFirstSearch() {
-    this.initPageNumbers();
-    this.firstPageSubject.next(this.filters);
+    this.filters.pagePosition = PagePositionEnum.FIRST;
+    this.filtersSubject.next(this.filters);
   }
 
   /**
-   * Initialise les numéros de page afin de gérer la pagination bi-directionnelle
+   * Gère la recherche en fonction des filtres passés
+   * @param filters les filtres à utiliser dans la recherche
+   * @return un observable contenant les résultats de la recherche
    */
-  initPageNumbers() {
-    this.previousPageNumber = this.filters.page - 1;
-    this.nextPageNumber = this.filters.page + 1;
-  }
+  handlePageSearch(filters: MyBoardNotificationFilterModel): Observable<PagedMyBoardNotificationModel> {
+    if (filters.pagePosition === PagePositionEnum.FIRST) {
+      this.isLoading = true;
+      this.selectAllCheckboxValue = false;
+      return this.getPncNotifications(filters);
+    } else {
+      if (this.totalNotifications === undefined || this.filters.page < (this.totalNotifications / this.PAGE_SIZE)) {
+        this.filters.page++;
+        this.filters.offset = this.filters.page * this.filters.size;
+        return this.getPncNotifications(filters);
+      }
+    }
 
-  /**
-   * Gère la récupération de la page initiale
-   */
-  handleFirstPageSearch(filters: MyBoardNotificationFilterModel): Observable<PagedMyBoardNotificationModel> {
-    this.isLoading = true;
-    this.selectAllCheckboxValue = false;
-    return this.getPncNotifications(filters);
+    return new Observable();
   }
 
   /**
    * Charge la page suivante
    */
   loadNextPage() {
-    this.nextPageSubject.next(this.filters);
-  }
-
-  /**
-   * Gère la récupération de la page suivante
-   */
-  handleNextPageSearch(filters: MyBoardNotificationFilterModel): Observable<PagedMyBoardNotificationModel> {
-    if (this.totalNotifications === undefined || this.nextPageNumber < (this.totalNotifications / this.PAGE_SIZE)) {
-      this.filters.page = this.nextPageNumber++;
-      this.filters.offset = this.filters.page * this.filters.size;
-      return this.getPncNotifications(filters);
-    } else {
-      return new Observable();
-    }
+    this.filters.pagePosition = PagePositionEnum.NEXT;
+    this.filtersSubject.next(this.filters);
   }
 
   /**
@@ -162,14 +142,9 @@ export class MyBoardHomePage {
   /**
    * Traite les notifications récupérées
    * @param pagedNotification la page contenant les notifications
-   * @param pagePosition la position de la page
    */
-  handleNotificationSearchResponse(pagedNotification: any, pagePosition: PagePosition) {
-    // Ajoute le numéro de page sur chaque notification afin de pouvoir retomber sur cette page à l'ouverte d'une notif
-    pagedNotification.content.forEach(notification => {
-      notification.pageNumber = this.filters.page;
-    });
-    if (pagePosition === PagePosition.NEXT) {
+  handleNotificationSearchResponse(pagedNotification: any) {
+    if (this.filters.pagePosition === PagePositionEnum.NEXT) {
       this.pncNotifications = this.pncNotifications.concat(pagedNotification.content);
     } else {
       this.pncNotifications = pagedNotification.content;
@@ -195,8 +170,6 @@ export class MyBoardHomePage {
    * @param notification la notification à ouvrir
    */
   openNotification(notification: MyBoardNotificationModel) {
-    this.filters.page = notification.pageNumber;
-
     if (!notification.checked) {
       this.myBoardNotificationService.readNotification(notification.techId, true).then(() => {
         notification.checked = true;
