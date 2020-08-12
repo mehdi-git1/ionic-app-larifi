@@ -107,6 +107,7 @@ export class MyBoardHomePage {
    * Lance la recherche initiale
    */
   launchFirstSearch() {
+    this.initPageNumbers();
     this.firstPageSubject.next(this.filters);
   }
 
@@ -139,6 +140,7 @@ export class MyBoardHomePage {
    * Gère la récupération de la page suivante
    */
   handlePreviousPageSearch(filters: MyBoardNotificationFilterModel): Observable<PagedMyBoardNotificationModel> {
+    console.log('load previous');
     if (this.previousPageNumber >= 0) {
       this.filters.page = this.previousPageNumber--;
       this.filters.offset = this.filters.page * this.filters.size;
@@ -176,8 +178,6 @@ export class MyBoardHomePage {
     return from(this.myBoardNotificationService.getNotifications(filters)
       .then((pagedNotification) => {
         return pagedNotification;
-      }).finally(() => {
-        this.isLoading = false;
       }));
   }
 
@@ -202,6 +202,8 @@ export class MyBoardHomePage {
     this.selectAllCheckboxValue = false;
 
     this.totalNotifications = pagedNotification.page.totalElements;
+
+    this.isLoading = false;
   }
 
   /**
@@ -330,6 +332,7 @@ export class MyBoardHomePage {
   getSelectedNotificationTotal(): number {
     return this.pncNotifications.filter(pncNotification => pncNotification.selected).length;
   }
+
 }
 
 
