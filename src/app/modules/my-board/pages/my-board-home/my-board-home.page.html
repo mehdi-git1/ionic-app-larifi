@@ -41,7 +41,7 @@
                 <my-board-filters [filters]="filters" (filtersChanged)="applyFilters()"></my-board-filters>
             </mat-sidenav>
 
-            <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="1.5" [infiniteScrollThrottle]="50" (scrolled)="loadNextPage($event)" (scrolledUp)="loadPreviousPage($event)">
+            <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="1.5" [infiniteScrollThrottle]="50" alwaysCallback="true" (scrolled)="loadNextPage($event)" (scrolledUp)="loadPreviousPage($event)">
                 <div class="page-container">
                     <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>
                     <ng-template #pageBlock>
