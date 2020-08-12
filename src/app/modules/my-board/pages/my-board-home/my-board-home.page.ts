@@ -178,6 +178,8 @@ export class MyBoardHomePage {
     return from(this.myBoardNotificationService.getNotifications(filters)
       .then((pagedNotification) => {
         return pagedNotification;
+      }).catch(error => {
+        return error;
       }));
   }
 
@@ -331,6 +333,14 @@ export class MyBoardHomePage {
    */
   getSelectedNotificationTotal(): number {
     return this.pncNotifications.filter(pncNotification => pncNotification.selected).length;
+  }
+
+  /**
+   * Vérifie si des notifications sont présentes
+   * @return vrai si c'est le cas, faux sinon
+   */
+  hasNotifications() {
+    return this.pncNotifications && this.pncNotifications.length > 0;
   }
 
 }

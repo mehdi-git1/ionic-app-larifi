@@ -9,6 +9,29 @@
             <span slot="center">{{'MY_BOARD.TITLE' | translate}}</span>
         </page-header>
     </ion-toolbar>
+    <div class="button-bar-container" *ngIf="hasNotifications()">
+        <div class="button-bar">
+            <div class=" left-data-container">
+                <div class="select-all-container clickable" (click)="toggleSelectAll()">
+                    <ion-checkbox [checked]="selectAllCheckboxValue"></ion-checkbox>
+                    <ion-label>{{ 'MY_BOARD.BUTTONS.SELECT_ALL' | translate }}</ion-label>
+                </div>
+                <span class="total-notifications">{{ 'MY_BOARD.TOTAL' | translate:{total:totalNotifications} }}</span>
+                <span class="total-selected-notifications">{{ 'MY_BOARD.TOTAL_SELECTED' | translate:{total:getSelectedNotificationTotal()} }}</span>
+            </div>
+            <div class="button-bar-right">
+                <ion-button (click)="archiveSelectedNotifications()" color="primarylight">
+                    <ion-icon name="archive"></ion-icon>
+                    <ion-label>{{ 'MY_BOARD.BUTTONS.ARCHIVE' | translate }}</ion-label>
+                </ion-button>
+
+                <ion-button (click)="confirmNotificationsDeletion()" color="secondary" fill="outline">
+                    <ion-icon name="trash"></ion-icon>
+                    <ion-label>{{ 'MY_BOARD.BUTTONS.DELETE' | translate }}</ion-label>
+                </ion-button>
+            </div>
+        </div>
+    </div>
 </ion-header>
 <ion-content>
     <div *ngIf="!canDisplayNotifications() else onlineBlock">{{ 'MY_BOARD.UNAVAILABLE_OFFLINE' | translate }}</div>
@@ -22,29 +45,7 @@
                 <div class="page-container">
                     <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>
                     <ng-template #pageBlock>
-                        <ng-container *ngIf="pncNotifications && pncNotifications.length > 0; else noDataBlock">
-                            <div class="button-bar">
-                                <div class="left-data-container">
-                                    <div class="select-all-container clickable" (click)="toggleSelectAll()">
-                                        <ion-checkbox [checked]="selectAllCheckboxValue"></ion-checkbox>
-                                        <ion-label>{{ 'MY_BOARD.BUTTONS.SELECT_ALL' | translate }}</ion-label>
-                                    </div>
-                                    <span class="total-notifications">{{ 'MY_BOARD.TOTAL' | translate:{total:totalNotifications} }}</span>
-                                    <span class="total-selected-notifications">{{ 'MY_BOARD.TOTAL_SELECTED' | translate:{total:getSelectedNotificationTotal()} }}</span>
-                                </div>
-                                <div class="button-bar-right">
-                                    <ion-button (click)="archiveSelectedNotifications()" color="primarylight">
-                                        <ion-icon name="archive"></ion-icon>
-                                        <ion-label>{{ 'MY_BOARD.BUTTONS.ARCHIVE' | translate }}</ion-label>
-                                    </ion-button>
-
-                                    <ion-button (click)="confirmNotificationsDeletion()" color="secondary" fill="outline">
-                                        <ion-icon name="trash"></ion-icon>
-                                        <ion-label>{{ 'MY_BOARD.BUTTONS.DELETE' | translate }}</ion-label>
-                                    </ion-button>
-                                </div>
-                            </div>
-
+                        <ng-container *ngIf="hasNotifications(); else noDataBlock">
                             <my-board-notifications-list [notificationList]="pncNotifications" (notificationClicked)="openNotification($event)"></my-board-notifications-list>
                         </ng-container>
 
