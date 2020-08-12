@@ -1,4 +1,4 @@
-<div class="notification-card-container clickable" [class.unread]="!notification.checked">
+<div class="notification-card-container clickable elevation-1" [class.unread]="!notification.checked">
     <div class="checkbox-container" (click)="selectNotification(notification, $event)">
         <ion-checkbox [(ngModel)]="notification.selected" (click)="$event.stopPropagation()"></ion-checkbox>
     </div>

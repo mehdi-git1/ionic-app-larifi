@@ -34,7 +34,7 @@ export class MyBoardHomePage {
   filters = new MyBoardNotificationFilterModel();
   filtersSubject = new Subject<MyBoardNotificationFilterModel>();
 
-  totalNotifications: number;
+  totalNotifications = 0;
   isLoading = false;
   isMenuOpened = false;
 
@@ -65,12 +65,26 @@ export class MyBoardHomePage {
   ionViewDidEnter() {
     this.filters.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
 
-    this.getPncNotifications(this.filters).toPromise().then((pagedPncNotifications) => {
-      // Si le nombre de notif a changé, on réinitialise la recherche
-      if (pagedPncNotifications.page.totalElements !== this.totalNotifications) {
-        this.launchFirstSearch();
-      }
-    });
+    if (this.totalNotifications !== 0) {
+      this.getPncNotifications(this.filters).toPromise().then((pagedPncNotifications) => {
+        // Si le nombre de notif a changé, on demande à l'utilisateur s'il souhaite relancer la recherche pour mettre à jour la vue
+        if (pagedPncNotifications.page.totalElements !== this.totalNotifications) {
+          const dialogForm = this.formBuilder.group({
+            dialogTitle: [this.translateService.instant('MY_BOARD.CONFIRM_LIST_REFRESH.TITLE')],
+            dialogMsg: [this.translateService.instant('MY_BOARD.CONFIRM_LIST_REFRESH.MESSAGE')],
+            dialogType: ['confirm'],
+            okBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.YES')],
+            cancelBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.NO')]
+          });
+          const dialogRef = this.alertDialogService.openAlertDialog(dialogForm.value);
+          dialogRef.afterClosed().toPromise().then((result) => {
+            if (result === 'ok' || result === 'true') {
+              this.launchFirstSearch();
+            }
+          });
+        }
+      });
+    }
   }
 
   /**

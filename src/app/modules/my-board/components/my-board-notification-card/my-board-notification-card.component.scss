@@ -1,9 +1,6 @@
 .notification-card-container {
-    background: var(--ion-color-white);
+    background: var(--ion-color-grey90);
     color: var(--ion-color-grey10);
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2),
-        0 2px 2px 0 rgba(0, 0, 0, .14),
-        0 1px 5px 0 rgba(0, 0, 0, .12);
     border-radius: 4px;
     height: 70px;
 
@@ -35,12 +32,14 @@
             .metadata-container {
                 display: flex;
                 justify-content: space-between;
-                min-width: 210px;
+                min-width: 240px;
                 margin-left: 10px;
 
                 ion-badge {
-                    width: 120px;
-                    background: var(--ion-color-grey40);
+                    width: 140px;
+                    background: transparent;
+                    color: var(--ion-color-primary);
+                    border: 1px solid var(--ion-color-primary);
                 }
             }
 
@@ -56,36 +55,14 @@
 }
 
 .unread {
+    background: var(--ion-color-white);
+
     .notification-title {
         font-weight: bold;
-        color: var(--ion-color-primary-shade);
+        color: var(--ion-color-primary);
     }
 
-    .logbook {
-        background: var(--ion-color-blue70) !important;
-    }
-
-    .eobs {
-        background: var(--ion-color-warning-tint) !important;
-    }
-
-    .congratulation_letter {
-        background: var(--ion-color-secondary-tint) !important;
-    }
-
-    .career_objective {
-        background: var(--ion-color-success-tint) !important;
-    }
-
-    .waypoint {
-        background: var(--ion-color-success-tint) !important;
-    }
-
-    .professional_interview {
-        background: var(--ion-color-tertiary-tint) !important;
-    }
-
-    .hr_document {
-        background: var(--ion-color-green50-tint) !important;
+    ion-badge {
+        background: var(--ion-color-white);
     }
 }

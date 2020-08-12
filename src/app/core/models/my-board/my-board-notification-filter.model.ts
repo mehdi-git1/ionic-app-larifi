@@ -1,5 +1,5 @@
 import { NotificationDocumentTypeEnum } from '../../enums/my-board/notification-document-type.enum';
-import { PagePosition as PagePositionEnum } from '../../enums/page-position.enum';
+import { PagePositionEnum } from '../../enums/page-position.enum';
 import { SortDirection } from '../../enums/sort-direction-enum';
 
 export class MyBoardNotificationFilterModel {

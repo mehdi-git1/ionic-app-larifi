@@ -753,6 +753,8 @@
             "WAYPOINT": "Point d'étape",
             "PROFESSIONAL_INTERVIEW": "Bilan Pro",
             "LOGBOOK": "Journal de bord",
+            "LOGBOOK_CCO": "Journal de bord - CCO",
+            "LOGBOOK_ISCV": "Journal de bord - ISCV",
             "HR_DOCUMENT": "Documents RH",
             "PROFESSIONAL_LEVEL": "NivPro"
         },
@@ -778,8 +780,8 @@
             "MESSAGE": "La suppression est définitive. Confirmez vous la suppression ?"
         },
         "CONFIRM_LIST_REFRESH": {
-            "TITLE": "Nouvelles notifications reçues",
-            "MESSAGE": "La recherche doit être relancée pour les afficher. Souhaitez vous le faire maintenant ?"
+            "TITLE": "Nouvelle notification reçue",
+            "MESSAGE": "Une nouvelle notification est arrivée. Souhaitez vous actualiser la page maintenant ?"
         },
         "BUTTONS": {
             "ARCHIVE": "Archiver",
