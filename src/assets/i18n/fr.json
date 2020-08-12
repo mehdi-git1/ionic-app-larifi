@@ -777,6 +777,10 @@
             "TITLE": "Confirmation de suppression",
             "MESSAGE": "La suppression est définitive. Confirmez vous la suppression ?"
         },
+        "CONFIRM_LIST_REFRESH": {
+            "TITLE": "Nouvelles notifications reçues",
+            "MESSAGE": "La recherche doit être relancée pour les afficher. Souhaitez vous le faire maintenant ?"
+        },
         "BUTTONS": {
             "ARCHIVE": "Archiver",
             "DELETE": "Supprimer",

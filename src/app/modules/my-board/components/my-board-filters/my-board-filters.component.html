@@ -1,31 +1,34 @@
-<h2>{{ 'MY_BOARD.FILTERS.TITLE' | translate }}</h2>
+<h2>
+    {{ 'MY_BOARD.FILTERS.TITLE' | translate }}
+    <ion-button class=" reinit-button" color="grey95" (click)="resetFilters()">
+        <ion-label>{{ 'MY_BOARD.FILTERS.REINIT_BUTTON' | translate }}</ion-label>
+    </ion-button>
+</h2>
 <form [formGroup]="filterForm">
     <div class="filter">
-        <mat-select formControlName="documentTypes" multiple placeholder="{{ 'MY_BOARD.FILTERS.DOCUMENT_TYPE' | translate }}">
+        <label>{{ 'MY_BOARD.FILTERS.DOCUMENT_TYPE' | translate }}</label>
+        <mat-select formControlName="documentTypes" multiple>
             <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.value">
                 {{ documentType.label }}
             </mat-option>
         </mat-select>
     </div>
     <div class="filter-dual date-filter">
-        <div class="filter flex align-center">
-            <label class="start-date-label"> {{ 'MY_BOARD.FILTERS.START_DATE' | translate }}</label>&nbsp;
+        <div class="filter">
+            <label class="start-date-label"> {{ 'MY_BOARD.FILTERS.START_DATE' | translate }}</label>
             <edospnc-datetime class="start-date" [edospncFormGroup]="filterForm" edospncFormControlName="creationStartDate" [displayIcon]="false" inputLike="true"></edospnc-datetime>
         </div>
-        <div class="filter flex align-center">
-            &nbsp;<label class="start-date-label"> {{ 'MY_BOARD.FILTERS.END_DATE' | translate }}</label>&nbsp;
+        <div class="filter">
+            <label class="start-date-label"> {{ 'MY_BOARD.FILTERS.END_DATE' | translate }}</label>
             <edospnc-datetime class="end-date" [edospncFormGroup]="filterForm" edospncFormControlName="creationEndDate" [displayIcon]="false" inputLike="true"></edospnc-datetime>
         </div>
     </div>
     <div class="filter archived-filter">
-        <ion-item lines="none">
+        <ion-item>
             <ion-checkbox formControlName="archived" placeholder="{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}"></ion-checkbox>
             <ion-label>{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}</ion-label>
         </ion-item>
     </div>
 
-    <ion-button class=" reinit-button" color="primary" fill="outline" (click)="resetFilters()">
-        <ion-icon name="close"></ion-icon>
-        <ion-label>{{ 'MY_BOARD.FILTERS.REINIT_BUTTON' | translate }}</ion-label>
-    </ion-button>
+
 </form>

@@ -24,7 +24,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { ToastService } from '../../../../core/services/toast/toast.service';
 
 enum PagePosition {
-  FIRST, PREVIOUS, NEXT
+  FIRST, NEXT
 }
 @Component({
   selector: 'my-board-home',
@@ -34,7 +34,6 @@ enum PagePosition {
 export class MyBoardHomePage {
   pncNotifications = new Array<MyBoardNotificationModel>();
   filters = new MyBoardNotificationFilterModel();
-  previousPageSubject = new Subject<MyBoardNotificationFilterModel>();
   nextPageSubject = new Subject<MyBoardNotificationFilterModel>();
   firstPageSubject = new Subject<MyBoardNotificationFilterModel>();
 
@@ -62,12 +61,6 @@ export class MyBoardHomePage {
     this.filters.size = this.PAGE_SIZE;
     this.resetPageNumber();
 
-    this.previousPageSubject
-      .switchMap((filters) => this.handlePreviousPageSearch(filters))
-      .subscribe(pncNotifications => {
-        this.handleNotificationSearchResponse(pncNotifications, PagePosition.PREVIOUS);
-      });
-
     this.nextPageSubject
       .switchMap((filters) => this.handleNextPageSearch(filters))
       .subscribe(pncNotifications => {
@@ -83,7 +76,13 @@ export class MyBoardHomePage {
 
   ionViewDidEnter() {
     this.filters.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
-    this.launchFirstSearch();
+
+    this.getPncNotifications(this.filters).toPromise().then((pagedPncNotifications) => {
+      // Si le nombre de notif a changé, on réinitialise la recherche
+      if (pagedPncNotifications.page.totalElements !== this.totalNotifications) {
+        this.launchFirstSearch();
+      }
+    });
   }
 
   /**
@@ -129,32 +128,9 @@ export class MyBoardHomePage {
   }
 
   /**
-   * Charge la page précédente
-   * @param event l'événement émis
-   */
-  loadPreviousPage(event) {
-    this.previousPageSubject.next(this.filters);
-  }
-
-  /**
-   * Gère la récupération de la page suivante
-   */
-  handlePreviousPageSearch(filters: MyBoardNotificationFilterModel): Observable<PagedMyBoardNotificationModel> {
-    console.log('load previous');
-    if (this.previousPageNumber >= 0) {
-      this.filters.page = this.previousPageNumber--;
-      this.filters.offset = this.filters.page * this.filters.size;
-      return this.getPncNotifications(filters);
-    } else {
-      return new Observable();
-    }
-  }
-
-  /**
    * Charge la page suivante
-   * @param event l'événement émis
    */
-  loadNextPage(event) {
+  loadNextPage() {
     this.nextPageSubject.next(this.filters);
   }
 
@@ -195,8 +171,6 @@ export class MyBoardHomePage {
     });
     if (pagePosition === PagePosition.NEXT) {
       this.pncNotifications = this.pncNotifications.concat(pagedNotification.content);
-    } else if (pagePosition === PagePosition.PREVIOUS) {
-      this.pncNotifications.unshift(...pagedNotification.content);
     } else {
       this.pncNotifications = pagedNotification.content;
     }
@@ -224,7 +198,9 @@ export class MyBoardHomePage {
     this.filters.page = notification.pageNumber;
 
     if (!notification.checked) {
-      this.myBoardNotificationService.readNotification(notification.techId, true);
+      this.myBoardNotificationService.readNotification(notification.techId, true).then(() => {
+        notification.checked = true;
+      });
     }
 
     this.router.navigate([this.getDocumentRoute(notification.documentType, notification.concernedPnc.matricule, notification.documentId)]);
