@@ -1,12 +1,14 @@
 import { FileTypeEnum } from 'src/app/core/enums/file-type.enum';
 import { FileService } from 'src/app/core/file/file.service';
+
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { ManifexLightModel } from '../../../../core/models/manifex/manifex-light.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { ManifexService } from '../../../../core/services/manifex/manifex.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { StatutoryCertificateDisplayTypeEnum } from 'src/app/core/enums/statutory-certificate-display-type.enum';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'pnc-manifex',
@@ -23,17 +25,20 @@ export class ManifexComponent implements OnInit {
   loadingPdf = false;
 
   constructor(
-    private translateService: TranslateService,
     private manifexService: ManifexService,
     private fileService: FileService,
     private sessionService: SessionService,
-    private connectivityService: ConnectivityService
+    private connectivityService: ConnectivityService,
+    private pncService: PncService,
+    private activatedRoute: ActivatedRoute
   ) {
 
   }
 
   ngOnInit() {
+    this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
   }
+
   /**
    * Télécharge et ouvre le PDF de la fiche manifex du PNC
    */
