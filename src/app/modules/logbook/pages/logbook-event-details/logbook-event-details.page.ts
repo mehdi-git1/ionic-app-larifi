@@ -48,7 +48,7 @@ export class LogbookEventDetailsPage implements OnInit, AfterViewInit {
 
     LogbookEventModeEnum = LogbookEventModeEnum;
 
-    @ViewChildren('logbookEventCreate') logbookEventCreateComponent: LogbookEventComponent[];
+    @ViewChildren('logbookEventCreate') logbookEventCreateComponents: LogbookEventComponent[];
 
     @ViewChildren('logbookEventDetails', { read: LogbookEventDetailsComponent })
     logbookEventDetailsComponent: QueryList<LogbookEventDetailsComponent>;
@@ -116,10 +116,17 @@ export class LogbookEventDetailsPage implements OnInit, AfterViewInit {
      * @return true si l'event lié est sauvegardé ou annulé
      */
     canDeactivate(): boolean {
-        if (this.linkedLogbookEventCreateComponent === undefined) {
-            return true;
+        if (this.linkedLogbookEventCreateComponent !== undefined) {
+            return !this.linkedLogbookEventCreateComponent.formHasBeenModified();
         }
-        return !this.linkedLogbookEventCreateComponent.formHasBeenModified();
+        if (this.logbookEventCreateComponents !== undefined) {
+            for (const logbookEventCreateComponent of this.logbookEventCreateComponents) {
+                if (logbookEventCreateComponent.editEvent) {
+                    return !logbookEventCreateComponent.formHasBeenModified();
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -223,7 +230,7 @@ export class LogbookEventDetailsPage implements OnInit, AfterViewInit {
      * @param logbookEvent l'évènement à modifier
      */
     displayLogbookEventToUpdate(logbookEvent: LogbookEventModel) {
-        this.logbookEventCreateComponent.forEach(logbookEventCreate => {
+        this.logbookEventCreateComponents.forEach(logbookEventCreate => {
             if (logbookEventCreate.logbookEvent.techId === logbookEvent.techId && logbookEvent.mode === LogbookEventModeEnum.EDITION) {
                 this.selectedLogbookEventComponent = logbookEventCreate;
                 logbookEventCreate.editEvent = true;
