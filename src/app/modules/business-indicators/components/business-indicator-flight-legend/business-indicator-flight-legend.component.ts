@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class BusinessIndicatorFlightLegendComponent {
 
-  hasNeverFlownAsCcLc: boolean;
+  hasNeverFlownAsCcLcDuringPastYear: boolean;
 
   notCcLcLegend: string;
   ccLcLegend: any;
@@ -19,7 +19,7 @@ export class BusinessIndicatorFlightLegendComponent {
     private navParams: NavParams,
     private translateService: TranslateService
   ) {
-    this.hasNeverFlownAsCcLc = this.navParams.get('hasNeverFlownAsCcLc');
+    this.hasNeverFlownAsCcLcDuringPastYear = this.navParams.get('hasNeverFlownAsCcLcDuringPastYear');
 
     this.notCcLcLegend = this.translateService.instant('BUSINESS_INDICATORS.LIST.LEGEND.NOT_CC_LC');
     this.ccLcLegend = {

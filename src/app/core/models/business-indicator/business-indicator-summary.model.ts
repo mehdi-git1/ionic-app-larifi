@@ -7,5 +7,5 @@ export class BusinessIndicatorSummaryModel {
     upgradeSum: number;
     flyingBlueAverage: number;
     ercAverage: number;
-    hasNeverFlownAsCcLc: boolean;
+    hasNeverFlownAsCcLcDuringPastYear: boolean;
 }
