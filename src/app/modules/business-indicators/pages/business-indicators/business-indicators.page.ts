@@ -219,7 +219,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
             component: BusinessIndicatorFlightLegendComponent,
             event,
             translucent: true,
-            componentProps: { hasNeverFlownAsCcLc: this.businessIndicatorSummary.hasNeverFlownAsCcLc }
+            componentProps: { hasNeverFlownAsCcLcDuringPastYear: this.businessIndicatorSummary.hasNeverFlownAsCcLcDuringPastYear }
         }).then(popover => {
             popover.present();
         });
