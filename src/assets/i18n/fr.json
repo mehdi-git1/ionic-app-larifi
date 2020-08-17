@@ -88,6 +88,7 @@
         "MY_BUSINESS_INDICATORS": "Mes indicateurs métier",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
+            "DOCUMENT_DELETED": "Ce document a été supprimé",
             "ERROR": {
                 "MANDATORY_FIELD": "Le champ est obligatoire",
                 "BAD_FORMAT": "Format incorrect",
