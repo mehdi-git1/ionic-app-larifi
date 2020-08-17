@@ -202,7 +202,9 @@ export class MyBoardHomePage {
    */
   openNotification(notification: MyBoardNotificationModel) {
     if (!notification.checked) {
-      this.myBoardNotificationService.readNotification(notification.techId, true).then(() => {
+      const notificationIdsArray = new Array();
+      notificationIdsArray.push(notification.techId);
+      this.myBoardNotificationService.readNotifications(notificationIdsArray, true).then(() => {
         notification.checked = true;
       });
     }

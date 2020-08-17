@@ -84,7 +84,7 @@ export class UrlConfiguration {
     'downloadEObservationPdfById': `${urlGroupEnum.PDFS}/eobservation/{id}`,
     'getMyBoardNotification': `${urlGroupEnum.MY_BOARD}`,
     'getMyBoardNotificationSummary': `${urlGroupEnum.MY_BOARD}/summary`,
-    'readMyBoardNotification': `${urlGroupEnum.MY_BOARD}/{id}/checked/{isRead}`,
+    'readMyBoardNotifications': `${urlGroupEnum.MY_BOARD}/checked/{isRead}`,
     'archiveNotifications': `${urlGroupEnum.MY_BOARD}/archived/{isArchived}`,
     'deleteNotifications': `${urlGroupEnum.MY_BOARD}/delete`
   };
