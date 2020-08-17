@@ -3,7 +3,6 @@ import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -49,7 +48,6 @@ export class MyBoardHomePage {
     private toastService: ToastService,
     private translateService: TranslateService,
     private alertDialogService: AlertDialogService,
-    private formBuilder: FormBuilder,
     private router: Router
   ) {
     this.filters.size = this.PAGE_SIZE;
@@ -69,22 +67,27 @@ export class MyBoardHomePage {
       this.getPncNotifications(this.filters).toPromise().then((pagedPncNotifications) => {
         // Si le nombre de notif a changé, on demande à l'utilisateur s'il souhaite relancer la recherche pour mettre à jour la vue
         if (pagedPncNotifications.page.totalElements !== this.totalNotifications) {
-          const dialogForm = this.formBuilder.group({
-            dialogTitle: [this.translateService.instant('MY_BOARD.CONFIRM_LIST_REFRESH.TITLE')],
-            dialogMsg: [this.translateService.instant('MY_BOARD.CONFIRM_LIST_REFRESH.MESSAGE')],
-            dialogType: ['confirm'],
-            okBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.YES')],
-            cancelBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.NO')]
-          });
-          const dialogRef = this.alertDialogService.openAlertDialog(dialogForm.value);
-          dialogRef.afterClosed().toPromise().then((result) => {
-            if (result === 'ok' || result === 'true') {
-              this.launchFirstSearch();
-            }
-          });
+          this.confirmMyBoardRefresh();
         }
       });
     }
+  }
+
+  /**
+   * Demande la confirmation à l'utilisateur avant de lancer un rafraichissement de la liste
+   */
+  async confirmMyBoardRefresh() {
+    const alert = await this.alertDialogService.openAlertDialog(
+      this.translateService.instant('MY_BOARD.CONFIRM_LIST_REFRESH.TITLE'),
+      this.translateService.instant('MY_BOARD.CONFIRM_LIST_REFRESH.MESSAGE'),
+      this.translateService.instant('GLOBAL.BUTTONS.YES'),
+      this.translateService.instant('GLOBAL.BUTTONS.NO'),
+    );
+    alert.onDidDismiss().then(value => {
+      if (value.role === 'confirm') {
+        this.launchFirstSearch();
+      }
+    });
   }
 
   /**
@@ -231,7 +234,9 @@ export class MyBoardHomePage {
       this.toastService.warning(this.translateService.instant('MY_BOARD.MESSAGES.WARNING.NO_SELECTED_ITEM'));
     } else {
       this.myBoardNotificationService.archiveNotifications(selectedNotificationIds, true).then(() => {
-        this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_ARCHIVED'));
+        selectedNotificationIds.length > 1 ?
+          this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_ARCHIVED')) :
+          this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATION_ARCHIVED'));
         this.launchFirstSearch();
       });
     }
@@ -240,20 +245,18 @@ export class MyBoardHomePage {
   /**
    * Ouvre une popup de confirmation pour la demande de suppression
    */
-  confirmNotificationsDeletion() {
+  async confirmNotificationsDeletion() {
     if (this.getSelectedNotificationIds().length === 0) {
       this.toastService.warning(this.translateService.instant('MY_BOARD.MESSAGES.WARNING.NO_SELECTED_ITEM'));
     } else {
-      const dialogForm = this.formBuilder.group({
-        dialogTitle: [this.translateService.instant('MY_BOARD.CONFIRM_DELETION_ALERT.TITLE')],
-        dialogMsg: [this.translateService.instant('MY_BOARD.CONFIRM_DELETION_ALERT.MESSAGE')],
-        dialogType: ['confirm'],
-        okBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.CONFIRM')],
-        cancelBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.CANCEL')]
-      });
-      const dialogRef = this.alertDialogService.openAlertDialog(dialogForm.value);
-      dialogRef.afterClosed().toPromise().then((result) => {
-        if (result === 'ok' || result === 'true') {
+      const alert = await this.alertDialogService.openAlertDialog(
+        this.translateService.instant('MY_BOARD.CONFIRM_DELETION_ALERT.TITLE'),
+        this.translateService.instant('MY_BOARD.CONFIRM_DELETION_ALERT.MESSAGE'),
+        this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+        this.translateService.instant('GLOBAL.BUTTONS.CANCEL')
+      );
+      alert.onDidDismiss().then(value => {
+        if (value.role === 'confirm') {
           this.deleteSelectedNotifications();
         }
       });
@@ -264,8 +267,11 @@ export class MyBoardHomePage {
    * Supprime les notifications sélectionnées
    */
   deleteSelectedNotifications() {
-    this.myBoardNotificationService.deleteNotifications(this.getSelectedNotificationIds()).then(() => {
-      this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_DELETED'));
+    const selectedNotificationIds = this.getSelectedNotificationIds();
+    this.myBoardNotificationService.deleteNotifications(selectedNotificationIds).then(() => {
+      selectedNotificationIds.length > 1 ?
+        this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_DELETED')) :
+        this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATION_DELETED'));
       this.launchFirstSearch();
     });
   }
