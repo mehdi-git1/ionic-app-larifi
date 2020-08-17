@@ -771,6 +771,8 @@
             "SUCCESS": {
                 "NOTIFICATION_ARCHIVED": "Notification archivée",
                 "NOTIFICATIONS_ARCHIVED": "Notifications archivées",
+                "NOTIFICATION_DEARCHIVED": "Notification désarchivée",
+                "NOTIFICATIONS_DEARCHIVED": "Notifications désarchivées",
                 "NOTIFICATION_DELETED": "Notification supprimée",
                 "NOTIFICATIONS_DELETED": "Notifications supprimées"
             },
@@ -791,6 +793,7 @@
         },
         "BUTTONS": {
             "ARCHIVE": "Archiver",
+            "DEARCHIVE": "Désarchiver",
             "DELETE": "Supprimer",
             "SELECT_ALL": "Tout sélectionner"
         }

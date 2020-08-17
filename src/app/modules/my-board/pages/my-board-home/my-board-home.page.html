@@ -21,10 +21,16 @@
                 <span class="total-selected-notifications">{{ 'MY_BOARD.TOTAL_SELECTED' | translate:{total:getSelectedNotificationTotal()} }}</span>
             </div>
             <div class="button-bar-right">
-                <ion-button (click)="archiveSelectedNotifications()" color="primarylight">
+                <ion-button *ngIf="!isArchiveViewEnabled(); else dearchiveButtonTemplate" (click)="archiveSelectedNotifications()" color="primarylight">
                     <ion-icon name="archive"></ion-icon>
                     <ion-label>{{ 'MY_BOARD.BUTTONS.ARCHIVE' | translate }}</ion-label>
                 </ion-button>
+                <ng-template #dearchiveButtonTemplate>
+                    <ion-button (click)="archiveSelectedNotifications(false)" color="primarylight">
+                        <ion-icon name="archive"></ion-icon>
+                        <ion-label>{{ 'MY_BOARD.BUTTONS.DEARCHIVE' | translate }}</ion-label>
+                    </ion-button>
+                </ng-template>
 
                 <ion-button (click)="confirmNotificationsDeletion()" color="secondary" fill="outline">
                     <ion-icon name="trash"></ion-icon>

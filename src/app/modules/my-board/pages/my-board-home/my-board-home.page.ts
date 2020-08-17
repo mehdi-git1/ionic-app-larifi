@@ -226,17 +226,24 @@ export class MyBoardHomePage {
   }
 
   /**
-   * Archive les notificaitons sélectionnées
+   * Archive/désarchive les notifications sélectionnées
+   * @param archive si on souhaite archiver/désarchiver les notifications
    */
-  archiveSelectedNotifications() {
+  archiveSelectedNotifications(archive: boolean = true) {
     const selectedNotificationIds = this.getSelectedNotificationIds();
     if (selectedNotificationIds.length === 0) {
       this.toastService.warning(this.translateService.instant('MY_BOARD.MESSAGES.WARNING.NO_SELECTED_ITEM'));
     } else {
-      this.myBoardNotificationService.archiveNotifications(selectedNotificationIds, true).then(() => {
-        selectedNotificationIds.length > 1 ?
-          this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_ARCHIVED')) :
-          this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATION_ARCHIVED'));
+      this.myBoardNotificationService.archiveNotifications(selectedNotificationIds, archive).then(() => {
+        if (archive) {
+          selectedNotificationIds.length > 1 ?
+            this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_ARCHIVED')) :
+            this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATION_ARCHIVED'));
+        } else {
+          selectedNotificationIds.length > 1 ?
+            this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_DEARCHIVED')) :
+            this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATION_DEARCHIVED'));
+        }
         this.launchFirstSearch();
       });
     }
@@ -312,6 +319,13 @@ export class MyBoardHomePage {
     return this.pncNotifications && this.pncNotifications.length > 0;
   }
 
+  /**
+   * Teste si la vue des archives est active ou non
+   * @return vrai si la vue des archives est active, faux sinon
+   */
+  isArchiveViewEnabled(): boolean {
+    return this.filters.archived;
+  }
 }
 
 
