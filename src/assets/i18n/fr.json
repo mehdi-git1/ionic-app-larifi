@@ -169,7 +169,7 @@
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
-            "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
+            "MESSAGE": "Êtes vous sûr de vouloir supprimer ce brouillon ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
@@ -778,15 +778,15 @@
                 "NOTIFICATIONS_DELETED": "Notifications supprimées"
             },
             "ERROR": {
-                "START_DATE_AFTER_END_DATE": "La date de début est après la date de fin"
+                "START_DATE_AFTER_END_DATE": "La date de début dépasse la date de fin"
             },
             "WARNING": {
                 "NO_SELECTED_ITEM": "Aucune notification n'a été sélectionnée"
             }
         },
         "CONFIRM_DELETION_ALERT": {
-            "TITLE": "Confirmation de suppression",
-            "MESSAGE": "La suppression est définitive. Confirmez vous la suppression ?"
+            "TITLE": "Suppression de notifications",
+            "MESSAGE": "Êtes vous sûr de vouloir supprimer ces notifications ?"
         },
         "CONFIRM_LIST_REFRESH": {
             "TITLE": "Nouvelle notification reçue",
