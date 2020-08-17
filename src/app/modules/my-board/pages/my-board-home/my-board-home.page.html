@@ -45,7 +45,7 @@
     <ng-template #onlineBlock>
         <mat-sidenav-container>
             <mat-sidenav [(opened)]="isMenuOpened" mode="side">
-                <my-board-filters [filters]="filters" (filtersChanged)="applyFilters()"></my-board-filters>
+                <my-board-filters [filters]="filters" [notificationSummary]="myBoardNotificationSummary" (filtersChanged)="applyFilters()"></my-board-filters>
             </mat-sidenav>
 
             <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="loadNextPage()">

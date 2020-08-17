@@ -7,6 +7,9 @@ import {
     MyBoardNotificationFilterModel
 } from '../../models/my-board/my-board-notification-filter.model';
 import {
+    MyBoardNotificationSummaryModel
+} from '../../models/my-board/my-board-notification-summary.model';
+import {
     PagedMyBoardNotificationModel
 } from '../../models/my-board/paged-my-board-notification.model';
 
@@ -54,5 +57,14 @@ export class OnlineMyBoardNotificationService {
   deleteNotifications(notificationIds: Array<number>) {
     return this.restService
       .post(this.urlConfiguration.getBackEndUrl('deleteNotifications'), new IdsModel(notificationIds));
+  }
+
+  /**
+   * Retourne un "résumé" du nombre de notifications d'un utilisateur en fonction de filtres donnés
+   * @param filters les filtres à appliquer
+   * @return une promesse contenant le "résumé" du nombre de notifications
+   */
+  getMyBoardNotificationSummary(filters: MyBoardNotificationFilterModel): Promise<MyBoardNotificationSummaryModel> {
+    return this.restService.get(this.urlConfiguration.getBackEndUrl('getMyBoardNotificationSummary'), filters);
   }
 }

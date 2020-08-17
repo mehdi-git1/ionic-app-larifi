@@ -29,7 +29,7 @@
     <div class="filter-container filter archived-filter">
         <ion-item>
             <ion-checkbox formControlName="archived" placeholder="{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}"></ion-checkbox>
-            <ion-label>{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}</ion-label>
+            <ion-label>{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }} <span class="item-count">{{ notificationSummary.totalArchived }}</span></ion-label>
         </ion-item>
     </div>
 

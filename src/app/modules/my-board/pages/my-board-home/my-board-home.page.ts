@@ -1,4 +1,7 @@
 import { from, Observable, Subject } from 'rxjs';
+import {
+    MyBoardNotificationSummaryModel
+} from 'src/app/core/models/my-board/my-board-notification-summary.model';
 import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-notification.model';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 
@@ -32,6 +35,7 @@ export class MyBoardHomePage {
   pncNotifications = new Array<MyBoardNotificationModel>();
   filters = new MyBoardNotificationFilterModel();
   filtersSubject = new Subject<MyBoardNotificationFilterModel>();
+  myBoardNotificationSummary = new MyBoardNotificationSummaryModel();
 
   totalNotifications = 0;
   isLoading = false;
@@ -63,14 +67,24 @@ export class MyBoardHomePage {
   ionViewDidEnter() {
     this.filters.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
 
-    if (this.totalNotifications !== 0) {
-      this.getPncNotifications(this.filters).toPromise().then((pagedPncNotifications) => {
-        // Si le nombre de notif a changé, on demande à l'utilisateur s'il souhaite relancer la recherche pour mettre à jour la vue
-        if (pagedPncNotifications.page.totalElements !== this.totalNotifications) {
-          this.confirmMyBoardRefresh();
-        }
-      });
-    }
+    this.getMyBoardNotificationSummary().then((myBoardNotificationSummary) => {
+      // Si le nombre de notif a changé, on demande à l'utilisateur s'il souhaite relancer la recherche pour mettre à jour la vue
+      if (this.totalNotifications !== 0 && myBoardNotificationSummary.totalFiltered !== this.totalNotifications) {
+        this.confirmMyBoardRefresh();
+      }
+    });
+  }
+
+  /**
+   * Récupère un "résumé" du total de notifications
+   * @return une promesse contenant le "résumé"
+   */
+  getMyBoardNotificationSummary(): Promise<MyBoardNotificationSummaryModel> {
+    const promise = this.myBoardNotificationService.getMyBoardNotificationSummary(this.filters);
+    promise.then((myBoardNotificationSummary) => {
+      this.myBoardNotificationSummary = myBoardNotificationSummary;
+    });
+    return promise;
   }
 
   /**
@@ -244,6 +258,7 @@ export class MyBoardHomePage {
             this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_DEARCHIVED')) :
             this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATION_DEARCHIVED'));
         }
+        this.getMyBoardNotificationSummary();
         this.launchFirstSearch();
       });
     }

@@ -7,6 +7,9 @@ import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
+import {
+    MyBoardNotificationSummaryModel
+} from '../../../../core/models/my-board/my-board-notification-summary.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { FormsUtil } from '../../../../shared/utils/forms-util';
 import { Utils } from '../../../../shared/utils/utils';
@@ -19,6 +22,8 @@ import { Utils } from '../../../../shared/utils/utils';
 export class MyBoardFiltersComponent implements AfterViewInit {
 
     @Input() filters: MyBoardNotificationFilterModel;
+    @Input() notificationSummary: MyBoardNotificationSummaryModel;
+
     @Output() filtersChanged = new EventEmitter<MyBoardNotificationFilterModel>();
 
     filterForm: FormGroup;
