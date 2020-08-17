@@ -16,7 +16,7 @@ h2 {
     }
 }
 
-.filter {
+.filter-container {
     margin-bottom: 16px;
 }
 
@@ -44,6 +44,13 @@ h2 {
 .archived-filter {
     ion-label {
         margin-left: 10px;
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+
+        .item-count {
+            font-weight: bold;
+        }
     }
 }
 
@@ -54,4 +61,8 @@ ion-item {
     ion-checkbox {
         margin-left: 10px;
     }
+}
+
+.form-error {
+    color: var(--ion-color-secondary);
 }

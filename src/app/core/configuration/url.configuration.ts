@@ -83,7 +83,8 @@ export class UrlConfiguration {
     'downloadManifexPdfById': `${urlGroupEnum.PDFS}/manifex/{id}`,
     'downloadEObservationPdfById': `${urlGroupEnum.PDFS}/eobservation/{id}`,
     'getMyBoardNotification': `${urlGroupEnum.MY_BOARD}`,
-    'readMyBoardNotification': `${urlGroupEnum.MY_BOARD}/{id}/checked/{isRead}`,
+    'getMyBoardNotificationSummary': `${urlGroupEnum.MY_BOARD}/summary`,
+    'readMyBoardNotifications': `${urlGroupEnum.MY_BOARD}/checked/{isRead}`,
     'archiveNotifications': `${urlGroupEnum.MY_BOARD}/archived/{isArchived}`,
     'deleteNotifications': `${urlGroupEnum.MY_BOARD}/delete`
   };

@@ -5,6 +5,7 @@
                 <ion-fab-button (click)="toggleFiltersMenu()" size="small" color="primarydark">
                     <span class="edospnc-filter-sharp"></span>
                 </ion-fab-button>
+                {{ 'MY_BOARD.FILTER' | translate }}
             </span>
             <span slot="center">{{'MY_BOARD.TITLE' | translate}}</span>
         </page-header>
@@ -20,10 +21,16 @@
                 <span class="total-selected-notifications">{{ 'MY_BOARD.TOTAL_SELECTED' | translate:{total:getSelectedNotificationTotal()} }}</span>
             </div>
             <div class="button-bar-right">
-                <ion-button (click)="archiveSelectedNotifications()" color="primarylight">
+                <ion-button *ngIf="!isArchiveViewEnabled(); else dearchiveButtonTemplate" (click)="archiveSelectedNotifications()" color="primarylight">
                     <ion-icon name="archive"></ion-icon>
                     <ion-label>{{ 'MY_BOARD.BUTTONS.ARCHIVE' | translate }}</ion-label>
                 </ion-button>
+                <ng-template #dearchiveButtonTemplate>
+                    <ion-button (click)="archiveSelectedNotifications(false)" color="primarylight">
+                        <ion-icon name="archive"></ion-icon>
+                        <ion-label>{{ 'MY_BOARD.BUTTONS.DEARCHIVE' | translate }}</ion-label>
+                    </ion-button>
+                </ng-template>
 
                 <ion-button (click)="confirmNotificationsDeletion()" color="secondary" fill="outline">
                     <ion-icon name="trash"></ion-icon>
@@ -38,7 +45,7 @@
     <ng-template #onlineBlock>
         <mat-sidenav-container>
             <mat-sidenav [(opened)]="isMenuOpened" mode="side">
-                <my-board-filters [filters]="filters" (filtersChanged)="applyFilters()"></my-board-filters>
+                <my-board-filters [filters]="filters" [notificationSummary]="myBoardNotificationSummary" (filtersChanged)="applyFilters()"></my-board-filters>
             </mat-sidenav>
 
             <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="loadNextPage()">

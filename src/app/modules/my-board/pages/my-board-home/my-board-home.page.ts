@@ -1,9 +1,11 @@
 import { from, Observable, Subject } from 'rxjs';
+import {
+    MyBoardNotificationSummaryModel
+} from 'src/app/core/models/my-board/my-board-notification-summary.model';
 import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-notification.model';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -33,6 +35,7 @@ export class MyBoardHomePage {
   pncNotifications = new Array<MyBoardNotificationModel>();
   filters = new MyBoardNotificationFilterModel();
   filtersSubject = new Subject<MyBoardNotificationFilterModel>();
+  myBoardNotificationSummary = new MyBoardNotificationSummaryModel();
 
   totalNotifications = 0;
   isLoading = false;
@@ -49,7 +52,6 @@ export class MyBoardHomePage {
     private toastService: ToastService,
     private translateService: TranslateService,
     private alertDialogService: AlertDialogService,
-    private formBuilder: FormBuilder,
     private router: Router
   ) {
     this.filters.size = this.PAGE_SIZE;
@@ -65,33 +67,47 @@ export class MyBoardHomePage {
   ionViewDidEnter() {
     this.filters.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
 
-    if (this.totalNotifications !== 0) {
-      this.getPncNotifications(this.filters).toPromise().then((pagedPncNotifications) => {
-        // Si le nombre de notif a changé, on demande à l'utilisateur s'il souhaite relancer la recherche pour mettre à jour la vue
-        if (pagedPncNotifications.page.totalElements !== this.totalNotifications) {
-          const dialogForm = this.formBuilder.group({
-            dialogTitle: [this.translateService.instant('MY_BOARD.CONFIRM_LIST_REFRESH.TITLE')],
-            dialogMsg: [this.translateService.instant('MY_BOARD.CONFIRM_LIST_REFRESH.MESSAGE')],
-            dialogType: ['confirm'],
-            okBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.YES')],
-            cancelBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.NO')]
-          });
-          const dialogRef = this.alertDialogService.openAlertDialog(dialogForm.value);
-          dialogRef.afterClosed().toPromise().then((result) => {
-            if (result === 'ok' || result === 'true') {
-              this.launchFirstSearch();
-            }
-          });
-        }
-      });
-    }
+    this.getMyBoardNotificationSummary().then((myBoardNotificationSummary) => {
+      // Si le nombre de notif a changé, on demande à l'utilisateur s'il souhaite relancer la recherche pour mettre à jour la vue
+      if (this.totalNotifications !== 0 && myBoardNotificationSummary.totalFiltered !== this.totalNotifications) {
+        this.confirmMyBoardRefresh();
+      }
+    });
+  }
+
+  /**
+   * Récupère un "résumé" du total de notifications
+   * @return une promesse contenant le "résumé"
+   */
+  getMyBoardNotificationSummary(): Promise<MyBoardNotificationSummaryModel> {
+    const promise = this.myBoardNotificationService.getMyBoardNotificationSummary(this.filters);
+    promise.then((myBoardNotificationSummary) => {
+      this.myBoardNotificationSummary = myBoardNotificationSummary;
+    });
+    return promise;
+  }
+
+  /**
+   * Demande la confirmation à l'utilisateur avant de lancer un rafraichissement de la liste
+   */
+  async confirmMyBoardRefresh() {
+    const alert = await this.alertDialogService.openAlertDialog(
+      this.translateService.instant('MY_BOARD.CONFIRM_LIST_REFRESH.TITLE'),
+      this.translateService.instant('MY_BOARD.CONFIRM_LIST_REFRESH.MESSAGE'),
+      this.translateService.instant('GLOBAL.BUTTONS.YES'),
+      this.translateService.instant('GLOBAL.BUTTONS.NO'),
+    );
+    alert.onDidDismiss().then(value => {
+      if (value.role === 'confirm') {
+        this.launchFirstSearch();
+      }
+    });
   }
 
   /**
    * Lance une recherche suite à une mise à jour des filtres
    */
   applyFilters() {
-    this.resetPageNumber();
     this.filters.pagePosition = PagePositionEnum.FIRST;
     this.filtersSubject.next(this.filters);
   }
@@ -119,6 +135,7 @@ export class MyBoardHomePage {
    */
   handlePageSearch(filters: MyBoardNotificationFilterModel): Observable<PagedMyBoardNotificationModel> {
     if (filters.pagePosition === PagePositionEnum.FIRST) {
+      this.resetPageNumber();
       this.isLoading = true;
       this.selectAllCheckboxValue = false;
       return this.getPncNotifications(filters);
@@ -185,7 +202,9 @@ export class MyBoardHomePage {
    */
   openNotification(notification: MyBoardNotificationModel) {
     if (!notification.checked) {
-      this.myBoardNotificationService.readNotification(notification.techId, true).then(() => {
+      const notificationIdsArray = new Array();
+      notificationIdsArray.push(notification.techId);
+      this.myBoardNotificationService.readNotifications(notificationIdsArray, true).then(() => {
         notification.checked = true;
       });
     }
@@ -223,15 +242,25 @@ export class MyBoardHomePage {
   }
 
   /**
-   * Archive les notificaitons sélectionnées
+   * Archive/désarchive les notifications sélectionnées
+   * @param archive si on souhaite archiver/désarchiver les notifications
    */
-  archiveSelectedNotifications() {
+  archiveSelectedNotifications(archive: boolean = true) {
     const selectedNotificationIds = this.getSelectedNotificationIds();
     if (selectedNotificationIds.length === 0) {
       this.toastService.warning(this.translateService.instant('MY_BOARD.MESSAGES.WARNING.NO_SELECTED_ITEM'));
     } else {
-      this.myBoardNotificationService.archiveNotifications(selectedNotificationIds, true).then(() => {
-        this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_ARCHIVED'));
+      this.myBoardNotificationService.archiveNotifications(selectedNotificationIds, archive).then(() => {
+        if (archive) {
+          selectedNotificationIds.length > 1 ?
+            this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_ARCHIVED')) :
+            this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATION_ARCHIVED'));
+        } else {
+          selectedNotificationIds.length > 1 ?
+            this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_DEARCHIVED')) :
+            this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATION_DEARCHIVED'));
+        }
+        this.getMyBoardNotificationSummary();
         this.launchFirstSearch();
       });
     }
@@ -240,20 +269,18 @@ export class MyBoardHomePage {
   /**
    * Ouvre une popup de confirmation pour la demande de suppression
    */
-  confirmNotificationsDeletion() {
+  async confirmNotificationsDeletion() {
     if (this.getSelectedNotificationIds().length === 0) {
       this.toastService.warning(this.translateService.instant('MY_BOARD.MESSAGES.WARNING.NO_SELECTED_ITEM'));
     } else {
-      const dialogForm = this.formBuilder.group({
-        dialogTitle: [this.translateService.instant('MY_BOARD.CONFIRM_DELETION_ALERT.TITLE')],
-        dialogMsg: [this.translateService.instant('MY_BOARD.CONFIRM_DELETION_ALERT.MESSAGE')],
-        dialogType: ['confirm'],
-        okBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.CONFIRM')],
-        cancelBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.CANCEL')]
-      });
-      const dialogRef = this.alertDialogService.openAlertDialog(dialogForm.value);
-      dialogRef.afterClosed().toPromise().then((result) => {
-        if (result === 'ok' || result === 'true') {
+      const alert = await this.alertDialogService.openAlertDialog(
+        this.translateService.instant('MY_BOARD.CONFIRM_DELETION_ALERT.TITLE'),
+        this.translateService.instant('MY_BOARD.CONFIRM_DELETION_ALERT.MESSAGE'),
+        this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+        this.translateService.instant('GLOBAL.BUTTONS.CANCEL')
+      );
+      alert.onDidDismiss().then(value => {
+        if (value.role === 'confirm') {
           this.deleteSelectedNotifications();
         }
       });
@@ -264,8 +291,11 @@ export class MyBoardHomePage {
    * Supprime les notifications sélectionnées
    */
   deleteSelectedNotifications() {
-    this.myBoardNotificationService.deleteNotifications(this.getSelectedNotificationIds()).then(() => {
-      this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_DELETED'));
+    const selectedNotificationIds = this.getSelectedNotificationIds();
+    this.myBoardNotificationService.deleteNotifications(selectedNotificationIds).then(() => {
+      selectedNotificationIds.length > 1 ?
+        this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_DELETED')) :
+        this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATION_DELETED'));
       this.launchFirstSearch();
     });
   }
@@ -306,6 +336,13 @@ export class MyBoardHomePage {
     return this.pncNotifications && this.pncNotifications.length > 0;
   }
 
+  /**
+   * Teste si la vue des archives est active ou non
+   * @return vrai si la vue des archives est active, faux sinon
+   */
+  isArchiveViewEnabled(): boolean {
+    return this.filters.archived;
+  }
 }
 
 

@@ -26,6 +26,7 @@ export class CongratulationLetterModel extends EDossierPncObjectModel {
     redactorType: CongratulationLetterRedactorTypeEnum;
     documents: Array<DocumentModel> = new Array();
     status: CongratulationLetterStatusEnum;
+    deletedByRedactor: boolean;
 
     getStorageId(): string {
         return `${this.techId}`;

@@ -14,79 +14,85 @@
     <div class="page-container">
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-            <div class="selectable" #eObservationInformations>
-                <edospnc-expandable-block hideToggle="true" mini="true" title=" {{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}">
-                    <div class="speciality-line">
-                        <span class="column-20">
-                            <span class="label">{{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}</span>
-                            <span class="value">{{eObservation?.pncSpeciality}}</span>
-                        </span>
-                        <span class="column-80">
-                            <span class="label">{{ 'EOBSERVATION.DETAIL.EOBS_PNC_ASSIGNMENT' | translate }}</span>
-                            <span class="value">
-                                <span class="assignment" *ngIf="eObservation?.pncDivision">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }} :
-                                    {{eObservation?.pncDivision}}
-                                </span>
-                                <span class="assignment" *ngIf="eObservation?.pncGinq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} :
-                                    {{eObservation?.pncGinq}}
+            <div class="no-data-splash" *ngIf="eObservation.deleted; else eObservationViewTemplate">
+                <ion-icon name="warning"></ion-icon>
+                <span>{{ 'GLOBAL.MESSAGES.DOCUMENT_DELETED' | translate }}</span>
+            </div>
+            <ng-template #eObservationViewTemplate>
+                <div class="selectable" #eObservationInformations>
+                    <edospnc-expandable-block hideToggle="true" mini="true" title=" {{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}">
+                        <div class="speciality-line">
+                            <span class="column-20">
+                                <span class="label">{{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}</span>
+                                <span class="value">{{eObservation?.pncSpeciality}}</span>
+                            </span>
+                            <span class="column-80">
+                                <span class="label">{{ 'EOBSERVATION.DETAIL.EOBS_PNC_ASSIGNMENT' | translate }}</span>
+                                <span class="value">
+                                    <span class="assignment" *ngIf="eObservation?.pncDivision">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }} :
+                                        {{eObservation?.pncDivision}}
+                                    </span>
+                                    <span class="assignment" *ngIf="eObservation?.pncGinq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} :
+                                        {{eObservation?.pncGinq}}
+                                    </span>
                                 </span>
                             </span>
-                        </span>
-                    </div>
-                </edospnc-expandable-block>
-                <eobs-temporary-period [eObservation]="eObservation"></eobs-temporary-period>
+                        </div>
+                    </edospnc-expandable-block>
+                    <eobs-temporary-period [eObservation]="eObservation"></eobs-temporary-period>
 
-                <eobs-bilan-flight [eObservation]="eObservation" [editMode]="editMode"></eobs-bilan-flight>
+                    <eobs-bilan-flight [eObservation]="eObservation" [editMode]="editMode"></eobs-bilan-flight>
 
-                <eobs-rotation-info [eObservation]="eObservation" [editMode]="editMode"></eobs-rotation-info>
+                    <eobs-rotation-info [eObservation]="eObservation" [editMode]="editMode"></eobs-rotation-info>
 
-                <span *ngIf="!isPcbEObs(); else appreciationPcb">
-                    <eobs-theme *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme" [editMode]="editMode"></eobs-theme>
-                </span>
-                <ng-template #appreciationPcb>
-                    <eobs-appreciation *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme" [editMode]="editMode"></eobs-appreciation>
-                </ng-template>
-
-                <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [editMode]="editMode"></eobs-comment>
-
-                <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [editMode]="editMode" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
-
-                <eobs-state [eObservation]="eObservation" [editMode]="editMode"></eobs-state>
-
-                <div class="information-message" *ngIf="eObservation.lastUpdateAuthor">
-                    {{ 'EOBSERVATION.DETAIL.EDITED_BY' | translate:{lastName:eObservation.lastUpdateAuthor.lastName, firstName:eObservation.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}
-                </div>
-            </div>
-
-            <div class="button-bar button-bar-right margin-top-10 margin-bottom-10">
-                <ion-button *isBrowser (click)="downloadPdf()" color="primary" fill="outline" [disabled]="pdfDownloadInProgress">
-                    <ion-icon name="cloud-download" class="ion-margin-end"></ion-icon>
-                    {{ 'EOBSERVATION.BUTTONS.DOWNLOAD' | translate }}
-                    <ion-spinner *ngIf="pdfDownloadInProgress"></ion-spinner>
-                </ion-button>
-                <span *hasPermission="EOBS_FULL_EDITION">
-                    <ng-container *ngIf="!editMode; else editModeButtonsBlock">
-                        <!-- Bouton supprimer l'eobs -->
-                        <ion-button color="secondary" fill="outline" (click)="confirmDeleteEObservation()" [disabled]="isConnected()">
-                            {{ 'EOBSERVATION.BUTTONS.DELETE' | translate }}
-                        </ion-button>
-                        <!-- Bouton modifier l'eobs -->
-                        <ion-button color="secondary" (click)="enterEditMode()" [disabled]="isConnected()">
-                            {{ 'EOBSERVATION.BUTTONS.EDIT' | translate }}
-                        </ion-button>
-                    </ng-container>
-                    <ng-template #editModeButtonsBlock>
-                        <!-- Bouton annuler modification de l'eobs -->
-                        <ion-button color="primary" fill="outline" (click)="cancelEditMode()">
-                            {{ 'EOBSERVATION.BUTTONS.CANCEL' | translate }}
-                        </ion-button>
-                        <!-- Bouton mettre à jour l'eobs -->
-                        <ion-button color="primary" (click)="updateEObservation()" [disabled]="!isFormValid()">
-                            {{ 'EOBSERVATION.BUTTONS.UPDATE' | translate }}
-                        </ion-button>
+                    <span *ngIf="!isPcbEObs(); else appreciationPcb">
+                        <eobs-theme *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme" [editMode]="editMode"></eobs-theme>
+                    </span>
+                    <ng-template #appreciationPcb>
+                        <eobs-appreciation *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme" [editMode]="editMode"></eobs-appreciation>
                     </ng-template>
-                </span>
-            </div>
+
+                    <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [editMode]="editMode"></eobs-comment>
+
+                    <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [editMode]="editMode" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
+
+                    <eobs-state [eObservation]="eObservation" [editMode]="editMode"></eobs-state>
+
+                    <div class="information-message" *ngIf="eObservation.lastUpdateAuthor">
+                        {{ 'EOBSERVATION.DETAIL.EDITED_BY' | translate:{lastName:eObservation.lastUpdateAuthor.lastName, firstName:eObservation.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}
+                    </div>
+                </div>
+
+                <div class="button-bar button-bar-right margin-top-10 margin-bottom-10">
+                    <ion-button *isBrowser (click)="downloadPdf()" color="primary" fill="outline" [disabled]="pdfDownloadInProgress">
+                        <ion-icon name="cloud-download" class="ion-margin-end"></ion-icon>
+                        {{ 'EOBSERVATION.BUTTONS.DOWNLOAD' | translate }}
+                        <ion-spinner *ngIf="pdfDownloadInProgress"></ion-spinner>
+                    </ion-button>
+                    <ng-container *hasPermission="EOBS_FULL_EDITION">
+                        <ng-container *ngIf="!editMode; else editModeButtonsBlock">
+                            <!-- Bouton supprimer l'eobs -->
+                            <ion-button color="secondary" fill="outline" (click)="confirmDeleteEObservation()" [disabled]="isConnected()">
+                                {{ 'EOBSERVATION.BUTTONS.DELETE' | translate }}
+                            </ion-button>
+                            <!-- Bouton modifier l'eobs -->
+                            <ion-button color="secondary" (click)="enterEditMode()" [disabled]="isConnected()">
+                                {{ 'EOBSERVATION.BUTTONS.EDIT' | translate }}
+                            </ion-button>
+                        </ng-container>
+                        <ng-template #editModeButtonsBlock>
+                            <!-- Bouton annuler modification de l'eobs -->
+                            <ion-button color="primary" fill="outline" (click)="cancelEditMode()">
+                                {{ 'EOBSERVATION.BUTTONS.CANCEL' | translate }}
+                            </ion-button>
+                            <!-- Bouton mettre à jour l'eobs -->
+                            <ion-button color="primary" (click)="updateEObservation()" [disabled]="!isFormValid()">
+                                {{ 'EOBSERVATION.BUTTONS.UPDATE' | translate }}
+                            </ion-button>
+                        </ng-template>
+                    </ng-container>
+                </div>
+            </ng-template>
         </ng-template>
     </div>
 </ion-content>

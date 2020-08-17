@@ -4,9 +4,12 @@ import {
 } from 'src/app/core/models/my-board/my-board-notification-filter.model';
 
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
+import {
+    MyBoardNotificationSummaryModel
+} from '../../../../core/models/my-board/my-board-notification-summary.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { FormsUtil } from '../../../../shared/utils/forms-util';
 import { Utils } from '../../../../shared/utils/utils';
@@ -19,6 +22,8 @@ import { Utils } from '../../../../shared/utils/utils';
 export class MyBoardFiltersComponent implements AfterViewInit {
 
     @Input() filters: MyBoardNotificationFilterModel;
+    @Input() notificationSummary: MyBoardNotificationSummaryModel;
+
     @Output() filtersChanged = new EventEmitter<MyBoardNotificationFilterModel>();
 
     filterForm: FormGroup;
@@ -43,21 +48,35 @@ export class MyBoardFiltersComponent implements AfterViewInit {
      * Initialise le formulaire
      */
     initForm() {
+        const dateRangeValidator: ValidatorFn = (formGroup: FormGroup): ValidationErrors | null => {
+            const creationStartDate = formGroup.get('creationStartDate');
+            const creationEndDate = formGroup.get('creationEndDate');
+            if (!creationStartDate || !creationEndDate) {
+                return null;
+            }
+            if (moment(creationStartDate.value).isAfter(moment(creationEndDate.value))) {
+                return { startDateAfterEndDate: this.translateService.instant('MY_BOARD.MESSAGES.ERROR.START_DATE_AFTER_END_DATE') };
+            }
+            return null;
+        };
+
         this.filterForm = this.formBuilder.group({
             documentTypes: [''],
             creationStartDate: [''],
             creationEndDate: [''],
             archived: [false]
-        });
+        }, { validators: dateRangeValidator });
 
         this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
-            this.filters.documentTypes = [...newForm.documentTypes];
-            this.filters.creationStartDate = Utils.isEmpty(newForm.creationStartDate) ? '' : new Date(newForm.creationStartDate)
-                .toISOString();
-            this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
-                .toISOString();
-            this.filters.archived = newForm.archived;
-            this.filtersChanged.next();
+            if (this.filterForm.valid) {
+                this.filters.documentTypes = [...newForm.documentTypes];
+                this.filters.creationStartDate = Utils.isEmpty(newForm.creationStartDate) ? '' : new Date(newForm.creationStartDate)
+                    .toISOString();
+                this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
+                    .toISOString();
+                this.filters.archived = newForm.archived;
+                this.filtersChanged.next();
+            }
         });
     }
 

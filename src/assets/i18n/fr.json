@@ -88,6 +88,7 @@
         "MY_BUSINESS_INDICATORS": "Mes indicateurs métier",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
+            "DOCUMENT_DELETED": "Ce document a été supprimé",
             "ERROR": {
                 "MANDATORY_FIELD": "Le champ est obligatoire",
                 "BAD_FORMAT": "Format incorrect",
@@ -168,7 +169,7 @@
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
-            "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
+            "MESSAGE": "Êtes vous sûr de vouloir supprimer ce brouillon ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
@@ -741,6 +742,7 @@
     },
     "MY_BOARD": {
         "TITLE": "MyBoard",
+        "FILTER": "Filtrer",
         "NO_NOTIFICATIONS": "Aucune notification trouvée",
         "UNAVAILABLE_OFFLINE": "MyBoard non disponible en déconnecté",
         "TOTAL": "Total : {{total}}",
@@ -748,14 +750,14 @@
         "DOCUMENT_TYPE": {
             "ALL": "Tous",
             "CONGRATULATION_LETTER": "Félicitations",
-            "EOBS": "eObs",
-            "CAREER_OBJECTIVE": "Priorités",
+            "EOBS": "eObservation",
+            "CAREER_OBJECTIVE": "Priorité",
             "WAYPOINT": "Point d'étape",
             "PROFESSIONAL_INTERVIEW": "Bilan Pro",
             "LOGBOOK": "Journal de bord",
             "LOGBOOK_CCO": "Journal de bord - CCO",
             "LOGBOOK_ISCV": "Journal de bord - ISCV",
-            "HR_DOCUMENT": "Documents RH",
+            "HR_DOCUMENT": "Document RH",
             "PROFESSIONAL_LEVEL": "NivPro"
         },
         "FILTERS": {
@@ -768,16 +770,23 @@
         },
         "MESSAGES": {
             "SUCCESS": {
+                "NOTIFICATION_ARCHIVED": "Notification archivée",
                 "NOTIFICATIONS_ARCHIVED": "Notifications archivées",
+                "NOTIFICATION_DEARCHIVED": "Notification désarchivée",
+                "NOTIFICATIONS_DEARCHIVED": "Notifications désarchivées",
+                "NOTIFICATION_DELETED": "Notification supprimée",
                 "NOTIFICATIONS_DELETED": "Notifications supprimées"
+            },
+            "ERROR": {
+                "START_DATE_AFTER_END_DATE": "La date de début dépasse la date de fin"
             },
             "WARNING": {
                 "NO_SELECTED_ITEM": "Aucune notification n'a été sélectionnée"
             }
         },
         "CONFIRM_DELETION_ALERT": {
-            "TITLE": "Confirmation de suppression",
-            "MESSAGE": "La suppression est définitive. Confirmez vous la suppression ?"
+            "TITLE": "Suppression de notifications",
+            "MESSAGE": "Êtes vous sûr de vouloir supprimer ces notifications ?"
         },
         "CONFIRM_LIST_REFRESH": {
             "TITLE": "Nouvelle notification reçue",
@@ -785,6 +794,7 @@
         },
         "BUTTONS": {
             "ARCHIVE": "Archiver",
+            "DEARCHIVE": "Désarchiver",
             "DELETE": "Supprimer",
             "SELECT_ALL": "Tout sélectionner"
         }
