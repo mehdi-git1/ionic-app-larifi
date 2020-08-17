@@ -10,76 +10,82 @@
     <div class="page-container">
         <edossier-spinner *ngIf="!pageLoadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-            <div class="selectable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>{{ 'CONGRATULATION_LETTER_DETAIL.HEADER.FLIGHT' | translate }}</th>
-                            <th>{{ 'CONGRATULATION_LETTER_DETAIL.HEADER.LETTER_TYPE' | translate }}</th>
-                            <th *ngIf="!isWrittenLetter()">
-                                {{ 'CONGRATULATION_LETTER_DETAIL.HEADER.WRITER' | translate }}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="suffix-tu">
-                                {{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:getEmptyStringIfNull(congratulationLetter.flight.airline), flightNumber:getEmptyStringIfNull(congratulationLetter.flight.number), flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}
-                            </td>
-                            <td>
-                                <ng-container *ngIf="congratulationLetter.collective; else individualLabel">
-                                    {{ 'CONGRATULATION_LETTER_DETAIL.TYPE.COLLECTIVE' | translate }}</ng-container>
-                                <ng-template #individualLabel>
-                                    {{ 'CONGRATULATION_LETTER_DETAIL.TYPE.INDIVIDUAL' | translate }}</ng-template>
-                            </td>
-                            <td *ngIf="!isWrittenLetter()">
-                                <ng-container *ngIf="congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC; else notPncRedactorBlock">
-                                    <span class="last-name">{{ congratulationLetter.redactor?.lastName }}</span>&nbsp;<span class="first-name">{{ congratulationLetter.redactor?.firstName }}</span>&nbsp;<span class="current-speciality">({{ congratulationLetter.redactorSpeciality }})</span>
-                                </ng-container>
-                                <ng-template #notPncRedactorBlock>
-                                    {{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.'+congratulationLetter.redactorType | translate }}
-                                </ng-template>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="verbatim-container">
-                    <label><span class="edospnc-speechBubble"></span>{{ 'CONGRATULATION_LETTER_DETAIL.VERBATIM' | translate }}</label>
-                    <no-data *ngIf="!congratulationLetter.verbatim; else noVerbatimBlock"></no-data>
-                    <ng-template #noVerbatimBlock>
-                        <div class="verbatim-data">
-                            <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="congratulationLetter.verbatim">
-                            </text-editor>
-                        </div>
-                    </ng-template>
-                    <div>
-                        <document-manager [documents]="congratulationLetter.documents" [readonly]="true">
-                        </document-manager>
-                    </div>
-                    <div class="button-bar button-bar-right margin-top-10" *ngIf="isManager() && isConnected()">
-                        <!-- Bouton Modifier le rédacteur d'une lettre de félicitation -->
-                        <ion-button fill="outline" color="primary" (click)="fixRecipient($event)" *ngIf="isReceivedMode()">
-                            <span class="edospnc-fix-recipient ion-margin-end" name="edospnc-fix-recipient"></span>
-                            {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.FIX_RECIPIENT' | translate }}</ion-button>
-                        <!-- Bouton supprimer une lettre de félicitation -->
-                        <ion-button color="secondary" fill="outline" (click)="confirmDeleteCongratulationLetter()">
-                            {{ 'CONGRATULATION_LETTER_DETAIL.BUTTONS.DELETE_CONGRATULATION_LETTER' | translate }}</ion-button>
-                        <!-- Bouton modifier une lettre de félicitation -->
-                        <ion-button color="secondary" (click)="updateCongratulationLetter()">
-                            {{ 'CONGRATULATION_LETTER_DETAIL.BUTTONS.UPDATE_CONGRATULATION_LETTER' | translate }}</ion-button>
-                    </div>
-                </div>
-                <div class="information-message align-left" *ngIf="congratulationLetter.creationAuthor">
-                    {{ 'CONGRATULATION_LETTER_CREATE.CREATED_BY' | translate }}
-                    <span class="lastname">{{congratulationLetter.creationAuthor.lastName}}</span>&nbsp;<span class="firstname">{{congratulationLetter.creationAuthor.firstName}}</span>
-                </div>
-
-                <div class="information-message align-left" *ngIf="congratulationLetter.lastUpdateAuthor">
-                    {{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate }}
-                    <span class="lastname">{{congratulationLetter.lastUpdateAuthor.lastName}}</span>&nbsp;<span class="firstname">{{congratulationLetter.lastUpdateAuthor.firstName}}</span>&nbsp;<span>
-                        {{ 'CONGRATULATION_LETTER_CREATE.DATE_LABEL' | translate:{date:getLastUpdateDate()} }}</span>
-                </div>
+            <div class="no-data-splash" *ngIf="congratulationLetter.deletedByRedactor; else congratulationLetterViewTemplate">
+                <ion-icon name="warning"></ion-icon>
+                <span>{{ 'GLOBAL.MESSAGES.DOCUMENT_DELETED' | translate }}</span>
             </div>
+            <ng-template #congratulationLetterViewTemplate>
+                <div class="selectable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>{{ 'CONGRATULATION_LETTER_DETAIL.HEADER.FLIGHT' | translate }}</th>
+                                <th>{{ 'CONGRATULATION_LETTER_DETAIL.HEADER.LETTER_TYPE' | translate }}</th>
+                                <th *ngIf="!isWrittenLetter()">
+                                    {{ 'CONGRATULATION_LETTER_DETAIL.HEADER.WRITER' | translate }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="suffix-tu">
+                                    {{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:getEmptyStringIfNull(congratulationLetter.flight.airline), flightNumber:getEmptyStringIfNull(congratulationLetter.flight.number), flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="congratulationLetter.collective; else individualLabel">
+                                        {{ 'CONGRATULATION_LETTER_DETAIL.TYPE.COLLECTIVE' | translate }}</ng-container>
+                                    <ng-template #individualLabel>
+                                        {{ 'CONGRATULATION_LETTER_DETAIL.TYPE.INDIVIDUAL' | translate }}</ng-template>
+                                </td>
+                                <td *ngIf="!isWrittenLetter()">
+                                    <ng-container *ngIf="congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC; else notPncRedactorBlock">
+                                        <span class="last-name">{{ congratulationLetter.redactor?.lastName }}</span>&nbsp;<span class="first-name">{{ congratulationLetter.redactor?.firstName }}</span>&nbsp;<span class="current-speciality">({{ congratulationLetter.redactorSpeciality }})</span>
+                                    </ng-container>
+                                    <ng-template #notPncRedactorBlock>
+                                        {{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.'+congratulationLetter.redactorType | translate }}
+                                    </ng-template>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="verbatim-container">
+                        <label><span class="edospnc-speechBubble"></span>{{ 'CONGRATULATION_LETTER_DETAIL.VERBATIM' | translate }}</label>
+                        <no-data *ngIf="!congratulationLetter.verbatim; else noVerbatimBlock"></no-data>
+                        <ng-template #noVerbatimBlock>
+                            <div class="verbatim-data">
+                                <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="congratulationLetter.verbatim">
+                                </text-editor>
+                            </div>
+                        </ng-template>
+                        <div>
+                            <document-manager [documents]="congratulationLetter.documents" [readonly]="true">
+                            </document-manager>
+                        </div>
+                        <div class="button-bar button-bar-right margin-top-10" *ngIf="isManager() && isConnected()">
+                            <!-- Bouton Modifier le rédacteur d'une lettre de félicitation -->
+                            <ion-button fill="outline" color="primary" (click)="fixRecipient($event)" *ngIf="isReceivedMode()">
+                                <span class="edospnc-fix-recipient ion-margin-end" name="edospnc-fix-recipient"></span>
+                                {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.FIX_RECIPIENT' | translate }}</ion-button>
+                            <!-- Bouton supprimer une lettre de félicitation -->
+                            <ion-button color="secondary" fill="outline" (click)="confirmDeleteCongratulationLetter()">
+                                {{ 'CONGRATULATION_LETTER_DETAIL.BUTTONS.DELETE_CONGRATULATION_LETTER' | translate }}</ion-button>
+                            <!-- Bouton modifier une lettre de félicitation -->
+                            <ion-button color="secondary" (click)="updateCongratulationLetter()">
+                                {{ 'CONGRATULATION_LETTER_DETAIL.BUTTONS.UPDATE_CONGRATULATION_LETTER' | translate }}</ion-button>
+                        </div>
+                    </div>
+                    <div class="information-message align-left" *ngIf="congratulationLetter.creationAuthor">
+                        {{ 'CONGRATULATION_LETTER_CREATE.CREATED_BY' | translate }}
+                        <span class="lastname">{{congratulationLetter.creationAuthor.lastName}}</span>&nbsp;<span class="firstname">{{congratulationLetter.creationAuthor.firstName}}</span>
+                    </div>
+
+                    <div class="information-message align-left" *ngIf="congratulationLetter.lastUpdateAuthor">
+                        {{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate }}
+                        <span class="lastname">{{congratulationLetter.lastUpdateAuthor.lastName}}</span>&nbsp;<span class="firstname">{{congratulationLetter.lastUpdateAuthor.firstName}}</span>&nbsp;<span>
+                            {{ 'CONGRATULATION_LETTER_CREATE.DATE_LABEL' | translate:{date:getLastUpdateDate()} }}</span>
+                    </div>
+                </div>
+            </ng-template>
         </ng-template>
     </div>
 </ion-content>
