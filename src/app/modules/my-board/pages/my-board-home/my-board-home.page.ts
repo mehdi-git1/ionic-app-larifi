@@ -108,7 +108,6 @@ export class MyBoardHomePage {
    * Lance une recherche suite à une mise à jour des filtres
    */
   applyFilters() {
-    this.resetPageNumber();
     this.filters.pagePosition = PagePositionEnum.FIRST;
     this.filtersSubject.next(this.filters);
   }
@@ -136,6 +135,7 @@ export class MyBoardHomePage {
    */
   handlePageSearch(filters: MyBoardNotificationFilterModel): Observable<PagedMyBoardNotificationModel> {
     if (filters.pagePosition === PagePositionEnum.FIRST) {
+      this.resetPageNumber();
       this.isLoading = true;
       this.selectAllCheckboxValue = false;
       return this.getPncNotifications(filters);
