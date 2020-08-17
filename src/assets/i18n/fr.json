@@ -741,6 +741,7 @@
     },
     "MY_BOARD": {
         "TITLE": "MyBoard",
+        "FILTER": "Filtrer",
         "NO_NOTIFICATIONS": "Aucune notification trouvée",
         "UNAVAILABLE_OFFLINE": "MyBoard non disponible en déconnecté",
         "TOTAL": "Total : {{total}}",
@@ -748,8 +749,8 @@
         "DOCUMENT_TYPE": {
             "ALL": "Tous",
             "CONGRATULATION_LETTER": "Félicitations",
-            "EOBS": "eObs",
-            "CAREER_OBJECTIVE": "Priorités",
+            "EOBS": "eObservation",
+            "CAREER_OBJECTIVE": "Priorité",
             "WAYPOINT": "Point d'étape",
             "PROFESSIONAL_INTERVIEW": "Bilan Pro",
             "LOGBOOK": "Journal de bord",
@@ -768,7 +769,9 @@
         },
         "MESSAGES": {
             "SUCCESS": {
+                "NOTIFICATION_ARCHIVED": "Notification archivée",
                 "NOTIFICATIONS_ARCHIVED": "Notifications archivées",
+                "NOTIFICATION_DELETED": "Notification supprimée",
                 "NOTIFICATIONS_DELETED": "Notifications supprimées"
             },
             "WARNING": {

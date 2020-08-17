@@ -4,6 +4,10 @@
     align-items: center;
     color: var(--ion-color-white);
 
+    .start {
+        position: absolute;
+    }
+
     .title {
         flex: 1;
 
