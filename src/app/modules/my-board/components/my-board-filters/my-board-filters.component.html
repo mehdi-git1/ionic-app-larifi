@@ -5,7 +5,7 @@
     </ion-button>
 </h2>
 <form [formGroup]="filterForm">
-    <div class="filter">
+    <div class="filter-container filter">
         <label>{{ 'MY_BOARD.FILTERS.DOCUMENT_TYPE' | translate }}</label>
         <mat-select formControlName="documentTypes" multiple>
             <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.value">
@@ -13,17 +13,20 @@
             </mat-option>
         </mat-select>
     </div>
-    <div class="filter-dual date-filter">
-        <div class="filter">
-            <label class="start-date-label"> {{ 'MY_BOARD.FILTERS.START_DATE' | translate }}</label>
-            <edospnc-datetime class="start-date" [edospncFormGroup]="filterForm" edospncFormControlName="creationStartDate" [displayIcon]="false" inputLike="true"></edospnc-datetime>
+    <div class="filter-container">
+        <div class="filter-dual date-filter">
+            <div class="filter">
+                <label class="start-date-label"> {{ 'MY_BOARD.FILTERS.START_DATE' | translate }}</label>
+                <edospnc-datetime class="start-date" [edospncFormGroup]="filterForm" edospncFormControlName="creationStartDate" [displayIcon]="false" inputLike="true"></edospnc-datetime>
+            </div>
+            <div class="filter">
+                <label class="start-date-label"> {{ 'MY_BOARD.FILTERS.END_DATE' | translate }}</label>
+                <edospnc-datetime class="end-date" [edospncFormGroup]="filterForm" edospncFormControlName="creationEndDate" [displayIcon]="false" inputLike="true"></edospnc-datetime>
+            </div>
         </div>
-        <div class="filter">
-            <label class="start-date-label"> {{ 'MY_BOARD.FILTERS.END_DATE' | translate }}</label>
-            <edospnc-datetime class="end-date" [edospncFormGroup]="filterForm" edospncFormControlName="creationEndDate" [displayIcon]="false" inputLike="true"></edospnc-datetime>
-        </div>
+        <label class="form-error" *ngIf="filterForm.errors && filterForm.errors.startDateAfterEndDate">{{ filterForm.errors.startDateAfterEndDate }}</label>
     </div>
-    <div class="filter archived-filter">
+    <div class="filter-container filter archived-filter">
         <ion-item>
             <ion-checkbox formControlName="archived" placeholder="{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}"></ion-checkbox>
             <ion-label>{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}</ion-label>

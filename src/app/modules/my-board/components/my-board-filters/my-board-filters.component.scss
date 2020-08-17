@@ -16,7 +16,7 @@ h2 {
     }
 }
 
-.filter {
+.filter-container {
     margin-bottom: 16px;
 }
 
@@ -54,4 +54,8 @@ ion-item {
     ion-checkbox {
         margin-left: 10px;
     }
+}
+
+.form-error {
+    color: var(--ion-color-secondary);
 }
