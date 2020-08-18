@@ -44,6 +44,7 @@ export class EobservationDetailsPage extends FormCanDeactivate {
 
   editMode = false;
   pdfDownloadInProgress = false;
+  isEObservationDeleted = false;
 
   constructor(
     private navCtrl: NavController,
@@ -71,6 +72,7 @@ export class EobservationDetailsPage extends FormCanDeactivate {
       this.eObservationService.getEObservation(parseInt(this.activatedRoute.snapshot.paramMap.get('eObservationId'), 10))
         .then(eObservation => {
           this.eObservation = eObservation;
+          this.isEObservationDeleted = eObservation.deleted;
           this.originEObservation = _.cloneDeep(this.eObservation);
           if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
             this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
@@ -201,6 +203,7 @@ export class EobservationDetailsPage extends FormCanDeactivate {
       const eObservationClone = _.cloneDeep(this.eObservation);
       this.eObservationService.updateEObservation(eObservationClone).then(eObservation => {
         this.eObservation = eObservation;
+        this.isEObservationDeleted = eObservation.deleted;
         this.originEObservation = _.cloneDeep(this.eObservation);
         this.editMode = false;
         if (this.eObservation.deleted) {

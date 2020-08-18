@@ -14,7 +14,7 @@
     <div class="page-container">
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-            <div class="no-data-splash" *ngIf="eObservation.deleted; else eObservationViewTemplate">
+            <div class="no-data-splash" *ngIf="isEObservationDeleted; else eObservationViewTemplate">
                 <ion-icon name="warning"></ion-icon>
                 <span>{{ 'GLOBAL.MESSAGES.DOCUMENT_DELETED' | translate }}</span>
             </div>
