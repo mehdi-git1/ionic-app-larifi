@@ -228,6 +228,8 @@ export class MyBoardHomePage {
       [NotificationDocumentTypeEnum.WAYPOINT]: `${pncEDossierRoute}/career-objective/waypoint/0/${documentId}`,
       [NotificationDocumentTypeEnum.PROFESSIONAL_INTERVIEW]: `${pncEDossierRoute}/professional-interview/detail/${documentId}`,
       [NotificationDocumentTypeEnum.LOGBOOK]: `${pncEDossierRoute}/logbook/detail/${documentId}/false`,
+      [NotificationDocumentTypeEnum.LOGBOOK_CCO]: `${pncEDossierRoute}/logbook/detail/${documentId}/false`,
+      [NotificationDocumentTypeEnum.LOGBOOK_ISCV]: `${pncEDossierRoute}/logbook/detail/${documentId}/false`,
       [NotificationDocumentTypeEnum.HR_DOCUMENT]: `${pncEDossierRoute}/hr-document/detail/${documentId}`,
       [NotificationDocumentTypeEnum.PROFESSIONAL_LEVEL]: `${pncEDossierRoute}/professional-level`
     };
