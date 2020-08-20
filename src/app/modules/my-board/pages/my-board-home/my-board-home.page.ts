@@ -7,6 +7,7 @@ import { ConnectivityService } from 'src/app/core/services/connectivity/connecti
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -52,6 +53,7 @@ export class MyBoardHomePage {
     private toastService: ToastService,
     private translateService: TranslateService,
     private alertDialogService: AlertDialogService,
+    private events: Events,
     private router: Router
   ) {
     this.filters.size = this.PAGE_SIZE;
@@ -206,6 +208,7 @@ export class MyBoardHomePage {
       notificationIdsArray.push(notification.techId);
       this.myBoardNotificationService.readNotifications(notificationIdsArray, true).then(() => {
         notification.checked = true;
+        this.events.publish('myBoard:uncheckedNotificationCountUpdate', this.myBoardNotificationSummary.totalUnchecked - 1);
       });
     }
 
@@ -298,6 +301,7 @@ export class MyBoardHomePage {
       selectedNotificationIds.length > 1 ?
         this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATIONS_DELETED')) :
         this.toastService.success(this.translateService.instant('MY_BOARD.MESSAGES.SUCCESS.NOTIFICATION_DELETED'));
+      this.getMyBoardNotificationSummary();
       this.launchFirstSearch();
     });
   }

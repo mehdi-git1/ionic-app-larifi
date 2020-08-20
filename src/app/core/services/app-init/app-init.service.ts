@@ -8,6 +8,7 @@ import { AuthenticationStatusEnum } from '../../enums/authentication-status.enum
 import { PinPadTypeEnum } from '../../enums/security/pin-pad-type.enum';
 import { DeviceService } from '../device/device.service';
 import { ModalSecurityService } from '../modal/modal-security.service';
+import { MyBoardNotificationService } from '../my-board/my-board-notification.service';
 import { SessionService } from '../session/session.service';
 
 @Injectable({ providedIn: 'root' })
@@ -21,6 +22,7 @@ export class AppInitService {
         private sessionService: SessionService,
         private translateService: TranslateService,
         private authenticationService: AuthenticationService,
+        private myBoardNotificationService: MyBoardNotificationService,
         private injector: Injector,
         private platform: Platform
     ) { }
@@ -60,6 +62,8 @@ export class AppInitService {
     initApp(): Promise<any> {
         return this.authenticationService.initFunctionalApp().then(
             authentReturn => {
+                // Récupération des compteurs de notifs MyBoard
+                this.myBoardNotificationService.updateActiveUserMyBoardNotificationCount();
                 this.setAuthenticationStatus(authentReturn);
             });
     }

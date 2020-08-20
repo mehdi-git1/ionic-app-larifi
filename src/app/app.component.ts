@@ -15,6 +15,7 @@ import { AppVersionService } from './core/services/app-version/app-version.servi
 import { ConnectivityService } from './core/services/connectivity/connectivity.service';
 import { DeviceService } from './core/services/device/device.service';
 import { ModalSecurityService } from './core/services/modal/modal-security.service';
+import { MyBoardNotificationService } from './core/services/my-board/my-board-notification.service';
 import { SessionService } from './core/services/session/session.service';
 import { SynchronizationService } from './core/services/synchronization/synchronization.service';
 import { ToastService } from './core/services/toast/toast.service';
@@ -42,12 +43,13 @@ export class AppComponent {
     private translateService: TranslateService,
     private deviceService: DeviceService,
     private toastService: ToastService,
-    private synchronizationProvider: SynchronizationService,
+    private synchronizationService: SynchronizationService,
     private authenticationService: AuthenticationService,
     private appInitService: AppInitService,
     private alertCtrl: AlertController,
     private config: Config,
-    private appVersionService: AppVersionService
+    private appVersionService: AppVersionService,
+    private myBoardNotificationService: MyBoardNotificationService
   ) {
     this.platform.ready().then(() => {
       this.appInitService.initAppOnIpad().then(() => {
@@ -75,7 +77,10 @@ export class AppComponent {
         // Si on a depassé le temps d'inactivité, on affiche le pin pad
         if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.pinPadShowupThresholdInSeconds) {
           if (this.connectivityService.isConnected()) {
-            this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule);
+            // Synchro des données offline
+            this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule);
+            // Récupération des compteurs de notifs MyBoard
+            this.myBoardNotificationService.updateActiveUserMyBoardNotificationCount();
           }
           if (!this.sessionService.impersonatedUser) {
             this.securityModalService.forceCloseModal();

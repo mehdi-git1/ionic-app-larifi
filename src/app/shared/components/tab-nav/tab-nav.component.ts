@@ -45,4 +45,16 @@ export class TabNavComponent {
   isAvailable(): boolean {
     return this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isManager;
   }
+
+  /**
+   * Récupère la valeur à afficher pour le badge de notif
+   * @param tabNav le tab à traiter
+   * @return la valeur du badge à afficher
+   */
+  getBadgeValue(tabNav: any): string {
+    if (tabNav.badgeValue > 9) {
+      return '9+';
+    }
+    return tabNav.badgeValue.toString();
+  }
 }
