@@ -4,6 +4,7 @@ export class MyBoardNotificationSummaryModel extends EDossierPncObjectModel {
   matricule: string;
   totalFiltered: number;
   totalArchived: number;
+  totalUnchecked: number;
 
   getStorageId(): string {
     return `${this.matricule}`;

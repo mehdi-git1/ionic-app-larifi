@@ -44,6 +44,10 @@ export class TabNavService {
         this.events.subscribe('user:authenticationDone', () => {
             this.initTabList();
         });
+
+        this.events.subscribe('myBoard:uncheckedNotificationCountUpdate', (newCount) => {
+            this.getTab(TabNavEnum.MY_BOARD_PAGE).badgeValue = newCount;
+        });
     }
 
     /**
@@ -67,7 +71,8 @@ export class TabNavService {
                 page: this.sessionService.getActiveUser().isManager ? PncHomePage : DevelopmentProgramPage,
                 icon: 'home',
                 route: 'home',
-                display: true
+                display: true,
+                badgeValue: 0
             },
             {
                 id: TabNavEnum.MY_BOARD_PAGE,
@@ -75,7 +80,8 @@ export class TabNavService {
                 page: MyBoardHomePage,
                 icon: 'speedometer',
                 route: 'myboard',
-                display: this.securityService.isManager()
+                display: this.securityService.isManager(),
+                badgeValue: 0
             },
             {
                 id: TabNavEnum.PNC_SEARCH_PAGE,
@@ -83,7 +89,8 @@ export class TabNavService {
                 page: PncSearchPage,
                 icon: 'contacts',
                 route: 'search',
-                display: this.securityService.isManager()
+                display: this.securityService.isManager(),
+                badgeValue: 0
             },
             {
                 id: TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE,
@@ -91,7 +98,8 @@ export class TabNavService {
                 page: UpcomingFlightListPage,
                 icon: 'jet',
                 route: 'flight',
-                display: this.securityService.isManager()
+                display: this.securityService.isManager(),
+                badgeValue: 0
             },
             {
                 id: TabNavEnum.VISITED_PNC,
@@ -99,7 +107,8 @@ export class TabNavService {
                 page: DevelopmentProgramPage,
                 icon: 'person',
                 route: 'visit',
-                display: false
+                display: false,
+                badgeValue: 0
             },
             {
                 id: TabNavEnum.HELP_ASSET_LIST_PAGE,
@@ -107,7 +116,8 @@ export class TabNavService {
                 page: HelpAssetListPage,
                 icon: 'help-circle',
                 route: 'help',
-                display: this.securityService.isManager()
+                display: this.securityService.isManager(),
+                badgeValue: 0
             }
         ];
 
@@ -211,5 +221,4 @@ export class TabNavService {
         const activeTab = this.getActiveTab();
         return activeTab && activeTab.id === TabNavEnum.VISITED_PNC;
     }
-
 }

@@ -10,6 +10,7 @@ export class MyBoardNotificationFilterModel {
   creationEndDate: string;
 
   archived: boolean;
+  checked: boolean;
 
   // Tri
   sortColumn: string;
