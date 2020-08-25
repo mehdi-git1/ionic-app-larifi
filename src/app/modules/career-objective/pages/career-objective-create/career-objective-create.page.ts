@@ -524,14 +524,20 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
         return !this.securityService.isManager() && (
             this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED ||
             this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.VALIDATED ||
-            this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.ABANDONED) &&
-            this.careerObjective.pncComment !== this.originalPncComment;
+            this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.ABANDONED);
+    }
+
+    /**
+     * Vérifie si le commentaire du pnc est modifié ou non
+     * @return vrai si le commentaire du pnc a été modifié
+     */
+    pncCommentHasBeenModified() {
+        return this.careerObjective.pncComment !== this.originalPncComment;
     }
 
     /**
      * Sauvegarde l'objectif et met a jour le commentaire pnc de l'objectif original
      */
-
     saveCareerObjectiveAndUpdatePncComment() {
         this.saveCareerObjective(this.careerObjective).then(() => {
             this.originalPncComment = this.careerObjective.pncComment;
