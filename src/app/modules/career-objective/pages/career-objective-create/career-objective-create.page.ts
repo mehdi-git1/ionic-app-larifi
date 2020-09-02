@@ -3,7 +3,7 @@ import { PncRoleEnum } from 'src/app/core/enums/pnc-role.enum';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
 
 import { DatePipe } from '@angular/common';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
@@ -42,7 +42,7 @@ import { DateTransform } from '../../../../shared/utils/date-transform';
     templateUrl: 'career-objective-create.page.html',
     styleUrls: ['./career-objective-create.page.scss']
 })
-export class CareerObjectiveCreatePage extends FormCanDeactivate implements AfterViewInit {
+export class CareerObjectiveCreatePage extends FormCanDeactivate {
 
     creationForm: FormGroup;
     careerObjective: CareerObjectiveModel;
@@ -105,14 +105,6 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate implements Afte
             if (!synchroInProgress && this.careerObjective && this.careerObjective.techId) {
                 this.refreshWaypoints(this.careerObjective.techId);
             }
-        });
-    }
-
-    ngAfterViewInit() {
-        this.creationForm.get('pncCommentControl').valueChanges.subscribe(x => {
-            console.log('formulaire', x);
-            console.log('original', this.originalPncComment);
-            console.log(this.careerObjective.pncComment);
         });
     }
 
