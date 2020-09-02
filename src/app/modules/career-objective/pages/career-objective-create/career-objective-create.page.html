@@ -226,7 +226,7 @@
                         <span *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.UPDATE' | translate }}</span>
                     </ion-button>
                     <!-- Bouton sauvegarder commentaire pnc -->
-                    <ion-button color="blue70" (click)="saveCareerObjectiveAndUpdatePncComment()" [disabled]="creationForm.invalid || !pncCommentHasBeenModified()" *ngIf="canPncCommentBeModifiedByPnc()">
+                    <ion-button color="blue70" (click)="saveCareerObjectiveAndUpdatePncComment()" [disabled]="!pncCommentHasBeenModified()" *ngIf="canPncCommentBeModifiedByPnc()">
                         <ion-icon name="download" ios="ios-download-outline" class="ion-margin-end"></ion-icon>
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.UPDATE' | translate }}
                     </ion-button>

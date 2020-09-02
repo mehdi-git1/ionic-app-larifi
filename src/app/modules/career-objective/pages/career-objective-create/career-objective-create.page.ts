@@ -532,6 +532,9 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * @return vrai si le commentaire du pnc a été modifié
      */
     pncCommentHasBeenModified() {
+        if (this.originalPncComment === undefined && this.careerObjective.pncComment === '') {
+            return false;
+        }
         return this.careerObjective.pncComment !== this.originalPncComment;
     }
 
