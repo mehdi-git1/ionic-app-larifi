@@ -1,6 +1,6 @@
 import { from, Observable, Subject } from 'rxjs';
 import {
-    MyBoardNotificationSummaryModel
+  MyBoardNotificationSummaryModel
 } from 'src/app/core/models/my-board/my-board-notification-summary.model';
 import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-notification.model';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
@@ -11,18 +11,18 @@ import { Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
-    NotificationDocumentTypeEnum
+  NotificationDocumentTypeEnum
 } from '../../../../core/enums/my-board/notification-document-type.enum';
 import { PagePositionEnum } from '../../../../core/enums/page-position.enum';
 import {
-    MyBoardNotificationFilterModel
+  MyBoardNotificationFilterModel
 } from '../../../../core/models/my-board/my-board-notification-filter.model';
 import {
-    PagedMyBoardNotificationModel
+  PagedMyBoardNotificationModel
 } from '../../../../core/models/my-board/paged-my-board-notification.model';
 import { AlertDialogService } from '../../../../core/services/alertDialog/alert-dialog.service';
 import {
-    MyBoardNotificationService
+  MyBoardNotificationService
 } from '../../../../core/services/my-board/my-board-notification.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
@@ -39,7 +39,7 @@ export class MyBoardHomePage {
   myBoardNotificationSummary = new MyBoardNotificationSummaryModel();
 
   totalNotifications = 0;
-  isLoading = false;
+  isLoading = true;
   isMenuOpened = false;
 
   selectAllCheckboxValue = false;
