@@ -177,7 +177,12 @@ export class HelpAssetListPage {
         helpAsset[12].label = 'Les Indicateurs Métier dans eDossierPNC';
         helpAsset[12].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[12].lastUpdateDate = '2020-07-21T00:00:00Z';
-
+        const pdf14 = 'Documents_RH_guidelines.pdf';
+        helpAsset[13] = new HelpAssetModel();
+        helpAsset[13].url = `${this.pdfUrl}/cadre/${pdf14}`;
+        helpAsset[13].label = 'Les documents RH dans eDossier';
+        helpAsset[13].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[13].lastUpdateDate = '2020-09-29T00:00:00Z';
 
         return helpAsset;
     }
