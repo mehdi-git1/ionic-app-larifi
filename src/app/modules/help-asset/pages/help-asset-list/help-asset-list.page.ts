@@ -212,6 +212,11 @@ export class HelpAssetListPage {
         helpAsset[1].label = 'Fiches Missions Relais';
         helpAsset[1].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[1].lastUpdateDate = '2020-04-07T00:00:00Z';
+        helpAsset[2] = new HelpAssetModel();
+        helpAsset[2].url = `${this.pdfUrl}/commun/Priorités_eDossier_guidelines_V.1.pdf`;
+        helpAsset[2].label = 'Les priorités dans eDossier';
+        helpAsset[2].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[2].lastUpdateDate = '2020-09-29T00:00:00Z';
         return helpAsset;
     }
 }
