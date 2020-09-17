@@ -41,7 +41,10 @@
     </div>
 </ion-header>
 <ion-content>
-    <div *ngIf="!canDisplayNotifications() else onlineBlock">{{ 'MY_BOARD.UNAVAILABLE_OFFLINE' | translate }}</div>
+    <div *ngIf="!canDisplayNotifications() else onlineBlock" class="offline-mode-unavailable">
+        <ion-icon name="wifi"></ion-icon>
+        <span>{{ 'MY_BOARD.UNAVAILABLE_OFFLINE' | translate }}</span>
+    </div>
     <ng-template #onlineBlock>
         <mat-sidenav-container>
             <mat-sidenav [(opened)]="isMenuOpened" mode="side">
