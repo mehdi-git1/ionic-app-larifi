@@ -10,7 +10,7 @@
     <div class="page-container">
         <edossier-spinner *ngIf="!pageLoadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-            <div class="no-data-splash" *ngIf="congratulationLetter.deletedByRedactor; else congratulationLetterViewTemplate">
+            <div class="no-data-splash" *ngIf="congratulationLetter == undefined || congratulationLetter.deletedByRedactor; else congratulationLetterViewTemplate">
                 <ion-icon name="warning"></ion-icon>
                 <span>{{ 'GLOBAL.MESSAGES.DOCUMENT_DELETED' | translate }}</span>
             </div>
