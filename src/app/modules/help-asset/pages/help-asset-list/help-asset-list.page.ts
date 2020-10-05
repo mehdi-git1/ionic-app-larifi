@@ -183,6 +183,12 @@ export class HelpAssetListPage {
         helpAsset[13].label = 'Les documents RH dans eDossier';
         helpAsset[13].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[13].lastUpdateDate = '2020-09-29T00:00:00Z';
+        const pdf15 = 'eObservations_guidelines.pdf';
+        helpAsset[14] = new HelpAssetModel();
+        helpAsset[14].url = `${this.pdfUrl}/cadre/${pdf15}`;
+        helpAsset[14].label = 'Les eObservations dans eDossierPNC';
+        helpAsset[14].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[14].lastUpdateDate = '2020-09-29T00:00:00Z';
 
         return helpAsset;
     }
