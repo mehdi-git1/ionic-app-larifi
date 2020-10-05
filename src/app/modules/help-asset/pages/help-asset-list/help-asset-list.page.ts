@@ -189,6 +189,12 @@ export class HelpAssetListPage {
         helpAsset[14].label = 'Les eObservations dans eDossierPNC';
         helpAsset[14].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[14].lastUpdateDate = '2020-09-29T00:00:00Z';
+        const pdf16 = 'Lettres_de_félicitations_guidelines.pdf';
+        helpAsset[15] = new HelpAssetModel();
+        helpAsset[15].url = `${this.pdfUrl}/cadre/${pdf16}`;
+        helpAsset[15].label = 'Les lettres de félicitations dans eDossierPNC';
+        helpAsset[15].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[15].lastUpdateDate = '2020-09-29T00:00:00Z';
 
         return helpAsset;
     }
