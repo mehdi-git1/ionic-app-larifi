@@ -191,8 +191,9 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   *
-   * @param key
+   * Verifie que la clé de l'item égale a 'wish'
+   * @param key la clé de l'item
+   * @return true si la clé de l'item égale à 'wish', false sinon
    */
   isWishSection(key: string): boolean {
     return (key === 'wish');
