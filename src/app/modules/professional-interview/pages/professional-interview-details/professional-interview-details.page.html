@@ -78,7 +78,7 @@
                                     <ion-textarea [(ngModel)]="themeItem.value" autocorrect="on" formControlName="{{themeItem.label}}">
                                     </ion-textarea>
                                 </ng-template>
-                                <div *ngIf="isWishSection(themeItem.key)">
+                                <div *ngIf="isConnected() && isWishSection(themeItem.key)">
                                     <document-manager [documents]="professionalInterview.attachmentFiles" [readonly]="!editionMode">
                                     </document-manager>
                                 </div>

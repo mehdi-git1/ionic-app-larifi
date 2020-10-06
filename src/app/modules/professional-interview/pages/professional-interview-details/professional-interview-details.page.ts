@@ -191,12 +191,14 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   *
-   * @param key
+   * Verifie que la clé de l'item égale a 'wish'
+   * @param key la clé de l'item
+   * @return true si la clé de l'item égale à 'wish', false sinon
    */
   isWishSection(key: string): boolean {
     return (key === 'wish');
   }
+
   /**
    * Prépare un formulaire de création pour un nouveau bilan professionnel
    */
@@ -644,6 +646,14 @@ export class ProfessionalInterviewDetailsPage {
    */
   getLastUpdateDate(): string {
     return this.datePipe.transform(this.professionalInterview.lastUpdateDate, 'dd/MM/yyyy HH:mm');
+  }
+
+  /**
+   * Vérifie si l'on est connecté
+   * @return true si on est connecté, false sinon
+   */
+  isConnected(): boolean {
+    return this.connectivityService.isConnected();
   }
 
 }
