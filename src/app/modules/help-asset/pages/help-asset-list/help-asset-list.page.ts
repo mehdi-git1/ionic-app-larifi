@@ -144,7 +144,7 @@ export class HelpAssetListPage {
         const pdf8 = 'JDB-dans-eDossierPNC-V2.pdf';
         helpAsset[7] = new HelpAssetModel();
         helpAsset[7].url = `${this.pdfUrl}/cadre/${pdf8}`;
-        helpAsset[7].label = 'JDB dans eDossierPNC V2';
+        helpAsset[7].label = 'Le journal de bord dans eDossierPNC';
         helpAsset[7].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[7].lastUpdateDate = '2019-10-22T00:00:00Z';
         const pdf9 = 'Prepa-express-vol-de-formation-CC.pdf';
@@ -180,7 +180,7 @@ export class HelpAssetListPage {
         const pdf14 = 'Documents_RH_guidelines.pdf';
         helpAsset[13] = new HelpAssetModel();
         helpAsset[13].url = `${this.pdfUrl}/cadre/${pdf14}`;
-        helpAsset[13].label = 'Les documents RH dans eDossier';
+        helpAsset[13].label = 'Les documents RH dans eDossierPNC';
         helpAsset[13].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[13].lastUpdateDate = '2020-09-29T00:00:00Z';
         const pdf15 = 'eObservations_guidelines.pdf';
@@ -231,7 +231,7 @@ export class HelpAssetListPage {
         helpAsset[1].lastUpdateDate = '2020-04-07T00:00:00Z';
         helpAsset[2] = new HelpAssetModel();
         helpAsset[2].url = `${this.pdfUrl}/commun/Priorités_eDossier_guidelines_V.1.pdf`;
-        helpAsset[2].label = 'Les priorités dans eDossier';
+        helpAsset[2].label = 'Les priorités dans eDossierPNC';
         helpAsset[2].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[2].lastUpdateDate = '2020-09-29T00:00:00Z';
         return helpAsset;
