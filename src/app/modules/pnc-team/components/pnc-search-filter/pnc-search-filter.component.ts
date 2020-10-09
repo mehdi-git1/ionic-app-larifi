@@ -163,7 +163,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('hasNoPriorityControl').setValue(false);
     this.searchForm.get('hasDefaultHiddenEventsControl').setValue(false);
     this.searchForm.get('hasHiddenEventsControl').setValue(false);
-    this.search();
+    // this.search();
     this.defaultValue = false;
     this.priority = false;
     this.noPriority = false;
@@ -231,6 +231,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     if (this.connectivityService.isConnected()) {
       this.resetFilterValues();
       this.formOnChanges();
+      this.search();
     }
   }
 
@@ -250,7 +251,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Fonction permettant de détecter et de gérer les changements de valeur des différents éléments du formulaire
    */
   formOnChanges() {
-    this.searchForm.valueChanges.debounceTime(500).subscribe(val => {
+    this.searchForm.valueChanges.subscribe(val => {
       this.pncFilter.ginq = val.ginqControl;
       this.pncFilter.speciality = val.specialityControl;
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
@@ -261,7 +262,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
       this.pncFilter.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
       this.pncFilter.hasHiddenEvents = val.hasHiddenEventsControl;
-      this.search();
     });
   }
 

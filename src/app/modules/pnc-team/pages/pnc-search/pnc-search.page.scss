@@ -1,1 +1,23 @@
+[slot="start"] {
+    display: flex;
+    align-items: center;
+}
 
+mat-sidenav-container {
+    height: 100%;
+}
+
+mat-sidenav {
+    width: 300px;
+    padding: 8px;
+    background: var(--ion-color-white);
+    box-shadow: 3px 0px 4px -2px rgba(51, 51, 51, 0.75);
+}
+
+.edospnc-filter-sharp {
+    transform: scale(0.8);
+}
+
+::ng-deep .item-native {
+    padding-left: 0px;
+}
