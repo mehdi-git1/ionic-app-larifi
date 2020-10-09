@@ -166,7 +166,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('hasDefaultHiddenEventsControl').setValue(false);
     this.searchForm.get('hasHiddenEventsControl').setValue(false);
     this.searchForm.get('tafControl').setValue(false);
-    // this.search();
     this.defaultValue = false;
     this.priority = false;
     this.noPriority = false;
