@@ -702,25 +702,35 @@
     "PNC_SEARCH": {
         "NO_CONNEXION_MESSAGE": "* Filtres inactifs hors connexion",
         "CRITERIA": {
-            "FILTERS": "Filtres",
-            "PRIORITY": "Priorités",
+            "TITLE": "Filtres",
+            "FILTER": "Filtrer",
+            "REINIT_BUTTON": "Réinitialiser",
+            "SEARCH_BUTTON": "Rechercher",
             "DIVISION": "Division",
             "SECTOR": "Secteur",
             "GINQ": "Ginq",
             "SPECIALITY": "Fonction",
-            "RELAY": "Relais",
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
-            "PRIORITY_CATEGORY": "Catégorie priorités",
-            "PRIORITIZED": "Majeure",
-            "PRIORITY_IN_PROGRESS": "En cours",
-            "NO_PRIORITY": "Aucune en cours",
-            "PRIORITIZED_SHORT": "Majeure",
-            "PRIORITY_IN_PROGRESS_SHORT": "En cours",
-            "NO_PRIORITY_SHORT": "Aucune en cours",
-            "LOGBOOK_EVENTS": "Evènement JDB",
-            "HIDDEN_EVENTS": "Masqué volontairement",
-            "DEFAULT_HIDDEN_EVENTS": "Masqué par défaut"
+            "PRIORITY": {
+                "TITLE": "Priorités",
+                "PRIORITY_CATEGORY": "Catégorie priorités",
+                "PRIORITIZED": "Majeure",
+                "PRIORITY_IN_PROGRESS": "En cours",
+                "NO_PRIORITY": "Aucune en cours",
+                "PRIORITIZED_SHORT": "Majeure",
+                "PRIORITY_IN_PROGRESS_SHORT": "En cours",
+                "NO_PRIORITY_SHORT": "Aucune en cours"
+            },
+            "MISSION": {
+                "TITLE": "Missions",
+                "RELAY": "Relais"
+            },
+            "LOGBOOK_EVENTS": {
+                "TITLE": "Evènement JDB",
+                "HIDDEN_EVENTS": "Masqué volontairement",
+                "DEFAULT_HIDDEN_EVENTS": "Masqué par défaut"
+            }
         },
         "DEFAULT_DATA": {
             "ALL_F": "Toutes",

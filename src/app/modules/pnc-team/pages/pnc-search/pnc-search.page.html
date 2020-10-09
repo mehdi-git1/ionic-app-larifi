@@ -1,6 +1,12 @@
 <ion-header>
     <ion-toolbar>
         <page-header (refreshPage)="initPage()" [showRefreshIcon]="true">
+            <span slot="start">
+                <ion-fab-button (click)="toggleFiltersMenu()" size="small" color="primarydark">
+                    <span class="edospnc-filter-sharp"></span>
+                </ion-fab-button>
+                {{ 'PNC_SEARCH.CRITERIA.FILTER' | translate }}
+            </span>
             <ng-container slot="center">
                 <ng-container *ngIf="isAlternantSearch(); else alternantSearchTitle">{{ 'GLOBAL.ALTERNANT_TEAM' | translate }}</ng-container>
                 <ng-template #alternantSearchTitle>{{ 'GLOBAL.PNC_TEAM' | translate }}</ng-template>
@@ -8,26 +14,32 @@
         </page-header>
     </ion-toolbar>
     <pnc-edossier-header [activeTab]="TabHeaderEnum.ALTERNANT_SEARCH"></pnc-edossier-header>
-    <pnc-search-filter [searchMode]="searchMode" (filterChange)="searchPncs()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
 </ion-header>
 
 <ion-content no-bounce>
-    <div class="page-container">
-        <div class="filtered-pnc-list-container">
-            <edossier-spinner *ngIf="searchInProgress"></edossier-spinner>
+    <mat-sidenav-container>
+        <mat-sidenav [(opened)]="isMenuOpened" mode="side">
+            <pnc-search-filter [searchMode]="searchMode" (filterChange)="searchPncs()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
+        </mat-sidenav>
+        <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
+            <div class="page-container">
+                <div class="filtered-pnc-list-container">
+                    <edossier-spinner *ngIf="searchInProgress"></edossier-spinner>
 
-            <div *ngIf="!searchInProgress">
-                <div *ngIf="filteredPncs && filteredPncs.length == 0" class="no-data-found">
-                    {{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}
+                    <div *ngIf="!searchInProgress">
+                        <div *ngIf="filteredPncs && filteredPncs.length == 0" class="no-data-found">
+                            {{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}
+                        </div>
+                        <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="pnc" (click)="openPncHomePage(pnc)">
+                        </pnc-card>
+                    </div>
+
+                    <strong *ngIf="lastPageReached()" class="no-data-found">{{ 'PNC_SEARCH.END_OF_SEARCH' | translate }}</strong>
+                    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                    </ion-infinite-scroll>
                 </div>
-                <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="pnc" (click)="openPncHomePage(pnc)">
-                </pnc-card>
             </div>
-
-            <strong *ngIf="lastPageReached()" class="no-data-found">{{ 'PNC_SEARCH.END_OF_SEARCH' | translate }}</strong>
-            <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-                <ion-infinite-scroll-content></ion-infinite-scroll-content>
-            </ion-infinite-scroll>
-        </div>
-    </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 </ion-content>

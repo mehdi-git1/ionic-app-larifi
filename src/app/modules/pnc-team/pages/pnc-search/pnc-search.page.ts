@@ -43,6 +43,8 @@ export class PncSearchPage implements AfterViewInit {
 
     searchFilters = new Subject<PncFilterModel>();
 
+    isMenuOpened = false;
+
     // Expose l'enum au template
     TabHeaderEnum = TabHeaderEnum;
 
@@ -97,6 +99,7 @@ export class PncSearchPage implements AfterViewInit {
      */
     searchPncs() {
         this.searchFilters.next(this.pncSearchFilter.pncFilter);
+        this.isMenuOpened = false;
     }
 
     /**
@@ -178,5 +181,12 @@ export class PncSearchPage implements AfterViewInit {
      */
     isAlternantSearch() {
         return this.searchMode === PncSearchModeEnum.ALTERNANT;
+    }
+
+    /**
+     * Ouvre/ferme le menu latéral contenant les filtres
+     */
+    toggleFiltersMenu() {
+        this.isMenuOpened = !this.isMenuOpened;
     }
 }
