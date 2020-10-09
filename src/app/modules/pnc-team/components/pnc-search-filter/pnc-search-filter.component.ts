@@ -37,6 +37,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
   prioritized: boolean;
   priority: boolean;
   noPriority: boolean;
+  taf: boolean;
 
   searchForm: FormGroup;
 
@@ -154,6 +155,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.pncFilter.prioritized = false;
     this.pncFilter.hasAtLeastOnePriorityInProgress = false;
     this.pncFilter.hasNoPriority = false;
+    this.pncFilter.taf = false;
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
@@ -163,11 +165,13 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('hasNoPriorityControl').setValue(false);
     this.searchForm.get('hasDefaultHiddenEventsControl').setValue(false);
     this.searchForm.get('hasHiddenEventsControl').setValue(false);
+    this.searchForm.get('tafControl').setValue(false);
     // this.search();
     this.defaultValue = false;
     this.priority = false;
     this.noPriority = false;
     this.prioritized = false;
+    this.taf = false;
   }
 
   /**
@@ -226,7 +230,11 @@ export class PncSearchFilterComponent implements AfterViewInit {
       hasHiddenEventsControl: new FormControl({
         value: [false],
         disabled: this.areFiltersDisabled()
-      })
+      }),
+      tafControl: new FormControl({
+        value: [false],
+        disabled: this.taf || this.areFiltersDisabled()
+      }),
     });
     if (this.connectivityService.isConnected()) {
       this.resetFilterValues();
@@ -262,6 +270,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
       this.pncFilter.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
       this.pncFilter.hasHiddenEvents = val.hasHiddenEventsControl;
+      this.pncFilter.taf = val.tafControl;
     });
   }
 
