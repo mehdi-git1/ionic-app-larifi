@@ -724,7 +724,8 @@
             },
             "MISSION": {
                 "TITLE": "Missions",
-                "RELAY": "Relais"
+                "RELAY": "Relais",
+                "MANIFEX":"Manifex"
             },
             "LOGBOOK_EVENTS": {
                 "TITLE": "Evènement JDB",

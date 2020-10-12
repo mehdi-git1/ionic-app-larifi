@@ -16,6 +16,10 @@ h2 {
     }
 }
 
+.pnc-autocomplete {
+    border-bottom: 1px solid var(--ion-color-grey72);
+}
+
 .filter-container {
     margin-bottom: 16px;
 
@@ -103,6 +107,7 @@ h2 {
 ::ng-deep mat-expansion-panel {
     background: var(--ion-color-white);
     border-radius: 0 !important;
+    margin: 15px 0 !important;
 
     .mat-expansion-panel-header.mat-expanded:focus,
     .mat-expansion-panel-header.mat-expanded:hover {

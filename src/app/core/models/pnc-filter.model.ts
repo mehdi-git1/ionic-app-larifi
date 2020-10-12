@@ -15,4 +15,5 @@ export class PncFilterModel {
     hasHiddenEvents: boolean;
     hasDefaultHiddenEvents: boolean;
     priorityCategoryCode: string;
+    hasManifex: boolean;
 }
