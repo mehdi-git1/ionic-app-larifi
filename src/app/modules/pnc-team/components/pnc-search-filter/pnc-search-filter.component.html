@@ -69,6 +69,20 @@
             </ion-select>
         </div>
     </div>
+
+    <div class="filter-container filter">
+        <!-- Rythme -->
+        <ion-label class="input-label">
+            {{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</ion-label>
+        <ion-select interface="popover" [compareWith]="compareFn" formControlName="workRateControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+            <ion-select-option *ngIf="!workRateList || workRateList.length != 1" [value]="valueAll">
+                {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
+            </ion-select-option>
+            <ion-select-option *ngFor="let workRateKey of workRateList" [value]="workRateKey">
+                {{workRateKey}}</ion-select-option>
+        </ion-select>
+    </div>
+
     <div class="filter-container filter">
         <!-- Spécialisation avion -->
         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}
