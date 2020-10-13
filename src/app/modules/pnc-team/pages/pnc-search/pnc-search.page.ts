@@ -75,7 +75,7 @@ export class PncSearchPage {
     }
 
     /**
-     * Vérifie si des notifications sont présentes
+     * Vérifie si des pnc sont présents
      * @return vrai si c'est le cas, faux sinon
      */
     hasPncs(): boolean {
