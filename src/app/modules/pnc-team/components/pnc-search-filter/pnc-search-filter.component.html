@@ -57,7 +57,7 @@
 
     <div class="flex filter-container filter">
         <!-- Grade -->
-        <div class="Flex8" *ngIf="!isAlternantSearch()">
+        <div class="flex8" *ngIf="!isAlternantSearch()">
             <ion-label class="input-label">
                 {{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
             <ion-select interface="popover" [compareWith]="compareFn" formControlName="specialityControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">

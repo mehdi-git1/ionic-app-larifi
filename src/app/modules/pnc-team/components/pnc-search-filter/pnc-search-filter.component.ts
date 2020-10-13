@@ -37,7 +37,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
   prioritized: boolean;
   priority: boolean;
   noPriority: boolean;
-  taf: boolean;
 
   searchForm: FormGroup;
 
@@ -170,7 +169,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.priority = false;
     this.noPriority = false;
     this.prioritized = false;
-    this.taf = false;
   }
 
   /**
@@ -232,7 +230,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       }),
       tafControl: new FormControl({
         value: [false],
-        disabled: this.taf || this.areFiltersDisabled()
+        disabled: this.areFiltersDisabled()
       }),
     });
     if (this.connectivityService.isConnected()) {
