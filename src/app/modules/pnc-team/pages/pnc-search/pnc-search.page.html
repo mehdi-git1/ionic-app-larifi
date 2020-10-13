@@ -16,28 +16,27 @@
     <pnc-edossier-header [activeTab]="TabHeaderEnum.ALTERNANT_SEARCH"></pnc-edossier-header>
 </ion-header>
 
-<ion-content no-bounce>
+<ion-content>
     <mat-sidenav-container>
         <mat-sidenav [(opened)]="isMenuOpened" mode="side">
-            <pnc-search-filter [searchMode]="searchMode" (filterChange)="searchPncs()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
+            <pnc-search-filter [filters]="filters" [searchMode]="searchMode" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
         </mat-sidenav>
         <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
             <div class="page-container">
                 <div class="filtered-pnc-list-container">
-                    <edossier-spinner *ngIf="searchInProgress"></edossier-spinner>
-
-                    <div *ngIf="!searchInProgress">
-                        <div *ngIf="filteredPncs && filteredPncs.length == 0" class="no-data-found">
-                            {{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}
+                    <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>
+                    <ng-template #pageBlock>
+                        <div *ngIf="hasPncs(); else noDataBlock">
+                            <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="pnc" (click)="openPncHomePage(pnc)">
+                            </pnc-card>
                         </div>
-                        <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="pnc" (click)="openPncHomePage(pnc)">
-                        </pnc-card>
-                    </div>
-
-                    <strong *ngIf="lastPageReached()" class="no-data-found">{{ 'PNC_SEARCH.END_OF_SEARCH' | translate }}</strong>
-                    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-                        <ion-infinite-scroll-content></ion-infinite-scroll-content>
-                    </ion-infinite-scroll>
+                        <ng-template #noDataBlock>
+                            <div class="no-data-splash">
+                                <ion-icon name="contacts"></ion-icon>
+                                <span>{{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}</span>
+                            </div>
+                        </ng-template>
+                    </ng-template>
                 </div>
             </div>
         </mat-sidenav-content>

@@ -1,12 +1,12 @@
 import {
-    OnlineHrDocumentService
+  OnlineHrDocumentService
 } from 'src/app/core/services/hr-documents/online-hr-document.service';
 import { ToastService } from 'src/app/core/services/toast/toast.service';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-    AlertController, LoadingController, NavController, PopoverController
+  AlertController, LoadingController, NavController, PopoverController
 } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -21,7 +21,7 @@ import { HrDocumentService } from '../../../../core/services/hr-documents/hr-doc
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import {
-    HrDocumentActionMenuComponent
+  HrDocumentActionMenuComponent
 } from '../hr-document-action-menu/hr-document-action-menu.component';
 
 @Component({
@@ -62,7 +62,7 @@ export class HrDocumentsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.hrDocumentFilter.size = AppConstant.pageSize;
+    this.hrDocumentFilter.size = AppConstant.PAGE_SIZE;
     this.hrDocumentFilter.offset = 0;
     this.hrDocumentFilter.page = 0;
     this.sizeOfThePage = 0;
@@ -80,7 +80,7 @@ export class HrDocumentsPage implements OnInit {
       this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
     }
     this.totalHrDocuments = 0;
-    this.hrDocumentFilter.size = AppConstant.pageSize;
+    this.hrDocumentFilter.size = AppConstant.PAGE_SIZE;
     this.hrDocumentFilter.offset = 0;
     this.searchHrDocuments();
   }
