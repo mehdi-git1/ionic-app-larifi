@@ -1,3 +1,4 @@
+import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
 
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
@@ -10,7 +11,6 @@ import { PncSearchModeEnum } from '../../../../core/enums/pnc-search-mode.enum';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { DivisionModel } from '../../../../core/models/division.model';
 import { GinqModel } from '../../../../core/models/ginq.model';
-import { PncFilterModel } from '../../../../core/models/pnc-filter.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { SectorModel } from '../../../../core/models/sector.model';
 import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
@@ -24,9 +24,11 @@ import { SessionService } from '../../../../core/services/session/session.servic
 })
 export class PncSearchFilterComponent implements AfterViewInit {
 
+  @Input() filters: PncFilterModel;
+
   @Input() searchMode: PncSearchModeEnum;
 
-  @Output() filterChange: EventEmitter<any> = new EventEmitter();
+  @Output() filtersChanged = new EventEmitter<PncFilterModel>();
 
   @Output() pncSelected: EventEmitter<any> = new EventEmitter();
 
@@ -39,9 +41,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
   noPriority: boolean;
 
   searchForm: FormGroup;
-
-  // filtre de recherche
-  pncFilter: PncFilterModel;
 
   // Les listes des données du filtre
   divisionList: Array<DivisionModel>;
@@ -83,10 +82,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
   }
 
   /**
-   * Déclenche une recherche (quand l'utilisateur clique sur le bouton rafraichir)
+   * Déclenche une recherche (quand l'utilisateur clique sur le bouton rechercher)
    */
   search(): void {
-    this.filterChange.next();
+    this.filtersChanged.next();
   }
 
   ngAfterViewInit() {
@@ -100,7 +99,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Initialise le filtre et les données des listes de recherche.
    */
   initFilter() {
-    this.pncFilter = new PncFilterModel();
     this.specialityList = Object.keys(SpecialityEnum)
       .map(k => SpecialityEnum[k])
       .filter(v => typeof v === 'string') as string[];
@@ -136,24 +134,24 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   resetFilterValues() {
     this.defaultValue = true;
-    this.pncFilter.division = this.defaultDivision ? this.defaultDivision : AppConstant.ALL;
+    this.filters.division = this.defaultDivision ? this.defaultDivision : AppConstant.ALL;
     this.divisionOnchanges();
-    this.pncFilter.sector = this.defaultSector ? this.defaultSector : AppConstant.ALL;
+    this.filters.sector = this.defaultSector ? this.defaultSector : AppConstant.ALL;
     this.sectorOnchanges();
-    this.pncFilter.ginq = this.defaultGinq ? this.defaultGinq : AppConstant.ALL;
+    this.filters.ginq = this.defaultGinq ? this.defaultGinq : AppConstant.ALL;
     if (this.isAlternantSearch()) {
-      this.pncFilter.speciality = SpecialityEnum.ALT;
+      this.filters.speciality = SpecialityEnum.ALT;
       this.searchForm.get('specialityControl').setValue(SpecialityEnum.ALT);
     } else {
-      this.pncFilter.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
+      this.filters.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
       this.searchForm.get('specialityControl').setValue(this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL);
     }
-    this.pncFilter.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
-    this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0].code : AppConstant.ALL;
-    this.pncFilter.priorityCategoryCode = this.priorityCategoryList && this.priorityCategoryList.length === 1 ? this.priorityCategoryList[0].code : AppConstant.ALL;
-    this.pncFilter.prioritized = false;
-    this.pncFilter.hasAtLeastOnePriorityInProgress = false;
-    this.pncFilter.hasNoPriority = false;
+    this.filters.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
+    this.filters.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0].code : AppConstant.ALL;
+    this.filters.priorityCategoryCode = this.priorityCategoryList && this.priorityCategoryList.length === 1 ? this.priorityCategoryList[0].code : AppConstant.ALL;
+    this.filters.prioritized = false;
+    this.filters.hasAtLeastOnePriorityInProgress = false;
+    this.filters.hasNoPriority = false;
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
@@ -175,19 +173,19 @@ export class PncSearchFilterComponent implements AfterViewInit {
   initForm() {
     const specialityInitValue = this.isAlternantSearch() ?
       SpecialityEnum.ALT
-      : (this.pncFilter.speciality ? this.pncFilter.speciality : AppConstant.ALL);
+      : (this.filters.speciality ? this.filters.speciality : AppConstant.ALL);
 
     this.searchForm = new FormGroup({
       divisionControl: new FormControl({
-        value: [this.pncFilter.division ? this.pncFilter.division : AppConstant.ALL],
+        value: [this.filters.division ? this.filters.division : AppConstant.ALL],
         disabled: this.areFiltersDisabled()
       }),
       sectorControl: new FormControl({
-        value: [this.pncFilter.sector ? this.pncFilter.sector : AppConstant.ALL],
+        value: [this.filters.sector ? this.filters.sector : AppConstant.ALL],
         disabled: this.areFiltersDisabled()
       }),
       ginqControl: new FormControl({
-        value: [this.pncFilter.ginq ? this.pncFilter.ginq : AppConstant.ALL],
+        value: [this.filters.ginq ? this.filters.ginq : AppConstant.ALL],
         disabled: this.areFiltersDisabled()
       }),
       specialityControl: new FormControl({
@@ -195,15 +193,15 @@ export class PncSearchFilterComponent implements AfterViewInit {
         disabled: this.areFiltersDisabled()
       }),
       aircraftSkillControl: new FormControl({
-        value: [this.pncFilter.aircraftSkill ? this.pncFilter.aircraftSkill : AppConstant.ALL],
+        value: [this.filters.aircraftSkill ? this.filters.aircraftSkill : AppConstant.ALL],
         disabled: this.areFiltersDisabled()
       }),
       relayControl: new FormControl({
-        value: [this.pncFilter.relay ? this.pncFilter.relay : AppConstant.ALL],
+        value: [this.filters.relay ? this.filters.relay : AppConstant.ALL],
         disabled: this.areFiltersDisabled()
       }),
       priorityCategoryControl: new FormControl({
-        value: [this.pncFilter ? this.pncFilter.priorityCategoryCode : AppConstant.ALL],
+        value: [this.filters ? this.filters.priorityCategoryCode : AppConstant.ALL],
         disabled: this.areFiltersDisabled()
       }),
       prioritizedControl: new FormControl({
@@ -251,16 +249,16 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   formOnChanges() {
     this.searchForm.valueChanges.subscribe(val => {
-      this.pncFilter.ginq = val.ginqControl;
-      this.pncFilter.speciality = val.specialityControl;
-      this.pncFilter.aircraftSkill = val.aircraftSkillControl;
-      this.pncFilter.relay = val.relayControl;
-      this.pncFilter.priorityCategoryCode = val.priorityCategoryControl;
-      this.pncFilter.prioritized = val.prioritizedControl;
-      this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
-      this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
-      this.pncFilter.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
-      this.pncFilter.hasHiddenEvents = val.hasHiddenEventsControl;
+      this.filters.ginq = val.ginqControl;
+      this.filters.speciality = val.specialityControl;
+      this.filters.aircraftSkill = val.aircraftSkillControl;
+      this.filters.relay = val.relayControl;
+      this.filters.priorityCategoryCode = val.priorityCategoryControl;
+      this.filters.prioritized = val.prioritizedControl;
+      this.filters.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
+      this.filters.hasNoPriority = val.hasNoPriorityControl;
+      this.filters.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
+      this.filters.hasHiddenEvents = val.hasHiddenEventsControl;
     });
   }
 
@@ -270,9 +268,9 @@ export class PncSearchFilterComponent implements AfterViewInit {
   divisionOnchanges() {
     this.searchForm.get('divisionControl').valueChanges.subscribe(val => {
       if (!this.defaultValue) {
-        this.pncFilter.division = val;
+        this.filters.division = val;
       }
-      this.getSectorList(this.pncFilter.division);
+      this.getSectorList(this.filters.division);
     });
   }
 
@@ -282,9 +280,9 @@ export class PncSearchFilterComponent implements AfterViewInit {
   sectorOnchanges() {
     this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
       if (!this.defaultValue) {
-        this.pncFilter.sector = val;
+        this.filters.sector = val;
       }
-      this.getGinqList(this.pncFilter.sector);
+      this.getGinqList(this.filters.sector);
     });
   }
 
@@ -299,10 +297,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.sectorList = this.divisionList.find(divisionItem => divisionItem.code === division).sectors;
     }
     if (this.defaultValue && this.sectorList && this.defaultSector && this.sectorList.find((sector) => sector.code === this.defaultSector)) {
-      this.pncFilter.sector = this.defaultSector;
+      this.filters.sector = this.defaultSector;
       this.searchForm.get('sectorControl').setValue(this.defaultSector);
     } else {
-      this.pncFilter.sector = AppConstant.ALL;
+      this.filters.sector = AppConstant.ALL;
       this.searchForm.get('sectorControl').setValue(AppConstant.ALL);
     }
   }
@@ -313,17 +311,17 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   getGinqList(sector: string) {
     this.ginqList = null;
-    if (this.pncFilter.division !== AppConstant.ALL && sector !== '' && sector !== AppConstant.ALL) {
-      this.ginqList = this.divisionList.find(divisionItem => divisionItem.code === this.pncFilter.division)
+    if (this.filters.division !== AppConstant.ALL && sector !== '' && sector !== AppConstant.ALL) {
+      this.ginqList = this.divisionList.find(divisionItem => divisionItem.code === this.filters.division)
         .sectors
         .find(sectorItem => sectorItem.code === sector)
         .ginqs;
     }
     if (this.defaultValue && this.ginqList && this.defaultGinq && this.ginqList.find((ginq) => ginq.code === this.defaultGinq)) {
-      this.pncFilter.ginq = this.defaultGinq;
+      this.filters.ginq = this.defaultGinq;
       this.searchForm.get('ginqControl').setValue(this.defaultGinq);
     } else {
-      this.pncFilter.ginq = AppConstant.ALL;
+      this.filters.ginq = AppConstant.ALL;
       this.searchForm.get('ginqControl').setValue(AppConstant.ALL);
     }
   }
