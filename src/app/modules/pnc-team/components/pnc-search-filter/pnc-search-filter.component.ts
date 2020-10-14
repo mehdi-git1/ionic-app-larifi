@@ -161,6 +161,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('hasNoPriorityControl').setValue(false);
     this.searchForm.get('hasDefaultHiddenEventsControl').setValue(false);
     this.searchForm.get('hasHiddenEventsControl').setValue(false);
+    this.searchForm.get('hasPIOrEPPGreaterThan24MonthControl').setValue(false);
     this.defaultValue = false;
     this.priority = false;
     this.noPriority = false;
@@ -223,6 +224,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
       hasHiddenEventsControl: new FormControl({
         value: [false],
         disabled: this.areFiltersDisabled()
+      }),
+      hasPIOrEPPGreaterThan24MonthControl: new FormControl({
+        value: [false],
+        disabled: this.areFiltersDisabled()
       })
     });
     if (this.connectivityService.isConnected()) {
@@ -259,6 +264,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasNoPriority = val.hasNoPriorityControl;
       this.filters.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
       this.filters.hasHiddenEvents = val.hasHiddenEventsControl;
+      this.filters.hasPIOrEPPGreaterThan24Month = val.hasPIOrEPPGreaterThan24MonthControl;
     });
   }
 

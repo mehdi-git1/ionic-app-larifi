@@ -712,6 +712,10 @@
             "SPECIALITY": "Fonction",
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
+            "ENCOUNTER_FLIGHT_GROUND" :{
+                "TITLE":"Rencontres vol/sol",
+                "PI_OR_EPP_GREATER_THAN_24_MONTH":"Dernière rencontre sol (BP) > 24"
+            },
             "PRIORITY": {
                 "TITLE": "Priorités",
                 "PRIORITY_CATEGORY": "Catégorie priorités",

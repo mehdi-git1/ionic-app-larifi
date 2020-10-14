@@ -17,6 +17,7 @@ export class PncFilterModel {
     hasHiddenEvents: boolean;
     hasDefaultHiddenEvents: boolean;
     priorityCategoryCode: string;
+    hasPIOrEPPGreaterThan24Month: boolean;
 
     // Tri
     sortColumn: string;
