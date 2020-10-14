@@ -55,9 +55,9 @@
         </div>
     </div>
 
-    <div class="filter-container filter">
+    <div class="flex filter-container filter">
         <!-- Grade -->
-        <div *ngIf="!isAlternantSearch()">
+        <div class="flex8" *ngIf="!isAlternantSearch()">
             <ion-label class="input-label">
                 {{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
             <ion-select interface="popover" [compareWith]="compareFn" formControlName="specialityControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
@@ -67,6 +67,14 @@
                 <ion-select-option *ngFor="let specialityKey of specialityList" [value]="specialityKey">
                     {{specialityKey}}</ion-select-option>
             </ion-select>
+        </div>
+        <div class="flex4 checkbox-container taf" *ngIf="!isAlternantSearch()">
+            <!-- taf -->
+            <ion-item lines="none">
+                <ion-label>{{ 'PNC_SEARCH.CRITERIA.TAF' | translate }}</ion-label>
+                <ion-checkbox slot="end" [(ngModel)]="taf" formControlName="tafControl">
+                </ion-checkbox>
+            </ion-item>
         </div>
     </div>
     <div class="filter-container filter">

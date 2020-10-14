@@ -712,6 +712,7 @@
             "SPECIALITY": "Fonction",
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
+            "TAF": "TAF",
             "PRIORITY": {
                 "TITLE": "Priorités",
                 "PRIORITY_CATEGORY": "Catégorie priorités",

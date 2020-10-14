@@ -17,7 +17,8 @@ export class PncFilterModel {
     hasHiddenEvents: boolean;
     hasDefaultHiddenEvents: boolean;
     priorityCategoryCode: string;
-
+    taf: boolean;
+    
     // Tri
     sortColumn: string;
     sortDirection: SortDirection;
