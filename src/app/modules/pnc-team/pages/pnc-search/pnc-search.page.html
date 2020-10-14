@@ -19,7 +19,7 @@
 <ion-content>
     <mat-sidenav-container>
         <mat-sidenav [(opened)]="isMenuOpened" mode="side">
-            <pnc-search-filter [filters]="filters" [searchMode]="searchMode" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
+            <pnc-search-filter [filters]="filters" [searchMode]="searchMode" (filtersChanged)="launchSearch()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
         </mat-sidenav>
         <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
             <div class="page-container">
