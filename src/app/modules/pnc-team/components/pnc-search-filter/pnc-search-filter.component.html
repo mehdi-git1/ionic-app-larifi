@@ -11,13 +11,11 @@
         <pnc-autocomplete (onSelectPnc)="openPncHomePage($event)" [ngModelOptions]="{standalone: true}">
         </pnc-autocomplete>
     </div>
-
-
     <div class="flex filter-container filter">
+        <!-- Division-->
         <div class="flex4">
             <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}
             </ion-label>
-
             <ion-select interface="popover" [compareWith]="compareFn" formControlName="divisionControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
                 <ion-select-option *ngIf="!divisionList || divisionList.length != 1" [value]="valueAll">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
@@ -55,9 +53,9 @@
         </div>
     </div>
 
-    <div class="flex filter-container filter">
+    <div class="flex filter-container filter"  *ngIf="!isAlternantSearch()">
         <!-- Grade -->
-        <div class="flex8" *ngIf="!isAlternantSearch()">
+        <div class="flex8">
             <ion-label class="input-label">
                 {{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
             <ion-select interface="popover" [compareWith]="compareFn" formControlName="specialityControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
@@ -68,7 +66,7 @@
                     {{specialityKey}}</ion-select-option>
             </ion-select>
         </div>
-        <div class="flex4 checkbox-container taf" *ngIf="!isAlternantSearch()">
+        <div class="flex4 checkbox-container taf" >
             <!-- taf -->
             <ion-item lines="none">
                 <ion-label>{{ 'PNC_SEARCH.CRITERIA.TAF' | translate }}</ion-label>
@@ -87,8 +85,8 @@
             <ion-select-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{aircraftSkillKey}}</ion-select-option>
         </ion-select>
     </div>
-    <div class="filter-container">
-        <mat-expansion-panel [expanded]="false"  *ngIf="!isAlternantSearch()">
+    <div class="filter-container" *ngIf="!isAlternantSearch()">
+        <mat-expansion-panel [expanded]="false">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.PRIORITY.TITLE' | translate }}
@@ -132,8 +130,8 @@
             </div>
         </mat-expansion-panel>
     </div>
-    <div class="filter-container">
-        <mat-expansion-panel [expanded]="false" *ngIf="!isAlternantSearch()">
+    <div class="filter-container" *ngIf="!isAlternantSearch()">
+        <mat-expansion-panel [expanded]="false">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.MISSION.TITLE' | translate }}
@@ -165,8 +163,8 @@
             </div>
         </mat-expansion-panel>
     </div>
-    <div class="filter-container">
-        <mat-expansion-panel [expanded]="false"  *ngIf="!isAlternantSearch()">
+    <div class="filter-container" *ngIf="!isAlternantSearch()">
+        <mat-expansion-panel [expanded]="false">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.LOGBOOK_EVENTS.TITLE' | translate }}
