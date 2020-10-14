@@ -7,7 +7,7 @@ export class PncFilterModel {
   sector: string;
   ginq: string;
   speciality: string;
-  workRate: string;
+  workRate: number;
   aircraftSkill: string;
   relay: string;
   prioritized: boolean;

@@ -19,7 +19,7 @@ export class AppInitDataModel {
 
   aircraftSkills: Array<string>;
 
-  workRates: Array<string>;
+  workRates: Array<number>;
 
   blankProfessionalInterview: ProfessionalInterviewModel;
 
