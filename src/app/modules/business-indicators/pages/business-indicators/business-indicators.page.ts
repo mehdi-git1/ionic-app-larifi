@@ -88,7 +88,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.businessIndicatorsFilter = new BusinessIndicatorFilterModel();
-        this.businessIndicatorsFilter.size = AppConstant.pageSize;
+        this.businessIndicatorsFilter.size = AppConstant.PAGE_SIZE;
         this.businessIndicatorsFilter.page = 0;
         this.dataSource = new MatTableDataSource<BusinessIndicatorModel>(this.businessIndicators);
         this.businessIndicatorRequestSubject = new Subject();

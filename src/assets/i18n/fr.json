@@ -737,7 +737,6 @@
             "ALL_M": "Tous"
         },
         "NO_PNC_FOUND": "Aucun pnc trouvé",
-        "END_OF_SEARCH": "Fin de la recherche",
         "ERROR": {
             "SEARCH": "Erreur lors de la recherche de PNC"
         },

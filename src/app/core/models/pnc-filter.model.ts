@@ -1,3 +1,5 @@
+import { SortDirection } from './../enums/sort-direction-enum';
+import { PagePositionEnum } from './../enums/page-position.enum';
 
 export class PncFilterModel {
 
@@ -16,4 +18,14 @@ export class PncFilterModel {
   hasHiddenEvents: boolean;
   hasDefaultHiddenEvents: boolean;
   priorityCategoryCode: string;
+
+  // Tri
+  sortColumn: string;
+  sortDirection: SortDirection;
+
+  // Page
+  size: number;
+  page: number;
+  offset: number;
+  pagePosition: PagePositionEnum;
 }
