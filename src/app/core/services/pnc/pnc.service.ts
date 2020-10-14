@@ -66,8 +66,8 @@ export class PncService extends BaseService {
    * @param pncFilter filtre de recherche, pas utilisé en offline
    * @return les pncs concernés (en offline : uniquement les pncs sur même secteur sauf le pnc connecté)
    */
-  getFilteredPncs(pncFilter: PncFilterModel, page: number, size: number): Promise<PagedPncModel> {
-    const pncSearchCriteria = new PncSearchCriteriaModel(pncFilter, page, size);
+  getFilteredPncs(pncFilter: PncFilterModel): Promise<PagedPncModel> {
+    const pncSearchCriteria = new PncSearchCriteriaModel(pncFilter, pncFilter.page, pncFilter.size);
     return this.execFunctionService('getFilteredPncs', pncSearchCriteria);
   }
 
