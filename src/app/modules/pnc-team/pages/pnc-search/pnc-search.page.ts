@@ -1,3 +1,4 @@
+import { PagePositionEnum } from './../../../../core/enums/page-position.enum';
 import { from, Observable, Subject } from 'rxjs';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
@@ -23,83 +24,70 @@ import {
     templateUrl: 'pnc-search.page.html',
     styleUrls: ['./pnc-search.page.scss']
 })
-export class PncSearchPage implements AfterViewInit {
+export class PncSearchPage {
 
-    filteredPncs: PncModel[];
     searchInProgress = false;
-
-    totalPncs: number;
-    pageSizeOptions: number[];
-    itemOffset: number;
-
-    pageNumber: number;
-    offset: number;
-    sortColumn: string;
-    sortDirection: string;
 
     searchMode: PncSearchModeEnum;
 
     pnc: PncModel;
 
-    searchFilters = new Subject<PncFilterModel>();
+    filteredPncs = new Array<PncModel>();
+    filters = new PncFilterModel();
+    filtersSubject = new Subject<PncFilterModel>();
 
+    totalPncs = 0;
     isMenuOpened = false;
+    isLoading = true;
 
     // Expose l'enum au template
     TabHeaderEnum = TabHeaderEnum;
-
-    @ViewChild(PncSearchFilterComponent, { static: false }) pncSearchFilter: PncSearchFilterComponent;
-    @ViewChild(IonInfiniteScroll, { static: false }) infiniteScroll: IonInfiniteScroll;
 
     constructor(
         private pncService: PncService,
         private pncPhotoService: PncPhotoService,
         private sessionService: SessionService,
-        private connectivityService: ConnectivityService,
         private events: Events,
         private activatedRoute: ActivatedRoute,
         private router: Router
     ) {
+
+        this.filters.size = AppConstant.PAGE_SIZE;
+        this.resetPageNumber();
+
+        this.filtersSubject
+            .switchMap((filters) => this.handlePncSearch(filters))
+            .subscribe(pagedPnc => {
+                this.handlePncSearchResponse(pagedPnc);
+            });
+
         this.searchMode = this.activatedRoute.snapshot.paramMap.get('mode') ?
             PncSearchModeEnum[this.activatedRoute.snapshot.paramMap.get('mode')]
             : PncSearchModeEnum.FULL;
-
-        this.searchFilters
-            .switchMap(filter => this.handlePncSearch(filter))
-            .subscribe(pagedPnc => {
-                this.handleSearchResponse(pagedPnc);
-            });
-    }
-
-    ngAfterViewInit() {
-        this.initPage();
     }
 
     /**
-     * Initialisation du contenu de la page.
+     * Lance la recherche initiale
      */
-    initPage() {
-        this.initSearchConfig();
-        this.searchPncs();
+    launchFirstSearch() {
+        this.filters.pagePosition = PagePositionEnum.FIRST;
+        this.filtersSubject.next(this.filters);
     }
 
     /**
-     * Initialise le nombre de pnc à afficher par page et les données des listes de recherche.
+     * Vérifie si des pnc sont présents
+     * @return vrai si c'est le cas, faux sinon
      */
-    initSearchConfig() {
-        this.totalPncs = 0;
-        this.itemOffset = 0;
-        this.pageNumber = 0;
-        this.sortColumn = '';
-        this.sortDirection = '';
+    hasPncs(): boolean {
+        return this.filteredPncs && this.filteredPncs.length > 0;
     }
 
     /**
-     * recupere 10 pnc correspondant aux criteres saisis du filtre.
+     * Charge la page suivante
      */
-    searchPncs() {
-        this.searchFilters.next(this.pncSearchFilter.pncFilter);
-        this.isMenuOpened = false;
+    loadNextPage() {
+        this.filters.pagePosition = PagePositionEnum.NEXT;
+        this.filtersSubject.next(this.filters);
     }
 
     /**
@@ -107,50 +95,59 @@ export class PncSearchPage implements AfterViewInit {
      * @param filter les filtres à appliquer
      * @Return la liste de PNC filtrée
      */
-    handlePncSearch(filter: PncFilterModel): Observable<PagedPncModel> {
-        this.searchInProgress = true;
-        this.infiniteScroll.disabled = false;
-        this.pageNumber = this.itemOffset / AppConstant.pageSize;
-        this.filteredPncs = [];
+    handlePncSearch(filters: PncFilterModel): Observable<PagedPncModel> {
+        if (filters.pagePosition === PagePositionEnum.FIRST) {
+            this.resetPageNumber();
+            this.isLoading = true;
+            this.isMenuOpened = false;
+            return this.getFilteredPncs(filters);
+        } else {
+            if (this.totalPncs === undefined || this.filters.page < (this.totalPncs / AppConstant.PAGE_SIZE)) {
+                this.filters.page++;
+                this.filters.offset = this.filters.page * this.filters.size;
+                return this.getFilteredPncs(filters);
+            }
+        }
 
-        return from(this.pncService.getFilteredPncs(filter, this.pageNumber, AppConstant.pageSize).then(pagedPnc => {
-            return pagedPnc;
-        }).catch((err) => {
-            return null;
-        }));
+        return new Observable();
+    }
+
+    /**
+     * Récupère les pnc correspondants au filtre.
+     * @param filter les filtres à appliquer
+     * @Return la liste de PNC filtrée
+     */
+    getFilteredPncs(filters: PncFilterModel): Observable<PagedPncModel> {
+        return from(this.pncService.getFilteredPncs(filters)
+            .then((pagedPncSearched) => {
+                return pagedPncSearched;
+            }).catch(error => {
+                return error;
+            }));
+    }
+
+    /**
+     * Remet à zéro le numéro de page
+     */
+    resetPageNumber() {
+        this.filters.offset = 0;
+        this.filters.page = 0;
     }
 
     /**
      * Gère L'affichage du contenu de la page
-     * @param pagedPnc le contenu de la page filtrée à afficher
+     * @param pagedPncs le contenu de la page filtrée à afficher
      */
-    handleSearchResponse(pagedPnc: PagedPncModel) {
-        if (pagedPnc !== null) {
-            this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
-            this.filteredPncs = pagedPnc.content;
-            this.totalPncs = pagedPnc.page.totalElements;
-            this.searchInProgress = false;
-        }
-    }
-
-
-    /**
-     * Permet de recharger les éléments dans la liste à scroller quand on arrive a la fin de la liste.
-     * @param event l'événement gérant le scroll
-     */
-    doInfinite(event) {
-        if (this.filteredPncs.length < this.totalPncs) {
-            if (this.connectivityService.isConnected()) {
-                ++this.pageNumber;
-                this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.pageNumber, AppConstant.pageSize).then(pagedPnc => {
-                    this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
-                    this.filteredPncs.push(...pagedPnc.content);
-                    event.target.complete();
-                });
+    handlePncSearchResponse(pagedPncs: any) {
+        if (pagedPncs !== null) {
+            this.pncPhotoService.synchronizePncsPhotos(pagedPncs.content.map(pnc => pnc.matricule));
+            if (this.filters.pagePosition === PagePositionEnum.NEXT) {
+                this.filteredPncs = this.filteredPncs.concat(pagedPncs.content);
             } else {
+                this.filteredPncs = pagedPncs.content;
             }
-        } else {
-            event.target.disabled = true;
+            this.totalPncs = pagedPncs.page.totalElements;
+            this.isLoading = false;
         }
     }
 
@@ -166,13 +163,6 @@ export class PncSearchPage implements AfterViewInit {
         } else {
             this.events.publish('EDossier:visited', pnc);
         }
-    }
-
-    /**
-     * Vérifie si on a atteint la dernière page de la recherche
-     */
-    lastPageReached(): boolean {
-        return this.filteredPncs ? this.filteredPncs.length > 0 && this.filteredPncs.length >= this.totalPncs : true;
     }
 
     /**
