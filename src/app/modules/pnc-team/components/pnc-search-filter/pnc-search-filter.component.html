@@ -66,7 +66,7 @@
                     {{specialityKey}}</ion-select-option>
             </ion-select>
         </div>
-        <div class="flex4 checkbox-container taf" >
+        <div class="flex4 checkbox-container taf"  *ngIf="!isAlternantSearch()">
             <!-- taf -->
             <ion-item lines="none">
                 <ion-label>{{ 'PNC_SEARCH.CRITERIA.TAF' | translate }}</ion-label>
@@ -85,14 +85,14 @@
             <ion-select-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{aircraftSkillKey}}</ion-select-option>
         </ion-select>
     </div>
-    <mat-expansion-panel [expanded]="false">
+    <mat-expansion-panel [expanded]="false"  *ngIf="!isAlternantSearch()">
         <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
             <mat-panel-title>
                 {{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.TITLE' | translate }}
             </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="filter-container filter">
-            <div class="checkbox-container" *ngIf="!isAlternantSearch()">
+            <div class="checkbox-container">
                 <!-- Dernier BP réalisé il y a plus de 24 mois  -->
                 <ion-item lines="none">
                     <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.PI_OR_EPP_GREATER_THAN_24_MONTH' | translate }}</ion-label>
