@@ -67,9 +67,9 @@ export class PncSearchPage {
     }
 
     /**
-     * Lance la recherche initiale
+     * Lance la recherche
      */
-    launchFirstSearch() {
+    launchSearch() {
         this.filters.pagePosition = PagePositionEnum.FIRST;
         this.filtersSubject.next(this.filters);
     }

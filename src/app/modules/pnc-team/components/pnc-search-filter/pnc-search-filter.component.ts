@@ -152,6 +152,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.prioritized = false;
     this.filters.hasAtLeastOnePriorityInProgress = false;
     this.filters.hasNoPriority = false;
+    this.filters.taf = false;
+    this.filters.hasManifex = false;
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
@@ -161,6 +163,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('hasNoPriorityControl').setValue(false);
     this.searchForm.get('hasDefaultHiddenEventsControl').setValue(false);
     this.searchForm.get('hasHiddenEventsControl').setValue(false);
+    this.searchForm.get('tafControl').setValue(false);
+    this.searchForm.get('hasManifexControl').setValue(false);
     this.searchForm.get('hasPIOrEPPGreaterThan24MonthControl').setValue(false);
     this.defaultValue = false;
     this.priority = false;
@@ -228,7 +232,15 @@ export class PncSearchFilterComponent implements AfterViewInit {
       hasPIOrEPPGreaterThan24MonthControl: new FormControl({
         value: [false],
         disabled: this.areFiltersDisabled()
-      })
+      }),
+      tafControl: new FormControl({
+        value: [false],
+        disabled: this.areFiltersDisabled()
+      }),
+      hasManifexControl: new FormControl({
+        value: [false],
+        disabled: this.areFiltersDisabled()
+      }),
     });
     if (this.connectivityService.isConnected()) {
       this.resetFilterValues();
@@ -264,6 +276,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasNoPriority = val.hasNoPriorityControl;
       this.filters.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
       this.filters.hasHiddenEvents = val.hasHiddenEventsControl;
+      this.filters.taf = val.tafControl;
+      this.filters.hasManifex = val.hasManifexControl;
       this.filters.hasPIOrEPPGreaterThan24Month = val.hasPIOrEPPGreaterThan24MonthControl;
     });
   }

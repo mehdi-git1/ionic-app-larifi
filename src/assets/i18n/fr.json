@@ -712,6 +712,7 @@
             "SPECIALITY": "Fonction",
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
+            "TAF": "TAF",
             "ENCOUNTER_FLIGHT_GROUND" :{
                 "TITLE":"Rencontres vol/sol",
                 "PI_OR_EPP_GREATER_THAN_24_MONTH":"Dernière rencontre sol (BP) > 24"
@@ -728,7 +729,8 @@
             },
             "MISSION": {
                 "TITLE": "Missions",
-                "RELAY": "Relais"
+                "RELAY": "Relais",
+                "MANIFEX":"Manifex"
             },
             "LOGBOOK_EVENTS": {
                 "TITLE": "Evènement JDB",
@@ -741,7 +743,6 @@
             "ALL_M": "Tous"
         },
         "NO_PNC_FOUND": "Aucun pnc trouvé",
-        "END_OF_SEARCH": "Fin de la recherche",
         "ERROR": {
             "SEARCH": "Erreur lors de la recherche de PNC"
         },
