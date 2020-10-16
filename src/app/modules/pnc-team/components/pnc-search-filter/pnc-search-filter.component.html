@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="flex filter-container filter"  *ngIf="!isAlternantSearch()">
+    <div class="flex filter-container filter" *ngIf="!isAlternantSearch()">
         <!-- Grade -->
         <div class="flex8">
             <ion-label class="input-label">
@@ -66,7 +66,7 @@
                     {{specialityKey}}</ion-select-option>
             </ion-select>
         </div>
-        <div class="flex4 checkbox-container taf" >
+        <div class="flex4 checkbox-container taf">
             <!-- taf -->
             <ion-item lines="none">
                 <ion-label>{{ 'PNC_SEARCH.CRITERIA.TAF' | translate }}</ion-label>
@@ -75,6 +75,20 @@
             </ion-item>
         </div>
     </div>
+
+    <div class="filter-container filter">
+        <!-- Rythme -->
+        <ion-label class="input-label">
+            {{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</ion-label>
+        <ion-select interface="popover" [compareWith]="compareFn" formControlName="workRateControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+            <ion-select-option *ngIf="!workRateList || workRateList.length != 1" [value]="valueAll">
+                {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
+            </ion-select-option>
+            <ion-select-option *ngFor="let workRateKey of workRateList" [value]="workRateKey">
+                {{workRateKey}}</ion-select-option>
+        </ion-select>
+    </div>
+
     <div class="filter-container filter">
         <!-- Spécialisation avion -->
         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}
@@ -137,7 +151,7 @@
                     {{ 'PNC_SEARCH.CRITERIA.MISSION.TITLE' | translate }}
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="filter-container filter" >
+            <div class="filter-container filter">
                 <!-- Relais -->
                 <div>
                     <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.MISSION.RELAY' | translate }}
@@ -153,7 +167,7 @@
                     </ion-select>
                 </div>
             </div>
-            <div class="checkbox-container" >
+            <div class="checkbox-container">
                 <!-- Manifex -->
                 <ion-item lines="none">
                     <ion-label>{{ 'PNC_SEARCH.CRITERIA.MISSION.MANIFEX' | translate }}</ion-label>
