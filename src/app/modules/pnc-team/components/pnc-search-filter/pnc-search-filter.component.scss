@@ -16,11 +16,21 @@ h2 {
     }
 }
 
+.pnc-autocomplete {
+    border-bottom: 1px solid var(--ion-color-grey72);
+}
+
 .filter-container {
     margin-bottom: 16px;
 
     .sector {
         padding: 0px 5px;
+    }
+
+    .taf {
+        display: flex;
+        align-items: flex-end;
+        margin-left: 10px;
     }
 
     .checkbox-container {
@@ -103,6 +113,7 @@ h2 {
 ::ng-deep mat-expansion-panel {
     background: var(--ion-color-white);
     border-radius: 0 !important;
+    margin: 15px 0 !important;
 
     .mat-expansion-panel-header.mat-expanded:focus,
     .mat-expansion-panel-header.mat-expanded:hover {
