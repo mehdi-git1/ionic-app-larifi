@@ -154,13 +154,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.prioritized = false;
     this.filters.hasAtLeastOnePriorityInProgress = false;
     this.filters.hasNoPriority = false;
-<<<<<<< HEAD
     this.filters.workRate = this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : null;
 
-=======
     this.filters.taf = false;
     this.filters.hasManifex = false;
->>>>>>> release/2.5.0
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
@@ -281,12 +278,9 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasNoPriority = val.hasNoPriorityControl;
       this.filters.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
       this.filters.hasHiddenEvents = val.hasHiddenEventsControl;
-<<<<<<< HEAD
       this.filters.workRate = val.workRateControl;
-=======
       this.filters.taf = val.tafControl;
       this.filters.hasManifex = val.hasManifexControl;
->>>>>>> release/2.5.0
     });
   }
 
