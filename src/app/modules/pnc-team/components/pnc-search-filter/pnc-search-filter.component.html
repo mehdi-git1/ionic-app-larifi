@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="flex filter-container filter" *ngIf="!isAlternantSearch()">
+    <div class="flex filter-container filter"  *ngIf="!isAlternantSearch()">
         <!-- Grade -->
         <div class="flex8">
             <ion-label class="input-label">
@@ -66,38 +66,15 @@
                     {{specialityKey}}</ion-select-option>
             </ion-select>
         </div>
-        <div class="flex4 checkbox-container taf">
+        <div class="flex4 checkbox-container taf"  *ngIf="!isAlternantSearch()">
             <!-- taf -->
             <ion-item lines="none">
                 <ion-label>{{ 'PNC_SEARCH.CRITERIA.TAF' | translate }}</ion-label>
-                <ion-checkbox slot="end" formControlName="tafControl">
+                <ion-checkbox slot="end" [(ngModel)]="taf" formControlName="tafControl">
                 </ion-checkbox>
             </ion-item>
         </div>
     </div>
-
-    <div class="filter-container filter">
-        <!-- Rythme -->
-        <ion-label class="input-label">
-            {{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</ion-label>
-        <ion-select interface="popover" [compareWith]="compareFn" formControlName="workRateControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
-            <ion-select-option *ngIf="!workRateList || workRateList.length != 1" [value]="valueAll">
-                {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
-            </ion-select-option>
-            <ion-select-option *ngFor="let workRateKey of workRateList" [value]="workRateKey">
-                {{workRateKey}}</ion-select-option>
-        </ion-select>
-    </div>
-
-    <div class="flex4 checkbox-container">
-        <!-- EOBS -->
-        <ion-item lines="none">
-            <ion-label class="truncate-text">{{ 'PNC_SEARCH.CRITERIA.EOBS_BEFORE_18_MONTHS' | translate }}</ion-label>
-            <ion-checkbox slot="end" formControlName="hasEobsBefore18MonthsControl">
-            </ion-checkbox>
-        </ion-item>
-    </div>
-
     <div class="filter-container filter">
         <!-- Spécialisation avion -->
         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}
@@ -108,6 +85,23 @@
             <ion-select-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{aircraftSkillKey}}</ion-select-option>
         </ion-select>
     </div>
+    <mat-expansion-panel [expanded]="false"  *ngIf="!isAlternantSearch()">
+        <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
+            <mat-panel-title>
+                {{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.TITLE' | translate }}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="filter-container filter">
+            <div class="checkbox-container">
+                <!-- Dernier BP réalisé il y a plus de 24 mois  -->
+                <ion-item lines="none">
+                    <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.PI_OR_EPP_GREATER_THAN_24_MONTH' | translate }}</ion-label>
+                    <ion-checkbox slot="end" formControlName="hasPIOrEPPGreaterThan24MonthControl">
+                    </ion-checkbox>
+                </ion-item>
+            </div>
+        </div>
+    </mat-expansion-panel>
     <div class="filter-container" *ngIf="!isAlternantSearch()">
         <mat-expansion-panel [expanded]="false">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
@@ -160,7 +154,7 @@
                     {{ 'PNC_SEARCH.CRITERIA.MISSION.TITLE' | translate }}
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="filter-container filter">
+            <div class="filter-container filter" >
                 <!-- Relais -->
                 <div>
                     <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.MISSION.RELAY' | translate }}
@@ -176,11 +170,11 @@
                     </ion-select>
                 </div>
             </div>
-            <div class="checkbox-container">
+            <div class="checkbox-container" >
                 <!-- Manifex -->
                 <ion-item lines="none">
                     <ion-label>{{ 'PNC_SEARCH.CRITERIA.MISSION.MANIFEX' | translate }}</ion-label>
-                    <ion-checkbox slot="end" formControlName="hasManifexControl">
+                    <ion-checkbox slot="end" [(ngModel)]="hasManifex" formControlName="hasManifexControl">
                     </ion-checkbox>
                 </ion-item>
             </div>

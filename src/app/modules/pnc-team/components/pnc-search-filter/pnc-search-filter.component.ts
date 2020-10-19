@@ -172,6 +172,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('tafControl').setValue(false);
     this.searchForm.get('hasEobsBefore18MonthsControl').setValue(false);
     this.searchForm.get('hasManifexControl').setValue(false);
+    this.searchForm.get('hasPIOrEPPGreaterThan24MonthControl').setValue(false);
     this.defaultValue = false;
     this.priority = false;
     this.noPriority = false;
@@ -239,6 +240,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
         value: [false],
         disabled: this.areFiltersDisabled()
       }),
+      hasPIOrEPPGreaterThan24MonthControl: new FormControl({
+        value: [false],
+        disabled: this.areFiltersDisabled()
+      }),
       tafControl: new FormControl({
         value: [false],
         disabled: this.areFiltersDisabled()
@@ -288,6 +293,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.taf = val.tafControl;
       this.filters.hasEobsBefore18Months = val.hasEobsBefore18MonthsControl;
       this.filters.hasManifex = val.hasManifexControl;
+      this.filters.hasPIOrEPPGreaterThan24Month = val.hasPIOrEPPGreaterThan24MonthControl;
     });
   }
 
