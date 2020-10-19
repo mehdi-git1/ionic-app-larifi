@@ -89,6 +89,15 @@
         </ion-select>
     </div>
 
+    <div class="flex4 checkbox-container">
+        <!-- EOBS -->
+        <ion-item lines="none">
+            <ion-label class="truncate-text">{{ 'PNC_SEARCH.CRITERIA.EOBS_BEFORE_18_MONTHS' | translate }}</ion-label>
+            <ion-checkbox slot="end" formControlName="hasEobsBefore18MonthsControl">
+            </ion-checkbox>
+        </ion-item>
+    </div>
+
     <div class="filter-container filter">
         <!-- Spécialisation avion -->
         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}

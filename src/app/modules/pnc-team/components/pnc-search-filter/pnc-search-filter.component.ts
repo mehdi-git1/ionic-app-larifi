@@ -155,6 +155,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.hasAtLeastOnePriorityInProgress = false;
     this.filters.hasNoPriority = false;
     this.filters.workRate = this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : undefined;
+    this.filters.hasEobsBefore18Months = false;
 
     this.filters.taf = false;
     this.filters.hasManifex = false;
@@ -169,6 +170,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('hasDefaultHiddenEventsControl').setValue(false);
     this.searchForm.get('hasHiddenEventsControl').setValue(false);
     this.searchForm.get('tafControl').setValue(false);
+    this.searchForm.get('hasEobsBefore18MonthsControl').setValue(false);
     this.searchForm.get('hasManifexControl').setValue(false);
     this.defaultValue = false;
     this.priority = false;
@@ -241,6 +243,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
         value: [false],
         disabled: this.areFiltersDisabled()
       }),
+      hasEobsBefore18MonthsControl: new FormControl({
+        value: [false],
+        disabled: this.areFiltersDisabled()
+      }),
       hasManifexControl: new FormControl({
         value: [false],
         disabled: this.areFiltersDisabled()
@@ -280,6 +286,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasHiddenEvents = val.hasHiddenEventsControl;
       this.filters.workRate = val.workRateControl;
       this.filters.taf = val.tafControl;
+      this.filters.hasEobsBefore18Months = val.hasEobsBefore18MonthsControl;
       this.filters.hasManifex = val.hasManifexControl;
     });
   }

@@ -20,14 +20,16 @@ export class PncFilterModel {
   priorityCategoryCode: string;
   hasManifex: boolean;
   taf: boolean;
+  hasEobsBefore18Months: boolean;
 
   // Tri
   sortColumn: string;
   sortDirection: SortDirection;
-  
+
   // Page
   size: number;
   page: number;
   offset: number;
   pagePosition: PagePositionEnum;
+
 }

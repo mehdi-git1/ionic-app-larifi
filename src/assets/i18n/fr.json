@@ -712,6 +712,7 @@
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
             "TAF": "TAF",
+            "EOBS_BEFORE_18_MONTHS": "Dernière rencontre vol (eObs) > 18 mois",
             "PRIORITY": {
                 "TITLE": "Priorités",
                 "PRIORITY_CATEGORY": "Catégorie priorités",
