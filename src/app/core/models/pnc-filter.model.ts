@@ -23,8 +23,6 @@ export class PncFilterModel {
   hasEobsBefore18Months: boolean;
   hasPIOrEPPGreaterThan24Month: boolean;
 
-
-
   // Tri
   sortColumn: string;
   sortDirection: SortDirection;

@@ -172,7 +172,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('hasDefaultHiddenEventsControl').setValue(false);
     this.searchForm.get('hasHiddenEventsControl').setValue(false);
     this.searchForm.get('tafControl').setValue(false);
-    this.searchForm.get('hasEobsBefore18MonthsControl').setValue(false);
     this.searchForm.get('hasManifexControl').setValue(false);
     this.searchForm.get('hasPIOrEPPGreaterThan24MonthControl').setValue(false);
     this.searchForm.get('hasEobsBefore18MonthsControl').setValue(false);
@@ -256,10 +255,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
         value: [false],
         disabled: this.areFiltersDisabled()
       }),
-      hasEobsBefore18MonthsControl: new FormControl({
-        value: [false],
-        disabled: this.areFiltersDisabled()
-      }),
       hasManifexControl: new FormControl({
         value: [false],
         disabled: this.areFiltersDisabled()
@@ -302,7 +297,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasEobsBefore18Months = val.hasEobsBefore18MonthsControl;
       this.filters.hasManifex = val.hasManifexControl;
       this.filters.hasPIOrEPPGreaterThan24Month = val.hasPIOrEPPGreaterThan24MonthControl;
-      this.filters.hasEobsBefore18Months = val.hasEobsBefore18MonthsControl;
+
     });
   }
 
