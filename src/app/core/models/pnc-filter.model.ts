@@ -17,10 +17,10 @@ export class PncFilterModel {
     hasHiddenEvents: boolean;
     hasDefaultHiddenEvents: boolean;
     priorityCategoryCode: string;
-    hasPIOrEPPGreaterThan24Month: boolean;
+    hasPIOrEPPGreaterThan24Months: boolean;
     hasManifex: boolean;
     taf: boolean;
-    
+
     // Tri
     sortColumn: string;
     sortDirection: SortDirection;
