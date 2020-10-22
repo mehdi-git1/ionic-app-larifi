@@ -85,7 +85,7 @@
             <ion-select-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{aircraftSkillKey}}</ion-select-option>
         </ion-select>
     </div>
-    <mat-expansion-panel [expanded]="false"  *ngIf="!isAlternantSearch()">
+    <mat-expansion-panel #encounterPanel [expanded]="false"  *ngIf="!isAlternantSearch()"  (afterExpand)="open(encounterPanel)">
         <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
             <mat-panel-title>
                 {{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.TITLE' | translate }}
@@ -103,7 +103,7 @@
         </div>
     </mat-expansion-panel>
     <div class="filter-container" *ngIf="!isAlternantSearch()">
-        <mat-expansion-panel [expanded]="false">
+        <mat-expansion-panel #priorityPanel [expanded]="false"  (afterExpand)="open(priorityPanel)">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.PRIORITY.TITLE' | translate }}
@@ -148,7 +148,7 @@
         </mat-expansion-panel>
     </div>
     <div class="filter-container" *ngIf="!isAlternantSearch()">
-        <mat-expansion-panel [expanded]="false">
+        <mat-expansion-panel #missionPanel [expanded]="false"  (afterExpand)="open(missionPanel)">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.MISSION.TITLE' | translate }}
@@ -181,8 +181,8 @@
         </mat-expansion-panel>
     </div>
     <div class="filter-container" *ngIf="!isAlternantSearch()">
-        <mat-expansion-panel [expanded]="false">
-            <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
+        <mat-expansion-panel #logbookEventPanel [expanded]="false" (afterExpand)="open(logbookEventPanel)">
+            <mat-expansion-panel-header class="filter-header elevation-1" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.LOGBOOK_EVENTS.TITLE' | translate }}
                 </mat-panel-title>
@@ -206,7 +206,7 @@
         </mat-expansion-panel>
     </div>
     <div class="button-container">
-        <ion-button class="search-button" color="grey95" (click)="search()">
+        <ion-button class="search-button" color="primary" (click)="search()">
             <ion-label>{{ 'PNC_SEARCH.CRITERIA.SEARCH_BUTTON' | translate }}</ion-label>
         </ion-button>
     </div>

@@ -87,10 +87,8 @@ h2 {
     z-index: 2;
 
     .search-button {
-        --box-shadow: none;
-
         ion-label {
-            color: var(--ion-color-primary);
+            color: var(--ion-color-white);
         }
     }
 }
@@ -112,7 +110,6 @@ h2 {
 
 ::ng-deep mat-expansion-panel {
     background: var(--ion-color-white);
-    border-radius: 0 !important;
     margin: 15px 0 !important;
 
     .mat-expansion-panel-header.mat-expanded:focus,
