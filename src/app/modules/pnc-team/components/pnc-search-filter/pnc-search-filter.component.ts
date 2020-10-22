@@ -159,6 +159,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.taf = false;
     this.filters.hasManifex = false;
     this.filters.hasProfessionalInterviewOlderThan24Months = false;
+    this.filters.hasEobsBefore18Months = false;
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
@@ -172,6 +173,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('tafControl').setValue(false);
     this.searchForm.get('hasManifexControl').setValue(false);
     this.searchForm.get('hasProfessionalInterviewOlderThan24MonthsControl').setValue(false);
+    this.searchForm.get('hasEobsBefore18MonthsControl').setValue(false);
     this.defaultValue = false;
     this.priority = false;
     this.noPriority = false;
@@ -239,6 +241,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
         value: [false],
         disabled: this.areFiltersDisabled()
       }),
+       hasEobsBefore18MonthsControl: new FormControl({
+        value: [false],
+        disabled: this.areFiltersDisabled()
+      }),
       hasProfessionalInterviewOlderThan24MonthsControl: new FormControl({
         value: [false],
         disabled: this.areFiltersDisabled()
@@ -286,6 +292,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasHiddenEvents = val.hasHiddenEventsControl;
       this.filters.workRate = val.workRateControl;
       this.filters.taf = val.tafControl;
+      this.filters.hasEobsBefore18Months = val.hasEobsBefore18MonthsControl;
       this.filters.hasManifex = val.hasManifexControl;
       this.filters.hasProfessionalInterviewOlderThan24Months = val.hasProfessionalInterviewOlderThan24MonthsControl;
     });
