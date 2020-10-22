@@ -24,7 +24,7 @@ import {
     templateUrl: 'pnc-search.page.html',
     styleUrls: ['./pnc-search.page.scss']
 })
-export class PncSearchPage {
+export class PncSearchPage implements AfterViewInit {
 
     searchInProgress = false;
 
@@ -64,6 +64,18 @@ export class PncSearchPage {
         this.searchMode = this.activatedRoute.snapshot.paramMap.get('mode') ?
             PncSearchModeEnum[this.activatedRoute.snapshot.paramMap.get('mode')]
             : PncSearchModeEnum.FULL;
+    }
+
+    ngAfterViewInit() {
+        this.initPage();
+    }
+
+    /**
+     * Initialisation du contenu de la page.
+     */
+    initPage() {
+        this.resetPageNumber();
+        this.launchSearch();
     }
 
     /**

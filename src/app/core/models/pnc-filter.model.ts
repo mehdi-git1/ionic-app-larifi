@@ -1,5 +1,5 @@
-import { SortDirection } from './../enums/sort-direction-enum';
-import { PagePositionEnum } from './../enums/page-position.enum';
+import { PagePositionEnum } from '../enums/page-position.enum';
+import { SortDirection } from '../enums/sort-direction-enum';
 
 export class PncFilterModel {
 
@@ -20,14 +20,15 @@ export class PncFilterModel {
     hasPIOrEPPGreaterThan24Months: boolean;
     hasManifex: boolean;
     taf: boolean;
+    workRate: number;
 
     // Tri
     sortColumn: string;
     sortDirection: SortDirection;
-
-    // Page
-    size: number;
-    page: number;
-    offset: number;
-    pagePosition: PagePositionEnum;
+  
+  // Page
+  size: number;
+  page: number;
+  offset: number;
+  pagePosition: PagePositionEnum;
 }

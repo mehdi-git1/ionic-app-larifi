@@ -50,6 +50,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
   relayList: Array<RelayModel>;
   aircraftSkillList: string[];
   specialityList: string[];
+  workRateList: number[];
   priorityCategoryList: Array<CareerObjectiveCategory>;
 
   outOfDivision: boolean;
@@ -106,6 +107,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     if (this.sessionService.getActiveUser().appInitData !== undefined) {
       const appInitData = this.sessionService.getActiveUser().appInitData;
       this.divisionList = appInitData.divisionSectorGinqTree;
+      this.workRateList = appInitData.workRates;
       if (this.divisionList.length === 0) {
         this.outOfDivision = true;
       } else {
@@ -153,12 +155,15 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.prioritized = false;
     this.filters.hasAtLeastOnePriorityInProgress = false;
     this.filters.hasNoPriority = false;
+    this.filters.workRate = this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : undefined;
+
     this.filters.taf = false;
     this.filters.hasManifex = false;
     this.filters.hasPIOrEPPGreaterThan24Months = false;
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
+    this.searchForm.get('workRateControl').setValue(this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : AppConstant.ALL);
     this.searchForm.get('priorityCategoryControl').setValue(this.priorityCategoryList && this.priorityCategoryList.length === 1 ? this.priorityCategoryList[0] : AppConstant.ALL);
     this.searchForm.get('prioritizedControl').setValue(false);
     this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(false);
@@ -197,6 +202,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
       }),
       specialityControl: new FormControl({
         value: [specialityInitValue],
+        disabled: this.areFiltersDisabled()
+      }),
+      workRateControl: new FormControl({
+        value: [this.filters.workRate ? this.filters.workRate : AppConstant.ALL],
         disabled: this.areFiltersDisabled()
       }),
       aircraftSkillControl: new FormControl({
@@ -257,10 +266,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * @param e2 Deuxieme valeur à comparér
    */
   compareFn(e1: string, e2: string): boolean {
-    if (e1 === e2) {
-      return true;
-    }
-    return false;
+    return (e1 === e2);
   }
 
   /**
@@ -278,6 +284,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasNoPriority = val.hasNoPriorityControl;
       this.filters.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
       this.filters.hasHiddenEvents = val.hasHiddenEventsControl;
+      this.filters.workRate = val.workRateControl;
       this.filters.taf = val.tafControl;
       this.filters.hasManifex = val.hasManifexControl;
       this.filters.hasPIOrEPPGreaterThan24Months = val.hasPIOrEPPGreaterThan24MonthsControl;
