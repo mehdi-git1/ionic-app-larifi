@@ -715,6 +715,10 @@
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
             "TAF": "TAF",
+            "ENCOUNTER_FLIGHT_GROUND" :{
+                "TITLE":"Rencontres vol/sol",
+                "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH":"Dernière rencontre sol (BP) > 24"
+            },
             "PRIORITY": {
                 "TITLE": "Priorités",
                 "PRIORITY_CATEGORY": "Catégorie priorités",
