@@ -13,7 +13,7 @@
     </div>
     <div class="flex filter-container filter">
         <!-- Division-->
-        <div class="flex4">
+        <div class="flex5">
             <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}
             </ion-label>
             <ion-select interface="popover" [compareWith]="compareFn" formControlName="divisionControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
@@ -28,7 +28,7 @@
             </ion-select>
         </div>
         <!-- Secteur -->
-        <div class="flex4 sector">
+        <div class="flex5 sector">
             <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}
             </ion-label>
             <ion-select interface="popover" [compareWith]="compareFn" formControlName="sectorControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
@@ -53,9 +53,9 @@
         </div>
     </div>
 
-    <div class="flex filter-container filter" *ngIf="!isAlternantSearch()">
+    <div class="flex filter-container filter function-workrate-taf-container" *ngIf="!isAlternantSearch()">
         <!-- Grade -->
-        <div class="flex8">
+        <div class="flex5">
             <ion-label class="input-label">
                 {{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
             <ion-select interface="popover" [compareWith]="compareFn" formControlName="specialityControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
@@ -66,7 +66,19 @@
                     {{specialityKey}}</ion-select-option>
             </ion-select>
         </div>
-        <div class="flex4 checkbox-container taf"  *ngIf="!isAlternantSearch()">
+        <div class="flex5 work-rate">
+        <!-- Rythme -->
+            <ion-label class="input-label">
+                {{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</ion-label>
+            <ion-select interface="popover" [compareWith]="compareFn" formControlName="workRateControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+                <ion-select-option *ngIf="!workRateList || workRateList.length != 1" [value]="valueAll">
+                    {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
+                </ion-select-option>
+                <ion-select-option *ngFor="let workRateKey of workRateList" [value]="workRateKey">
+                    {{workRateKey}}</ion-select-option>
+            </ion-select>
+        </div>
+        <div class="flex2 checkbox-container taf" >
             <!-- taf -->
             <ion-item lines="none">
                 <ion-label>{{ 'PNC_SEARCH.CRITERIA.TAF' | translate }}</ion-label>
@@ -74,19 +86,6 @@
                 </ion-checkbox>
             </ion-item>
         </div>
-    </div>
-
-    <div class="filter-container filter">
-        <!-- Rythme -->
-        <ion-label class="input-label">
-            {{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</ion-label>
-        <ion-select interface="popover" [compareWith]="compareFn" formControlName="workRateControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
-            <ion-select-option *ngIf="!workRateList || workRateList.length != 1" [value]="valueAll">
-                {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
-            </ion-select-option>
-            <ion-select-option *ngFor="let workRateKey of workRateList" [value]="workRateKey">
-                {{workRateKey}}</ion-select-option>
-        </ion-select>
     </div>
 
     <div class="filter-container filter">
