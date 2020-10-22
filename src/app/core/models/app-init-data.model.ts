@@ -8,36 +8,38 @@ import { ProfessionalInterviewModel } from './professional-interview/professiona
 import { RelayModel } from './statutory-certificate/relay.model';
 
 export class AppInitDataModel {
-    divisionSectorGinqTree: Array<DivisionModel>;
+  divisionSectorGinqTree: Array<DivisionModel>;
 
-    defaultDivision: string;
+  defaultDivision: string;
 
-    defaultSector: string;
-    defaultGinq: string;
+  defaultSector: string;
+  defaultGinq: string;
 
-    relays: Array<RelayModel>;
+  relays: Array<RelayModel>;
 
-    aircraftSkills: Array<string>;
+  aircraftSkills: Array<string>;
 
-    blankProfessionalInterview: ProfessionalInterviewModel;
+  workRates: Array<number>;
 
-    logbookEventCategories: Array<LogbookEventCategory>;
+  blankProfessionalInterview: ProfessionalInterviewModel;
 
-    hrDocumentCategories: Array<HrDocumentCategory>;
+  logbookEventCategories: Array<LogbookEventCategory>;
 
-    careerObjectiveCategories: Array<CareerObjectiveCategory>;
+  hrDocumentCategories: Array<HrDocumentCategory>;
 
-    regularityLinks: Array<AppParameterModel>;
+  careerObjectiveCategories: Array<CareerObjectiveCategory>;
 
-    careerHistoryLinks: Array<AppParameterModel>;
+  regularityLinks: Array<AppParameterModel>;
 
-    contactPNLink: AppParameterModel;
+  careerHistoryLinks: Array<AppParameterModel>;
 
-    attachmentsMaxSize: number;
+  contactPNLink: AppParameterModel;
 
-    eformsWrittenUrl: string;
+  attachmentsMaxSize: number;
 
-    cabinReportsWrittenUrl: string;
+  eformsWrittenUrl: string;
 
-    myBoardInitData: MyBoardInitDataModel;
+  cabinReportsWrittenUrl: string;
+
+  myBoardInitData: MyBoardInitDataModel;
 }

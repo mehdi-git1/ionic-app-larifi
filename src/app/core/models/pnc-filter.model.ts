@@ -20,6 +20,7 @@ export class PncFilterModel {
     hasPIOrEPPGreaterThan24Months: boolean;
     hasManifex: boolean;
     taf: boolean;
+    workRate: number;
 
     // Tri
     sortColumn: string;
