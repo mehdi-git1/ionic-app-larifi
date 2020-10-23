@@ -38,6 +38,9 @@ export class PncModel extends EDossierPncObjectModel {
     phoneNumber: string;
     documents: Array<DocumentModel> = new Array();
     haulType: HaulTypeEnum;
+    lastProfessionalInterviewDate: Date;
+    lastEObservationDate: Date;
+    lastPriorityUpdateDate: Date;
 
     getStorageId(): string {
         return this.matricule;

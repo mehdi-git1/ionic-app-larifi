@@ -59,11 +59,11 @@
                     <span class="value"
                         [ngClass]="{'no-value' : !pnc.lastProfessionalInterviewDate }">{{ pnc.lastProfessionalInterviewDate | date:'dd/MM/yyyy' }}</span>
                 </div>
-                <!-- Date de la Dernière priorité mise à jour -->
+                <!-- Date de la Dernière mise à jour d'une priorité -->
                 <div class="pnc-info" >
-                    <label>{{ 'PNC_CARD.LAST_UPDATED_PRIORITY_DATE' | translate }}</label>
+                    <label>{{ 'PNC_CARD.LAST_PRIORITY_UPDATE_DATE' | translate }}</label>
                     <span class="value"
-                        [ngClass]="{'no-value' : !pnc.lastOnGroundEncounterDate }">{{ pnc.lastUpdatedPriorityDate | date:'dd/MM/yyyy' }}</span>
+                        [ngClass]="{'no-value' : !pnc.lastPriorityUpdateDate }">{{ pnc.lastPriorityUpdateDate | date:'dd/MM/yyyy' }}</span>
                 </div>
 
             </div>

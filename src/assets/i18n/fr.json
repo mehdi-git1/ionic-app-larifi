@@ -135,7 +135,7 @@
         "WORK_RATE": "Rythme",
         "LAST_EOBSERVATION_DATE":"Dernière rencontre Vol (eObs)",
         "LAST_PROFESSIONAL_INTERVIEW_DATE":"Dernière rencontre Sol (BP)",
-        "LAST_UPDATED_PRIORITY_DATE":"dernière mise à jour "
+        "LAST_PRIORITY_UPDATE_DATE":"Dernière mise à jour d'une priorité"
     },
     "AUTHENT": {
         "AUTHENTICATION": "Authentification",
