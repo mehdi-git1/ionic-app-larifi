@@ -20,8 +20,8 @@ export class PncFilterModel {
   priorityCategoryCode: string;
   hasManifex: boolean;
   taf: boolean;
-  hasEobsBefore18Months: boolean;
   hasPIOrEPPGreaterThan24Month: boolean;
+  hasEobsOlderThan18Months: boolean;
 
   // Tri
   sortColumn: string;

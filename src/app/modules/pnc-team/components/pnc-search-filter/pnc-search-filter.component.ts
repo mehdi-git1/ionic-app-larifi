@@ -155,11 +155,11 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.hasAtLeastOnePriorityInProgress = false;
     this.filters.hasNoPriority = false;
     this.filters.workRate = this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : undefined;
-    this.filters.hasEobsBefore18Months = false;
+    this.filters.hasEobsOlderThan18Months = false;
 
     this.filters.taf = false;
     this.filters.hasManifex = false;
-    this.filters.hasEobsBefore18Months = false;
+    this.filters.hasEobsOlderThan18Months = false;
 
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
@@ -243,7 +243,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
         value: [false],
         disabled: this.areFiltersDisabled()
       }),
-      hasEobsBefore18MonthsControl: new FormControl({
+      hasEobsOlderThan18MonthsControl: new FormControl({
         value: [false],
         disabled: this.areFiltersDisabled()
       }),
@@ -294,7 +294,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasHiddenEvents = val.hasHiddenEventsControl;
       this.filters.workRate = val.workRateControl;
       this.filters.taf = val.tafControl;
-      this.filters.hasEobsBefore18Months = val.hasEobsBefore18MonthsControl;
+      this.filters.hasEobsOlderThan18Months = val.hasEobsOlderThan18MonthsControl;
       this.filters.hasManifex = val.hasManifexControl;
       this.filters.hasPIOrEPPGreaterThan24Month = val.hasPIOrEPPGreaterThan24MonthControl;
 

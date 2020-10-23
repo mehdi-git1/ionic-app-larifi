@@ -715,7 +715,7 @@
             "ENCOUNTER_FLIGHT_GROUND" :{
                 "TITLE":"Rencontres vol/sol",
                 "PI_OR_EPP_GREATER_THAN_24_MONTH":"Dernière rencontre sol (BP) > 24",
-                "EOBS_BEFORE_18_MONTHS": "Dernière rencontre vol (Eobs) > 18"
+                "EOBS_OLDER_THAN_18_MONTHS": "Dernière rencontre vol (Eobs) > 18"
             },
             "PRIORITY": {
                 "TITLE": "Priorités",
