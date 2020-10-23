@@ -174,7 +174,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('tafControl').setValue(false);
     this.searchForm.get('hasManifexControl').setValue(false);
     this.searchForm.get('hasPIOrEPPGreaterThan24MonthControl').setValue(false);
-    this.searchForm.get('hasEobsBefore18MonthsControl').setValue(false);
+    this.searchForm.get('hasEobsOlderThan18MonthsControl').setValue(false);
 
     this.defaultValue = false;
     this.priority = false;
