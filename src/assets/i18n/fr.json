@@ -179,6 +179,13 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
+        "REMINDE_NEXT_ENCOUNTER_DATE": {
+            "TITLE": "Prochain rappel",
+            "MESSAGE": "Si vous souhaitez recevoir une alerte dans MyBoard, nous vous invitons à fixer une date de rappel",
+            "REMINDER": "Rappel",
+            "SAVE_WITHOUT_REMINDER": "Enregistrer sans rappel",
+            "SEND_WITHOUT_REMINDER": "Envoyer sans rappel"
+        },
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SEND": "Envoyer",

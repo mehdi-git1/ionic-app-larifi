@@ -205,7 +205,7 @@
                 <!-- Barre de boutons -->
                 <div class="button-bar-right button-bar ion-margin-top ion-margin-bottom">
                     <!-- Bouton sauvegarder objectif en brouillon -->
-                    <ion-button color="blue60" (click)="saveCareerObjectiveDraft()" [disabled]="creationForm.invalid" *ngIf="isDraftAndCanBeModified()">
+                    <ion-button color="blue60" (click)="saveCareerObjectiveAsDraft()" [disabled]="creationForm.invalid" *ngIf="isDraftAndCanBeModified()">
                         <ion-icon name="bookmark" ios="ios-bookmark-outline" class="ion-margin-end"></ion-icon>
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
                     </ion-button>
@@ -220,7 +220,7 @@
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DELETE' | translate }}
                     </ion-button>
                     <!-- Bouton sauvegarder objectif -->
-                    <ion-button color="blue70" (click)="saveCareerObjectiveToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityService.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)">
+                    <ion-button color="blue70" (click)="saveOrUpdateCareerObjective()" [disabled]="creationForm.invalid" *ngIf="securityService.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)">
                         <ion-icon name="download" ios="ios-download-outline" class="ion-margin-end"></ion-icon>
                         <span *ngIf="!careerObjective.careerObjectiveStatus || careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT">{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SEND' | translate }}</span>
                         <span *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.UPDATE' | translate }}</span>
