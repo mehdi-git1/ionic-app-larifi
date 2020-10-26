@@ -145,7 +145,7 @@
                                     <ion-label position="stacked">
                                         {{ 'CAREER_OBJECTIVE_CREATE.FORM.NEXT_ENCOUNTER_DATE' | translate }}
                                     </ion-label>
-                                    <edospnc-datetime [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.nextEncounterDate" [edospncFormGroup]="creationForm" edospncFormControlName="nextEncounterDateControl" [ngModelOptions]="{standalone: true}">
+                                    <edospnc-datetime #nextEncounterDate [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.nextEncounterDate" [edospncFormGroup]="creationForm" edospncFormControlName="nextEncounterDateControl" [ngModelOptions]="{standalone: true}">
                                     </edospnc-datetime>
                                     <!-- Date de rencontre -->
                                     <ion-label position="stacked" [ngClass]="{'required' : requiredOnEncounterDay  || isEncounterDateRequired() }">

@@ -1,3 +1,4 @@
+import { EdospncDatetimeComponent } from './../../../../shared/components/edospnc-datetime/edospnc-datetime.component';
 import * as _ from 'lodash';
 import { PncRoleEnum } from 'src/app/core/enums/pnc-role.enum';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
@@ -36,6 +37,7 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
 import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
 import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
+import { MatDatepicker } from '@angular/material';
 
 @Component({
     selector: 'page-career-objective-create',
@@ -72,6 +74,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     WaypointStatus = WaypointStatusEnum;
 
     @ViewChild('form', { static: false }) form: NgForm;
+    @ViewChild('nextEncounterDate', { static: false }) nextEncounterDatePicker: EdospncDatetimeComponent;
 
     customPopoverOptions = { cssClass: 'career-objective-popover-select' };
 
@@ -322,7 +325,9 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
                 this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDE_NEXT_ENCOUNTER_DATE.REMINDER'),
                 this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDE_NEXT_ENCOUNTER_DATE.SAVE_WITHOUT_REMINDER')).then(() => {
                     this.saveCareerObjectiveToDraftStatus();
-                }).catch(() => { });
+                }).catch(() => {
+                    this.nextEncounterDatePicker.datepicker.open();
+                });
         } else {
             this.saveCareerObjectiveToDraftStatus();
         }
