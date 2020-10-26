@@ -155,7 +155,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.hasAtLeastOnePriorityInProgress = false;
     this.filters.hasNoPriority = false;
     this.filters.workRate = this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : undefined;
-    this.filters.hasEobsOlderThan18Months = false;
+    this.filters.hasPIOrEPPGreaterThan24Month = false;
 
     this.filters.taf = false;
     this.filters.hasManifex = false;
