@@ -1,4 +1,6 @@
+import { AppConstant } from './../../../../app.constant';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import { PncRoleEnum } from 'src/app/core/enums/pnc-role.enum';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
 
@@ -352,31 +354,44 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
         }
     }
 
+    isNextEncounterDateValid(): boolean {
+        return this.careerObjective.nextEncounterDate && moment(this.careerObjective.nextEncounterDate)
+            .isSameOrAfter(moment().format('DD MMMM YYYY'));
+    }
+
     /**
      * Enregistre un objectif au statut brouillon
      */
     saveCareerObjectiveToDraftStatus() {
-        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.DRAFT;
-        this.saveCareerObjective(careerObjectiveToSave).then(() => {
-            if (careerObjectiveToSave.techId === undefined) {
-                this.navCtrl.pop();
-            }
-        });
+        if (this.isNextEncounterDateValid()) {
+            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.DRAFT;
+            this.saveCareerObjective(careerObjectiveToSave).then(() => {
+                if (careerObjectiveToSave.techId === undefined) {
+                    this.navCtrl.pop();
+                }
+            });
+        } else {
+            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.INVALIDE_NEXT_ENCOUNTER_DATE'));
+        }
     }
 
     /**
      * Enregistre un objectif au statut enregistré
      */
     saveCareerObjectiveToRegisteredStatus() {
-        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
-        careerObjectiveToSave.registrationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
-        this.saveCareerObjective(careerObjectiveToSave).then(() => {
-            if (careerObjectiveToSave.techId === undefined) {
-                this.navCtrl.pop();
-            }
-        });
+        if (this.isNextEncounterDateValid()) {
+            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
+            careerObjectiveToSave.registrationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
+            this.saveCareerObjective(careerObjectiveToSave).then(() => {
+                if (careerObjectiveToSave.techId === undefined) {
+                    this.navCtrl.pop();
+                }
+            });
+        } else {
+            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.INVALIDE_NEXT_ENCOUNTER_DATE'));
+        }
     }
 
     /**
@@ -389,6 +404,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
+            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
         }
     }
 
@@ -402,6 +418,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
+            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
         }
     }
 
@@ -416,6 +433,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
+            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
         }
     }
 
@@ -424,10 +442,17 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      */
     resumeAbandonedCareerObjective() {
         if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-            this.cancelAbandon = true;
-            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
-            this.saveCareerObjective(careerObjectiveToSave);
+            if (this.isNextEncounterDateValid()) {
+                const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+                this.cancelAbandon = true;
+                careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
+                this.saveCareerObjective(careerObjectiveToSave);
+            } else {
+                this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.INVALIDE_NEXT_ENCOUNTER_DATE'));
+            }
+        } else {
+            this.requiredOnEncounterDay = true;
+            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
         }
     }
 
