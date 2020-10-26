@@ -154,8 +154,7 @@
             "ENCOUNTER_DATE": "Fixée le",
             "PRIORITIZED": "Priorité majeure",
             "CREATION_DATE": "Créée le",
-            "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)",
-            "VALID_NEXT_ENCOUNTER_DAY":" (Saisir une date postérieur à la date du jour)"
+            "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "DETAILS": {
             "CREATED_BY": "Créée par ",
