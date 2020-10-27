@@ -1,3 +1,4 @@
+import { EdospncDatetimeComponent } from './../../../../shared/components/edospnc-datetime/edospnc-datetime.component';
 import * as _ from 'lodash';
 import { PncRoleEnum } from 'src/app/core/enums/pnc-role.enum';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
@@ -36,6 +37,7 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
 import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
 import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
+import { MatDatepicker } from '@angular/material';
 
 @Component({
     selector: 'page-career-objective-create',
@@ -72,6 +74,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     WaypointStatus = WaypointStatusEnum;
 
     @ViewChild('form', { static: false }) form: NgForm;
+    @ViewChild('nextEncounterDate', { static: false }) nextEncounterDatePicker: EdospncDatetimeComponent;
 
     customPopoverOptions = { cssClass: 'career-objective-popover-select' };
 
@@ -289,9 +292,77 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     }
 
     /**
+     * Présente une alerte générique
+     */
+    confirmPopup(title: string, message: string, cancelLabel: string, confirmLabel: string) {
+        return new Promise((resolve, reject) => {
+            this.alertCtrl.create({
+                header: title,
+                message: message,
+                buttons: [
+                    {
+                        text: cancelLabel,
+                        role: 'cancel',
+                        handler: () => reject()
+                    },
+                    {
+                        text: confirmLabel,
+                        handler: () => resolve()
+                    }
+                ]
+            }).then(alert => alert.present());
+        });
+    }
+
+    /**
+     * Présente une alerte pour rappeler qu'il faut saisir une date pour la prochaine rencontre 
+     * avant d'enregistrer la priorité en brouillon
+     */
+    saveCareerObjectiveAsDraft() {
+        if (this.securityService.isManager() && !this.careerObjective.nextEncounterDate) {
+            this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.TITLE'),
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.MESSAGE'),
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.REMINDER'),
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.SAVE_WITHOUT_REMINDER')).then(() => {
+                    this.saveCareerObjectiveToDraftStatus();
+                }).catch(() => {
+                    this.nextEncounterDatePicker.datepicker.open();
+                });
+        } else {
+            this.saveCareerObjectiveToDraftStatus();
+        }
+    }
+
+    /**
+     * Présente une alerte pour rappeler qu'il faut saisir une date pour la prochaine rencontre
+     * avant d'envoyer ou d'enregistrer la priorité
+     */
+    saveOrUpdateCareerObjective() {
+        if (this.careerObjective.encounterDate) {
+            if (this.securityService.isManager() && !this.careerObjective.nextEncounterDate) {
+                this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.TITLE'),
+                    this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.MESSAGE'),
+                    this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.REMINDER'),
+                    this.translateService.instant(this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED ?
+                        'CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.SAVE_WITHOUT_REMINDER'
+                        : 'CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.SEND_WITHOUT_REMINDER')).then(() => {
+                            this.saveCareerObjectiveToRegisteredStatus();
+                        }).catch(() => {
+                            this.nextEncounterDatePicker.datepicker.open();
+                        });
+            } else {
+                this.saveCareerObjectiveToRegisteredStatus();
+            }
+        } else {
+            this.requiredOnEncounterDay = true;
+            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
+        }
+    }
+
+    /**
      * Enregistre un objectif au statut brouillon
      */
-    saveCareerObjectiveDraft() {
+    saveCareerObjectiveToDraftStatus() {
         const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
         careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.DRAFT;
         this.saveCareerObjective(careerObjectiveToSave).then(() => {
@@ -305,19 +376,14 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * Enregistre un objectif au statut enregistré
      */
     saveCareerObjectiveToRegisteredStatus() {
-        if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
-            careerObjectiveToSave.registrationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
-            this.saveCareerObjective(careerObjectiveToSave).then(() => {
-                if (careerObjectiveToSave.techId === undefined) {
-                    this.navCtrl.pop();
-                }
-            });
-        } else {
-            this.requiredOnEncounterDay = true;
-            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
-        }
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
+        careerObjectiveToSave.registrationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
+        this.saveCareerObjective(careerObjectiveToSave).then(() => {
+            if (careerObjectiveToSave.techId === undefined) {
+                this.navCtrl.pop();
+            }
+        });
     }
 
     /**
@@ -377,36 +443,20 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      */
     confirmDeleteCareerObjective() {
         if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
-            this.confirmDelete(this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),
+            this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),
                 this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.MESSAGE'),
                 this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.CANCEL'),
-                this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.CONFIRM'));
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.CONFIRM')).then(() => {
+                    this.deleteCareerObjective();
+                }).catch(() => { });
         } else {
-            this.confirmDelete(this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DELETE.TITLE'),
+            this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DELETE.TITLE'),
                 this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DELETE.MESSAGE'),
                 this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DELETE.CANCEL'),
-                this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DELETE.CONFIRM'));
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DELETE.CONFIRM')).then(() => {
+                    this.deleteCareerObjective();
+                }).catch(() => { });
         }
-    }
-
-    /**
-     * Présente une alerte pour confirmer la suppression de la priorité
-     */
-    confirmDelete(title: string, message: string, cancelLabel: string, confirmLabel: string) {
-        this.alertCtrl.create({
-            header: title,
-            message: message,
-            buttons: [
-                {
-                    text: cancelLabel,
-                    role: 'cancel'
-                },
-                {
-                    text: confirmLabel,
-                    handler: () => this.deleteCareerObjective()
-                }
-            ]
-        }).then(alert => alert.present());
     }
 
     /**
@@ -459,20 +509,12 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * Présente une alerte pour la notification du brouillon
      */
     confirmCreateInstructorRequest() {
-        this.alertCtrl.create({
-            header: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.TITLE'),
-            message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.MESSAGE'),
-            buttons: [
-                {
-                    text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.CANCEL'),
-                    role: 'cancel'
-                },
-                {
-                    text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.CONFIRM'),
-                    handler: () => this.saveCareerObjectiveDraftWithNotification()
-                }
-            ]
-        }).then(alert => alert.present());
+        this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.TITLE'),
+            this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.MESSAGE'),
+            this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.CANCEL'),
+            this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.CONFIRM')).then(() => {
+                this.saveCareerObjectiveDraftWithNotification();
+            }).catch(() => { });
     }
 
     /**
@@ -480,7 +522,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      */
     saveCareerObjectiveDraftWithNotification() {
         this.careerObjective.instructorToBeNotified = true;
-        this.saveCareerObjectiveDraft();
+        this.saveCareerObjectiveAsDraft();
     }
 
     /**
