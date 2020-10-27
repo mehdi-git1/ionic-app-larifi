@@ -383,6 +383,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
     return this.searchMode === PncSearchModeEnum.ALTERNANT;
   }
 
+  /**
+   * Permet de scroller jusqu'a la fin du panel ouvert.
+   * @param panel le panel conçeré
+   */
   open(panel: MatExpansionPanel) {
     panel._body.nativeElement
       .scrollIntoView({ behavior: 'smooth' });
