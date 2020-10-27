@@ -1,4 +1,4 @@
-import { AppConstant } from './../../../../app.constant';
+import { EdospncDatetimeComponent } from './../../../../shared/components/edospnc-datetime/edospnc-datetime.component';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { PncRoleEnum } from 'src/app/core/enums/pnc-role.enum';
@@ -38,6 +38,7 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
 import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
 import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
+import { MatDatepicker } from '@angular/material';
 
 @Component({
     selector: 'page-career-objective-create',
@@ -74,6 +75,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     WaypointStatus = WaypointStatusEnum;
 
     @ViewChild('form', { static: false }) form: NgForm;
+    @ViewChild('nextEncounterDate', { static: false }) nextEncounterDatePicker: EdospncDatetimeComponent;
 
     customPopoverOptions = { cssClass: 'career-objective-popover-select' };
 
@@ -331,12 +333,14 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      */
     saveCareerObjectiveAsDraft() {
         if (this.securityService.isManager() && !this.careerObjective.nextEncounterDate) {
-            this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDE_NEXT_ENCOUNTER_DATE.TITLE'),
-                this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDE_NEXT_ENCOUNTER_DATE.MESSAGE'),
-                this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDE_NEXT_ENCOUNTER_DATE.REMINDER'),
-                this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDE_NEXT_ENCOUNTER_DATE.SAVE_WITHOUT_REMINDER')).then(() => {
+            this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.TITLE'),
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.MESSAGE'),
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.REMINDER'),
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.SAVE_WITHOUT_REMINDER')).then(() => {
                     this.saveCareerObjectiveToDraftStatus();
-                }).catch(() => { });
+                }).catch(() => {
+                    this.nextEncounterDatePicker.datepicker.open();
+                });
         } else {
             this.saveCareerObjectiveToDraftStatus();
         }
@@ -349,14 +353,16 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     saveOrUpdateCareerObjective() {
         if (this.careerObjective.encounterDate) {
             if (this.securityService.isManager() && !this.careerObjective.nextEncounterDate) {
-                this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDE_NEXT_ENCOUNTER_DATE.TITLE'),
-                    this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDE_NEXT_ENCOUNTER_DATE.MESSAGE'),
-                    this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDE_NEXT_ENCOUNTER_DATE.REMINDER'),
+                this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.TITLE'),
+                    this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.MESSAGE'),
+                    this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.REMINDER'),
                     this.translateService.instant(this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED ?
-                        'CAREER_OBJECTIVE_CREATE.REMINDE_NEXT_ENCOUNTER_DATE.SAVE_WITHOUT_REMINDER'
-                        : 'CAREER_OBJECTIVE_CREATE.REMINDE_NEXT_ENCOUNTER_DATE.SEND_WITHOUT_REMINDER')).then(() => {
+                        'CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.SAVE_WITHOUT_REMINDER'
+                        : 'CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.SEND_WITHOUT_REMINDER')).then(() => {
                             this.saveCareerObjectiveToRegisteredStatus();
-                        }).catch(() => { });
+                        }).catch(() => {
+                            this.nextEncounterDatePicker.datepicker.open();
+                        });
             } else {
                 this.saveCareerObjectiveToRegisteredStatus();
             }

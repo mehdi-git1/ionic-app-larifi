@@ -179,7 +179,7 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
-        "REMINDE_NEXT_ENCOUNTER_DATE": {
+        "REMINDER_NEXT_ENCOUNTER_DATE": {
             "TITLE": "Prochain rappel",
             "MESSAGE": "Si vous souhaitez recevoir une alerte dans MyBoard, nous vous invitons à fixer une date de rappel",
             "REMINDER": "Rappel",
@@ -720,6 +720,10 @@
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
             "TAF": "TAF",
+            "ENCOUNTER_FLIGHT_GROUND" :{
+                "TITLE":"Rencontres vol/sol",
+                "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH":"Dernière rencontre sol (BP) > 24"
+            },
             "PRIORITY": {
                 "TITLE": "Priorités",
                 "PRIORITY_CATEGORY": "Catégorie priorités",

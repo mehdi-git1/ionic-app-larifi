@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -19,6 +19,8 @@ export class EdospncDatetimeComponent extends AbstractValueAccessor implements O
   @Input() edospncFormGroup: FormGroup;
   @Input() edospncFormControlName: string;
   @Input() inputLike = false;
+
+  @ViewChild('datetime', { static: false }) datepicker;
 
   displayFormat = 'DD/MM/YYYY';
   pickerFormat = 'DD MMMM YYYY';
