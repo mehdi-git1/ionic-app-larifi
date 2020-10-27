@@ -16,6 +16,7 @@ import { SectorModel } from '../../../../core/models/sector.model';
 import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
+import { MatExpansionPanel } from '@angular/material';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -273,7 +274,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   formOnChanges() {
     this.searchForm.valueChanges.subscribe(val => {
-
       this.filters.ginq = val.ginqControl;
       this.filters.speciality = val.specialityControl;
       this.filters.aircraftSkill = val.aircraftSkillControl;
@@ -381,5 +381,14 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   isAlternantSearch() {
     return this.searchMode === PncSearchModeEnum.ALTERNANT;
+  }
+
+  /**
+   * Permet de scroller jusqu'a la fin du panel ouvert.
+   * @param panel le panel conçeré
+   */
+  open(panel: MatExpansionPanel) {
+    panel._body.nativeElement
+      .scrollIntoView({ behavior: 'smooth' });
   }
 }
