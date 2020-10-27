@@ -1,5 +1,5 @@
-import { PagePositionEnum } from '../enums/page-position.enum';
-import { SortDirection } from '../enums/sort-direction-enum';
+import { SortDirection } from './../enums/sort-direction-enum';
+import { PagePositionEnum } from './../enums/page-position.enum';
 
 export class PncFilterModel {
 
@@ -17,7 +17,7 @@ export class PncFilterModel {
   hasHiddenEvents: boolean;
   hasDefaultHiddenEvents: boolean;
   priorityCategoryCode: string;
-  hasPIOrEPPGreaterThan24Months: boolean;
+  hasProfessionalInterviewOlderThan24Months: boolean;
   hasManifex: boolean;
   taf: boolean;
   workRate: number;
