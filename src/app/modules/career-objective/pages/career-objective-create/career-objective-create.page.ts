@@ -6,7 +6,7 @@ import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-ca
 
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -180,6 +180,18 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
         if (this.sessionService.getActiveUser().appInitData !== undefined) {
             this.careerObjectiveCategories = this.sessionService.getActiveUser().appInitData.careerObjectiveCategories;
         }
+
+        const nextEncounterDateValidator: ValidatorFn = (formGroup: FormGroup): ValidationErrors | null => {
+            const nextEncounterDate = formGroup.get('nextEncounterDate');
+            if (!nextEncounterDate) {
+                return null;
+            }
+            if (nextEncounterDate && moment(this.careerObjective.nextEncounterDate).isSameOrAfter(moment().format('DD MMMM YYYY'))) {
+                return { invalidatedNextEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.INVALIDE_NEXT_ENCOUNTER_DATE') };
+            }
+            return null;
+        };
+
         this.creationForm = this.formBuilder.group({
             initiatorControl: ['', Validators.required],
             categoryControl: ['', Validators.required],
@@ -192,7 +204,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             nextEncounterDateControl: [''],
             prioritizedControl: [false],
             waypointContextControl: ['', Validators.maxLength(4000)],
-        });
+        }, { validators: nextEncounterDateValidator });
     }
 
     /**
