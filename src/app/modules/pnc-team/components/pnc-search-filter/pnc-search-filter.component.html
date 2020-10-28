@@ -13,7 +13,7 @@
     </div>
     <div class="flex filter-container filter">
         <!-- Division-->
-        <div class="flex4">
+        <div class="flex5">
             <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}
             </ion-label>
             <ion-select interface="popover" [compareWith]="compareFn" formControlName="divisionControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
@@ -28,7 +28,7 @@
             </ion-select>
         </div>
         <!-- Secteur -->
-        <div class="flex4 sector">
+        <div class="flex5 sector">
             <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}
             </ion-label>
             <ion-select interface="popover" [compareWith]="compareFn" formControlName="sectorControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
@@ -53,9 +53,9 @@
         </div>
     </div>
 
-    <div class="flex filter-container filter" *ngIf="!isAlternantSearch()">
+    <div class="flex filter-container filter function-workrate-taf-container" *ngIf="!isAlternantSearch()">
         <!-- Grade -->
-        <div class="flex8">
+        <div class="flex5">
             <ion-label class="input-label">
                 {{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
             <ion-select interface="popover" [compareWith]="compareFn" formControlName="specialityControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
@@ -66,7 +66,19 @@
                     {{specialityKey}}</ion-select-option>
             </ion-select>
         </div>
-        <div class="flex4 checkbox-container taf" *ngIf="!isAlternantSearch()">
+        <div class="flex5 work-rate">
+            <!-- Rythme -->
+            <ion-label class="input-label">
+                {{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</ion-label>
+            <ion-select interface="popover" [compareWith]="compareFn" formControlName="workRateControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+                <ion-select-option *ngIf="!workRateList || workRateList.length != 1" [value]="valueAll">
+                    {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
+                </ion-select-option>
+                <ion-select-option *ngFor="let workRateKey of workRateList" [value]="workRateKey">
+                    {{workRateKey}}</ion-select-option>
+            </ion-select>
+        </div>
+        <div class="flex2 checkbox-container taf">
             <!-- taf -->
             <ion-item lines="none">
                 <ion-label>{{ 'PNC_SEARCH.CRITERIA.TAF' | translate }}</ion-label>
@@ -85,7 +97,7 @@
             <ion-select-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{aircraftSkillKey}}</ion-select-option>
         </ion-select>
     </div>
-    <mat-expansion-panel [expanded]="false" *ngIf="!isAlternantSearch()">
+    <mat-expansion-panel #encounterPanel [expanded]="false" *ngIf="!isAlternantSearch()" (afterExpand)="open(encounterPanel)">
         <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
             <mat-panel-title>
                 {{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.TITLE' | translate }}
@@ -93,10 +105,10 @@
         </mat-expansion-panel-header>
         <div class="filter-container filter">
             <div class="checkbox-container">
-                <!-- Dernier BP réalisé il y a plus de 24 mois  -->
+                <!-- Dernier BP réalisé datant de plus de 24 mois  -->
                 <ion-item lines="none">
-                    <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.PI_OR_EPP_GREATER_THAN_24_MONTH' | translate }}</ion-label>
-                    <ion-checkbox slot="end" formControlName="hasPIOrEPPGreaterThan24MonthControl">
+                    <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH' | translate }}</ion-label>
+                    <ion-checkbox slot="end" formControlName="hasProfessionalInterviewOlderThan24MonthsControl">
                     </ion-checkbox>
                 </ion-item>
             </div>
@@ -111,7 +123,7 @@
         </div>
     </mat-expansion-panel>
     <div class="filter-container" *ngIf="!isAlternantSearch()">
-        <mat-expansion-panel [expanded]="false">
+        <mat-expansion-panel #priorityPanel [expanded]="false" (afterExpand)="open(priorityPanel)">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.PRIORITY.TITLE' | translate }}
@@ -156,7 +168,7 @@
         </mat-expansion-panel>
     </div>
     <div class="filter-container" *ngIf="!isAlternantSearch()">
-        <mat-expansion-panel [expanded]="false">
+        <mat-expansion-panel #missionPanel [expanded]="false" (afterExpand)="open(missionPanel)">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.MISSION.TITLE' | translate }}
@@ -182,14 +194,14 @@
                 <!-- Manifex -->
                 <ion-item lines="none">
                     <ion-label>{{ 'PNC_SEARCH.CRITERIA.MISSION.MANIFEX' | translate }}</ion-label>
-                    <ion-checkbox slot="end" [(ngModel)]="hasManifex" formControlName="hasManifexControl">
+                    <ion-checkbox slot="end" formControlName="hasManifexControl">
                     </ion-checkbox>
                 </ion-item>
             </div>
         </mat-expansion-panel>
     </div>
     <div class="filter-container" *ngIf="!isAlternantSearch()">
-        <mat-expansion-panel [expanded]="false">
+        <mat-expansion-panel #logbookEventPanel [expanded]="false" (afterExpand)="open(logbookEventPanel)">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.LOGBOOK_EVENTS.TITLE' | translate }}
@@ -214,7 +226,7 @@
         </mat-expansion-panel>
     </div>
     <div class="button-container">
-        <ion-button class="search-button" color="grey95" (click)="search()">
+        <ion-button class="search-button" color="primary" (click)="search()">
             <ion-label>{{ 'PNC_SEARCH.CRITERIA.SEARCH_BUTTON' | translate }}</ion-label>
         </ion-button>
     </div>

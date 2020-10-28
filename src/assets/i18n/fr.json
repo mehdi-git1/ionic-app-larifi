@@ -179,6 +179,13 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
+        "REMINDER_NEXT_ENCOUNTER_DATE": {
+            "TITLE": "Prochain rappel",
+            "MESSAGE": "Si vous souhaitez recevoir une alerte dans MyBoard, nous vous invitons à fixer une date de rappel",
+            "REMINDER": "Rappel",
+            "SAVE_WITHOUT_REMINDER": "Enregistrer sans rappel",
+            "SEND_WITHOUT_REMINDER": "Envoyer sans rappel"
+        },
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SEND": "Envoyer",
@@ -714,8 +721,8 @@
             "TAF": "TAF",
             "ENCOUNTER_FLIGHT_GROUND" :{
                 "TITLE":"Rencontres vol/sol",
-                "PI_OR_EPP_GREATER_THAN_24_MONTH":"Dernière rencontre sol (BP) > 24",
-                "EOBS_OLDER_THAN_18_MONTHS": "Dernière rencontre vol (Eobs) > 18"
+                "EOBS_OLDER_THAN_18_MONTHS": "Dernière rencontre vol (Eobs) > 18",
+                "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH":"Dernière rencontre sol (BP) > 24"
             },
             "PRIORITY": {
                 "TITLE": "Priorités",

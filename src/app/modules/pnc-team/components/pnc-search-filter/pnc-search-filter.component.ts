@@ -16,6 +16,7 @@ import { SectorModel } from '../../../../core/models/sector.model';
 import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
+import { MatExpansionPanel } from '@angular/material';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -141,6 +142,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.sector = this.defaultSector ? this.defaultSector : AppConstant.ALL;
     this.sectorOnchanges();
     this.filters.ginq = this.defaultGinq ? this.defaultGinq : AppConstant.ALL;
+
     if (this.isAlternantSearch()) {
       this.filters.speciality = SpecialityEnum.ALT;
       this.searchForm.get('specialityControl').setValue(SpecialityEnum.ALT);
@@ -155,11 +157,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.hasAtLeastOnePriorityInProgress = false;
     this.filters.hasNoPriority = false;
     this.filters.workRate = this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : undefined;
-    this.filters.hasPIOrEPPGreaterThan24Month = false;
-
     this.filters.taf = false;
     this.filters.hasManifex = false;
     this.filters.hasEobsOlderThan18Months = false;
+    this.filters.hasProfessionalInterviewOlderThan24Months = false;
 
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
@@ -173,8 +174,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('hasHiddenEventsControl').setValue(false);
     this.searchForm.get('tafControl').setValue(false);
     this.searchForm.get('hasManifexControl').setValue(false);
-    this.searchForm.get('hasPIOrEPPGreaterThan24MonthControl').setValue(false);
     this.searchForm.get('hasEobsOlderThan18MonthsControl').setValue(false);
+    this.searchForm.get('hasProfessionalInterviewOlderThan24MonthsControl').setValue(false);
 
     this.defaultValue = false;
     this.priority = false;
@@ -247,7 +248,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
         value: [false],
         disabled: this.areFiltersDisabled()
       }),
-      hasPIOrEPPGreaterThan24MonthControl: new FormControl({
+
+      hasProfessionalInterviewOlderThan24MonthsControl: new FormControl({
         value: [false],
         disabled: this.areFiltersDisabled()
       }),
@@ -260,6 +262,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
         disabled: this.areFiltersDisabled()
       }),
     });
+
     if (this.connectivityService.isConnected()) {
       this.resetFilterValues();
       this.formOnChanges();
@@ -281,7 +284,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   formOnChanges() {
     this.searchForm.valueChanges.subscribe(val => {
-
       this.filters.ginq = val.ginqControl;
       this.filters.speciality = val.specialityControl;
       this.filters.aircraftSkill = val.aircraftSkillControl;
@@ -296,7 +298,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.taf = val.tafControl;
       this.filters.hasEobsOlderThan18Months = val.hasEobsOlderThan18MonthsControl;
       this.filters.hasManifex = val.hasManifexControl;
-      this.filters.hasPIOrEPPGreaterThan24Month = val.hasPIOrEPPGreaterThan24MonthControl;
+      this.filters.hasProfessionalInterviewOlderThan24Months = val.hasProfessionalInterviewOlderThan24MonthsControl;
 
     });
   }
@@ -391,5 +393,14 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   isAlternantSearch() {
     return this.searchMode === PncSearchModeEnum.ALTERNANT;
+  }
+
+  /**
+   * Permet de scroller jusqu'a la fin du panel ouvert.
+   * @param panel le panel conçeré
+   */
+  open(panel: MatExpansionPanel) {
+    panel._body.nativeElement
+      .scrollIntoView({ behavior: 'smooth' });
   }
 }
