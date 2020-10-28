@@ -145,13 +145,13 @@
                                     <ion-label position="stacked">
                                         {{ 'CAREER_OBJECTIVE_CREATE.FORM.NEXT_ENCOUNTER_DATE' | translate }}
                                     </ion-label>
-                                    <span>{{ creationForm.errors.invalidatedNextEncounterDate }}</span>
+                                    <span *ngIf="creationForm.get('nextEncounterDateControl').errors?.invalidatedNextEncounterDate" class="warning-message">({{ creationForm.get('nextEncounterDateControl').errors?.invalidatedNextEncounterDate}})</span>
                                     <edospnc-datetime #nextEncounterDate [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.nextEncounterDate" [edospncFormGroup]="creationForm" edospncFormControlName="nextEncounterDateControl" [ngModelOptions]="{standalone: true}">
                                     </edospnc-datetime>
                                     <!-- Date de rencontre -->
                                     <ion-label position="stacked" [ngClass]="{'required' : requiredOnEncounterDay  || isEncounterDateRequired() }">
                                         {{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}
-                                        <span *ngIf="requiredOnEncounterDay">{{ 'CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
+                                        <span *ngIf="requiredOnEncounterDay" class="warning-message">{{ creationForm.get('encounterDateControl').errors?.invalidatedEncounterDate}}</span>
                                     </ion-label>
                                     <edospnc-datetime [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.encounterDate" [edospncFormGroup]="creationForm" edospncFormControlName="encounterDateControl" [ngModelOptions]="{standalone: true}">
                                     </edospnc-datetime>

@@ -1,3 +1,4 @@
+import { Utils } from './../../../../shared/utils/utils';
 import { EdospncDatetimeComponent } from './../../../../shared/components/edospnc-datetime/edospnc-datetime.component';
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -6,7 +7,7 @@ import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-ca
 
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators, ValidatorFn, ValidationErrors, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -183,12 +184,22 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             this.careerObjectiveCategories = this.sessionService.getActiveUser().appInitData.careerObjectiveCategories;
         }
 
-        const nextEncounterDateValidator: ValidatorFn = (formGroup: FormGroup): ValidationErrors | null => {
-            const nextEncounterDate = formGroup.get('nextEncounterDate');
+        const encounterDateValidator: ValidatorFn = (encounterDate: FormControl): ValidationErrors | null => {
+            const status = this.careerObjective ? this.careerObjective.careerObjectiveStatus : null;
+            if (status && status !== CareerObjectiveStatusEnum.DRAFT && (Utils.isEmpty(encounterDate.value) && Utils.isEmpty(this.careerObjective.encounterDate))) {
+                this.requiredOnEncounterDay = true;
+                this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
+                return { invalidatedEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY') };
+            }
+            return null;
+        };
+
+        const nextEncounterDateValidator: ValidatorFn = (nextEncounterDate: FormControl): ValidationErrors | null => {
             if (!nextEncounterDate) {
                 return null;
             }
-            if (nextEncounterDate && moment(this.careerObjective.nextEncounterDate).isSameOrAfter(moment().format('DD MMMM YYYY'))) {
+            if (nextEncounterDate.value && moment(nextEncounterDate.value).isBefore(moment().format('DD MMMM YYYY'))) {
+                this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.INVALIDE_NEXT_ENCOUNTER_DATE'));
                 return { invalidatedNextEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.INVALIDE_NEXT_ENCOUNTER_DATE') };
             }
             return null;
@@ -202,11 +213,11 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             actionPlanControl: ['', Validators.maxLength(this.actionPlanMaxLength)],
             managerCommentControl: ['', Validators.maxLength(this.managerCommentMaxLength)],
             pncCommentControl: ['', Validators.maxLength(this.pncCommentMaxLength)],
-            encounterDateControl: [''],
-            nextEncounterDateControl: [''],
+            encounterDateControl: ['', encounterDateValidator],
+            nextEncounterDateControl: ['', nextEncounterDateValidator],
             prioritizedControl: [false],
             waypointContextControl: ['', Validators.maxLength(4000)],
-        }, { validators: nextEncounterDateValidator });
+        });
     }
 
     /**
@@ -332,6 +343,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * avant d'enregistrer la priorité en brouillon
      */
     saveCareerObjectiveAsDraft() {
+        this.requiredOnEncounterDay = false;
         if (this.securityService.isManager() && !this.careerObjective.nextEncounterDate) {
             this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.TITLE'),
                 this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.MESSAGE'),
@@ -351,7 +363,11 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * avant d'envoyer ou d'enregistrer la priorité
      */
     saveOrUpdateCareerObjective() {
-        if (this.careerObjective.encounterDate) {
+        if ((!this.careerObjective.careerObjectiveStatus || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) && !this.careerObjective.encounterDate) {
+            this.requiredOnEncounterDay = true;
+            this.creationForm.get('encounterDateControl').errors = { invalidatedEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY') };
+            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
+        } else {
             if (this.securityService.isManager() && !this.careerObjective.nextEncounterDate) {
                 this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.TITLE'),
                     this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.MESSAGE'),
@@ -366,112 +382,72 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             } else {
                 this.saveCareerObjectiveToRegisteredStatus();
             }
-        } else {
-            this.requiredOnEncounterDay = true;
-            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
         }
-    }
-
-    isNextEncounterDateValid(): boolean {
-        return this.careerObjective.nextEncounterDate && moment(this.careerObjective.nextEncounterDate)
-            .isSameOrAfter(moment().format('DD MMMM YYYY'));
     }
 
     /**
      * Enregistre un objectif au statut brouillon
      */
     saveCareerObjectiveToDraftStatus() {
-        if (this.isNextEncounterDateValid()) {
-            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.DRAFT;
-            this.saveCareerObjective(careerObjectiveToSave).then(() => {
-                if (careerObjectiveToSave.techId === undefined) {
-                    this.navCtrl.pop();
-                }
-            });
-        } else {
-            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.INVALIDE_NEXT_ENCOUNTER_DATE'));
-        }
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.DRAFT;
+        this.saveCareerObjective(careerObjectiveToSave).then(() => {
+            if (careerObjectiveToSave.techId === undefined) {
+                this.navCtrl.pop();
+            }
+        });
     }
 
     /**
      * Enregistre un objectif au statut enregistré
      */
     saveCareerObjectiveToRegisteredStatus() {
-        if (this.isNextEncounterDateValid()) {
-            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
-            careerObjectiveToSave.registrationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
-            this.saveCareerObjective(careerObjectiveToSave).then(() => {
-                if (careerObjectiveToSave.techId === undefined) {
-                    this.navCtrl.pop();
-                }
-            });
-        } else {
-            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.INVALIDE_NEXT_ENCOUNTER_DATE'));
-        }
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
+        careerObjectiveToSave.registrationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
+        this.saveCareerObjective(careerObjectiveToSave).then(() => {
+            if (careerObjectiveToSave.techId === undefined) {
+                this.navCtrl.pop();
+            }
+        });
     }
 
     /**
      * Enregistre un objectif au statut validé
      */
     saveCareerObjectiveToValidatedStatus() {
-        if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.VALIDATED;
-            this.saveCareerObjective(careerObjectiveToSave);
-        } else {
-            this.requiredOnEncounterDay = true;
-            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
-        }
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.VALIDATED;
+        this.saveCareerObjective(careerObjectiveToSave);
     }
 
     /**
      * Enregistre un objectif au statut abandonné
      */
     saveCareerObjectiveToAbandonedStatus() {
-        if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.ABANDONED;
-            this.saveCareerObjective(careerObjectiveToSave);
-        } else {
-            this.requiredOnEncounterDay = true;
-            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
-        }
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.ABANDONED;
+        this.saveCareerObjective(careerObjectiveToSave);
     }
 
     /**
      * annule la validation d'un objectif
      */
     cancelCareerObjectiveValidation() {
-        if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-            this.cancelValidation = true;
-            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
-            this.saveCareerObjective(careerObjectiveToSave);
-        } else {
-            this.requiredOnEncounterDay = true;
-            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
-        }
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+        this.cancelValidation = true;
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
+        this.saveCareerObjective(careerObjectiveToSave);
     }
 
     /**
      * reprendre un objectif abandonné
      */
     resumeAbandonedCareerObjective() {
-        if (this.careerObjective.encounterDate) {
-            if (this.isNextEncounterDateValid()) {
-                const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-                this.cancelAbandon = true;
-                careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
-                this.saveCareerObjective(careerObjectiveToSave);
-            } else {
-                this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.INVALIDE_NEXT_ENCOUNTER_DATE'));
-            }
-        } else {
-            this.requiredOnEncounterDay = true;
-            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
-        }
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+        this.cancelAbandon = true;
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
+        this.saveCareerObjective(careerObjectiveToSave);
     }
 
     /**
