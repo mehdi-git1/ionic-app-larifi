@@ -199,8 +199,8 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
                 return null;
             }
             if (nextEncounterDate.value && moment(nextEncounterDate.value).isBefore(moment().format('DD MMMM YYYY'))) {
-                this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.INVALID_NEXT_ENCOUNTER_DATE'));
-                return { invalidatedNextEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.INVALID_NEXT_ENCOUNTER_DATE') };
+                this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.NEXT_ENCOUNTER_DATE_INVALIDATED'));
+                return { invalidatedNextEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.INVALID_NEXT_ENCOUNTER_DATE') };
             }
             return null;
         };

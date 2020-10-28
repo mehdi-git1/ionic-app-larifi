@@ -155,7 +155,7 @@
             "PRIORITIZED": "Priorité majeure",
             "CREATION_DATE": "Créée le",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)",
-            "INVALID_NEXT_ENCOUNTER_DAY": " (Saisir une date postérieure à la date du jour)"
+            "INVALID_NEXT_ENCOUNTER_DATE": " (Saisir une date postérieure à la date du jour)"
         },
         "DETAILS": {
             "CREATED_BY": "Créée par ",
@@ -215,7 +215,7 @@
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",
             "ENCOUTER_DATE_REQUIRED": "Veuillez renseigner la date à laquelle la priorité a été fixée",
-            "INVALID_NEXT_ENCOUNTER_DATE":"La date de rappel ne peut être antérieure à la date du jour"
+            "NEXT_ENCOUNTER_DATE_INVALIDATED":"La date de rappel ne peut être antérieure à la date du jour"
         }
     },
     "CAREER_OBJECTIVE_LIST": {
