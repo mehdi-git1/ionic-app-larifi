@@ -20,6 +20,10 @@ h2 {
     border-bottom: 1px solid var(--ion-color-grey72);
 }
 
+.function-workrate-taf-container {
+    justify-content: space-between;
+}
+
 .filter-container {
     margin-bottom: 16px;
 
@@ -31,6 +35,14 @@ h2 {
         display: flex;
         align-items: flex-end;
         margin-left: 10px;
+
+        ion-checkbox {
+            margin-left: 23px;
+        }
+    }
+
+    .work-rate {
+        margin-left: 5px;
     }
 
     .checkbox-container {
@@ -43,6 +55,7 @@ h2 {
 
         ion-item {
             height: 45px;
+            width: 100%;
         }
 
         .prioritized,
@@ -87,10 +100,8 @@ h2 {
     z-index: 2;
 
     .search-button {
-        --box-shadow: none;
-
         ion-label {
-            color: var(--ion-color-primary);
+            color: var(--ion-color-white);
         }
     }
 }
@@ -112,7 +123,6 @@ h2 {
 
 ::ng-deep mat-expansion-panel {
     background: var(--ion-color-white);
-    border-radius: 0 !important;
     margin: 15px 0 !important;
 
     .mat-expansion-panel-header.mat-expanded:focus,
