@@ -17,6 +17,7 @@ import { RelayModel } from '../../../../core/models/statutory-certificate/relay.
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { MatExpansionPanel } from '@angular/material';
+import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -156,10 +157,12 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.hasAtLeastOnePriorityInProgress = false;
     this.filters.hasNoPriority = false;
     this.filters.workRate = this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : undefined;
-
     this.filters.taf = false;
     this.filters.hasManifex = false;
     this.filters.hasProfessionalInterviewOlderThan24Months = false;
+    this.filters.sortColumn = undefined;
+    this.filters.sortDirection = SortDirection.ASC;
+
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
@@ -173,6 +176,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('tafControl').setValue(false);
     this.searchForm.get('hasManifexControl').setValue(false);
     this.searchForm.get('hasProfessionalInterviewOlderThan24MonthsControl').setValue(false);
+
     this.defaultValue = false;
     this.priority = false;
     this.noPriority = false;

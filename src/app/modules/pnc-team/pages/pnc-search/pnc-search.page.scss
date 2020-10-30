@@ -27,3 +27,39 @@ mat-sidenav {
 ::ng-deep .item-native {
     padding-left: 0px;
 }
+
+.sort-container {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+.eobs-sort {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.priority-sort {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.bp-sort {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.eobs-sort ion-icon,
+.bp-sort ion-icon,
+.priority-sort ion-icon {
+    margin: 5px !important;
+}
+
+
+.sort-label {
+    margin-right: 3% !important;
+}

@@ -21,12 +21,31 @@
         <mat-sidenav [(opened)]="isMenuOpened" mode="side">
             <pnc-search-filter [filters]="filters" [searchMode]="searchMode" (filtersChanged)="launchSearch()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
         </mat-sidenav>
-            <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
+        <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
             <div class="page-container">
                 <div class="filtered-pnc-list-container">
                     <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>
                     <ng-template #pageBlock>
                         <div *ngIf="hasPncs(); else noDataBlock">
+                            <div class="sort-container">
+                                <div class="eobs-sort" (click)="sortByLastEobs()">
+
+                                    <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_EOBS'  | translate }}</span>
+                                    <ion-icon size="small" name="arrow-up" *ngIf="lastEobsSortDirection == 'ASC'"></ion-icon>
+                                    <ion-icon size="small" name="arrow-down" *ngIf="lastEobsSortDirection == 'DESC'"></ion-icon>
+
+                                </div>
+                                <div class="bp-sort" (click)="sortByLastBP()">
+                                    <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_BP'  | translate }}</span>
+                                    <ion-icon size="small" name="arrow-up" *ngIf="lastProfessionalInerviewSortDirection == 'ASC'"></ion-icon>
+                                    <ion-icon size="small" name="arrow-down" *ngIf="lastProfessionalInerviewSortDirection == 'DESC'"></ion-icon>
+                                </div>
+                                <div class="priority-sort" (click)="sortByLastPriorityUpdate()">
+                                    <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_UPDATED_PRIORITY'  | translate }}</span>
+                                    <ion-icon size="small" name="arrow-up" *ngIf="lastPriorityUpdateSortDirection  == 'ASC'"></ion-icon>
+                                    <ion-icon size="small" name=" arrow-down" *ngIf="lastPriorityUpdateSortDirection  == 'DESC'"></ion-icon>
+                                </div>
+                            </div>
                             <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="pnc" (click)="openPncHomePage(pnc)">
                             </pnc-card>
                         </div>
