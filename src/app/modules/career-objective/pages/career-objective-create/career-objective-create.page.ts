@@ -188,7 +188,6 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             const status = this.careerObjective ? this.careerObjective.careerObjectiveStatus : null;
             if (status && status !== CareerObjectiveStatusEnum.DRAFT && (Utils.isEmpty(encounterDate.value) && Utils.isEmpty(this.careerObjective.encounterDate))) {
                 this.requiredOnEncounterDay = true;
-                return { invalidEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY') };
             }
             return null;
         };
@@ -363,7 +362,6 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     saveOrUpdateCareerObjective() {
         if ((!this.careerObjective.careerObjectiveStatus || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) && !this.careerObjective.encounterDate) {
             this.requiredOnEncounterDay = true;
-            this.creationForm.get('encounterDateControl').errors = { invalidEncouterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY') };
             this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
         } else {
             if (this.securityService.isManager() && !this.careerObjective.nextEncounterDate) {
