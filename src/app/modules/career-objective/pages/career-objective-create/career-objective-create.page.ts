@@ -188,7 +188,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             const status = this.careerObjective ? this.careerObjective.careerObjectiveStatus : null;
             if (status && status !== CareerObjectiveStatusEnum.DRAFT && (Utils.isEmpty(encounterDate.value) && Utils.isEmpty(this.careerObjective.encounterDate))) {
                 this.requiredOnEncounterDay = true;
-                return { invalidEncouterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY') };
+                return { invalidEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY') };
             }
             return null;
         };
@@ -198,7 +198,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
                 return null;
             }
             if (nextEncounterDate.value && moment(nextEncounterDate.value).isBefore(moment().format('DD MMMM YYYY'))) {
-                return { invalidNextEncouterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.VALID_DATE_ON_NEXT_ENCOUNTER') };
+                return { invalidNextEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.VALID_DATE_ON_NEXT_ENCOUNTER') };
             }
             return null;
         };
