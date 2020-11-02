@@ -133,9 +133,12 @@
         "FUNCTION": "Fonction",
         "AIRCRAFT_SKILL": "Spécialisation avion",
         "WORK_RATE": "Rythme",
-        "LAST_EOBSERVATION_DATE":"Dernière rencontre Vol (eObs)",
-        "LAST_PROFESSIONAL_INTERVIEW_DATE":"Dernière rencontre Sol (BP)",
-        "LAST_PRIORITY_UPDATE_DATE":"Dernière mise à jour d'une priorité"
+        "LAST_EOBSERVATION_DATE":"Dernière eObs",
+        "LAST_PROFESSIONAL_INTERVIEW_DATE":"Dernier BP",
+        "LAST_PRIORITY_UPDATE_DATE":"Dernière mise à jour d'une priorité",
+        "HAS_PRIORITIZED":"Majeure",
+        "HAS_PRIORITY_IN_PROGRESS":"En cours",
+        "PARTICULARITY":"PNC positionné"
     },
     "AUTHENT": {
         "AUTHENTICATION": "Authentification",

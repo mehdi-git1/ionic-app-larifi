@@ -1,3 +1,4 @@
+import { PncMetadataDateModel } from './pc-metadata-date.model';
 import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
 
 import { GenderEnum } from '../enums/gender.enum';
@@ -38,9 +39,7 @@ export class PncModel extends EDossierPncObjectModel {
     phoneNumber: string;
     documents: Array<DocumentModel> = new Array();
     haulType: HaulTypeEnum;
-    lastProfessionalInterviewDate: Date;
-    lastEObservationDate: Date;
-    lastPriorityUpdateDate: Date;
+    metadataDate: PncMetadataDateModel;
 
     getStorageId(): string {
         return this.matricule;
