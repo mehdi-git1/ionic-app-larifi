@@ -1,11 +1,13 @@
+import { Utils } from './../../../../shared/utils/utils';
 import { EdospncDatetimeComponent } from './../../../../shared/components/edospnc-datetime/edospnc-datetime.component';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import { PncRoleEnum } from 'src/app/core/enums/pnc-role.enum';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
 
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators, ValidatorFn, ValidationErrors, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -181,6 +183,26 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
         if (this.sessionService.getActiveUser().appInitData !== undefined) {
             this.careerObjectiveCategories = this.sessionService.getActiveUser().appInitData.careerObjectiveCategories;
         }
+
+        const encounterDateValidator: ValidatorFn = (encounterDate: FormControl): ValidationErrors | null => {
+            const status = this.careerObjective ? this.careerObjective.careerObjectiveStatus : null;
+            if (status && status !== CareerObjectiveStatusEnum.DRAFT && (Utils.isEmpty(encounterDate.value) && Utils.isEmpty(this.careerObjective.encounterDate))) {
+                this.requiredOnEncounterDay = true;
+                return { invalidEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY') };
+            }
+            return null;
+        };
+
+        const nextEncounterDateValidator: ValidatorFn = (nextEncounterDate: FormControl): ValidationErrors | null => {
+            if (!nextEncounterDate) {
+                return null;
+            }
+            if (nextEncounterDate.value && moment(nextEncounterDate.value).isBefore(moment().format('DD MMMM YYYY'))) {
+                return { invalidNextEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.VALID_DATE_ON_NEXT_ENCOUNTER') };
+            }
+            return null;
+        };
+
         this.creationForm = this.formBuilder.group({
             initiatorControl: ['', Validators.required],
             categoryControl: ['', Validators.required],
@@ -189,8 +211,8 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             actionPlanControl: ['', Validators.maxLength(this.actionPlanMaxLength)],
             managerCommentControl: ['', Validators.maxLength(this.managerCommentMaxLength)],
             pncCommentControl: ['', Validators.maxLength(this.pncCommentMaxLength)],
-            encounterDateControl: [''],
-            nextEncounterDateControl: [''],
+            encounterDateControl: ['', encounterDateValidator],
+            nextEncounterDateControl: ['', nextEncounterDateValidator],
             prioritizedControl: [false],
             waypointContextControl: ['', Validators.maxLength(4000)],
         });
@@ -319,6 +341,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * avant d'enregistrer la priorité en brouillon
      */
     saveCareerObjectiveAsDraft() {
+        this.requiredOnEncounterDay = false;
         if (this.securityService.isManager() && !this.careerObjective.nextEncounterDate) {
             this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.TITLE'),
                 this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.MESSAGE'),
@@ -338,7 +361,11 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * avant d'envoyer ou d'enregistrer la priorité
      */
     saveOrUpdateCareerObjective() {
-        if (this.careerObjective.encounterDate) {
+        if ((!this.careerObjective.careerObjectiveStatus || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) && !this.careerObjective.encounterDate) {
+            this.requiredOnEncounterDay = true;
+            this.creationForm.get('encounterDateControl').errors = { invalidEncouterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY') };
+            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
+        } else {
             if (this.securityService.isManager() && !this.careerObjective.nextEncounterDate) {
                 this.confirmPopup(this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.TITLE'),
                     this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.MESSAGE'),
@@ -353,9 +380,6 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             } else {
                 this.saveCareerObjectiveToRegisteredStatus();
             }
-        } else {
-            this.requiredOnEncounterDay = true;
-            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
         }
     }
 
@@ -390,52 +414,38 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * Enregistre un objectif au statut validé
      */
     saveCareerObjectiveToValidatedStatus() {
-        if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.VALIDATED;
-            this.saveCareerObjective(careerObjectiveToSave);
-        } else {
-            this.requiredOnEncounterDay = true;
-        }
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.VALIDATED;
+        this.saveCareerObjective(careerObjectiveToSave);
     }
 
     /**
      * Enregistre un objectif au statut abandonné
      */
     saveCareerObjectiveToAbandonedStatus() {
-        if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.ABANDONED;
-            this.saveCareerObjective(careerObjectiveToSave);
-        } else {
-            this.requiredOnEncounterDay = true;
-        }
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.ABANDONED;
+        this.saveCareerObjective(careerObjectiveToSave);
     }
 
     /**
      * annule la validation d'un objectif
      */
     cancelCareerObjectiveValidation() {
-        if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-            this.cancelValidation = true;
-            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
-            this.saveCareerObjective(careerObjectiveToSave);
-        } else {
-            this.requiredOnEncounterDay = true;
-        }
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+        this.cancelValidation = true;
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
+        this.saveCareerObjective(careerObjectiveToSave);
     }
 
     /**
      * reprendre un objectif abandonné
      */
     resumeAbandonedCareerObjective() {
-        if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
-            this.cancelAbandon = true;
-            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
-            this.saveCareerObjective(careerObjectiveToSave);
-        }
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+        this.cancelAbandon = true;
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
+        this.saveCareerObjective(careerObjectiveToSave);
     }
 
     /**
