@@ -145,14 +145,14 @@
                                     <ion-label position="stacked">
                                         {{ 'CAREER_OBJECTIVE_CREATE.FORM.NEXT_ENCOUNTER_DATE' | translate }}
                                     </ion-label>
-                                    <span *ngIf="creationForm.get('nextEncounterDateControl').errors?.invalidNextEncouterDate" class="warning-message">{{ creationForm.get('nextEncounterDateControl').errors?.invalidNextEncouterDate}}</span>
+                                    <span class="" *ngIf="creationForm.get('nextEncounterDateControl').errors?.invalidNextEncounterDate" class="warning-message">{{ creationForm.get('nextEncounterDateControl').errors?.invalidNextEncounterDate}}</span>
                                     <edospnc-datetime #nextEncounterDate [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.nextEncounterDate" [edospncFormGroup]="creationForm" edospncFormControlName="nextEncounterDateControl" [ngModelOptions]="{standalone: true}">
                                     </edospnc-datetime>
                                     <!-- Date de rencontre -->
                                     <ion-label position="stacked" [ngClass]="{'required' : requiredOnEncounterDay  || isEncounterDateRequired() }">
                                         {{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}
-                                        <span *ngIf="requiredOnEncounterDay" class="warning-message">{{ 'CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate}}</span>
                                     </ion-label>
+                                    <span *ngIf="requiredOnEncounterDay" class="warning-message">{{ 'CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate}}</span>
                                     <edospnc-datetime [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.encounterDate" [edospncFormGroup]="creationForm" edospncFormControlName="encounterDateControl" [ngModelOptions]="{standalone: true}">
                                     </edospnc-datetime>
                                 </ion-col>
