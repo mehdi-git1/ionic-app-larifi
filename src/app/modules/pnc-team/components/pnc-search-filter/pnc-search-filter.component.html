@@ -67,7 +67,7 @@
             </ion-select>
         </div>
         <div class="flex5 work-rate">
-        <!-- Rythme -->
+            <!-- Rythme -->
             <ion-label class="input-label">
                 {{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</ion-label>
             <ion-select interface="popover" [compareWith]="compareFn" formControlName="workRateControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
@@ -78,7 +78,7 @@
                     {{workRateKey}}</ion-select-option>
             </ion-select>
         </div>
-        <div class="flex2 checkbox-container taf" >
+        <div class="flex2 checkbox-container taf">
             <!-- taf -->
             <ion-item lines="none">
                 <ion-label>{{ 'PNC_SEARCH.CRITERIA.TAF' | translate }}</ion-label>
@@ -87,7 +87,6 @@
             </ion-item>
         </div>
     </div>
-
     <div class="filter-container filter">
         <!-- Spécialisation avion -->
         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}
@@ -98,7 +97,7 @@
             <ion-select-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{aircraftSkillKey}}</ion-select-option>
         </ion-select>
     </div>
-    <mat-expansion-panel #encounterPanel [expanded]="false"  *ngIf="!isAlternantSearch()"  (afterExpand)="open(encounterPanel)">
+    <mat-expansion-panel #encounterPanel [expanded]="false" *ngIf="!isAlternantSearch()" (afterExpand)="open(encounterPanel)">
         <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
             <mat-panel-title>
                 {{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.TITLE' | translate }}
@@ -113,10 +112,18 @@
                     </ion-checkbox>
                 </ion-item>
             </div>
+            <div class="checkbox-container">
+                <!-- Dernière EOBS réalisée il y a plus de 18 mois  -->
+                <ion-item lines="none">
+                    <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.EOBS_OLDER_THAN_18_MONTHS' | translate }}</ion-label>
+                    <ion-checkbox slot="end" formControlName="hasEobsOlderThan18MonthsControl">
+                    </ion-checkbox>
+                </ion-item>
+            </div>
         </div>
     </mat-expansion-panel>
     <div class="filter-container" *ngIf="!isAlternantSearch()">
-        <mat-expansion-panel #priorityPanel [expanded]="false"  (afterExpand)="open(priorityPanel)">
+        <mat-expansion-panel #priorityPanel [expanded]="false" (afterExpand)="open(priorityPanel)">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.PRIORITY.TITLE' | translate }}
@@ -161,7 +168,7 @@
         </mat-expansion-panel>
     </div>
     <div class="filter-container" *ngIf="!isAlternantSearch()">
-        <mat-expansion-panel #missionPanel [expanded]="false"  (afterExpand)="open(missionPanel)">
+        <mat-expansion-panel #missionPanel [expanded]="false" (afterExpand)="open(missionPanel)">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.MISSION.TITLE' | translate }}

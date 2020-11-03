@@ -154,7 +154,8 @@
             "ENCOUNTER_DATE": "Fixée le",
             "PRIORITIZED": "Priorité majeure",
             "CREATION_DATE": "Créée le",
-            "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
+            "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)",
+            "VALID_DATE_ON_NEXT_ENCOUNTER": " (La date de rappel ne peut être antérieure à la date du jour)"
         },
         "DETAILS": {
             "CREATED_BY": "Créée par ",
@@ -726,7 +727,8 @@
             },
             "ENCOUNTER_FLIGHT_GROUND" :{
                 "TITLE":"Rencontres vol/sol",
-                "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH":"Dernière rencontre sol (BP) > 24"
+                "EOBS_OLDER_THAN_18_MONTHS": "Dernière eObs > 18 mois",
+                "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH":"Dernier BP/EPP > 24 mois"
             },
             "PRIORITY": {
                 "TITLE": "Priorités",
