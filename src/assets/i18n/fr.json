@@ -721,8 +721,8 @@
             "WORK_RATE": "Rythme",
             "TAF": "TAF",
             "SORT": {
-              "LAST_EOBS": "Dernière eObs",
-              "LAST_BP": "Dernier BP",
+              "LAST_EOBSERVATION": "Dernière eObs",
+              "LAST_PROFESSIONAL_INTERVIEW": "Dernier BP",
               "LAST_UPDATED_PRIORITY": "Dernière prio mise à jour"
             },
             "ENCOUNTER_FLIGHT_GROUND" :{

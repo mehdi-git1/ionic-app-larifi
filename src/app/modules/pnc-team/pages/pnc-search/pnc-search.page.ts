@@ -1,24 +1,20 @@
-import { PagePositionEnum } from './../../../../core/enums/page-position.enum';
 import { from, Observable, Subject } from 'rxjs';
+import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Events, IonInfiniteScroll } from '@ionic/angular';
+import { Events } from '@ionic/angular';
 
 import { AppConstant } from '../../../../app.constant';
+import { PagePositionEnum } from '../../../../core/enums/page-position.enum';
 import { PncSearchModeEnum } from '../../../../core/enums/pnc-search-mode.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import {
-  PncSearchFilterComponent
-} from '../../components/pnc-search-filter/pnc-search-filter.component';
-import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 
 @Component({
   selector: 'page-pnc-search',
@@ -40,8 +36,8 @@ export class PncSearchPage implements AfterViewInit {
   totalPncs = 0;
   isMenuOpened = false;
   isLoading = true;
-  lastEobsSortDirection: SortDirection;
-  lastProfessionalInerviewSortDirection: SortDirection;
+  lastEobservationSortDirection: SortDirection;
+  lastProfessionalInterviewSortDirection: SortDirection;
   lastPriorityUpdateSortDirection: SortDirection;
 
   // Expose l'enum au template
@@ -57,9 +53,9 @@ export class PncSearchPage implements AfterViewInit {
   ) {
 
     this.filters.size = AppConstant.PAGE_SIZE;
-    this.lastEobsSortDirection = SortDirection.ASC;
+    this.lastEobservationSortDirection = SortDirection.ASC;
     this.lastPriorityUpdateSortDirection = SortDirection.ASC;
-    this.lastProfessionalInerviewSortDirection = SortDirection.ASC;
+    this.lastProfessionalInterviewSortDirection = SortDirection.ASC;
 
     this.resetPageNumber();
 
@@ -185,31 +181,23 @@ export class PncSearchPage implements AfterViewInit {
     }
   }
 
-  sortByColumn(column: string) {
-    console.log(this.filters.sortDirection);
-    console.log('nom de la colonne ' + column);
-    this.filters.sortColumn = column;
-    this.filters.sortDirection = this.filters.sortDirection === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC;
-    console.log(this.filters.sortDirection);
-    this.launchSearch();
-  }
   /**
-   * Tri par date de dernière eObs
+   * Tri par date de dernière eObservation
    */
-  sortByLastEobs() {
+  sortByLastEobservationDate() {
     this.filters.sortColumn = 'lastEobservationDate';
-    this.lastEobsSortDirection = this.switchSortDirection(this.lastEobsSortDirection);
-    this.filters.sortDirection = this.lastEobsSortDirection;
+    this.lastEobservationSortDirection = this.switchSortDirection(this.lastEobservationSortDirection);
+    this.filters.sortDirection = this.lastEobservationSortDirection;
     this.launchSearch();
   }
 
   /**
    * Tri par date de dernier bilan pro ou EPP
    */
-  sortByLastBP() {
+  sortByLastProfessionalInterviewDate() {
     this.filters.sortColumn = 'lastProfessionalInterviewDate';
-    this.lastProfessionalInerviewSortDirection = this.switchSortDirection(this.lastProfessionalInerviewSortDirection);
-    this.filters.sortDirection = this.lastProfessionalInerviewSortDirection;
+    this.lastProfessionalInterviewSortDirection = this.switchSortDirection(this.lastProfessionalInterviewSortDirection);
+    this.filters.sortDirection = this.lastProfessionalInterviewSortDirection;
     this.launchSearch();
   }
 
@@ -223,14 +211,10 @@ export class PncSearchPage implements AfterViewInit {
     this.launchSearch();
   }
 
-
-
-
-
   /**
    * Retourne le sens contraire au sens passé en paramètre
    * @param sortDirection le sens dont on veut le contraire
-   * @return le sens contraire
+   * @return le sens du tri
    */
   switchSortDirection(sortDirection: SortDirection): SortDirection {
     return (sortDirection === SortDirection.ASC) ? SortDirection.DESC : SortDirection.ASC;

@@ -28,17 +28,16 @@
                     <ng-template #pageBlock>
                         <div *ngIf="hasPncs(); else noDataBlock">
                             <div class="sort-container">
-                                <div class="eobs-sort" (click)="sortByLastEobs()">
-
-                                    <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_EOBS'  | translate }}</span>
-                                    <ion-icon size="small" name="arrow-up" *ngIf="lastEobsSortDirection == 'ASC'"></ion-icon>
-                                    <ion-icon size="small" name="arrow-down" *ngIf="lastEobsSortDirection == 'DESC'"></ion-icon>
+                                <div class="eobs-sort" (click)="sortByLastEobservationDate()">
+                                    <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_EOBSERVATION'  | translate }}</span>
+                                    <ion-icon size="small" name="arrow-up" *ngIf="lastEobservationSortDirection == 'ASC'"></ion-icon>
+                                    <ion-icon size="small" name="arrow-down" *ngIf="lastEobservationSortDirection == 'DESC'"></ion-icon>
 
                                 </div>
-                                <div class="bp-sort" (click)="sortByLastBP()">
-                                    <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_BP'  | translate }}</span>
-                                    <ion-icon size="small" name="arrow-up" *ngIf="lastProfessionalInerviewSortDirection == 'ASC'"></ion-icon>
-                                    <ion-icon size="small" name="arrow-down" *ngIf="lastProfessionalInerviewSortDirection == 'DESC'"></ion-icon>
+                                <div class="bp-sort" (click)="sortByLastProfessionalInterviewDate()">
+                                    <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_PROFESSIONAL_INTERVIEW'  | translate }}</span>
+                                    <ion-icon size="small" name="arrow-up" *ngIf="lastProfessionalInterviewSortDirection == 'ASC'"></ion-icon>
+                                    <ion-icon size="small" name="arrow-down" *ngIf="lastProfessionalInterviewSortDirection == 'DESC'"></ion-icon>
                                 </div>
                                 <div class="priority-sort" (click)="sortByLastPriorityUpdate()">
                                     <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_UPDATED_PRIORITY'  | translate }}</span>
