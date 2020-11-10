@@ -1,3 +1,4 @@
+import { MyBoardNotificationTypeEnum } from './../../../../core/enums/my-board/my-board-notification-type.enum';
 import { from, Observable, Subject } from 'rxjs';
 import {
   MyBoardNotificationSummaryModel
@@ -45,6 +46,8 @@ export class MyBoardHomePage {
   selectAllCheckboxValue = false;
 
   PAGE_SIZE = 15;
+
+  MyBoardNotificationTypeEnum = MyBoardNotificationTypeEnum;
 
   constructor(
     private sessionService: SessionService,

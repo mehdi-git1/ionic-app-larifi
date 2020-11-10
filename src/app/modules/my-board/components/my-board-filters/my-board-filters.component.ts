@@ -1,3 +1,4 @@
+import { MyBoardNotificationTypeEnum } from './../../../../core/enums/my-board/my-board-notification-type.enum';
 import * as moment from 'moment';
 import {
     MyBoardNotificationFilterModel
@@ -21,6 +22,7 @@ import { Utils } from '../../../../shared/utils/utils';
 })
 export class MyBoardFiltersComponent implements AfterViewInit {
 
+    @Input() type: MyBoardNotificationTypeEnum;
     @Input() filters: MyBoardNotificationFilterModel;
     @Input() notificationSummary: MyBoardNotificationSummaryModel;
 
@@ -62,6 +64,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
 
         this.filterForm = this.formBuilder.group({
             documentTypes: [''],
+            type: [''],
             creationStartDate: [''],
             creationEndDate: [''],
             archived: [false]
@@ -70,6 +73,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
         this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
             if (this.filterForm.valid) {
                 this.filters.documentTypes = [...newForm.documentTypes];
+                this.filters.type = this.type;
                 this.filters.creationStartDate = Utils.isEmpty(newForm.creationStartDate) ? '' : new Date(newForm.creationStartDate)
                     .toISOString();
                 this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
