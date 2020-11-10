@@ -723,7 +723,7 @@
             "SORT": {
               "LAST_EOBSERVATION": "Dernière eObs",
               "LAST_PROFESSIONAL_INTERVIEW": "Dernier BP",
-              "LAST_UPDATED_PRIORITY": "Dernière prio mise à jour"
+              "LAST_UPDATED_CAREER_OBJECTIVE": "Dernière prio mise à jour"
             },
             "ENCOUNTER_FLIGHT_GROUND": {
                 "TITLE": "Rencontres vol/sol",

@@ -35,27 +35,27 @@ mat-sidenav {
     font-size: 1.4em;
 }
 
-.eobs-sort {
+.eObservation-sort {
     display: flex;
     flex-grow: 1;
     justify-content: center;
 }
 
-.priority-sort {
+.career-objetive-sort {
     display: flex;
     flex-grow: 1;
     justify-content: flex-end;
 }
 
-.bp-sort {
+.professional-interview-sort {
     display: flex;
     flex-grow: 1;
     justify-content: center;
 }
 
-.eobs-sort ion-icon,
-.bp-sort ion-icon,
-.priority-sort ion-icon {
+.eObservation-sort ion-icon,
+.professional-interview-sort ion-icon,
+.career-objetive-sort ion-icon {
     margin: 5px !important;
 }
 

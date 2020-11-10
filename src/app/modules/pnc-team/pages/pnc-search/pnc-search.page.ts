@@ -38,7 +38,7 @@ export class PncSearchPage implements AfterViewInit {
   isLoading = true;
   lastEobservationSortDirection: SortDirection;
   lastProfessionalInterviewSortDirection: SortDirection;
-  lastPriorityUpdateSortDirection: SortDirection;
+  lastCareerObjectiveUpdateSortDirection: SortDirection;
 
   // Expose l'enum au template
   TabHeaderEnum = TabHeaderEnum;
@@ -54,7 +54,7 @@ export class PncSearchPage implements AfterViewInit {
 
     this.filters.size = AppConstant.PAGE_SIZE;
     this.lastEobservationSortDirection = SortDirection.ASC;
-    this.lastPriorityUpdateSortDirection = SortDirection.ASC;
+    this.lastCareerObjectiveUpdateSortDirection = SortDirection.ASC;
     this.lastProfessionalInterviewSortDirection = SortDirection.ASC;
 
     this.resetPageNumber();
@@ -204,10 +204,10 @@ export class PncSearchPage implements AfterViewInit {
   /**
    * Tri par date de dernière priorité mise à jour
    */
-  sortByLastPriorityUpdate() {
-    this.filters.sortColumn = 'lastPriorityUpdateDate';
-    this.lastPriorityUpdateSortDirection = this.switchSortDirection(this.lastPriorityUpdateSortDirection);
-    this.filters.sortDirection = this.lastPriorityUpdateSortDirection;
+  sortByLastCareerObjectiveUpdate() {
+    this.filters.sortColumn = 'lastCareerObjectiveUpdateDate';
+    this.lastCareerObjectiveUpdateSortDirection = this.switchSortDirection(this.lastCareerObjectiveUpdateSortDirection);
+    this.filters.sortDirection = this.lastCareerObjectiveUpdateSortDirection;
     this.launchSearch();
   }
 

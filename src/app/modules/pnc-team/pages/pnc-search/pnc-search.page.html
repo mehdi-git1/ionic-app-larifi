@@ -28,21 +28,21 @@
                     <ng-template #pageBlock>
                         <div *ngIf="hasPncs(); else noDataBlock">
                             <div class="sort-container">
-                                <div class="eobs-sort" (click)="sortByLastEobservationDate()">
+                                <div class="eObservation-sort" (click)="sortByLastEobservationDate()">
                                     <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_EOBSERVATION'  | translate }}</span>
                                     <ion-icon size="small" name="arrow-up" *ngIf="lastEobservationSortDirection == 'ASC'"></ion-icon>
                                     <ion-icon size="small" name="arrow-down" *ngIf="lastEobservationSortDirection == 'DESC'"></ion-icon>
 
                                 </div>
-                                <div class="bp-sort" (click)="sortByLastProfessionalInterviewDate()">
+                                <div class="professional-interview-sort" (click)="sortByLastProfessionalInterviewDate()">
                                     <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_PROFESSIONAL_INTERVIEW'  | translate }}</span>
                                     <ion-icon size="small" name="arrow-up" *ngIf="lastProfessionalInterviewSortDirection == 'ASC'"></ion-icon>
                                     <ion-icon size="small" name="arrow-down" *ngIf="lastProfessionalInterviewSortDirection == 'DESC'"></ion-icon>
                                 </div>
-                                <div class="priority-sort" (click)="sortByLastPriorityUpdate()">
-                                    <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_UPDATED_PRIORITY'  | translate }}</span>
-                                    <ion-icon size="small" name="arrow-up" *ngIf="lastPriorityUpdateSortDirection  == 'ASC'"></ion-icon>
-                                    <ion-icon size="small" name=" arrow-down" *ngIf="lastPriorityUpdateSortDirection  == 'DESC'"></ion-icon>
+                                <div class="career-objetive-sort" (click)="sortByLastCareerObjectiveUpdate()">
+                                    <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_UPDATED_CAREER_OBJECTIVE'  | translate }}</span>
+                                    <ion-icon size="small" name="arrow-up" *ngIf="lastCareerObjectiveUpdateSortDirection  == 'ASC'"></ion-icon>
+                                    <ion-icon size="small" name=" arrow-down" *ngIf="lastCareerObjectiveUpdateSortDirection  == 'DESC'"></ion-icon>
                                 </div>
                             </div>
                             <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="pnc" (click)="openPncHomePage(pnc)">
