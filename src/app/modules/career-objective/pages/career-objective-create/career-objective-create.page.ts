@@ -188,6 +188,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             const status = this.careerObjective ? this.careerObjective.careerObjectiveStatus : null;
             if (status && status !== CareerObjectiveStatusEnum.DRAFT && (Utils.isEmpty(encounterDate.value) && Utils.isEmpty(this.careerObjective.encounterDate))) {
                 this.requiredOnEncounterDay = true;
+                return { invalidEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY') };
             }
             return null;
         };

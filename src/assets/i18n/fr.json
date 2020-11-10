@@ -115,9 +115,9 @@
             "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         },
         "APPLICATION_UNSUPPORTED": {
-            "TITLE": "eDossierPNC n'est pas compatible avec ce navigateur",
-            "MESSAGE": "Veuillez utiliser les navigateurs Firefox ou Google Chrome (à télécharger et à installer sur votre PC)",
-            "MENTION": "Pour tout besoin d'accompagnement, veuillez contactez le 1324"
+            "TITLE": "eDossierPNC n'est pas compatible avec ce navigateur.",
+            "MESSAGE": "Veuillez utiliser les navigateurs Microsoft Edge, Firefox ou Google Chrome. Si ce message apparaît toujours sur l'un de ces navigateurs, rendez-vous dans le centre logiciel de votre PC afin de télécharger la dernière version disponible.",
+            "MENTION": "Pour tout besoin d'accompagnement, veuillez contactez le 1324."
         },
         "DOCUMENT": {
             "PREVIEW_NOT_AVAILABLE": "L'aperçu n'est pas disponible pour ce fichier",
@@ -155,7 +155,7 @@
             "PRIORITIZED": "Priorité majeure",
             "CREATION_DATE": "Créée le",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)",
-            "VALID_DATE_ON_NEXT_ENCOUNTER": " (La date de rappel ne peut être antérieure à la date du jour)"
+            "VALID_DATE_ON_NEXT_ENCOUNTER": " (La date ne peut être antérieure à la date du jour)"
         },
         "DETAILS": {
             "CREATED_BY": "Créée par ",
@@ -725,10 +725,10 @@
               "LAST_PROFESSIONAL_INTERVIEW": "Dernier BP",
               "LAST_UPDATED_PRIORITY": "Dernière prio mise à jour"
             },
-            "ENCOUNTER_FLIGHT_GROUND" :{
-                "TITLE":"Rencontres vol/sol",
+            "ENCOUNTER_FLIGHT_GROUND": {
+                "TITLE": "Rencontres vol/sol",
                 "EOBS_OLDER_THAN_18_MONTHS": "Dernière eObs > 18 mois",
-                "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH":"Dernier BP/EPP > 24 mois"
+                "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH": "Dernier BP/EPP > 24 mois"
             },
             "PRIORITY": {
                 "TITLE": "Priorités",
@@ -743,7 +743,7 @@
             "MISSION": {
                 "TITLE": "Missions",
                 "RELAY": "Relais",
-                "MANIFEX":"Manifex"
+                "MANIFEX": "Manifex"
             },
             "LOGBOOK_EVENTS": {
                 "TITLE": "Evènement JDB",
