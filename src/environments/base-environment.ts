@@ -1,6 +1,6 @@
 
 export abstract class BaseEnvironment {
-  public appVersion = '2.4.0';
+  public appVersion = '2.4.1';
   public contextRoot = '/api/';
   public appName = 'EDossierPnc';
   public backEndUrl;
