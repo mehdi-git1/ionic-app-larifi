@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { AppConstant } from 'src/app/app.constant';
 import { Config } from 'src/environments/config';
 
 import { Component, ViewEncapsulation } from '@angular/core';
@@ -7,7 +8,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AlertController, Events, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
-import { AppConstant } from './app.constant';
 import { AuthenticationService } from './core/authentication/authentication.service';
 import { PinPadTypeEnum } from './core/enums/security/pin-pad-type.enum';
 import { AppInitService } from './core/services/app-init/app-init.service';
@@ -19,6 +19,7 @@ import { MyBoardNotificationService } from './core/services/my-board/my-board-no
 import { SessionService } from './core/services/session/session.service';
 import { SynchronizationService } from './core/services/synchronization/synchronization.service';
 import { ToastService } from './core/services/toast/toast.service';
+import { Utils } from './shared/utils/utils';
 
 @Component({
   selector: 'app-root',
@@ -130,8 +131,9 @@ export class AppComponent {
    */
   isNewUpdateAvailable() {
     this.appVersionService.getLastAppVersion().then(lastAppVersion => {
-      const dayAfterRelease = moment(lastAppVersion.releaseDate, AppConstant.isoDateFormat).toDate().getDate() + 1;
-      if (lastAppVersion.number !== this.config.appVersion && new Date() >= moment(dayAfterRelease, AppConstant.isoDateFormat).toDate()) {
+      const lastReleaseDatePlusOneDay = moment(lastAppVersion.releaseDate, AppConstant.isoDateFormat).add(1, 'days');
+      if (Utils.compareVersionNumbers(this.config.appVersion, lastAppVersion.number) === -1
+        && moment().isAfter(lastReleaseDatePlusOneDay)) {
         this.displayAppVersionToUpdateAlert();
       }
     });
