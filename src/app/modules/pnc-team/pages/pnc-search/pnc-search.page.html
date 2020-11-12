@@ -16,12 +16,12 @@
     <pnc-edossier-header [activeTab]="TabHeaderEnum.ALTERNANT_SEARCH"></pnc-edossier-header>
 </ion-header>
 
-<ion-content>
+<ion-content forceOverscroll="true" scroll-y="false">
     <mat-sidenav-container>
         <mat-sidenav [(opened)]="isMenuOpened" mode="side">
             <pnc-search-filter [filters]="filters" [searchMode]="searchMode" (filtersChanged)="launchSearch()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
         </mat-sidenav>
-            <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
+        <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
             <div class="page-container">
                 <div class="filtered-pnc-list-container">
                     <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>

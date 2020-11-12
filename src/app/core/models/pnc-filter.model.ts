@@ -20,6 +20,7 @@ export class PncFilterModel {
   hasProfessionalInterviewOlderThan24Months: boolean;
   hasManifex: boolean;
   taf: boolean;
+  hasEobsOlderThan18Months: boolean;
   workRate: number;
 
   // Tri
