@@ -73,7 +73,6 @@ export class MyBoardFiltersComponent implements AfterViewInit {
         this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
             if (this.filterForm.valid) {
                 this.filters.documentTypes = [...newForm.documentTypes];
-                this.filters.type = this.type;
                 this.filters.creationStartDate = Utils.isEmpty(newForm.creationStartDate) ? '' : new Date(newForm.creationStartDate)
                     .toISOString();
                 this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
