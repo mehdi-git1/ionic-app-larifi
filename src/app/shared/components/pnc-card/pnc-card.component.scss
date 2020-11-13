@@ -4,20 +4,37 @@
     border-radius: 4px !important;
     background: var(--ion-color-white);
 
-    ion-grid,
-    ion-row,
-    ion-col {
-        padding: 0;
-        margin: 0;
-    }
-
-    ion-col {
-        display: flex;
-        justify-content: center;
-    }
-
     &.disabled {
         background: var(--ion-color-grey95);
+    }
+
+    .pnc-info {
+        min-width: 145px;
+    }
+
+    .pnc-info,
+    .priority-info,
+    .particularity-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .main-info-container,
+    .secondary-info-container,
+    .last-info-container {
+        @media (max-width: 1035px) {
+            display: inline !important;
+        }
+
+        .identity,
+        .assignment-relay-container,
+        .aircraftSkill-workrate-container,
+        .encounter_flight_ground,
+        .priority-icons-container {
+            margin: 5px;
+        }
     }
 
     .pnc-container {
@@ -25,148 +42,123 @@
         width: 100%;
         padding: 10px;
 
-        .secondary-info,
-        .last-info {
-
-            label {
-                padding-top: 12px;
-            }
-
-            span,
-            .no-value {
-                padding-bottom: 5px;
-            }
-        }
-
-        .secondary-info div.pnc-info {
-            width: 185px;
-        }
-
-        .last-info div.pnc-info {
-            width: 241px;
-        }
-
-        .button-download-container {
-            position: absolute;
-            width: 100%;
-        }
-
-        .pnc-photo-container {
-            margin: 10px;
-            width: 100%;
-            justify-content: center;
+        .main-info-container {
             display: flex;
+            flex: 2;
 
-            pnc-photo {
-                padding-top: 25px;
-            }
-
-            download-button {
-                position: absolute;
-                width: 100%;
-            }
-        }
-
-        .identity {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 115px;
-
-            span {
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-            }
-
-            .speciality {
-                font-size: 1.5em;
-            }
-
-            .lastname,
-            .firstname {
-                font-size: 1.2em;
-                color: var(--ion-color-primary);
-            }
-
-            .matricule {
-                color: var(--ion-color-grey20);
-            }
-        }
-
-        .pnc-info,
-        .priority-info,
-        .particularity-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-
-        .flag-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: space-between;
-
-            font-size: 1.5em;
-
-            .fab {
-                margin: 0;
-            }
-        }
-
-        .priority-container {
-            display: flex;
-            justify-content: space-evenly;
-
-            .sub-flag-panel {
-                display: flex;
-                justify-content: flex-end;
-                align-items: center;
-
-                label {
-                    padding-bottom: 6px;
-                }
-
-                & > span {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border-radius: 100%;
-                    height: 35px;
-                    width: 35px;
-                    border: 3px solid;
-                }
-
-                .prioritized {
-                    color: var(--ion-color-secondary);
-                    border-color: var(--ion-color-secondary);
-                }
-
-                .at-least-one-priority {
-                    color: var(--ion-color-primary);
-                    border-color: var(--ion-color-primary);
-                }
-            }
-        }
-
-        .particularity {
-
-            span {
-                color: var(--ion-color-grey50);
-                margin-top: 10px;
+            .pnc-photo-container {
+                position: relative;
+                padding: 10px;
                 display: flex;
                 justify-content: center;
-                align-items: center;
-                border-radius: 100%;
-                border: 3px solid var(--ion-color-grey50);
-                height: 35px;
-                width: 35px;
+
+                .photo-container {
+                    width: 120px;
+                    padding-left: 20px;
+                    padding-top: 20px;
+                    position: relative;
+
+                    pnc-photo {
+                        padding-top: 25px;
+                    }
+
+                    download-button {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                    }
+                }
             }
+
+            .identity {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                span {
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+
+                .speciality {
+                    font-size: 1.5em;
+                }
+
+                .lastname,
+                .firstname {
+                    font-size: 1.2em;
+                    color: var(--ion-color-primary);
+                }
+
+                .matricule {
+                    color: var(--ion-color-grey20);
+                }
+            }
+
         }
+
+        .secondary-info-container {
+            flex: 4;
+            display: flex;
+        }
+
+        .last-info-container {
+            flex: 6;
+            display: flex;
+
+            .icons-container {
+                display: flex;
+                justify-content: space-evenly;
+
+                .sub-flag-panel {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    label {
+                        padding-bottom: 6px;
+                    }
+
+                    & > span {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 100%;
+                        height: 35px;
+                        width: 35px;
+                        border: 3px solid;
+                    }
+
+                    .prioritized {
+                        color: var(--ion-color-secondary);
+                        border-color: var(--ion-color-secondary);
+                    }
+
+                    .at-least-one-priority {
+                        color: var(--ion-color-primary);
+                        border-color: var(--ion-color-primary);
+                    }
+                }
+
+                .particularity {
+
+                    span {
+                        color: var(--ion-color-grey50);
+                        margin-top: 10px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 100%;
+                        border: 3px solid var(--ion-color-grey50);
+                        height: 35px;
+                        width: 35px;
+                    }
+                }
+            }
+
+        }
+
     }
 }
