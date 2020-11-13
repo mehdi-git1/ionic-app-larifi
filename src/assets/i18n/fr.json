@@ -134,7 +134,7 @@
         "AIRCRAFT_SKILL": "Spécialisation avion",
         "WORK_RATE": "Rythme",
         "LAST_EOBSERVATION_DATE":"Dernière eObs",
-        "LAST_PROFESSIONAL_INTERVIEW_DATE":"Dernier BP",
+        "LAST_PROFESSIONAL_INTERVIEW_DATE":"Dernier BP/EPP",
         "LAST_PRIORITY_UPDATE_DATE":"Dernière mise à jour d'une priorité",
         "HAS_PRIORITIZED":"Majeure",
         "HAS_PRIORITY_IN_PROGRESS":"En cours",

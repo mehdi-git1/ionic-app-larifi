@@ -46,27 +46,22 @@
             display: flex;
             flex: 2;
 
-            .pnc-photo-container {
+
+            .photo-container {
+                width: 120px;
+                padding-left: 20px;
+                padding-top: 15px;
                 position: relative;
-                padding: 10px;
-                display: flex;
-                justify-content: center;
+                margin: 0 auto;
 
-                .photo-container {
-                    width: 120px;
-                    padding-left: 20px;
-                    padding-top: 20px;
-                    position: relative;
+                pnc-photo {
+                    padding-top: 25px;
+                }
 
-                    pnc-photo {
-                        padding-top: 25px;
-                    }
-
-                    download-button {
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                    }
+                download-button {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
                 }
             }
 
@@ -96,7 +91,6 @@
                     color: var(--ion-color-grey20);
                 }
             }
-
         }
 
         .secondary-info-container {

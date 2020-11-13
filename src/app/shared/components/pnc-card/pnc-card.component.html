@@ -2,12 +2,10 @@
     <offline-indicator [object]="pnc" type="PNC"></offline-indicator>
     <div class="pnc-container">
         <div class="main-info-container">
-            <div class="pnc-photo-container">
-                <div class="photo-container">
-                    <download-button [synchroInProgress]="synchroInProgress"
-                        (onDownload)="downloadPncEdossier(pnc.matricule)"></download-button>
-                    <pnc-photo [pnc]="pnc" [size]="80" [handleCall]="false"></pnc-photo>
-                </div>
+            <div class="photo-container">
+                <download-button [synchroInProgress]="synchroInProgress"
+                    (onDownload)="downloadPncEdossier(pnc.matricule)"></download-button>
+                <pnc-photo [pnc]="pnc" [size]="80" [handleCall]="false"></pnc-photo>
             </div>
             <div class="identity">
                 <span class="value speciality" [ngClass]="{'no-value' : !formatedSpeciality }">
