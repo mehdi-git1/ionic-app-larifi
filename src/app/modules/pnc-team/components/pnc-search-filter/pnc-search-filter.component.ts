@@ -1,8 +1,10 @@
-import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
+import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
+import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatExpansionPanel } from '@angular/material';
 import { Events, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,8 +18,6 @@ import { SectorModel } from '../../../../core/models/sector.model';
 import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { MatExpansionPanel } from '@angular/material';
-import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -88,6 +88,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Déclenche une recherche (quand l'utilisateur clique sur le bouton rechercher)
    */
   search(): void {
+    // Afin que le tri se fasse par le nom
+    this.filters.sortColumn = undefined;
     this.filtersChanged.next();
   }
 
