@@ -28,10 +28,10 @@
                     <ng-template #pageBlock>
                         <div *ngIf="hasPncs(); else noDataBlock">
                             <div class="sort-container">
-                                <div class="eObservation-sort" (click)="sortByLastEobservationDate()">
+                                <div class="eObservation-sort" (click)="sortByLastEObservationDate()">
                                     <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_EOBSERVATION'  | translate }}</span>
-                                    <ion-icon size="small" name="arrow-up" *ngIf="lastEobservationSortDirection == 'ASC'"></ion-icon>
-                                    <ion-icon size="small" name="arrow-down" *ngIf="lastEobservationSortDirection == 'DESC'"></ion-icon>
+                                    <ion-icon size="small" name="arrow-up" *ngIf="lastEObservationSortDirection == 'ASC'"></ion-icon>
+                                    <ion-icon size="small" name="arrow-down" *ngIf="lastEObservationSortDirection == 'DESC'"></ion-icon>
 
                                 </div>
                                 <div class="professional-interview-sort" (click)="sortByLastProfessionalInterviewDate()">

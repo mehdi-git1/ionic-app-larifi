@@ -36,7 +36,7 @@ export class PncSearchPage implements AfterViewInit {
   totalPncs = 0;
   isMenuOpened = false;
   isLoading = true;
-  lastEobservationSortDirection: SortDirection;
+  lastEObservationSortDirection: SortDirection;
   lastProfessionalInterviewSortDirection: SortDirection;
   lastCareerObjectiveUpdateSortDirection: SortDirection;
 
@@ -53,7 +53,7 @@ export class PncSearchPage implements AfterViewInit {
   ) {
 
     this.filters.size = AppConstant.PAGE_SIZE;
-    this.lastEobservationSortDirection = SortDirection.ASC;
+    this.lastEObservationSortDirection = SortDirection.ASC;
     this.lastCareerObjectiveUpdateSortDirection = SortDirection.ASC;
     this.lastProfessionalInterviewSortDirection = SortDirection.ASC;
 
@@ -184,10 +184,10 @@ export class PncSearchPage implements AfterViewInit {
   /**
    * Tri par date de dernière eObservation
    */
-  sortByLastEobservationDate() {
-    this.filters.sortColumn = 'lastEobservationDate';
-    this.lastEobservationSortDirection = this.switchSortDirection(this.lastEobservationSortDirection);
-    this.filters.sortDirection = this.lastEobservationSortDirection;
+  sortByLastEObservationDate() {
+    this.filters.sortColumn = 'lastEObservationDate';
+    this.lastEObservationSortDirection = this.switchSortDirection(this.lastEObservationSortDirection);
+    this.filters.sortDirection = this.lastEObservationSortDirection;
     this.launchSearch();
   }
 
