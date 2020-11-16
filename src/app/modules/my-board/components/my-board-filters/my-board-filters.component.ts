@@ -130,7 +130,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
      * @return la date de début par défaut
      */
     getDefaultCreationStartDate(): string {
-        return moment().subtract(60, 'days').toISOString();
+        return moment().subtract(6, 'months').toISOString();
     }
 
     /**
