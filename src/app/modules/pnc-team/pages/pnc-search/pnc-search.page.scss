@@ -3,6 +3,10 @@
     align-items: center;
 }
 
+ion-content {
+    --keyboard-offset: 0px !important;
+}
+
 mat-sidenav-container {
     height: 100%;
 }
