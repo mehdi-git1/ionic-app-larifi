@@ -6,7 +6,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ionic serve",
-        "build": "node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build",
+        "build": "node --max-old-space-size=12000 ./node_modules/@angular/cli/bin/ng build",
         "lint": "ng lint",
         "clean": "ionic-app-scripts clean",
         "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI --code-coverage",
