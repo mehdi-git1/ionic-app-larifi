@@ -24,7 +24,7 @@
     .main-info-container,
     .secondary-info-container,
     .last-info-container {
-        @media (max-width: 1035px) {
+        @media (max-width: 1000px) {
             display: inline !important;
         }
 
@@ -33,7 +33,7 @@
         .aircraftSkill-workrate-container,
         .encounter_flight_ground,
         .priority-icons-container {
-            margin: 5px;
+            margin: 5px 0px;
         }
     }
 
