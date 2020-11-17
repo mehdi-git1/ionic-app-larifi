@@ -88,7 +88,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Déclenche une recherche (quand l'utilisateur clique sur le bouton rechercher)
    */
   search(): void {
-    // Afin que le tri se fasse par le nom
+    // permet d'éffectuer le tri par défaut
     this.filters.sortColumn = undefined;
     this.filtersChanged.next();
   }

@@ -202,7 +202,7 @@ export class PncSearchPage implements AfterViewInit {
   }
 
   /**
-   * Tri par date de dernière priorité mise à jour
+   * Tri par date de dernière mise à jour d'une priorité
    */
   sortByLastCareerObjectiveUpdate() {
     this.filters.sortColumn = 'lastCareerObjectiveUpdateDate';
