@@ -48,6 +48,7 @@ export class MyBoardHomePage {
   PAGE_SIZE = 15;
 
   MyBoardNotificationTypeEnum = MyBoardNotificationTypeEnum;
+  myBoardNotificationType = MyBoardNotificationTypeEnum.ALERT;
 
   constructor(
     private sessionService: SessionService,
@@ -73,6 +74,7 @@ export class MyBoardHomePage {
     this.filters.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
 
     this.getMyBoardNotificationSummary().then((myBoardNotificationSummary) => {
+      this.myBoardNotificationType = myBoardNotificationSummary.lastMyBoardNotification ? myBoardNotificationSummary.lastMyBoardNotification.type : MyBoardNotificationTypeEnum.ALERT;
       // Si le nombre de notif a changé, on demande à l'utilisateur s'il souhaite relancer la recherche pour mettre à jour la vue
       if (this.totalNotifications !== 0 && myBoardNotificationSummary.totalFiltered !== this.totalNotifications) {
         this.confirmMyBoardRefresh();
@@ -211,7 +213,7 @@ export class MyBoardHomePage {
       notificationIdsArray.push(notification.techId);
       this.myBoardNotificationService.readNotifications(notificationIdsArray, true).then(() => {
         notification.checked = true;
-        this.events.publish('myBoard:uncheckedNotificationCountUpdate', this.myBoardNotificationSummary.totalUnchecked - 1);
+        this.events.publish('myBoard:uncheckedNotificationCountUpdate', this.myBoardNotificationSummary.totalUncheckedNotifications + this.myBoardNotificationSummary.totalUncheckedAlerts - 1);
       });
     }
 
@@ -351,6 +353,33 @@ export class MyBoardHomePage {
    */
   isArchiveViewEnabled(): boolean {
     return this.filters.archived;
+  }
+
+  /**
+   * Affiche les notifications
+   */
+  displayNotifications(): void {
+    this.myBoardNotificationType = MyBoardNotificationTypeEnum.NOTIFICATION;
+    this.filters.type = MyBoardNotificationTypeEnum.NOTIFICATION;
+    this.launchFirstSearch();
+  }
+
+  /**
+   * Affiche les rappels
+   */
+  displayReminders(): void {
+    this.myBoardNotificationType = MyBoardNotificationTypeEnum.ALERT;
+    this.filters.type = MyBoardNotificationTypeEnum.ALERT;
+    this.launchFirstSearch();
+  }
+
+  /**
+   * Vérifie si un onglet est actif
+   * @param mode le mode (onglet) à tester
+   * @return vrai si le mode est actif, faux sinon
+   */
+  isTabActive(type: MyBoardNotificationTypeEnum): boolean {
+    return type === this.myBoardNotificationType;
   }
 }
 

@@ -10,6 +10,15 @@
             <span slot="center">{{'MY_BOARD.TITLE' | translate}}</span>
         </page-header>
     </ion-toolbar>
+    <div class="tabs">
+        <button (click)="displayReminders()" [ngClass]="{'active': isTabActive(MyBoardNotificationTypeEnum.ALERT)}">
+            {{ 'MY_BOARD.TABS.REMINDER' | translate:{total:myBoardNotificationSummary.totalUncheckedAlerts} }}
+        </button>
+        <button (click)="displayNotifications()"
+            [ngClass]="{'active': isTabActive(MyBoardNotificationTypeEnum.NOTIFICATION)}">
+            {{ 'MY_BOARD.TABS.NOTIFICATION' | translate:{total:myBoardNotificationSummary.totalUncheckedNotifications} }}
+        </button>
+    </div>
     <div class="button-bar-container" *ngIf="hasNotifications()">
         <div class="button-bar">
             <div class=" left-data-container">
@@ -18,10 +27,12 @@
                     <ion-label>{{ 'MY_BOARD.BUTTONS.SELECT_ALL' | translate }}</ion-label>
                 </div>
                 <span class="total-notifications">{{ 'MY_BOARD.TOTAL' | translate:{total:totalNotifications} }}</span>
-                <span class="total-selected-notifications">{{ 'MY_BOARD.TOTAL_SELECTED' | translate:{total:getSelectedNotificationTotal()} }}</span>
+                <span
+                    class="total-selected-notifications">{{ 'MY_BOARD.TOTAL_SELECTED' | translate:{total:getSelectedNotificationTotal()} }}</span>
             </div>
             <div class="button-bar-right">
-                <ion-button *ngIf="!isArchiveViewEnabled(); else dearchiveButtonTemplate" (click)="archiveSelectedNotifications()" color="primarylight">
+                <ion-button *ngIf="!isArchiveViewEnabled(); else dearchiveButtonTemplate"
+                    (click)="archiveSelectedNotifications()" color="primarylight">
                     <ion-icon name="archive"></ion-icon>
                     <ion-label>{{ 'MY_BOARD.BUTTONS.ARCHIVE' | translate }}</ion-label>
                 </ion-button>
@@ -48,15 +59,19 @@
     <ng-template #onlineBlock>
         <mat-sidenav-container>
             <mat-sidenav [(opened)]="isMenuOpened" mode="side">
-                <my-board-filters [type]="MyBoardNotificationTypeEnum.NOTIFICATION" [filters]="filters" [notificationSummary]="myBoardNotificationSummary" (filtersChanged)="applyFilters()"></my-board-filters>
+                <my-board-filters [type]="myBoardNotificationType" [filters]="filters"
+                    [notificationSummary]="myBoardNotificationSummary" (filtersChanged)="applyFilters()">
+                </my-board-filters>
             </mat-sidenav>
 
-            <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
+            <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2"
+                [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
                 <div class="page-container">
                     <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>
                     <ng-template #pageBlock>
                         <ng-container *ngIf="hasNotifications(); else noDataBlock">
-                            <my-board-notifications-list [notificationList]="pncNotifications" (notificationClicked)="openNotification($event)"></my-board-notifications-list>
+                            <my-board-notifications-list [notificationList]="pncNotifications"
+                                (notificationClicked)="openNotification($event)"></my-board-notifications-list>
                         </ng-container>
 
                         <ng-template #noDataBlock>

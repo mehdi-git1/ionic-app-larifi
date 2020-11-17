@@ -765,6 +765,10 @@
     },
     "MY_BOARD": {
         "TITLE": "MyBoard",
+        "TABS":{
+            "NOTIFICATION":"Notifications ({{total}})",
+            "REMINDER":"Rappels ({{total}})"
+        },
         "FILTER": "Filtrer",
         "NO_NOTIFICATIONS": "Aucune notification trouvée",
         "UNAVAILABLE_OFFLINE": "MyBoard non disponible en déconnecté",
@@ -788,7 +792,8 @@
             "DOCUMENT_TYPE": "Type de document",
             "START_DATE": "Du",
             "END_DATE": "Au",
-            "ARCHIVED": "Notifications archivées",
+            "ARCHIVED_NOTIFICATION": "Notifications archivées",
+            "ARCHIVED_ALERT": "Rappels archivés",
             "REINIT_BUTTON": "Réinitialiser"
         },
         "MESSAGES": {

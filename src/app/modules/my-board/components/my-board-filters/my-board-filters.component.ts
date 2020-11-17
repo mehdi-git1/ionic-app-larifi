@@ -32,6 +32,9 @@ export class MyBoardFiltersComponent implements AfterViewInit {
 
     documentTypes: Array<any>;
 
+    MyBoardNotificationTypeEnum = MyBoardNotificationTypeEnum;
+
+
     constructor(
         private sessionService: SessionService,
         private formBuilder: FormBuilder,
