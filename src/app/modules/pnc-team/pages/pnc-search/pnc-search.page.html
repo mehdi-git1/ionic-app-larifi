@@ -28,19 +28,19 @@
                     <ng-template #pageBlock>
                         <div *ngIf="hasPncs(); else noDataBlock">
                             <div class="sort-container">
-                                <div class="eObservation-sort" (click)="sortByLastEObservationDate()">
-                                    <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_EOBSERVATION'  | translate }}</span>
+                                <div class="e-observation-sort" (click)="sortByLastEObservationDate()">
+                                    <span>{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_EOBSERVATION'  | translate }}</span>
                                     <ion-icon size="small" name="arrow-up" *ngIf="lastEObservationSortDirection == 'ASC'"></ion-icon>
                                     <ion-icon size="small" name="arrow-down" *ngIf="lastEObservationSortDirection == 'DESC'"></ion-icon>
 
                                 </div>
                                 <div class="professional-interview-sort" (click)="sortByLastProfessionalInterviewDate()">
-                                    <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_PROFESSIONAL_INTERVIEW'  | translate }}</span>
+                                    <span>{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_PROFESSIONAL_INTERVIEW'  | translate }}</span>
                                     <ion-icon size="small" name="arrow-up" *ngIf="lastProfessionalInterviewSortDirection == 'ASC'"></ion-icon>
                                     <ion-icon size="small" name="arrow-down" *ngIf="lastProfessionalInterviewSortDirection == 'DESC'"></ion-icon>
                                 </div>
-                                <div class="career-objetive-sort" (click)="sortByLastCareerObjectiveUpdate()">
-                                    <span class="sort-label">{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_UPDATED_CAREER_OBJECTIVE'  | translate }}</span>
+                                <div class="career-objective-sort" (click)="sortByLastCareerObjectiveUpdate()">
+                                    <span>{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_UPDATED_CAREER_OBJECTIVE'  | translate }}</span>
                                     <ion-icon size="small" name="arrow-up" *ngIf="lastCareerObjectiveUpdateSortDirection  == 'ASC'"></ion-icon>
                                     <ion-icon size="small" name=" arrow-down" *ngIf="lastCareerObjectiveUpdateSortDirection  == 'DESC'"></ion-icon>
                                 </div>

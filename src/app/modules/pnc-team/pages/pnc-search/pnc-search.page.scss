@@ -35,13 +35,13 @@ mat-sidenav {
     font-size: 1.4em;
 }
 
-.eObservation-sort {
+.e-observation-sort {
     display: flex;
     flex-grow: 1;
     justify-content: center;
 }
 
-.career-objetive-sort {
+.career-objective-sort {
     display: flex;
     flex-grow: 1;
     justify-content: flex-end;
@@ -53,13 +53,8 @@ mat-sidenav {
     justify-content: center;
 }
 
-.eObservation-sort ion-icon,
+.e-observation-sort ion-icon,
 .professional-interview-sort ion-icon,
-.career-objetive-sort ion-icon {
+.career-objective-sort ion-icon {
     margin: 5px !important;
-}
-
-
-.sort-label {
-    margin-right: 3% !important;
 }

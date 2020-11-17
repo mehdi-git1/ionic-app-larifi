@@ -1,7 +1,7 @@
 ﻿Le fichier Edospnc.json est un projet IcoMoon App.
 Il peut être importé dans la webapp IcoMoon afin de rajouter des icones à la webFont du projet
 
-Pour ajouter une icône au le projet, voici les étapes à suivre.
+Pour ajouter une icône au projet, voici les étapes à suivre.
 0- Ajouter le svg de l'icone dans le dossier icons-project
 1- Télécharger l'icone dans un format SVG
 2- Aller sur le site https://icomoon.io/
