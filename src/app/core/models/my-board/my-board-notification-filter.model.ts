@@ -5,6 +5,7 @@ import { SortDirection } from '../../enums/sort-direction-enum';
 export class MyBoardNotificationFilterModel {
   notifiedPncMatricule: string;
   documentTypes: Array<NotificationDocumentTypeEnum>;
+  type: string;
 
   creationStartDate: string;
   creationEndDate: string;
