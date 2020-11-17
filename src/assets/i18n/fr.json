@@ -129,6 +129,7 @@
         "LOADING_EDOSSIER_MESSAGE": "Chargement du eDossier..."
     },
     "PNC_CARD":{
+        "ASSIGNMENT":"Affectation",
         "RELAYS": "Relais",
         "FUNCTION": "Fonction",
         "AIRCRAFT_SKILL": "Spécialisation avion",
