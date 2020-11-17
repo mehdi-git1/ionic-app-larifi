@@ -13,7 +13,7 @@
     }
 
     .pnc-info,
-    .priority-info,
+    .career-objective-info,
     .particularity-info {
         display: flex;
         flex-direction: column;
@@ -31,8 +31,8 @@
         .identity,
         .assignment-relay-container,
         .aircraftSkill-workrate-container,
-        .encounter_flight_ground,
-        .priority-icons-container {
+        .encounter-flight-ground,
+        .career-objective-icons-container {
             margin: 5px 0px;
         }
     }
@@ -130,7 +130,7 @@
                         border-color: var(--ion-color-secondary);
                     }
 
-                    .at-least-one-priority {
+                    .at-least-one-career-objective {
                         color: var(--ion-color-primary);
                         border-color: var(--ion-color-primary);
                     }

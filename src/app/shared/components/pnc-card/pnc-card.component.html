@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="last-info-container">
-            <div class="flex5 encounter_flight_ground">
+            <div class="flex5 encounter-flight-ground">
                 <!-- Date de la Dernière rencontre en vol -->
                 <div class="pnc-info">
                     <label>{{ 'PNC_CARD.LAST_EOBSERVATION_DATE' | translate }}</label>
@@ -66,25 +66,26 @@
                         [ngClass]="{'no-value' : !pnc.metadataDate?.lastProfessionalInterviewDate }">{{ pnc.metadataDate?.lastProfessionalInterviewDate | date:'dd/MM/yyyy' }}</span>
                 </div>
             </div>
-            <div class="flex7 priority-icons-container">
+            <div class="flex7 career-objective-icons-container">
                 <!-- Date de la Dernière mise à jour d'une priorité -->
                 <div class="pnc-info">
-                    <label>{{ 'PNC_CARD.LAST_PRIORITY_UPDATE_DATE' | translate }}</label>
+                    <label>{{ 'PNC_CARD.LAST_CAREER_OBJECTIVE_UPDATE_DATE' | translate }}</label>
                     <span class="value"
-                        [ngClass]="{'no-value' : !pnc.metadataDate?.lastPriorityUpdateDate }">{{ pnc.metadataDate?.lastPriorityUpdateDate | date:'dd/MM/yyyy' }}</span>
+                        [ngClass]="{'no-value' : !pnc.metadataDate?.lastCareerObjectiveUpdateDate }">{{ pnc.metadataDate?.lastCareerObjectiveUpdateDate | date:'dd/MM/yyyy' }}</span>
                 </div>
                 <div class="icons-container">
                     <!-- Prioritaire -->
-                    <div [ngClass]="{'priority-info' : true, ' sub-flag-panel' : pnc.prioritized}">
+                    <div [ngClass]="{'career-objective-info' : true, ' sub-flag-panel' : pnc.prioritized}">
                         <label>{{ 'PNC_CARD.HAS_PRIORITIZED' | translate}}</label>
                         <span class="value"
                             [ngClass]="{'no-value' : !pnc.prioritized, 'edospnc-flag prioritized' : pnc.prioritized }"></span>
                     </div>
                     <!-- Si au moins une Priorité en cours -->
-                    <div [ngClass]="{'priority-info' : true, ' sub-flag-panel' : pnc.hasAtLeastOnePriorityInProgress}">
-                        <label>{{ 'PNC_CARD.HAS_PRIORITY_IN_PROGRESS' | translate}}</label>
+                    <div
+                        [ngClass]="{'career-objective-info' : true, ' sub-flag-panel' : pnc.hasAtLeastOneCareerObjectiveInProgress}">
+                        <label>{{ 'PNC_CARD.HAS_CAREER_OBJECTIVE_IN_PROGRESS' | translate}}</label>
                         <span class="value"
-                            [ngClass]="{'no-value' : !pnc.hasAtLeastOnePriorityInProgress, 'edospnc-flag  at-least-one-priority' : pnc.hasAtLeastOnePriorityInProgress }"></span>
+                            [ngClass]="{'no-value' : !pnc.hasAtLeastOneCareerObjectiveInProgress, 'edospnc-flag  at-least-one-career-objective' : pnc.hasAtLeastOneCareerObjectiveInProgress }"></span>
                     </div>
                     <!--Particularié-->
                     <div [ngClass]="{'particularity-info' : true, ' sub-flag-panel' : crewMember?.particularity}">

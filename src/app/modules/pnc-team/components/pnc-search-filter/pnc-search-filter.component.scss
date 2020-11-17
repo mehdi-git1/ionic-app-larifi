@@ -63,7 +63,7 @@ h2 {
         }
 
         .prioritized,
-        .at-least-one-priority {
+        .at-least-one-career-objective {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -79,13 +79,13 @@ h2 {
             border-color: var(--ion-color-secondary);
         }
 
-        .at-least-one-priority {
+        .at-least-one-career-objective {
             color: var(--ion-color-primary);
             border-color: var(--ion-color-primary);
         }
 
         .prioritized:before,
-        .at-least-one-priority:before {
+        .at-least-one-career-objective:before {
             font-size: 1.5em;
         }
     }
