@@ -69,8 +69,8 @@ export class MyBoardFiltersComponent implements AfterViewInit {
         }, { validators: dateRangeValidator });
 
         this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
-            // Les filtres sur l'intervalle de date étant obligatoirement activés, on initialise le compte à 2.
             if (this.filterForm.valid) {
+                // Les filtres sur l'intervalle de date étant obligatoirement activés, on initialise le compte à 2.
                 this.enabledFiltersCount = 2;
                 this.filters.documentTypes = newForm.documentTypes;
                 this.enabledFiltersCount =  this.enabledFiltersCount + this.filters.documentTypes.length;
