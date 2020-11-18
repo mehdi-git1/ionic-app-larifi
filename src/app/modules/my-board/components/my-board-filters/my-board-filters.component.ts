@@ -71,6 +71,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
         this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
             // Les filtres sur l'intervalle de date étant obligatoirement activés, on initialise le compte à 2.
             if (this.filterForm.valid) {
+                this.enabledFiltersCount = 2;
                 this.filters.documentTypes = newForm.documentTypes;
                 this.enabledFiltersCount =  this.enabledFiltersCount + this.filters.documentTypes.length;
                 this.filters.creationStartDate = Utils.isEmpty(newForm.creationStartDate) ? '' : new Date(newForm.creationStartDate)
