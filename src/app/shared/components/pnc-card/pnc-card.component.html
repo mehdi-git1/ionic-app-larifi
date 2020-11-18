@@ -7,8 +7,6 @@
                     (onDownload)="downloadPncEdossier(pnc.matricule)"></download-button>
                 <pnc-photo [pnc]="pnc" [size]="80" [handleCall]="false"></pnc-photo>
             </div>
-        </div>
-        <div class="right-info-container">
             <div class="identity">
                 <span class="value speciality" [ngClass]="{'no-value' : !formatedSpeciality }">
                     {{ formatedSpeciality }}</span>
@@ -16,87 +14,84 @@
                 <span class="value firstname">{{ pnc.firstName }}</span>
                 <span class="matricule">{{pnc.matricule}}</span>
             </div>
-            <div class="additional-informations">
-                <div class="secondary-info-container">
-                    <div class="flex6 assignment-relay-container">
-                        <!-- Div / Secteur / Ginq -->
-                        <div class="pnc-info">
-                            <label>{{ 'PNC_CARD.ASSIGNMENT' | translate }}</label>
-                            <span class="value">{{ pnc.assignment.division }} / {{ pnc.assignment.sector }} /
-                                {{ pnc.assignment.ginq }}</span>
-                        </div>
-                        <!-- Relais-->
-                        <div class="pnc-info">
-                            <label>{{ 'PNC_CARD.RELAYS' | translate }}</label>
-                            <div class="value pnc-relays" [ngClass]="{'no-value' : pnc.relays.length === 0 }">
-                                <span *ngFor="let relay of pnc.relays">
-                                    {{ relay.code }}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex6 aircraftSkill-workrate-container">
-                        <!-- Spécialisation avion -->
-                        <div class="pnc-info">
-                            <label>{{ 'PNC_CARD.AIRCRAFT_SKILL' | translate }}</label>
-                            <div class="value pnc-Array-item"
-                                [ngClass]="{'no-value' :  (!pnc.aircraftSkills || pnc.aircraftSkills.length === 0) }">
-                                <span *ngFor="let aircraftSkill of pnc.aircraftSkills">
-                                    {{ aircraftSkill.aircraftType }}
-                                </span>
-                            </div>
-                        </div>
-                        <!-- rythme de travail-->
-                        <div class="pnc-info">
-                            <label>{{ 'PNC_CARD.WORK_RATE' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !pnc.workRate }">{{ pnc.workRate }}</span>
-                        </div>
+        </div>
+        <div class="secondary-info-container">
+            <div class="flex6 assignment-relay-container">
+                <!-- Div / Secteur / Ginq -->
+                <div class="pnc-info">
+                    <label>{{ 'PNC_CARD.ASSIGNMENT' | translate }}</label>
+                    <span class="value">{{ pnc.assignment.division }} / {{ pnc.assignment.sector }} /
+                        {{ pnc.assignment.ginq }}</span>
+                </div>
+                <!-- Relais-->
+                <div class="pnc-info">
+                    <label>{{ 'PNC_CARD.RELAYS' | translate }}</label>
+                    <div class="value pnc-relays" [ngClass]="{'no-value' : pnc.relays.length === 0 }">
+                        <span *ngFor="let relay of pnc.relays">
+                            {{ relay.code }}
+                        </span>
                     </div>
                 </div>
-                <div class="last-info-container">
-                    <div class="flex5 encounter-flight-ground">
-                        <!-- Date de la Dernière rencontre en vol -->
-                        <div class="pnc-info">
-                            <label>{{ 'PNC_CARD.LAST_EOBSERVATION_DATE' | translate }}</label>
-                            <span class="value"
-                                [ngClass]="{'no-value' : !pnc.metadataDate?.lastEObservationDate }">{{ pnc.metadataDate?.lastEObservationDate | date:'dd/MM/yyyy' }}</span>
-                        </div>
-                        <!-- Date de la Dernière rencontre en sol -->
-                        <div class="pnc-info">
-                            <label>{{ 'PNC_CARD.LAST_PROFESSIONAL_INTERVIEW_DATE' | translate }}</label>
-                            <span class="value"
-                                [ngClass]="{'no-value' : !pnc.metadataDate?.lastProfessionalInterviewDate }">{{ pnc.metadataDate?.lastProfessionalInterviewDate | date:'dd/MM/yyyy' }}</span>
-                        </div>
+            </div>
+            <div class="flex6 aircraftSkill-workrate-container">
+                <!-- Spécialisation avion -->
+                <div class="pnc-info">
+                    <label>{{ 'PNC_CARD.AIRCRAFT_SKILL' | translate }}</label>
+                    <div class="value pnc-Array-item"
+                        [ngClass]="{'no-value' :  (!pnc.aircraftSkills || pnc.aircraftSkills.length === 0) }">
+                        <span *ngFor="let aircraftSkill of pnc.aircraftSkills">
+                            {{ aircraftSkill.aircraftType }}
+                        </span>
                     </div>
-                    <div class="flex7 career-objective-icons-container">
-                        <!-- Date de la Dernière mise à jour d'une priorité -->
-                        <div class="pnc-info">
-                            <label>{{ 'PNC_CARD.LAST_CAREER_OBJECTIVE_UPDATE_DATE' | translate }}</label>
-                            <span class="value"
-                                [ngClass]="{'no-value' : !pnc.metadataDate?.lastCareerObjectiveUpdateDate }">{{ pnc.metadataDate?.lastCareerObjectiveUpdateDate | date:'dd/MM/yyyy' }}</span>
-                        </div>
-                        <div class="icons-container">
-                            <!-- Prioritaire -->
-                            <div [ngClass]="{'career-objective-info' : true, ' sub-flag-panel' : pnc.prioritized}">
-                                <label>{{ 'PNC_CARD.HAS_PRIORITIZED' | translate}}</label>
-                                <span class="value"
-                                    [ngClass]="{'no-value' : !pnc.prioritized, 'edospnc-flag prioritized' : pnc.prioritized }"></span>
-                            </div>
-                            <!-- Si au moins une Priorité en cours -->
-                            <div
-                                [ngClass]="{'career-objective-info' : true, ' sub-flag-panel' : pnc.hasAtLeastOneCareerObjectiveInProgress}">
-                                <label>{{ 'PNC_CARD.HAS_CAREER_OBJECTIVE_IN_PROGRESS' | translate}}</label>
-                                <span class="value"
-                                    [ngClass]="{'no-value' : !pnc.hasAtLeastOneCareerObjectiveInProgress, 'edospnc-flag  at-least-one-career-objective' : pnc.hasAtLeastOneCareerObjectiveInProgress }"></span>
-                            </div>
-                            <!--Particularié-->
-                            <div
-                                [ngClass]="{'particularity-info' : true, ' sub-flag-panel' : crewMember?.particularity}">
-                                <label>{{ 'PNC_CARD.PARTICULARITY' | translate}}</label>
-                                <span class="value"
-                                    [ngClass]="{'no-value' : !crewMember?.particularity}">{{crewMember?.particularity}}</span>
-                            </div>
-                        </div>
+                </div>
+                <!-- rythme de travail-->
+                <div class="pnc-info">
+                    <label>{{ 'PNC_CARD.WORK_RATE' | translate }}</label>
+                    <span class="value" [ngClass]="{'no-value' : !pnc.workRate }">{{ pnc.workRate }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="last-info-container">
+            <div class="flex5 encounter-flight-ground">
+                <!-- Date de la Dernière rencontre en vol -->
+                <div class="pnc-info">
+                    <label>{{ 'PNC_CARD.LAST_EOBSERVATION_DATE' | translate }}</label>
+                    <span class="value"
+                        [ngClass]="{'no-value' : !pnc.metadataDate?.lastEObservationDate }">{{ pnc.metadataDate?.lastEObservationDate | date:'dd/MM/yyyy' }}</span>
+                </div>
+                <!-- Date de la Dernière rencontre en sol -->
+                <div class="pnc-info">
+                    <label>{{ 'PNC_CARD.LAST_PROFESSIONAL_INTERVIEW_DATE' | translate }}</label>
+                    <span class="value"
+                        [ngClass]="{'no-value' : !pnc.metadataDate?.lastProfessionalInterviewDate }">{{ pnc.metadataDate?.lastProfessionalInterviewDate | date:'dd/MM/yyyy' }}</span>
+                </div>
+            </div>
+            <div class="flex7 career-objective-icons-container">
+                <!-- Date de la Dernière mise à jour d'une priorité -->
+                <div class="pnc-info">
+                    <label>{{ 'PNC_CARD.LAST_CAREER_OBJECTIVE_UPDATE_DATE' | translate }}</label>
+                    <span class="value"
+                        [ngClass]="{'no-value' : !pnc.metadataDate?.lastCareerObjectiveUpdateDate }">{{ pnc.metadataDate?.lastCareerObjectiveUpdateDate | date:'dd/MM/yyyy' }}</span>
+                </div>
+                <div class="icons-container">
+                    <!-- Prioritaire -->
+                    <div [ngClass]="{'career-objective-info' : true, ' sub-flag-panel' : pnc.prioritized}">
+                        <label>{{ 'PNC_CARD.HAS_PRIORITIZED' | translate}}</label>
+                        <span class="value"
+                            [ngClass]="{'no-value' : !pnc.prioritized, 'edospnc-flag prioritized' : pnc.prioritized }"></span>
+                    </div>
+                    <!-- Si au moins une Priorité en cours -->
+                    <div
+                        [ngClass]="{'career-objective-info' : true, ' sub-flag-panel' : pnc.hasAtLeastOneCareerObjectiveInProgress}">
+                        <label>{{ 'PNC_CARD.HAS_CAREER_OBJECTIVE_IN_PROGRESS' | translate}}</label>
+                        <span class="value"
+                            [ngClass]="{'no-value' : !pnc.hasAtLeastOneCareerObjectiveInProgress, 'edospnc-flag  at-least-one-career-objective' : pnc.hasAtLeastOneCareerObjectiveInProgress }"></span>
+                    </div>
+                    <!--Particularié-->
+                    <div [ngClass]="{'particularity-info' : true, ' sub-flag-panel' : crewMember?.particularity}">
+                        <label>{{ 'PNC_CARD.PARTICULARITY' | translate}}</label>
+                        <span class="value"
+                            [ngClass]="{'no-value' : !crewMember?.particularity}">{{crewMember?.particularity}}</span>
                     </div>
                 </div>
             </div>
