@@ -43,9 +43,7 @@
         padding: 10px;
 
         .main-info-container {
-            display: flex;
-            flex: 2;
-
+            flex: 1;
 
             .photo-container {
                 width: 120px;
@@ -64,17 +62,18 @@
                     top: 0;
                 }
             }
+        }
+
+        .right-info-container {
+            display: inline;
+            flex: 8;
 
             .identity {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
+                margin-left: 20px;
+
 
                 span {
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
+                    margin: 0 5px;
                 }
 
                 .speciality {
@@ -91,68 +90,72 @@
                     color: var(--ion-color-grey20);
                 }
             }
-        }
 
-        .secondary-info-container {
-            flex: 4;
-            display: flex;
-        }
-
-        .last-info-container {
-            flex: 6;
-            display: flex;
-
-            .icons-container {
+            .additional-informations {
                 display: flex;
-                justify-content: space-evenly;
 
-                .sub-flag-panel {
+                .secondary-info-container {
+                    flex: 5;
                     display: flex;
-                    justify-content: flex-end;
-                    align-items: center;
-
-                    label {
-                        padding-bottom: 6px;
-                    }
-
-                    & > span {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        border-radius: 100%;
-                        height: 35px;
-                        width: 35px;
-                        border: 3px solid;
-                    }
-
-                    .prioritized {
-                        color: var(--ion-color-secondary);
-                        border-color: var(--ion-color-secondary);
-                    }
-
-                    .at-least-one-career-objective {
-                        color: var(--ion-color-primary);
-                        border-color: var(--ion-color-primary);
-                    }
                 }
 
-                .particularity {
+                .last-info-container {
+                    flex: 7;
+                    display: flex;
 
-                    span {
-                        color: var(--ion-color-grey50);
-                        margin-top: 10px;
+                    .icons-container {
                         display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        border-radius: 100%;
-                        border: 3px solid var(--ion-color-grey50);
-                        height: 35px;
-                        width: 35px;
+                        justify-content: space-evenly;
+
+                        .sub-flag-panel {
+                            display: flex;
+                            justify-content: flex-end;
+                            align-items: center;
+
+                            label {
+                                padding-bottom: 6px;
+                            }
+
+                            & > span {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 100%;
+                                height: 35px;
+                                width: 35px;
+                                border: 3px solid;
+                            }
+
+                            .prioritized {
+                                color: var(--ion-color-secondary);
+                                border-color: var(--ion-color-secondary);
+                            }
+
+                            .at-least-one-career-objective {
+                                color: var(--ion-color-primary);
+                                border-color: var(--ion-color-primary);
+                            }
+                        }
+
+                        .particularity {
+
+                            span {
+                                color: var(--ion-color-grey50);
+                                margin-top: 10px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 100%;
+                                border: 3px solid var(--ion-color-grey50);
+                                height: 35px;
+                                width: 35px;
+                            }
+                        }
                     }
+
                 }
+
             }
-
         }
-
     }
 }
