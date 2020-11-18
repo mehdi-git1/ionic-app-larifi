@@ -12,58 +12,58 @@ export class PlatformMock {
     return true;
   }
 
-  public registerBackButtonAction(fn: Function, career-objective ?: number): Function {
-  return (() => true);
-}
+  public registerBackButtonAction(fn: Function, careerObjective?: number): Function {
+    return (() => true);
+  }
 
   public hasFocus(ele: HTMLElement): boolean {
-  return true;
-}
+    return true;
+  }
 
   public doc(): HTMLDocument {
-  return document;
-}
+    return document;
+  }
 
   public is(): boolean {
-  return true;
-}
+    return true;
+  }
 
   public getElementComputedStyle(container: any): any {
-  return {
-    paddingLeft: '10',
-    paddingTop: '10',
-    paddingRight: '10',
-    paddingBottom: '10',
-  };
-}
+    return {
+      paddingLeft: '10',
+      paddingTop: '10',
+      paddingRight: '10',
+      paddingBottom: '10',
+    };
+  }
 
   public onResize(callback: any) {
-  return callback;
-}
+    return callback;
+  }
 
   public registerListener(ele: any, eventName: string, callback: any): Function {
-  return (() => true);
-}
+    return (() => true);
+  }
 
   public win(): Window {
-  return window;
-}
+    return window;
+  }
 
   public raf(callback: any): number {
-  return 1;
-}
+    return 1;
+  }
 
   public timeout(callback: any, timer: number): any {
-  return setTimeout(callback, timer);
-}
+    return setTimeout(callback, timer);
+  }
 
   public cancelTimeout(id: any) {
-  // do nothing
-}
+    // do nothing
+  }
 
   public getActiveElement(): any {
-  return document['activeElement'];
-}
+    return document['activeElement'];
+  }
 }
 
 export class StatusBarMock extends StatusBar {
