@@ -270,7 +270,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.formOnChanges();
       this.search();
     }
-    this.enabledFilters.emit(this.countEnabledFilter());
+    this.enabledFilters.emit(this.countEnabledFilters());
   }
 
   /**
@@ -302,7 +302,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasEobsOlderThan18Months = val.hasEobsOlderThan18MonthsControl;
       this.filters.hasManifex = val.hasManifexControl;
       this.filters.hasProfessionalInterviewOlderThan24Months = val.hasProfessionalInterviewOlderThan24MonthsControl;
-      this.enabledFilters.emit(this.countEnabledFilter());
+      this.enabledFilters.emit(this.countEnabledFilters());
     });
   }
 
@@ -310,7 +310,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Compte le nombre de filtres activés
    * @return nombre de filtres activés
    */
-  private countEnabledFilter(): number {
+  private countEnabledFilters(): number {
       return (Object.values(this.searchForm.value).filter((v: string | boolean) => v && (v !== AppConstant.ALL)).length);
   }
 
