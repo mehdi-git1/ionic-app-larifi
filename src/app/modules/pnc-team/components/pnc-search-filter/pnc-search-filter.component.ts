@@ -1,8 +1,9 @@
-import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
+import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatExpansionPanel } from '@angular/material';
 import { Events, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,7 +17,6 @@ import { SectorModel } from '../../../../core/models/sector.model';
 import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { MatExpansionPanel } from '@angular/material';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -32,6 +32,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
   @Output() filtersChanged = new EventEmitter<PncFilterModel>();
 
   @Output() pncSelected: EventEmitter<any> = new EventEmitter();
+
+  @Output() enabledFilters: EventEmitter<number> = new EventEmitter();
 
   defaultDivision: string;
   defaultSector: string;
@@ -283,7 +285,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Fonction permettant de détecter et de gérer les changements de valeur des différents éléments du formulaire
    */
   formOnChanges() {
-    this.searchForm.valueChanges.subscribe(val => {
+    this.searchForm.valueChanges.subscribe((val) => {
       this.filters.ginq = val.ginqControl;
       this.filters.speciality = val.specialityControl;
       this.filters.aircraftSkill = val.aircraftSkillControl;
@@ -300,8 +302,12 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasManifex = val.hasManifexControl;
       this.filters.hasProfessionalInterviewOlderThan24Months = val.hasProfessionalInterviewOlderThan24MonthsControl;
 
+      // émet le nombre de filtres activés
+      this.enabledFilters.emit(Object.values(val).filter((v: string | boolean) => v && (v !== AppConstant.ALL)).length);
     });
   }
+
+ 
 
   /**
    * Active le rechargement des secteurs à chaque modification de division

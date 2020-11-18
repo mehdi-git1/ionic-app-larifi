@@ -1,23 +1,19 @@
-import { PagePositionEnum } from './../../../../core/enums/page-position.enum';
 import { from, Observable, Subject } from 'rxjs';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Events, IonInfiniteScroll } from '@ionic/angular';
+import { Events } from '@ionic/angular';
 
 import { AppConstant } from '../../../../app.constant';
+import { PagePositionEnum } from '../../../../core/enums/page-position.enum';
 import { PncSearchModeEnum } from '../../../../core/enums/pnc-search-mode.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import {
-    PncSearchFilterComponent
-} from '../../components/pnc-search-filter/pnc-search-filter.component';
 
 @Component({
     selector: 'page-pnc-search',
@@ -40,6 +36,7 @@ export class PncSearchPage implements AfterViewInit {
     isMenuOpened = false;
     isLoading = true;
 
+    enabledFilters = 0;
     // Expose l'enum au template
     TabHeaderEnum = TabHeaderEnum;
 
@@ -84,6 +81,15 @@ export class PncSearchPage implements AfterViewInit {
     launchSearch() {
         this.filters.pagePosition = PagePositionEnum.FIRST;
         this.filtersSubject.next(this.filters);
+    }
+
+    /**
+     * Assigne la valeur du nombre de filtres activés
+     *
+     * @param activeFilters le nombre de filtres activés
+     */
+    setEnabledFilters(activeFilters: number) {
+        this.enabledFilters = activeFilters;
     }
 
     /**

@@ -5,7 +5,8 @@
                 <ion-fab-button (click)="toggleFiltersMenu()" size="small" color="primarydark">
                     <span class="edospnc-filter-sharp"></span>
                 </ion-fab-button>
-                {{ 'PNC_SEARCH.CRITERIA.FILTER' | translate }}
+
+                {{ 'PNC_SEARCH.CRITERIA.FILTER' | translate }} ({{enabledFilters}})
             </span>
             <ng-container slot="center">
                 <ng-container *ngIf="isAlternantSearch(); else alternantSearchTitle">{{ 'GLOBAL.ALTERNANT_TEAM' | translate }}</ng-container>
@@ -19,7 +20,7 @@
 <ion-content forceOverscroll="true" scroll-y="false">
     <mat-sidenav-container>
         <mat-sidenav [(opened)]="isMenuOpened" mode="side">
-            <pnc-search-filter [filters]="filters" [searchMode]="searchMode" (filtersChanged)="launchSearch()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
+            <pnc-search-filter [filters]="filters" [searchMode]="searchMode" (filtersChanged)="launchSearch()" (pncSelected)="openPncHomePage($event)" (enabledFilters)="setEnabledFilters($event)"></pnc-search-filter>
         </mat-sidenav>
         <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
             <div class="page-container">
