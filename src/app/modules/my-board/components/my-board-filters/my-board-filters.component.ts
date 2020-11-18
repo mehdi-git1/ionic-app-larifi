@@ -25,9 +25,9 @@ export class MyBoardFiltersComponent implements AfterViewInit {
     @Input() notificationSummary: MyBoardNotificationSummaryModel;
 
     @Output() filtersChanged = new EventEmitter<MyBoardNotificationFilterModel>();
+    @Output() enableFilters = new EventEmitter<number>();
 
     filterForm: FormGroup;
-
     documentTypes: Array<any>;
 
     constructor(
@@ -68,16 +68,22 @@ export class MyBoardFiltersComponent implements AfterViewInit {
         }, { validators: dateRangeValidator });
 
         this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
+            // Les filtres sur l'intervalle de date étant obligatoirement activés, on initialise le compte à 2.
+            let enabledFiltersCount = 2;
             if (this.filterForm.valid) {
-                this.filters.documentTypes = [...newForm.documentTypes];
+                this.filters.documentTypes = newForm.documentTypes;
+                enabledFiltersCount = enabledFiltersCount + this.filters.documentTypes.length;
                 this.filters.creationStartDate = Utils.isEmpty(newForm.creationStartDate) ? '' : new Date(newForm.creationStartDate)
                     .toISOString();
                 this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
                     .toISOString();
                 this.filters.archived = newForm.archived;
+                enabledFiltersCount += (this.filters.archived) ? 1 : 0;
                 this.filtersChanged.next();
+                this.enableFilters.next(enabledFiltersCount);
             }
         });
+
     }
 
     /**

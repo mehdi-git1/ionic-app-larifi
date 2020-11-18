@@ -5,7 +5,7 @@
                 <ion-fab-button (click)="toggleFiltersMenu()" size="small" color="primarydark">
                     <span class="edospnc-filter-sharp"></span>
                 </ion-fab-button>
-                {{ 'MY_BOARD.FILTER' | translate }}
+                {{ 'MY_BOARD.FILTER' | translate }} ({{enabledFiltersCount}})
             </span>
             <span slot="center">{{'MY_BOARD.TITLE' | translate}}</span>
         </page-header>
@@ -48,7 +48,7 @@
     <ng-template #onlineBlock>
         <mat-sidenav-container>
             <mat-sidenav [(opened)]="isMenuOpened" mode="side">
-                <my-board-filters [filters]="filters" [notificationSummary]="myBoardNotificationSummary" (filtersChanged)="applyFilters()"></my-board-filters>
+                <my-board-filters [filters]="filters" [notificationSummary]="myBoardNotificationSummary" (filtersChanged)="applyFilters()" (enableFilters)="setEnabledFiltersCount($event)"></my-board-filters>
             </mat-sidenav>
 
             <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
