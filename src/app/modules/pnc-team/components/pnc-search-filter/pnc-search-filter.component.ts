@@ -270,6 +270,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.formOnChanges();
       this.search();
     }
+    this.enabledFilters.emit(this.countEnabledFilter());
   }
 
   /**
@@ -301,13 +302,17 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasEobsOlderThan18Months = val.hasEobsOlderThan18MonthsControl;
       this.filters.hasManifex = val.hasManifexControl;
       this.filters.hasProfessionalInterviewOlderThan24Months = val.hasProfessionalInterviewOlderThan24MonthsControl;
-
-      // émet le nombre de filtres activés
-      this.enabledFilters.emit(Object.values(val).filter((v: string | boolean) => v && (v !== AppConstant.ALL)).length);
+      this.enabledFilters.emit(this.countEnabledFilter());
     });
   }
 
- 
+  /**
+   * Compte le nombre de filtres activés
+   * @return nombre de filtres activés
+   */
+  private countEnabledFilter(): number {
+      return (Object.values(this.searchForm.value).filter((v: string | boolean) => v && (v !== AppConstant.ALL)).length);
+  }
 
   /**
    * Active le rechargement des secteurs à chaque modification de division

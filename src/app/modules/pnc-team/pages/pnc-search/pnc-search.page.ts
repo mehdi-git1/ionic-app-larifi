@@ -36,7 +36,7 @@ export class PncSearchPage implements AfterViewInit {
     isMenuOpened = false;
     isLoading = true;
 
-    enabledFilters = 0;
+    enabledFiltersCount = 0;
     // Expose l'enum au template
     TabHeaderEnum = TabHeaderEnum;
 
@@ -86,10 +86,10 @@ export class PncSearchPage implements AfterViewInit {
     /**
      * Assigne la valeur du nombre de filtres activés
      *
-     * @param activeFilters le nombre de filtres activés
+     * @param enabledFiltersCount le nombre de filtres activés
      */
-    setEnabledFilters(activeFilters: number) {
-        this.enabledFilters = activeFilters;
+    setEnabledFiltersCount(enabledFiltersCount: number) {
+        this.enabledFiltersCount = enabledFiltersCount;
     }
 
     /**
