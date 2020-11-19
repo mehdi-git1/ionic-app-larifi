@@ -1,4 +1,4 @@
-import { PncMetadataDateModel } from './pc-metadata-date.model';
+import { PncMetadataDateModel } from './pnc-metadata-date.model';
 import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
 
 import { GenderEnum } from '../enums/gender.enum';
