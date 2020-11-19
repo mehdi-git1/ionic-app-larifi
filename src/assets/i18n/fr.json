@@ -128,6 +128,19 @@
         },
         "LOADING_EDOSSIER_MESSAGE": "Chargement du eDossier..."
     },
+    "PNC_CARD":{
+        "ASSIGNMENT":"Affectation",
+        "RELAYS": "Relais",
+        "FUNCTION": "Fonction",
+        "AIRCRAFT_SKILL": "Spécialisation avion",
+        "WORK_RATE": "Rythme",
+        "LAST_EOBSERVATION_DATE":"Dernière eObs",
+        "LAST_PROFESSIONAL_INTERVIEW_DATE":"Dernier BP/EPP",
+        "LAST_CAREER_OBJECTIVE_UPDATE_DATE":"Dernière mise à jour d'une priorité",
+        "HAS_PRIORITIZED":"Majeure",
+        "HAS_CAREER_OBJECTIVE_IN_PROGRESS":"En cours",
+        "PARTICULARITY":"PNC positionné"
+    },
     "AUTHENT": {
         "AUTHENTICATION": "Authentification",
         "LOGIN": "Identifiant",
@@ -309,12 +322,6 @@
     },
     "FLIGHT_CREW_LIST": {
         "TITLE": "Liste équipage",
-        "LIST": {
-            "RELAYS": "Relais",
-            "FUNCTION": "Fonction",
-            "LAST_IN_FLIGHT_ENCOUNTER_DATE": "Dernière rencontre Vol (eObs)",
-            "LAST_ON_GROUND_ENCOUNTER_DATE": "Dernière rencontre Sol (BP)"
-        },
         "ERROR": "Erreur lors de la récupération de la liste équipage du vol {{flightNumber}}"
     },
     "UPCOMING_FLIGHT_LIST": {
@@ -725,20 +732,20 @@
               "LAST_PROFESSIONAL_INTERVIEW": "Dernier BP",
               "LAST_UPDATED_CAREER_OBJECTIVE": "Dernière prio mise à jour"
             },
-            "ENCOUNTER_FLIGHT_GROUND": {
-                "TITLE": "Rencontres vol/sol",
+            "ENCOUNTER_FLIGHT_GROUND" :{
+                "TITLE":"Rencontres vol/sol",
                 "EOBS_OLDER_THAN_18_MONTHS": "Dernière eObs > 18 mois",
                 "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH": "Dernier BP/EPP > 24 mois"
             },
-            "PRIORITY": {
+            "CAREER_OBJECTIVE": {
                 "TITLE": "Priorités",
-                "PRIORITY_CATEGORY": "Catégorie priorités",
+                "CAREER_OBJECTIVE_CATEGORY": "Catégorie priorités",
                 "PRIORITIZED": "Majeure",
-                "PRIORITY_IN_PROGRESS": "En cours",
-                "NO_PRIORITY": "Aucune en cours",
+                "CAREER_OBJECTIVE_IN_PROGRESS": "En cours",
+                "NO_CAREER_OBJECTIVE": "Aucune en cours",
                 "PRIORITIZED_SHORT": "Majeure",
-                "PRIORITY_IN_PROGRESS_SHORT": "En cours",
-                "NO_PRIORITY_SHORT": "Aucune en cours"
+                "CAREER_OBJECTIVE_IN_PROGRESS_SHORT": "En cours",
+                "NO_CAREER_OBJECTIVE_SHORT": "Aucune en cours"
             },
             "MISSION": {
                 "TITLE": "Missions",

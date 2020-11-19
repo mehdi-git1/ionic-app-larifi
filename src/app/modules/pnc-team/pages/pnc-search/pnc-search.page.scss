@@ -3,12 +3,16 @@
     align-items: center;
 }
 
+ion-content {
+    --keyboard-offset: 0px !important;
+}
+
 mat-sidenav-container {
     height: 100%;
 }
 
 mat-sidenav {
-    width: 320px;
+    width: 332px;
     padding-top: 8px;
     padding-left: 15px;
     padding-right: 15px;
