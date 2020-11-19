@@ -38,8 +38,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
   defaultGinq: string;
   defaultValue: boolean;
   prioritized: boolean;
-  priority: boolean;
-  noPriority: boolean;
+  careerObjective: boolean;
+  noCareerObjective: boolean;
 
   searchForm: FormGroup;
 
@@ -154,32 +154,30 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0].code : AppConstant.ALL;
     this.filters.priorityCategoryCode = this.priorityCategoryList && this.priorityCategoryList.length === 1 ? this.priorityCategoryList[0].code : AppConstant.ALL;
     this.filters.prioritized = false;
-    this.filters.hasAtLeastOnePriorityInProgress = false;
-    this.filters.hasNoPriority = false;
+    this.filters.hasAtLeastOneCareerObjectiveInProgress = false;
+    this.filters.hasNoCareerObjective = false;
     this.filters.workRate = this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : undefined;
     this.filters.taf = false;
     this.filters.hasManifex = false;
     this.filters.hasEobsOlderThan18Months = false;
     this.filters.hasProfessionalInterviewOlderThan24Months = false;
-
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
     this.searchForm.get('workRateControl').setValue(this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : AppConstant.ALL);
     this.searchForm.get('priorityCategoryControl').setValue(this.priorityCategoryList && this.priorityCategoryList.length === 1 ? this.priorityCategoryList[0] : AppConstant.ALL);
     this.searchForm.get('prioritizedControl').setValue(false);
-    this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(false);
-    this.searchForm.get('hasNoPriorityControl').setValue(false);
+    this.searchForm.get('hasAtLeastOneCareerObjectiveInProgressControl').setValue(false);
+    this.searchForm.get('hasNoCareerObjectiveControl').setValue(false);
     this.searchForm.get('hasDefaultHiddenEventsControl').setValue(false);
     this.searchForm.get('hasHiddenEventsControl').setValue(false);
     this.searchForm.get('tafControl').setValue(false);
     this.searchForm.get('hasManifexControl').setValue(false);
     this.searchForm.get('hasEobsOlderThan18MonthsControl').setValue(false);
     this.searchForm.get('hasProfessionalInterviewOlderThan24MonthsControl').setValue(false);
-
     this.defaultValue = false;
-    this.priority = false;
-    this.noPriority = false;
+    this.careerObjective = false;
+    this.noCareerObjective = false;
     this.prioritized = false;
   }
 
@@ -226,15 +224,15 @@ export class PncSearchFilterComponent implements AfterViewInit {
       }),
       prioritizedControl: new FormControl({
         value: [false],
-        disabled: this.noPriority || this.areFiltersDisabled()
+        disabled: this.noCareerObjective || this.areFiltersDisabled()
       }),
-      hasAtLeastOnePriorityInProgressControl: new FormControl({
+      hasAtLeastOneCareerObjectiveInProgressControl: new FormControl({
         value: [false],
-        disabled: this.noPriority || this.areFiltersDisabled()
+        disabled: this.noCareerObjective || this.areFiltersDisabled()
       }),
-      hasNoPriorityControl: new FormControl({
+      hasNoCareerObjectiveControl: new FormControl({
         value: [false],
-        disabled: this.prioritized || this.noPriority || this.areFiltersDisabled()
+        disabled: this.prioritized || this.noCareerObjective || this.areFiltersDisabled()
       }),
       hasDefaultHiddenEventsControl: new FormControl({
         value: [false],
@@ -248,7 +246,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
         value: [false],
         disabled: this.areFiltersDisabled()
       }),
-
       hasProfessionalInterviewOlderThan24MonthsControl: new FormControl({
         value: [false],
         disabled: this.areFiltersDisabled()
@@ -290,8 +287,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.relay = val.relayControl;
       this.filters.priorityCategoryCode = val.priorityCategoryControl;
       this.filters.prioritized = val.prioritizedControl;
-      this.filters.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
-      this.filters.hasNoPriority = val.hasNoPriorityControl;
+      this.filters.hasAtLeastOneCareerObjectiveInProgress = val.hasAtLeastOneCareerObjectiveInProgressControl;
+      this.filters.hasNoCareerObjective = val.hasNoCareerObjectiveControl;
       this.filters.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
       this.filters.hasHiddenEvents = val.hasHiddenEventsControl;
       this.filters.workRate = val.workRateControl;

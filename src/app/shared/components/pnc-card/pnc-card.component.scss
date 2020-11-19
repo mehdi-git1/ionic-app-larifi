@@ -8,29 +8,76 @@
         background: var(--ion-color-grey95);
     }
 
+    label {
+        white-space: nowrap;
+    }
+
+    .pnc-info {
+        min-width: 145px;
+    }
+
+    .pnc-info,
+    .career-objective-info,
+    .particularity-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .main-info-container,
+    .secondary-info-container,
+    .last-info-container {
+        @media (max-width: 1000px) {
+            display: inline !important;
+        }
+
+        .identity,
+        .assignment-relay-container,
+        .aircraftSkill-workrate-container,
+        .encounter-flight-ground,
+        .career-objective-icons-container {
+            margin: 5px 0px;
+        }
+    }
+
     .pnc-container {
         display: flex;
         width: 100%;
         padding: 10px;
 
-        .main-info {
-            flex: 5;
+        .main-info-container {
             display: flex;
+            flex: 2;
 
-            pnc-photo {
-                align-self: center;
+
+            .photo-container {
+                width: 120px;
+                padding-left: 20px;
+                padding-top: 15px;
+                position: relative;
+                margin: 0 auto;
+
+                pnc-photo {
+                    padding-top: 25px;
+                }
+
+                download-button {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                }
             }
 
             .identity {
-                flex: 1;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                min-width: 166px;
 
                 span {
                     text-overflow: ellipsis;
-                    white-space: nowrap;
                     overflow: hidden;
                 }
 
@@ -50,86 +97,66 @@
             }
         }
 
-        .secondary-info {
-            flex: 10;
+        .secondary-info-container {
+            flex: 4;
+            display: flex;
+        }
+
+        .last-info-container {
+            flex: 6;
             display: flex;
 
-            .left-panel {
-                flex: 1;
+            .icons-container {
                 display: flex;
-                flex-direction: column;
-                justify-content: space-around;
+                justify-content: space-evenly;
+
+                .sub-flag-panel {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    label {
+                        padding-bottom: 6px;
+                    }
+
+                    & > span {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 100%;
+                        height: 35px;
+                        width: 35px;
+                        border: 3px solid;
+                    }
+
+                    .prioritized {
+                        color: var(--ion-color-secondary);
+                        border-color: var(--ion-color-secondary);
+                    }
+
+                    .at-least-one-career-objective {
+                        color: var(--ion-color-primary);
+                        border-color: var(--ion-color-primary);
+                    }
+                }
+
+                .particularity {
+
+                    span {
+                        color: var(--ion-color-grey50);
+                        margin-top: 10px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 100%;
+                        border: 3px solid var(--ion-color-grey50);
+                        height: 35px;
+                        width: 35px;
+                    }
+                }
             }
 
-            .right-panel {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-around;
-            }
-
-            .pnc-info {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
         }
 
-        .flag-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: space-between;
-
-            font-size: 1.5em;
-
-            .fab {
-                margin: 0;
-            }
-        }
-
-        .sub-flag-panel {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            padding-top: 10px;
-
-            & > span {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-left: 10px;
-                border-radius: 100%;
-                height: 35px;
-                width: 35px;
-                border: 3px solid;
-            }
-
-            .prioritized {
-                color: var(--ion-color-secondary);
-                border-color: var(--ion-color-secondary);
-            }
-
-            .at-least-one-priority {
-                color: var(--ion-color-primary);
-                border-color: var(--ion-color-primary);
-            }
-        }
-
-        .particularity {
-
-            span {
-                color: var(--ion-color-grey50);
-                margin-top: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 100%;
-                border: 3px solid var(--ion-color-grey50);
-                height: 35px;
-                width: 35px;
-            }
-        }
     }
 }
