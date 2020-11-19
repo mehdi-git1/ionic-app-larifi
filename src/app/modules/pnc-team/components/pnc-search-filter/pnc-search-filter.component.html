@@ -174,7 +174,7 @@
                         <ion-label>
                             {{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.CAREER_OBJECTIVE_IN_PROGRESS' | translate }}<span
                                 class="edospnc-flag at-least-one-career-objective"></span></ion-label>
-                        <ion-checkbox slot="end" [(ngModel)]="career-objective" [disabled]="noCareerObjective"
+                        <ion-checkbox slot="end" [(ngModel)]="careerObjective" [disabled]="noCareerObjective"
                             formControlName="hasAtLeastOneCareerObjectiveInProgressControl"></ion-checkbox>
                     </ion-item>
                     <!-- Pas de priorité -->
@@ -182,7 +182,7 @@
                         <ion-label>{{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.NO_CAREER_OBJECTIVE' | translate }}
                         </ion-label>
                         <ion-checkbox slot="end" [(ngModel)]="noCareerObjective"
-                            [disabled]="prioritized || career-objective" formControlName="hasNoCareerObjectiveControl">
+                            [disabled]="prioritized || careerObjective" formControlName="hasNoCareerObjectiveControl">
                         </ion-checkbox>
                     </ion-item>
                 </div>
