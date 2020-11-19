@@ -12,8 +12,8 @@ export class PncFilterModel {
   aircraftSkill: string;
   relay: string;
   prioritized: boolean;
-  hasAtLeastOnePriorityInProgress: boolean;
-  hasNoPriority: boolean;
+  hasAtLeastOneCareerObjectiveInProgress: boolean;
+  hasNoCareerObjective: boolean;
   hasHiddenEvents: boolean;
   hasDefaultHiddenEvents: boolean;
   priorityCategoryCode: string;
