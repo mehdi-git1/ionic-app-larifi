@@ -2,7 +2,7 @@ import { CareerObjectiveStatusEnum } from './../../../../core/enums/career-objec
 import { CareerObjectiveComponent } from './career-objective.component';
 
 
-describe('career-objective.component', () => {
+describe('CareerObjectiveComponent', () => {
 
     let careerObjectiveComponent: CareerObjectiveComponent;
 

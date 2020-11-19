@@ -9,7 +9,8 @@
                 {{ 'PNC_SEARCH.CRITERIA.FILTER' | translate }} ({{enabledFiltersCount}})
             </span>
             <ng-container slot="center">
-                <ng-container *ngIf="isAlternantSearch(); else alternantSearchTitle">{{ 'GLOBAL.ALTERNANT_TEAM' | translate }}</ng-container>
+                <ng-container *ngIf="isAlternantSearch(); else alternantSearchTitle">
+                    {{ 'GLOBAL.ALTERNANT_TEAM' | translate }}</ng-container>
                 <ng-template #alternantSearchTitle>{{ 'GLOBAL.PNC_TEAM' | translate }}</ng-template>
             </ng-container>
         </page-header>
