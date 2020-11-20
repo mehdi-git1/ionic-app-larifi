@@ -75,23 +75,17 @@
                 </div>
                 <div class="icons-container">
                     <!-- Prioritaire -->
-                    <div [ngClass]="{'career-objective-info' : true, ' sub-flag-panel' : pnc.prioritized}">
-                        <label>{{ 'PNC_CARD.HAS_PRIORITIZED' | translate}}</label>
-                        <span class="value"
-                            [ngClass]="{'no-value' : !pnc.prioritized, 'edospnc-flag prioritized' : pnc.prioritized }"></span>
+                    <div *ngIf="pnc.prioritized"
+                        [ngClass]="{'career-objective-info' : true, ' sub-flag-panel' : pnc.prioritized}">
+                        <span class="value edospnc-flag prioritized"></span>
                     </div>
                     <!-- Si au moins une Priorité en cours -->
-                    <div
-                        [ngClass]="{'career-objective-info' : true, ' sub-flag-panel' : pnc.hasAtLeastOneCareerObjectiveInProgress}">
-                        <label>{{ 'PNC_CARD.HAS_CAREER_OBJECTIVE_IN_PROGRESS' | translate}}</label>
-                        <span class="value"
-                            [ngClass]="{'no-value' : !pnc.hasAtLeastOneCareerObjectiveInProgress, 'edospnc-flag  at-least-one-career-objective' : pnc.hasAtLeastOneCareerObjectiveInProgress }"></span>
+                    <div *ngIf="pnc.hasAtLeastOnePriorityInProgress" class="career-objective-info sub-flag-panel">
+                        <span class="value edospnc-flag  at-least-one-career-objective"></span>
                     </div>
                     <!--Particularié-->
-                    <div [ngClass]="{'particularity-info' : true, ' sub-flag-panel' : crewMember?.particularity}">
-                        <label>{{ 'PNC_CARD.PARTICULARITY' | translate}}</label>
-                        <span class="value"
-                            [ngClass]="{'no-value' : !crewMember?.particularity}">{{crewMember?.particularity}}</span>
+                    <div *ngIf="isCrewMember && crewMember?.particularity" class="particularity-info sub-flag-panel">
+                        <span class="value">{{crewMember?.particularity}}</span>
                     </div>
                 </div>
             </div>

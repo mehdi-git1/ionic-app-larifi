@@ -89,6 +89,7 @@
                 .firstname {
                     font-size: 1.2em;
                     color: var(--ion-color-primary);
+                    white-space: nowrap;
                 }
 
                 .matricule {
@@ -108,12 +109,14 @@
 
             .icons-container {
                 display: flex;
-                justify-content: space-evenly;
+                justify-content: center;
 
                 .sub-flag-panel {
                     display: flex;
                     justify-content: flex-end;
                     align-items: center;
+                    margin: 15px;
+                    margin-bottom: 0;
 
                     label {
                         padding-bottom: 6px;

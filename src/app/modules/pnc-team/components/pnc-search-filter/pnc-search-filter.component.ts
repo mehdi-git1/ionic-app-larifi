@@ -51,10 +51,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
   aircraftSkillList: string[];
   specialityList: string[];
   workRateList: number[];
-  priorityCategoryList: Array<CareerObjectiveCategory>;
+  careerObjectiveCategoryList: Array<CareerObjectiveCategory>;
 
   outOfDivision: boolean;
-  priorityFilter;
+  careerObjectiveFilter;
 
   // Utilisé dans le template
   valueAll = AppConstant.ALL;
@@ -117,7 +117,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
           return relay1.code > relay2.code ? 1 : -1;
         });
         this.aircraftSkillList = appInitData.aircraftSkills;
-        this.priorityCategoryList = appInitData.careerObjectiveCategories;
+        this.careerObjectiveCategoryList = appInitData.careerObjectiveCategories;
       }
       if (this.isAlternantSearch()) {
         this.defaultDivision = AppConstant.ALL;
@@ -152,10 +152,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
     }
     this.filters.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
     this.filters.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0].code : AppConstant.ALL;
-    this.filters.priorityCategoryCode = this.priorityCategoryList && this.priorityCategoryList.length === 1 ? this.priorityCategoryList[0].code : AppConstant.ALL;
+    this.filters.priorityCategoryCode = this.careerObjectiveCategoryList && this.careerObjectiveCategoryList.length === 1 ? this.careerObjectiveCategoryList[0].code : AppConstant.ALL;
     this.filters.prioritized = false;
-    this.filters.hasAtLeastOneCareerObjectiveInProgress = false;
-    this.filters.hasNoCareerObjective = false;
+    this.filters.hasAtLeastOnePriorityInProgress = false;
+    this.filters.hasNoPriority = false;
     this.filters.workRate = this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : undefined;
     this.filters.taf = false;
     this.filters.hasManifex = false;
@@ -165,7 +165,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
     this.searchForm.get('workRateControl').setValue(this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : AppConstant.ALL);
-    this.searchForm.get('priorityCategoryControl').setValue(this.priorityCategoryList && this.priorityCategoryList.length === 1 ? this.priorityCategoryList[0] : AppConstant.ALL);
+    this.searchForm.get('careerObjectiveCategoryControl').setValue(this.careerObjectiveCategoryList && this.careerObjectiveCategoryList.length === 1 ? this.careerObjectiveCategoryList[0] : AppConstant.ALL);
     this.searchForm.get('prioritizedControl').setValue(false);
     this.searchForm.get('hasAtLeastOneCareerObjectiveInProgressControl').setValue(false);
     this.searchForm.get('hasNoCareerObjectiveControl').setValue(false);
@@ -218,7 +218,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
         value: [this.filters.relay ? this.filters.relay : AppConstant.ALL],
         disabled: this.areFiltersDisabled()
       }),
-      priorityCategoryControl: new FormControl({
+      careerObjectiveCategoryControl: new FormControl({
         value: [this.filters ? this.filters.priorityCategoryCode : AppConstant.ALL],
         disabled: this.areFiltersDisabled()
       }),
@@ -285,10 +285,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.speciality = val.specialityControl;
       this.filters.aircraftSkill = val.aircraftSkillControl;
       this.filters.relay = val.relayControl;
-      this.filters.priorityCategoryCode = val.priorityCategoryControl;
+      this.filters.priorityCategoryCode = val.careerObjectiveCategoryControl;
       this.filters.prioritized = val.prioritizedControl;
-      this.filters.hasAtLeastOneCareerObjectiveInProgress = val.hasAtLeastOneCareerObjectiveInProgressControl;
-      this.filters.hasNoCareerObjective = val.hasNoCareerObjectiveControl;
+      this.filters.hasAtLeastOnePriorityInProgress = val.hasAtLeastOneCareerObjectiveInProgressControl;
+      this.filters.hasNoPriority = val.hasNoCareerObjectiveControl;
       this.filters.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
       this.filters.hasHiddenEvents = val.hasHiddenEventsControl;
       this.filters.workRate = val.workRateControl;
