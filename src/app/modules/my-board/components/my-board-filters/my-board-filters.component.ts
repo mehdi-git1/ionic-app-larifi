@@ -1,3 +1,4 @@
+import { Events } from '@ionic/angular';
 import { MyBoardNotificationTypeEnum } from './../../../../core/enums/my-board/my-board-notification-type.enum';
 import * as moment from 'moment';
 import {
@@ -43,10 +44,21 @@ export class MyBoardFiltersComponent implements AfterViewInit {
         this.documentTypes = this.initDocumentTypes();
 
         this.initForm();
+
     }
 
     ngAfterViewInit() {
         this.resetFilters();
+    }
+
+    /**
+     * Initialise les filtres et les champs du formulaire 
+     * @param filters filtres myBoard
+     */
+    updatefilterForm(myBoardNotificationType: MyBoardNotificationTypeEnum) {
+        this.filters = myBoardNotificationType === MyBoardNotificationTypeEnum.ALERT ? this.sessionService.appContext.alertFilters
+            : this.sessionService.appContext.notificationFilters;
+        FormsUtil.reset(this.filterForm, this.filters);
     }
 
     /**

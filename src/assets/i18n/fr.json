@@ -773,8 +773,8 @@
     "MY_BOARD": {
         "TITLE": "MyBoard",
         "TABS":{
-            "NOTIFICATION":"Notifications ({{total}})",
-            "REMINDER":"Rappels ({{total}})"
+            "NOTIFICATION":"Notifications",
+            "REMINDER":"Rappels"
         },
         "FILTER": "Filtrer",
         "NO_NOTIFICATIONS": "Aucune notification trouvée",

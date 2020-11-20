@@ -6,7 +6,7 @@ import {
 import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-notification.model';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,6 +27,8 @@ import {
 } from '../../../../core/services/my-board/my-board-notification.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import { MyBoardFiltersComponent } from '../../components/my-board-filters/my-board-filters.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'my-board-home',
@@ -50,6 +52,8 @@ export class MyBoardHomePage {
   MyBoardNotificationTypeEnum = MyBoardNotificationTypeEnum;
   myBoardNotificationType = MyBoardNotificationTypeEnum.ALERT;
 
+  @ViewChild('myBoardFilters', { static: false }) myBoardFilters: MyBoardFiltersComponent;
+
   constructor(
     private sessionService: SessionService,
     private myBoardNotificationService: MyBoardNotificationService,
@@ -72,7 +76,6 @@ export class MyBoardHomePage {
 
   ionViewDidEnter() {
     this.filters.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
-
     this.getMyBoardNotificationSummary().then((myBoardNotificationSummary) => {
       this.myBoardNotificationType = myBoardNotificationSummary.lastMyBoardNotification ? myBoardNotificationSummary.lastMyBoardNotification.type : MyBoardNotificationTypeEnum.ALERT;
       // Si le nombre de notif a changé, on demande à l'utilisateur s'il souhaite relancer la recherche pour mettre à jour la vue
@@ -359,6 +362,9 @@ export class MyBoardHomePage {
    * Affiche les notifications
    */
   displayNotifications(): void {
+    this.sessionService.appContext.alertFilters = _.cloneDeep(this.filters);
+    this.myBoardFilters.updatefilterForm(MyBoardNotificationTypeEnum.NOTIFICATION);
+    //this.filters = this.sessionService.appContext.notificationFilters ? this.sessionService.appContext.notificationFilters : this.filters;
     this.myBoardNotificationType = MyBoardNotificationTypeEnum.NOTIFICATION;
     this.filters.type = MyBoardNotificationTypeEnum.NOTIFICATION;
     this.launchFirstSearch();
@@ -368,6 +374,9 @@ export class MyBoardHomePage {
    * Affiche les rappels
    */
   displayReminders(): void {
+    this.sessionService.appContext.notificationFilters = _.cloneDeep(this.filters);
+    this.myBoardFilters.updatefilterForm(MyBoardNotificationTypeEnum.ALERT);
+    //this.filters = this.sessionService.appContext.alertFilters ? this.sessionService.appContext.alertFilters : this.filters;
     this.myBoardNotificationType = MyBoardNotificationTypeEnum.ALERT;
     this.filters.type = MyBoardNotificationTypeEnum.ALERT;
     this.launchFirstSearch();

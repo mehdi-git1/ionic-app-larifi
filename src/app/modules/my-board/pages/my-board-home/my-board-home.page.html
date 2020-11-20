@@ -12,11 +12,11 @@
     </ion-toolbar>
     <div class="tabs">
         <button (click)="displayReminders()" [ngClass]="{'active': isTabActive(MyBoardNotificationTypeEnum.ALERT)}">
-            {{ 'MY_BOARD.TABS.REMINDER' | translate:{total:myBoardNotificationSummary.totalUncheckedAlerts} }}
+            {{ 'MY_BOARD.TABS.REMINDER' | translate}} ({{myBoardNotificationSummary.totalUncheckedAlerts}})
         </button>
         <button (click)="displayNotifications()"
             [ngClass]="{'active': isTabActive(MyBoardNotificationTypeEnum.NOTIFICATION)}">
-            {{ 'MY_BOARD.TABS.NOTIFICATION' | translate:{total:myBoardNotificationSummary.totalUncheckedNotifications} }}
+            {{ 'MY_BOARD.TABS.NOTIFICATION' | translate}} ({{myBoardNotificationSummary.totalUncheckedNotifications }})
         </button>
     </div>
     <div class="button-bar-container" *ngIf="hasNotifications()">
@@ -59,7 +59,7 @@
     <ng-template #onlineBlock>
         <mat-sidenav-container>
             <mat-sidenav [(opened)]="isMenuOpened" mode="side">
-                <my-board-filters [type]="myBoardNotificationType" [filters]="filters"
+                <my-board-filters #myBoardFilters [type]="myBoardNotificationType" [filters]="filters"
                     [notificationSummary]="myBoardNotificationSummary" (filtersChanged)="applyFilters()">
                 </my-board-filters>
             </mat-sidenav>
