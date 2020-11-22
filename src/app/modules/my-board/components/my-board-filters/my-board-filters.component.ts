@@ -1,10 +1,7 @@
+import { MyBoardNotificationFilterModel } from './../../../../core/models/my-board/my-board-notification-filter.model';
 import { Events } from '@ionic/angular';
 import { MyBoardNotificationTypeEnum } from './../../../../core/enums/my-board/my-board-notification-type.enum';
 import * as moment from 'moment';
-import {
-    MyBoardNotificationFilterModel
-} from 'src/app/core/models/my-board/my-board-notification-filter.model';
-
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,6 +12,7 @@ import {
 import { SessionService } from '../../../../core/services/session/session.service';
 import { FormsUtil } from '../../../../shared/utils/forms-util';
 import { Utils } from '../../../../shared/utils/utils';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'my-board-filters',
@@ -48,17 +46,18 @@ export class MyBoardFiltersComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.resetFilters();
+        this.resetFilters(null);
     }
 
     /**
-     * Initialise les filtres et les champs du formulaire 
-     * @param filters filtres myBoard
+     * Initialise les filtres et les champs du formulaire selon le type de notification
+     * @param myBoardNotificationType le type de notification myBoard
      */
     updatefilterForm(myBoardNotificationType: MyBoardNotificationTypeEnum) {
-        this.filters = myBoardNotificationType === MyBoardNotificationTypeEnum.ALERT ? this.sessionService.appContext.alertFilters
+        this.type = myBoardNotificationType;
+        const filters = myBoardNotificationType === MyBoardNotificationTypeEnum.ALERT ? this.sessionService.appContext.alertFilters
             : this.sessionService.appContext.notificationFilters;
-        FormsUtil.reset(this.filterForm, this.filters);
+        this.resetFilters(filters);
     }
 
     /**
@@ -93,6 +92,8 @@ export class MyBoardFiltersComponent implements AfterViewInit {
                 this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
                     .toISOString();
                 this.filters.archived = newForm.archived;
+                this.type === MyBoardNotificationTypeEnum.ALERT ? this.sessionService.appContext.alertFilters = _.cloneDeep(this.filters)
+                    : this.sessionService.appContext.notificationFilters = _.cloneDeep(this.filters);
                 this.filtersChanged.next();
             }
         });
@@ -135,11 +136,11 @@ export class MyBoardFiltersComponent implements AfterViewInit {
     /**
      * Réinitialise tous les filtres
      */
-    resetFilters() {
-        this.filters.documentTypes = new Array();
-        this.filters.creationStartDate = this.getDefaultCreationStartDate();
-        this.filters.creationEndDate = this.getDefaultCreationEndDate();
-        this.filters.archived = false;
+    resetFilters(filters: MyBoardNotificationFilterModel) {
+        this.filters.documentTypes = filters && filters.documentTypes ? filters.documentTypes : new Array();
+        this.filters.creationStartDate = filters && filters.creationStartDate ? filters.creationStartDate : this.getDefaultCreationStartDate();
+        this.filters.creationEndDate = filters && filters.creationEndDate ? filters.creationEndDate : this.getDefaultCreationEndDate();
+        this.filters.archived = filters && filters.archived ? filters.archived : false;
         this.filters.type = this.type;
         FormsUtil.reset(this.filterForm, this.filters);
     }

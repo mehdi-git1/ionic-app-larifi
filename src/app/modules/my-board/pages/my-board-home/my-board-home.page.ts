@@ -359,27 +359,19 @@ export class MyBoardHomePage {
   }
 
   /**
-   * Affiche les notifications
+   * Affiche l'onglet des notifications
    */
   displayNotifications(): void {
-    this.sessionService.appContext.alertFilters = _.cloneDeep(this.filters);
-    this.myBoardFilters.updatefilterForm(MyBoardNotificationTypeEnum.NOTIFICATION);
-    //this.filters = this.sessionService.appContext.notificationFilters ? this.sessionService.appContext.notificationFilters : this.filters;
     this.myBoardNotificationType = MyBoardNotificationTypeEnum.NOTIFICATION;
-    this.filters.type = MyBoardNotificationTypeEnum.NOTIFICATION;
-    this.launchFirstSearch();
+    this.myBoardFilters.updatefilterForm(MyBoardNotificationTypeEnum.NOTIFICATION);
   }
 
   /**
-   * Affiche les rappels
+   * Affiche l'onglet des rappels
    */
   displayReminders(): void {
-    this.sessionService.appContext.notificationFilters = _.cloneDeep(this.filters);
-    this.myBoardFilters.updatefilterForm(MyBoardNotificationTypeEnum.ALERT);
-    //this.filters = this.sessionService.appContext.alertFilters ? this.sessionService.appContext.alertFilters : this.filters;
     this.myBoardNotificationType = MyBoardNotificationTypeEnum.ALERT;
-    this.filters.type = MyBoardNotificationTypeEnum.ALERT;
-    this.launchFirstSearch();
+    this.myBoardFilters.updatefilterForm(MyBoardNotificationTypeEnum.ALERT);
   }
 
   /**
