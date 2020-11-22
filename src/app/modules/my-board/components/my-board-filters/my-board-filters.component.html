@@ -5,7 +5,7 @@
     </ion-button>
 </h2>
 <form [formGroup]="filterForm">
-    <div class="filter-container filter" *ngIf="type == MyBoardNotificationTypeEnum.NOTIFICATION">
+    <div class="filter-container filter" *ngIf="type === MyBoardNotificationTypeEnum.NOTIFICATION">
         <label>{{ 'MY_BOARD.FILTERS.DOCUMENT_TYPE' | translate }}</label>
         <mat-select formControlName="documentTypes" multiple>
             <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.value">
@@ -34,10 +34,10 @@
         <ion-item>
             <ion-checkbox formControlName="archived" placeholder="{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}">
             </ion-checkbox>
-            <ion-label *ngIf="type == MyBoardNotificationTypeEnum.NOTIFICATION">
+            <ion-label *ngIf="type === MyBoardNotificationTypeEnum.NOTIFICATION">
                 {{ 'MY_BOARD.FILTERS.ARCHIVED_NOTIFICATION' | translate }} <span
                     class="item-count">{{ notificationSummary.totalArchivedNotifications }}</span></ion-label>
-            <ion-label *ngIf="type == MyBoardNotificationTypeEnum.ALERT">
+            <ion-label *ngIf="type === MyBoardNotificationTypeEnum.ALERT">
                 {{ 'MY_BOARD.FILTERS.ARCHIVED_ALERT' | translate }} <span
                     class="item-count">{{ notificationSummary.totalArchivedAlerts }}</span></ion-label>
         </ion-item>

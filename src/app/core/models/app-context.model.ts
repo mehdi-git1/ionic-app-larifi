@@ -8,6 +8,6 @@ export class AppContextModel {
     onBoardRedactorFunction: string;
     onBoardObservedPncFunction: string;
 
-    notificationFilters: MyBoardNotificationFilterModel;
-    alertFilters: MyBoardNotificationFilterModel;
+    myBoardNotificationFilters: MyBoardNotificationFilterModel;
+    myBoardAlertFilters: MyBoardNotificationFilterModel;
 }
