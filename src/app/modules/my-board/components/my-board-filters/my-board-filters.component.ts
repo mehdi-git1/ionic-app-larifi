@@ -55,8 +55,8 @@ export class MyBoardFiltersComponent implements AfterViewInit {
      */
     updatefilterForm(myBoardNotificationType: MyBoardNotificationTypeEnum) {
         this.type = myBoardNotificationType;
-        const filters = myBoardNotificationType === MyBoardNotificationTypeEnum.ALERT ? this.sessionService.appContext.alertFilters
-            : this.sessionService.appContext.notificationFilters;
+        const filters = myBoardNotificationType === MyBoardNotificationTypeEnum.ALERT ? this.sessionService.appContext.myBoardAlertFilters
+            : this.sessionService.appContext.myBoardNotificationFilters;
         this.resetFilters(filters);
     }
 
@@ -92,8 +92,8 @@ export class MyBoardFiltersComponent implements AfterViewInit {
                 this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
                     .toISOString();
                 this.filters.archived = newForm.archived;
-                this.type === MyBoardNotificationTypeEnum.ALERT ? this.sessionService.appContext.alertFilters = _.cloneDeep(this.filters)
-                    : this.sessionService.appContext.notificationFilters = _.cloneDeep(this.filters);
+                this.type === MyBoardNotificationTypeEnum.ALERT ? this.sessionService.appContext.myBoardAlertFilters = _.cloneDeep(this.filters)
+                    : this.sessionService.appContext.myBoardNotificationFilters = _.cloneDeep(this.filters);
                 this.filtersChanged.next();
             }
         });
