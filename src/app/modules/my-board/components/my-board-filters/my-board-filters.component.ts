@@ -1,6 +1,7 @@
+import { MyBoardNotificationTypeEnum } from './../../../../core/enums/my-board/my-board-notification-type.enum';
 import * as moment from 'moment';
 import {
-    MyBoardNotificationFilterModel
+  MyBoardNotificationFilterModel
 } from 'src/app/core/models/my-board/my-board-notification-filter.model';
 
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
@@ -8,146 +9,149 @@ import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn } from '@angular/
 import { TranslateService } from '@ngx-translate/core';
 
 import {
-    MyBoardNotificationSummaryModel
+  MyBoardNotificationSummaryModel
 } from '../../../../core/models/my-board/my-board-notification-summary.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { FormsUtil } from '../../../../shared/utils/forms-util';
 import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
-    selector: 'my-board-filters',
-    templateUrl: './my-board-filters.component.html',
-    styleUrls: ['./my-board-filters.component.scss'],
+  selector: 'my-board-filters',
+  templateUrl: './my-board-filters.component.html',
+  styleUrls: ['./my-board-filters.component.scss'],
 })
 export class MyBoardFiltersComponent implements AfterViewInit {
 
-    @Input() filters: MyBoardNotificationFilterModel;
-    @Input() notificationSummary: MyBoardNotificationSummaryModel;
+  @Input() type: MyBoardNotificationTypeEnum;
+  @Input() filters: MyBoardNotificationFilterModel;
+  @Input() notificationSummary: MyBoardNotificationSummaryModel;
 
-    @Output() filtersChanged = new EventEmitter<MyBoardNotificationFilterModel>();
-    @Output() enableFilters = new EventEmitter<number>();
+  @Output() filtersChanged = new EventEmitter<MyBoardNotificationFilterModel>();
+  @Output() enableFilters = new EventEmitter<number>();
 
-    filterForm: FormGroup;
-    documentTypes: Array<any>;
-    enabledFiltersCount = 2;
+  filterForm: FormGroup;
+  documentTypes: Array<any>;
+  enabledFiltersCount = 2;
 
-    constructor(
-        private sessionService: SessionService,
-        private formBuilder: FormBuilder,
-        private translateService: TranslateService
-    ) {
-        this.documentTypes = this.initDocumentTypes();
+  constructor(
+    private sessionService: SessionService,
+    private formBuilder: FormBuilder,
+    private translateService: TranslateService
+  ) {
+    this.documentTypes = this.initDocumentTypes();
 
-        this.initForm();
-    }
+    this.initForm();
+  }
 
-    ngAfterViewInit() {
-        this.resetFilters();
-    }
+  ngAfterViewInit() {
+    this.resetFilters();
+  }
 
-    /**
-     * Initialise le formulaire
-     */
-    initForm() {
-        const dateRangeValidator: ValidatorFn = (formGroup: FormGroup): ValidationErrors | null => {
-            const creationStartDate = formGroup.get('creationStartDate');
-            const creationEndDate = formGroup.get('creationEndDate');
-            if (!creationStartDate || !creationEndDate) {
-                return null;
-            }
-            if (moment(creationStartDate.value).isAfter(moment(creationEndDate.value))) {
-                return { startDateAfterEndDate: this.translateService.instant('MY_BOARD.MESSAGES.ERROR.START_DATE_AFTER_END_DATE') };
-            }
-            return null;
-        };
+  /**
+   * Initialise le formulaire
+   */
+  initForm() {
+    const dateRangeValidator: ValidatorFn = (formGroup: FormGroup): ValidationErrors | null => {
+      const creationStartDate = formGroup.get('creationStartDate');
+      const creationEndDate = formGroup.get('creationEndDate');
+      if (!creationStartDate || !creationEndDate) {
+        return null;
+      }
+      if (moment(creationStartDate.value).isAfter(moment(creationEndDate.value))) {
+        return { startDateAfterEndDate: this.translateService.instant('MY_BOARD.MESSAGES.ERROR.START_DATE_AFTER_END_DATE') };
+      }
+      return null;
+    };
 
-        this.filterForm = this.formBuilder.group({
-            documentTypes: [''],
-            creationStartDate: [''],
-            creationEndDate: [''],
-            archived: [false]
-        }, { validators: dateRangeValidator });
+    this.filterForm = this.formBuilder.group({
+      documentTypes: [''],
+      type: [''],
+      creationStartDate: [''],
+      creationEndDate: [''],
+      archived: [false]
+    }, { validators: dateRangeValidator });
 
-        this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
-            if (this.filterForm.valid) {
-                // Les filtres sur l'intervalle de date étant obligatoirement activés, on initialise le compte à 2.
-                this.enabledFiltersCount = 2;
-                this.filters.documentTypes = newForm.documentTypes;
-                this.enabledFiltersCount =  this.enabledFiltersCount + this.filters.documentTypes.length;
-                this.filters.creationStartDate = Utils.isEmpty(newForm.creationStartDate) ? '' : new Date(newForm.creationStartDate)
-                    .toISOString();
-                this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
-                    .toISOString();
-                this.filters.archived = newForm.archived;
-                this.enabledFiltersCount += (this.filters.archived) ? 1 : 0;
-                this.filtersChanged.next();
-                this.enableFilters.next(this.enabledFiltersCount);
-            }
-        });
-
-    }
-
-    /**
-     * Initialise la liste des types de document
-     * @return la liste initialisée
-     */
-    initDocumentTypes(): Array<any> {
-        const documentTypeArray = new Array();
-        const documentTypes = this.sessionService.getActiveUser().appInitData.myBoardInitData.notificationDocumentTypes;
-        for (const documentType of documentTypes) {
-            documentTypeArray.push({
-                value: documentType,
-                label: this.translateService.instant('MY_BOARD.DOCUMENT_TYPE.' + documentType)
-            });
-        }
-        return this.sortDocumentTypes(documentTypeArray);
-    }
-
-    /**
-     * Tri une liste de type de document par ordre alphabétique
-     * @param documentTypes la liste des documents à trier
-     * @return la liste triée
-     */
-    sortDocumentTypes(documentTypes: Array<any>): Array<any> {
-        documentTypes.sort((documentType1, documentType2) => {
-            if (documentType1.label.toLowerCase() < documentType2.label.toLowerCase()) {
-                return -1;
-            }
-            if (documentType1.label.toLowerCase() > documentType2.label.toLowerCase()) {
-                return 1;
-            }
-            return 0;
-        });
-        return documentTypes;
-    }
-
-    /**
-     * Réinitialise tous les filtres
-     */
-    resetFilters() {
-        this.filters.documentTypes = new Array();
-        this.filters.creationStartDate = this.getDefaultCreationStartDate();
-        this.filters.creationEndDate = this.getDefaultCreationEndDate();
-        this.filters.archived = false;
+    this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
+      if (this.filterForm.valid) {
+        // Les filtres sur l'intervalle de date étant obligatoirement activés, on initialise le compte à 2.
         this.enabledFiltersCount = 2;
-        FormsUtil.reset(this.filterForm, this.filters);
+        this.filters.documentTypes = newForm.documentTypes;
+        this.enabledFiltersCount = this.enabledFiltersCount + this.filters.documentTypes.length;
+        this.filters.creationStartDate = Utils.isEmpty(newForm.creationStartDate) ? '' : new Date(newForm.creationStartDate)
+          .toISOString();
+        this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
+          .toISOString();
+        this.filters.archived = newForm.archived;
+        this.enabledFiltersCount += (this.filters.archived) ? 1 : 0;
+        this.filtersChanged.next();
         this.enableFilters.next(this.enabledFiltersCount);
-    }
+      }
+    });
 
-    /**
-     * Récupère la date de début par défaut
-     * @return la date de début par défaut
-     */
-    getDefaultCreationStartDate(): string {
-        return moment().subtract(6, 'months').toISOString();
-    }
+  }
 
-    /**
-     * Récupère la date de fin par défaut
-     * @return la date de fin par défaut
-     */
-    getDefaultCreationEndDate(): string {
-        return moment().toISOString();
+  /**
+   * Initialise la liste des types de document
+   * @return la liste initialisée
+   */
+  initDocumentTypes(): Array<any> {
+    const documentTypeArray = new Array();
+    const documentTypes = this.sessionService.getActiveUser().appInitData.myBoardInitData.notificationDocumentTypes;
+    for (const documentType of documentTypes) {
+      documentTypeArray.push({
+        value: documentType,
+        label: this.translateService.instant('MY_BOARD.DOCUMENT_TYPE.' + documentType)
+      });
     }
+    return this.sortDocumentTypes(documentTypeArray);
+  }
+
+  /**
+   * Tri une liste de type de document par ordre alphabétique
+   * @param documentTypes la liste des documents à trier
+   * @return la liste triée
+   */
+  sortDocumentTypes(documentTypes: Array<any>): Array<any> {
+    documentTypes.sort((documentType1, documentType2) => {
+      if (documentType1.label.toLowerCase() < documentType2.label.toLowerCase()) {
+        return -1;
+      }
+      if (documentType1.label.toLowerCase() > documentType2.label.toLowerCase()) {
+        return 1;
+      }
+      return 0;
+    });
+    return documentTypes;
+  }
+
+  /**
+   * Réinitialise tous les filtres
+   */
+  resetFilters() {
+    this.filters.documentTypes = new Array();
+    this.filters.creationStartDate = this.getDefaultCreationStartDate();
+    this.filters.creationEndDate = this.getDefaultCreationEndDate();
+    this.filters.archived = false;
+    this.enabledFiltersCount = 2;
+    this.filters.type = this.type;
+    FormsUtil.reset(this.filterForm, this.filters);
+    this.enableFilters.next(this.enabledFiltersCount);
+  }
+
+  /**
+   * Récupère la date de début par défaut
+   * @return la date de début par défaut
+   */
+  getDefaultCreationStartDate(): string {
+    return moment().subtract(6, 'months').toISOString();
+  }
+
+  /**
+   * Récupère la date de fin par défaut
+   * @return la date de fin par défaut
+   */
+  getDefaultCreationEndDate(): string {
+    return moment().toISOString();
+  }
 
 }
