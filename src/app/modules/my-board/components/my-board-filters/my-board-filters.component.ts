@@ -27,7 +27,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
   @Input() notificationSummary: MyBoardNotificationSummaryModel;
 
   @Output() filtersChanged = new EventEmitter<MyBoardNotificationFilterModel>();
-  @Output() enabledFilters = new EventEmitter<number>();
+  @Output() enabledFiltersCountChanged = new EventEmitter<number>();
 
   filterForm: FormGroup;
   documentTypes: Array<any>;
@@ -95,7 +95,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
     this.enabledFiltersCount += Utils.isEmpty(this.filterForm.value.creationStartDate) ? 0 : 1;
     this.enabledFiltersCount += Utils.isEmpty(this.filterForm.value.creationEndDate) ? 0 : 1;
     this.enabledFiltersCount += this.filterForm.value.archived ? 1 : 0;
-    this.enabledFilters.next(this.enabledFiltersCount);
+    this.enabledFiltersCountChanged.next(this.enabledFiltersCount);
   }
 
   /**
