@@ -308,7 +308,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * @return nombre de filtres activés
    */
   private countEnabledFilters(): number {
-      return (Object.values(this.searchForm.value).filter((v: string | boolean) => v && (v !== AppConstant.ALL)).length);
+    return (Object.values(this.searchForm.value).filter((value: string | boolean) => value && (value !== AppConstant.ALL)).length);
   }
 
   /**
