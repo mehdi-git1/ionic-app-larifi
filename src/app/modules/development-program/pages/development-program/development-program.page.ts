@@ -36,7 +36,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import {
     SynchronizationService
 } from '../../../../core/services/synchronization/synchronization.service';
-import { isNullOrUndefined } from 'util';
+import { Utils } from 'src/app/shared/utils/utils';
 
 @Component({
     selector: 'page-development-program',
@@ -223,7 +223,7 @@ export class DevelopmentProgramPage {
      * Récupère la liste des objectifs
      */
     searchCareerObjectives() {
-        if (!isNullOrUndefined(this.matricule)) {
+        if (!Utils.isEmpty(this.matricule)) {
             this.careerObjectiveFilter.pncMatricule = this.matricule;
             this.careerObjectiveService.getCareerObjectivesByFilter(this.careerObjectiveFilter).then(result => {
                 result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
@@ -231,6 +231,8 @@ export class DevelopmentProgramPage {
                 });
                 this.careerObjectives = result;
             }, error => { });
+        } else {
+            this.careerObjectives = [];
         }
     }
 }

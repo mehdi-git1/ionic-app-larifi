@@ -35,7 +35,7 @@ import {
     ProfessionalInterviewService
 } from '../../../../core/services/professional-interview/professional-interview.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { isNullOrUndefined } from 'util';
+import { Utils } from 'src/app/shared/utils/utils';
 
 @Component({
     selector: 'page-redactions',
@@ -225,7 +225,7 @@ export class RedactionsPage {
      * Récupère la liste des priorités
      */
     searchCareerObjectives() {
-        if (!isNullOrUndefined(this.matricule)) {
+        if (!Utils.isEmpty(this.matricule)) {
             this.careerObjectiveFilter.redactorMatricule = this.matricule;
             this.careerObjectiveService.getCareerObjectivesByFilter(this.careerObjectiveFilter).then(result => {
                 result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
@@ -233,6 +233,8 @@ export class RedactionsPage {
                 });
                 this.careerObjectives = result;
             }, error => { });
+        } else {
+            this.careerObjectives = [];
         }
     }
 }
