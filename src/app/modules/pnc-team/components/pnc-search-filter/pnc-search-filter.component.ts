@@ -33,7 +33,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
 
   @Output() pncSelected: EventEmitter<any> = new EventEmitter();
 
-  @Output() enabledFilters: EventEmitter<number> = new EventEmitter();
+  @Output() enabledFiltersCountChanged: EventEmitter<number> = new EventEmitter();
 
   defaultDivision: string;
   defaultSector: string;
@@ -267,7 +267,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.formOnChanges();
       this.search();
     }
-    this.enabledFilters.emit(this.countEnabledFilters());
+    this.countEnabledFilters();
   }
 
   /**
@@ -299,16 +299,18 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasEobsOlderThan18Months = val.hasEobsOlderThan18MonthsControl;
       this.filters.hasManifex = val.hasManifexControl;
       this.filters.hasProfessionalInterviewOlderThan24Months = val.hasProfessionalInterviewOlderThan24MonthsControl;
-      this.enabledFilters.emit(this.countEnabledFilters());
+      this.countEnabledFilters();
     });
   }
 
   /**
    * Compte le nombre de filtres activés
-   * @return nombre de filtres activés
    */
-  private countEnabledFilters(): number {
-    return (Object.values(this.searchForm.value).filter((value: string | boolean) => value && (value !== AppConstant.ALL)).length);
+  private countEnabledFilters() {
+
+    const enabledFiltersCount = (Object.values(this.searchForm.value)
+      .filter((value: string | boolean) => value && (value !== AppConstant.ALL)).length);
+    this.enabledFiltersCountChanged.emit(enabledFiltersCount);
   }
 
   /**
