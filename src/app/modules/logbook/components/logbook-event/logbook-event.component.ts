@@ -340,38 +340,41 @@ export class LogbookEventComponent implements OnInit {
     }
 
     /**
-     * Verifie si le pnc est notifié
-     * @param pncLight le pnc concerné
-     * @return true si le pnc est notifié, false sinon
+     * Verifie si des pnc sont notifiés
+     * @param pncList la liste des pnc à vérifier
+     * @return true si les pnc sont notifiés, false sinon
      */
-    isPncNotified(pncLight: PncLightModel): boolean {
-        if (!pncLight || !pncLight.matricule || !this.logbookEvent.notifiedPncs) {
-            return false;
-        }
-        let result: boolean;
-        this.logbookEvent.notifiedPncs.forEach(notifiedPnc => {
-            if (notifiedPnc.pnc.matricule === pncLight.matricule) {
-                result = true;
+    isPncNotified(pncList: Array<PncLightModel>): boolean {
+        for (const pnc of pncList) {
+            if (!pnc || !pnc.matricule) {
+                return false;
             }
-        });
-        return result;
+
+            const pncFound = this.logbookEvent.notifiedPncs.find(notifiedPnc => notifiedPnc.pnc.matricule === pnc.matricule)
+            if (!pncFound) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
-     * Ajoute le pnc coché a la liste des pnc à notifier
-     * @param myEvent l'event lié a la case à cocher
-     * @param pncLight le pnc concerné
-     * @param speciality la spécialité du pnc concerné
+     * Ajoute le ou les pnc cochés à la liste des pnc à notifier
+     * @param myEvent l'event lié à la case à cocher
+     * @param pncList la liste des pnc concernés
+     * @param speciality la spécialité du ou des pnc concernés
      */
-    updatePncNotifiedList(myEvent: any, pncLight: PncLightModel, speciality: NotifiedPncSpecialityEnum) {
-        if (myEvent.detail.checked && pncLight.matricule) {
-            const notifiedPnc = new LogbookEventNotifiedPnc();
-            notifiedPnc.pnc = this.pncTransformer.transformPncLightToPnc(pncLight);
-            notifiedPnc.speciality = speciality;
-            this.logbookEvent.notifiedPncs.push(notifiedPnc);
-        } else {
-            this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(notifiedPnc =>
-                notifiedPnc.pnc.matricule !== pncLight.matricule);
+    updatePncNotifiedList(myEvent: any, pncList: Array<PncLightModel>, speciality: NotifiedPncSpecialityEnum) {
+        for (const pnc of pncList) {
+            if (myEvent.detail.checked && pnc.matricule) {
+                const notifiedPnc = new LogbookEventNotifiedPnc();
+                notifiedPnc.pnc = this.pncTransformer.transformPncLightToPnc(pnc);
+                notifiedPnc.speciality = speciality;
+                this.logbookEvent.notifiedPncs.push(notifiedPnc);
+            } else {
+                this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(notifiedPnc =>
+                    notifiedPnc.pnc.matricule !== pnc.matricule);
+            }
         }
     }
 }
