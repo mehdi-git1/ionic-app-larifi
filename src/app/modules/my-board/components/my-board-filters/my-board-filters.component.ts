@@ -140,7 +140,6 @@ export class MyBoardFiltersComponent implements AfterViewInit {
     this.filters.creationStartDate = this.getDefaultCreationStartDate();
     this.filters.creationEndDate = this.getDefaultCreationEndDate();
     this.filters.archived = false;
-    this.enabledFiltersCount = 2;
     this.filters.type = this.type;
     FormsUtil.reset(this.filterForm, this.filters);
     this.countEnabledFilters();
