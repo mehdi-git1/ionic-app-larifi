@@ -225,10 +225,10 @@ export class HelpAssetListPage {
         helpAsset[0].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[0].lastUpdateDate = '2018-10-01T13:11:52Z';
         helpAsset[1] = new HelpAssetModel();
-        helpAsset[1].url = `${this.pdfUrl}/commun/Visuel_Relais_RH_ Interactif_V14.pdf`;
+        helpAsset[1].url = `${this.pdfUrl}/commun/Visuel_Relais_RH_ Interactif_V15.2.pdf`;
         helpAsset[1].label = 'Fiches Missions Relais';
         helpAsset[1].helpAssetType = HelpAssetTypeEnum.PDF;
-        helpAsset[1].lastUpdateDate = '2020-04-07T00:00:00Z';
+        helpAsset[1].lastUpdateDate = '2020-11-30T00:00:00Z';
         helpAsset[2] = new HelpAssetModel();
         helpAsset[2].url = `${this.pdfUrl}/commun/Priorités_eDossier_guidelines_V.1.pdf`;
         helpAsset[2].label = 'Les priorités dans eDossierPNC';
