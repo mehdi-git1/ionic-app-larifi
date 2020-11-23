@@ -727,6 +727,11 @@
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
             "TAF": "TAF",
+            "SORT": {
+              "LAST_EOBSERVATION": "Dernière eObs",
+              "LAST_PROFESSIONAL_INTERVIEW": "Dernier BP",
+              "LAST_UPDATED_CAREER_OBJECTIVE": "Dernière prio mise à jour"
+            },
             "ENCOUNTER_FLIGHT_GROUND" :{
                 "TITLE":"Rencontres vol/sol",
                 "EOBS_OLDER_THAN_18_MONTHS": "Dernière eObs > 18 mois",

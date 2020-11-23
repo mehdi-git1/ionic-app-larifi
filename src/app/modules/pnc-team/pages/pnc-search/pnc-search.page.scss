@@ -31,3 +31,34 @@ mat-sidenav {
 ::ng-deep .item-native {
     padding-left: 0px;
 }
+
+.sort-container {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+.e-observation-sort {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.career-objective-sort {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.professional-interview-sort {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.e-observation-sort ion-icon,
+.professional-interview-sort ion-icon,
+.career-objective-sort ion-icon {
+    margin: 5px !important;
+}

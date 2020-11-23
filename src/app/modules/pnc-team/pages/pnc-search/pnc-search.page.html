@@ -20,18 +20,33 @@
 <ion-content forceOverscroll="true" scroll-y="false">
     <mat-sidenav-container>
         <mat-sidenav [(opened)]="isMenuOpened">
-            <pnc-search-filter [filters]="filters" [searchMode]="searchMode" (filtersChanged)="launchSearch()"
-                (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
+            <pnc-search-filter [filters]="filters" [searchMode]="searchMode" (filtersChanged)="launchSearch()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
         </mat-sidenav>
-        <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2"
-            [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
+        <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
             <div class="page-container">
                 <div class="filtered-pnc-list-container">
                     <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>
                     <ng-template #pageBlock>
                         <div *ngIf="hasPncs(); else noDataBlock">
-                            <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="pnc"
-                                (click)="openPncHomePage(pnc)">
+                            <div class="sort-container">
+                                <div class="e-observation-sort" (click)="sortByLastEObservationDate()">
+                                    <span>{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_EOBSERVATION'  | translate }}</span>
+                                    <ion-icon size="small" name="arrow-up" *ngIf="lastEObservationSortDirection == 'ASC'"></ion-icon>
+                                    <ion-icon size="small" name="arrow-down" *ngIf="lastEObservationSortDirection == 'DESC'"></ion-icon>
+
+                                </div>
+                                <div class="professional-interview-sort" (click)="sortByLastProfessionalInterviewDate()">
+                                    <span>{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_PROFESSIONAL_INTERVIEW'  | translate }}</span>
+                                    <ion-icon size="small" name="arrow-up" *ngIf="lastProfessionalInterviewSortDirection == 'ASC'"></ion-icon>
+                                    <ion-icon size="small" name="arrow-down" *ngIf="lastProfessionalInterviewSortDirection == 'DESC'"></ion-icon>
+                                </div>
+                                <div class="career-objective-sort" (click)="sortByLastCareerObjectiveUpdate()">
+                                    <span>{{ 'PNC_SEARCH.CRITERIA.SORT.LAST_UPDATED_CAREER_OBJECTIVE'  | translate }}</span>
+                                    <ion-icon size="small" name="arrow-up" *ngIf="lastCareerObjectiveUpdateSortDirection  == 'ASC'"></ion-icon>
+                                    <ion-icon size="small" name=" arrow-down" *ngIf="lastCareerObjectiveUpdateSortDirection  == 'DESC'"></ion-icon>
+                                </div>
+                            </div>
+                            <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="pnc" (click)="openPncHomePage(pnc)">
                             </pnc-card>
                         </div>
                         <ng-template #noDataBlock>

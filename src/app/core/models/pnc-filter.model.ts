@@ -1,5 +1,5 @@
-import { SortDirection } from './../enums/sort-direction-enum';
-import { PagePositionEnum } from './../enums/page-position.enum';
+import { PagePositionEnum } from '../enums/page-position.enum';
+import { SortDirection } from '../enums/sort-direction-enum';
 
 export class PncFilterModel {
 

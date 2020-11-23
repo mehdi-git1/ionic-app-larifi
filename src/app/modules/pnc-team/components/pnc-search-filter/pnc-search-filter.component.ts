@@ -1,8 +1,10 @@
-import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
+import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
+import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatExpansionPanel } from '@angular/material';
 import { Events, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,7 +18,6 @@ import { SectorModel } from '../../../../core/models/sector.model';
 import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { MatExpansionPanel } from '@angular/material';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -87,6 +88,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Déclenche une recherche (quand l'utilisateur clique sur le bouton rechercher)
    */
   search(): void {
+    // permet d'effectuer le tri par défaut
+    this.filters.sortColumn = undefined;
     this.filtersChanged.next();
   }
 
@@ -150,6 +153,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
       this.searchForm.get('specialityControl').setValue(this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL);
     }
+
     this.filters.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
     this.filters.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0].code : AppConstant.ALL;
     this.filters.priorityCategoryCode = this.priorityCategoryList && this.priorityCategoryList.length === 1 ? this.priorityCategoryList[0].code : AppConstant.ALL;
@@ -161,6 +165,9 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.hasManifex = false;
     this.filters.hasEobsOlderThan18Months = false;
     this.filters.hasProfessionalInterviewOlderThan24Months = false;
+    this.filters.sortColumn = undefined;
+    this.filters.sortDirection = SortDirection.ASC;
+
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
