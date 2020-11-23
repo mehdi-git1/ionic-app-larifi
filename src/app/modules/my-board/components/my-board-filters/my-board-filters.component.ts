@@ -27,11 +27,11 @@ export class MyBoardFiltersComponent implements AfterViewInit {
   @Input() notificationSummary: MyBoardNotificationSummaryModel;
 
   @Output() filtersChanged = new EventEmitter<MyBoardNotificationFilterModel>();
-  @Output() enableFilters = new EventEmitter<number>();
+  @Output() enabledFilters = new EventEmitter<number>();
 
   filterForm: FormGroup;
   documentTypes: Array<any>;
-  enabledFiltersCount = 2;
+  enabledFiltersCount = 0;
 
   constructor(
     private sessionService: SessionService,
@@ -73,21 +73,29 @@ export class MyBoardFiltersComponent implements AfterViewInit {
 
     this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
       if (this.filterForm.valid) {
-        // Les filtres sur l'intervalle de date étant obligatoirement activés, on initialise le compte à 2.
-        this.enabledFiltersCount = 2;
         this.filters.documentTypes = newForm.documentTypes;
-        this.enabledFiltersCount = this.enabledFiltersCount + this.filters.documentTypes.length;
         this.filters.creationStartDate = Utils.isEmpty(newForm.creationStartDate) ? '' : new Date(newForm.creationStartDate)
           .toISOString();
         this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
           .toISOString();
         this.filters.archived = newForm.archived;
-        this.enabledFiltersCount += (this.filters.archived) ? 1 : 0;
         this.filtersChanged.next();
-        this.enableFilters.next(this.enabledFiltersCount);
       }
+      this.countEnabledFilters();
     });
 
+  }
+
+  /**
+   * compte le nombre de filtres activés dans le formulaire
+   */
+  countEnabledFilters() {
+    this.enabledFiltersCount = 0;
+    this.enabledFiltersCount += this.filterForm.value.documentTypes.length;
+    this.enabledFiltersCount += Utils.isEmpty(this.filterForm.value.creationStartDate) ? 0 : 1;
+    this.enabledFiltersCount += Utils.isEmpty(this.filterForm.value.creationEndDate) ? 0 : 1;
+    this.enabledFiltersCount += this.filterForm.value.archived ? 1 : 0;
+    this.enabledFilters.next(this.enabledFiltersCount);
   }
 
   /**
@@ -135,7 +143,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
     this.enabledFiltersCount = 2;
     this.filters.type = this.type;
     FormsUtil.reset(this.filterForm, this.filters);
-    this.enableFilters.next(this.enabledFiltersCount);
+    this.countEnabledFilters();
   }
 
   /**
