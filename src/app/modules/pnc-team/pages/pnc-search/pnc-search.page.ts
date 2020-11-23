@@ -130,7 +130,6 @@ export class PncSearchPage implements AfterViewInit {
         }
     }
 
-
     /**
      * Permet de recharger les éléments dans la liste à scroller quand on arrive a la fin de la liste.
      * @param event l'événement gérant le scroll
