@@ -46,14 +46,14 @@ export class MyBoardFiltersComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.resetFilters(null);
+        this.resetFilters();
     }
 
     /**
      * Initialise les filtres et les champs du formulaire selon le type de notification
      * @param myBoardNotificationType le type de notification myBoard
      */
-    updatefilterForm(myBoardNotificationType: MyBoardNotificationTypeEnum) {
+    updateFilterForm(myBoardNotificationType: MyBoardNotificationTypeEnum) {
         this.type = myBoardNotificationType;
         const filters = myBoardNotificationType === MyBoardNotificationTypeEnum.ALERT ? this.sessionService.appContext.myBoardAlertFilters
             : this.sessionService.appContext.myBoardNotificationFilters;
@@ -136,11 +136,18 @@ export class MyBoardFiltersComponent implements AfterViewInit {
     /**
      * Réinitialise tous les filtres
      */
-    resetFilters(filters: MyBoardNotificationFilterModel) {
-        this.filters.documentTypes = filters && filters.documentTypes ? filters.documentTypes : new Array();
-        this.filters.creationStartDate = filters && filters.creationStartDate ? filters.creationStartDate : this.getDefaultCreationStartDate();
-        this.filters.creationEndDate = filters && filters.creationEndDate ? filters.creationEndDate : this.getDefaultCreationEndDate();
-        this.filters.archived = filters && filters.archived ? filters.archived : false;
+    resetFilters(filters?: MyBoardNotificationFilterModel) {
+        if (filters) {
+            this.filters.documentTypes = filters.documentTypes;
+            this.filters.creationStartDate = filters.creationStartDate;
+            this.filters.creationEndDate = filters.creationEndDate;
+            this.filters.archived = filters.archived;
+        } else {
+            this.filters.documentTypes = new Array();
+            this.filters.creationStartDate = this.getDefaultCreationStartDate();
+            this.filters.creationEndDate = this.getDefaultCreationEndDate();
+            this.filters.archived = false;
+        }
         this.filters.type = this.type;
         FormsUtil.reset(this.filterForm, this.filters);
     }

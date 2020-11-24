@@ -5,7 +5,7 @@ export class MyBoardNotificationSummaryModel extends EDossierPncObjectModel {
   matricule: string;
   lastMyBoardNotification: MyBoardNotificationModel;
   totalFiltered: number;
-  totalArchivedNotifcations: number;
+  totalArchivedNotifications: number;
   totalArchivedAlerts: number;
   totalUncheckedNotifications: number;
   totalUncheckedAlerts: number;

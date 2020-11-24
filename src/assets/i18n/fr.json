@@ -128,18 +128,18 @@
         },
         "LOADING_EDOSSIER_MESSAGE": "Chargement du eDossier..."
     },
-    "PNC_CARD":{
-        "ASSIGNMENT":"Affectation",
+    "PNC_CARD": {
+        "ASSIGNMENT": "Affectation",
         "RELAYS": "Relais",
         "FUNCTION": "Fonction",
         "AIRCRAFT_SKILL": "Spécialisation avion",
         "WORK_RATE": "Rythme",
-        "LAST_EOBSERVATION_DATE":"Dernière eObs",
-        "LAST_PROFESSIONAL_INTERVIEW_DATE":"Dernier BP/EPP",
-        "LAST_CAREER_OBJECTIVE_UPDATE_DATE":"Dernière mise à jour d'une priorité",
-        "HAS_PRIORITIZED":"Majeure",
-        "HAS_CAREER_OBJECTIVE_IN_PROGRESS":"En cours",
-        "PARTICULARITY":"PNC positionné"
+        "LAST_EOBSERVATION_DATE": "Dernière eObs",
+        "LAST_PROFESSIONAL_INTERVIEW_DATE": "Dernier BP/EPP",
+        "LAST_CAREER_OBJECTIVE_UPDATE_DATE": "Dernière mise à jour d'une priorité",
+        "HAS_PRIORITIZED": "Majeure",
+        "HAS_CAREER_OBJECTIVE_IN_PROGRESS": "En cours",
+        "PARTICULARITY": "PNC positionné"
     },
     "AUTHENT": {
         "AUTHENTICATION": "Authentification",
@@ -727,8 +727,8 @@
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
             "TAF": "TAF",
-            "ENCOUNTER_FLIGHT_GROUND" :{
-                "TITLE":"Rencontres vol/sol",
+            "ENCOUNTER_FLIGHT_GROUND": {
+                "TITLE": "Rencontres vol/sol",
                 "EOBS_OLDER_THAN_18_MONTHS": "Dernière eObs > 18 mois",
                 "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH": "Dernier BP/EPP > 24 mois"
             },
@@ -772,9 +772,9 @@
     },
     "MY_BOARD": {
         "TITLE": "MyBoard",
-        "TABS":{
-            "NOTIFICATION":"Notifications",
-            "REMINDER":"Rappels"
+        "TABS": {
+            "NOTIFICATION": "Notifications",
+            "ALERT": "Rappels"
         },
         "FILTER": "Filtrer",
         "NO_NOTIFICATIONS": "Aucune notification trouvée",

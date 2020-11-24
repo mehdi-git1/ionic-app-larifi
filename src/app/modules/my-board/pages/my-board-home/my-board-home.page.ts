@@ -363,15 +363,15 @@ export class MyBoardHomePage {
    */
   displayNotifications(): void {
     this.myBoardNotificationType = MyBoardNotificationTypeEnum.NOTIFICATION;
-    this.myBoardFilters.updatefilterForm(MyBoardNotificationTypeEnum.NOTIFICATION);
+    this.myBoardFilters.updateFilterForm(MyBoardNotificationTypeEnum.NOTIFICATION);
   }
 
   /**
    * Affiche l'onglet des rappels
    */
-  displayReminders(): void {
+  displayAlerts(): void {
     this.myBoardNotificationType = MyBoardNotificationTypeEnum.ALERT;
-    this.myBoardFilters.updatefilterForm(MyBoardNotificationTypeEnum.ALERT);
+    this.myBoardFilters.updateFilterForm(MyBoardNotificationTypeEnum.ALERT);
   }
 
   /**

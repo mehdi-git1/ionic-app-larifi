@@ -12,7 +12,7 @@
     </ion-toolbar>
     <div class="tabs">
         <button (click)="displayReminders()" [ngClass]="{'active': isTabActive(MyBoardNotificationTypeEnum.ALERT)}">
-            {{ 'MY_BOARD.TABS.REMINDER' | translate}} ({{myBoardNotificationSummary.totalUncheckedAlerts}})
+            {{ 'MY_BOARD.TABS.ALERT' | translate}} ({{myBoardNotificationSummary.totalUncheckedAlerts}})
         </button>
         <button (click)="displayNotifications()"
             [ngClass]="{'active': isTabActive(MyBoardNotificationTypeEnum.NOTIFICATION)}">
