@@ -40,8 +40,8 @@ export class PncEdossierHeaderComponent implements OnChanges {
      * Initialisation du composant
      */
     init() {
-        if (this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule')) {
-            this.pncService.getPnc(this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule')).then(pnc => {
+        if (this.activatedRoute.snapshot.paramMap.get('matricule')) {
+            this.pncService.getPnc(this.activatedRoute.snapshot.paramMap.get('matricule')).then(pnc => {
                 this.pnc = pnc;
             });
         } else if (this.sessionService.visitedPnc !== undefined && this.isVisitedPncTabSelected()) {
@@ -61,7 +61,7 @@ export class PncEdossierHeaderComponent implements OnChanges {
     isTabNavAvailable(): boolean {
         return (!this.sessionService.getActiveUser().isManager
             || this.isVisitedPncTabSelected())
-            && this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule') === null;
+            && this.activatedRoute.snapshot.paramMap.get('matricule') === null;
     }
 
     /**

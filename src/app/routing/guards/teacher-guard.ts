@@ -19,7 +19,7 @@ export class TeacherGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        return this.pncService.getPnc(route.paramMap.get('visitedPncMatricule')).then(pnc => {
+        return this.pncService.getPnc(route.paramMap.get('matricule')).then(pnc => {
             return pnc.currentSpeciality === SpecialityEnum.ALT
                 && this.authorizationService.hasPermission(PermissionConstant.VIEW_ALTERNANT_SEARCH);
         });
