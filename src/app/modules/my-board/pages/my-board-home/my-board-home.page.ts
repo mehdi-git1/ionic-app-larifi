@@ -6,7 +6,7 @@ import {
 import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-notification.model';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 
-import { Component, ViewChild } from '@angular/core';
+import { OnInit, Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -35,7 +35,7 @@ import * as _ from 'lodash';
   templateUrl: './my-board-home.page.html',
   styleUrls: ['./my-board-home.page.scss'],
 })
-export class MyBoardHomePage {
+export class MyBoardHomePage implements OnInit {
   pncNotifications = new Array<MyBoardNotificationModel>();
   filters = new MyBoardNotificationFilterModel();
   filtersSubject = new Subject<MyBoardNotificationFilterModel>();
@@ -74,10 +74,18 @@ export class MyBoardHomePage {
       });
   }
 
-  ionViewDidEnter() {
+  ngOnInit() {
     this.filters.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
     this.getMyBoardNotificationSummary().then((myBoardNotificationSummary) => {
-      this.myBoardNotificationType = myBoardNotificationSummary.lastMyBoardNotification ? myBoardNotificationSummary.lastMyBoardNotification.type : MyBoardNotificationTypeEnum.ALERT;
+      if (myBoardNotificationSummary.lastMyBoardNotification && myBoardNotificationSummary.lastMyBoardNotification.type != this.myBoardNotificationType) {
+        this.myBoardNotificationType = myBoardNotificationSummary.lastMyBoardNotification.type;
+        this.filters.type = this.myBoardNotificationType;
+      }
+    });
+  }
+
+  ionViewDidEnter() {
+    this.getMyBoardNotificationSummary().then((myBoardNotificationSummary) => {
       // Si le nombre de notif a changé, on demande à l'utilisateur s'il souhaite relancer la recherche pour mettre à jour la vue
       if (this.totalNotifications !== 0 && myBoardNotificationSummary.totalFiltered !== this.totalNotifications) {
         this.confirmMyBoardRefresh();
