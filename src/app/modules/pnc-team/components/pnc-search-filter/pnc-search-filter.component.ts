@@ -34,6 +34,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
 
   @Output() pncSelected: EventEmitter<any> = new EventEmitter();
 
+  @Output() enabledFiltersCountChanged: EventEmitter<number> = new EventEmitter();
+
   defaultDivision: string;
   defaultSector: string;
   defaultGinq: string;
@@ -272,6 +274,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.formOnChanges();
       this.search();
     }
+    this.countEnabledFilters();
   }
 
   /**
@@ -287,7 +290,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Fonction permettant de détecter et de gérer les changements de valeur des différents éléments du formulaire
    */
   formOnChanges() {
-    this.searchForm.valueChanges.subscribe(val => {
+    this.searchForm.valueChanges.subscribe((val) => {
       this.filters.ginq = val.ginqControl;
       this.filters.speciality = val.specialityControl;
       this.filters.aircraftSkill = val.aircraftSkillControl;
@@ -303,8 +306,18 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasEobsOlderThan18Months = val.hasEobsOlderThan18MonthsControl;
       this.filters.hasManifex = val.hasManifexControl;
       this.filters.hasProfessionalInterviewOlderThan24Months = val.hasProfessionalInterviewOlderThan24MonthsControl;
-
+      this.countEnabledFilters();
     });
+  }
+
+  /**
+   * Compte le nombre de filtres activés
+   */
+  private countEnabledFilters() {
+
+    const enabledFiltersCount = (Object.values(this.searchForm.value)
+      .filter((value: string | boolean) => value && (value !== AppConstant.ALL)).length);
+    this.enabledFiltersCountChanged.emit(enabledFiltersCount);
   }
 
   /**
