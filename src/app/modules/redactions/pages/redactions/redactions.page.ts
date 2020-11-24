@@ -225,16 +225,12 @@ export class RedactionsPage {
      * Récupère la liste des priorités
      */
     searchCareerObjectives() {
-        if (!Utils.isEmpty(this.matricule)) {
-            this.careerObjectiveFilter.redactorMatricule = this.matricule;
-            this.careerObjectiveService.getCareerObjectivesByFilter(this.careerObjectiveFilter).then(result => {
-                result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
-                    return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
-                });
-                this.careerObjectives = result;
-            }, error => { });
-        } else {
-            this.careerObjectives = [];
-        }
+        this.careerObjectiveFilter.redactorMatricule = this.matricule;
+        this.careerObjectiveService.getCareerObjectivesByFilter(this.careerObjectiveFilter).then(result => {
+            result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
+                return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
+            });
+            this.careerObjectives = result;
+        }, error => { });
     }
 }

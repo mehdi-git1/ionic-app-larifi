@@ -99,12 +99,7 @@ export class DevelopmentProgramPage {
     }
 
     ionViewDidEnter() {
-        if (this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule')) {
-            // Pour le parcours de dev
-            this.matricule = this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule');
-        } else {
-            this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
-        }
+        this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });
@@ -223,16 +218,12 @@ export class DevelopmentProgramPage {
      * Récupère la liste des objectifs
      */
     searchCareerObjectives() {
-        if (!Utils.isEmpty(this.matricule)) {
-            this.careerObjectiveFilter.pncMatricule = this.matricule;
-            this.careerObjectiveService.getCareerObjectivesByFilter(this.careerObjectiveFilter).then(result => {
-                result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
-                    return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
-                });
-                this.careerObjectives = result;
-            }, error => { });
-        } else {
-            this.careerObjectives = [];
-        }
+        this.careerObjectiveFilter.pncMatricule = this.matricule;
+        this.careerObjectiveService.getCareerObjectivesByFilter(this.careerObjectiveFilter).then(result => {
+            result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
+                return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
+            });
+            this.careerObjectives = result;
+        }, error => { });
     }
 }
