@@ -35,7 +35,6 @@ import {
     ProfessionalInterviewService
 } from '../../../../core/services/professional-interview/professional-interview.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { Utils } from 'src/app/shared/utils/utils';
 
 @Component({
     selector: 'page-redactions',
@@ -226,6 +225,7 @@ export class RedactionsPage {
      */
     searchCareerObjectives() {
         this.careerObjectiveFilter.redactorMatricule = this.matricule;
+
         this.careerObjectiveService.getCareerObjectivesByFilter(this.careerObjectiveFilter).then(result => {
             result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
                 return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;

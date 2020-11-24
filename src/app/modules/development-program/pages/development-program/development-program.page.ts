@@ -36,7 +36,6 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import {
     SynchronizationService
 } from '../../../../core/services/synchronization/synchronization.service';
-import { Utils } from 'src/app/shared/utils/utils';
 
 @Component({
     selector: 'page-development-program',
@@ -219,6 +218,7 @@ export class DevelopmentProgramPage {
      */
     searchCareerObjectives() {
         this.careerObjectiveFilter.pncMatricule = this.matricule;
+
         this.careerObjectiveService.getCareerObjectivesByFilter(this.careerObjectiveFilter).then(result => {
             result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
                 return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
