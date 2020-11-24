@@ -179,7 +179,6 @@ export class PncSearchPage implements AfterViewInit {
 
   /**
    * Effectue le tri de la colonne choisie selon l'ordre de tri
-   * @param sortDirection ordre de tri
    */
   sortColumnBySelectedDirection() {
      this.filters.sortDirection = this.sortDirectionToogleGroup.value;
