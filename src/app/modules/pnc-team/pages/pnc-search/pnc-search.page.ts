@@ -4,7 +4,8 @@ import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatButtonToggleGroup } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Events } from '@ionic/angular';
 
@@ -30,15 +31,15 @@ export class PncSearchPage implements AfterViewInit {
   pnc: PncModel;
 
   filteredPncs = new Array<PncModel>();
-  filters = new PncFilterModel();
+  public filters = new PncFilterModel();
   filtersSubject = new Subject<PncFilterModel>();
 
   totalPncs = 0;
   isMenuOpened = false;
   isLoading = true;
-  lastEObservationSortDirection: SortDirection;
-  lastProfessionalInterviewSortDirection: SortDirection;
-  lastCareerObjectiveUpdateSortDirection: SortDirection;
+
+  @ViewChild(MatButtonToggleGroup, { static: false })
+  sortDirectionToogleGroup: MatButtonToggleGroup;
 
   // Expose l'enum au template
   TabHeaderEnum = TabHeaderEnum;
@@ -53,10 +54,8 @@ export class PncSearchPage implements AfterViewInit {
   ) {
 
     this.filters.size = AppConstant.PAGE_SIZE;
-    this.lastEObservationSortDirection = SortDirection.ASC;
-    this.lastCareerObjectiveUpdateSortDirection = SortDirection.ASC;
-    this.lastProfessionalInterviewSortDirection = SortDirection.ASC;
-
+    this.filters.sortColumn = 'lastName';
+    this.filters.sortDirection = SortDirection.ASC;
     this.resetPageNumber();
 
     this.filtersSubject
@@ -168,6 +167,26 @@ export class PncSearchPage implements AfterViewInit {
   }
 
   /**
+   * Effectue le tri selon la colonne choisie
+   * @param value la colonne choisie
+   */
+  setFilterColumnValue(value: string) {
+    this.filters.sortColumn = value;
+    this.filters.sortDirection = (this.filters.sortColumn === 'lastName') ? this.filters.sortDirection : SortDirection.DESC;
+    this.launchSearch();
+  }
+
+
+  /**
+   * Effectue le tri de la colonne choisie selon l'ordre de tri
+   * @param sortDirection ordre de tri
+   */
+  sortColumnBySelectedDirection() {
+     this.filters.sortDirection = this.sortDirectionToogleGroup.value;
+     this.launchSearch();
+  }
+
+  /**
    * Redirige vers la page d'accueil du pnc ou du cadre
    * @param pnc le pnc concerné
    */
@@ -182,36 +201,6 @@ export class PncSearchPage implements AfterViewInit {
   }
 
   /**
-   * Tri par date de dernière eObservation
-   */
-  sortByLastEObservationDate() {
-    this.filters.sortColumn = 'lastEObservationDate';
-    this.lastEObservationSortDirection = this.switchSortDirection(this.lastEObservationSortDirection);
-    this.filters.sortDirection = this.lastEObservationSortDirection;
-    this.launchSearch();
-  }
-
-  /**
-   * Tri par date de dernier bilan pro ou EPP
-   */
-  sortByLastProfessionalInterviewDate() {
-    this.filters.sortColumn = 'lastProfessionalInterviewDate';
-    this.lastProfessionalInterviewSortDirection = this.switchSortDirection(this.lastProfessionalInterviewSortDirection);
-    this.filters.sortDirection = this.lastProfessionalInterviewSortDirection;
-    this.launchSearch();
-  }
-
-  /**
-   * Tri par date de dernière mise à jour d'une priorité
-   */
-  sortByLastCareerObjectiveUpdate() {
-    this.filters.sortColumn = 'lastCareerObjectiveUpdateDate';
-    this.lastCareerObjectiveUpdateSortDirection = this.switchSortDirection(this.lastCareerObjectiveUpdateSortDirection);
-    this.filters.sortDirection = this.lastCareerObjectiveUpdateSortDirection;
-    this.launchSearch();
-  }
-
-  /**
    * Retourne le sens contraire au sens passé en paramètre
    * @param sortDirection le sens dont on veut le contraire
    * @return le sens du tri
@@ -220,6 +209,13 @@ export class PncSearchPage implements AfterViewInit {
     return (sortDirection === SortDirection.ASC) ? SortDirection.DESC : SortDirection.ASC;
   }
 
+  /**
+   *  test si le tri est dans l'ordre croissant
+   * @return vrai si l'ordre est croissant, faux sinon.
+   */
+  isASC(): boolean {
+    return this.filters.sortDirection === SortDirection.ASC;
+  }
   /**
    * Vérifie si on est sur la recherche d'alternant
    * @return vrai si on est sur la recherche d'alternant, faux sinon
@@ -233,5 +229,14 @@ export class PncSearchPage implements AfterViewInit {
    */
   toggleFiltersMenu() {
     this.isMenuOpened = !this.isMenuOpened;
+  }
+
+  /**
+   *  deux valeurs et renvois true si elles sont égales
+   * @param e1 premiere valeur à comparér
+   * @param e2 Deuxieme valeur à comparér
+   */
+  compareFn(e1: string, e2: string): boolean {
+    return (e1 === e2);
   }
 }

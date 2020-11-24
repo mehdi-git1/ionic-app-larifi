@@ -62,3 +62,43 @@ mat-sidenav {
 .career-objective-sort ion-icon {
     margin: 5px !important;
 }
+
+.filter-bar-container {
+    background: var(--ion-color-white);
+    width: 100% !important;
+    
+    .filter-bar {
+        max-width: 1200px;
+        padding: 10px 20px;
+        margin: auto;
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+
+        ion-select {
+            margin-top: 0;
+            margin-left: 8px;
+            width: 200px;
+        }
+
+        .filter-order {
+            border-radius: 4px;
+            margin-left: 10px;
+            margin-right: 10px;
+            background-color: var(--ion-color-grey70);
+
+            .mat-button-toggle-checked {
+                color: var(--ion-color-white);
+                border: 1px;
+                border-radius: 4px ;
+                background-color: var(--ion-color-primary);
+            }
+            ::ng-deep .mat-button-toggle-label-content {
+                line-height: 39px ;
+                padding: 0 12px ;
+            }
+
+        }
+
+    }
+}

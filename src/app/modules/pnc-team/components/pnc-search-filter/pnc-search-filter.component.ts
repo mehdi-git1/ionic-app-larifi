@@ -88,8 +88,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Déclenche une recherche (quand l'utilisateur clique sur le bouton rechercher)
    */
   search(): void {
-    // permet d'effectuer le tri par défaut
-    this.filters.sortColumn = undefined;
     this.filtersChanged.next();
   }
 
@@ -165,7 +163,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.hasManifex = false;
     this.filters.hasEobsOlderThan18Months = false;
     this.filters.hasProfessionalInterviewOlderThan24Months = false;
-    this.filters.sortColumn = undefined;
+    this.filters.sortColumn = 'lastName';
     this.filters.sortDirection = SortDirection.ASC;
 
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
