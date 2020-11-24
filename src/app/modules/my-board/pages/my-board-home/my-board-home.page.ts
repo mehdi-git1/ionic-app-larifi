@@ -1,7 +1,7 @@
 import { MyBoardNotificationTypeEnum } from './../../../../core/enums/my-board/my-board-notification-type.enum';
 import { from, Observable, Subject } from 'rxjs';
 import {
-  MyBoardNotificationSummaryModel
+    MyBoardNotificationSummaryModel
 } from 'src/app/core/models/my-board/my-board-notification-summary.model';
 import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-notification.model';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
@@ -12,18 +12,18 @@ import { Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
-  NotificationDocumentTypeEnum
+    NotificationDocumentTypeEnum
 } from '../../../../core/enums/my-board/notification-document-type.enum';
 import { PagePositionEnum } from '../../../../core/enums/page-position.enum';
 import {
-  MyBoardNotificationFilterModel
+    MyBoardNotificationFilterModel
 } from '../../../../core/models/my-board/my-board-notification-filter.model';
 import {
-  PagedMyBoardNotificationModel
+    PagedMyBoardNotificationModel
 } from '../../../../core/models/my-board/paged-my-board-notification.model';
 import { AlertDialogService } from '../../../../core/services/alertDialog/alert-dialog.service';
 import {
-  MyBoardNotificationService
+    MyBoardNotificationService
 } from '../../../../core/services/my-board/my-board-notification.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
@@ -48,6 +48,7 @@ export class MyBoardHomePage implements OnInit {
   selectAllCheckboxValue = false;
 
   PAGE_SIZE = 15;
+  enabledFiltersCount = 0;
 
   MyBoardNotificationTypeEnum = MyBoardNotificationTypeEnum;
   myBoardNotificationType = MyBoardNotificationTypeEnum.ALERT;
@@ -122,6 +123,13 @@ export class MyBoardHomePage implements OnInit {
     });
   }
 
+  /**
+   * Assigne la valeur du nombre de filtres activés
+   * @param enabledFiltersCount le nombre de filtres activés
+   */
+  setEnabledFiltersCount(enabledFiltersCount: number) {
+    this.enabledFiltersCount = enabledFiltersCount;
+  }
   /**
    * Lance une recherche suite à une mise à jour des filtres
    */

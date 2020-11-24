@@ -112,4 +112,62 @@ export class Utils {
     public static getEmptyStringIfNull(value: string) {
         return value == null ? '' : value;
     }
+
+    /**
+     * Compare deux numéros de version
+     * @param v1 le premier numéro de version
+     * @param v2 le second numéro de version
+     * @return 0 si les deux numéros sont égaux, 1 si est après v2, -1 si v1 est avant v2
+     */
+    public static compareVersionNumbers(v1, v2) {
+        const v1SubVersionNumbers = v1.split('.');
+        const v2SubVersionNumbers = v2.split('.');
+
+        if (!this.subVersionNumbersFormatIsValid(v1SubVersionNumbers) || !this.subVersionNumbersFormatIsValid(v2SubVersionNumbers)) {
+            return NaN;
+        }
+
+        for (let i = 0; i < v1SubVersionNumbers.length; ++i) {
+            if (v2SubVersionNumbers.length === i) {
+                return 1;
+            }
+
+            if (v1SubVersionNumbers[i] === v2SubVersionNumbers[i]) {
+                continue;
+            }
+            if (v1SubVersionNumbers[i] > v2SubVersionNumbers[i]) {
+                return 1;
+            }
+            return -1;
+        }
+
+        if (v1SubVersionNumbers.length !== v2SubVersionNumbers.length) {
+            return -1;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Vérifie que le format d'une liste de sous numéros de version est valide
+     * @param subVersionNumbers un tableau contenant les sous numéros de version
+     * @return vrai si c'est les sous numéros de version sont au bon format, faux sinon
+     */
+    private static subVersionNumbersFormatIsValid(subVersionNumbers: Array<any>): boolean {
+        for (const subVersion of subVersionNumbers) {
+            if (!this.isPositiveInteger(subVersion)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Vérifie qu'un chaine de caractère représente bien un entier positif
+     * @param num le nombre sous forme de chaîne de caractère à tester
+     * @return vrai si c'est le cas, faux sinon
+     */
+    private static isPositiveInteger(num: string): boolean {
+        return /^\d+$/.test(num);
+    }
 }

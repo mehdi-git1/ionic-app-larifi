@@ -1,5 +1,5 @@
-import { SortDirection } from './../enums/sort-direction-enum';
-import { PagePositionEnum } from './../enums/page-position.enum';
+import { PagePositionEnum } from '../enums/page-position.enum';
+import { SortDirection } from '../enums/sort-direction-enum';
 
 export class PncFilterModel {
 
@@ -12,8 +12,8 @@ export class PncFilterModel {
   aircraftSkill: string;
   relay: string;
   prioritized: boolean;
-  hasAtLeastOneCareerObjectiveInProgress: boolean;
-  hasNoCareerObjective: boolean;
+  hasAtLeastOnePriorityInProgress: boolean;
+  hasNoPriority: boolean;
   hasHiddenEvents: boolean;
   hasDefaultHiddenEvents: boolean;
   priorityCategoryCode: string;

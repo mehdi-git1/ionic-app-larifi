@@ -1,8 +1,10 @@
-import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
+import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
+import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatExpansionPanel } from '@angular/material';
 import { Events, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,7 +18,6 @@ import { SectorModel } from '../../../../core/models/sector.model';
 import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { MatExpansionPanel } from '@angular/material';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -32,6 +33,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
   @Output() filtersChanged = new EventEmitter<PncFilterModel>();
 
   @Output() pncSelected: EventEmitter<any> = new EventEmitter();
+
+  @Output() enabledFiltersCountChanged: EventEmitter<number> = new EventEmitter();
 
   defaultDivision: string;
   defaultSector: string;
@@ -51,10 +54,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
   aircraftSkillList: string[];
   specialityList: string[];
   workRateList: number[];
-  priorityCategoryList: Array<CareerObjectiveCategory>;
+  careerObjectiveCategoryList: Array<CareerObjectiveCategory>;
 
   outOfDivision: boolean;
-  priorityFilter;
+  careerObjectiveFilter;
 
   // Utilisé dans le template
   valueAll = AppConstant.ALL;
@@ -87,6 +90,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Déclenche une recherche (quand l'utilisateur clique sur le bouton rechercher)
    */
   search(): void {
+    // permet d'effectuer le tri par défaut
+    this.filters.sortColumn = undefined;
     this.filtersChanged.next();
   }
 
@@ -117,7 +122,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
           return relay1.code > relay2.code ? 1 : -1;
         });
         this.aircraftSkillList = appInitData.aircraftSkills;
-        this.priorityCategoryList = appInitData.careerObjectiveCategories;
+        this.careerObjectiveCategoryList = appInitData.careerObjectiveCategories;
       }
       if (this.isAlternantSearch()) {
         this.defaultDivision = AppConstant.ALL;
@@ -150,22 +155,26 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
       this.searchForm.get('specialityControl').setValue(this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL);
     }
+
     this.filters.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
     this.filters.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0].code : AppConstant.ALL;
-    this.filters.priorityCategoryCode = this.priorityCategoryList && this.priorityCategoryList.length === 1 ? this.priorityCategoryList[0].code : AppConstant.ALL;
+    this.filters.priorityCategoryCode = this.careerObjectiveCategoryList && this.careerObjectiveCategoryList.length === 1 ? this.careerObjectiveCategoryList[0].code : AppConstant.ALL;
     this.filters.prioritized = false;
-    this.filters.hasAtLeastOneCareerObjectiveInProgress = false;
-    this.filters.hasNoCareerObjective = false;
+    this.filters.hasAtLeastOnePriorityInProgress = false;
+    this.filters.hasNoPriority = false;
     this.filters.workRate = this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : undefined;
     this.filters.taf = false;
     this.filters.hasManifex = false;
     this.filters.hasEobsOlderThan18Months = false;
     this.filters.hasProfessionalInterviewOlderThan24Months = false;
+    this.filters.sortColumn = undefined;
+    this.filters.sortDirection = SortDirection.ASC;
+
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
     this.searchForm.get('workRateControl').setValue(this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : AppConstant.ALL);
-    this.searchForm.get('priorityCategoryControl').setValue(this.priorityCategoryList && this.priorityCategoryList.length === 1 ? this.priorityCategoryList[0] : AppConstant.ALL);
+    this.searchForm.get('careerObjectiveCategoryControl').setValue(this.careerObjectiveCategoryList && this.careerObjectiveCategoryList.length === 1 ? this.careerObjectiveCategoryList[0] : AppConstant.ALL);
     this.searchForm.get('prioritizedControl').setValue(false);
     this.searchForm.get('hasAtLeastOneCareerObjectiveInProgressControl').setValue(false);
     this.searchForm.get('hasNoCareerObjectiveControl').setValue(false);
@@ -218,7 +227,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
         value: [this.filters.relay ? this.filters.relay : AppConstant.ALL],
         disabled: this.areFiltersDisabled()
       }),
-      priorityCategoryControl: new FormControl({
+      careerObjectiveCategoryControl: new FormControl({
         value: [this.filters ? this.filters.priorityCategoryCode : AppConstant.ALL],
         disabled: this.areFiltersDisabled()
       }),
@@ -265,6 +274,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.formOnChanges();
       this.search();
     }
+    this.countEnabledFilters();
   }
 
   /**
@@ -280,15 +290,15 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Fonction permettant de détecter et de gérer les changements de valeur des différents éléments du formulaire
    */
   formOnChanges() {
-    this.searchForm.valueChanges.subscribe(val => {
+    this.searchForm.valueChanges.subscribe((val) => {
       this.filters.ginq = val.ginqControl;
       this.filters.speciality = val.specialityControl;
       this.filters.aircraftSkill = val.aircraftSkillControl;
       this.filters.relay = val.relayControl;
-      this.filters.priorityCategoryCode = val.priorityCategoryControl;
+      this.filters.priorityCategoryCode = val.careerObjectiveCategoryControl;
       this.filters.prioritized = val.prioritizedControl;
-      this.filters.hasAtLeastOneCareerObjectiveInProgress = val.hasAtLeastOneCareerObjectiveInProgressControl;
-      this.filters.hasNoCareerObjective = val.hasNoCareerObjectiveControl;
+      this.filters.hasAtLeastOnePriorityInProgress = val.hasAtLeastOneCareerObjectiveInProgressControl;
+      this.filters.hasNoPriority = val.hasNoCareerObjectiveControl;
       this.filters.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
       this.filters.hasHiddenEvents = val.hasHiddenEventsControl;
       this.filters.workRate = val.workRateControl;
@@ -296,8 +306,18 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasEobsOlderThan18Months = val.hasEobsOlderThan18MonthsControl;
       this.filters.hasManifex = val.hasManifexControl;
       this.filters.hasProfessionalInterviewOlderThan24Months = val.hasProfessionalInterviewOlderThan24MonthsControl;
-
+      this.countEnabledFilters();
     });
+  }
+
+  /**
+   * Compte le nombre de filtres activés
+   */
+  private countEnabledFilters() {
+
+    const enabledFiltersCount = (Object.values(this.searchForm.value)
+      .filter((value: string | boolean) => value && (value !== AppConstant.ALL)).length);
+    this.enabledFiltersCountChanged.emit(enabledFiltersCount);
   }
 
   /**

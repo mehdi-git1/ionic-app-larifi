@@ -26,10 +26,13 @@ export class MyBoardFiltersComponent implements AfterViewInit {
     @Input() notificationSummary: MyBoardNotificationSummaryModel;
 
     @Output() filtersChanged = new EventEmitter<MyBoardNotificationFilterModel>();
+    @Output() enabledFiltersCountChanged = new EventEmitter<number>();
 
     filterForm: FormGroup;
 
     documentTypes: Array<any>;
+
+    enabledFiltersCount = 0;
 
     MyBoardNotificationTypeEnum = MyBoardNotificationTypeEnum;
 
@@ -96,9 +99,22 @@ export class MyBoardFiltersComponent implements AfterViewInit {
                     : this.sessionService.appContext.myBoardNotificationFilters = _.cloneDeep(this.filters);
                 this.filtersChanged.next();
             }
+            this.countEnabledFilters();
         });
+
     }
 
+    /**
+     * compte le nombre de filtres activés dans le formulaire
+     */
+    countEnabledFilters() {
+        this.enabledFiltersCount = 0;
+        this.enabledFiltersCount += this.filterForm.value.documentTypes.length;
+        this.enabledFiltersCount += Utils.isEmpty(this.filterForm.value.creationStartDate) ? 0 : 1;
+        this.enabledFiltersCount += Utils.isEmpty(this.filterForm.value.creationEndDate) ? 0 : 1;
+        this.enabledFiltersCount += this.filterForm.value.archived ? 1 : 0;
+        this.enabledFiltersCountChanged.next(this.enabledFiltersCount);
+    }
     /**
      * Initialise la liste des types de document
      * @return la liste initialisée
@@ -150,6 +166,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
         }
         this.filters.type = this.type;
         FormsUtil.reset(this.filterForm, this.filters);
+        this.countEnabledFilters();
     }
 
     /**
