@@ -136,10 +136,7 @@
         "WORK_RATE": "Rythme",
         "LAST_EOBSERVATION_DATE":"Dernière eObs",
         "LAST_PROFESSIONAL_INTERVIEW_DATE":"Dernier BP/EPP",
-        "LAST_CAREER_OBJECTIVE_UPDATE_DATE":"Dernière mise à jour d'une priorité",
-        "HAS_PRIORITIZED":"Majeure",
-        "HAS_CAREER_OBJECTIVE_IN_PROGRESS":"En cours",
-        "PARTICULARITY":"PNC positionné"
+        "LAST_CAREER_OBJECTIVE_UPDATE_DATE":"Dernière mise à jour d'une priorité"
     },
     "AUTHENT": {
         "AUTHENTICATION": "Authentification",
