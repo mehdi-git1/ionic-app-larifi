@@ -31,7 +31,7 @@ export class PncSearchPage implements AfterViewInit {
   pnc: PncModel;
 
   filteredPncs = new Array<PncModel>();
-  public filters = new PncFilterModel();
+  filters = new PncFilterModel();
   filtersSubject = new Subject<PncFilterModel>();
 
   totalPncs = 0;
@@ -171,7 +171,7 @@ export class PncSearchPage implements AfterViewInit {
    * Effectue le tri selon la colonne choisie
    * @param value la colonne choisie
    */
-  setFilterColumnValue(value: string) {
+  sortByColumn(value: string) {
     this.filters.sortColumn = value;
     this.filters.sortDirection = (this.filters.sortColumn === 'lastName') ? this.filters.sortDirection : SortDirection.ASC;
     this.launchSearch();

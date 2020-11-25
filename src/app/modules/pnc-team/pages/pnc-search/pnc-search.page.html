@@ -20,7 +20,7 @@
     <div class="filter-bar-container">
         <div class="filter-bar">
             <ion-label>{{ 'PNC_SEARCH.CRITERIA.SORT.LABEL'| translate }}</ion-label>
-            <ion-select interface="popover" [value]="filters.sortColumn" (ionChange)="setFilterColumnValue($event.detail.value)">
+            <ion-select interface="popover" [value]="filters.sortColumn" (ionChange)="sortByColumn($event.detail.value)">
                 <ion-select-option value="lastName">
                     {{ 'PNC_SEARCH.CRITERIA.SORT.LAST_NAME'  | translate }}
                 </ion-select-option>
