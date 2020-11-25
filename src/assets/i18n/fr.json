@@ -128,15 +128,15 @@
         },
         "LOADING_EDOSSIER_MESSAGE": "Chargement du eDossier..."
     },
-    "PNC_CARD":{
-        "ASSIGNMENT":"Affectation",
+    "PNC_CARD": {
+        "ASSIGNMENT": "Affectation",
         "RELAYS": "Relais",
         "FUNCTION": "Fonction",
         "AIRCRAFT_SKILL": "Spécialisation avion",
         "WORK_RATE": "Rythme",
-        "LAST_EOBSERVATION_DATE":"Dernière eObs",
-        "LAST_PROFESSIONAL_INTERVIEW_DATE":"Dernier BP/EPP",
-        "LAST_CAREER_OBJECTIVE_UPDATE_DATE":"Dernière mise à jour d'une priorité"
+        "LAST_EOBSERVATION_DATE": "Dernière eObs",
+        "LAST_PROFESSIONAL_INTERVIEW_DATE": "Dernier BP/EPP",
+        "LAST_CAREER_OBJECTIVE_UPDATE_DATE": "Dernière mise à jour d'une priorité"
     },
     "AUTHENT": {
         "AUTHENTICATION": "Authentification",
@@ -729,8 +729,8 @@
               "LAST_PROFESSIONAL_INTERVIEW": "Dernier BP",
               "LAST_UPDATED_CAREER_OBJECTIVE": "Dernière prio mise à jour"
             },
-            "ENCOUNTER_FLIGHT_GROUND" :{
-                "TITLE":"Rencontres vol/sol",
+            "ENCOUNTER_FLIGHT_GROUND": {
+                "TITLE": "Rencontres vol/sol",
                 "EOBS_OLDER_THAN_18_MONTHS": "Dernière eObs > 18 mois",
                 "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH": "Dernier BP/EPP > 24 mois"
             },
@@ -774,6 +774,10 @@
     },
     "MY_BOARD": {
         "TITLE": "MyBoard",
+        "TABS": {
+            "NOTIFICATION": "Notifications",
+            "ALERT": "Rappels"
+        },
         "FILTER": "Filtrer",
         "NO_NOTIFICATIONS": "Aucune notification trouvée",
         "UNAVAILABLE_OFFLINE": "MyBoard non disponible en déconnecté",
@@ -797,7 +801,8 @@
             "DOCUMENT_TYPE": "Type de document",
             "START_DATE": "Du",
             "END_DATE": "Au",
-            "ARCHIVED": "Notifications archivées",
+            "ARCHIVED_NOTIFICATION": "Notifications archivées",
+            "ARCHIVED_ALERT": "Rappels archivés",
             "REINIT_BUTTON": "Réinitialiser"
         },
         "MESSAGES": {
