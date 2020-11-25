@@ -1,39 +1,41 @@
 import { MyBoardNotificationTypeEnum } from './../../../../core/enums/my-board/my-board-notification-type.enum';
 import { from, Observable, Subject } from 'rxjs';
 import {
-  MyBoardNotificationSummaryModel
+    MyBoardNotificationSummaryModel
 } from 'src/app/core/models/my-board/my-board-notification-summary.model';
 import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-notification.model';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 
-import { Component } from '@angular/core';
+import { OnInit, Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
-  NotificationDocumentTypeEnum
+    NotificationDocumentTypeEnum
 } from '../../../../core/enums/my-board/notification-document-type.enum';
 import { PagePositionEnum } from '../../../../core/enums/page-position.enum';
 import {
-  MyBoardNotificationFilterModel
+    MyBoardNotificationFilterModel
 } from '../../../../core/models/my-board/my-board-notification-filter.model';
 import {
-  PagedMyBoardNotificationModel
+    PagedMyBoardNotificationModel
 } from '../../../../core/models/my-board/paged-my-board-notification.model';
 import { AlertDialogService } from '../../../../core/services/alertDialog/alert-dialog.service';
 import {
-  MyBoardNotificationService
+    MyBoardNotificationService
 } from '../../../../core/services/my-board/my-board-notification.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import { MyBoardFiltersComponent } from '../../components/my-board-filters/my-board-filters.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'my-board-home',
   templateUrl: './my-board-home.page.html',
   styleUrls: ['./my-board-home.page.scss'],
 })
-export class MyBoardHomePage {
+export class MyBoardHomePage implements OnInit {
   pncNotifications = new Array<MyBoardNotificationModel>();
   filters = new MyBoardNotificationFilterModel();
   filtersSubject = new Subject<MyBoardNotificationFilterModel>();
@@ -46,8 +48,12 @@ export class MyBoardHomePage {
   selectAllCheckboxValue = false;
 
   PAGE_SIZE = 15;
+  enabledFiltersCount = 0;
 
   MyBoardNotificationTypeEnum = MyBoardNotificationTypeEnum;
+  myBoardNotificationType = MyBoardNotificationTypeEnum.ALERT;
+
+  @ViewChild('myBoardFilters', { static: false }) myBoardFilters: MyBoardFiltersComponent;
 
   constructor(
     private sessionService: SessionService,
@@ -69,9 +75,17 @@ export class MyBoardHomePage {
       });
   }
 
-  ionViewDidEnter() {
+  ngOnInit() {
     this.filters.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
+    this.getMyBoardNotificationSummary().then((myBoardNotificationSummary) => {
+      if (myBoardNotificationSummary.lastMyBoardNotification && myBoardNotificationSummary.lastMyBoardNotification.type != this.myBoardNotificationType) {
+        this.myBoardNotificationType = myBoardNotificationSummary.lastMyBoardNotification.type;
+        this.filters.type = this.myBoardNotificationType;
+      }
+    });
+  }
 
+  ionViewDidEnter() {
     this.getMyBoardNotificationSummary().then((myBoardNotificationSummary) => {
       // Si le nombre de notif a changé, on demande à l'utilisateur s'il souhaite relancer la recherche pour mettre à jour la vue
       if (this.totalNotifications !== 0 && myBoardNotificationSummary.totalFiltered !== this.totalNotifications) {
@@ -109,6 +123,13 @@ export class MyBoardHomePage {
     });
   }
 
+  /**
+   * Assigne la valeur du nombre de filtres activés
+   * @param enabledFiltersCount le nombre de filtres activés
+   */
+  setEnabledFiltersCount(enabledFiltersCount: number) {
+    this.enabledFiltersCount = enabledFiltersCount;
+  }
   /**
    * Lance une recherche suite à une mise à jour des filtres
    */
@@ -211,7 +232,7 @@ export class MyBoardHomePage {
       notificationIdsArray.push(notification.techId);
       this.myBoardNotificationService.readNotifications(notificationIdsArray, true).then(() => {
         notification.checked = true;
-        this.events.publish('myBoard:uncheckedNotificationCountUpdate', this.myBoardNotificationSummary.totalUnchecked - 1);
+        this.events.publish('myBoard:uncheckedNotificationCountUpdate', this.myBoardNotificationSummary.totalUncheckedNotifications + this.myBoardNotificationSummary.totalUncheckedAlerts - 1);
       });
     }
 
@@ -351,6 +372,31 @@ export class MyBoardHomePage {
    */
   isArchiveViewEnabled(): boolean {
     return this.filters.archived;
+  }
+
+  /**
+   * Affiche l'onglet des notifications
+   */
+  displayNotifications(): void {
+    this.myBoardNotificationType = MyBoardNotificationTypeEnum.NOTIFICATION;
+    this.myBoardFilters.updateFilterForm(MyBoardNotificationTypeEnum.NOTIFICATION);
+  }
+
+  /**
+   * Affiche l'onglet des rappels
+   */
+  displayAlerts(): void {
+    this.myBoardNotificationType = MyBoardNotificationTypeEnum.ALERT;
+    this.myBoardFilters.updateFilterForm(MyBoardNotificationTypeEnum.ALERT);
+  }
+
+  /**
+   * Vérifie si un onglet est actif
+   * @param mode le mode (onglet) à tester
+   * @return vrai si le mode est actif, faux sinon
+   */
+  isTabActive(type: MyBoardNotificationTypeEnum): boolean {
+    return type === this.myBoardNotificationType;
   }
 }
 

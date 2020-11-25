@@ -40,6 +40,7 @@ export class PncSearchPage implements AfterViewInit {
 
   @ViewChild(MatButtonToggleGroup, { static: false })
   sortDirectionToogleGroup: MatButtonToggleGroup;
+  enabledFiltersCount = 0;
 
   // Expose l'enum au template
   TabHeaderEnum = TabHeaderEnum;
@@ -181,10 +182,17 @@ export class PncSearchPage implements AfterViewInit {
    * Effectue le tri de la colonne choisie selon l'ordre de tri
    */
   sortColumnBySelectedDirection() {
-     this.filters.sortDirection = this.sortDirectionToogleGroup.value;
-     this.launchSearch();
+    this.filters.sortDirection = this.sortDirectionToogleGroup.value;
+    this.launchSearch();
   }
 
+  /**
+   * Assigne la valeur du nombre de filtres activés
+   * @param enabledFiltersCount le nombre de filtres activés
+   */
+  setEnabledFiltersCount(enabledFiltersCount: number) {
+    this.enabledFiltersCount = enabledFiltersCount;
+  }
   /**
    * Redirige vers la page d'accueil du pnc ou du cadre
    * @param pnc le pnc concerné

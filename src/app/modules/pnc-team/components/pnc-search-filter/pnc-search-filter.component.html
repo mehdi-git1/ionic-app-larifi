@@ -149,11 +149,12 @@
                     </ion-label>
                     <ion-select interface="popover" [compareWith]="compareFn" formControlName="priorityCategoryControl"
                         [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
-                        <ion-select-option *ngIf="!priorityCategoryList || priorityCategoryList.length != 1"
+                        <ion-select-option
+                            *ngIf="!careerObjectiveCategoryList || careerObjectiveCategoryList.length != 1"
                             [value]="valueAll">
                             {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
                         </ion-select-option>
-                        <ion-select-option *ngFor="let category of priorityCategoryList" [value]="category.code">
+                        <ion-select-option *ngFor="let category of careerObjectiveCategoryList" [value]="category.code">
                             {{category.label}}
                         </ion-select-option>
                     </ion-select>
