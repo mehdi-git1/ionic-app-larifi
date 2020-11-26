@@ -9,11 +9,13 @@ export class AlertDialogService {
         title: string,
         message: string,
         confirmLabel: string,
-        cancelLabel: string
+        cancelLabel: string,
+        cssClass?: string
     ): Promise<HTMLIonAlertElement> {
         const alertPromise = this.alertCtrl.create({
             header: title,
             message: message,
+            cssClass: cssClass,
             buttons: [
                 {
                     text: cancelLabel,

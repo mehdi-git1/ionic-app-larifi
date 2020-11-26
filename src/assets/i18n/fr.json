@@ -1202,6 +1202,16 @@
                 "ESCORE_75": "Note 7,5",
                 "ESCORE_100": "Note 10",
                 "X_AXIS_LABEL": "Nombre de retours"
+            },
+            "REPORT_VERBATIM":{
+                "REPORT_MODE_BUTTON":"Signaler un retour abusif",
+                "USE_HINT":"Cliquez sur un verbatim pour le signaler",
+                "CONFIRM_REPORT_MODAL":{
+                    "TITLE":"Confirmer le signalement",
+                    "CONTENT":"En confirmant le signalement, vous attestez que ce message est injurieux, raciste, homophobe ou invite plus généralement à la haine ou la violence et est contraire à la loi.<br>Une fois envoyée, votre demande sera analysée pour suppression définitive.<br><br> <strong>\"{{verbatim}}\"</strong>"
+                },
+                "VERBATIM_REPORTED":"Verbatim signalé",
+                "COMMENT_REPORTED":"Commentaire signalé"
             }
         }
     },

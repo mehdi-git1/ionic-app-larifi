@@ -1,6 +1,7 @@
 .button-bar,
 .button-bar-right {
     display: flex;
+    align-items: center;
 
     & > button:not(:first-child),
     ion-button:not(:first-child) {

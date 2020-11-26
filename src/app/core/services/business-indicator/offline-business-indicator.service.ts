@@ -1,17 +1,25 @@
 import { Injectable } from '@angular/core';
 
 import {
+    EScoreCommentVerbatimEnum
+} from '../../enums/business-indicators/escore-comment-verbatim.enum';
+import {
+    ShortLoopCommentVerbatimEnum
+} from '../../enums/business-indicators/short-loop-comment-verbatim.enum';
+import {
     BusinessIndicatorLightModel
 } from '../../models/business-indicator/business-indicator-light.model';
 import {
     BusinessIndicatorSummaryModel
 } from '../../models/business-indicator/business-indicator-summary.model';
 import { BusinessIndicatorModel } from '../../models/business-indicator/business-indicator.model';
+import { EScoreCommentModel } from '../../models/business-indicator/e-score-comment.model';
+import { ShortLoopCommentModel } from '../../models/business-indicator/short-loop-comment.model';
 
 @Injectable()
 export class OfflineBusinessIndicatorService {
 
-    constructor() {}
+    constructor() { }
     /**
      * Récupère les indicateurs métier du Pnc
      * @param matricule le matricule du Pnc
@@ -41,4 +49,23 @@ export class OfflineBusinessIndicatorService {
         return Promise.resolve(null);
     }
 
+    /**
+     * Signale un verbatim d'un commentaire eScore
+     * @param commentId l'id du commentaire
+     * @param commentVerbatim le verbatim du commentaire à signaler
+     * @return une promesse contenant le commentaire mis à jour
+     */
+    reportEScoreCommentVerbatim(commentId: number, commentVerbatim: EScoreCommentVerbatimEnum): Promise<EScoreCommentModel> {
+        return Promise.resolve(null);
+    }
+
+    /**
+     * Signale un verbatim d'un commentaire boucle courte
+     * @param commentId l'id du commentaire
+     * @param commentVerbatim le verbatim du commentaire à signaler
+     * @return une promesse contenant le commentaire mis à jour
+     */
+    reportShortLoopCommentVerbatim(commentId: number, commentVerbatim: ShortLoopCommentVerbatimEnum): Promise<ShortLoopCommentModel> {
+        return Promise.resolve(null);
+    }
 }
