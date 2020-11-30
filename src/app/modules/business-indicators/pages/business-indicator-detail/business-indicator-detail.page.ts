@@ -52,7 +52,7 @@ export class BusinessIndicatorDetailPage {
     pnc: PncModel;
     businessIndicator: BusinessIndicatorModel;
     shortLoopCommentsDataSource: MatTableDataSource<ShortLoopCommentModel>;
-    escoreCommentsDataSource: MatTableDataSource<EScoreCommentModel>;
+    eScoreCommentsDataSource: MatTableDataSource<EScoreCommentModel>;
     escoreCommentColumns: string[] = ['rating', 'positiveFeedbackReason', 'negativeFeedbackReason', 'suggestions'];
     shortLoopCommentColumns: string[] = ['rating', 'positiveFeedbackReason', 'negativeFeedbackReason'];
     reportVerbatimMode = false;
@@ -85,11 +85,11 @@ export class BusinessIndicatorDetailPage {
         });
         this.onlineBusinessIndicatorService.getBusinessIndicator(id).then(businessIndicator => {
             this.businessIndicator = businessIndicator;
-            const escoreCommentsFiltered = this.filterValidEScoreComments(businessIndicator.escoreComments);
-            escoreCommentsFiltered.sort((escoreComment, otherEscoreComment) => {
+            const eScoreCommentsFiltered = this.filterValidEScoreComments(businessIndicator.escoreComments);
+            eScoreCommentsFiltered.sort((escoreComment, otherEscoreComment) => {
                 return this.sortEscoreCommentByRating(escoreComment, otherEscoreComment);
             });
-            this.escoreCommentsDataSource = new MatTableDataSource<EScoreCommentModel>(escoreCommentsFiltered);
+            this.eScoreCommentsDataSource = new MatTableDataSource<EScoreCommentModel>(eScoreCommentsFiltered);
             const shortLoopCommentsFiltered = this.filterValidShortLoopComments(businessIndicator.shortLoopComments);
             shortLoopCommentsFiltered.sort((shortLoopComment, otherShortLoopComment) => {
                 return this.sortShortLoopCommentCommentByRating(shortLoopComment, otherShortLoopComment);
@@ -302,7 +302,13 @@ export class BusinessIndicatorDetailPage {
     reportEScoreCommentVerbatim(eScoreComment: EScoreCommentModel, commentVerbatim: EScoreCommentVerbatimEnum) {
         this.onlineBusinessIndicatorService.reportEScoreCommentVerbatim(eScoreComment.techId, commentVerbatim)
             .then((eScoreCommentUpdated) => {
-                eScoreComment = eScoreCommentUpdated;
+                // Mise à jour du commentaire de la dataSource pour mise à jour dans l'IHM
+                for (let i = 0; i < this.eScoreCommentsDataSource.data.length; i++) {
+                    if (this.eScoreCommentsDataSource.data[i].techId === eScoreCommentUpdated.techId) {
+                        this.eScoreCommentsDataSource.data[i] = eScoreCommentUpdated;
+                    }
+                }
+                this.eScoreCommentsDataSource = new MatTableDataSource<EScoreCommentModel>(this.eScoreCommentsDataSource.data);
                 this.changeDetectorRef.detectChanges();
                 this.toastService.success(this.translateService.instant('BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.VERBATIM_REPORTED'));
             });
@@ -344,7 +350,13 @@ export class BusinessIndicatorDetailPage {
     reportShortLoopCommentVerbatim(shortLoopComment: ShortLoopCommentModel, commentVerbatim: ShortLoopCommentVerbatimEnum) {
         this.onlineBusinessIndicatorService.reportShortLoopCommentVerbatim(shortLoopComment.techId, commentVerbatim)
             .then((shortLoopCommentUpdated) => {
-                shortLoopComment = shortLoopCommentUpdated;
+                // Mise à jour du commentaire de la dataSource pour mise à jour dans l'IHM
+                for (let i = 0; i < this.shortLoopCommentsDataSource.data.length; i++) {
+                    if (this.shortLoopCommentsDataSource.data[i].techId === shortLoopCommentUpdated.techId) {
+                        this.shortLoopCommentsDataSource.data[i] = shortLoopCommentUpdated;
+                    }
+                }
+                this.shortLoopCommentsDataSource = new MatTableDataSource<ShortLoopCommentModel>(this.shortLoopCommentsDataSource.data);
                 this.changeDetectorRef.detectChanges();
                 this.toastService.success(this.translateService.instant('BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.VERBATIM_REPORTED'));
             });
