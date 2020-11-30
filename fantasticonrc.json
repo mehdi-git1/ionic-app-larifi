@@ -1,0 +1,14 @@
+{
+  "inputDir": "./edospnc-icons", 
+  "outputDir": "src/assets/fonts/edospnc/", 
+  "name":"edospnc",
+  "fontTypes": ["ttf", "woff", "woff2"],
+  "assetTypes": ["css"],
+  "fontsUrl": "assets/fonts/edospnc/",
+  "normalize":true,
+  "prefix":"edospnc",
+  "pathOptions": {
+    "css":"src/theme/edospnc-icons.scss"
+  },
+  "tag":"span"
+}
