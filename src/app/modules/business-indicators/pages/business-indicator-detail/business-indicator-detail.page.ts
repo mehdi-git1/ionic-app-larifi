@@ -7,6 +7,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../../app.constant';
@@ -72,7 +73,8 @@ export class BusinessIndicatorDetailPage {
         private deviceService: DeviceService,
         private alertDialogService: AlertDialogService,
         private translateService: TranslateService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private loadingCtrl: LoadingController
     ) {
         if (!this.deviceService.isBrowser()) {
             this.detectOrientation();
@@ -300,17 +302,22 @@ export class BusinessIndicatorDetailPage {
      * @param commentVerbatim le type de verbatim à signaler
      */
     reportEScoreCommentVerbatim(eScoreComment: EScoreCommentModel, commentVerbatim: EScoreCommentVerbatimEnum) {
-        this.onlineBusinessIndicatorService.reportEScoreCommentVerbatim(eScoreComment.techId, commentVerbatim)
-            .then((eScoreCommentUpdated) => {
-                // Mise à jour du commentaire de la dataSource pour mise à jour dans l'IHM
-                for (let i = 0; i < this.eScoreCommentsDataSource.data.length; i++) {
-                    if (this.eScoreCommentsDataSource.data[i].techId === eScoreCommentUpdated.techId) {
-                        this.eScoreCommentsDataSource.data[i] = eScoreCommentUpdated;
-                    }
-                }
-                this.eScoreCommentsDataSource = new MatTableDataSource<EScoreCommentModel>(this.eScoreCommentsDataSource.data);
-                this.changeDetectorRef.detectChanges();
-                this.toastService.success(this.translateService.instant('BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.VERBATIM_REPORTED'));
+        this.loadingCtrl.create({ message: this.translateService.instant('GLOBAL.PLEASE_WAIT') })
+            .then((loading) => {
+                loading.present();
+                this.onlineBusinessIndicatorService.reportEScoreCommentVerbatim(eScoreComment.techId, commentVerbatim)
+                    .then((eScoreCommentUpdated) => {
+                        // Mise à jour du commentaire de la dataSource pour mise à jour dans l'IHM
+                        for (let i = 0; i < this.eScoreCommentsDataSource.data.length; i++) {
+                            if (this.eScoreCommentsDataSource.data[i].techId === eScoreCommentUpdated.techId) {
+                                this.eScoreCommentsDataSource.data[i] = eScoreCommentUpdated;
+                            }
+                        }
+                        this.eScoreCommentsDataSource = new MatTableDataSource<EScoreCommentModel>(this.eScoreCommentsDataSource.data);
+                        this.changeDetectorRef.detectChanges();
+                        this.toastService.success(
+                            this.translateService.instant('BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.VERBATIM_REPORTED'));
+                    }).finally(() => loading.dismiss());
             });
     }
 
@@ -348,17 +355,23 @@ export class BusinessIndicatorDetailPage {
      * @param commentVerbatim le type de verbatim à signaler
      */
     reportShortLoopCommentVerbatim(shortLoopComment: ShortLoopCommentModel, commentVerbatim: ShortLoopCommentVerbatimEnum) {
-        this.onlineBusinessIndicatorService.reportShortLoopCommentVerbatim(shortLoopComment.techId, commentVerbatim)
-            .then((shortLoopCommentUpdated) => {
-                // Mise à jour du commentaire de la dataSource pour mise à jour dans l'IHM
-                for (let i = 0; i < this.shortLoopCommentsDataSource.data.length; i++) {
-                    if (this.shortLoopCommentsDataSource.data[i].techId === shortLoopCommentUpdated.techId) {
-                        this.shortLoopCommentsDataSource.data[i] = shortLoopCommentUpdated;
-                    }
-                }
-                this.shortLoopCommentsDataSource = new MatTableDataSource<ShortLoopCommentModel>(this.shortLoopCommentsDataSource.data);
-                this.changeDetectorRef.detectChanges();
-                this.toastService.success(this.translateService.instant('BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.VERBATIM_REPORTED'));
+        this.loadingCtrl.create({ message: this.translateService.instant('GLOBAL.PLEASE_WAIT') })
+            .then((loading) => {
+                loading.present();
+                this.onlineBusinessIndicatorService.reportShortLoopCommentVerbatim(shortLoopComment.techId, commentVerbatim)
+                    .then((shortLoopCommentUpdated) => {
+                        // Mise à jour du commentaire de la dataSource pour mise à jour dans l'IHM
+                        for (let i = 0; i < this.shortLoopCommentsDataSource.data.length; i++) {
+                            if (this.shortLoopCommentsDataSource.data[i].techId === shortLoopCommentUpdated.techId) {
+                                this.shortLoopCommentsDataSource.data[i] = shortLoopCommentUpdated;
+                            }
+                        }
+                        this.shortLoopCommentsDataSource =
+                            new MatTableDataSource<ShortLoopCommentModel>(this.shortLoopCommentsDataSource.data);
+                        this.changeDetectorRef.detectChanges();
+                        this.toastService.success(this.translateService.instant(
+                            'BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.VERBATIM_REPORTED'));
+                    }).finally(() => loading.dismiss());
             });
     }
 
