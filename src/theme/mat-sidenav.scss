@@ -1,0 +1,4 @@
+.mat-drawer-backdrop.mat-drawer-shown {
+    // Fix bug angular material, backdrop manquant
+    background-color: rgba(0, 0, 0, .6);
+}
