@@ -1,165 +1,167 @@
 .pnc-card {
     display: flex;
     margin-bottom: 16px;
-    border-radius: 4px !important;
+    border-radius: 4px;
     background: var(--ion-color-white);
+
+    @media (max-width: 1000px) {
+        height: 220px;
+    }
 
     &.disabled {
         background: var(--ion-color-grey95);
     }
 
     label {
+        display: block;
         white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+
+
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    width: 100%;
+    padding: 10px 20px 10px 10px;
+
+    @media (max-width: 1000px) {
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-around;
     }
 
-    .pnc-info {
-        min-width: 145px;
-    }
-
-    .pnc-info,
-    .career-objective-info,
-    .particularity-info {
+    .assignment-relay-container,
+    .aircraft-skill-workrate-container,
+    .encounter-flight-ground-container,
+    .career-objective-icons-container {
+        height: 110px;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        margin-top: 10px;
-    }
+        justify-content: space-evenly;
 
-    .main-info-container,
-    .secondary-info-container,
-    .last-info-container {
         @media (max-width: 1000px) {
-            display: inline !important;
+            height: 100px;
         }
 
-        .identity,
-        .assignment-relay-container,
-        .aircraftSkill-workrate-container,
-        .encounter-flight-ground,
-        .career-objective-icons-container {
-            margin: 5px 0px;
+        & > * {
+            height: 40px;
+        }
+    }
+}
+
+.identity-container {
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 1000px) {
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        text-align: center;
+    }
+
+    .download-button-available {
+        padding: 15px 0;
+    }
+
+    .photo-container {
+        position: relative;
+
+        @media (min-width: 1000px) {
+            margin-right: 10px;
+        }
+
+        pnc-photo {
+            padding-top: 25px;
+        }
+
+        download-button {
+            position: absolute;
+            left: -12px;
+            top: -20px;
         }
     }
 
-    .pnc-container {
+    .identity {
         display: flex;
-        width: 100%;
-        padding: 10px;
+        flex-direction: column;
+        width: 150px;
 
-        .main-info-container {
-            display: flex;
-            flex: 2;
-
-
-            .photo-container {
-                width: 120px;
-                padding-left: 20px;
-                padding-top: 15px;
-                position: relative;
-                margin: 0 auto;
-
-                pnc-photo {
-                    padding-top: 25px;
-                }
-
-                download-button {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                }
-            }
-
-            .identity {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                min-width: 166px;
-
-                span {
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                }
-
-                .speciality {
-                    font-size: 1.5em;
-                }
-
-                .lastname,
-                .firstname {
-                    font-size: 1.2em;
-                    color: var(--ion-color-primary);
-                    white-space: nowrap;
-                }
-
-                .matricule {
-                    color: var(--ion-color-grey20);
-                }
-            }
+        span {
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
 
-        .secondary-info-container {
-            flex: 4;
-            display: flex;
+        .speciality {
+            font-size: 1.5em;
         }
 
-        .last-info-container {
-            flex: 6;
-            display: flex;
-
-            .icons-container {
-                display: flex;
-                justify-content: center;
-
-                .sub-flag-panel {
-                    display: flex;
-                    justify-content: flex-end;
-                    align-items: center;
-                    margin: 15px;
-                    margin-bottom: 0;
-
-                    label {
-                        padding-bottom: 6px;
-                    }
-
-                    & > span {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        border-radius: 100%;
-                        height: 35px;
-                        width: 35px;
-                        border: 3px solid;
-                    }
-
-                    .prioritized {
-                        color: var(--ion-color-secondary);
-                        border-color: var(--ion-color-secondary);
-                    }
-
-                    .at-least-one-career-objective {
-                        color: var(--ion-color-primary);
-                        border-color: var(--ion-color-primary);
-                    }
-                }
-
-                .particularity {
-
-                    span {
-                        color: var(--ion-color-grey50);
-                        margin-top: 10px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        border-radius: 100%;
-                        border: 3px solid var(--ion-color-grey50);
-                        height: 35px;
-                        width: 35px;
-                    }
-                }
-            }
-
+        .lastname,
+        .firstname {
+            font-size: 1.2em;
+            color: var(--ion-color-primary);
+            white-space: nowrap;
         }
 
+        .matricule {
+            color: var(--ion-color-grey20);
+        }
+    }
+}
+
+
+.icons-container {
+    display: flex;
+    align-items: center;
+
+    .sub-flag-panel {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 10px;
+        margin-bottom: 0;
+
+        label {
+            padding-bottom: 6px;
+        }
+
+        & > span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+            height: 35px;
+            width: 35px;
+            border: 3px solid;
+        }
+
+        .prioritized {
+            color: var(--ion-color-secondary);
+            border-color: var(--ion-color-secondary);
+        }
+
+        .at-least-one-career-objective {
+            color: var(--ion-color-primary);
+            border-color: var(--ion-color-primary);
+        }
+    }
+
+    .particularity {
+        span {
+            color: var(--ion-color-grey50);
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+            border: 3px solid var(--ion-color-grey50);
+            height: 35px;
+            width: 35px;
+        }
     }
 }

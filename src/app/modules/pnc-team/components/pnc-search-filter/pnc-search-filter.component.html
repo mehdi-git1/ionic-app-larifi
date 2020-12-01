@@ -147,7 +147,8 @@
                     <ion-label class="input-label">
                         {{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.CAREER_OBJECTIVE_CATEGORY' | translate }}
                     </ion-label>
-                    <ion-select interface="popover" [compareWith]="compareFn" formControlName="priorityCategoryControl"
+                    <ion-select interface="popover" [compareWith]="compareFn"
+                        formControlName="careerObjectiveCategoryControl"
                         [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
                         <ion-select-option
                             *ngIf="!careerObjectiveCategoryList || careerObjectiveCategoryList.length != 1"

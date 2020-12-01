@@ -197,7 +197,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             if (!nextEncounterDate) {
                 return null;
             }
-            if (nextEncounterDate.value && moment(nextEncounterDate.value).isBefore(moment().format('DD MMMM YYYY'))) {
+            if (nextEncounterDate.value && moment(nextEncounterDate.value).isSameOrBefore(moment().format('DD MMMM YYYY'))) {
                 return { invalidNextEncounterDate: this.translateService.instant('CAREER_OBJECTIVE_CREATE.FORM.VALID_DATE_ON_NEXT_ENCOUNTER') };
             }
             return null;

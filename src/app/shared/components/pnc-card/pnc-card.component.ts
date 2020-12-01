@@ -4,6 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { CrewMemberModel } from '../../../core/models/crew-member.model';
 import { PncModel } from '../../../core/models/pnc.model';
 import { RelayModel } from '../../../core/models/statutory-certificate/relay.model';
+import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
+import { DeviceService } from '../../../core/services/device/device.service';
 import { GenderService } from '../../../core/services/gender/gender.service';
 import { PncService } from '../../../core/services/pnc/pnc.service';
 import {
@@ -34,6 +36,8 @@ export class PncCardComponent {
     private synchronizationService: SynchronizationService,
     private toastService: ToastService,
     private translateService: TranslateService,
+    private connectivityService: ConnectivityService,
+    private deviceService: DeviceService,
     private pncService: PncService) {
   }
 
@@ -68,7 +72,20 @@ export class PncCardComponent {
     });
   }
 
+  /**
+   * Récupère l'avatar par défaut en fonction d'un genre
+   * @param gender le genre
+   * @return l'avatar correspondant au genre donné
+   */
   getAvatarPicture(gender) {
     return this.genderService.getAvatarPicture(gender);
+  }
+
+  /**
+   * Détermine si le bouton de mise en cache est disponible
+   * @return vrai s'il est dispo, faux sinon
+   */
+  isDownloadButtonAvailable(): boolean {
+    return this.connectivityService.isConnected() && this.deviceService.isOfflineModeAvailable();
   }
 }

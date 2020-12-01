@@ -29,7 +29,7 @@ export class PncModel extends EDossierPncObjectModel {
     manager: boolean;
     workRate: number;
     prioritized: boolean;
-    hasAtLeastOneCareerObjectiveInProgress: boolean;
+    hasAtLeastOnePriorityInProgress: boolean;
     hasBeenCCIn12LastMonths: boolean;
     statutoryCertificate?: StatutoryCertificateModel;
     groupPlanning: string;
