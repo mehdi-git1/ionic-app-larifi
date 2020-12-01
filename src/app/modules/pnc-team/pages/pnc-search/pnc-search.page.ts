@@ -207,22 +207,7 @@ export class PncSearchPage implements AfterViewInit {
     }
   }
 
-  /**
-   * Retourne le sens contraire au sens passé en paramètre
-   * @param sortDirection le sens dont on veut le contraire
-   * @return le sens du tri
-   */
-  switchSortDirection(sortDirection: SortDirection): SortDirection {
-    return (sortDirection === SortDirection.ASC) ? SortDirection.DESC : SortDirection.ASC;
-  }
 
-  /**
-   *  test si le tri est dans l'ordre croissant
-   * @return vrai si l'ordre est croissant, faux sinon.
-   */
-  isASC(): boolean {
-    return this.filters.sortDirection === SortDirection.ASC;
-  }
   /**
    * Vérifie si on est sur la recherche d'alternant
    * @return vrai si on est sur la recherche d'alternant, faux sinon
@@ -238,12 +223,4 @@ export class PncSearchPage implements AfterViewInit {
     this.isMenuOpened = !this.isMenuOpened;
   }
 
-  /**
-   *  deux valeurs et renvois true si elles sont égales
-   * @param e1 premiere valeur à comparér
-   * @param e2 Deuxieme valeur à comparér
-   */
-  compareFn(e1: string, e2: string): boolean {
-    return (e1 === e2);
-  }
 }

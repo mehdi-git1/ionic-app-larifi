@@ -726,7 +726,7 @@
             "TAF": "TAF",
             "SORT": {
               "LABEL":"Trier par",
-              "LAST_NAME":"NOM",
+              "LAST_NAME":"Nom",
               "LAST_EOBSERVATION": "Dernière eObs",
               "LAST_PROFESSIONAL_INTERVIEW": "Dernier BP",
               "LAST_UPDATED_CAREER_OBJECTIVE": "Dernière prio mise à jour"
