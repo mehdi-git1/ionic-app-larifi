@@ -173,7 +173,7 @@ export class PncSearchPage implements AfterViewInit {
    */
   sortByColumn(value: string) {
     this.filters.sortColumn = value;
-    this.filters.sortDirection = (this.filters.sortColumn === 'lastName') ? this.filters.sortDirection : SortDirection.ASC;
+    this.filters.sortDirection = SortDirection.ASC;
     this.launchSearch();
   }
 
