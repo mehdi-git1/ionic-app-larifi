@@ -191,4 +191,9 @@ table {
         height: 32px;
     }
 
+    .can-be-reported:hover {
+        background: var(--ion-color-grey70);
+        cursor: pointer;
+    }
+
 }

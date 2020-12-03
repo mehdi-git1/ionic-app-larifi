@@ -1,67 +1,70 @@
 @font-face {
-    font-family: 'edospnc';
-    src: url('assets/fonts/edospnc/edospnc.eot?k7kokd');
-    src: url('assets/fonts/edospnc/edospnc.eot?k7kokd#iefix') format('embedded-opentype'),
-        url('assets/fonts/edospnc/edospnc.ttf?k7kokd') format('truetype'),
-        url('assets/fonts/edospnc/edospnc.woff?k7kokd') format('woff'),
-        url('assets/fonts/edospnc/edospnc.svg?k7kokd#edospnc') format('svg');
-    font-weight: normal;
-    font-style: normal;
+    font-family: "edospnc";
+    src: url("assets/fonts/edospnc/edospnc.ttf?2832b06d3127a96c3c6b4e9eb882a164") format("truetype"),
+        url("assets/fonts/edospnc/edospnc.woff?2832b06d3127a96c3c6b4e9eb882a164") format("woff"),
+        url("assets/fonts/edospnc/edospnc.woff2?2832b06d3127a96c3c6b4e9eb882a164") format("woff2");
 }
 
-[class^="icon-"],
-[class*=" icon-"],
-[class^="ion-icon"],
-[class*="ion-icon"],
-[class^="ion-ios-icon"],
-[class*="ion-ios-icon"],
-[class^="ion-md-icon"],
-[class*="ion-md-icon"],
-[class*="edospnc-"] {
-    /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'edospnc' !important;
-    speak: none;
+span[class^="edospnc-"]:before,
+span[class*=" edospnc-"]:before {
+    font-family: edospnc !important;
     font-style: normal;
-    font-weight: normal;
+    font-weight: normal !important;
     font-variant: normal;
     text-transform: none;
     line-height: 1;
-
-    /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-@mixin makeIcon($arg, $val) {
-
-    .edospnc-#{$arg}:before,
-    .ion-ios-edospnc-#{$arg}:before,
-    .ion-ios-edospnc-#{$arg}-outline:before,
-    .ion-md-edospnc-#{$arg}:before,
-    .ion-md-edospnc-#{$arg}-outline:before,
-    .icon-edospnc-#{$arg}:before {
-        content: $val;
-        font-size: 36px;
-    }
+.edospnc-archive:before {
+    content: "\f101";
 }
 
-@include makeIcon(home, '\e900');
-@include makeIcon(developmentProgram, '\e901');
-@include makeIcon(helpCenter, '\e902');
-@include makeIcon(myBoard, '\e903');
-@include makeIcon(pnc, '\e904');
-@include makeIcon(pncTeam, '\e905');
-@include makeIcon(professionalLevel, '\e906');
-@include makeIcon(statutoryCertificate, '\e907');
-@include makeIcon(upcomingFlight, '\e909');
-@include makeIcon(speechBubble, '\e90a');
-@include makeIcon(plus, '\e90b');
-@include makeIcon(memo, '\e90c');
-@include makeIcon(flag, '\e90d');
-@include makeIcon(archive, '\e90e');
-@include makeIcon(important, '\e910');
-@include makeIcon(pdf, '\e90f');
-@include makeIcon(writing, '\e908');
-@include makeIcon(customer-review, '\e911');
-@include makeIcon(fix-recipient, '\e912');
-@include makeIcon(filter-sharp, '\e913');
+.edospnc-customer-review:before {
+    content: "\f102";
+}
+
+.edospnc-development-program:before {
+    content: "\f103";
+}
+
+.edospnc-filter-sharp:before {
+    content: "\f104";
+}
+
+.edospnc-fix-recipient:before {
+    content: "\f105";
+}
+
+.edospnc-flag:before {
+    content: "\f106";
+}
+
+.edospnc-flag2:before {
+    content: "\f107";
+}
+
+.edospnc-important:before {
+    content: "\f108";
+}
+
+.edospnc-memo:before {
+    content: "\f109";
+}
+
+.edospnc-pdf:before {
+    content: "\f10a";
+}
+
+.edospnc-pnc:before {
+    content: "\f10b";
+}
+
+.edospnc-speech-bubble:before {
+    content: "\f10c";
+}
+
+.edospnc-writing:before {
+    content: "\f10d";
+}

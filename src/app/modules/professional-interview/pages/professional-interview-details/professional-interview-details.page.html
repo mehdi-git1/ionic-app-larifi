@@ -61,7 +61,7 @@
                                     <span>{{subTheme.label}}</span>
                                 </div>
                                 <div *ngFor="let subThemeItem of subTheme.professionalInterviewItems">
-                                    <label *ngIf="subThemeItem.label" class="required"><span class="edospnc-speechBubble"></span>
+                                    <label *ngIf="subThemeItem.label" class="required"><span class="edospnc-speech-bubble"></span>
                                         {{subThemeItem.label}} :</label>
                                     <p *ngIf="!editionMode; else editBlock">{{subThemeItem.value}}</p>
                                     <ng-template #editBlock>
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                             <div *ngFor="let themeItem of interviewTheme.professionalInterviewItems">
-                                <label *ngIf="themeItem.label" class="required"><span class="edospnc-speechBubble"></span>
+                                <label *ngIf="themeItem.label" class="required"><span class="edospnc-speech-bubble"></span>
                                     {{themeItem.label}} :</label>
                                 <p *ngIf="!editionMode; else editBlock">{{themeItem.value}}</p>
                                 <ng-template #editBlock>

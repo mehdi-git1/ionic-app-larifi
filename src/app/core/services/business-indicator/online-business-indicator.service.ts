@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
+import {
+    EScoreCommentVerbatimEnum
+} from '../../enums/business-indicators/escore-comment-verbatim.enum';
+import {
+    ShortLoopCommentVerbatimEnum
+} from '../../enums/business-indicators/short-loop-comment-verbatim.enum';
 import { RestService } from '../../http/rest/rest.base.service';
 import {
     BusinessIndicatorFilterModel
@@ -12,6 +18,8 @@ import {
     BusinessIndicatorSummaryModel
 } from '../../models/business-indicator/business-indicator-summary.model';
 import { BusinessIndicatorModel } from '../../models/business-indicator/business-indicator.model';
+import { EScoreCommentModel } from '../../models/business-indicator/e-score-comment.model';
+import { ShortLoopCommentModel } from '../../models/business-indicator/short-loop-comment.model';
 
 @Injectable()
 export class OnlineBusinessIndicatorService {
@@ -49,5 +57,25 @@ export class OnlineBusinessIndicatorService {
      */
     getBusinessIndicator(id: number): Promise<BusinessIndicatorModel> {
         return this.restService.get(this.config.getBackEndUrl('getBusinessIndicator', [id]));
+    }
+
+    /**
+     * Signale un verbatim d'un commentaire eScore
+     * @param commentId l'id du commentaire
+     * @param commentVerbatim le verbatim du commentaire à signaler
+     * @return une promesse contenant le commentaire mis à jour
+     */
+    reportEScoreCommentVerbatim(commentId: number, commentVerbatim: EScoreCommentVerbatimEnum): Promise<EScoreCommentModel> {
+        return this.restService.put(this.config.getBackEndUrl('reportEScoreCommentVerbatim', [commentId, commentVerbatim]), null);
+    }
+
+    /**
+     * Signale un verbatim d'un commentaire boucle courte
+     * @param commentId l'id du commentaire
+     * @param commentVerbatim le verbatim du commentaire à signaler
+     * @return une promesse contenant le commentaire mis à jour
+     */
+    reportShortLoopCommentVerbatim(commentId: number, commentVerbatim: ShortLoopCommentVerbatimEnum): Promise<ShortLoopCommentModel> {
+        return this.restService.put(this.config.getBackEndUrl('reportShortLoopCommentVerbatim', [commentId, commentVerbatim]), null);
     }
 }

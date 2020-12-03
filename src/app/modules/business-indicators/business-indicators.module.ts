@@ -8,6 +8,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { SharedModule } from '../../shared/shared.module';
 import {
+    BusinessIndicatorCommentVerbatimComponent
+} from './components/business-indicator-comment-verbatim/business-indicator-comment-verbatim.component';
+import {
     BusinessIndicatorFlightLegendComponent
 } from './components/business-indicator-flight-legend/business-indicator-flight-legend.component';
 import {
@@ -25,7 +28,8 @@ import { BusinessIndicatorsPage } from './pages/business-indicators/business-ind
     BusinessIndicatorDetailPage,
     EscoreChartComponent,
     BusinessIndicatorFlightLegendComponent,
-    BusinessIndicatorPerfopsLegendComponent
+    BusinessIndicatorPerfopsLegendComponent,
+    BusinessIndicatorCommentVerbatimComponent
   ],
   imports: [
     IonicModule,

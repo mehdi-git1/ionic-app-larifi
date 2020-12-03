@@ -1,0 +1,14 @@
+:host {
+    strong {
+        white-space: nowrap;
+        display: block;
+        font-size: 1.2em;
+        width: 100%;
+        color: var(--ion-color-secondary);
+        margin-bottom: 8px;
+
+        span:before {
+            font-size: 18px;
+        }
+    }
+}
