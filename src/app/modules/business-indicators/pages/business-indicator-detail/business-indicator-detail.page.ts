@@ -276,7 +276,7 @@ export class BusinessIndicatorDetailPage {
      * @param verbatimReported si le verbatim est déjà signalé
      */
     async confirmReportEScoreCommentVerbatim(
-        eScoreComment: EScoreCommentModel, commentVerbatim: EScoreCommentVerbatimEnum, verbatim: string, verbatimReported) {
+        eScoreComment: EScoreCommentModel, commentVerbatim: EScoreCommentVerbatimEnum, verbatim: string, verbatimReported: boolean) {
         // On ne fait quelque chose que si le verbatim peut être signalé
         if (this.canBeReported(verbatim, verbatimReported)) {
             const alert = await this.alertDialogService.openAlertDialog(
@@ -329,7 +329,7 @@ export class BusinessIndicatorDetailPage {
      * @param verbatimReported si le verbatim est déjà signalé
      */
     async confirmReportShortLoopCommentVerbatim(
-        shortLoopComment: ShortLoopCommentModel, commentVerbatim: ShortLoopCommentVerbatimEnum, verbatim: string, verbatimReported) {
+        shortLoopComment: ShortLoopCommentModel, commentVerbatim: ShortLoopCommentVerbatimEnum, verbatim: string, verbatimReported: boolean) {
         // On ne fait quelque chose que si le verbatim peut être signalé
         if (this.canBeReported(verbatim, verbatimReported)) {
             const alert = await this.alertDialogService.openAlertDialog(
