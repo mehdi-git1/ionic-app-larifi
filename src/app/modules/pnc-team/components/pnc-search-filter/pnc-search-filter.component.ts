@@ -156,6 +156,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       hasEObsOlderThan18MonthsControl: new FormControl({ value: [false] }),
       hasNoEObsControl: new FormControl({ value: [false] }),
       hasProfessionalInterviewOlderThan24MonthsControl: new FormControl({ value: [false] }),
+      hasNoProfessionalInterviewControl: new FormControl({ value: [false] }),
       tafControl: new FormControl({ value: [false] }),
       hasManifexControl: new FormControl({ value: [false] })
     });
@@ -217,6 +218,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('hasEObsOlderThan18MonthsControl').setValue(false);
     this.searchForm.get('hasNoEObsControl').setValue(false);
     this.searchForm.get('hasProfessionalInterviewOlderThan24MonthsControl').setValue(false);
+    this.searchForm.get('hasNoProfessionalInterviewControl').setValue(false);
     this.defaultValue = false;
 
     // Réactive les champs potentiellement désactivés
@@ -244,6 +246,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.filters.hasNoEObs = value.hasNoEObsControl;
       this.filters.hasManifex = value.hasManifexControl;
       this.filters.hasProfessionalInterviewOlderThan24Months = value.hasProfessionalInterviewOlderThan24MonthsControl;
+      this.filters.hasNoProfessionalInterview = value.hasNoProfessionalInterviewControl;
       this.countEnabledFilters();
 
       // Gestion de l'exclusivité des filtres
@@ -254,6 +257,14 @@ export class PncSearchFilterComponent implements AfterViewInit {
       value.hasNoEObsControl ?
         this.searchForm.get('hasEObsOlderThan18MonthsControl').disable({ emitEvent: false }) :
         this.searchForm.get('hasEObsOlderThan18MonthsControl').enable({ emitEvent: false });
+
+      value.hasProfessionalInterviewOlderThan24MonthsControl ?
+        this.searchForm.get('hasNoProfessionalInterviewControl').disable({ emitEvent: false }) :
+        this.searchForm.get('hasNoProfessionalInterviewControl').enable({ emitEvent: false });
+
+      value.hasNoProfessionalInterviewControl ?
+        this.searchForm.get('hasProfessionalInterviewOlderThan24MonthsControl').disable({ emitEvent: false }) :
+        this.searchForm.get('hasProfessionalInterviewOlderThan24MonthsControl').enable({ emitEvent: false });
 
       value.prioritizedControl || value.hasAtLeastOneCareerObjectiveInProgressControl ?
         this.searchForm.get('hasNoCareerObjectiveControl').disable({ emitEvent: false }) :

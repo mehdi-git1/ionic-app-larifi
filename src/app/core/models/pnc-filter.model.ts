@@ -18,6 +18,7 @@ export class PncFilterModel {
   hasDefaultHiddenEvents: boolean;
   priorityCategoryCode: string;
   hasProfessionalInterviewOlderThan24Months: boolean;
+  hasNoProfessionalInterview: boolean;
   hasManifex: boolean;
   taf: boolean;
   hasEObsOlderThan18Months: boolean;
