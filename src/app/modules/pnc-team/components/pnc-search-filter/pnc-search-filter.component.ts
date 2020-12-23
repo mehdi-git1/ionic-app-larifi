@@ -40,9 +40,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
   defaultSector: string;
   defaultGinq: string;
   defaultValue: boolean;
-  prioritized: boolean;
-  careerObjective: boolean;
-  noCareerObjective: boolean;
 
   searchForm: FormGroup;
 
@@ -57,7 +54,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
   careerObjectiveCategoryList: Array<CareerObjectiveCategory>;
 
   outOfDivision: boolean;
-  careerObjectiveFilter;
 
   // Utilisé dans le template
   valueAll = AppConstant.ALL;
@@ -136,6 +132,43 @@ export class PncSearchFilterComponent implements AfterViewInit {
   }
 
   /**
+   * Initialise le formulaire
+   */
+  initForm() {
+    const specialityInitValue = this.isAlternantSearch() ?
+      SpecialityEnum.ALT
+      : (this.filters.speciality ? this.filters.speciality : AppConstant.ALL);
+
+    this.searchForm = new FormGroup({
+      divisionControl: new FormControl({ value: [this.filters.division ? this.filters.division : AppConstant.ALL] }),
+      sectorControl: new FormControl({ value: [this.filters.sector ? this.filters.sector : AppConstant.ALL] }),
+      ginqControl: new FormControl({ value: [this.filters.ginq ? this.filters.ginq : AppConstant.ALL] }),
+      specialityControl: new FormControl({ value: [specialityInitValue] }),
+      workRateControl: new FormControl({ value: [this.filters.workRate ? this.filters.workRate : AppConstant.ALL] }),
+      aircraftSkillControl: new FormControl({ value: [this.filters.aircraftSkill ? this.filters.aircraftSkill : AppConstant.ALL] }),
+      relayControl: new FormControl({ value: [this.filters.relay ? this.filters.relay : AppConstant.ALL] }),
+      careerObjectiveCategoryControl: new FormControl({ value: [this.filters ? this.filters.priorityCategoryCode : AppConstant.ALL] }),
+      prioritizedControl: new FormControl({ value: [false] }),
+      hasAtLeastOneCareerObjectiveInProgressControl: new FormControl({ value: [false] }),
+      hasNoCareerObjectiveControl: new FormControl({ value: [false] }),
+      hasDefaultHiddenEventsControl: new FormControl({ value: [false] }),
+      hasHiddenEventsControl: new FormControl({ value: [false] }),
+      hasEObsOlderThan18MonthsControl: new FormControl({ value: [false] }),
+      hasNoEObsControl: new FormControl({ value: [false] }),
+      hasProfessionalInterviewOlderThan24MonthsControl: new FormControl({ value: [false] }),
+      tafControl: new FormControl({ value: [false] }),
+      hasManifexControl: new FormControl({ value: [false] })
+    });
+
+    if (this.connectivityService.isConnected()) {
+      this.resetFilterValues();
+      this.formOnChanges();
+      this.search();
+    }
+    this.countEnabledFilters();
+  }
+
+  /**
    * Réinitialise les valeurs des filtres de recherche
    */
   resetFilterValues() {
@@ -163,7 +196,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.workRate = this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : undefined;
     this.filters.taf = false;
     this.filters.hasManifex = false;
-    this.filters.hasEobsOlderThan18Months = false;
+    this.filters.hasEObsOlderThan18Months = false;
+    this.filters.hasNoEObs = false;
     this.filters.hasProfessionalInterviewOlderThan24Months = false;
     this.filters.sortColumn = 'lastName';
     this.filters.sortDirection = SortDirection.ASC;
@@ -180,139 +214,67 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('hasHiddenEventsControl').setValue(false);
     this.searchForm.get('tafControl').setValue(false);
     this.searchForm.get('hasManifexControl').setValue(false);
-    this.searchForm.get('hasEobsOlderThan18MonthsControl').setValue(false);
+    this.searchForm.get('hasEObsOlderThan18MonthsControl').setValue(false);
+    this.searchForm.get('hasNoEObsControl').setValue(false);
     this.searchForm.get('hasProfessionalInterviewOlderThan24MonthsControl').setValue(false);
     this.defaultValue = false;
-    this.careerObjective = false;
-    this.noCareerObjective = false;
-    this.prioritized = false;
-  }
 
-  /**
-   * Initialise le formulaire
-   */
-  initForm() {
-    const specialityInitValue = this.isAlternantSearch() ?
-      SpecialityEnum.ALT
-      : (this.filters.speciality ? this.filters.speciality : AppConstant.ALL);
-
-    this.searchForm = new FormGroup({
-      divisionControl: new FormControl({
-        value: [this.filters.division ? this.filters.division : AppConstant.ALL],
-        disabled: this.areFiltersDisabled()
-      }),
-      sectorControl: new FormControl({
-        value: [this.filters.sector ? this.filters.sector : AppConstant.ALL],
-        disabled: this.areFiltersDisabled()
-      }),
-      ginqControl: new FormControl({
-        value: [this.filters.ginq ? this.filters.ginq : AppConstant.ALL],
-        disabled: this.areFiltersDisabled()
-      }),
-      specialityControl: new FormControl({
-        value: [specialityInitValue],
-        disabled: this.areFiltersDisabled()
-      }),
-      workRateControl: new FormControl({
-        value: [this.filters.workRate ? this.filters.workRate : AppConstant.ALL],
-        disabled: this.areFiltersDisabled()
-      }),
-      aircraftSkillControl: new FormControl({
-        value: [this.filters.aircraftSkill ? this.filters.aircraftSkill : AppConstant.ALL],
-        disabled: this.areFiltersDisabled()
-      }),
-      relayControl: new FormControl({
-        value: [this.filters.relay ? this.filters.relay : AppConstant.ALL],
-        disabled: this.areFiltersDisabled()
-      }),
-      careerObjectiveCategoryControl: new FormControl({
-        value: [this.filters ? this.filters.priorityCategoryCode : AppConstant.ALL],
-        disabled: this.areFiltersDisabled()
-      }),
-      prioritizedControl: new FormControl({
-        value: [false],
-        disabled: this.noCareerObjective || this.areFiltersDisabled()
-      }),
-      hasAtLeastOneCareerObjectiveInProgressControl: new FormControl({
-        value: [false],
-        disabled: this.noCareerObjective || this.areFiltersDisabled()
-      }),
-      hasNoCareerObjectiveControl: new FormControl({
-        value: [false],
-        disabled: this.prioritized || this.noCareerObjective || this.areFiltersDisabled()
-      }),
-      hasDefaultHiddenEventsControl: new FormControl({
-        value: [false],
-        disabled: this.areFiltersDisabled()
-      }),
-      hasHiddenEventsControl: new FormControl({
-        value: [false],
-        disabled: this.areFiltersDisabled()
-      }),
-      hasEobsOlderThan18MonthsControl: new FormControl({
-        value: [false],
-        disabled: this.areFiltersDisabled()
-      }),
-      hasProfessionalInterviewOlderThan24MonthsControl: new FormControl({
-        value: [false],
-        disabled: this.areFiltersDisabled()
-      }),
-      tafControl: new FormControl({
-        value: [false],
-        disabled: this.areFiltersDisabled()
-      }),
-      hasManifexControl: new FormControl({
-        value: [false],
-        disabled: this.areFiltersDisabled()
-      }),
-    });
-
-    if (this.connectivityService.isConnected()) {
-      this.resetFilterValues();
-      this.formOnChanges();
-      this.search();
-    }
-    this.countEnabledFilters();
-  }
-
-  /**
-   *  deux valeurs et renvois true si elles sont égales
-   * @param e1 premiere valeur à comparér
-   * @param e2 Deuxieme valeur à comparér
-   */
-  compareFn(e1: string, e2: string): boolean {
-    return (e1 === e2);
+    // Réactive les champs potentiellement désactivés
+    this.searchForm.enable({ emitEvent: false });
   }
 
   /**
    * Fonction permettant de détecter et de gérer les changements de valeur des différents éléments du formulaire
    */
   formOnChanges() {
-    this.searchForm.valueChanges.subscribe((val) => {
-      this.filters.ginq = val.ginqControl;
-      this.filters.speciality = val.specialityControl;
-      this.filters.aircraftSkill = val.aircraftSkillControl;
-      this.filters.relay = val.relayControl;
-      this.filters.priorityCategoryCode = val.careerObjectiveCategoryControl;
-      this.filters.prioritized = val.prioritizedControl;
-      this.filters.hasAtLeastOnePriorityInProgress = val.hasAtLeastOneCareerObjectiveInProgressControl;
-      this.filters.hasNoPriority = val.hasNoCareerObjectiveControl;
-      this.filters.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
-      this.filters.hasHiddenEvents = val.hasHiddenEventsControl;
-      this.filters.workRate = val.workRateControl;
-      this.filters.taf = val.tafControl;
-      this.filters.hasEobsOlderThan18Months = val.hasEobsOlderThan18MonthsControl;
-      this.filters.hasManifex = val.hasManifexControl;
-      this.filters.hasProfessionalInterviewOlderThan24Months = val.hasProfessionalInterviewOlderThan24MonthsControl;
+    this.searchForm.valueChanges.subscribe((value) => {
+      this.filters.ginq = value.ginqControl;
+      this.filters.speciality = value.specialityControl;
+      this.filters.aircraftSkill = value.aircraftSkillControl;
+      this.filters.relay = value.relayControl;
+      this.filters.priorityCategoryCode = value.careerObjectiveCategoryControl;
+      this.filters.prioritized = value.prioritizedControl;
+      this.filters.hasAtLeastOnePriorityInProgress = value.hasAtLeastOneCareerObjectiveInProgressControl;
+      this.filters.hasNoPriority = value.hasNoCareerObjectiveControl;
+      this.filters.hasDefaultHiddenEvents = value.hasDefaultHiddenEventsControl;
+      this.filters.hasHiddenEvents = value.hasHiddenEventsControl;
+      this.filters.workRate = value.workRateControl;
+      this.filters.taf = value.tafControl;
+      this.filters.hasEObsOlderThan18Months = value.hasEObsOlderThan18MonthsControl;
+      this.filters.hasNoEObs = value.hasNoEObsControl;
+      this.filters.hasManifex = value.hasManifexControl;
+      this.filters.hasProfessionalInterviewOlderThan24Months = value.hasProfessionalInterviewOlderThan24MonthsControl;
       this.countEnabledFilters();
+
+      // Gestion de l'exclusivité des filtres
+      value.hasEObsOlderThan18MonthsControl ?
+        this.searchForm.get('hasNoEObsControl').disable({ emitEvent: false }) :
+        this.searchForm.get('hasNoEObsControl').enable({ emitEvent: false });
+
+      value.hasNoEObsControl ?
+        this.searchForm.get('hasEObsOlderThan18MonthsControl').disable({ emitEvent: false }) :
+        this.searchForm.get('hasEObsOlderThan18MonthsControl').enable({ emitEvent: false });
+
+      value.prioritizedControl || value.hasAtLeastOneCareerObjectiveInProgressControl ?
+        this.searchForm.get('hasNoCareerObjectiveControl').disable({ emitEvent: false }) :
+        this.searchForm.get('hasNoCareerObjectiveControl').enable({ emitEvent: false });
+
+      if (value.hasNoCareerObjectiveControl) {
+        this.searchForm.get('prioritizedControl').disable({ emitEvent: false });
+        this.searchForm.get('hasAtLeastOneCareerObjectiveInProgressControl').disable({ emitEvent: false });
+      } else {
+        this.searchForm.get('prioritizedControl').enable({ emitEvent: false });
+        this.searchForm.get('hasAtLeastOneCareerObjectiveInProgressControl').enable({ emitEvent: false });
+      }
+
     });
+
   }
 
   /**
    * Compte le nombre de filtres activés
    */
   private countEnabledFilters() {
-
     const enabledFiltersCount = (Object.values(this.searchForm.value)
       .filter((value: string | boolean) => value && (value !== AppConstant.ALL)).length);
     this.enabledFiltersCountChanged.emit(enabledFiltersCount);
@@ -390,18 +352,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.pncSelected.emit(pnc);
   }
 
-  areFiltersDisabled(): boolean {
-    return !this.connectivityService.isConnected();
-  }
-
-  clearButtonIsDisabled(): boolean {
-    return this.outOfDivision || this.areFiltersDisabled();
-  }
-
-  inactiveFiltersLabelClass(): string {
-    return this.connectivityService.isConnected() ? 'hide-label' : 'show-label';
-  }
-
   /**
    * Vérifie si on est sur la recherche d'alternant
    * @return vrai si on est sur la recherche d'alternant, faux sinon
@@ -417,5 +367,15 @@ export class PncSearchFilterComponent implements AfterViewInit {
   open(panel: MatExpansionPanel) {
     panel._body.nativeElement
       .scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /**
+   * Compare deux valeurs et teste si elles sont égales
+   * @param e1 première valeur à comparer
+   * @param e2 deuxième valeur à comparer
+   * @return vrai si les deux valeurs sont égales, faux sinon
+   */
+  compareFn(e1: string, e2: string): boolean {
+    return (e1 === e2);
   }
 }
