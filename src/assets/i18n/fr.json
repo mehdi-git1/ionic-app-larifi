@@ -735,6 +735,7 @@
             "ENCOUNTER_FLIGHT_GROUND": {
                 "TITLE": "Rencontres vol/sol",
                 "EOBS_OLDER_THAN_18_MONTHS": "Dernière eObs > 18 mois",
+                "NO_EOBS":"Aucune eObservation",
                 "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH": "Dernier BP/EPP > 24 mois"
             },
             "CAREER_OBJECTIVE": {
