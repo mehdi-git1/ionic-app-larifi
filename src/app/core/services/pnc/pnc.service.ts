@@ -78,7 +78,8 @@ export class PncService extends BaseService {
    * @return les pncs concernés
    */
   pncAutoComplete(search: string, byPassImpersonatedUser: boolean = false): Promise<PncModel[]> {
-    return this.restService.post(this.config.getBackEndUrl('getPncAutoComplete'), { searchText: search }, undefined, byPassImpersonatedUser);
+    return this.restService
+      .post(this.config.getBackEndUrl('getPncAutoComplete'), { searchText: search }, undefined, byPassImpersonatedUser);
   }
 
   /**
@@ -89,7 +90,8 @@ export class PncService extends BaseService {
   public getFormatedSpeciality(pnc: PncModel): string {
     if (pnc && pnc.speciality) {
       // si le pnc est une hotesse, en remplace sa spécialité administrative (STW) par HOT
-      const administrativeSpeciality = pnc.speciality === SpecialityEnum.STW && pnc.gender === GenderEnum.F ? SpecialityEnum.HOT : pnc.speciality;
+      const administrativeSpeciality =
+        pnc.speciality === SpecialityEnum.STW && pnc.gender === GenderEnum.F ? SpecialityEnum.HOT : pnc.speciality;
       // on teste si la spécialité administrative est égale a la spécialité actuelle
       if (!pnc.currentSpeciality || (pnc.currentSpeciality && administrativeSpeciality === pnc.currentSpeciality)) {
         return administrativeSpeciality;

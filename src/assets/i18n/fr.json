@@ -713,6 +713,7 @@
     },
     "PNC_SEARCH": {
         "NO_CONNEXION_MESSAGE": "* Filtres inactifs hors connexion",
+        "TOTAL": "Total : {{total}}",
         "CRITERIA": {
             "TITLE": "Filtres",
             "FILTER": "Filtrer",
@@ -736,7 +737,8 @@
                 "TITLE": "Rencontres vol/sol",
                 "EOBS_OLDER_THAN_18_MONTHS": "Dernière eObs > 18 mois",
                 "NO_EOBS":"Aucune eObservation",
-                "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH": "Dernier BP/EPP > 24 mois"
+                "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH": "Dernier BP/EPP > 24 mois",
+                "NO_PROFESSIONAL_INTERVIEW":"Aucun BP/EPP"
             },
             "CAREER_OBJECTIVE": {
                 "TITLE": "Priorités",
@@ -764,6 +766,7 @@
             "ALL_M": "Tous"
         },
         "NO_PNC_FOUND": "Aucun PNC trouvé",
+        "SEARCH_END":"Fin de la recherche",
         "ERROR": {
             "SEARCH": "Erreur lors de la recherche de PNC"
         },
