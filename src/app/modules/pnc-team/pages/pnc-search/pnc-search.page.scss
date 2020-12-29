@@ -34,73 +34,57 @@ mat-sidenav {
     padding-left: 0px;
 }
 
-.sort-container {
-    display: flex;
-    flex-direction: row;
-    font-weight: bold;
-    font-size: 1.4em;
-}
-
-.e-observation-sort {
-    display: flex;
-    flex-grow: 1;
-    justify-content: center;
-}
-
-.career-objective-sort {
-    display: flex;
-    flex-grow: 1;
-    justify-content: flex-end;
-}
-
-.professional-interview-sort {
-    display: flex;
-    flex-grow: 1;
-    justify-content: center;
-}
-
-.e-observation-sort ion-icon,
-.professional-interview-sort ion-icon,
-.career-objective-sort ion-icon {
-    margin: 5px !important;
-}
-
-.filter-bar-container {
+.button-bar-container {
     background: var(--ion-color-white);
     width: 100% !important;
-    
-    .filter-bar {
+
+    .button-bar {
         max-width: 1200px;
         padding: 10px 20px;
         margin: auto;
-        align-items: center;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
 
-        ion-select {
-            margin-top: 0;
-            margin-left: 8px;
-            width: 200px;
-        }
+        .sort-container {
+            display: flex;
+            align-items: center;
 
-        .filter-order {
-            border-radius: 4px;
-            margin-left: 10px;
-            margin-right: 10px;
-            background-color: var(--ion-color-grey70);
-
-            .mat-button-toggle-checked {
-                color: var(--ion-color-white);
-                border: 1px;
-                border-radius: 4px ;
-                background-color: var(--ion-color-primary);
-            }
-            ::ng-deep .mat-button-toggle-label-content {
-                line-height: 39px ;
-                padding: 0 12px ;
+            ion-select {
+                margin-top: 0;
+                margin-left: 8px;
+                width: 200px;
             }
 
-        }
+            .sort-order {
+                border-radius: 4px;
+                margin-left: 10px;
+                background-color: var(--ion-color-grey70);
 
+                .mat-button-toggle-checked {
+                    color: var(--ion-color-white);
+                    border-radius: 4px;
+                    background-color: var(--ion-color-primary);
+                }
+
+                ::ng-deep .mat-button-toggle-label-content {
+                    line-height: 39px;
+                    padding: 0 12px;
+                }
+            }
+        }
     }
+}
+
+.spinner-container {
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-end-message {
+    text-align: center;
+    font-size: 1.3em;
+    padding: 20px;
 }

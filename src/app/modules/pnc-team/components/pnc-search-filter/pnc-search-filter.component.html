@@ -1,22 +1,21 @@
 <h2>
     {{ 'PNC_SEARCH.CRITERIA.TITLE' | translate }}
-    <ion-button class=" reinit-button" color="grey95" (click)="initForm()">
+    <ion-button class=" reinit-button" color="grey95" (click)="reinitializeSearch()">
         <ion-label>{{ 'PNC_SEARCH.CRITERIA.REINIT_BUTTON' | translate }}</ion-label>
     </ion-button>
 </h2>
 <form *ngIf="searchForm" novalidate [formGroup]="searchForm">
-
+    <div *ngIf="!connectivityService.isConnected()">{{ 'PNC_SEARCH.NO_CONNEXION_MESSAGE' | translate }}</div>
     <div class="filter-container pnc-autocomplete">
         <!-- PNC -->
-        <pnc-autocomplete (onSelectPnc)="openPncHomePage($event)" [ngModelOptions]="{standalone: true}">
-        </pnc-autocomplete>
+        <pnc-autocomplete (onSelectPnc)="openPncHomePage($event)" [ngModelOptions]="{standalone: true}"></pnc-autocomplete>
     </div>
     <div class="flex filter-container filter">
         <!-- Division-->
         <div class="flex5">
             <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}
             </ion-label>
-            <ion-select interface="popover" [compareWith]="compareFn" formControlName="divisionControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+            <ion-select interface="popover" formControlName="division">
                 <ion-select-option *ngIf="!divisionList || divisionList.length != 1" [value]="valueAll">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
                 </ion-select-option>
@@ -31,7 +30,7 @@
         <div class="flex5 sector">
             <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}
             </ion-label>
-            <ion-select interface="popover" [compareWith]="compareFn" formControlName="sectorControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
+            <ion-select interface="popover" formControlName="sector">
                 <ion-select-option *ngIf="!sectorList || sectorList.length != 1" [value]="valueAll">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                 </ion-select-option>
@@ -43,7 +42,7 @@
         <div class="flex4">
             <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}
             </ion-label>
-            <ion-select interface="popover" [compareWith]="compareFn" formControlName="ginqControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
+            <ion-select interface="popover" formControlName="ginq">
                 <ion-select-option *ngIf="!ginqList || ginqList.length != 1" [value]="valueAll">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                 </ion-select-option>
@@ -54,11 +53,11 @@
     </div>
 
     <div class="flex filter-container filter function-workrate-taf-container" *ngIf="!isAlternantSearch()">
-        <!-- Grade -->
+        <!-- Fonction -->
         <div class="flex5">
             <ion-label class="input-label">
                 {{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
-            <ion-select interface="popover" [compareWith]="compareFn" formControlName="specialityControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+            <ion-select interface="popover" formControlName="speciality">
                 <ion-select-option *ngIf="!specialityList || specialityList.length != 1" [value]="valueAll">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
                 </ion-select-option>
@@ -70,7 +69,7 @@
             <!-- Rythme -->
             <ion-label class="input-label">
                 {{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</ion-label>
-            <ion-select interface="popover" [compareWith]="compareFn" formControlName="workRateControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
+            <ion-select interface="popover" formControlName="workRate">
                 <ion-select-option *ngIf="!workRateList || workRateList.length != 1" [value]="valueAll">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                 </ion-select-option>
@@ -82,7 +81,7 @@
             <!-- taf -->
             <ion-item lines="none">
                 <ion-label>{{ 'PNC_SEARCH.CRITERIA.TAF' | translate }}</ion-label>
-                <ion-checkbox slot="end" formControlName="tafControl">
+                <ion-checkbox slot="end" formControlName="taf">
                 </ion-checkbox>
             </ion-item>
         </div>
@@ -91,7 +90,7 @@
         <!-- Spécialisation avion -->
         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}
         </ion-label>
-        <ion-select interface="popover" [compareWith]="compareFn" formControlName="aircraftSkillControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+        <ion-select interface="popover" formControlName="aircraftSkill">
             <ion-select-option *ngIf="!aircraftSkillList || aircraftSkillList.length != 1" [value]="valueAll">
                 {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
             </ion-select-option>
@@ -99,7 +98,7 @@
                 {{aircraftSkillKey}}</ion-select-option>
         </ion-select>
     </div>
-    <mat-expansion-panel #encounterPanel [expanded]="false" *ngIf="!isAlternantSearch()" (afterExpand)="open(encounterPanel)">
+    <mat-expansion-panel #encounterPanel [expanded]="false" *ngIf="!isAlternantSearch()" (afterExpand)="scrollTo(encounterPanel)">
         <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
             <mat-panel-title>
                 {{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.TITLE' | translate }}
@@ -110,34 +109,34 @@
                 <!-- Dernier BP réalisé datant de plus de 24 mois -->
                 <ion-item lines="none">
                     <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH' | translate }}</ion-label>
-                    <ion-checkbox slot="end" formControlName="hasProfessionalInterviewOlderThan24MonthsControl"></ion-checkbox>
+                    <ion-checkbox slot="end" formControlName="hasProfessionalInterviewOlderThan24Months"></ion-checkbox>
                 </ion-item>
             </div>
             <div class="checkbox-container">
                 <!-- Aucun BP -->
                 <ion-item lines="none">
                     <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.NO_PROFESSIONAL_INTERVIEW' | translate }}</ion-label>
-                    <ion-checkbox slot="end" formControlName="hasNoProfessionalInterviewControl"></ion-checkbox>
+                    <ion-checkbox slot="end" formControlName="hasNoProfessionalInterview"></ion-checkbox>
                 </ion-item>
             </div>
             <div class="checkbox-container">
                 <!-- Dernière eObs réalisée il y a plus de 18 mois -->
                 <ion-item lines="none">
                     <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.EOBS_OLDER_THAN_18_MONTHS' | translate }}</ion-label>
-                    <ion-checkbox slot="end" formControlName="hasEObsOlderThan18MonthsControl"></ion-checkbox>
+                    <ion-checkbox slot="end" formControlName="hasEObsOlderThan18Months"></ion-checkbox>
                 </ion-item>
             </div>
             <div class="checkbox-container">
                 <!-- Aucune eObs -->
                 <ion-item lines="none">
                     <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.NO_EOBS' | translate }}</ion-label>
-                    <ion-checkbox slot="end" formControlName="hasNoEObsControl"></ion-checkbox>
+                    <ion-checkbox slot="end" formControlName="hasNoEObs"></ion-checkbox>
                 </ion-item>
             </div>
         </div>
     </mat-expansion-panel>
     <div class="filter-container" *ngIf="!isAlternantSearch()">
-        <mat-expansion-panel #priorityPanel [expanded]="false" (afterExpand)="open(priorityPanel)">
+        <mat-expansion-panel #priorityPanel [expanded]="false" (afterExpand)="scrollTo(priorityPanel)">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.TITLE' | translate }}
@@ -149,7 +148,7 @@
                     <ion-label class="input-label">
                         {{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.CAREER_OBJECTIVE_CATEGORY' | translate }}
                     </ion-label>
-                    <ion-select interface="popover" [compareWith]="compareFn" formControlName="careerObjectiveCategoryControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+                    <ion-select interface="popover" formControlName="careerObjectiveCategory">
                         <ion-select-option *ngIf="!careerObjectiveCategoryList || careerObjectiveCategoryList.length != 1" [value]="valueAll">
                             {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
                         </ion-select-option>
@@ -164,20 +163,20 @@
                         <ion-label>
                             <div>{{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.PRIORITIZED' | translate }}</div><span class="edospnc-flag prioritized"></span>
                         </ion-label>
-                        <ion-checkbox slot="end" formControlName="prioritizedControl">
+                        <ion-checkbox slot="end" formControlName="prioritized">
                         </ion-checkbox>
                     </ion-item>
                     <!-- En cours -->
                     <ion-item lines="none">
                         <ion-label>
                             {{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.CAREER_OBJECTIVE_IN_PROGRESS' | translate }}<span class="edospnc-flag at-least-one-career-objective"></span></ion-label>
-                        <ion-checkbox slot="end" formControlName="hasAtLeastOneCareerObjectiveInProgressControl"></ion-checkbox>
+                        <ion-checkbox slot="end" formControlName="hasAtLeastOneCareerObjectiveInProgress"></ion-checkbox>
                     </ion-item>
                     <!-- Pas de priorité -->
                     <ion-item lines="none">
                         <ion-label>{{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.NO_CAREER_OBJECTIVE' | translate }}
                         </ion-label>
-                        <ion-checkbox slot="end" formControlName="hasNoCareerObjectiveControl">
+                        <ion-checkbox slot="end" formControlName="hasNoCareerObjective">
                         </ion-checkbox>
                     </ion-item>
                 </div>
@@ -185,7 +184,7 @@
         </mat-expansion-panel>
     </div>
     <div class="filter-container" *ngIf="!isAlternantSearch()">
-        <mat-expansion-panel #missionPanel [expanded]="false" (afterExpand)="open(missionPanel)">
+        <mat-expansion-panel #missionPanel [expanded]="false" (afterExpand)="scrollTo(missionPanel)">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.MISSION.TITLE' | translate }}
@@ -196,7 +195,7 @@
                 <div>
                     <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.MISSION.RELAY' | translate }}
                     </ion-label>
-                    <ion-select interface="popover" [compareWith]="compareFn" formControlName="relayControl" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
+                    <ion-select interface="popover" formControlName="relay">
                         <ion-select-option *ngIf="!relayList || relayList.length != 1" [value]="valueAll">
                             {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                         </ion-select-option>
@@ -211,14 +210,14 @@
                 <!-- Manifex -->
                 <ion-item lines="none">
                     <ion-label>{{ 'PNC_SEARCH.CRITERIA.MISSION.MANIFEX' | translate }}</ion-label>
-                    <ion-checkbox slot="end" formControlName="hasManifexControl">
+                    <ion-checkbox slot="end" formControlName="hasManifex">
                     </ion-checkbox>
                 </ion-item>
             </div>
         </mat-expansion-panel>
     </div>
     <div class="filter-container" *ngIf="!isAlternantSearch()">
-        <mat-expansion-panel #logbookEventPanel [expanded]="false" (afterExpand)="open(logbookEventPanel)">
+        <mat-expansion-panel #logbookEventPanel [expanded]="false" (afterExpand)="scrollTo(logbookEventPanel)">
             <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
                 <mat-panel-title>
                     {{ 'PNC_SEARCH.CRITERIA.LOGBOOK_EVENTS.TITLE' | translate }}
@@ -229,14 +228,14 @@
                     <!-- Des évènements masqués volontairement -->
                     <ion-item lines="none">
                         <ion-label>{{ 'PNC_SEARCH.CRITERIA.LOGBOOK_EVENTS.HIDDEN_EVENTS' | translate }}</ion-label>
-                        <ion-checkbox slot="end" formControlName="hasHiddenEventsControl">
+                        <ion-checkbox slot="end" formControlName="hasHiddenEvents">
                         </ion-checkbox>
                     </ion-item>
                     <!-- Des évènements masqués par défaut-->
                     <ion-item lines="none">
                         <ion-label>{{ 'PNC_SEARCH.CRITERIA.LOGBOOK_EVENTS.DEFAULT_HIDDEN_EVENTS' | translate }}
                         </ion-label>
-                        <ion-checkbox slot="end" formControlName="hasDefaultHiddenEventsControl">
+                        <ion-checkbox slot="end" formControlName="hasDefaultHiddenEvents">
                         </ion-checkbox>
                     </ion-item>
                 </div>

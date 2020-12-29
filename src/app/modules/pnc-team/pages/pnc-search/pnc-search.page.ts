@@ -4,7 +4,7 @@ import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatButtonToggleGroup } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Events } from '@ionic/angular';
@@ -22,14 +22,10 @@ import { SessionService } from '../../../../core/services/session/session.servic
   templateUrl: 'pnc-search.page.html',
   styleUrls: ['./pnc-search.page.scss']
 })
-export class PncSearchPage implements AfterViewInit {
-
-  searchInProgress = false;
+export class PncSearchPage {
 
   searchMode: PncSearchModeEnum;
-
   pnc: PncModel;
-
   filteredPncs = new Array<PncModel>();
   filters = new PncFilterModel();
   filtersSubject = new Subject<PncFilterModel>();
@@ -37,6 +33,7 @@ export class PncSearchPage implements AfterViewInit {
   totalPncs = 0;
   isMenuOpened = false;
   isLoading = true;
+  searchInProgress = false;
 
   @ViewChild(MatButtonToggleGroup, { static: false })
   sortDirectionToogleGroup: MatButtonToggleGroup;
@@ -54,10 +51,7 @@ export class PncSearchPage implements AfterViewInit {
     private router: Router
   ) {
 
-    this.filters.size = AppConstant.PAGE_SIZE;
-    this.filters.sortColumn = 'lastName';
-    this.filters.sortDirection = SortDirection.ASC;
-    this.resetPageNumber();
+    this.initFilters();
 
     this.filtersSubject
       .switchMap((filters) => this.handlePncSearch(filters))
@@ -70,16 +64,32 @@ export class PncSearchPage implements AfterViewInit {
       : PncSearchModeEnum.FULL;
   }
 
-  ngAfterViewInit() {
-    this.initPage();
+  /**
+   * Initialise l'objet contenant les filtres, avec les paramètres de base de pagination et de tri
+   */
+  initFilters() {
+    this.filters.size = AppConstant.PAGE_SIZE;
+    this.filters.sortColumn = 'lastName';
+    this.filters.sortDirection = SortDirection.ASC;
+  }
+
+
+  /**
+   * Lance une recherche avec de nouveaux filtres
+   * @param filters l'objet contenant les filtres à appliquer à la recherche
+   */
+  searchByFilters(filters: PncFilterModel) {
+    this.filters = Object.assign(this.filters, filters);
+    this.launchSearch();
   }
 
   /**
-   * Initialisation du contenu de la page.
+   * Réinitialise la recherche
+   * @param filters l'objet contenant les filtres à appliquer à la recherche
    */
-  initPage() {
-    this.resetPageNumber();
-    this.launchSearch();
+  reinitializeSearch(filters: PncFilterModel) {
+    this.initFilters();
+    this.searchByFilters(filters);
   }
 
   /**
@@ -134,6 +144,7 @@ export class PncSearchPage implements AfterViewInit {
    * @Return la liste de PNC filtrée
    */
   getFilteredPncs(filters: PncFilterModel): Observable<PagedPncModel> {
+    this.searchInProgress = true;
     return from(this.pncService.getFilteredPncs(filters)
       .then((pagedPncSearched) => {
         return pagedPncSearched;
@@ -165,6 +176,7 @@ export class PncSearchPage implements AfterViewInit {
       this.totalPncs = pagedPncs.page.totalElements;
       this.isLoading = false;
     }
+    this.searchInProgress = false;
   }
 
   /**
@@ -223,4 +235,11 @@ export class PncSearchPage implements AfterViewInit {
     this.isMenuOpened = !this.isMenuOpened;
   }
 
+  /**
+   * Vérifie que la recherche est terminée (que toutes les pages ont été remontées)
+   * @return vrai si la recherche est terminée, faux sinon
+   */
+  isSearchOver() {
+    return this.totalPncs === this.filteredPncs.length;
+  }
 }

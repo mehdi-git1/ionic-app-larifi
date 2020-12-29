@@ -713,6 +713,7 @@
     },
     "PNC_SEARCH": {
         "NO_CONNEXION_MESSAGE": "* Filtres inactifs hors connexion",
+        "TOTAL": "Total : {{total}}",
         "CRITERIA": {
             "TITLE": "Filtres",
             "FILTER": "Filtrer",
@@ -765,6 +766,7 @@
             "ALL_M": "Tous"
         },
         "NO_PNC_FOUND": "Aucun PNC trouvé",
+        "SEARCH_END":"Fin de la recherche",
         "ERROR": {
             "SEARCH": "Erreur lors de la recherche de PNC"
         },
