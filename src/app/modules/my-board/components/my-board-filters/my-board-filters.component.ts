@@ -1,18 +1,21 @@
-import { MyBoardNotificationFilterModel } from './../../../../core/models/my-board/my-board-notification-filter.model';
-import { Events } from '@ionic/angular';
-import { MyBoardNotificationTypeEnum } from './../../../../core/enums/my-board/my-board-notification-type.enum';
 import * as moment from 'moment';
+
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
+import {
+    MyBoardNotificationTypeEnum
+} from '../../../../core/enums/my-board/my-board-notification-type.enum';
+import {
+    MyBoardNotificationFilterModel
+} from '../../../../core/models/my-board/my-board-notification-filter.model';
 import {
     MyBoardNotificationSummaryModel
 } from '../../../../core/models/my-board/my-board-notification-summary.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { FormsUtil } from '../../../../shared/utils/forms-util';
 import { Utils } from '../../../../shared/utils/utils';
-import * as _ from 'lodash';
 
 @Component({
     selector: 'my-board-filters',
@@ -22,7 +25,6 @@ import * as _ from 'lodash';
 export class MyBoardFiltersComponent implements AfterViewInit {
 
     @Input() type: MyBoardNotificationTypeEnum;
-    @Input() filters: MyBoardNotificationFilterModel;
     @Input() notificationSummary: MyBoardNotificationSummaryModel;
 
     @Output() filtersChanged = new EventEmitter<MyBoardNotificationFilterModel>();
@@ -32,10 +34,9 @@ export class MyBoardFiltersComponent implements AfterViewInit {
 
     documentTypes: Array<any>;
 
-    enabledFiltersCount = 0;
-
     MyBoardNotificationTypeEnum = MyBoardNotificationTypeEnum;
 
+    filters = new Map<MyBoardNotificationTypeEnum, MyBoardNotificationFilterModel>();
 
     constructor(
         private sessionService: SessionService,
@@ -45,7 +46,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
         this.documentTypes = this.initDocumentTypes();
 
         this.initForm();
-
+        this.onFormValueChange();
     }
 
     ngAfterViewInit() {
@@ -57,10 +58,8 @@ export class MyBoardFiltersComponent implements AfterViewInit {
      * @param myBoardNotificationType le type de notification myBoard
      */
     updateFilterForm(myBoardNotificationType: MyBoardNotificationTypeEnum) {
-        this.type = myBoardNotificationType;
-        const filters = myBoardNotificationType === MyBoardNotificationTypeEnum.ALERT ? this.sessionService.appContext.myBoardAlertFilters
-            : this.sessionService.appContext.myBoardNotificationFilters;
-        this.resetFilters(filters);
+        this.filters.set(this.type, this.filterForm.getRawValue());
+        this.resetFilters(this.filters.get(myBoardNotificationType));
     }
 
     /**
@@ -81,39 +80,49 @@ export class MyBoardFiltersComponent implements AfterViewInit {
 
         this.filterForm = this.formBuilder.group({
             documentTypes: [''],
-            type: [''],
             creationStartDate: [''],
             creationEndDate: [''],
             archived: [false]
         }, { validators: dateRangeValidator });
 
+        this.filters.set(MyBoardNotificationTypeEnum.ALERT, this.getFormInitValues());
+        this.filters.set(MyBoardNotificationTypeEnum.NOTIFICATION, this.getFormInitValues());
+    }
+
+    /**
+     * Gère les changements de valeur dans le formulaire
+     */
+    onFormValueChange() {
         this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
             if (this.filterForm.valid) {
-                this.filters.documentTypes = newForm.documentTypes;
-                this.filters.creationStartDate = Utils.isEmpty(newForm.creationStartDate) ? '' : new Date(newForm.creationStartDate)
+                const filters = new MyBoardNotificationFilterModel();
+                filters.documentTypes = newForm.documentTypes;
+                filters.creationStartDate = Utils.isEmpty(newForm.creationStartDate) ? '' : new Date(newForm.creationStartDate)
                     .toISOString();
-                this.filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
+                filters.creationEndDate = Utils.isEmpty(newForm.creationEndDate) ? '' : new Date(newForm.creationEndDate)
                     .toISOString();
-                this.filters.archived = newForm.archived;
-                this.type === MyBoardNotificationTypeEnum.ALERT ? this.sessionService.appContext.myBoardAlertFilters = _.cloneDeep(this.filters)
-                    : this.sessionService.appContext.myBoardNotificationFilters = _.cloneDeep(this.filters);
-                this.filtersChanged.next();
+                filters.archived = newForm.archived;
+                this.filtersChanged.next(filters);
             }
             this.countEnabledFilters();
         });
-
     }
 
     /**
      * compte le nombre de filtres activés dans le formulaire
      */
     countEnabledFilters() {
-        this.enabledFiltersCount = 0;
-        this.enabledFiltersCount += this.filterForm.value.documentTypes.length;
-        this.enabledFiltersCount += Utils.isEmpty(this.filterForm.value.creationStartDate) ? 0 : 1;
-        this.enabledFiltersCount += Utils.isEmpty(this.filterForm.value.creationEndDate) ? 0 : 1;
-        this.enabledFiltersCount += this.filterForm.value.archived ? 1 : 0;
-        this.enabledFiltersCountChanged.next(this.enabledFiltersCount);
+        const enabledFiltersCount = Object.values(this.filterForm.value)
+            .filter((value: string | boolean | Array<string>) => {
+                if (typeof value === 'string') {
+                    return !Utils.isEmpty(value);
+                } else if (typeof value === 'boolean') {
+                    return value;
+                } else {
+                    return value.length;
+                }
+            }).length;
+        this.enabledFiltersCountChanged.emit(enabledFiltersCount);
     }
     /**
      * Initialise la liste des types de document
@@ -151,23 +160,29 @@ export class MyBoardFiltersComponent implements AfterViewInit {
 
     /**
      * Réinitialise tous les filtres
+     * @param filters le filtre avec lequel on souhaite initialiser le formulaire
      */
     resetFilters(filters?: MyBoardNotificationFilterModel) {
+        this.filterForm.reset(this.getFormInitValues());
         if (filters) {
-            this.filters.documentTypes = filters.documentTypes;
-            this.filters.creationStartDate = filters.creationStartDate;
-            this.filters.creationEndDate = filters.creationEndDate;
-            this.filters.archived = filters.archived;
-        } else {
-            this.filters.documentTypes = new Array();
-            this.filters.creationStartDate = this.getDefaultCreationStartDate();
-            this.filters.creationEndDate = this.getDefaultCreationEndDate();
-            this.filters.archived = false;
+            FormsUtil.reset(this.filterForm, filters);
         }
-        this.filters.type = this.type;
-        FormsUtil.reset(this.filterForm, this.filters);
         this.countEnabledFilters();
     }
+
+    /**
+     * Récupère les valeurs initiales des filtres
+     * @return un objet mappant le champs et sa valeur d'initialisation
+     */
+    getFormInitValues(): MyBoardNotificationFilterModel {
+        const newFilter = new MyBoardNotificationFilterModel();
+        newFilter.documentTypes = new Array();
+        newFilter.creationStartDate = this.getDefaultCreationEndDate();
+        newFilter.creationEndDate = this.getDefaultCreationEndDate();
+        newFilter.archived = false;
+        return newFilter;
+    }
+
 
     /**
      * Récupère la date de début par défaut
