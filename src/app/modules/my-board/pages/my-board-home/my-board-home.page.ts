@@ -1,4 +1,3 @@
-import { MyBoardNotificationTypeEnum } from './../../../../core/enums/my-board/my-board-notification-type.enum';
 import { from, Observable, Subject } from 'rxjs';
 import {
     MyBoardNotificationSummaryModel
@@ -6,11 +5,14 @@ import {
 import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-notification.model';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 
-import { OnInit, Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
+import {
+    MyBoardNotificationTypeEnum
+} from '../../../../core/enums/my-board/my-board-notification-type.enum';
 import {
     NotificationDocumentTypeEnum
 } from '../../../../core/enums/my-board/notification-document-type.enum';
@@ -27,8 +29,9 @@ import {
 } from '../../../../core/services/my-board/my-board-notification.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
-import { MyBoardFiltersComponent } from '../../components/my-board-filters/my-board-filters.component';
-import * as _ from 'lodash';
+import {
+    MyBoardFiltersComponent
+} from '../../components/my-board-filters/my-board-filters.component';
 
 @Component({
   selector: 'my-board-home',
@@ -78,7 +81,8 @@ export class MyBoardHomePage implements OnInit {
   ngOnInit() {
     this.filters.notifiedPncMatricule = this.sessionService.getActiveUser().matricule;
     this.getMyBoardNotificationSummary().then((myBoardNotificationSummary) => {
-      if (myBoardNotificationSummary.lastMyBoardNotification && myBoardNotificationSummary.lastMyBoardNotification.type != this.myBoardNotificationType) {
+      if (myBoardNotificationSummary.lastMyBoardNotification
+        && myBoardNotificationSummary.lastMyBoardNotification.type !== this.myBoardNotificationType) {
         this.myBoardNotificationType = myBoardNotificationSummary.lastMyBoardNotification.type;
         this.filters.type = this.myBoardNotificationType;
       }
@@ -130,12 +134,13 @@ export class MyBoardHomePage implements OnInit {
   setEnabledFiltersCount(enabledFiltersCount: number) {
     this.enabledFiltersCount = enabledFiltersCount;
   }
+
   /**
    * Lance une recherche suite à une mise à jour des filtres
    */
-  applyFilters() {
-    this.filters.pagePosition = PagePositionEnum.FIRST;
-    this.filtersSubject.next(this.filters);
+  applyFilters(filters: MyBoardNotificationFilterModel) {
+    this.filters = Object.assign(this.filters, filters);
+    this.launchFirstSearch();
   }
 
   /**
@@ -151,6 +156,7 @@ export class MyBoardHomePage implements OnInit {
    */
   launchFirstSearch() {
     this.filters.pagePosition = PagePositionEnum.FIRST;
+    this.filters.type = this.myBoardNotificationType;
     this.filtersSubject.next(this.filters);
   }
 
@@ -232,7 +238,8 @@ export class MyBoardHomePage implements OnInit {
       notificationIdsArray.push(notification.techId);
       this.myBoardNotificationService.readNotifications(notificationIdsArray, true).then(() => {
         notification.checked = true;
-        this.events.publish('myBoard:uncheckedNotificationCountUpdate', this.myBoardNotificationSummary.totalUncheckedNotifications + this.myBoardNotificationSummary.totalUncheckedAlerts - 1);
+        this.events.publish('myBoard:uncheckedNotificationCountUpdate',
+          this.myBoardNotificationSummary.totalUncheckedNotifications + this.myBoardNotificationSummary.totalUncheckedAlerts - 1);
       });
     }
 
