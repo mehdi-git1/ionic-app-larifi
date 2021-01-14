@@ -177,7 +177,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
     getFormInitValues(): MyBoardNotificationFilterModel {
         const newFilter = new MyBoardNotificationFilterModel();
         newFilter.documentTypes = new Array();
-        newFilter.creationStartDate = this.getDefaultCreationEndDate();
+        newFilter.creationStartDate = this.getDefaultCreationStartDate();
         newFilter.creationEndDate = this.getDefaultCreationEndDate();
         newFilter.archived = false;
         return newFilter;
