@@ -66,7 +66,7 @@ export class OnlineBusinessIndicatorService {
      * @return une promesse contenant le commentaire mis à jour
      */
     reportEScoreCommentVerbatim(commentId: number, commentVerbatim: EScoreCommentVerbatimEnum): Promise<EScoreCommentModel> {
-        return this.restService.put(this.config.getBackEndUrl('reportEScoreCommentVerbatim', [commentId, commentVerbatim]), null);
+        return this.restService.put(this.config.getBackEndUrl('reportEScoreCommentVerbatim', [commentId, commentVerbatim]), {});
     }
 
     /**
@@ -76,6 +76,6 @@ export class OnlineBusinessIndicatorService {
      * @return une promesse contenant le commentaire mis à jour
      */
     reportShortLoopCommentVerbatim(commentId: number, commentVerbatim: ShortLoopCommentVerbatimEnum): Promise<ShortLoopCommentModel> {
-        return this.restService.put(this.config.getBackEndUrl('reportShortLoopCommentVerbatim', [commentId, commentVerbatim]), null);
+        return this.restService.put(this.config.getBackEndUrl('reportShortLoopCommentVerbatim', [commentId, commentVerbatim]), {});
     }
 }
