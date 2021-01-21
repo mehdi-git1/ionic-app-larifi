@@ -176,6 +176,7 @@ export class PncSearchPage {
       this.totalPncs = pagedPncs.page.totalElements;
       this.isLoading = false;
     }
+<<<<<<< HEAD
     this.searchInProgress = false;
   }
 
@@ -216,6 +217,113 @@ export class PncSearchPage {
       this.router.navigate(['visit', pnc.matricule, 'development-program']);
     } else {
       this.events.publish('EDossier:visited', pnc);
+=======
+
+    /**
+     * Initialisation du contenu de la page.
+     */
+    initPage() {
+        this.initSearchConfig();
+        this.searchPncs();
+    }
+
+    /**
+     * Initialise le nombre de pnc à afficher par page et les données des listes de recherche.
+     */
+    initSearchConfig() {
+        this.totalPncs = 0;
+        this.itemOffset = 0;
+        this.pageNumber = 0;
+        this.sortColumn = '';
+        this.sortDirection = '';
+    }
+
+    /**
+     * recupere 10 pnc correspondant aux criteres saisis du filtre.
+     */
+    searchPncs() {
+        this.searchFilters.next(this.pncSearchFilter.pncFilter);
+    }
+
+    /**
+     * Gère l'affichage de l'effectif à afficher en fonction des filtres
+     * @param filter les filtres à appliquer
+     * @Return la liste de PNC filtrée
+     */
+    handlePncSearch(filter: PncFilterModel): Observable<PagedPncModel> {
+        this.searchInProgress = true;
+        this.infiniteScroll.disabled = false;
+        this.pageNumber = this.itemOffset / AppConstant.pageSize;
+        this.filteredPncs = [];
+
+        return from(this.pncService.getFilteredPncs(filter, this.pageNumber, AppConstant.pageSize).then(pagedPnc => {
+            return pagedPnc;
+        }).catch((err) => {
+            return null;
+        }));
+    }
+
+    /**
+     * Gère L'affichage du contenu de la page
+     * @param pagedPnc le contenu de la page filtrée à afficher
+     */
+    handleSearchResponse(pagedPnc: PagedPncModel) {
+        if (pagedPnc !== null) {
+            this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
+            this.filteredPncs = pagedPnc.content;
+            this.totalPncs = pagedPnc.page.totalElements;
+            this.searchInProgress = false;
+        }
+    }
+
+    /**
+     * Permet de recharger les éléments dans la liste à scroller quand on arrive a la fin de la liste.
+     * @param event l'événement gérant le scroll
+     */
+    doInfinite(event) {
+        if (this.filteredPncs.length < this.totalPncs) {
+            if (this.connectivityService.isConnected()) {
+                ++this.pageNumber;
+                this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.pageNumber, AppConstant.pageSize).then(pagedPnc => {
+                    this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
+                    this.filteredPncs.push(...pagedPnc.content);
+                    event.target.complete();
+                });
+            } else {
+            }
+        } else {
+            event.target.disabled = true;
+        }
+    }
+
+    /**
+     * Redirige vers la page d'accueil du pnc ou du cadre
+     * @param pnc le pnc concerné
+     */
+    openPncHomePage(pnc: PncModel) {
+        // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
+        this.sessionService.appContext.lastConsultedRotation = null;
+        if (this.searchMode === PncSearchModeEnum.ALTERNANT) {
+            this.router.navigate(['visit', pnc.matricule, 'development-program']);
+        } else {
+            this.events.publish('EDossier:visited', pnc);
+        }
+    }
+
+    /**
+     * Vérifie si on a atteint la dernière page de la recherche
+     */
+    lastPageReached(): boolean {
+        return this.filteredPncs ? this.filteredPncs.length > 0 && this.filteredPncs.length >= this.totalPncs : true;
+    }
+
+    /**
+     * Vérifie si on est sur la recherche d'alternant
+     * @return vrai si on est sur la recherche d'alternant, faux sinon
+     */
+    isAlternantSearch() {
+        return this.searchMode === PncSearchModeEnum.ALTERNANT;
+>>>>>>> master
     }
   }
 

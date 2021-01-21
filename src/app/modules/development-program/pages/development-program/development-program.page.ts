@@ -98,12 +98,7 @@ export class DevelopmentProgramPage {
     }
 
     ionViewDidEnter() {
-        if (this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule')) {
-            // Pour le parcours de dev
-            this.matricule = this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule');
-        } else {
-            this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
-        }
+        this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });
