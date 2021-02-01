@@ -10,18 +10,18 @@ import { AuthorizationService } from '../../core/services/authorization/authoriz
 
 @Injectable()
 export class TeacherGuard implements CanActivate {
-    constructor(
-        private authorizationService: AuthorizationService,
-        private pncService: PncService
-    ) { }
+  constructor(
+    private authorizationService: AuthorizationService,
+    private pncService: PncService
+  ) { }
 
-    canActivate(
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
-    ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        return this.pncService.getPnc(route.paramMap.get('matricule')).then(pnc => {
-            return pnc.currentSpeciality === SpecialityEnum.ALT
-                && this.authorizationService.hasPermission(PermissionConstant.VIEW_ALTERNANT_SEARCH);
-        });
-    }
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return this.pncService.getPnc(route.paramMap.get('visitedPncMatricule')).then(pnc => {
+      return pnc.currentSpeciality === SpecialityEnum.ALT
+        && this.authorizationService.hasPermission(PermissionConstant.VIEW_ALTERNANT_SEARCH);
+    });
+  }
 }
