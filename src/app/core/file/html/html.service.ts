@@ -13,6 +13,6 @@ export class HtmlService {
    * @param url  : url de la fiche synthèse concernée
    */
   displayHTML(url) {
-    this.inAppBrowser.create(url, '_system', { usewkwebview: 'yes' }).show();;
+    this.inAppBrowser.create(url, '_blank', 'location=yes,hardwareback=yes');
   }
 }
