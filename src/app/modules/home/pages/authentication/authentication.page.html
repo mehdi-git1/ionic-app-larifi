@@ -19,7 +19,7 @@
             </ion-item>
             <ion-button type="submit" [hidden]="!hideSpinner" expand="block" [disabled]="loginForm.invalid">
                 {{ 'AUTHENT.VALIDATE' | translate }}</ion-button>
-            <ion-spinner text-center [hidden]="hideSpinner"></ion-spinner>
+            <ion-spinner class="ion-text-center" [hidden]="hideSpinner"></ion-spinner>
         </form>
         <div class="error-message" *ngIf="errorMsg">{{ errorMsg }}</div>
     </div>
