@@ -105,7 +105,6 @@
     "@angular/compiler-cli": "~12.0.0-next.1",
     "@angular/language-service": "~12.0.0-next.1",
     "@ionic/angular-toolkit": "~2.0.0",
-    "@ionic/v4-migration-tslint": "^1.7.1",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
