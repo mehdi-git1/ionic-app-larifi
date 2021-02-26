@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-back-button color="white" slot="start"></ion-back-button>
+        <ion-back-button text="" mode="md" color="white" slot="start"></ion-back-button>
         <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true" [pnc]="pnc">
             <ng-container *ngIf="careerObjectiveLoadingIsOver()" slot="center">
                 <ng-container *ngIf="isCreationMode(); else editTitleBlock">
