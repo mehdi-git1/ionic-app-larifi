@@ -267,8 +267,8 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
     /**
      * Popup d'avertissement en cas de modifications non enregistrées.
      */
-    confirmationPopup(title: string, message: string) {
-        return new Promise((resolve, reject) => {
+    confirmationPopup(title: string, message: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
             this.alertCtrl.create({
                 header: title,

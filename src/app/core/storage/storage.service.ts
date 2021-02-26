@@ -26,8 +26,8 @@ export class StorageService {
     private transformerService: TransformerService) {
   }
 
-  reinitOfflineMap(): Promise<any> {
-    return new Promise((resolve, reject) => {
+  reinitOfflineMap(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
       this.offlineMap = null;
       this.persistOfflineMap().then(() => {
         this.initOfflineMap().then(() => {

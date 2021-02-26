@@ -62,8 +62,8 @@ export class OfflineProfessionalInterviewService {
      * @param id l'id du bilan professionnel à supprimer
      * @return une promesse disant que la suppression s'est bien passée, ou pas
      */
-    public delete(id: number): Promise<any> {
-        return new Promise((resolve, reject) => {
+    public delete(id: number): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             this.storageService.deleteAsync(EntityEnum.PROFESSIONAL_INTERVIEW, `${id}`).then(() => {
                 resolve();
             }).catch(() => {

@@ -233,8 +233,8 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * Lance le processus de création/mise à jour d'un objectif
      * @param careerObjectiveToSave l'objectif à enregistrer
      */
-    saveCareerObjective(careerObjectiveToSave: CareerObjectiveModel) {
-        return new Promise((resolve, reject) => {
+    saveCareerObjective(careerObjectiveToSave: CareerObjectiveModel): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             careerObjectiveToSave = this.prepareCareerObjectiveBeforeSubmit(careerObjectiveToSave);
 
             this.loadingCtrl.create().then(loading => {
@@ -319,8 +319,8 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     /**
      * Présente une alerte générique
      */
-    confirmPopup(title: string, message: string, cancelLabel: string, confirmLabel: string) {
-        return new Promise((resolve, reject) => {
+    confirmPopup(title: string, message: string, cancelLabel: string, confirmLabel: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             this.alertCtrl.create({
                 header: title,
                 message: message,
@@ -340,7 +340,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     }
 
     /**
-     * Présente une alerte pour rappeler qu'il faut saisir une date pour la prochaine rencontre 
+     * Présente une alerte pour rappeler qu'il faut saisir une date pour la prochaine rencontre
      * avant d'enregistrer la priorité en brouillon
      */
     saveCareerObjectiveAsDraft() {
@@ -364,7 +364,8 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * avant d'envoyer ou d'enregistrer la priorité
      */
     saveOrUpdateCareerObjective() {
-        if ((!this.careerObjective.careerObjectiveStatus || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) && !this.careerObjective.encounterDate) {
+        if ((!this.careerObjective.careerObjectiveStatus || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT)
+            && !this.careerObjective.encounterDate) {
             this.requiredOnEncounterDay = true;
             this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
         } else {

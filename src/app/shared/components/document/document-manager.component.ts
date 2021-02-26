@@ -168,8 +168,8 @@ export class DocumentManagerComponent {
   /**
    * Popup d'avertissement en cas de visualisation de pieces jointes en déconnecté.
    */
-  visualizationUnavailablePopup() {
-    return new Promise((resolve, reject) => {
+  visualizationUnavailablePopup(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
       this.alertCtrl.create({
         header: this.translateService.instant('CONGRATULATION_LETTER_DETAIL.ATTACHMENT_FILES.VISUALIZATION_UNAVAILABLE.TITLE'),
         message: this.translateService.instant('CONGRATULATION_LETTER_DETAIL.ATTACHMENT_FILES.VISUALIZATION_UNAVAILABLE.MESSAGE'),

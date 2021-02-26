@@ -135,8 +135,8 @@ export class LogbookEventDetailsPage implements OnInit, AfterViewInit {
      * @param groupId identifiant du groupe
      * @param pnc pnc
      */
-    getLogbookEventsByGroupId(groupId: number, pnc: PncModel) {
-        return new Promise((resolve, reject) => {
+    getLogbookEventsByGroupId(groupId: number, pnc: PncModel): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             this.onlineLogbookEventService.getLogbookEventsByGroupId(groupId).then(
                 logbookEvents => {
                     this.logbookEvents = new Array();

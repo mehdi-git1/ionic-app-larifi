@@ -9,21 +9,21 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import {
-  ProfessionalInterviewCommentItemTypeEnum
+    ProfessionalInterviewCommentItemTypeEnum
 } from '../../../../core/enums/professional-interview/professional-interview-comment-item-type.enum';
 import {
-  ProfessionalInterviewStateEnum
+    ProfessionalInterviewStateEnum
 } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 import {
-  ProfessionalInterviewTypeEnum
+    ProfessionalInterviewTypeEnum
 } from '../../../../core/enums/professional-interview/professional-interview-type.enum';
 import { DocumentModel } from '../../../../core/models/document.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
-  ProfessionalInterviewThemeModel
+    ProfessionalInterviewThemeModel
 } from '../../../../core/models/professional-interview/professional-interview-theme.model';
 import {
-  ProfessionalInterviewModel
+    ProfessionalInterviewModel
 } from '../../../../core/models/professional-interview/professional-interview.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
@@ -31,13 +31,13 @@ import { OfflinePncService } from '../../../../core/services/pnc/offline-pnc.ser
 import { PncTransformerService } from '../../../../core/services/pnc/pnc-transformer.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import {
-  OfflineProfessionalInterviewService
+    OfflineProfessionalInterviewService
 } from '../../../../core/services/professional-interview/offline-professional-interview.service';
 import {
-  ProfessionalInterviewStatusService
+    ProfessionalInterviewStatusService
 } from '../../../../core/services/professional-interview/professional-interview-status.service';
 import {
-  ProfessionalInterviewService
+    ProfessionalInterviewService
 } from '../../../../core/services/professional-interview/professional-interview.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -425,8 +425,8 @@ export class ProfessionalInterviewDetailsPage {
    * Lance le processus de création/mise à jour d'un bilan professionnel
    * @param professionalInterviewToSave le bilan professionnel à enregistrer
    */
-  saveProfessionalInterview(professionalInterviewToSave: ProfessionalInterviewModel) {
-    return new Promise((resolve, reject) => {
+  saveProfessionalInterview(professionalInterviewToSave: ProfessionalInterviewModel): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
       professionalInterviewToSave = this.prepareProfessionalInterviewBeforeSubmit(professionalInterviewToSave);
       this.loadingCtrl.create().then(loading => {
         loading.present();
@@ -562,7 +562,10 @@ export class ProfessionalInterviewDetailsPage {
    * @return true si non pris en compte && l'utilisateur connecté est le pnc concerné
    */
   canBeTakenIntoAccount(): boolean {
-    const canBeSavedAsTakenIntoAccount: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT);
+    const canBeSavedAsTakenIntoAccount: boolean =
+      this.professionalInterviewStatusService.isTransitionOk(
+        this.professionalInterview.state,
+        ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT);
     return this.isConcernedPnc() && (canBeSavedAsTakenIntoAccount || this.isPncCommentEditable);
   }
 
