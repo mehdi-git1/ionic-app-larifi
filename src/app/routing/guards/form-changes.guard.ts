@@ -25,6 +25,7 @@ export class CanDeactivateGuard implements CanDeactivate<ComponentCanDeactivate>
     }
 }
 
+@Injectable()
 export abstract class ComponentCanDeactivate {
     abstract canDeactivate(): boolean;
 
