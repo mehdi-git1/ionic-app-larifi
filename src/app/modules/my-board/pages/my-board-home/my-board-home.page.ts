@@ -7,7 +7,6 @@ import { ConnectivityService } from 'src/app/core/services/connectivity/connecti
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -24,6 +23,7 @@ import {
     PagedMyBoardNotificationModel
 } from '../../../../core/models/my-board/paged-my-board-notification.model';
 import { AlertDialogService } from '../../../../core/services/alertDialog/alert-dialog.service';
+import { Events } from '../../../../core/services/events/events.service';
 import {
     MyBoardNotificationService
 } from '../../../../core/services/my-board/my-board-notification.service';
@@ -239,7 +239,10 @@ export class MyBoardHomePage implements OnInit {
       this.myBoardNotificationService.readNotifications(notificationIdsArray, true).then(() => {
         notification.checked = true;
         this.events.publish('myBoard:uncheckedNotificationCountUpdate',
-          this.myBoardNotificationSummary.totalUncheckedNotifications + this.myBoardNotificationSummary.totalUncheckedAlerts - 1);
+          {
+            uncheckedNotificationCount:
+              this.myBoardNotificationSummary.totalUncheckedNotifications + this.myBoardNotificationSummary.totalUncheckedAlerts - 1
+          });
       });
     }
 

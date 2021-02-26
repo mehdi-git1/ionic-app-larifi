@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Events } from '@ionic/angular';
 
 import { PncPhotoModel } from '../../../core/models/pnc-photo.model';
 import { PncModel } from '../../../core/models/pnc.model';
+import { Events } from '../../../core/services/events/events.service';
 import { GenderService } from '../../../core/services/gender/gender.service';
 import { OfflinePncPhotoService } from '../../../core/services/pnc-photo/offline-pnc-photo.service';
 import { PncPhotoService } from '../../../core/services/pnc-photo/pnc-photo.service';
@@ -44,8 +44,8 @@ export class PncPhotoComponent implements OnInit, OnChanges {
     }
 
     if (!this.handleCall) {
-      this.events.subscribe('PncPhoto:updated', (updatedPhotoMatricules) => {
-        if (updatedPhotoMatricules.includes(this.pnc.matricule)) {
+      this.events.subscribe('PncPhoto:updated', (data) => {
+        if (data.updatedPhotoMatricules.includes(this.pnc.matricule)) {
           this.offlinePncPhotoService.getPncPhoto(this.pnc.matricule).then(pncPhoto => {
             this.processPncPhoto(pncPhoto);
             this.loading = false;

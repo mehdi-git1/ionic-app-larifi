@@ -1,12 +1,12 @@
 import * as _ from 'lodash';
 
 import { EventEmitter, Injectable } from '@angular/core';
-import { Events } from '@ionic/angular';
 
 import { SynchroStatusEnum } from '../../enums/synchronization/synchro-status.enum';
 import { PncModel } from '../../models/pnc.model';
 import { SynchroRequestModel } from '../../models/synchro-request.model';
 import { ConnectivityService } from '../connectivity/connectivity.service';
+import { Events } from '../events/events.service';
 import { SynchronizationService } from './synchronization.service';
 
 @Injectable({ providedIn: 'root' })
@@ -24,8 +24,8 @@ export class SynchronizationManagementService {
     private synchronizationService: SynchronizationService,
     private connectivityService: ConnectivityService,
     private events: Events) {
-    this.events.subscribe('SynchroRequest:add', (pnc) => {
-      this.addSynchroRequest(pnc);
+    this.events.subscribe('SynchroRequest:add', (data) => {
+      this.addSynchroRequest(data.pnc);
     });
   }
 

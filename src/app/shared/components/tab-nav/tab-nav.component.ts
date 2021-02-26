@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { Events } from '@ionic/angular';
 
+import { Events } from '../../../core/services/events/events.service';
 import { SessionService } from '../../../core/services/session/session.service';
 import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 

@@ -2,10 +2,10 @@ import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
 import { Component, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Events } from '@ionic/angular';
 
 import { TabHeaderEnum } from '../../../core/enums/tab-header.enum';
 import { PncModel } from '../../../core/models/pnc.model';
+import { Events } from '../../../core/services/events/events.service';
 import { SessionService } from '../../../core/services/session/session.service';
 import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 

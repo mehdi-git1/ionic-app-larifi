@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Events } from '@ionic/angular';
 
 import {
-  MyBoardNotificationFilterModel
+    MyBoardNotificationFilterModel
 } from '../../models/my-board/my-board-notification-filter.model';
 import {
-  MyBoardNotificationSummaryModel
+    MyBoardNotificationSummaryModel
 } from '../../models/my-board/my-board-notification-summary.model';
 import {
-  PagedMyBoardNotificationModel
+    PagedMyBoardNotificationModel
 } from '../../models/my-board/paged-my-board-notification.model';
 import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
+import { Events } from '../events/events.service';
 import { SessionService } from '../session/session.service';
 import { OfflineMyBoardNotificationService } from './offline-my-board-notification.service';
 import { OnlineMyBoardNotificationService } from './online-my-board-notification.service';
@@ -80,7 +80,11 @@ export class MyBoardNotificationService extends BaseService {
   getMyBoardNotificationSummary(filters: MyBoardNotificationFilterModel): Promise<MyBoardNotificationSummaryModel> {
     const promise = this.execFunctionService('getMyBoardNotificationSummary', filters);
     promise.then(myBoardNotificationSummary => {
-      this.events.publish('myBoard:uncheckedNotificationCountUpdate', myBoardNotificationSummary.totalUncheckedNotifications + myBoardNotificationSummary.totalUncheckedAlerts);
+      this.events.publish('myBoard:uncheckedNotificationCountUpdate',
+        {
+          uncheckedNotificationCount:
+            myBoardNotificationSummary.totalUncheckedNotifications + myBoardNotificationSummary.totalUncheckedAlerts
+        });
     });
     return promise;
   }

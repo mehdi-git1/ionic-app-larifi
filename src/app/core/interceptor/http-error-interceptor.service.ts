@@ -6,12 +6,12 @@ import {
     HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { UrlConfiguration } from '../configuration/url.configuration';
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { DeviceService } from '../services/device/device.service';
+import { Events } from '../services/events/events.service';
 import { ToastService } from '../services/toast/toast.service';
 
 @Injectable({ providedIn: 'root' })

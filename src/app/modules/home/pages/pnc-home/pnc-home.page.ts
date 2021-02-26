@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
     AppVersionAlertService
 } from '../../../../core/services/app-version/app-version-alert.service';
+import { Events } from '../../../../core/services/events/events.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import {

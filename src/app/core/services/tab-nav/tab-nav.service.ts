@@ -6,7 +6,7 @@ import { MyBoardHomePage } from 'src/app/modules/my-board/pages/my-board-home/my
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Events, LoadingController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -20,6 +20,7 @@ import { PncSearchPage } from '../../../modules/pnc-team/pages/pnc-search/pnc-se
 import { Utils } from '../../../shared/utils/utils';
 import { TabNavEnum } from '../../enums/tab-nav.enum';
 import { PncModel } from '../../models/pnc.model';
+import { Events } from '../events/events.service';
 import { SecurityService } from '../security/security.service';
 import { SessionService } from '../session/session.service';
 
@@ -45,8 +46,8 @@ export class TabNavService {
             this.initTabList();
         });
 
-        this.events.subscribe('myBoard:uncheckedNotificationCountUpdate', (newCount) => {
-            this.getTab(TabNavEnum.MY_BOARD_PAGE).badgeValue = newCount;
+        this.events.subscribe('myBoard:uncheckedNotificationCountUpdate', (data) => {
+            this.getTab(TabNavEnum.MY_BOARD_PAGE).badgeValue = data.uncheckedNotificationCount;
         });
     }
 
@@ -127,13 +128,13 @@ export class TabNavService {
      * Il est impossible de gérer ce traitement dans un service (problème d'injection inconnu). On gère donc cela avec un système d'events..
      */
     handleEdossierVisit(): void {
-        this.events.subscribe('EDossier:visited', (pnc) => {
-            if (this.sessionService.isActiveUser(pnc)) {
+        this.events.subscribe('EDossier:visited', (data) => {
+            if (this.sessionService.isActiveUser(data.visitedPnc)) {
                 this.sessionService.visitedPnc = undefined;
                 this.router.navigate(['tabs', 'home']);
             } else {
-                this.loadVisitedPnc(pnc.matricule).then(() => {
-                    if (pnc.manager) {
+                this.loadVisitedPnc(data.visitedPnc.matricule).then(() => {
+                    if (data.visitedPnc.manager) {
                         this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'statutory-certificate']);
                     } else {
                         this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'development-program']);

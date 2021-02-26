@@ -126,7 +126,7 @@ export class FlightCrewListPage {
 
             this.pncService.getPnc(matricule).then(pnc => {
                 loading.dismiss();
-                this.events.publish('EDossier:visited', pnc);
+                this.events.publish('EDossier:visited', { visitedPnc: pnc });
             });
         });
     }

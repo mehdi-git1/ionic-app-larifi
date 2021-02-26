@@ -1,7 +1,6 @@
 import * as moment from 'moment';
 
 import { Injectable } from '@angular/core';
-import { Events } from '@ionic/angular';
 
 import { AppConstant } from '../../../app.constant';
 import { UrlConfiguration } from '../../configuration/url.configuration';
@@ -10,6 +9,7 @@ import { RestService } from '../../http/rest/rest.base.service';
 import { MatriculesModel } from '../../models/matricules.model';
 import { PncPhotoModel } from '../../models/pnc-photo.model';
 import { StorageService } from '../../storage/storage.service';
+import { Events } from '../events/events.service';
 import { OfflinePncPhotoService } from './offline-pnc-photo.service';
 import { PncPhotoTransformerService } from './pnc-photo-transformer.service';
 
@@ -75,10 +75,10 @@ export class OnlinePncPhotoService {
           });
           this.storageService.persistOfflineMap();
         }, error => { }).then(() => {
-          this.events.publish('PncPhoto:updated', matricules);
+          this.events.publish('PncPhoto:updated', { updatedPhotoMatricules: matricules });
         });
       } else {
-        this.events.publish('PncPhoto:updated', matricules);
+        this.events.publish('PncPhoto:updated', { updatedPhotoMatricules: matricules });
       }
     });
     return Promise.resolve();
