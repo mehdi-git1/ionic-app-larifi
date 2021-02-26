@@ -50,7 +50,7 @@
                                         <ion-input #careerObjectiveTitle type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on" [maxlength]="titleMaxLength">
                                         </ion-input>
                                         <span class="character-counter">
-                                            {{careerObjectiveTitle.value ? careerObjectiveTitle.value.length : 0}}/{{titleMaxLength}}
+                                            {{careerObjective.title ? careerObjective.title.length : 0}}/{{titleMaxLength}}
                                         </span>
                                     </ion-item>
                                 </ion-col>
@@ -65,7 +65,7 @@
                                         <ion-textarea #careerObjectiveContext [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on" [maxlength]="contextMaxLength">
                                         </ion-textarea>
                                         <span class=" character-counter">
-                                            {{careerObjectiveContext.value ? careerObjectiveContext.value.length : 0}}/{{contextMaxLength}}
+                                            {{careerObjective.context ? careerObjective.context.length : 0}}/{{contextMaxLength}}
                                         </span>
                                     </ion-item>
                                 </ion-col>
@@ -80,7 +80,7 @@
                                         <ion-textarea #actionPlan [(ngModel)]="careerObjective.actionPlan" formControlName="actionPlanControl" name="actionPlan" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on" [maxlength]="actionPlanMaxLength">
                                         </ion-textarea>
                                         <span class="character-counter">
-                                            {{actionPlan.value ? actionPlan.value.length : 0}}/{{actionPlanMaxLength}}
+                                            {{careerObjective.actionPlan ? careerObjective.actionPlan.length : 0}}/{{actionPlanMaxLength}}
                                         </span>
                                     </ion-item>
                                 </ion-col>
@@ -95,7 +95,7 @@
                                         <ion-textarea #managerComment [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on" [maxlength]="managerCommentMaxLength">
                                         </ion-textarea>
                                         <span class="character-counter">
-                                            {{managerComment.value ? managerComment.value.length : 0}}/{{managerCommentMaxLength}}
+                                            {{careerObjective.managerComment ? careerObjective.managerComment.length : 0}}/{{managerCommentMaxLength}}
                                         </span>
                                     </ion-item>
                                 </ion-col>
@@ -108,7 +108,7 @@
                                         <ion-textarea #pncComment [(ngModel)]="careerObjective.pncComment" formControlName="pncCommentControl" name="pncComment" autocorrect="on" [maxlength]="pncCommentMaxLength">
                                         </ion-textarea>
                                         <span class="character-counter">
-                                            {{pncComment.value ? pncComment.value.length : 0}}/{{pncCommentMaxLength}}
+                                            {{careerObjective.pncComment ? careerObjective.pncComment.length : 0}}/{{pncCommentMaxLength}}
                                         </span>
                                     </ion-item>
                                 </ion-col>
