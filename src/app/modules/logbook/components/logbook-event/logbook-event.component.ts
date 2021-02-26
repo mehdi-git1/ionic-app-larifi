@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import { NotifiedPncSpecialityEnum } from 'src/app/core/enums/notified-pnc-speciality.enum';
 import {
     LogbookEventNotifiedPnc

@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import { FormCanDeactivate } from 'src/app/routing/guards/form-changes.guard';
 
 import { Component, ViewChild } from '@angular/core';

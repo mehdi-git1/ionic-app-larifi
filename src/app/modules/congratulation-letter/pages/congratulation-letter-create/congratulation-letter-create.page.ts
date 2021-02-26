@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import { Observable, of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, pairwise, switchMap } from 'rxjs/operators';
 import {

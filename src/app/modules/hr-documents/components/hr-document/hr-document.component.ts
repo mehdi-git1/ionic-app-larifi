@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
 import { Component, Input, OnInit, ViewChild } from '@angular/core';

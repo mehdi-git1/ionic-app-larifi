@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import { LogbookEventModeEnum } from 'src/app/core/enums/logbook-event/logbook-event-mode.enum';
 import { LogbookEventTypeEnum } from 'src/app/core/enums/logbook-event/logbook-event-type.enum';
 import { PncModel } from 'src/app/core/models/pnc.model';

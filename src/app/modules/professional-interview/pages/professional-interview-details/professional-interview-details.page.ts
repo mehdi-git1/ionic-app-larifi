@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
