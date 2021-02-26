@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material';
-import { Events, PopoverController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../../app.constant';
@@ -18,6 +18,7 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import { SectorModel } from '../../../../core/models/sector.model';
 import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { Events } from '../../../../core/services/events/events.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { FormsUtil } from '../../../../shared/utils/forms-util';
 

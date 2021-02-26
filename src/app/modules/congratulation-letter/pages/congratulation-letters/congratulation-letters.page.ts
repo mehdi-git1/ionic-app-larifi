@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Events, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 import {
     CongratulationLetterModeEnum
@@ -12,6 +12,7 @@ import {
     CongratulationLetterService
 } from '../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { Events } from '../../../../core/services/events/events.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { Events, LoadingController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { LegModel } from '../../../../core/models/leg.model';
+import { Events } from '../../../../core/services/events/events.service';
 import { LegService } from '../../../../core/services/leg/leg.service';
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';

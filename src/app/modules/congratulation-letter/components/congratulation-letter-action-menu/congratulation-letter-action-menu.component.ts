@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import {
-    AlertController, Events, LoadingController, NavParams, PopoverController
-} from '@ionic/angular';
+import { AlertController, LoadingController, NavParams, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -12,6 +10,7 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import {
     CongratulationLetterService
 } from '../../../../core/services/congratulation-letter/congratulation-letter.service';
+import { Events } from '../../../../core/services/events/events.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { FixRecipientComponent } from '../fix-recipient/fix-recipient.component';
 

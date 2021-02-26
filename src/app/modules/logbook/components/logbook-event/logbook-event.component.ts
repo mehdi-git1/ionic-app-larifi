@@ -7,7 +7,7 @@ import { PncTransformerService } from 'src/app/core/services/pnc/pnc-transformer
 
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, Events, LoadingController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbook-event-mode.enum';
@@ -20,6 +20,7 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import {
     CancelChangesService
 } from '../../../../core/services/cancel_changes/cancel-changes.service';
+import { Events } from '../../../../core/services/events/events.service';
 import {
     OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';

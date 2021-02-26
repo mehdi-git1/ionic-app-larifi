@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { Events, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 import { TabHeaderEnum } from '../../../core/enums/tab-header.enum';
+import { Events } from '../../../core/services/events/events.service';
 import { SessionService } from '../../../core/services/session/session.service';
 import { TabHeaderService } from '../../../core/services/tab-header/tab-header.service';
 

@@ -11,7 +11,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-    AlertController, Events, LoadingController, NavController, PopoverController
+    AlertController, LoadingController, NavController, PopoverController
 } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -28,6 +28,7 @@ import {
     CongratulationLetterService
 } from '../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { Events } from '../../../../core/services/events/events.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
