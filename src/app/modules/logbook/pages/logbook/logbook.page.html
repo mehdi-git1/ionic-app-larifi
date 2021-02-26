@@ -22,7 +22,7 @@
                             <ion-col class="arrow"></ion-col>
                             <ion-col class="column-date" columnName="eventDate" sort>
                                 {{ 'LOGBOOK.EVENT_DATE' | translate }}
-                                <ion-icon id="sortIcon" class="sort-icon" color="black" ios="md-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
+                                <ion-icon id="sortIcon" class="sort-icon" color="black" name="arrow-down"></ion-icon>
                             </ion-col>
                             <ion-col class="column-category" columnName="category">{{ 'LOGBOOK.CATEGORY' | translate }}
                             </ion-col>
@@ -48,7 +48,7 @@
                                     <ion-row class="event-row ion-align-items-center" *ngIf="groupedEvent.expanded || logbookEventIndex === 0" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
                                         <ion-col class="arrow">
                                             <div class="child-count clickable" *ngIf="groupHasManyEvents(groupedEvent) && logbookEventIndex === 0" (click)="collapseOrExpandEventGroup($event, groupedEvent)">
-                                                <ion-icon color="primary" ios="md-arrow-drop{{groupedEvent.expanded?'down':'up'}}" md="md-arrow-drop{{groupedEvent.expanded?'up':'down'}}">
+                                                <ion-icon color="primary" name="arrow-{{groupedEvent.expanded?'up':'down'}}">
                                                 </ion-icon>
                                                 <span class="events-number" *ngIf="!groupedEvent.expanded">{{groupedEvent.logbookEvents.length}}</span>
                                             </div>
@@ -59,7 +59,7 @@
                                             <div class="category-label">{{logbookEvent.category?.label}}</div>
                                         </ion-col>
                                         <ion-col class="column-specific">
-                                            <ion-icon name="md-eye-off" ios="md-eye-off" *ngIf="isHidden(logbookEvent)">
+                                            <ion-icon name="eye-off" *ngIf="isHidden(logbookEvent)">
                                             </ion-icon>
                                         </ion-col>
                                         <ion-col class="column-specific">
@@ -87,8 +87,7 @@
                                         </ion-col>
                                         <ion-col class="column-actions" *ngIf="isManager()">
                                             <div class="clickable" *ngIf="canEditEvent(logbookEvent, logbookEventIndex)" (click)="openActionsMenu($event, logbookEvent, logbookEventIndex)">
-                                                <ion-icon ios="md-more" md="md-more">
-                                                </ion-icon>
+                                                <ion-icon name="ellipsis-vertical"></ion-icon>
                                             </div>
                                         </ion-col>
                                     </ion-row>

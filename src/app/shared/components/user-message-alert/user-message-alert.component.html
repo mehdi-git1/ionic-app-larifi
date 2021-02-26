@@ -1,7 +1,7 @@
 <div class="user-message-alert-wrapper" [ngClass]="{'displayed': displayed}">
     <div class="alert">
         <div class="header">
-            <ion-icon ios="md-alert" name="md-alert"></ion-icon>
+            <ion-icon name="alert"></ion-icon>
             <label>{{ userMessage.title }}</label>
         </div>
         <div class="content">
@@ -10,8 +10,7 @@
         </div>
         <div class="button-bar">
             <button (click)="dismissMessage()">{{ 'GLOBAL.USER_MESSAGE.BUTTONS.DISMISS' | translate }}</button>
-            <button
-                (click)="doNotDisplayMessageAnymore()">{{ 'GLOBAL.USER_MESSAGE.BUTTONS.DO_NOT_DISPLAY_ANYMORE' | translate }}</button>
+            <button (click)="doNotDisplayMessageAnymore()">{{ 'GLOBAL.USER_MESSAGE.BUTTONS.DO_NOT_DISPLAY_ANYMORE' | translate }}</button>
         </div>
     </div>
 </div>

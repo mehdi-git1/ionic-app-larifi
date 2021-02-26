@@ -3,7 +3,7 @@
         <page-header>
             <span slot="start">
                 <ion-fab-button (click)="toggleFiltersMenu()" size="small" color="primarydark">
-                    <span class="edospnc-filter-sharp"></span>
+                    <ion-icon name="filter-sharp"></ion-icon>
                 </ion-fab-button>
 
                 {{ 'PNC_SEARCH.CRITERIA.FILTER' | translate }} ({{enabledFiltersCount}})
@@ -74,7 +74,7 @@
                         </div>
                         <ng-template #noDataBlock>
                             <div class="no-data-splash">
-                                <ion-icon name="contacts"></ion-icon>
+                                <ion-icon name="people"></ion-icon>
                                 <span>{{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}</span>
                             </div>
                         </ng-template>

@@ -88,7 +88,7 @@ export class TabNavService {
                 id: TabNavEnum.PNC_SEARCH_PAGE,
                 title: this.translateService.instant('GLOBAL.MY_PNC_TEAM'),
                 page: PncSearchPage,
-                icon: 'contacts',
+                icon: 'people',
                 route: 'search',
                 display: this.securityService.isManager(),
                 badgeValue: 0
@@ -97,7 +97,7 @@ export class TabNavService {
                 id: TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE,
                 title: this.translateService.instant('GLOBAL.MY_UPCOMING_FLIGHT'),
                 page: UpcomingFlightListPage,
-                icon: 'jet',
+                icon: 'paper-plane',
                 route: 'flight',
                 display: this.securityService.isManager(),
                 badgeValue: 0

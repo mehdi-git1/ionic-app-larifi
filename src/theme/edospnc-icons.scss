@@ -1,8 +1,8 @@
 @font-face {
     font-family: "edospnc";
-    src: url("/../fonts/edospnc/edospnc.ttf?2832b06d3127a96c3c6b4e9eb882a164") format("truetype"),
-        url("/../fonts/edospnc/edospnc.woff?2832b06d3127a96c3c6b4e9eb882a164") format("woff"),
-        url("/../fonts/edospnc/edospnc.woff2?2832b06d3127a96c3c6b4e9eb882a164") format("woff2");
+    src: url("/assets/fonts/edospnc/edospnc.ttf?c45cb1da65b176e71c196b076210140f") format("truetype"),
+        url("/assets/fonts/edospnc/edospnc.woff?c45cb1da65b176e71c196b076210140f") format("woff"),
+        url("/assets/fonts/edospnc/edospnc.woff2?c45cb1da65b176e71c196b076210140f") format("woff2");
 }
 
 span[class^="edospnc-"]:before,
@@ -29,42 +29,38 @@ span[class*=" edospnc-"]:before {
     content: "\f103";
 }
 
-.edospnc-filter-sharp:before {
+.edospnc-fix-recipient:before {
     content: "\f104";
 }
 
-.edospnc-fix-recipient:before {
+.edospnc-flag:before {
     content: "\f105";
 }
 
-.edospnc-flag:before {
+.edospnc-flag2:before {
     content: "\f106";
 }
 
-.edospnc-flag2:before {
+.edospnc-important:before {
     content: "\f107";
 }
 
-.edospnc-important:before {
+.edospnc-memo:before {
     content: "\f108";
 }
 
-.edospnc-memo:before {
+.edospnc-pdf:before {
     content: "\f109";
 }
 
-.edospnc-pdf:before {
+.edospnc-pnc:before {
     content: "\f10a";
 }
 
-.edospnc-pnc:before {
+.edospnc-speech-bubble:before {
     content: "\f10b";
 }
 
-.edospnc-speech-bubble:before {
-    content: "\f10c";
-}
-
 .edospnc-writing:before {
-    content: "\f10d";
+    content: "\f10c";
 }
