@@ -1,5 +1,6 @@
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
-import { MatPaginatorIntl } from '@angular/material';
+
 export class EdossierPaginationIntl extends MatPaginatorIntl {
 
     itemsPerPageLabel = '';

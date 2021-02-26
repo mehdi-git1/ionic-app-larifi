@@ -5,7 +5,7 @@ import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
 import { Component, ViewChild } from '@angular/core';
-import { MatButtonToggleGroup } from '@angular/material';
+import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AppConstant } from '../../../../app.constant';

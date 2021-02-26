@@ -5,7 +5,7 @@ import {
     AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatExpansionPanel } from '@angular/material';
+import { MatExpansionPanel } from '@angular/material/expansion';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
