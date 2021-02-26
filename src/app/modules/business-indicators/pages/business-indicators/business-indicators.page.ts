@@ -1,5 +1,6 @@
 import * as moment from 'moment';
 import { from, Observable, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import {
     BusinessIndicatorSortColumnEnum
 } from 'src/app/core/enums/business-indicators/business-indicators-sort-columns-enum';
@@ -81,7 +82,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
 
         this.getIndicatorsByFilter(matricule).subscribe(pagedIndicator => this.processRequestResult(pagedIndicator));
         this.businessIndicatorRequestSubject
-            .switchMap(v => this.getIndicatorsByFilter(matricule))
+            .pipe(switchMap(v => this.getIndicatorsByFilter(matricule)))
             .subscribe(pagedIndicator => this.processRequestResult(pagedIndicator));
     }
 

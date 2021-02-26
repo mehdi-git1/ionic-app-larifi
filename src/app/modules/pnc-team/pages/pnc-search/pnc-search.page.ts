@@ -1,4 +1,5 @@
 import { from, Observable, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
@@ -53,8 +54,7 @@ export class PncSearchPage {
 
     this.initFilters();
 
-    this.filtersSubject
-      .switchMap((filters) => this.handlePncSearch(filters))
+    this.filtersSubject.pipe(switchMap((filters) => this.handlePncSearch(filters)))
       .subscribe(pagedPnc => {
         this.handlePncSearchResponse(pagedPnc);
       });

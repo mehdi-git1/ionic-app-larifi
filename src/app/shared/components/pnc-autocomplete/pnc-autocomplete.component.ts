@@ -1,7 +1,6 @@
 import * as $ from 'jquery';
-import { Observable } from 'rxjs/Observable';
-import { from } from 'rxjs/observable/from';
-import { Subject } from 'rxjs/Rx';
+import { from, Observable, of, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
@@ -59,13 +58,8 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
      * Recharge la liste des pncs de l'autocompletion aprés 500ms
      */
     initAutocompleteList() {
-        this.searchTerms
-            .debounceTime(500)
-            .distinctUntilChanged()
-            .switchMap(
-                term => this.getAutoCompleteDataReturn(term)
-            )
-            .subscribe(pncList => {
+        this.searchTerms.pipe(debounceTime(500), distinctUntilChanged())
+            .pipe(switchMap(term => this.getAutoCompleteDataReturn(term))).subscribe(pncList => {
                 this.handleAutoCompleteResponse(pncList);
             });
     }
@@ -107,7 +101,7 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
                 })
             );
         } else {
-            return Observable.of<PncModel[]>([]);
+            return of<PncModel[]>([]);
         }
     }
 
@@ -118,7 +112,7 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
     handleAutoCompleteResponse(pncList: PncModel[]) {
         this.autoCompleteRunning = false;
         $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
-        this.pncList = Observable.of(pncList);
+        this.pncList = of(pncList);
     }
 
     /**

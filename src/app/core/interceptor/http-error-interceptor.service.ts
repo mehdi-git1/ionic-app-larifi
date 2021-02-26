@@ -1,6 +1,5 @@
-import 'rxjs/add/operator/do';
-
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import {
     HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
@@ -30,7 +29,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    return next.handle(request).do(success => {
+    return next.handle(request).pipe(tap(success => {
     }, err => {
 
       if (err instanceof HttpErrorResponse && !request.url.includes(this.config.getBackEndUrl('getPing'))) {
@@ -59,6 +58,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           }
         }
       }
-    });
+    }));
   }
 }

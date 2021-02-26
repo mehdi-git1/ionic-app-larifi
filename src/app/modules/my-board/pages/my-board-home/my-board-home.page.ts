@@ -1,4 +1,5 @@
 import { from, Observable, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import {
     MyBoardNotificationSummaryModel
 } from 'src/app/core/models/my-board/my-board-notification-summary.model';
@@ -71,8 +72,7 @@ export class MyBoardHomePage implements OnInit {
     this.filters.size = this.PAGE_SIZE;
     this.resetPageNumber();
 
-    this.filtersSubject
-      .switchMap((filters) => this.handlePageSearch(filters))
+    this.filtersSubject.pipe(switchMap((filters) => this.handlePageSearch(filters)))
       .subscribe(pncNotifications => {
         this.handleNotificationSearchResponse(pncNotifications);
       });

@@ -1,7 +1,6 @@
 import * as _ from 'lodash';
-import { Observable } from 'rxjs/Observable';
-import { pairwise } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Observable, of, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, pairwise, switchMap } from 'rxjs/operators';
 import {
     CongratulationLetterModeEnum
 } from 'src/app/core/enums/congratulation-letter/congratulation-letter-mode.enum';
@@ -222,24 +221,21 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
      */
     handleAutocompleteSearch() {
         this.redactorSearchList = this.searchTerms
-            .debounceTime(300)
-            .distinctUntilChanged()
-            .switchMap(
-                term => {
-                    if (term) {
-                        this.autoCompleteInProgress = true;
-                        const autoCompletePromise = this.pncService.pncAutoComplete(term, true);
-                        // On enchaine 2 then pour atteindre le "finally"
-                        autoCompletePromise.then().then(() => { this.autoCompleteInProgress = false; });
-                        return autoCompletePromise;
-                    } else {
-                        return Observable.of<PncModel[]>([]);
-                    }
+            .pipe(debounceTime(300), distinctUntilChanged())
+            .pipe(switchMap(term => {
+                if (term) {
+                    this.autoCompleteInProgress = true;
+                    const autoCompletePromise = this.pncService.pncAutoComplete(term, true);
+                    autoCompletePromise.catch(error => {
+                        return of<PncModel[]>([]);
+                    })
+                    autoCompletePromise.finally(() => { this.autoCompleteInProgress = false; });
+                    return autoCompletePromise;
+                } else {
+                    return of<PncModel[]>([]);
                 }
-            )
-            .catch(error => {
-                return Observable.of<PncModel[]>([]);
-            });
+            })
+            );
     }
 
     /**

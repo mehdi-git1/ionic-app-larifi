@@ -1,6 +1,8 @@
 import { Subscription } from 'rxjs/Subscription';
-import { SortService } from './../../../core/services/sort/sort.service';
-import { Directive, Input, ElementRef, OnInit, ViewContainerRef, TemplateRef, HostListener, Renderer2, Output, EventEmitter } from '@angular/core';
+
+import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
+
+import { SortService } from '../../../core/services/sort/sort.service';
 
 @Directive({
   selector: '[sort]'
@@ -22,9 +24,9 @@ export class SortDirective implements OnInit {
   private columnSortedSubscription: Subscription;
 
   ngOnInit() {
-    this.ionGridElement =  this.getOwnerGridElement(this.element.nativeElement);
+    this.ionGridElement = this.getOwnerGridElement(this.element.nativeElement);
     this.element.nativeElement.style.cursor = 'pointer';
-    this.columnSortedSubscription =  this.sortService.sortColumnEvent.subscribe(event => {
+    this.columnSortedSubscription = this.sortService.sortColumnEvent.subscribe(event => {
       if (event.ionGridElement === this.ionGridElement) {
         const sortIcon = this.getSortIcon(this.element.nativeElement);
         if (event.columnName === this.columnName && !sortIcon) {
@@ -54,8 +56,8 @@ export class SortDirective implements OnInit {
    * @param element élément child
    * @return l'ion-grid parent si il y en  aun, sinon null
    */
-  getOwnerGridElement ( element: any) {
-    if ( !element || element == undefined ) {
+  getOwnerGridElement(element: any) {
+    if (!element || element == undefined) {
       return null;
     }
     const parentElement = element.parentElement;
