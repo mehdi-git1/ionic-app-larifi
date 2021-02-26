@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
 
