@@ -5,7 +5,7 @@ import { Config } from 'src/environments/config';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AlertController, Events, Platform } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from './core/authentication/authentication.service';
@@ -14,6 +14,7 @@ import { AppInitService } from './core/services/app-init/app-init.service';
 import { AppVersionService } from './core/services/app-version/app-version.service';
 import { ConnectivityService } from './core/services/connectivity/connectivity.service';
 import { DeviceService } from './core/services/device/device.service';
+import { Events } from './core/services/events/events.service';
 import { ModalSecurityService } from './core/services/modal/modal-security.service';
 import { MyBoardNotificationService } from './core/services/my-board/my-board-notification.service';
 import { SessionService } from './core/services/session/session.service';
