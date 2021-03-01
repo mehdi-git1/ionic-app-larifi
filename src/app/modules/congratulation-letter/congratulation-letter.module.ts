@@ -41,13 +41,6 @@ import {
     FormsModule,
     ReactiveFormsModule
   ],
-  entryComponents: [
-    CongratulationLettersPage,
-    CongratulationLetterDetailPage,
-    CongratulationLetterActionMenuComponent,
-    FixRecipientComponent,
-    CongratulationLetterCreatePage
-  ],
   exports: [
     CongratulationLettersPage
   ],

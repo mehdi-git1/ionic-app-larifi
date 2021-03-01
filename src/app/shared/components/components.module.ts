@@ -141,12 +141,6 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
     ],
-    entryComponents: [
-        PinPadModalComponent,
-        SecretQuestionModalComponent,
-        DocumentViewerComponent,
-        AlertDialogComponent
-    ],
     providers: [Keyboard]
 })
 export class ComponentsModule { }

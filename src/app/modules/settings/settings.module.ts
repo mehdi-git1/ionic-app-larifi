@@ -23,12 +23,6 @@ import { SettingsPage } from './pages/settings/settings.page';
     SharedModule,
     ComponentsModule
   ],
-  entryComponents: [
-    SettingsPage,
-    ImpersonatePage,
-    AppVersionHistoryPage,
-    LegalTermsPage
-  ],
   exports: [
     SettingsPage,
     ImpersonatePage,

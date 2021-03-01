@@ -24,9 +24,6 @@ import {
     SharedModule,
     ComponentsModule
   ],
-  entryComponents: [
-    SynchronizationManagementPage
-  ],
   exports: [
     SynchronizationManagementPage
   ],

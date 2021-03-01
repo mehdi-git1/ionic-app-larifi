@@ -29,14 +29,6 @@ import { HrDocumentsPage } from './pages/hr-documents/hr-documents.page';
     FormsModule,
     ReactiveFormsModule
   ],
-  entryComponents: [
-    HrDocumentsPage,
-    HrDocumentCreatePage,
-    HrDocumentDetailPage,
-    HrDocumentComponent,
-    HrDocumentCardComponent,
-    HrDocumentActionMenuComponent
-  ],
   exports: [
     HrDocumentsPage,
     HrDocumentCreatePage,

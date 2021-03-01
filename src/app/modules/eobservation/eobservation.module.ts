@@ -1,5 +1,3 @@
-import { EObservationListComponent } from './components/eobservation-list/eobservation-list.component';
-
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -28,6 +26,9 @@ import {
     EObsTemporaryPeriodComponent
 } from './components/eobs-temporary-period/eobs-temporary-period.component';
 import { EObsThemeComponent } from './components/eobs-theme/eobs-theme.component';
+import {
+    EObservationListComponent
+} from './components/eobservation-list/eobservation-list.component';
 import { ExitSymbolComponent } from './components/exit-symbol/exit-symbol.component';
 import { QuestionSymbolComponent } from './components/question-symbol/question-symbol.component';
 import { EobservationDetailsPage } from './pages/eobservation-details/eobservation-details.page';
@@ -60,12 +61,6 @@ import {
     SharedModule,
     ComponentsModule,
     FormsModule
-  ],
-  entryComponents: [
-    EobservationDetailsPage,
-    EobsItemDescriptionComponent,
-    EObservationsArchivesPage,
-    EObservationListComponent
   ],
   exports: [
     EObservationComponent,

@@ -36,12 +36,6 @@ import { ProfessionalLevelPage } from './pages/professional-level/professional-l
     ComponentsModule,
     EObservationModule
   ],
-  entryComponents: [
-    ProfessionalLevelPage,
-    EvaluationSheetPage,
-    NotValidatedQuestionsPage,
-    StageLegendComponent
-  ],
   exports: [
     ProfessionalLevelPage,
     EvaluationSheetPage,

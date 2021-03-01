@@ -4,10 +4,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { ComponentsModule } from '../../shared/components/components.module';
 import { SharedModule } from '../../shared/shared.module';
-import { EObservationModule } from '../eobservation/eobservation.module';
-import {
-    ProfessionalInterviewModule
-} from '../professional-interview/professional-interview.module';
 import {
     CareerObjectiveListComponent
 } from './components/career-objective-list/career-objective-list.component';
@@ -34,11 +30,6 @@ import { WaypointCreatePage } from './pages/waypoint-create/waypoint-create.page
     ComponentsModule,
     FormsModule,
     ReactiveFormsModule
-  ],
-  entryComponents: [
-    WaypointCreatePage,
-    CareerObjectiveCreatePage,
-    CareerObjectiveListComponent
   ],
   exports: [
     CareerObjectiveListComponent
