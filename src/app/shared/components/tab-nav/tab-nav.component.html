@@ -1,6 +1,6 @@
 <ion-tabs #tabs (ionTabsDidChange)="tabChange($event)">
     <ion-tab-bar slot="bottom" [hidden]="!isAvailable()">
-        <ion-tab-button [tab]="tabNav.route" *ngFor="let tabNav of getTabList()" [hidden]="!tabNav.display">
+        <ion-tab-button [tab]="tabNav.route" *ngFor="let tabNav of getTabList()" [hidden]="!tabNav.display" mode="md">
             <ion-icon [name]="tabNav.icon"></ion-icon>
             <ion-badge *ngIf="tabNav.badgeValue > 0" color="secondary">{{ getBadgeValue(tabNav) }}</ion-badge>
             <ion-label>{{tabNav.title}}</ion-label>
