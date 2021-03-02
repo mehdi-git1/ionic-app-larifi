@@ -271,13 +271,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.sectorList = null;
     if (division !== this.valueAll) {
       this.sectorList = this.divisionList.find(divisionItem => divisionItem.code === division).sectors;
-    }
-    if (this.sectorList && this.defaultSector && this.sectorList.find((sector) => sector.code === this.defaultSector)) {
-      this.searchForm.get('sector').setValue(this.defaultSector);
-      this.changeDetectorRef.detectChanges();
-    } else {
-      this.searchForm.get('sector').setValue(this.valueAll);
-    }
+    }  
+    this.searchForm.get('sector').setValue(this.valueAll);
+    this.changeDetectorRef.detectChanges();
+    
   }
 
   /**
