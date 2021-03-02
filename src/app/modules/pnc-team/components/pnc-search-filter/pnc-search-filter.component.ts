@@ -299,6 +299,14 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.searchForm.get('ginq').setValue(this.valueAll);
     }
   }
+  /**
+   * Retourne le label de la division à afficher dans la picklist
+   * @param division la division dont on souhaite déterminer le label
+   * @return le label à afficher
+   */
+  getDivisionLabel(division: DivisionModel): string {
+    return (division.longCode && division.longCode.length > 0) ? division.longCode : division.code;
+  }
 
   /**
    * Redirige vers la page d'accueil du pnc ou du cadre

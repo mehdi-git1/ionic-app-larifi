@@ -20,9 +20,7 @@
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
                 </ion-select-option>
                 <ion-select-option *ngFor="let division of divisionList" [value]="division.code">
-                    {{division.code}}
-                    <ng-container *ngIf="division.longCode"> - {{division.longCode}}
-                    </ng-container>
+                    {{getDivisionLabel(division)}}
                 </ion-select-option>
             </ion-select>
         </div>
