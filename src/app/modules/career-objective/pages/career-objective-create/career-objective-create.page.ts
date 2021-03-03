@@ -1,5 +1,3 @@
-import { Utils } from './../../../../shared/utils/utils';
-import { EdospncDatetimeComponent } from './../../../../shared/components/edospnc-datetime/edospnc-datetime.component';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { PncRoleEnum } from 'src/app/core/enums/pnc-role.enum';
@@ -7,7 +5,9 @@ import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-ca
 
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators, ValidatorFn, ValidationErrors, FormControl } from '@angular/forms';
+import {
+    FormBuilder, FormControl, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -38,8 +38,11 @@ import {
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
 import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
+import {
+    EdospncDatetimeComponent
+} from '../../../../shared/components/edospnc-datetime/edospnc-datetime.component';
 import { DateTransform } from '../../../../shared/utils/date-transform';
-import { MatDatepicker } from '@angular/material';
+import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'page-career-objective-create',
@@ -213,8 +216,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             pncCommentControl: ['', Validators.maxLength(this.pncCommentMaxLength)],
             encounterDateControl: ['', encounterDateValidator],
             nextEncounterDateControl: ['', nextEncounterDateValidator],
-            prioritizedControl: [false],
-            waypointContextControl: ['', Validators.maxLength(4000)],
+            prioritizedControl: [false]
         });
     }
 
@@ -705,5 +707,21 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
         if (this.careerObjective.category.code !== 'FLIGHTS_SECURITY') {
             this.prioritized = this.careerObjective.prioritized;
         }
+    }
+
+    /**
+     * Vérifie si tous les champs du formulaire sont valides, en dehors du champs date de rappel qui est optionnel et qui ne doit pas bloquer les actions de clôture, abandon, reprise etc
+     * @return vrai si le formulaire est considéré comme valide, faux sinon
+     */
+    isFormValid(): boolean {
+        return this.creationForm.get('initiatorControl').valid
+            && this.creationForm.get('categoryControl').valid
+            && this.creationForm.get('titleControl').valid
+            && this.creationForm.get('contextControl').valid
+            && this.creationForm.get('actionPlanControl').valid
+            && this.creationForm.get('managerCommentControl').valid
+            && this.creationForm.get('pncCommentControl').valid
+            && this.creationForm.get('encounterDateControl').valid
+            && this.creationForm.get('prioritizedControl').valid
     }
 }
