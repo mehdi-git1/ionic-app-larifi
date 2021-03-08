@@ -170,4 +170,17 @@ export class Utils {
     private static isPositiveInteger(num: string): boolean {
         return /^\d+$/.test(num);
     }
+
+    /**
+     * Supprime une valeur d'un tableau
+     * @param array le tableau dont on souhaite supprimer une valeur
+     * @param value la valeur à supprimer du tableau
+     */
+    public static arrayRemoveValue(array: Array<any>, value: any) {
+        const valueIndex = array.indexOf(value);
+        if (valueIndex > -1) {
+            array.splice(valueIndex, 1);
+        }
+        return array;
+    }
 }

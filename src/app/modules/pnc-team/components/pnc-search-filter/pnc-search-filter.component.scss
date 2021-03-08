@@ -150,9 +150,17 @@ h2 {
     }
 }
 
-.assignment-bloc {
+.assignment-block {
+    margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
-    flex-direction: row;
+
+    & > div {
+        flex: 1;
+    }
+
+    & > div:not(:first-child) {
+        margin-left: 5px;
+    }
 
 }

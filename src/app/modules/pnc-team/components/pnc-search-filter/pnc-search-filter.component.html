@@ -10,79 +10,43 @@
         <!-- PNC -->
         <pnc-autocomplete (onSelectPnc)="openPncHomePage($event)" [ngModelOptions]="{standalone: true}"></pnc-autocomplete>
     </div>
-    <div class="assignment-bloc">
+    <div class="assignment-block">
+        <!-- Division -->
         <div>
             <label>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</label>
-            <mat-select #divisionsMatSelect formControlName="division" placeholder="{{'PNC_SEARCH.CRITERIA.DIVISION' | translate }}" (selectionChange)="divisionSelectionChange($event.value)" multiple>
-                <mat-option [value]="valueAll">
+            <mat-select #divisionsMatSelect formControlName="division" placeholder="{{'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}" (selectionChange)="updateSectorSelectList($event.value)" multiple>
+                <mat-option [value]="valueAll" (click)="toggleAllDivisions()">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
                 </mat-option>
-                <mat-option *ngFor="let division of divisionList" [value]="division.code">
+                <mat-option *ngFor="let division of divisionList" [value]="division.code" (click)="unselectDivisionAllOption()">
                     {{getDivisionLabel(division)}}
                 </mat-option>
             </mat-select>
         </div>
+        <!-- Secteur -->
         <div>
             <label>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</label>
-
-            <mat-select formControlName="sector" placeholder="{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}" (selectionChange)="sectorSelectionChange($event.value)" multiple>
-                <mat-option [value]="valueAll">
+            <mat-select formControlName="sector" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}" (selectionChange)="updateGinqSelectList($event.value)" multiple>
+                <mat-option [value]="valueAll" (click)="toggleAllSectors()">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                 </mat-option>
-                <mat-option *ngFor="let codeSector of getUniqueSectorsByCode()" [value]="codeSector">
+                <mat-option *ngFor="let codeSector of getUniqueSectorList()" [value]="codeSector" (click)="unselectSectorAllOption()">
                     {{codeSector}}
                 </mat-option>
             </mat-select>
         </div>
+        <!-- Ginq -->
         <div>
             <label>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</label>
-            <mat-select formControlName="ginq" placeholder="{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}" multiple>
-                <mat-option [value]="valueAll">
+            <mat-select formControlName="ginq" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}" multiple>
+                <mat-option [value]="valueAll" (click)="toggleAllGinqs()">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                 </mat-option>
-                <mat-option *ngFor="let codeGinq of getUniqueGinqList()" [value]="codeGinq">
+                <mat-option *ngFor="let codeGinq of getUniqueGinqList()" [value]="codeGinq" (click)="unselectGinqAllOption()">
                     {{codeGinq}}
                 </mat-option>
             </mat-select>
         </div>
-        <!--
-         Secteur
-        <div class="flex5 sector">
-            <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}
-            </ion-label>
-            <ion-select interface="popover" formControlName="sector">
-                <ion-select-option *ngIf="!sectorList || sectorList.length != 1" [value]="valueAll">
-                    {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
-                </ion-select-option>
-                <ion-select-option *ngFor="let sector of sectorList" [value]="sector.code">
-                    {{sector.code}}</ion-select-option>
-            </ion-select>
-        </div>
-
-        <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}
-        </ion-label>
-        <ion-select interface="alert" formControlName="division" multiple>
-            <ion-select-option *ngIf="!divisionList || divisionList.length != 1" [value]="valueAll">
-                {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
-            </ion-select-option>
-            <ion-select-option *ngFor="let division of divisionList" [value]="division.code">
-                {{getDivisionLabel(division)}}
-            </ion-select-option>
-        </ion-select>
-        -->
-        <!-- Ginq
-        <div class="flex4">
-            <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}
-            </ion-label>
-            <ion-select interface="popover" formControlName="ginq">
-                <ion-select-option *ngIf="!ginqList || ginqList.length != 1" [value]="valueAll">
-                    {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
-                </ion-select-option>
-                <ion-select-option *ngFor="let ginq of ginqList" [value]="ginq.code">
-                    {{ginq.code}}</ion-select-option>
-            </ion-select>
-        </div>
-        -->
     </div>
 
     <div class="flex filter-container filter function-workrate-taf-container" *ngIf="!isAlternantSearch()">

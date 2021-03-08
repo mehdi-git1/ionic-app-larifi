@@ -1,5 +1,7 @@
+import * as _ from 'lodash';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
+import { Utils } from 'src/app/shared/utils/utils';
 
 import {
     AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
@@ -248,59 +250,109 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Remplie les valeurs par défaut de la section affectation du formulaire
    */
   initDefautlValue(): void {
-    this.getSectorsList([this.defaultDivision]);
-    this.getSelectedSectorGinqList([this.defaultSector]);
+    this.updateSectorSelectList([this.defaultDivision]);
+    this.updateGinqSelectList([this.defaultSector]);
   }
 
   /**
-   * Lance le chargement des secteurs en fonction des divisions sélectionnées
-   *
-   * @param les divisions sélectionnées
+   * Sélectionne/déselectionne toutes les divisions
    */
-  divisionSelectionChange(selectedDivisions: string[]) {
-
-    this.getSectorsList(selectedDivisions);
+  toggleAllDivisions() {
+    if (this.searchForm.get('division').value.find(division => division === this.valueAll)) {
+      this.searchForm.get('division').setValue([...this.divisionList.map(division => division.code), this.valueAll]);
+    } else {
+      this.searchForm.get('division').setValue([]);
+    }
+    this.updateSectorSelectList(this.searchForm.get('division').value);
   }
 
   /**
-   * Lance le chargement des ginqs en fonctions des secteurs sélectionnés
-   * @param selectedSectors les secteurs sélectionnés
+   * Déselectionne l'option "toutes" des divisions
    */
-  sectorSelectionChange(selectedSectors: string[]) {
-    this.getSelectedSectorGinqList(selectedSectors);
-  }
-
-  /**
-   * Charge les ginqs en fonction des secteurs sélectionnés
-   * @param selectedSectorsCode  les secteurs sélectionnés
-   */
-  getSelectedSectorGinqList(selectedSectorsCode: string[]): void {
-    this.ginqList = this.sectorList
-      .filter(sector =>
-        selectedSectorsCode
-          .some(selectedSectorCode => selectedSectorCode === sector.code)
-      )
-      .map(sector => sector.ginqs)
-      .reduce((acc, ginqs) => acc.concat(ginqs), []);
+  unselectDivisionAllOption() {
+    const selectedDivisions = _.cloneDeep(this.searchForm.get('division').value);
+    this.searchForm.get('division').setValue(Utils.arrayRemoveValue(selectedDivisions, this.valueAll));
   }
 
   /**
    * charge les secteurs en fonction des divisions sélectionnées
    * @param divisionList les divisions sélectionnées
    */
-  getSectorsList(divisionList: Array<string>) {
-    this.ginqList = [];
-    this.sectorList = [];
-    if (divisionList && divisionList.length > 0) {
-      this.sectorList = this.divisionList
-        .filter(divisionItem => divisionList.some(selectedDiv => selectedDiv === divisionItem.code))
-        .map(divisionItem => divisionItem.sectors)
-        .reduce((acc, sector) => acc.concat(sector), []);
+  updateSectorSelectList(divisionList: Array<string>) {
+    // Si aucune division n'est sélectionnée, on propose quand même tous les secteurs
+    let divisions = _.cloneDeep(divisionList);
+    if (divisionList.length === 0) {
+      divisions = this.divisionList.map(division => division.code);
     }
+    this.sectorList = this.divisionList
+      .filter(divisionItem =>
+        divisions.some(selectedDivision => selectedDivision === divisionItem.code))
+      .map(divisionItem => divisionItem.sectors)
+      .reduce((acc, sector) => acc.concat(sector), []);
 
-    this.searchForm.get('sector').setValue([this.valueAll]);
+    this.searchForm.get('sector').setValue([]);
+
+    this.updateGinqSelectList(this.searchForm.get('sector').value);
     this.changeDetectorRef.detectChanges();
+  }
 
+  /**
+   * Sélectionne/déselectionne tous les secteurs
+   */
+  toggleAllSectors() {
+    if (this.searchForm.get('sector').value.find(sector => sector === this.valueAll)) {
+      this.searchForm.get('sector').setValue([...this.sectorList.map(sector => sector.code), this.valueAll]);
+    } else {
+      this.searchForm.get('sector').setValue([]);
+    }
+    this.updateGinqSelectList(this.searchForm.get('sector').value);
+  }
+
+  /**
+   * Déselectionne l'option "tous" des secteurs
+   */
+  unselectSectorAllOption() {
+    const selectedSectors = _.cloneDeep(this.searchForm.get('sector').value);
+    this.searchForm.get('sector').setValue(Utils.arrayRemoveValue(selectedSectors, this.valueAll));
+  }
+
+  /**
+   * Charge les ginqs en fonction des secteurs sélectionnés
+   * @param sectorList  les secteurs sélectionnés
+   */
+  updateGinqSelectList(sectorList: string[]): void {
+    // Si aucun secteur n'est sélectionnée, on propose quand même tous les ginqs
+    let sectors = _.cloneDeep(sectorList);
+    if (sectors.length === 0) {
+      sectors = this.sectorList.map(sector => sector.code);
+    }
+    this.ginqList = this.sectorList
+      .filter(sector =>
+        sectors.some(selectedSectorCode => selectedSectorCode === sector.code)
+      )
+      .map(sector => sector.ginqs)
+      .reduce((acc, ginqs) => acc.concat(ginqs), []);
+
+    this.searchForm.get('ginq').setValue([]);
+  }
+
+  /**
+   * Sélectionne/déselectionne tous les ginqs
+   */
+  toggleAllGinqs() {
+    if (this.searchForm.get('ginq').value.find(ginq => ginq === this.valueAll)) {
+      this.searchForm.get('ginq').setValue([...this.ginqList.map(ginq => ginq.code), this.valueAll]);
+    } else {
+      this.searchForm.get('ginq').setValue([]);
+    }
+  }
+
+  /**
+   * Déselectionne l'option "toutes" des ginqs
+   */
+  unselectGinqAllOption() {
+    const selectedGinqs = _.cloneDeep(this.searchForm.get('ginq').value);
+    this.searchForm.get('ginq').setValue(Utils.arrayRemoveValue(selectedGinqs, this.valueAll));
   }
 
   /**
@@ -308,7 +360,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * @return la liste des codes secteurs sans doublons
    */
   getUniqueSectorList(): Set<string> {
-    return this.sectorList ? new Set(this.sectorList.map(sector => sector.code)) : new Set();
+    return this.sectorList ? new Set(this.sectorList.map(sector => sector.code).sort()) : new Set();
   }
 
   /**
@@ -317,7 +369,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * @return la liste des ginqs sans doublons
    */
   getUniqueGinqList(): Set<string> {
-    return this.ginqList ? new Set(this.ginqList.map(ginq => ginq.code)) : new Set();
+    return this.ginqList ? new Set(this.ginqList.map(ginq => ginq.code).sort()) : new Set();
   }
 
   /**
