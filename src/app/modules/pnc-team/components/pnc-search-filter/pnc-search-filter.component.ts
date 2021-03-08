@@ -142,9 +142,9 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   initForm() {
     this.searchForm = new FormGroup({
-      division: new FormControl(['']),
-      sector: new FormControl(['']),
-      ginq: new FormControl(['']),
+      divisions: new FormControl(['']),
+      sectors: new FormControl(['']),
+      ginqs: new FormControl(['']),
       speciality: new FormControl(),
       workRate: new FormControl(),
       aircraftSkill: new FormControl(),
@@ -170,9 +170,9 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   getFormInitValues(): any {
     return {
-      division: this.defaultDivision ? [this.defaultDivision] : [this.valueAll],
-      sector: this.defaultSector ? [this.defaultSector] : [this.valueAll],
-      ginq: this.defaultGinq ? [this.defaultGinq] : [this.valueAll],
+      divisions: this.defaultDivision ? [this.defaultDivision] : [this.valueAll],
+      sectors: this.defaultSector ? [this.defaultSector] : [this.valueAll],
+      ginqs: this.defaultGinq ? [this.defaultGinq] : [this.valueAll],
       speciality: this.isAlternantSearch() ?
         SpecialityEnum.ALT
         : this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : this.valueAll,
@@ -258,20 +258,20 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Sélectionne/déselectionne toutes les divisions
    */
   toggleAllDivisions() {
-    if (this.searchForm.get('division').value.find(division => division === this.valueAll)) {
-      this.searchForm.get('division').setValue([...this.divisionList.map(division => division.code), this.valueAll]);
+    if (this.searchForm.get('divisions').value.find(division => division === this.valueAll)) {
+      this.searchForm.get('divisions').setValue([...this.divisionList.map(division => division.code), this.valueAll]);
     } else {
-      this.searchForm.get('division').setValue([]);
+      this.searchForm.get('divisions').setValue([]);
     }
-    this.updateSectorSelectList(this.searchForm.get('division').value);
+    this.updateSectorSelectList(this.searchForm.get('divisions').value);
   }
 
   /**
    * Déselectionne l'option "toutes" des divisions
    */
   unselectDivisionAllOption() {
-    const selectedDivisions = _.cloneDeep(this.searchForm.get('division').value);
-    this.searchForm.get('division').setValue(Utils.arrayRemoveValue(selectedDivisions, this.valueAll));
+    const selectedDivisions = _.cloneDeep(this.searchForm.get('divisions').value);
+    this.searchForm.get('divisions').setValue(Utils.arrayRemoveValue(selectedDivisions, this.valueAll));
   }
 
   /**
@@ -290,9 +290,9 @@ export class PncSearchFilterComponent implements AfterViewInit {
       .map(divisionItem => divisionItem.sectors)
       .reduce((acc, sector) => acc.concat(sector), []);
 
-    this.searchForm.get('sector').setValue([]);
+    this.searchForm.get('sectors').setValue([]);
 
-    this.updateGinqSelectList(this.searchForm.get('sector').value);
+    this.updateGinqSelectList(this.searchForm.get('sectors').value);
     this.changeDetectorRef.detectChanges();
   }
 
@@ -300,20 +300,20 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Sélectionne/déselectionne tous les secteurs
    */
   toggleAllSectors() {
-    if (this.searchForm.get('sector').value.find(sector => sector === this.valueAll)) {
-      this.searchForm.get('sector').setValue([...this.sectorList.map(sector => sector.code), this.valueAll]);
+    if (this.searchForm.get('sectors').value.find(sector => sector === this.valueAll)) {
+      this.searchForm.get('sectors').setValue([...this.sectorList.map(sector => sector.code), this.valueAll]);
     } else {
-      this.searchForm.get('sector').setValue([]);
+      this.searchForm.get('sectors').setValue([]);
     }
-    this.updateGinqSelectList(this.searchForm.get('sector').value);
+    this.updateGinqSelectList(this.searchForm.get('sectors').value);
   }
 
   /**
    * Déselectionne l'option "tous" des secteurs
    */
   unselectSectorAllOption() {
-    const selectedSectors = _.cloneDeep(this.searchForm.get('sector').value);
-    this.searchForm.get('sector').setValue(Utils.arrayRemoveValue(selectedSectors, this.valueAll));
+    const selectedSectors = _.cloneDeep(this.searchForm.get('sectors').value);
+    this.searchForm.get('sectors').setValue(Utils.arrayRemoveValue(selectedSectors, this.valueAll));
   }
 
   /**
@@ -333,17 +333,17 @@ export class PncSearchFilterComponent implements AfterViewInit {
       .map(sector => sector.ginqs)
       .reduce((acc, ginqs) => acc.concat(ginqs), []);
 
-    this.searchForm.get('ginq').setValue([]);
+    this.searchForm.get('ginqs').setValue([]);
   }
 
   /**
    * Sélectionne/déselectionne tous les ginqs
    */
   toggleAllGinqs() {
-    if (this.searchForm.get('ginq').value.find(ginq => ginq === this.valueAll)) {
-      this.searchForm.get('ginq').setValue([...this.ginqList.map(ginq => ginq.code), this.valueAll]);
+    if (this.searchForm.get('ginqs').value.find(ginq => ginq === this.valueAll)) {
+      this.searchForm.get('ginqs').setValue([...this.ginqList.map(ginq => ginq.code), this.valueAll]);
     } else {
-      this.searchForm.get('ginq').setValue([]);
+      this.searchForm.get('ginqs').setValue([]);
     }
   }
 
@@ -351,8 +351,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * Déselectionne l'option "toutes" des ginqs
    */
   unselectGinqAllOption() {
-    const selectedGinqs = _.cloneDeep(this.searchForm.get('ginq').value);
-    this.searchForm.get('ginq').setValue(Utils.arrayRemoveValue(selectedGinqs, this.valueAll));
+    const selectedGinqs = _.cloneDeep(this.searchForm.get('ginqs').value);
+    this.searchForm.get('ginqs').setValue(Utils.arrayRemoveValue(selectedGinqs, this.valueAll));
   }
 
   /**

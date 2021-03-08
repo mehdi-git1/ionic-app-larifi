@@ -14,7 +14,7 @@
         <!-- Division -->
         <div>
             <label>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</label>
-            <mat-select #divisionsMatSelect formControlName="division" placeholder="{{'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}" (selectionChange)="updateSectorSelectList($event.value)" multiple>
+            <mat-select #divisionsMatSelect formControlName="divisions" placeholder="{{'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}" (selectionChange)="updateSectorSelectList($event.value)" multiple>
                 <mat-option [value]="valueAll" (click)="toggleAllDivisions()">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
                 </mat-option>
@@ -26,7 +26,7 @@
         <!-- Secteur -->
         <div>
             <label>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</label>
-            <mat-select formControlName="sector" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}" (selectionChange)="updateGinqSelectList($event.value)" multiple>
+            <mat-select formControlName="sectors" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}" (selectionChange)="updateGinqSelectList($event.value)" multiple>
                 <mat-option [value]="valueAll" (click)="toggleAllSectors()">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                 </mat-option>
@@ -38,7 +38,7 @@
         <!-- Ginq -->
         <div>
             <label>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</label>
-            <mat-select formControlName="ginq" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}" multiple>
+            <mat-select formControlName="ginqs" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}" multiple>
                 <mat-option [value]="valueAll" (click)="toggleAllGinqs()">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                 </mat-option>

@@ -5,9 +5,9 @@ export class PncFilterModel {
 
   // Filtres
   pncMatricule: string;
-  division: Array<string>;
-  sector: Array<string>;
-  ginq: Array<string>;
+  divisions: Array<string>;
+  sectors: Array<string>;
+  ginqs: Array<string>;
   speciality: string;
   aircraftSkill: string;
   relay: string;
