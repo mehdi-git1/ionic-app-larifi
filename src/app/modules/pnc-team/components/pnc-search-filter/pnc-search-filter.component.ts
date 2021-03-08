@@ -2,10 +2,10 @@ import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-ca
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
 import {
-    AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
+  AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatExpansionPanel } from '@angular/material';
+import { MatExpansionPanel, MatSelect } from '@angular/material';
 import { Events, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -34,6 +34,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
   @Output() searchReinitialized = new EventEmitter<PncFilterModel>();
   @Output() pncSelected: EventEmitter<any> = new EventEmitter();
   @Output() enabledFiltersCountChanged: EventEmitter<number> = new EventEmitter();
+
+
 
   filters = new PncFilterModel();
 
@@ -84,9 +86,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.buildFilterValueLists();
     // Initialisation du formulaire
     this.initForm();
+    this.fillDefautlValue();
     this.formOnChanges();
-    this.divisionOnchanges();
-    this.sectorOnchanges();
     this.reinitializeSearch();
     this.countEnabledFilters();
   }
@@ -141,9 +142,9 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   initForm() {
     this.searchForm = new FormGroup({
-      division: new FormControl(),
-      sector: new FormControl(),
-      ginq: new FormControl(),
+      division: new FormControl(['']),
+      sector: new FormControl(['']),
+      ginq: new FormControl(['']),
       speciality: new FormControl(),
       workRate: new FormControl(),
       aircraftSkill: new FormControl(),
@@ -169,11 +170,10 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   getFormInitValues(): any {
     return {
-      division: this.defaultDivision ? this.defaultDivision : this.valueAll,
-      sector: this.defaultSector ? this.defaultSector : this.valueAll,
-      ginq: this.defaultGinq ? this.defaultGinq : this.valueAll,
+      division: this.defaultDivision ? [this.defaultDivision] : [this.valueAll],
+      sector: this.defaultSector ? [this.defaultSector] : [this.valueAll],
+      ginq: this.defaultGinq ? [this.defaultGinq] : [this.valueAll],
       speciality: this.isAlternantSearch() ?
-        SpecialityEnum.ALT
         : this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : this.valueAll,
       workRate: this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : this.valueAll,
       aircraftSkill: this.aircraftSkillList && this.aircraftSkillList.length === 1 ?
@@ -244,60 +244,98 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.enabledFiltersCountChanged.emit(enabledFiltersCount);
   }
 
+
   /**
-   * Active le rechargement des secteurs à chaque modification de division
+   * Rempli les valeurs par défaut de la section affectation du formulaire.
    */
-  divisionOnchanges() {
-    this.searchForm.get('division').valueChanges.subscribe((division) => {
-      this.getSectorList(division);
-    });
+  fillDefautlValue(): void {
+    this.getSectorsList([this.defaultDivision]);
+    this.getSelectedSectorGinqList([this.defaultSector]);
   }
 
   /**
-   * Active le rechargement des ginqs à chaque modification de secteur
+   * Lance le chargement des secteurs en fonction
+   * des divisions sélectionnées
+   *
+   * @param les divisions sélectionnées
    */
-  sectorOnchanges() {
-    this.searchForm.get('sector').valueChanges.subscribe((sector) => {
-      this.getGinqList(sector);
-    });
+  divisionSelectionChange(selectedDivisions: string[]) {
+    const isAllDivisionSelected = selectedDivisions.some(division => division === this.valueAll);
+    if (isAllDivisionSelected) {
+      this.divisionsMatSelect.value = [this.valueAll].concat(this.divisionList.map(division => division.code));
+    }
+    this.getSectorsList(selectedDivisions);
   }
 
   /**
-   * Charge la liste des secteurs associée à la division choisie
-   * @param division la division choisie
+   * Lance le chargement des ginqs en fonctions
+   * des secteurs sélectionés.
+   * @param selectedSectors les secteurs sélectionnés.
    */
-  getSectorList(division: string) {
-    this.ginqList = null;
-    this.sectorList = null;
-    if (division !== this.valueAll) {
-      this.sectorList = this.divisionList.find(divisionItem => divisionItem.code === division).sectors;
-    }
-    if (this.sectorList && this.defaultSector && this.sectorList.find((sector) => sector.code === this.defaultSector)) {
-      this.searchForm.get('sector').setValue(this.defaultSector);
-      this.changeDetectorRef.detectChanges();
-    } else {
-      this.searchForm.get('sector').setValue(this.valueAll);
-    }
+  sectorSelectionChange(selectedSectors: string[]) {
+    this.getSelectedSectorGinqList(selectedSectors);
   }
 
   /**
-   * Charge la liste des ginq associée au secteur choisi
-   * @param sector le secteur choisi
+   * Charge les ginqs en fonction des secteurs sélectionés.
+   * @param selectedSectorsCode  les secteurs sélectionés.
    */
-  getGinqList(sector: string) {
-    this.ginqList = null;
-    if (this.searchForm.get('division').value !== this.valueAll && sector !== '' && sector !== this.valueAll) {
-      this.ginqList = this.divisionList.find(divisionItem => divisionItem.code === this.searchForm.get('division').value)
-        .sectors
-        .find(sectorItem => sectorItem.code === sector)
-        .ginqs;
+  getSelectedSectorGinqList(selectedSectorsCode: string[]): void {
+    this.ginqList = this.sectorList
+      .filter(sector =>
+        selectedSectorsCode
+          .some(selectedSectorCode => selectedSectorCode === sector.code)
+      )
+      .map(sector => sector.ginqs)
+      .reduce((acc, ginqs) => acc.concat(ginqs), []);
+  }
+
+  /**
+   * charge les secteurs en fonction des divisions sélectionés.
+   * @param divisionList les divisions sélectionées.
+   */
+  getSectorsList(divisionList: Array<string>) {
+    this.ginqList = [];
+    this.sectorList = [];
+    if (divisionList && divisionList.length > 0) {
+      this.sectorList = this.divisionList
+        .filter(divisionItem => divisionList.some(selectedDiv => selectedDiv === divisionItem.code))
+        .map(divisionItem => divisionItem.sectors)
+        .reduce((acc, sector) => acc.concat(sector), []);
     }
-    if (this.ginqList && this.defaultGinq && this.ginqList.find((ginq) => ginq.code === this.defaultGinq)) {
-      this.searchForm.get('ginq').setValue(this.defaultGinq);
-      this.changeDetectorRef.detectChanges();
-    } else {
-      this.searchForm.get('ginq').setValue(this.valueAll);
-    }
+
+    this.searchForm.get('sector').setValue([this.valueAll]);
+    this.changeDetectorRef.detectChanges();
+
+  }
+
+  /**
+   * Récupère les codes secteur à afficher dans la liste de sélection
+   * en supprimant les doublons.
+   * @return la liste des codes secteurs sans doublons
+   */
+  getUniqueSectorsByCode(): Set<string> {
+    return this.sectorList ? new Set(this.sectorList.map(sector => sector.code)) : new Set();
+  }
+
+  /**
+   * Récupère les codes Ginq à afficher dans la liste sélection
+   * en supprimant les doublons.
+   *
+   * @return la liste des ginqs sans doublons.
+   */
+  getUniqueGinqList(): Set<string> {
+    return this.ginqList ? new Set(this.ginqList.map(ginq => ginq.code)) : new Set();
+  }
+
+
+  /**
+   * Retourne le label de la division à afficher dans la picklist
+   * @param division la division dont on souhaite déterminer le label
+   * @return le label à afficher
+   */
+  getDivisionLabel(division: DivisionModel): string {
+    return (division.longCode && division.longCode.length > 0) ? division.longCode : division.code;
   }
 
   /**

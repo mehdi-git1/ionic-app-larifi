@@ -49,7 +49,7 @@ export class OnlinePncService {
    * @return une promesse contenant le PNC trouvé
    */
   getFilteredPncs(pncFilter: PncSearchCriteriaModel): Promise<PagedPncModel> {
-    return this.restService.get(this.config.getBackEndUrl('pnc'), pncFilter).then(response =>
+    return this.restService.get(this.config.getBackEndUrl('v2Pnc'), pncFilter).then(response =>
       response as PagedPncModel
     );
   }

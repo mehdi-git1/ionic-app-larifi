@@ -10,23 +10,43 @@
         <!-- PNC -->
         <pnc-autocomplete (onSelectPnc)="openPncHomePage($event)" [ngModelOptions]="{standalone: true}"></pnc-autocomplete>
     </div>
-    <div class="flex filter-container filter">
-        <!-- Division-->
-        <div class="flex5">
-            <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}
-            </ion-label>
-            <ion-select interface="popover" formControlName="division">
-                <ion-select-option *ngIf="!divisionList || divisionList.length != 1" [value]="valueAll">
+    <div class="assignment-bloc">
+        <div>
+            <label>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</label>
+            <mat-select #divisionsMatSelect formControlName="division" placeholder="{{'PNC_SEARCH.CRITERIA.DIVISION' | translate }}" (selectionChange)="divisionSelectionChange($event.value)" multiple>
+                <mat-option [value]="valueAll">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
-                </ion-select-option>
-                <ion-select-option *ngFor="let division of divisionList" [value]="division.code">
-                    {{division.code}}
-                    <ng-container *ngIf="division.longCode"> - {{division.longCode}}
-                    </ng-container>
-                </ion-select-option>
-            </ion-select>
+                </mat-option>
+                <mat-option *ngFor="let division of divisionList" [value]="division.code">
+                    {{getDivisionLabel(division)}}
+                </mat-option>
+            </mat-select>
         </div>
-        <!-- Secteur -->
+        <div>
+            <label>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</label>
+
+            <mat-select formControlName="sector" placeholder="{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}" (selectionChange)="sectorSelectionChange($event.value)" multiple>
+                <mat-option [value]="valueAll">
+                    {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
+                </mat-option>
+                <mat-option *ngFor="let codeSector of getUniqueSectorsByCode()" [value]="codeSector">
+                    {{codeSector}}
+                </mat-option>
+            </mat-select>
+        </div>
+        <div>
+            <label>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</label>
+            <mat-select formControlName="ginq" placeholder="{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}" multiple>
+                <mat-option [value]="valueAll">
+                    {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
+                </mat-option>
+                <mat-option *ngFor="let codeGinq of getUniqueGinqList()" [value]="codeGinq">
+                    {{codeGinq}}
+                </mat-option>
+            </mat-select>
+        </div>
+        <!--
+         Secteur
         <div class="flex5 sector">
             <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}
             </ion-label>
@@ -38,7 +58,19 @@
                     {{sector.code}}</ion-select-option>
             </ion-select>
         </div>
-        <!-- Ginq -->
+
+        <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}
+        </ion-label>
+        <ion-select interface="alert" formControlName="division" multiple>
+            <ion-select-option *ngIf="!divisionList || divisionList.length != 1" [value]="valueAll">
+                {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
+            </ion-select-option>
+            <ion-select-option *ngFor="let division of divisionList" [value]="division.code">
+                {{getDivisionLabel(division)}}
+            </ion-select-option>
+        </ion-select>
+        -->
+        <!-- Ginq
         <div class="flex4">
             <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}
             </ion-label>
@@ -50,6 +82,7 @@
                     {{ginq.code}}</ion-select-option>
             </ion-select>
         </div>
+        -->
     </div>
 
     <div class="flex filter-container filter function-workrate-taf-container" *ngIf="!isAlternantSearch()">
