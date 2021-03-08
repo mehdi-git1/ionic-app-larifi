@@ -260,10 +260,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
    * @param les divisions sélectionnées
    */
   divisionSelectionChange(selectedDivisions: string[]) {
-    const isAllDivisionSelected = selectedDivisions.some(division => division === this.valueAll);
-    if (isAllDivisionSelected) {
-      this.divisionsMatSelect.value = [this.valueAll].concat(this.divisionList.map(division => division.code));
-    }
     this.getSectorsList(selectedDivisions);
   }
 
