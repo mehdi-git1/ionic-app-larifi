@@ -174,6 +174,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       sector: this.defaultSector ? [this.defaultSector] : [this.valueAll],
       ginq: this.defaultGinq ? [this.defaultGinq] : [this.valueAll],
       speciality: this.isAlternantSearch() ?
+        SpecialityEnum.ALT
         : this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : this.valueAll,
       workRate: this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : this.valueAll,
       aircraftSkill: this.aircraftSkillList && this.aircraftSkillList.length === 1 ?
