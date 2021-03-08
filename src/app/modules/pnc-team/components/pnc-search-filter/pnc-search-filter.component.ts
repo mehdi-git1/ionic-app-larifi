@@ -2,10 +2,10 @@ import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-ca
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
 import {
-  AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild
+    AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatExpansionPanel, MatSelect } from '@angular/material';
+import { MatExpansionPanel } from '@angular/material';
 import { Events, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -34,8 +34,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
   @Output() searchReinitialized = new EventEmitter<PncFilterModel>();
   @Output() pncSelected: EventEmitter<any> = new EventEmitter();
   @Output() enabledFiltersCountChanged: EventEmitter<number> = new EventEmitter();
-
-
 
   filters = new PncFilterModel();
 
@@ -86,7 +84,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.buildFilterValueLists();
     // Initialisation du formulaire
     this.initForm();
-    this.fillDefautlValue();
+    this.initDefautlValue();
     this.formOnChanges();
     this.reinitializeSearch();
     this.countEnabledFilters();
@@ -247,35 +245,34 @@ export class PncSearchFilterComponent implements AfterViewInit {
 
 
   /**
-   * Rempli les valeurs par défaut de la section affectation du formulaire.
+   * Remplie les valeurs par défaut de la section affectation du formulaire
    */
-  fillDefautlValue(): void {
+  initDefautlValue(): void {
     this.getSectorsList([this.defaultDivision]);
     this.getSelectedSectorGinqList([this.defaultSector]);
   }
 
   /**
-   * Lance le chargement des secteurs en fonction
-   * des divisions sélectionnées
+   * Lance le chargement des secteurs en fonction des divisions sélectionnées
    *
    * @param les divisions sélectionnées
    */
   divisionSelectionChange(selectedDivisions: string[]) {
+
     this.getSectorsList(selectedDivisions);
   }
 
   /**
-   * Lance le chargement des ginqs en fonctions
-   * des secteurs sélectionés.
-   * @param selectedSectors les secteurs sélectionnés.
+   * Lance le chargement des ginqs en fonctions des secteurs sélectionnés
+   * @param selectedSectors les secteurs sélectionnés
    */
   sectorSelectionChange(selectedSectors: string[]) {
     this.getSelectedSectorGinqList(selectedSectors);
   }
 
   /**
-   * Charge les ginqs en fonction des secteurs sélectionés.
-   * @param selectedSectorsCode  les secteurs sélectionés.
+   * Charge les ginqs en fonction des secteurs sélectionnés
+   * @param selectedSectorsCode  les secteurs sélectionnés
    */
   getSelectedSectorGinqList(selectedSectorsCode: string[]): void {
     this.ginqList = this.sectorList
@@ -288,8 +285,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
   }
 
   /**
-   * charge les secteurs en fonction des divisions sélectionés.
-   * @param divisionList les divisions sélectionées.
+   * charge les secteurs en fonction des divisions sélectionnées
+   * @param divisionList les divisions sélectionnées
    */
   getSectorsList(divisionList: Array<string>) {
     this.ginqList = [];
@@ -307,24 +304,21 @@ export class PncSearchFilterComponent implements AfterViewInit {
   }
 
   /**
-   * Récupère les codes secteur à afficher dans la liste de sélection
-   * en supprimant les doublons.
+   * Récupère les codes secteur à afficher dans la liste de sélection en supprimant les doublons
    * @return la liste des codes secteurs sans doublons
    */
-  getUniqueSectorsByCode(): Set<string> {
+  getUniqueSectorList(): Set<string> {
     return this.sectorList ? new Set(this.sectorList.map(sector => sector.code)) : new Set();
   }
 
   /**
-   * Récupère les codes Ginq à afficher dans la liste sélection
-   * en supprimant les doublons.
+   * Récupère les codes Ginq à afficher dans la liste de sélection en supprimant les doublons
    *
-   * @return la liste des ginqs sans doublons.
+   * @return la liste des ginqs sans doublons
    */
   getUniqueGinqList(): Set<string> {
     return this.ginqList ? new Set(this.ginqList.map(ginq => ginq.code)) : new Set();
   }
-
 
   /**
    * Retourne le label de la division à afficher dans la picklist
@@ -352,8 +346,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
   }
 
   /**
-   * Permet de scroller jusqu'a la fin du panel ouvert.
-   * @param panel le panel conçeré
+   * Permet de scroller jusqu'a la fin du panel ouvert
+   * @param panel le panel concerné
    */
   scrollTo(panel: MatExpansionPanel) {
     panel._body.nativeElement
