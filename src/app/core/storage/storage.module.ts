@@ -7,7 +7,7 @@ import { StorageService } from './storage.service';
 @NgModule({
   imports: [
     IonicStorageModule.forRoot({
-      driverOrder: ['sqlite', 'indexeddb', 'websql']
+      driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
   ],
   exports: [],
