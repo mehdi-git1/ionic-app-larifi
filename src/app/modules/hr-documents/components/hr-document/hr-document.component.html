@@ -20,7 +20,7 @@
                         {{ 'HR_DOCUMENT.EDIT.DOCUMENT_TITLE' | translate }}
                     </ion-label>
                     <ion-input #hrDocumentTitle type="text" class="document-title" [(ngModel)]="hrDocument.title" formControlName="title" autocorrect="on" [maxlength]="titleMaxLength"></ion-input>
-                    <span class="document-length">{{hrDocument.title.length}}/{{titleMaxLength}}</span>
+                    <span class="document-length">{{hrDocument.title ? hrDocument.title.length : 0}}/{{titleMaxLength}}</span>
                 </ion-item>
             </ion-col>
         </ion-row>
