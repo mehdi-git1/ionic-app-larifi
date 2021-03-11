@@ -1,8 +1,6 @@
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs-compat/operator/switchMap';
-import { from } from 'rxjs/observable/from';
-import { Subject } from 'rxjs/Rx';
+import { from, Observable, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import {
     BusinessIndicatorSortColumnEnum
 } from 'src/app/core/enums/business-indicators/business-indicators-sort-columns-enum';
@@ -12,7 +10,9 @@ import { ConnectivityService } from 'src/app/core/services/connectivity/connecti
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { MatTableDataSource, PageEvent, Sort } from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 
@@ -82,7 +82,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
 
         this.getIndicatorsByFilter(matricule).subscribe(pagedIndicator => this.processRequestResult(pagedIndicator));
         this.businessIndicatorRequestSubject
-            .switchMap(v => this.getIndicatorsByFilter(matricule))
+            .pipe(switchMap(v => this.getIndicatorsByFilter(matricule)))
             .subscribe(pagedIndicator => this.processRequestResult(pagedIndicator));
     }
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppVersion } from '@ionic-native/app-version/ngx';
-import { AlertController, Events } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Config } from '../../../../../environments/config';
@@ -11,6 +11,7 @@ import { SecMobilService } from '../../../../core/http/secMobil.service';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
+import { Events } from '../../../../core/services/events/events.service';
 import { ModalSecurityService } from '../../../../core/services/modal/modal-security.service';
 import {
     OfflineSecurityService

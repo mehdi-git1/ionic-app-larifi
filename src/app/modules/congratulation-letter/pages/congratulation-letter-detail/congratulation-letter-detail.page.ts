@@ -9,7 +9,7 @@ import { ToastService } from 'src/app/core/services/toast/toast.service';
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, Events, LoadingController, PopoverController } from '@ionic/angular';
+import { AlertController, LoadingController, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -24,6 +24,7 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import {
     CongratulationLetterService
 } from '../../../../core/services/congratulation-letter/congratulation-letter.service';
+import { Events } from '../../../../core/services/events/events.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { Utils } from '../../../../shared/utils/utils';
 import { FixRecipientComponent } from '../../components/fix-recipient/fix-recipient.component';

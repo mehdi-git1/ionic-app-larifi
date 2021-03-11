@@ -25,11 +25,6 @@ import {
     FormsModule,
     ReactiveFormsModule
   ],
-  entryComponents: [
-    GenericMessagePage,
-    AuthenticationPage,
-    UnsupportedNavigatorMessagePage
-  ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],

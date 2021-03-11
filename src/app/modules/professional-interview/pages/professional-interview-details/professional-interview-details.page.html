@@ -190,7 +190,7 @@
                                 </ion-button>
                                 <!-- Bouton prendre en compte bilan professionnel -->
                                 <ion-button color="blue60" (click)="takeIntoAccountProfessionalInterview()" *ngIf="canBeTakenIntoAccount()" [disabled]="!professionalInterview.pncAcknowledgement">
-                                    <ion-icon name="bookmark" ios="ios-bookmark-outline" class="ion-margin-end">
+                                    <ion-icon name="bookmark" class="ion-margin-end">
                                     </ion-icon>
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.SAVE' | translate }}
                                 </ion-button>

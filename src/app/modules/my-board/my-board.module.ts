@@ -27,9 +27,6 @@ import { MyBoardHomePage } from './pages/my-board-home/my-board-home.page';
     ComponentsModule,
     InfiniteScrollModule
   ],
-  entryComponents: [
-    MyBoardHomePage
-  ],
   exports: [
     MyBoardHomePage
   ],

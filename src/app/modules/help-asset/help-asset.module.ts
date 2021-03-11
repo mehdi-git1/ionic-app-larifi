@@ -15,9 +15,6 @@ import { HelpAssetListPage } from './pages/help-asset-list/help-asset-list.page'
     SharedModule,
     ComponentsModule
   ],
-  entryComponents: [
-    HelpAssetListPage
-  ],
   exports: [
     HelpAssetListPage
   ],

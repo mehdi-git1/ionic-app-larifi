@@ -39,12 +39,6 @@ import { BusinessIndicatorsPage } from './pages/business-indicators/business-ind
     ReactiveFormsModule,
     NgxChartsModule
   ],
-  entryComponents: [
-    BusinessIndicatorsPage,
-    BusinessIndicatorDetailPage,
-    BusinessIndicatorFlightLegendComponent,
-    BusinessIndicatorPerfopsLegendComponent
-  ],
   exports: [],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

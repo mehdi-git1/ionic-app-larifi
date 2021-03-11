@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { Events, LoadingController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { LegModel } from '../../../../core/models/leg.model';
+import { Events } from '../../../../core/services/events/events.service';
 import { LegService } from '../../../../core/services/leg/leg.service';
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
@@ -27,9 +28,6 @@ export class FlightCrewListPage {
         private pncPhotoService: PncPhotoService,
         private loadingCtrl: LoadingController,
         private events: Events) {
-    }
-
-    ionViewDidEnter() {
         this.initPage();
     }
 
@@ -94,13 +92,19 @@ export class FlightCrewListPage {
      * @param otherCrewMember crewMember à comparer
      */
     sortBySpeciality(crewMember: CrewMemberModel, otherCrewMember: CrewMemberModel): number {
-        if ((crewMember.pnc.speciality === otherCrewMember.pnc.speciality) || (crewMember.pnc.speciality === SpecialityEnum.HOT && otherCrewMember.pnc.speciality === SpecialityEnum.STW) || (crewMember.pnc.speciality === SpecialityEnum.STW && otherCrewMember.pnc.speciality === SpecialityEnum.HOT)) {
+        if ((crewMember.pnc.speciality === otherCrewMember.pnc.speciality)
+            || (crewMember.pnc.speciality === SpecialityEnum.HOT && otherCrewMember.pnc.speciality === SpecialityEnum.STW)
+            || (crewMember.pnc.speciality === SpecialityEnum.STW && otherCrewMember.pnc.speciality === SpecialityEnum.HOT)) {
             return this.sortByName(crewMember, otherCrewMember);
         } else if (crewMember.pnc.speciality === SpecialityEnum.CAD) {
             return -1;
-        } else if (crewMember.pnc.speciality === SpecialityEnum.CCP && (otherCrewMember.pnc.speciality === SpecialityEnum.CC || otherCrewMember.pnc.speciality === SpecialityEnum.HOT || otherCrewMember.pnc.speciality === SpecialityEnum.STW)) {
+        } else if (crewMember.pnc.speciality === SpecialityEnum.CCP
+            && (otherCrewMember.pnc.speciality === SpecialityEnum.CC
+                || otherCrewMember.pnc.speciality === SpecialityEnum.HOT
+                || otherCrewMember.pnc.speciality === SpecialityEnum.STW)) {
             return -1;
-        } else if (crewMember.pnc.speciality === SpecialityEnum.CC && (otherCrewMember.pnc.speciality === SpecialityEnum.HOT || otherCrewMember.pnc.speciality === SpecialityEnum.STW)) {
+        } else if (crewMember.pnc.speciality === SpecialityEnum.CC
+            && (otherCrewMember.pnc.speciality === SpecialityEnum.HOT || otherCrewMember.pnc.speciality === SpecialityEnum.STW)) {
             return -1;
         } else {
             return 1;
@@ -126,7 +130,7 @@ export class FlightCrewListPage {
 
             this.pncService.getPnc(matricule).then(pnc => {
                 loading.dismiss();
-                this.events.publish('EDossier:visited', pnc);
+                this.events.publish('EDossier:visited', { visitedPnc: pnc });
             });
         });
     }

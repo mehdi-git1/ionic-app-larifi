@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { debounceTime } from 'rxjs/operators';
 
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
@@ -93,7 +94,7 @@ export class MyBoardFiltersComponent implements AfterViewInit {
      * Gère les changements de valeur dans le formulaire
      */
     onFormValueChange() {
-        this.filterForm.valueChanges.debounceTime(500).subscribe(newForm => {
+        this.filterForm.valueChanges.pipe(debounceTime(500)).subscribe(newForm => {
             if (this.filterForm.valid) {
                 const filters = new MyBoardNotificationFilterModel();
                 filters.documentTypes = newForm.documentTypes;

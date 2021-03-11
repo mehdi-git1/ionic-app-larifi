@@ -1,7 +1,6 @@
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { EntityEnum } from '../../enums/entity.enum';
@@ -26,6 +25,7 @@ import {
 } from '../congratulation-letter/congratulation-letter-transformer.service';
 import { CrewMemberTransformerService } from '../crewMember/crew-member-transformer.service';
 import { EObservationTransformerService } from '../eobservation/eobservation-transformer.service';
+import { Events } from '../events/events.service';
 import { LegTransformerService } from '../leg/leg-transformer.service';
 import { PncPhotoTransformerService } from '../pnc-photo/pnc-photo-transformer.service';
 import { PncTransformerService } from '../pnc/pnc-transformer.service';
@@ -207,7 +207,7 @@ export class SynchronizationService {
         this.storageService.save(EntityEnum.CREW_MEMBER, this.crewMemberTransformerService.toCrewMember(crewMember), true);
         // Ajoute en file d'attente la mise en cache du dossier du membre d'équipage sauf s'il s'agit du user connecté
         if (storeCrewMembers && this.sessionService.getActiveUser().matricule !== crewMember.pnc.matricule) {
-          this.events.publish('SynchroRequest:add', crewMember.pnc);
+          this.events.publish('SynchroRequest:add', { pnc: crewMember.pnc });
         }
       }
     }

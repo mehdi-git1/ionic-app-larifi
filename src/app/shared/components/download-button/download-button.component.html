@@ -1,5 +1,4 @@
-<ion-fab-button class="button-synchro" size="small" color="secondary" [ngClass]="{'hidden' : !isAvailable() }"
-    (click)="downloadFunction($event)" [disabled]="synchroInProgress">
-    <ion-icon class="download-icon" *ngIf="!synchroInProgress" name="md-download" ios="md-download"></ion-icon>
+<ion-fab-button class="button-synchro" size="small" color="secondary" [ngClass]="{'hidden' : !isAvailable() }" (click)="downloadFunction($event)" [disabled]="synchroInProgress">
+    <ion-icon class="download-icon" *ngIf="!synchroInProgress" name="download"></ion-icon>
     <ion-spinner name="crescent" *ngIf="synchroInProgress"></ion-spinner>
 </ion-fab-button>

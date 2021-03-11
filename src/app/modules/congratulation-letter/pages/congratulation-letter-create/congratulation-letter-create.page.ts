@@ -1,7 +1,6 @@
-import * as _ from 'lodash';
-import { Observable } from 'rxjs/Observable';
-import { pairwise } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import * as _ from 'lodash-es';
+import { Observable, of, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, pairwise, switchMap } from 'rxjs/operators';
 import {
     CongratulationLetterModeEnum
 } from 'src/app/core/enums/congratulation-letter/congratulation-letter-mode.enum';
@@ -11,7 +10,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-    AlertController, Events, LoadingController, NavController, PopoverController
+    AlertController, LoadingController, NavController, PopoverController
 } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -28,6 +27,7 @@ import {
     CongratulationLetterService
 } from '../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { Events } from '../../../../core/services/events/events.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
@@ -221,24 +221,21 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
      */
     handleAutocompleteSearch() {
         this.redactorSearchList = this.searchTerms
-            .debounceTime(300)
-            .distinctUntilChanged()
-            .switchMap(
-                term => {
-                    if (term) {
-                        this.autoCompleteInProgress = true;
-                        const autoCompletePromise = this.pncService.pncAutoComplete(term, true);
-                        // On enchaine 2 then pour atteindre le "finally"
-                        autoCompletePromise.then().then(() => { this.autoCompleteInProgress = false; });
-                        return autoCompletePromise;
-                    } else {
-                        return Observable.of<PncModel[]>([]);
-                    }
+            .pipe(debounceTime(300), distinctUntilChanged())
+            .pipe(switchMap(term => {
+                if (term) {
+                    this.autoCompleteInProgress = true;
+                    const autoCompletePromise = this.pncService.pncAutoComplete(term, true);
+                    autoCompletePromise.catch(error => {
+                        return of<PncModel[]>([]);
+                    })
+                    autoCompletePromise.finally(() => { this.autoCompleteInProgress = false; });
+                    return autoCompletePromise;
+                } else {
+                    return of<PncModel[]>([]);
                 }
-            )
-            .catch(error => {
-                return Observable.of<PncModel[]>([]);
-            });
+            })
+            );
     }
 
     /**

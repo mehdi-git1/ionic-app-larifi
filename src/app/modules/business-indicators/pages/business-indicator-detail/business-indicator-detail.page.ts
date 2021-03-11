@@ -4,7 +4,7 @@ import { SpecialityEnum } from 'src/app/core/enums/speciality.enum';
 import { DeviceService } from 'src/app/core/services/device/device.service';
 
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { LoadingController } from '@ionic/angular';

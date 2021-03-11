@@ -1,11 +1,11 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import * as moment from 'moment';
 
 import {
     AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, Events, LoadingController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../../app.constant';
@@ -13,6 +13,7 @@ import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbo
 import { LogbookEventTypeEnum } from '../../../../core/enums/logbook-event/logbook-event-type.enum';
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { Events } from '../../../../core/services/events/events.service';
 import {
     OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';
@@ -134,8 +135,8 @@ export class LogbookEventDetailsPage implements OnInit, AfterViewInit {
      * @param groupId identifiant du groupe
      * @param pnc pnc
      */
-    getLogbookEventsByGroupId(groupId: number, pnc: PncModel) {
-        return new Promise((resolve, reject) => {
+    getLogbookEventsByGroupId(groupId: number, pnc: PncModel): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             this.onlineLogbookEventService.getLogbookEventsByGroupId(groupId).then(
                 logbookEvents => {
                     this.logbookEvents = new Array();

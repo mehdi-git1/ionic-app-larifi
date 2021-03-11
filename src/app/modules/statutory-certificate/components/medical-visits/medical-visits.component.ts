@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import { MedicalVisitsModel } from 'src/app/core/models/statutory-certificate/medical-visits.model';
 
 import { Component, Input, OnInit } from '@angular/core';

@@ -1,12 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
-import { Events, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { AuthenticationStatusEnum } from '../../enums/authentication-status.enum';
 import { PinPadTypeEnum } from '../../enums/security/pin-pad-type.enum';
 import { DeviceService } from '../device/device.service';
+import { Events } from '../events/events.service';
 import { ModalSecurityService } from '../modal/modal-security.service';
 import { MyBoardNotificationService } from '../my-board/my-board-notification.service';
 import { SessionService } from '../session/session.service';

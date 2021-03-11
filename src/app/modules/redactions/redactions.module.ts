@@ -24,9 +24,6 @@ import { RedactionsPage } from './pages/redactions/redactions.page';
     ProfessionalInterviewModule,
     CareerObjectiveModule
   ],
-  entryComponents: [
-    RedactionsPage
-  ],
   exports: [
     RedactionsPage
   ],

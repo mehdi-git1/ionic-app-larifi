@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import { FormCanDeactivate } from 'src/app/routing/guards/form-changes.guard';
 
 import { Component, ViewChild } from '@angular/core';
@@ -178,8 +178,8 @@ export class WaypointCreatePage extends FormCanDeactivate {
    * Lance le processus de création/mise à jour d'un point d'étape
    * @param waypointToSave le point d'étape à enregistrer
    */
-  saveWaypoint(waypointToSave: WaypointModel) {
-    return new Promise((resolve, reject) => {
+  saveWaypoint(waypointToSave: WaypointModel): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
       waypointToSave = this.prepareWaypointBeforeSubmit(waypointToSave);
 
       this.loadingCtrl.create().then(loading => {

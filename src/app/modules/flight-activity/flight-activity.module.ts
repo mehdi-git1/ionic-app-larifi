@@ -20,10 +20,6 @@ import { UpcomingFlightListPage } from './pages/upcoming-flight-list/upcoming-fl
     SharedModule,
     ComponentsModule
   ],
-  entryComponents: [
-    UpcomingFlightListPage,
-    FlightCrewListPage
-  ],
   exports: [
     UpcomingFlightListPage,
     FlightCrewListPage

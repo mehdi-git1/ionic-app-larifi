@@ -50,19 +50,19 @@
         <ion-item>
             <ion-label color="grey50">{{ 'SETTINGS.APP_VERSION.LABEL' | translate }}</ion-label>
             <ion-fab-button size="small" color="secondary" (click)="goToAppVersionHistory()" [disabled]="!connected">
-                <ion-icon name="ios-archive"></ion-icon>
+                <ion-icon name="archive"></ion-icon>
             </ion-fab-button>
         </ion-item>
         <ion-item>
             <ion-label color="grey50">{{ 'SETTINGS.LEGAL_TERMS.LABEL' | translate }}</ion-label>
             <ion-fab-button size="small" color="secondary" (click)="goToLegalTerms()">
-                <ion-icon name="document" ios="md-document"></ion-icon>
+                <ion-icon name="document"></ion-icon>
             </ion-fab-button>
         </ion-item>
         <ion-item *ngIf="isRealUserAdmin()">
             <ion-label color="grey50">{{ 'SETTINGS.IMPERSONATE_USER.LABEL' | translate }}</ion-label>
             <ion-fab-button size="small" color="secondary" (click)="impersonateNewUser()" [disabled]="!connected">
-                <ion-icon name="contacts" ios="md-contacts"></ion-icon>
+                <ion-icon name="people"></ion-icon>
             </ion-fab-button>
         </ion-item>
         <div class="version-panel">

@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import * as moment from 'moment';
 import {
     LogbookEventNotifiedPnc
@@ -7,7 +7,7 @@ import {
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, Events } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../../app.constant';
@@ -17,6 +17,7 @@ import { LogbookEventTypeEnum } from '../../../../core/enums/logbook-event/logbo
 import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { Events } from '../../../../core/services/events/events.service';
 import {
     OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';
@@ -266,8 +267,8 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
     /**
      * Popup d'avertissement en cas de modifications non enregistrées.
      */
-    confirmationPopup(title: string, message: string) {
-        return new Promise((resolve, reject) => {
+    confirmationPopup(title: string, message: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
             this.alertCtrl.create({
                 header: title,

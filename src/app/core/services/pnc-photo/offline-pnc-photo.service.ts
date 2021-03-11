@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Events } from '@ionic/angular';
 
 import { EntityEnum } from '../../enums/entity.enum';
 import { PncPhotoModel } from '../../models/pnc-photo.model';
 import { StorageService } from '../../storage/storage.service';
+import { Events } from '../events/events.service';
 
 @Injectable({ providedIn: 'root' })
 export class OfflinePncPhotoService {
@@ -49,7 +49,7 @@ export class OfflinePncPhotoService {
    * @return une promesse (uniquement car le service appelant nécessite d'en retourner une)
    */
   synchronizePncsPhotos(matricules: string[]): Promise<any> {
-    this.events.publish('PncPhoto:updated', matricules);
+    this.events.publish('PncPhoto:updated', { updatedPhotoMatricules: matricules });
     return Promise.resolve();
   }
 

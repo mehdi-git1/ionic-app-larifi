@@ -149,3 +149,18 @@ h2 {
 
     }
 }
+
+.assignment-block {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+
+    & > div {
+        flex: 1;
+    }
+
+    & > div:not(:first-child) {
+        margin-left: 5px;
+    }
+
+}

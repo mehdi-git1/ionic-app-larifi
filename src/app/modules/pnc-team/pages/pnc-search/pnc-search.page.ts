@@ -1,18 +1,19 @@
 import { from, Observable, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 
 import { Component, ViewChild } from '@angular/core';
-import { MatButtonToggleGroup } from '@angular/material';
+import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Events } from '@ionic/angular';
 
 import { AppConstant } from '../../../../app.constant';
 import { PagePositionEnum } from '../../../../core/enums/page-position.enum';
 import { PncSearchModeEnum } from '../../../../core/enums/pnc-search-mode.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { Events } from '../../../../core/services/events/events.service';
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -53,8 +54,7 @@ export class PncSearchPage {
 
     this.initFilters();
 
-    this.filtersSubject
-      .switchMap((filters) => this.handlePncSearch(filters))
+    this.filtersSubject.pipe(switchMap((filters) => this.handlePncSearch(filters)))
       .subscribe(pagedPnc => {
         this.handlePncSearchResponse(pagedPnc);
       });
@@ -215,7 +215,7 @@ export class PncSearchPage {
     if (this.searchMode === PncSearchModeEnum.ALTERNANT) {
       this.router.navigate(['visit', pnc.matricule, 'development-program']);
     } else {
-      this.events.publish('EDossier:visited', pnc);
+      this.events.publish('EDossier:visited', { visitedPnc: pnc });
     }
   }
 

@@ -29,13 +29,13 @@
             </div>
         </div>
         <div class="data-container">
-            <ion-icon ios="md-chatboxes" name="md-chatboxes"></ion-icon>
+            <ion-icon name="chatbox"></ion-icon>
             <div class="pnc-info-data" [ngClass]="{'no-value' : !pnc.relays[0] }">
                 <span *ngFor="let relay of pnc.relays; index as i; last as l">{{relay.code}}<span *ngIf="!l">,</span></span>
             </div>
         </div>
         <div class="data-container">
-            <ion-icon ios="md-pin" name="md-pin"></ion-icon>
+            <ion-icon name="location-sharp"></ion-icon>
             <div class="pnc-info-data">
                 <div>
                     <span [ngClass]="{'no-value' : !pnc?.assignment?.division }">{{ pnc?.assignment?.division }}/</span>
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="pnc-instructor" *ngIf="!pnc.manager">
-            <ion-icon ios="md-school" name="md-school"></ion-icon>
+            <ion-icon name="school"></ion-icon>
             <div class="pnc-info-data">
                 <span [ngClass]="{'no-value' : !pnc?.pncInstructor }"><span class="lastname">{{pnc?.pncInstructor?.lastName}}</span>&nbsp;<span class="firstname">{{pnc?.pncInstructor?.firstName}}</span></span>
             </div>

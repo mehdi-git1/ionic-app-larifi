@@ -2,7 +2,7 @@ import { SessionService } from 'src/app/core/services/session/session.service';
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, Events, NavParams, PopoverController } from '@ionic/angular';
+import { AlertController, NavParams, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -13,6 +13,7 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import {
     CongratulationLetterService
 } from '../../../../core/services/congratulation-letter/congratulation-letter.service';
+import { Events } from '../../../../core/services/events/events.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { Utils } from '../../../../shared/utils/utils';
 

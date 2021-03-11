@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Events } from '@ionic/angular';
 
 import { AuthenticationService } from '../../../../core/authentication/authentication.service';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { Events } from '../../../../core/services/events/events.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import {

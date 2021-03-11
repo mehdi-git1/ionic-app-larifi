@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Events, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Config } from '../../../environments/config';
 import { Utils } from '../../shared/utils/utils';
 import { UrlConfiguration } from '../configuration/url.configuration';
 import { DeviceService } from '../services/device/device.service';
+import { Events } from '../services/events/events.service';
 import { ToastService } from '../services/toast/toast.service';
 import { RestRequest } from './rest/rest-request';
 

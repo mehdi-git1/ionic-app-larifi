@@ -4,6 +4,9 @@ import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../../shared/components/components.module';
 import { SharedModule } from '../../shared/shared.module';
 import {
+    ProfessionalInterviewListComponent
+} from './components/professional-interview-list/professional-interview-list.component';
+import {
     ProfessionalInterviewComponent
 } from './components/professional-interview/professional-interview.component';
 import {
@@ -15,7 +18,6 @@ import {
 import {
     ProfessionalInterviewsArchivesPage
 } from './pages/professional-interviews-archives/professional-interviews-archives.page';
-import { ProfessionalInterviewListComponent } from './components/professional-interview-list/professional-interview-list.component';
 
 @NgModule({
   declarations: [
@@ -29,13 +31,6 @@ import { ProfessionalInterviewListComponent } from './components/professional-in
     IonicModule,
     SharedModule,
     ComponentsModule
-  ],
-  entryComponents: [
-    ProfessionalInterviewDetailsPage,
-    ProfessionalInterviewsArchivesPage,
-    ProfessionalInterviewComponent,
-    ProfessionalInterviewsComponent,
-    ProfessionalInterviewListComponent
   ],
   exports: [
     ProfessionalInterviewDetailsPage,
