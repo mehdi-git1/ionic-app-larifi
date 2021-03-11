@@ -216,8 +216,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             pncCommentControl: ['', Validators.maxLength(this.pncCommentMaxLength)],
             encounterDateControl: ['', encounterDateValidator],
             nextEncounterDateControl: ['', nextEncounterDateValidator],
-            prioritizedControl: [false],
-            waypointContextControl: ['', Validators.maxLength(4000)],
+            prioritizedControl: [false]
         });
     }
 
@@ -709,5 +708,21 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
         if (this.careerObjective.category.code !== 'FLIGHTS_SECURITY') {
             this.prioritized = this.careerObjective.prioritized;
         }
+    }
+
+    /**
+     * Vérifie si tous les champs du formulaire sont valides, en dehors du champs date de rappel qui est optionnel et qui ne doit pas bloquer les actions de clôture, abandon, reprise etc
+     * @return vrai si le formulaire est considéré comme valide, faux sinon
+     */
+    isFormValid(): boolean {
+        return this.creationForm.get('initiatorControl').valid
+            && this.creationForm.get('categoryControl').valid
+            && this.creationForm.get('titleControl').valid
+            && this.creationForm.get('contextControl').valid
+            && this.creationForm.get('actionPlanControl').valid
+            && this.creationForm.get('managerCommentControl').valid
+            && this.creationForm.get('pncCommentControl').valid
+            && this.creationForm.get('encounterDateControl').valid
+            && this.creationForm.get('prioritizedControl').valid
     }
 }
