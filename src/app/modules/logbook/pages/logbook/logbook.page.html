@@ -48,7 +48,7 @@
                                     <ion-row class="event-row ion-align-items-center" *ngIf="groupedEvent.expanded || logbookEventIndex === 0" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
                                         <ion-col class="arrow">
                                             <div class="child-count clickable" *ngIf="groupHasManyEvents(groupedEvent) && logbookEventIndex === 0" (click)="collapseOrExpandEventGroup($event, groupedEvent)">
-                                                <ion-icon color="primary" name="arrow-{{groupedEvent.expanded?'up':'down'}}">
+                                                <ion-icon color="primary" name="caret-{{groupedEvent.expanded?'up':'down'}}-outline">
                                                 </ion-icon>
                                                 <span class="events-number" *ngIf="!groupedEvent.expanded">{{groupedEvent.logbookEvents.length}}</span>
                                             </div>
