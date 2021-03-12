@@ -37,8 +37,6 @@ export class AppInitDataModel {
 
   attachmentsMaxSize: number;
 
-  eformsWrittenUrl: string;
-
   cabinReportsWrittenUrl: string;
 
   myBoardInitData: MyBoardInitDataModel;
