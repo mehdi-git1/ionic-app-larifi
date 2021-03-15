@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 import { Utils } from 'src/app/shared/utils/utils';

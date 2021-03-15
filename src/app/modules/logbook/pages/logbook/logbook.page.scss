@@ -37,7 +37,7 @@ $nbLinesMaxOnRow: 2;
         background: var(--ion-color-primary);
         color: var(--ion-color-white);
         font-size: 12px;
-        $padding-side: 5px;
+        $padding-side: 7px;
         margin-left: 5px;
         padding-left: $padding-side;
         padding-right: $padding-side;
@@ -46,43 +46,34 @@ $nbLinesMaxOnRow: 2;
         display: inline-flex;
     }
 
-    .ion-md-eye-off:before {
-        font-size: 20px;
+    ion-icon[name="eye-off"] {
         color: var(--ion-color-grey40);
     }
 
-    .edospnc-important:before,
-    .ion-ios-edospnc-important:before,
-    .ion-md-edospnc-important:before,
-    .icon-edospnc-important:before {
-        font-size: 18px;
+    ion-icon[name="alert"] {
         color: var(--ion-color-secondary);
     }
 
-    .edospnc-pnc:before,
-    .ion-ios-edospnc-pnc:before,
-    .ion-ios-edospnc-pnc-outline:before,
-    .ion-md-edospnc-pnc:before,
-    .ion-md-edospnc-pnc-outline:before,
-    .icon-edospnc-pnc:before {
-        font-size: 20px;
+    ion-icon[name="attach"] {
+        color: var(--ion-color-primary);
+    }
+
+    .edospnc-pnc:before {
+        font-size: 30px;
         color: var(--ion-color-primary);
     }
 
     .child-count {
         display: flex;
-        flex-direction: row;
         width: 100%;
     }
 
     .arrow {
-        flex: 0 0 45px !important;
-        text-align: center;
+        flex: 0 0 58px !important;
     }
 
     .actions {
         flex: 0 0 60px !important;
-        text-align: center;
 
         div {
             width: 100%;
@@ -94,11 +85,11 @@ $nbLinesMaxOnRow: 2;
         border: none;
     }
 
-    ion-row.groupedEventRow:nth-child(even) {
+    ion-row.grouped-event-row:nth-child(even) {
         background: var(--ion-color-grey95);
     }
 
-    ion-row.groupedEventRow:nth-child(odd) {
+    ion-row.grouped-event-row:nth-child(odd) {
         background: var(--ion-color-white);
     }
 
@@ -116,7 +107,7 @@ $nbLinesMaxOnRow: 2;
         height: 48px;
 
         ion-icon {
-            font-size: 1.2em;
+            font-size: 1.5em;
         }
     }
 
@@ -154,11 +145,11 @@ $nbLinesMaxOnRow: 2;
     }
 
     .column-actions {
-        flex: 0 0 40px !important;
-        text-align: center;
+        flex: 0 0 60px !important;
+        justify-content: center;
 
         ion-icon {
-            font-size: 2em;
+            font-size: 1.5em;
         }
     }
 
@@ -176,12 +167,8 @@ $nbLinesMaxOnRow: 2;
 
     .column-specific {
         flex: 0 0 20px !important;
-        min-width: 25px;
-        max-width: 25px;
-
-        ion-icon {
-            font-size: 1.2em;
-        }
+        min-width: 75px;
+        max-width: 75px;
     }
 
     .category-label {
