@@ -53,6 +53,14 @@
                 "DO_NOT_DISPLAY_ANYMORE": "J'ai compris"
             }
         },
+        "SORT_LIST": {
+            "LABEL": "Trier par",
+            "BY_DEFAULT": "Par défaut",
+            "LAST_NAME": "Nom",
+            "LAST_EOBSERVATION": "Dernière eObs",
+            "LAST_PROFESSIONAL_INTERVIEW": "Dernier BP",
+            "LAST_UPDATED_CAREER_OBJECTIVE": "Dernière prio mise à jour"
+        },
         "DEVELOPMENT_PROGRAM_SHORT": "Parcours de Dev",
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "MY_DEVELOPMENT_PROGRAM": "Mon parcours de développement",
@@ -127,7 +135,7 @@
             "ERROR_MULTI_MAX_FILES_SIZE_REACHED": "Impossible d'ajouter les fichier sélectionnés. La taille totale des fichiers ne doit pas dépasser {{maxSize}} Mo"
         },
         "LOADING_EDOSSIER_MESSAGE": "Chargement du eDossier...",
-        "PLEASE_WAIT":"Merci de patienter..."
+        "PLEASE_WAIT": "Merci de patienter..."
     },
     "PNC_CARD": {
         "ASSIGNMENT": "Affectation",
@@ -726,19 +734,12 @@
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
             "TAF": "TAF",
-            "SORT": {
-              "LABEL":"Trier par",
-              "LAST_NAME":"Nom",
-              "LAST_EOBSERVATION": "Dernière eObs",
-              "LAST_PROFESSIONAL_INTERVIEW": "Dernier BP",
-              "LAST_UPDATED_CAREER_OBJECTIVE": "Dernière prio mise à jour"
-            },
             "ENCOUNTER_FLIGHT_GROUND": {
                 "TITLE": "Rencontres vol/sol",
                 "EOBS_OLDER_THAN_18_MONTHS": "Dernière eObs > 18 mois",
-                "NO_EOBS":"Aucune eObservation",
+                "NO_EOBS": "Aucune eObservation",
                 "PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH": "Dernier BP/EPP > 24 mois",
-                "NO_PROFESSIONAL_INTERVIEW":"Aucun BP/EPP"
+                "NO_PROFESSIONAL_INTERVIEW": "Aucun BP/EPP"
             },
             "CAREER_OBJECTIVE": {
                 "TITLE": "Priorités",
@@ -766,7 +767,7 @@
             "ALL_M": "Tous"
         },
         "NO_PNC_FOUND": "Aucun PNC trouvé",
-        "SEARCH_END":"Fin de la recherche",
+        "SEARCH_END": "Fin de la recherche",
         "ERROR": {
             "SEARCH": "Erreur lors de la recherche de PNC"
         },
@@ -1210,15 +1211,15 @@
                 "ESCORE_100": "Note 10",
                 "X_AXIS_LABEL": "Nombre de retours"
             },
-            "REPORT_VERBATIM":{
-                "REPORT_MODE_BUTTON":"Signaler un retour abusif",
-                "USE_HINT":"Cliquez sur un verbatim pour le signaler",
-                "CONFIRM_REPORT_MODAL":{
-                    "TITLE":"Confirmer le signalement",
-                    "CONTENT":"En confirmant le signalement, vous attestez que ce message est injurieux, raciste, homophobe ou invite plus généralement à la haine ou la violence et est contraire à la loi.<br>Une fois envoyée, votre demande sera analysée pour suppression définitive.<br><br> <strong>\"{{verbatim}}\"</strong>"
+            "REPORT_VERBATIM": {
+                "REPORT_MODE_BUTTON": "Signaler un retour abusif",
+                "USE_HINT": "Cliquez sur un verbatim pour le signaler",
+                "CONFIRM_REPORT_MODAL": {
+                    "TITLE": "Confirmer le signalement",
+                    "CONTENT": "En confirmant le signalement, vous attestez que ce message est injurieux, raciste, homophobe ou invite plus généralement à la haine ou la violence et est contraire à la loi.<br>Une fois envoyée, votre demande sera analysée pour suppression définitive.<br><br> <strong>\"{{verbatim}}\"</strong>"
                 },
-                "VERBATIM_REPORTED":"Verbatim signalé",
-                "COMMENT_REPORTED":"Commentaire signalé"
+                "VERBATIM_REPORTED": "Verbatim signalé",
+                "COMMENT_REPORTED": "Commentaire signalé"
             }
         }
     },

@@ -23,34 +23,7 @@
                 <ng-container *ngIf="!isLoading">{{ 'PNC_SEARCH.TOTAL' | translate:{total :totalPncs} }}</ng-container>
             </div>
 
-            <div class="sort-container">
-                <ion-label>{{ 'PNC_SEARCH.CRITERIA.SORT.LABEL'| translate }}</ion-label>
-                <ion-select interface="popover" [value]="filters.sortColumn" (ionChange)="sortByColumn($event.detail.value)">
-                    <ion-select-option value="lastName">
-                        {{ 'PNC_SEARCH.CRITERIA.SORT.LAST_NAME'  | translate }}
-                    </ion-select-option>
-                    <ion-select-option value="lastEObservationDate">
-                        {{ 'PNC_SEARCH.CRITERIA.SORT.LAST_EOBSERVATION'  | translate }}
-                    </ion-select-option>
-                    <ion-select-option value="lastProfessionalInterviewDate">
-                        {{ 'PNC_SEARCH.CRITERIA.SORT.LAST_PROFESSIONAL_INTERVIEW'  | translate }}
-                    </ion-select-option>
-                    <ion-select-option value="lastCareerObjectiveUpdateDate">
-                        {{ 'PNC_SEARCH.CRITERIA.SORT.LAST_UPDATED_CAREER_OBJECTIVE'  | translate }}
-                    </ion-select-option>
-                </ion-select>
-
-                <div class="sort-order">
-                    <mat-button-toggle-group name="sortDirections" #sortDirectionToggleGroup [value]="filters.sortDirection" (click)="sortColumnBySelectedDirection()">
-                        <mat-button-toggle disableRipple="true" value="ASC">
-                            <ion-icon slot="icon-only" name="arrow-up"></ion-icon>
-                        </mat-button-toggle>
-                        <mat-button-toggle disableRipple="true" value="DESC">
-                            <ion-icon slot="icon-only" name="arrow-down"></ion-icon>
-                        </mat-button-toggle>
-                    </mat-button-toggle-group>
-                </div>
-            </div>
+            <sort-list [value]="filters.sortColumn" [direction]="filters.sortDirection" [options]="sortOptions" (sortChange)="sortCrewList($event)"></sort-list>
         </div>
     </div>
 </ion-header>

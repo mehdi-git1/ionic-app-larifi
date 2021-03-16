@@ -1,6 +1,12 @@
+import * as moment from 'moment';
+import { SortChange, SortOption } from 'src/app/shared/components/sort-list/sort-list.component';
+
 import { Component } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
+import { AppConstant } from '../../../../app.constant';
+import { SortDirection } from '../../../../core/enums/sort-direction-enum';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { LegModel } from '../../../../core/models/leg.model';
@@ -9,6 +15,7 @@ import { LegService } from '../../../../core/services/leg/leg.service';
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
+import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'page-flight-crew-list',
@@ -20,15 +27,21 @@ export class FlightCrewListPage {
     flightCrewList: CrewMemberModel[];
     leg: LegModel;
     connectedCrewMember: CrewMemberModel;
+    sortColumn: string;
+    sortDirection: SortDirection;
+
+    sortOptions: Array<SortOption>;
 
     constructor(
         private legService: LegService,
         private sessionService: SessionService,
         private pncService: PncService,
         private pncPhotoService: PncPhotoService,
+        private translateService: TranslateService,
         private loadingCtrl: LoadingController,
         private events: Events) {
         this.initPage();
+        this.initSortOptions();
     }
 
     /**
@@ -48,19 +61,98 @@ export class FlightCrewListPage {
             if (this.connectedCrewMember) {
                 flightCrews = flightCrews.filter(item => item !== this.connectedCrewMember);
             }
-            this.flightCrewList = this.sortFlightCrewList(flightCrews);
+            this.flightCrewList = flightCrews;
+            this.sortCrewList({ value: '', direction: SortDirection.ASC });
         }, error => { this.flightCrewList = []; });
     }
 
     /**
-     * Tri d'une liste équipage
-     * @param flightCrewList liste à trier
-     * @return liste triée
+     * Initialise les options de tri
      */
-    sortFlightCrewList(flightCrewList: CrewMemberModel[]): CrewMemberModel[] {
-        return flightCrewList.sort((crewMember, otherCrewMember) => {
-            return this.sortCrew(crewMember, otherCrewMember);
+    initSortOptions() {
+        this.sortOptions = [
+            {
+                value: '',
+                label: this.translateService.instant('GLOBAL.SORT_LIST.BY_DEFAULT')
+            },
+            {
+                value: 'lastEObservationDate',
+                label: this.translateService.instant('GLOBAL.SORT_LIST.LAST_EOBSERVATION')
+            },
+            {
+                value: 'lastProfessionalInterviewDate',
+                label: this.translateService.instant('GLOBAL.SORT_LIST.LAST_PROFESSIONAL_INTERVIEW')
+            },
+            {
+                value: 'lastCareerObjectiveUpdateDate',
+                label: this.translateService.instant('GLOBAL.SORT_LIST.LAST_UPDATED_CAREER_OBJECTIVE')
+            }
+        ];
+    }
+
+
+    /**
+     * Tri la liste équipage
+     * @param sortChange les options de tri
+     */
+    sortCrewList(sortChange: SortChange) {
+        // Permet de gérer le signe des retours des fonctions "sort"
+        const asc = sortChange.direction === SortDirection.ASC ? 1 : -1;
+        const desc = asc * -1;
+
+        // On commence par le tri par défaut dans tous les cas, afin d'avoir une liste triée au cas où les dates sont vides
+        this.flightCrewList.sort((crew1, crew2) => {
+            return this.sortCrew(crew1, crew2);
         });
+        if (sortChange.direction === SortDirection.DESC) {
+            this.flightCrewList.reverse();
+        }
+
+        if (sortChange.value === 'lastEObservationDate') {
+            this.flightCrewList.sort((crew1, crew2) => {
+                if (crew1.pnc.metadataDate.lastEObservationDate === crew2.pnc.metadataDate.lastEObservationDate) {
+                    return 0;
+                }
+                if (Utils.isEmpty(crew1.pnc.metadataDate.lastEObservationDate)) {
+                    return 1;
+                }
+                if (Utils.isEmpty(crew2.pnc.metadataDate.lastEObservationDate)) {
+                    return -1;
+                }
+                return moment(crew1.pnc.metadataDate.lastEObservationDate, AppConstant.isoDateFormat)
+                    .isBefore(moment(crew2.pnc.metadataDate.lastEObservationDate, AppConstant.isoDateFormat)) ? desc : asc;
+            });
+        }
+        else if (sortChange.value === 'lastProfessionalInterviewDate') {
+            this.flightCrewList.sort((crew1, crew2) => {
+                if (crew1.pnc.metadataDate.lastProfessionalInterviewDate === crew2.pnc.metadataDate.lastProfessionalInterviewDate) {
+                    return 0;
+                }
+                if (Utils.isEmpty(crew1.pnc.metadataDate.lastProfessionalInterviewDate)) {
+                    return 1;
+                }
+                if (Utils.isEmpty(crew2.pnc.metadataDate.lastProfessionalInterviewDate)) {
+                    return -1;
+                }
+                return moment(crew1.pnc.metadataDate.lastProfessionalInterviewDate, AppConstant.isoDateFormat)
+                    .isBefore(moment(crew2.pnc.metadataDate.lastProfessionalInterviewDate, AppConstant.isoDateFormat)) ? desc : asc;
+            });
+        }
+        else if (sortChange.value === 'lastCareerObjectiveUpdateDate') {
+            this.flightCrewList.sort((crew1, crew2) => {
+                if (crew1.pnc.metadataDate.lastCareerObjectiveUpdateDate === crew2.pnc.metadataDate.lastCareerObjectiveUpdateDate) {
+                    return 0;
+                }
+                if (Utils.isEmpty(crew1.pnc.metadataDate.lastCareerObjectiveUpdateDate)) {
+                    return 1;
+                }
+                if (Utils.isEmpty(crew2.pnc.metadataDate.lastCareerObjectiveUpdateDate)) {
+                    return -1;
+                }
+                return moment(crew1.pnc.metadataDate.lastCareerObjectiveUpdateDate, AppConstant.isoDateFormat)
+                    .isBefore(moment(crew2.pnc.metadataDate.lastCareerObjectiveUpdateDate, AppConstant.isoDateFormat)) ? desc : asc;
+            });
+        }
     }
 
     /**
@@ -142,5 +234,7 @@ export class FlightCrewListPage {
     loadingIsOver(): boolean {
         return this.flightCrewList !== undefined;
     }
+
+
 
 }
