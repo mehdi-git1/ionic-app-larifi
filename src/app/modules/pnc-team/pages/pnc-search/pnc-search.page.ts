@@ -44,6 +44,8 @@ export class PncSearchPage {
   // Expose l'enum au template
   TabHeaderEnum = TabHeaderEnum;
 
+  bypassMenuClosureOnce = false;
+
   constructor(
     private pncService: PncService,
     private pncPhotoService: PncPhotoService,
@@ -53,6 +55,10 @@ export class PncSearchPage {
     private router: Router,
     private translateService: TranslateService
   ) {
+    if (this.router.url.split('/').includes('filters-opened')) {
+      this.isMenuOpened = true;
+      this.bypassMenuClosureOnce = true;
+    }
     this.initFilters();
     this.initSortOptions();
 
@@ -150,7 +156,10 @@ export class PncSearchPage {
     if (filters.pagePosition === PagePositionEnum.FIRST) {
       this.resetPageNumber();
       this.isLoading = true;
-      this.isMenuOpened = false;
+      if (!this.bypassMenuClosureOnce) {
+        this.isMenuOpened = false;
+      }
+      this.bypassMenuClosureOnce = false;
       return this.getFilteredPncs(filters);
     } else {
       if (this.totalPncs === undefined || this.filters.page < (this.totalPncs / AppConstant.PAGE_SIZE)) {
