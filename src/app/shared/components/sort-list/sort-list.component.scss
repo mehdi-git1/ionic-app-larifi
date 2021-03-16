@@ -1,0 +1,27 @@
+.sort-container {
+    display: flex;
+    align-items: center;
+
+    ion-select {
+        margin-top: 0;
+        margin-left: 8px;
+        width: 200px;
+    }
+
+    .sort-order {
+        border-radius: 4px;
+        margin-left: 10px;
+        background-color: var(--ion-color-grey70);
+
+        .mat-button-toggle-checked {
+            color: var(--ion-color-white);
+            border-radius: 4px;
+            background-color: var(--ion-color-primary);
+        }
+
+        ::ng-deep .mat-button-toggle-label-content {
+            line-height: 39px;
+            padding: 0 12px;
+        }
+    }
+}

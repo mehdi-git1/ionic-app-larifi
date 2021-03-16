@@ -44,6 +44,7 @@ import { PncPhotoComponent } from './pnc-photo/pnc-photo.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
 import { SecretQuestionComponent } from './secret-question/secret-question.component';
+import { SortListComponent } from './sort-list/sort-list.component';
 import { TabHeaderComponent } from './tab-header/tab-header.component';
 import { TabNavComponent } from './tab-nav/tab-nav.component';
 import { TextEditorComponent } from './text-editor/text-editor.component';
@@ -99,7 +100,8 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         ColumnSorterComponent,
         AlertDialogComponent,
         ValueOrNoDataComponent,
-        TruncatedTextComponent
+        TruncatedTextComponent,
+        SortListComponent
     ],
     exports: [
         OfflineIndicatorComponent,
@@ -136,7 +138,8 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         ColumnSorterComponent,
         AlertDialogComponent,
         ValueOrNoDataComponent,
-        TruncatedTextComponent
+        TruncatedTextComponent,
+        SortListComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

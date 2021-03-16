@@ -4,10 +4,11 @@ import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
+import { SortChange, SortOption } from 'src/app/shared/components/sort-list/sort-list.component';
 
-import { Component, ViewChild } from '@angular/core';
-import { MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../../app.constant';
 import { PagePositionEnum } from '../../../../core/enums/page-position.enum';
@@ -36,9 +37,9 @@ export class PncSearchPage {
   isLoading = true;
   searchInProgress = false;
 
-  @ViewChild(MatButtonToggleGroup, { static: false })
-  sortDirectionToogleGroup: MatButtonToggleGroup;
   enabledFiltersCount = 0;
+
+  sortOptions: Array<SortOption>;
 
   // Expose l'enum au template
   TabHeaderEnum = TabHeaderEnum;
@@ -49,10 +50,11 @@ export class PncSearchPage {
     private sessionService: SessionService,
     private events: Events,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private translateService: TranslateService
   ) {
-
     this.initFilters();
+    this.initSortOptions();
 
     this.filtersSubject.pipe(switchMap((filters) => this.handlePncSearch(filters)))
       .subscribe(pagedPnc => {
@@ -73,6 +75,29 @@ export class PncSearchPage {
     this.filters.sortDirection = SortDirection.ASC;
   }
 
+  /**
+   * Initialise les options de tri
+   */
+  initSortOptions() {
+    this.sortOptions = [
+      {
+        value: 'lastName',
+        label: this.translateService.instant('GLOBAL.SORT_LIST.LAST_NAME')
+      },
+      {
+        value: 'lastEObservationDate',
+        label: this.translateService.instant('GLOBAL.SORT_LIST.LAST_EOBSERVATION')
+      },
+      {
+        value: 'lastProfessionalInterviewDate',
+        label: this.translateService.instant('GLOBAL.SORT_LIST.LAST_PROFESSIONAL_INTERVIEW')
+      },
+      {
+        value: 'lastCareerObjectiveUpdateDate',
+        label: this.translateService.instant('GLOBAL.SORT_LIST.LAST_UPDATED_CAREER_OBJECTIVE')
+      }
+    ];
+  }
 
   /**
    * Lance une recherche avec de nouveaux filtres
@@ -181,20 +206,11 @@ export class PncSearchPage {
 
   /**
    * Effectue le tri selon la colonne choisie
-   * @param value la colonne choisie
+   * @param sortChange les options de tri
    */
-  sortByColumn(value: string) {
-    this.filters.sortColumn = value;
-    this.filters.sortDirection = SortDirection.ASC;
-    this.launchSearch();
-  }
-
-
-  /**
-   * Effectue le tri de la colonne choisie selon l'ordre de tri
-   */
-  sortColumnBySelectedDirection() {
-    this.filters.sortDirection = this.sortDirectionToogleGroup.value;
+  sortCrewList(sortChange: SortChange) {
+    this.filters.sortColumn = sortChange.value;
+    this.filters.sortDirection = sortChange.direction;
     this.launchSearch();
   }
 

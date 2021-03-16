@@ -13,16 +13,21 @@
         <span class="value suffix-tu">{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' :'UTC'}}</span>
         <span class="value">{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
     </div>
+    <div class="sort-bar-container" *ngIf="flightCrewList">
+        <div class="sort-bar">
+            <sort-list [options]="sortOptions" (sortChange)="sortCrewList($event)"></sort-list>
+        </div>
+    </div>
 </ion-header>
 
 <ion-content>
-    <div class="page-container">
-        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-        <ng-template #pageBlock>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <div class="page-container">
             <div class="flight-crew-list-container">
                 <pnc-card *ngFor="let crewMember of flightCrewList" (click)="openPncHomePage(crewMember.pnc.matricule)" [isCrewMember]="true" [itemMember]="crewMember"></pnc-card>
                 <pnc-card *ngIf="connectedCrewMember" [isCrewMember]="true" [itemMember]="connectedCrewMember" [disabled]="true"></pnc-card>
             </div>
-        </ng-template>
-    </div>
+        </div>
+    </ng-template>
 </ion-content>
