@@ -5,7 +5,7 @@ import { PncModel } from '../../../core/models/pnc.model';
 import { RelayModel } from '../../../core/models/statutory-certificate/relay.model';
 import { PncService } from '../../../core/services/pnc/pnc.service';
 import {
-    SynchronizationService
+  SynchronizationService
 } from '../../../core/services/synchronization/synchronization.service';
 import { ToastService } from '../../../core/services/toast/toast.service';
 import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicator.component';
@@ -66,5 +66,13 @@ export class PncHeaderComponent implements OnChanges {
    */
   getTafValue(): string {
     return this.pnc.taf ? 'Oui' : 'Non';
+  }
+
+  /**
+   * Construit l'adresse mail de l'instructeur
+   * @return l'adresse mail de l'instructeur
+   */
+  getInstructorMail(): string {
+    return `%22${this.pnc.pncInstructor.lastName}%20${this.pnc.pncInstructor.firstName}%22%3cm${this.pnc.pncInstructor.matricule.substring(0, 6)}@airfrance.fr%3e`;
   }
 }

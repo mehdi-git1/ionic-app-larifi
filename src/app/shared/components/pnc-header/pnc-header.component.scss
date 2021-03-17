@@ -112,6 +112,22 @@
             text-align: center;
         }
 
+        a {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            height: 24px;
+
+            .firstname {
+                text-decoration: underline
+            }
+
+            ion-icon {
+                font-size: 2em;
+                margin-left: 5px;
+            }
+        }
+
     }
 
     .button-container {
