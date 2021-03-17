@@ -50,7 +50,11 @@
         <div class="pnc-instructor" *ngIf="!pnc.manager">
             <ion-icon name="school"></ion-icon>
             <div class="pnc-info-data">
-                <span [ngClass]="{'no-value' : !pnc?.pncInstructor }"><span class="lastname">{{pnc?.pncInstructor?.lastName}}</span>&nbsp;<span class="firstname">{{pnc?.pncInstructor?.firstName}}</span></span>
+                <a *ngIf="pnc?.pncInstructor" href="mailto:{{getInstructorMail()}}" title="{{ 'GLOBAL.SEND_MAIL' | translate }}">
+                    <span class="lastname">{{pnc?.pncInstructor?.lastName}}</span>&nbsp;<span class="firstname">{{pnc?.pncInstructor?.firstName}}</span>
+                    <ion-icon name="mail-outline"></ion-icon>
+                </a>
+                <span *ngIf="!pnc?.pncInstructor" class="no-value"></span>
             </div>
         </div>
         <div class="button-container">

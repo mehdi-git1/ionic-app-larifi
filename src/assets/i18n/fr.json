@@ -135,7 +135,8 @@
             "ERROR_MULTI_MAX_FILES_SIZE_REACHED": "Impossible d'ajouter les fichier sélectionnés. La taille totale des fichiers ne doit pas dépasser {{maxSize}} Mo"
         },
         "LOADING_EDOSSIER_MESSAGE": "Chargement du eDossier...",
-        "PLEASE_WAIT": "Merci de patienter..."
+        "PLEASE_WAIT": "Merci de patienter...",
+        "SEND_MAIL": "Envoyer un mail"
     },
     "PNC_CARD": {
         "ASSIGNMENT": "Affectation",
