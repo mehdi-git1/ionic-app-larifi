@@ -24,7 +24,7 @@ export class UrlConfiguration {
     'getAllPcbReferentialItemLevelsByVersion': `v2/${urlGroupEnum.EOBSERVATION}/AllEpcbRefItem/{version}`,
     'getLegsById': `${urlGroupEnum.LEG} /{legId}`,
     'getCrewMembersFromLeg': `${urlGroupEnum.LEG}/crew_members/{company}/{flightNumber}/{date}/{departureStation}`,
-    'pnc': `v2/${urlGroupEnum.PNC}`,
+    'pnc': `v2/${urlGroupEnum.PNC}?page={page}&size={size}`,
     'getPncByMatricule': `${urlGroupEnum.PNC}/{matricule}`,
     'getPncAutoComplete': `v2/${urlGroupEnum.PNC}/auto_complete`,
     'getPncUpcomingRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/upcoming_rotations`,
