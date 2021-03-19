@@ -122,6 +122,28 @@
                         </div>
                     </edospnc-expandable-block>
 
+                    <!-- Condition d'interview : présential ou à distance -->
+                    <edospnc-expandable-block mini="true" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_CONDITION.TITLE' | translate}}">
+                        <div class="interview-condition">
+                            <p *ngIf="!editionMode; else editInterviewConditionBlock">
+                                {{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_CONDITION.'+professionalInterview.interviewCondition | translate }}
+                            </p>
+                            <ng-template #editInterviewConditionBlock>
+                                <ion-radio-group [(ngModel)]="professionalInterview.interviewCondition" formControlName="interviewConditionControl">
+                                    <ion-item>
+                                        <ion-label class="required">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_CONDITION.FACE_TO_FACE' | translate }}</ion-label>
+                                        <ion-radio slot="start" [value]="ProfessionalInterviewConditionEnum.FACE_TO_FACE"></ion-radio>
+                                    </ion-item>
+
+                                    <ion-item>
+                                        <ion-label class="required">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_CONDITION.REMOTE' | translate }}</ion-label>
+                                        <ion-radio slot="start" [value]="ProfessionalInterviewConditionEnum.REMOTE"></ion-radio>
+                                    </ion-item>
+                                </ion-radio-group>
+                            </ng-template>
+                        </div>
+                    </edospnc-expandable-block>
+
 
                     <div class="state-block" *ngIf="professionalInterview?.state">
                         <div class="flex align-center flex1">
