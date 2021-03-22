@@ -232,9 +232,7 @@ export class ProfessionalInterviewDetailsPage {
    *
    */
   confirmationDialog(): void {
-    if (!this.professionalInterviewForm.pristine) {
-      this.router.navigateByUrl('tabs/visit/'.concat(this.professionalInterview.matricule).concat('/development-program'));
-    }
+    this.router.navigateByUrl('tabs/visit/'.concat(this.pncService.getRequestedPncMatricule(this.activatedRoute)).concat('/development-program'));
   }
   /**
    * Vérifie si le formulaire a été modifié sans être enregistré

@@ -214,34 +214,6 @@
             border: 1px solid var(--ion-color-grey70);
             white-space: pre-line;
         }
-
-        ::ng-deep .mat-expansion-panel-body {
-            padding: 15px;
-
-            label {
-                font-size: 17px;
-                margin: 0px 0px 10px 0px;
-                display: flex;
-                align-items: center;
-                color: var(--ion-color-grey10);
-
-                span {
-                    font-weight: normal;
-                    color: var(--ion-color-blue55);
-                    margin-right: 15px;
-                }
-            }
-
-            label.required:after {
-                content: '*';
-                padding-left: 5px;
-                color: var(--ion-color-red80);
-            }
-
-            div.ng-star-inserted div.ng-star-inserted:first-child label:first-child {
-                margin-top: 0px;
-            }
-        }
     }
 
     .expandable-comment-block {
@@ -269,5 +241,33 @@
 .interview-condition {
     p {
         padding: 0 16px;
+    }
+}
+
+::ng-deep .mat-expansion-panel-body {
+    padding: 15px !important;
+
+    label {
+        font-size: 17px;
+        margin: 0px 0px 10px 0px;
+        display: flex;
+        align-items: center;
+        color: var(--ion-color-grey10);
+
+        span {
+            font-weight: normal;
+            color: var(--ion-color-blue55);
+            margin-right: 15px;
+        }
+    }
+
+    label.required:after {
+        content: '*';
+        padding-left: 5px;
+        color: var(--ion-color-red80);
+    }
+
+    div.ng-star-inserted div.ng-star-inserted:first-child label:first-child {
+        margin-top: 0px;
     }
 }

@@ -504,6 +504,7 @@
             "REDACTOR": "Rédacteur",
             "INTERVIEW_CONDITION": {
                 "TITLE": "Conditions de réalisation de l'entretien",
+                "LABEL": "Sélectionnez une condition :",
                 "FACE_TO_FACE": "En présentiel",
                 "REMOTE": "A distance"
             },
