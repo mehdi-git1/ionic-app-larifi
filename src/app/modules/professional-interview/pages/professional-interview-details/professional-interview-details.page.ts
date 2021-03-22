@@ -9,21 +9,24 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import {
-    ProfessionalInterviewCommentItemTypeEnum
+  ProfessionalInterviewCommentItemTypeEnum
 } from '../../../../core/enums/professional-interview/professional-interview-comment-item-type.enum';
 import {
-    ProfessionalInterviewStateEnum
+  ProfessionalInterviewConditionEnum
+} from '../../../../core/enums/professional-interview/professional-interview-condition.enum';
+import {
+  ProfessionalInterviewStateEnum
 } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 import {
-    ProfessionalInterviewTypeEnum
+  ProfessionalInterviewTypeEnum
 } from '../../../../core/enums/professional-interview/professional-interview-type.enum';
 import { DocumentModel } from '../../../../core/models/document.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
-    ProfessionalInterviewThemeModel
+  ProfessionalInterviewThemeModel
 } from '../../../../core/models/professional-interview/professional-interview-theme.model';
 import {
-    ProfessionalInterviewModel
+  ProfessionalInterviewModel
 } from '../../../../core/models/professional-interview/professional-interview.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
@@ -31,13 +34,13 @@ import { OfflinePncService } from '../../../../core/services/pnc/offline-pnc.ser
 import { PncTransformerService } from '../../../../core/services/pnc/pnc-transformer.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import {
-    OfflineProfessionalInterviewService
+  OfflineProfessionalInterviewService
 } from '../../../../core/services/professional-interview/offline-professional-interview.service';
 import {
-    ProfessionalInterviewStatusService
+  ProfessionalInterviewStatusService
 } from '../../../../core/services/professional-interview/professional-interview-status.service';
 import {
-    ProfessionalInterviewService
+  ProfessionalInterviewService
 } from '../../../../core/services/professional-interview/professional-interview.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -53,6 +56,7 @@ import { Utils } from '../../../../shared/utils/utils';
 export class ProfessionalInterviewDetailsPage {
 
   PncRoleEnum = PncRoleEnum;
+  ProfessionalInterviewConditionEnum = ProfessionalInterviewConditionEnum;
 
   pnc: PncModel;
   professionalInterview: ProfessionalInterviewModel;
@@ -136,6 +140,7 @@ export class ProfessionalInterviewDetailsPage {
     group['professionalInterviewDateControl'] = new FormControl('');
     group['pncCommentControl'] = new FormControl('', Validators.maxLength(this.pncCommentMaxLength));
     group['pncAcknowledgementControl'] = new FormControl('');
+    group['interviewConditionControl'] = new FormControl('', Validators.required);
     this.professionalInterviewForm = this.formBuilder.group(group);
   }
 
@@ -227,9 +232,7 @@ export class ProfessionalInterviewDetailsPage {
    *
    */
   confirmationDialog(): void {
-    if (!this.professionalInterviewForm.pristine) {
-      this.router.navigateByUrl('tabs/visit/'.concat(this.professionalInterview.matricule).concat('/development-program'));
-    }
+    this.router.navigateByUrl('tabs/visit/'.concat(this.pncService.getRequestedPncMatricule(this.activatedRoute)).concat('/development-program'));
   }
   /**
    * Vérifie si le formulaire a été modifié sans être enregistré
@@ -527,7 +530,7 @@ export class ProfessionalInterviewDetailsPage {
    * Verifie que tout les champs de saisie sont remplis
    */
   isAllIFieldsAreFilled() {
-    if (!this.professionalInterview.annualProfessionalInterviewDate) {
+    if (!this.professionalInterview.annualProfessionalInterviewDate || !this.professionalInterview.interviewCondition) {
       return false;
     }
     let returnValue = true;

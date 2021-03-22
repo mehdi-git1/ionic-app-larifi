@@ -502,6 +502,12 @@
             "INTERVIEW_DATE": "Date de l'entretien",
             "UPDATE_DATE": "Enregistré depuis le",
             "REDACTOR": "Rédacteur",
+            "INTERVIEW_CONDITION": {
+                "TITLE": "Conditions de réalisation de l'entretien",
+                "LABEL": "Sélectionnez une condition :",
+                "FACE_TO_FACE": "En présentiel",
+                "REMOTE": "A distance"
+            },
             "STATE": {
                 "LABEL": "Statut en cours",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",

@@ -122,6 +122,34 @@
                         </div>
                     </edospnc-expandable-block>
 
+                    <!-- Condition d'interview : présential ou à distance -->
+                    <edospnc-expandable-block mini="true" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_CONDITION.TITLE' | translate}}">
+                        <div class="interview-condition">
+                            <p *ngIf="!editionMode; else editInterviewConditionBlock">
+                                <ng-container *ngIf="professionalInterview.interviewCondition">
+                                    {{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_CONDITION.'+professionalInterview.interviewCondition | translate }}
+                                </ng-container>
+                                <ng-container *ngIf="!professionalInterview.interviewCondition">
+                                    <no-data></no-data>
+                                </ng-container>
+                            </p>
+                            <ng-template #editInterviewConditionBlock>
+                                <label class="required">{{'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_CONDITION.LABEL' | translate}}</label>
+                                <ion-radio-group [(ngModel)]="professionalInterview.interviewCondition" formControlName="interviewConditionControl">
+                                    <ion-item>
+                                        <ion-label>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_CONDITION.FACE_TO_FACE' | translate }}</ion-label>
+                                        <ion-radio slot="start" [value]="ProfessionalInterviewConditionEnum.FACE_TO_FACE"></ion-radio>
+                                    </ion-item>
+
+                                    <ion-item>
+                                        <ion-label>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_CONDITION.REMOTE' | translate }}</ion-label>
+                                        <ion-radio slot="start" [value]="ProfessionalInterviewConditionEnum.REMOTE"></ion-radio>
+                                    </ion-item>
+                                </ion-radio-group>
+                            </ng-template>
+                        </div>
+                    </edospnc-expandable-block>
+
 
                     <div class="state-block" *ngIf="professionalInterview?.state">
                         <div class="flex align-center flex1">
@@ -173,7 +201,7 @@
                         <div class="button-bar">
                             <div class="button-bar-right">
                                 <!-- Bouton annuler bilan professionnel en brouillon -->
-                                <ion-button color="primary" fill="outline" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.DRAFT)" (click)="confirmationDialog()">
+                                <ion-button color="primary" fill="outline" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.DRAFT)" (click)="confirmationDialog()" [disabled]="professionalInterviewForm.pristine">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.CANCEL' | translate }}
                                 </ion-button>
                                 <!-- Bouton supprimer bilan professionnel en brouillon -->

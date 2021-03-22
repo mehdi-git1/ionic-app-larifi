@@ -1,4 +1,7 @@
 import {
+    ProfessionalInterviewConditionEnum
+} from '../../enums/professional-interview/professional-interview-condition.enum';
+import {
     ProfessionalInterviewStateEnum
 } from '../../enums/professional-interview/professional-interview-state.enum';
 import {
@@ -29,6 +32,7 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     fromDate: Date;
     toDate: Date;
     signingBlock: boolean;
+    interviewCondition: ProfessionalInterviewConditionEnum;
     attachmentFiles: Array<DocumentModel> = new Array();
 
     getStorageId(): string {
