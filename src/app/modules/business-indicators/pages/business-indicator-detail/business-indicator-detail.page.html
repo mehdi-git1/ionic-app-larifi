@@ -25,9 +25,9 @@
     </div>
 </ion-header>
 <ion-content>
-    <div class="page-container">
-        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-        <ng-template #pageBlock>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <div class="page-container">
 
             <!-- Infos vol -->
             <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_INFORMATIONS' | translate}}">
@@ -243,8 +243,8 @@
                         <thead>
                             <tr class="mat-header-row">
                                 <th class="short-loop-rating mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.RATING' | translate }}</th>
-                                <th class="positive-feedback-reason mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>
-                                <th class="negative-feedback-reason mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}</th>
+                                <th class="appreciated-points mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>
+                                <th class="points-to-improve mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -267,14 +267,14 @@
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="positiveFeedbackReason">
-                            <th mat-header-cell *matHeaderCellDef class="positive-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>
-                            <td mat-cell *matCellDef="let shortLoopComment" class="positive-feedback-reason" [ngClass]="{'can-be-reported':canBeReported(shortLoopComment.appreciatedPoints, shortLoopComment.appreciatedPointsReported)}" (click)="confirmReportShortLoopCommentVerbatim(shortLoopComment, ShortLoopCommentVerbatimEnum.APPRECIATED_POINTS, shortLoopComment.appreciatedPoints, shortLoopComment.appreciatedPointsReported)">
+                            <th mat-header-cell *matHeaderCellDef class="appreciated-points">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>
+                            <td mat-cell *matCellDef="let shortLoopComment" [ngClass]="{'can-be-reported':canBeReported(shortLoopComment.appreciatedPoints, shortLoopComment.appreciatedPointsReported)}" (click)="confirmReportShortLoopCommentVerbatim(shortLoopComment, ShortLoopCommentVerbatimEnum.APPRECIATED_POINTS, shortLoopComment.appreciatedPoints, shortLoopComment.appreciatedPointsReported)">
                                 <business-indicator-comment-verbatim [verbatim]="shortLoopComment.appreciatedPoints" [reported]="shortLoopComment.appreciatedPointsReported"></business-indicator-comment-verbatim>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="negativeFeedbackReason">
-                            <th mat-header-cell *matHeaderCellDef class="negative-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}</th>
-                            <td mat-cell *matCellDef="let shortLoopComment" class="negative-feedback-reason" [ngClass]="{'can-be-reported':canBeReported(shortLoopComment.pointsToImprove, shortLoopComment.pointsToImproveReported)}" (click)="confirmReportShortLoopCommentVerbatim(shortLoopComment, ShortLoopCommentVerbatimEnum.POINTS_TO_IMPROVE, shortLoopComment.pointsToImprove, shortLoopComment.pointsToImproveReported)">
+                            <th mat-header-cell *matHeaderCellDef class="points-to-improve">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}</th>
+                            <td mat-cell *matCellDef="let shortLoopComment" [ngClass]="{'can-be-reported':canBeReported(shortLoopComment.pointsToImprove, shortLoopComment.pointsToImproveReported)}" (click)="confirmReportShortLoopCommentVerbatim(shortLoopComment, ShortLoopCommentVerbatimEnum.POINTS_TO_IMPROVE, shortLoopComment.pointsToImprove, shortLoopComment.pointsToImproveReported)">
                                 <business-indicator-comment-verbatim [verbatim]="shortLoopComment.pointsToImprove" [reported]="shortLoopComment.pointsToImproveReported"></business-indicator-comment-verbatim>
                             </td>
                         </ng-container>
@@ -290,7 +290,6 @@
                     </div>
                 </span>
             </ng-container>
-
-        </ng-template>
-    </div>
+        </div>
+    </ng-template>
 </ion-content>
