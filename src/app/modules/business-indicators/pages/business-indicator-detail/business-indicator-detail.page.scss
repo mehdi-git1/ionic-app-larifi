@@ -135,24 +135,33 @@ table {
     }
 
     .escore-rating {
-        text-align: center;
-    }
-
-    .short-loop-rating {
-        width: 150px;
+        width: 10%;
         text-align: center;
     }
 
     .positive-feedback-reason {
-        min-width: 130px;
+        width: 30%;
     }
 
     .negative-feedback-reason {
-        min-width: 130px;
+        width: 30%;
     }
 
     .suggestions {
-        min-width: 100px;
+        width: 30%;
+    }
+
+    .short-loop-rating {
+        width: 14%;
+        text-align: center;
+    }
+
+    .appreciated-points {
+        width: 43%;
+    }
+
+    .points-to-improve {
+        width: 43%;
     }
 
     th.mat-header-cell:first-child {
