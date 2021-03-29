@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -12,7 +12,7 @@ export class TruncatedTextComponent {
 
   @Input() inputText: string;
 
-  @ViewChild('textTarget', { static: true }) textTarget: any;
+  @ViewChild('textTarget', { static: true }) textTarget: ElementRef;
 
   constructor(
     private alertCtrl: AlertController,
