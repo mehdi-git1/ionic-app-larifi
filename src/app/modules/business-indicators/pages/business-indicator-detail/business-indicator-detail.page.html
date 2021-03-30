@@ -132,13 +132,6 @@
                             </div>
                         </div>
                         <div class="item">
-                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.GIFT_FOR_CARE' | translate}} </label>
-                            <div>
-                                <img src="assets/imgs/business-indicators/gift-for-care.svg" />
-                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.giftForCare)"> {{ businessIndicator.giftForCare }} </span>
-                            </div>
-                        </div>
-                        <div class="item">
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.UPGRADE' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/upgrade-black.svg" />
@@ -149,7 +142,7 @@
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.KDO' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/kdo.svg" />
-                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.kdo)"> {{ businessIndicator.kdo }} </span>
+                                <span class="value" [class.no-data]="isEmptyOrZero(getKdoCount())"> {{ getKdoCount() }} </span>
                             </div>
                         </div>
                     </div>
