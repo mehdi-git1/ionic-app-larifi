@@ -385,4 +385,12 @@ export class BusinessIndicatorDetailPage {
     canBeReported(verbatim: string, verbatimReported: boolean): boolean {
         return this.reportVerbatimMode && !Utils.isEmpty(verbatim) && !verbatimReported;
     }
+
+    /**
+     * Retourne le nombre de KDO (somme des KDO et gift for care)
+     * @return le nombre de KDO
+     */
+    getKdoCount(): number {
+        return this.businessIndicator.kdo + this.businessIndicator.giftForCare;
+    }
 }
