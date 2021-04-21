@@ -345,6 +345,9 @@ export class LogbookEventComponent implements OnInit {
      * @return true si les pnc sont notifiés, false sinon
      */
     isPncNotified(pncList: Array<PncLightModel>): boolean {
+        if (!pncList || pncList.length === 0) {
+            return false;
+        }
         for (const pnc of pncList) {
             if (!pnc || !pnc.matricule) {
                 return false;

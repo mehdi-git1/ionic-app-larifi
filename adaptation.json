@@ -7,7 +7,7 @@
             "configFile": "./src/environments/prod.ts",
             "appName": "eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospnc",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "provisioningProfile": "fb3075e9-4ab2-412c-b252-eea24559044d"
         },
         {
@@ -15,7 +15,7 @@
             "configFile": "./src/environments/dev.ts",
             "appName": "DEV eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "provisioningProfile": "125142d4-8b93-4668-ba58-9b387562f234"
         },
         {
@@ -23,7 +23,7 @@
             "configFile": "./src/environments/rct.ts",
             "appName": "RCT eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "provisioningProfile": "c30b1e11-2cf3-4cf9-87fd-dbf4af3d6eb8"
         },
         {
@@ -31,7 +31,7 @@
             "configFile": "./src/environments/preprod.ts",
             "appName": "PREPROD eDossierPNC ",
             "appId": "com.airfrance.mobile.inhouse.edospncPREPROD",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "provisioningProfile": "f1f46b4d-3436-40f2-b1e0-3ecde4831b7c"
         },
         {
@@ -39,7 +39,7 @@
             "configFile": "./src/environments/dev2.ts",
             "appName": "DEV2 eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV2",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "provisioningProfile": "b8b6773d-cf77-4945-b7aa-1ca141d7d305"
         },
         {
@@ -47,7 +47,7 @@
             "configFile": "./src/environments/rct2.ts",
             "appName": "RCT2 eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT2",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "provisioningProfile": "e0696695-a4ee-4d22-b80e-f8cb05baf1c0"
         }
     ]
