@@ -10,11 +10,11 @@
     <pnc-edossier-header [activeTab]="TabHeaderEnum.REDACTIONS_PAGE"></pnc-edossier-header>
 </ion-header>
 <ion-content>
-    <div class="page-container">
-        <div *ngIf="isConnected(); else notConnectedBlock">
-            <div *ngIf="hasRedactions() || (isBrowser() && isManager()); else noRedactionsBlock">
-                <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-                <ng-template #pageBlock>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <div class="page-container">
+            <div *ngIf="isConnected(); else notConnectedBlock">
+                <div *ngIf="hasRedactions() || (isBrowser() && isManager()); else noRedactionsBlock">
 
                     <nav class="tabs">
                         <ng-container *ngFor="let tab of tabList">
@@ -55,14 +55,14 @@
 
                         <extra-redactions [pnc]="pnc"></extra-redactions>
                     </div>
+                </div>
+                <ng-template #noRedactionsBlock>
+                    <no-data></no-data>
                 </ng-template>
             </div>
-            <ng-template #noRedactionsBlock>
-                <no-data></no-data>
+            <ng-template #notConnectedBlock>
+                {{ 'GLOBAL.UNAIVALABLE_OFFLINE' | translate }}
             </ng-template>
         </div>
-        <ng-template #notConnectedBlock>
-            {{ 'GLOBAL.UNAIVALABLE_OFFLINE' | translate }}
-        </ng-template>
-    </div>
+    </ng-template>
 </ion-content>

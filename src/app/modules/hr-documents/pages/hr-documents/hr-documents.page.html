@@ -7,9 +7,9 @@
     <pnc-edossier-header [activeTab]="TabHeaderEnum.HR_DOCUMENT_PAGE"></pnc-edossier-header>
 </ion-header>
 <ion-content no-bounce>
-    <div class="page-container">
-        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-        <ng-template #pageBlock>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <div class="page-container">
             <div *ngIf="isConnected(); else notConnectedBlock">
                 <div class="top-container">
                     <div class="filter">
@@ -114,6 +114,6 @@
             <ng-template #notConnectedBlock>
                 {{ 'HR_DOCUMENT.UNAIVALABLE_OFFLINE' | translate }}
             </ng-template>
-        </ng-template>
-    </div>
+        </div>
+    </ng-template>
 </ion-content>
