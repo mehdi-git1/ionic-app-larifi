@@ -15,8 +15,8 @@ import {
     BusinessIndicatorLightModel
 } from '../../models/business-indicator/business-indicator-light.model';
 import {
-    BusinessIndicatorSummaryModel
-} from '../../models/business-indicator/business-indicator-summary.model';
+    BusinessIndicatorSummariesModel
+} from '../../models/business-indicator/business-indicator-summaries.model';
 import { BusinessIndicatorModel } from '../../models/business-indicator/business-indicator.model';
 import { EScoreCommentModel } from '../../models/business-indicator/e-score-comment.model';
 import { ShortLoopCommentModel } from '../../models/business-indicator/short-loop-comment.model';
@@ -40,14 +40,14 @@ export class OnlineBusinessIndicatorService {
     }
 
     /**
-     * Récupère la synthèse des indicateurs métier des 6 derniers mois d'un PNC
+     * Récupère les synthèses des indicateurs métier des 6 derniers mois d'un PNC
      *
      * @param matricule
      *            le matricule du Pnc
-     * @return la synthèse des indicateurs métier des 6 derniers mois
+     * @return les synthèses des indicateurs métier des 6 derniers mois
      */
-    getBusinessIndicatorSummary(matricule: string): Promise<BusinessIndicatorSummaryModel> {
-        return this.restService.get(this.config.getBackEndUrl('getBusinessIndicatorSummary', [matricule]));
+    getBusinessIndicatorSummaries(matricule: string): Promise<BusinessIndicatorSummariesModel> {
+        return this.restService.get(this.config.getBackEndUrl('getBusinessIndicatorSummaries', [matricule]));
     }
 
     /**

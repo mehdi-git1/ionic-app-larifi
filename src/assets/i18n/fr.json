@@ -1141,6 +1141,10 @@
         "LIST": {
             "PAST_SUMMARY": {
                 "TITLE": "Indicateurs métier sur 6 mois glissants",
+                "CCP": "CCP",
+                "CC_LC": "CC-LC",
+                "CC_MC": "CC-MC",
+                "CC_CC": "CC-CC",
                 "ESCORE_AVERAGE_CCP_CC_MC": "Moyenne eScore - retours global vol",
                 "ESCORE_AVERAGE_CC_LC": "Moyenne eScore - retours par cabine de travail",
                 "ESCORE_AVERAGE_SHORT_LABEL": "Moyenne eScore",
