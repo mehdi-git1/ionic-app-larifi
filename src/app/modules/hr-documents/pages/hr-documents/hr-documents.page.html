@@ -7,10 +7,10 @@
     <pnc-edossier-header [activeTab]="TabHeaderEnum.HR_DOCUMENT_PAGE"></pnc-edossier-header>
 </ion-header>
 <ion-content no-bounce>
-    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-    <ng-template #pageBlock>
-        <div class="page-container">
-            <div *ngIf="isConnected(); else notConnectedBlock">
+    <ng-container *ngIf="isConnected(); else offlineBlock">
+        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
+            <div class="page-container">
                 <div class="top-container">
                     <div class="filter">
                         <ion-label class="input-label">{{ 'HR_DOCUMENT.SEARCH.CATEGORY' | translate }}&nbsp;:
@@ -111,9 +111,12 @@
                     </div>
                 </ng-template>
             </div>
-            <ng-template #notConnectedBlock>
-                {{ 'HR_DOCUMENT.UNAIVALABLE_OFFLINE' | translate }}
-            </ng-template>
+        </ng-template>
+    </ng-container>
+    <ng-template #offlineBlock>
+        <div class="no-data-splash">
+            <ion-icon name="cloud-offline"></ion-icon>
+            <span>{{ 'HR_DOCUMENT.UNAIVALABLE_OFFLINE' | translate }}</span>
         </div>
     </ng-template>
 </ion-content>

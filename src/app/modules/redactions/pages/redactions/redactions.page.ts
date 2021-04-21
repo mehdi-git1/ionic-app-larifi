@@ -93,10 +93,15 @@ export class RedactionsPage {
             this.eObservations = eObservations;
         });
 
-        const careerObjectivesPromise = this.careerObjectiveService.findCareerObjectivesByRedactor(this.matricule).then(careerObjectives => {
-            this.careerObjectives = careerObjectives;
-            this.careerObjectives.sort((priority1, priority2) => moment(priority1.creationDate, AppConstant.isoDateFormat).isAfter(moment(priority2.creationDate, AppConstant.isoDateFormat)) ? -1 : 1);
-        });
+        const careerObjectivesPromise = this.careerObjectiveService
+            .findCareerObjectivesByRedactor(this.matricule).then(careerObjectives => {
+                this.careerObjectives = careerObjectives;
+                if (this.careerObjectives) {
+                    this.careerObjectives.sort((priority1, priority2) =>
+                        moment(priority1.creationDate, AppConstant.isoDateFormat)
+                            .isAfter(moment(priority2.creationDate, AppConstant.isoDateFormat)) ? -1 : 1);
+                }
+            });
 
         const professionalInterviewsPromise = this.professionalInterviewService.findProfessionalInterviewsByRedactor(this.matricule)
             .then(professionalInterviews => {
