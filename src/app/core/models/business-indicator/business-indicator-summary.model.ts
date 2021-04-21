@@ -1,6 +1,6 @@
 import {
     BusinessIndicatorPopulationEnum
-} from '../../enums/business-indicators/business-indicator-population.enum copy';
+} from '../../enums/business-indicators/business-indicator-population.enum';
 
 export class BusinessIndicatorSummaryModel {
     population: BusinessIndicatorPopulationEnum;

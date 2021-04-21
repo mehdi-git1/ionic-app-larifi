@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 
 import {
     BusinessIndicatorPopulationEnum
-} from '../../../../core/enums/business-indicators/business-indicator-population.enum copy';
+} from '../../../../core/enums/business-indicators/business-indicator-population.enum';
 import {
     BusinessIndicatorSummariesModel
 } from '../../../../core/models/business-indicator/business-indicator-summaries.model';

@@ -1138,6 +1138,7 @@
     },
     "BUSINESS_INDICATORS": {
         "UNAIVALABLE_OFFLINE": "Les indicateurs métier ne sont pas disponibles hors connexion",
+        "NO_BUSINESS_INDICATOR_AVAILABLE": "Aucun indicateur métier disponible",
         "LIST": {
             "PAST_SUMMARY": {
                 "TITLE": "Indicateurs métier sur 6 mois glissants",
