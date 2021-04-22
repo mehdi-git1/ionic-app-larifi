@@ -7,10 +7,10 @@
     <pnc-edossier-header [activeTab]="TabHeaderEnum.LOGBOOK_PAGE"></pnc-edossier-header>
 </ion-header>
 <ion-content no-bounce>
-    <div class="page-container">
+    <ng-container *ngIf="isConnected(); else offlineBlock">
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-            <span *ngIf="isConnected(); else notConnectedBlock">
+            <div class="page-container">
                 <div class="button-bar" *ngIf="isEventCreationAvailable()">
                     <ion-button color="primary" (click)="goToLogbookCreation()" slot="start">
                         <ion-icon name="add"></ion-icon><span>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</span>
@@ -89,10 +89,13 @@
                 <ng-template #noEventsBlock>
                     <no-data></no-data>
                 </ng-template>
-            </span>
-            <ng-template #notConnectedBlock>
-                {{ 'LOGBOOK.UNAIVALABLE_OFFLINE' | translate }}
-            </ng-template>
+            </div>
         </ng-template>
-    </div>
+    </ng-container>
+    <ng-template #offlineBlock>
+        <div class="no-data-splash">
+            <ion-icon name="cloud-offline"></ion-icon>
+            <span>{{ 'LOGBOOK.UNAIVALABLE_OFFLINE' | translate }}</span>
+        </div>
+    </ng-template>
 </ion-content>

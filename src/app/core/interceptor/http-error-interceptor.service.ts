@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import {
-    HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
+  HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,18 +11,18 @@ import { UrlConfiguration } from '../configuration/url.configuration';
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { DeviceService } from '../services/device/device.service';
 import { Events } from '../services/events/events.service';
-import { ToastService } from '../services/toast/toast.service';
+import { HttpErrorService } from '../http/http-error.service';
 
 @Injectable({ providedIn: 'root' })
 export class HttpErrorInterceptor implements HttpInterceptor {
 
   constructor(
-    private toastProvider: ToastService,
     private translateService: TranslateService,
     private connectivityService: ConnectivityService,
     private deviceService: DeviceService,
     private events: Events,
-    private config: UrlConfiguration
+    private config: UrlConfiguration,
+    private httpErrorService: HttpErrorService
   ) { }
 
   intercept(
@@ -43,7 +43,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 errorMessage = err.error.detailMessage;
               }
               if (request.headers && !request.headers.has('BYPASS_INTERCEPTOR')) {
-                this.toastProvider.error(errorMessage, 10000);
+                this.httpErrorService.showError(errorMessage);
               }
             },
             error => {
@@ -54,7 +54,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             errorMessage = err.error.detailMessage;
           }
           if (request.headers && !request.headers.has('BYPASS_INTERCEPTOR')) {
-            this.toastProvider.error(errorMessage, 10000);
+            this.httpErrorService.showError(errorMessage);
           }
         }
       }

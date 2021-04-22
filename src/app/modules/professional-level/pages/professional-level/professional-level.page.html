@@ -11,9 +11,9 @@
 </ion-header>
 
 <ion-content>
-    <div class="page-container">
-        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-        <ng-template #pageBlock>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <div class="page-container">
 
             <!-- Stages -->
             <h3>{{ 'PROFESSIONAL_LEVEL.STAGE_TITLE' | translate }}</h3>
@@ -34,8 +34,8 @@
             <!-- eObservations -->
             <eobservation-list [eObservations]="eObservations" [pnc]="pnc" [eObservationDisplayMode]="EObservationDisplayModeEnum.PROFESSIONAL_LEVEL"></eobservation-list>
 
-        </ng-template>
-    </div>
+        </div>
+    </ng-template>
 </ion-content>
 <ion-footer class="professional-level-footer">
     <h5>{{ 'PROFESSIONAL_LEVEL.LEGEND.TITLE' | translate }} :</h5>
