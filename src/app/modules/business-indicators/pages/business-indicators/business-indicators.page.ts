@@ -24,8 +24,8 @@ import {
     BusinessIndicatorLightModel
 } from '../../../../core/models/business-indicator/business-indicator-light.model';
 import {
-    BusinessIndicatorSummaryModel
-} from '../../../../core/models/business-indicator/business-indicator-summary.model';
+    BusinessIndicatorSummariesModel
+} from '../../../../core/models/business-indicator/business-indicator-summaries.model';
 import {
     BusinessIndicatorModel
 } from '../../../../core/models/business-indicator/business-indicator.model';
@@ -36,7 +36,6 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import {
     BusinessIndicatorService
 } from '../../../../core/services/business-indicator/business-indicator.service';
-import { DeviceService } from '../../../../core/services/device/device.service';
 import {
     BusinessIndicatorFlightLegendComponent
 } from '../../components/business-indicator-flight-legend/business-indicator-flight-legend.component';
@@ -52,7 +51,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
     TabHeaderEnum = TabHeaderEnum;
     totalElements: number;
     pnc: PncModel;
-    businessIndicatorSummary: BusinessIndicatorSummaryModel;
+    businessIndicatorSummaries: BusinessIndicatorSummariesModel;
     businessIndicators: BusinessIndicatorModel[];
     businessIndicatorsFilter: BusinessIndicatorFilterModel;
     dataSource: MatTableDataSource<BusinessIndicatorModel>;
@@ -65,8 +64,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
         private pncService: PncService,
         private businessIndicatorService: BusinessIndicatorService,
         private connectivityService: ConnectivityService,
-        private popoverCtrl: PopoverController,
-        private deviceService: DeviceService
+        private popoverCtrl: PopoverController
     ) {
     }
 
@@ -76,8 +74,8 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
             this.pnc = pnc;
         });
 
-        this.businessIndicatorService.getBusinessIndicatorSummary(matricule).then(businessIndicatorSummary => {
-            this.businessIndicatorSummary = businessIndicatorSummary;
+        this.businessIndicatorService.getBusinessIndicatorSummaries(matricule).then(businessIndicatorSummaries => {
+            this.businessIndicatorSummaries = businessIndicatorSummaries;
         });
 
         this.getIndicatorsByFilter(matricule).subscribe(pagedIndicator => this.processRequestResult(pagedIndicator));
@@ -98,7 +96,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return (this.pnc !== undefined && this.businessIndicators !== undefined && this.businessIndicatorSummary !== undefined);
+        return (this.pnc !== undefined && this.businessIndicators !== undefined && this.businessIndicatorSummaries !== undefined);
     }
 
     /**
@@ -194,14 +192,6 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
     }
 
     /**
-     * Vérifie si le PNC est CC et vole sur LC
-     * @return vrai si c'est le cas, faux sinon
-     */
-    isPncCcLc() {
-        return this.pncService.isCcLc(this.pnc);
-    }
-
-    /**
      * Vérifie si l'on est connecté
      * @return true si on est connecté, false sinon
      */
@@ -219,21 +209,12 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
             component: BusinessIndicatorFlightLegendComponent,
             event,
             translucent: true,
-            componentProps: { hasNeverFlownAsCcLcDuringPastYear: this.businessIndicatorSummary.hasNeverFlownAsCcLcDuringPastYear }
+            componentProps: { hasNeverFlownAsCcLcDuringPastYear: this.businessIndicatorSummaries.hasNeverFlownAsCcLcDuringPastYear }
         }).then(popover => {
             popover.present();
         });
     }
 
-
-    /**
-     * Teste si la valeur existe
-     * @param value la valeur à tester
-     * @return vrai si c'est le cas, faux sinon
-     */
-    isDefined(value: any): boolean {
-        return value !== undefined;
-    }
 
     /**
      * Recupère les indicateurs metiers du pnc.
@@ -277,11 +258,4 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
         return this.totalElements;
     }
 
-    /**
-     * Teste si on est sur mobile
-     * @return vrai si c'est le cas, faux sinon
-     */
-    isMobile(): boolean {
-        return !this.deviceService.isBrowser();
-    }
 }

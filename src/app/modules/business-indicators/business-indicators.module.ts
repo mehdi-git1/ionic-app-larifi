@@ -16,6 +16,9 @@ import {
 import {
     BusinessIndicatorPerfopsLegendComponent
 } from './components/business-indicator-perfops-legend/business-indicator-perfops-legend.component';
+import {
+    BusinessIndicatorSummaryComponent
+} from './components/business-indicator-summary/business-indicator-summary.component';
 import { EscoreChartComponent } from './components/escore-chart/escore-chart.component';
 import {
     BusinessIndicatorDetailPage
@@ -29,7 +32,8 @@ import { BusinessIndicatorsPage } from './pages/business-indicators/business-ind
     EscoreChartComponent,
     BusinessIndicatorFlightLegendComponent,
     BusinessIndicatorPerfopsLegendComponent,
-    BusinessIndicatorCommentVerbatimComponent
+    BusinessIndicatorCommentVerbatimComponent,
+    BusinessIndicatorSummaryComponent
   ],
   imports: [
     IonicModule,

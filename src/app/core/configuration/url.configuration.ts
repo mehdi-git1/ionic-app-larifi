@@ -77,7 +77,7 @@ export class UrlConfiguration {
     'getHrDocumentById': `${urlGroupEnum.HR_DOCUMENT}/{id}`,
     'getDwhHistory': `${urlGroupEnum.DWH_HISTORY}/{matricule}`,
     'findPncBusinessIndicators': `${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/list`,
-    'getBusinessIndicatorSummary': `${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/summary`,
+    'getBusinessIndicatorSummaries': `v2/${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/summaries`,
     'getBusinessIndicator': `${urlGroupEnum.BUSINESS_INDICATORS}/{id}`,
     'reportEScoreCommentVerbatim': `${urlGroupEnum.ESCORE_COMMENTS}/{id}/report/{commentVerbatim}`,
     'reportShortLoopCommentVerbatim': `${urlGroupEnum.SHORT_LOOP_COMMENTS}/{id}/report/{commentVerbatim}`,
