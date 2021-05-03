@@ -24,7 +24,6 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
   lastYearComparisonChecked = false;
 
   constructor(private translateService: TranslateService, private formBuilder: FormBuilder) {
-
   }
 
 
@@ -32,8 +31,7 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
     this.businessIndicatorFilter = new BusinessIndicatorFilterModel();
     this.secondPeriodStartDateMin = moment('2019-01-01').format('YYYY-MM-DD');
     this.initFiltersForm();
-    this.startDateOnChanges();
-    this.endDateOnChanges();
+    this.enableDatesOnChange();
   }
 
   ngAfterViewInit(): void {
@@ -41,27 +39,23 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   *
-   * @param checked
+   * Remplit les dates de la deuxième période, lorsque le choix est fait
+   * de comparer par rapport à l'année dernière.
    */
   lastYearComparisonChange(): void {
-    console.log('years changed' + this.lastYearComparisonChecked);
     this.lastYearComparisonChecked = !this.lastYearComparisonChecked
     this.lastPeriodComparisonChecked = false;
-    console.log('years changed' + this.lastYearComparisonChecked);
     this.setFiltersToLastYear();
   }
 
-  /**
-   *
-   * @param checked
-   */
 
+  /**
+   * Remplit les dates de la deuxième période, lorsque le choix est fait
+   * de comparer par rapport à la période précedant la première période.
+   */
   lastPeriodComparisonChange(): void {
-    console.log('Period changed' + this.lastPeriodComparisonChecked);
     this.lastPeriodComparisonChecked = !this.lastPeriodComparisonChecked;
     this.lastYearComparisonChecked = false;
-    console.log('Period changed' + this.lastPeriodComparisonChecked);
     this.setFiltersTotLastPeriod();
   }
 
@@ -78,74 +72,57 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
     }
     );
   }
+
   /**
-   *
+   * Active pour les différentes dates, un observateur permettant de remplir
+   * automatique à six mois d'écart la de fin ou de début pour chaque période
    */
-  startDateOnChanges(): void {
-    // First Period
-    this.filtersForm.get('firstPeriodStartDate').valueChanges
-      .pipe(
-        distinctUntilChanged(),
-        filter((value: string) => value && value.length > 0)
-      ).subscribe(value => {
-        this.filtersForm.patchValue({
-          firstPeriodEndDate: this.addMonths(6, value)
-        })
-      })
-
-    // Second Period
-    this.filtersForm.get('secondPeriodStartDate').valueChanges
-      .pipe(
-        distinctUntilChanged(),
-        filter((value: string) => value && value.length > 0)
-      ).subscribe(value => {
-        this.filtersForm.patchValue({
-          secondPeriodEndDate: this.addMonths(6, value)
-        })
-      })
+  enableDatesOnChange(): void {
+    this.dateOnChanges('firstPeriodStartDate', 'firstPeriodEndDate', this.addMonths);
+    this.dateOnChanges('secondPeriodStartDate', 'secondPeriodEndDate', this.addMonths);
+    this.dateOnChanges('firstPeriodEndDate', 'firstPeriodStartDate', this.substractMonths);
+    this.dateOnChanges('secondPeriodEndDate', 'secondPeriodStartDate', this.substractMonths);
   }
 
+
   /**
+   * Fonction générique permettant de s'abonner aux changements de valeurs
+   * du controle @param{dateControlToObserve} et mettant à jour la valeur du control @param{dateControlToUpdate}
+   * en lui appliquant la fonction passée en paramètre.
    *
+   * @param dateControlToObserve le nom  du control à observer
+   * @param dateControlToUpdate le nom du control à mettre à jour
+   * @param fn la fonction à appliquer au control
    */
-  endDateOnChanges(): void {
-    this.filtersForm.get('firstPeriodEndDate').valueChanges
+  dateOnChanges(dateControlToObserve: string, dateControlToUpdate: string, fn: (amount: number, date?: string) => string): void {
+    this.filtersForm.get(dateControlToObserve).valueChanges
       .pipe(
         distinctUntilChanged(),
         filter((value: string) => value && value.length > 0)
       ).subscribe(value => {
-        this.filtersForm.patchValue({
-          firstPeriodStartDate: this.substractMonths(6, value)
-        })
-      });
-
-    this.filtersForm.get('secondPeriodEndDate').valueChanges
-      .pipe(
-        distinctUntilChanged(),
-        filter((value: string) => value && value.length > 0)
-      ).subscribe(value => {
-        this.filtersForm.patchValue({
-          secondPeriodStartDate: this.substractMonths(6, value)
-        })
+        this.filtersForm.get(dateControlToUpdate).patchValue(fn(6, value));
       })
   }
 
-  cancelComparison() {
-    this.comparisonCanceled.emit();
-  }
-
   /**
-   *
+   * Emet les valeurs renseignées dans le filtre
+   * afin de lancer la comparaison
    */
   launchComparison() {
     this.businessIndicatorFilter = this.filtersForm.value;
     this.comparisonLaunched.emit(this.businessIndicatorFilter);
   }
 
+  /**
+   *  Emet afin d'avertir de l'annulation de la comparaison
+   */
+  cancelComparison() {
+    this.comparisonCanceled.emit();
+  }
 
   /**
    * ajoute à la date passée en paramètre, le nombre de mois passé en paramètre.
-   * Si aucune date n'est passé, ajoute à la date courante, le nombre de mois.
+   * Si aucune date n'est passée, ajoute à la date courante, le nombre de mois.
    *
    * @param  amount le nombre de mois à rajouter
    * @returns la nouvelle date
@@ -157,7 +134,7 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
 
   /**
    * soustrait à la date passée en paramètre, le nombre de mois passé en paramètre.
-   * Si aucune date n'est passé, ajoute à la date courante, le nombre de mois.
+   * Si aucune date n'est passée, ajoute à la date courante, le nombre de mois.
    * @param amount
    * @param date
    * @returns
@@ -177,7 +154,7 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
 
   /**
   * Détermine si les champs date sont sélectionnables dans le formulaire.
-  * @returns
+  * @returns true si selectable, false sinon.
   */
   isPeriodSelectable(): boolean {
     return !this.lastPeriodComparisonChecked && !this.lastYearComparisonChecked;
@@ -186,7 +163,7 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
 
   /**
     * Réinitilise les filtres aux valeurs passées dans l'objet si le paramètre existe
-    * sinon, réinitialise aux valeurs initiales.
+    * sinon, réinitialise aux valeurs par défaut.
     */
   resetFilters(filter?: BusinessIndicatorFilterModel) {
     this.businessIndicatorFilter = (filter == undefined) ? this.getFiltersInitValue() : filter;
@@ -196,7 +173,8 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
 
 
   /**
-   *
+   * Définit les valeurs des dates de la seconde période aux dates correspondant
+   * à la période précédant la première.
    */
   setFiltersTotLastPeriod(): void {
     this.businessIndicatorFilter.secondPeriodEndDate = moment(this.businessIndicatorFilter.firstPeriodStartDate).subtract(1, 'days').toISOString();
@@ -205,7 +183,7 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   *
+   * Défnit les valeurs des date de la seconde périodes aux même dates de l'année n-1
    */
   setFiltersToLastYear() {
     this.businessIndicatorFilter.secondPeriodEndDate = moment(this.businessIndicatorFilter.firstPeriodEndDate).subtract(1, 'year').toISOString();
@@ -223,8 +201,8 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
   }
 
   /**
-  * Remets le filtre aux valeurs initiales
-  * @returns le filtre aux valeurs initiales.
+  * Remets le filtre aux valeurs par défaut
+  * @returns le filtre aux valeurs par défaut.
   */
   getFiltersInitValue(): BusinessIndicatorFilterModel {
     this.businessIndicatorFilter.firstPeriodStartDate = this.substractMonths(6);
