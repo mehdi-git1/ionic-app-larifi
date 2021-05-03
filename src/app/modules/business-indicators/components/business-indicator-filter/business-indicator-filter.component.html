@@ -1,0 +1,60 @@
+<h2>
+    {{ 'BUSINESS_INDICATORS.FILTERS.TITLE' | translate }}
+    <ion-button class="reinit-button" color="grey95" (click)="resetFilters()">
+        <ion-label>{{ 'BUSINESS_INDICATORS.FILTERS.REINIT_BUTTON' | translate }}</ion-label>
+    </ion-button>
+</h2>
+<form [formGroup]="filtersForm">
+    <h2>{{'BUSINESS_INDICATORS.FILTERS.FIRST_PERIOD' | translate }}</h2>
+    <div class="date-section">
+        <div>
+            <label>{{'BUSINESS_INDICATORS.FILTERS.START_DATE' | translate }}</label>
+            <edospnc-datetime [disabled]="!isPeriodSelectable()" [edospncFormGroup]="filtersForm" edospncFormControlName="firstPeriodStartDate" [displayIcon]="false" inputLike="true">
+            </edospnc-datetime>
+        </div>
+        <div>
+            <label>{{'BUSINESS_INDICATORS.FILTERS.END_DATE' | translate }}</label>
+            <edospnc-datetime [disabled]="!isPeriodSelectable()" [edospncFormGroup]="filtersForm" edospncFormControlName="firstPeriodEndDate" [displayIcon]="false" inputLike="true">
+            </edospnc-datetime>
+        </div>
+    </div>
+
+    <div class="auto-fill-checkbox-section">
+        <ion-item (click)="lastPeriodComparisonChange()">
+            <ion-label>
+                {{'BUSINESS_INDICATORS.FILTERS.COMPARE_TO_LAST_PERIOD' | translate}}</ion-label>
+            <ion-checkbox [checked]="lastPeriodComparisonChecked"></ion-checkbox>
+        </ion-item>
+        <ion-item (click)="lastYearComparisonChange()">
+            <ion-label> {{'BUSINESS_INDICATORS.FILTERS.COMPARE_TO_LAST_YEAR' | translate}}</ion-label>
+            <ion-checkbox [checked]="lastYearComparisonChecked"> </ion-checkbox>
+        </ion-item>
+    </div>
+
+    <h2>{{'BUSINESS_INDICATORS.FILTERS.SECOND_PERIOD' | translate }}</h2>
+    <div class="date-section">
+        <div>
+            <label>{{'BUSINESS_INDICATORS.FILTERS.START_DATE' | translate }}</label>
+            <edospnc-datetime [disabled]="!isPeriodSelectable()" [edospncFormGroup]="filtersForm" edospncFormControlName="secondPeriodStartDate" [minStartDate]="secondPeriodStartDateMin" [displayIcon]="false" inputLike="true">
+            </edospnc-datetime>
+        </div>
+        <div>
+            <label>{{'BUSINESS_INDICATORS.FILTERS.END_DATE' | translate }}</label>
+            <edospnc-datetime [disabled]="!isPeriodSelectable()" [edospncFormGroup]="filtersForm" edospncFormControlName="secondPeriodEndDate" [displayIcon]="false" inputLike="true">
+            </edospnc-datetime>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <div class="cancel-button">
+            <ion-button (click)="cancelComparison()" color="secondary">
+                <ion-label>{{ 'BUSINESS_INDICATORS.FILTERS.CANCEL'| translate }}</ion-label>
+            </ion-button>
+        </div>
+        <div class="search-button">
+            <ion-button color="primary" (click)="launchComparison()" [disabled]="isComparisonLaunchDisabled()">
+                <ion-label>{{ 'BUSINESS_INDICATORS.FILTERS.COMPARE' | translate }}</ion-label>
+            </ion-button>
+        </div>
+    </div>
+</form>
