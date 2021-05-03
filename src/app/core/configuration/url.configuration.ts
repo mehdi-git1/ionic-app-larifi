@@ -78,6 +78,7 @@ export class UrlConfiguration {
     'getDwhHistory': `${urlGroupEnum.DWH_HISTORY}/{matricule}`,
     'findPncBusinessIndicators': `${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/list`,
     'getBusinessIndicatorSummaries': `v2/${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/summaries`,
+    'getBusinessIndicatorSummariesComparison': `v2/${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/comparison`,
     'getBusinessIndicator': `${urlGroupEnum.BUSINESS_INDICATORS}/{id}`,
     'reportEScoreCommentVerbatim': `${urlGroupEnum.ESCORE_COMMENTS}/{id}/report/{commentVerbatim}`,
     'reportShortLoopCommentVerbatim': `${urlGroupEnum.SHORT_LOOP_COMMENTS}/{id}/report/{commentVerbatim}`,
