@@ -1139,13 +1139,35 @@
     "BUSINESS_INDICATORS": {
         "UNAIVALABLE_OFFLINE": "Les indicateurs métier ne sont pas disponibles hors connexion",
         "NO_BUSINESS_INDICATOR_AVAILABLE": "Aucun indicateur métier disponible",
+        "FILTERS":{
+            "TITLE": "Filtres",
+            "REINIT_BUTTON": "Réinitialiser",
+            "FIRST_PERIOD":"Première période",
+            "START_DATE": "Du",
+            "END_DATE": "Au",
+            "COMPARE_TO_LAST_PERIOD":"Comparer à la période précédente",
+            "COMPARE_TO_LAST_YEAR":"Comparer à l'année dernière",
+            "SECOND_PERIOD": "Seconde période",
+            "COMPARE": "Comparer",
+            "CANCEL": "Annuler",
+            "ERRORS": {
+              "SIX_MONTHS_INTERVAL_ERROR": "Il doit y avoir exactement six mois d'intervalle"
+            }
+        },
         "LIST": {
             "PAST_SUMMARY": {
                 "TITLE": "Indicateurs métier sur 6 mois glissants",
+                "DISPLAY_LAST_SIX_MONTHS": "Retour",
+                "COMPARISON_BUTTON": "Comparer",
+                "PERIOD_COMPARED": "période",
+                "COMPARISON_TITLE" : "Indicateurs",
+                "FROM": "Du",
+                "TO": "Au",
                 "CCP": "CCP",
                 "CC_LC": "CC-LC",
                 "CC_MC": "CC-MC",
                 "CC_CC": "CC-CC",
+                "POPULATION_TYPE": "Fonction",
                 "ESCORE_AVERAGE_CCP_CC_MC": "Moyenne eScore - retours global vol",
                 "ESCORE_AVERAGE_CC_LC": "Moyenne eScore - retours par cabine de travail",
                 "ESCORE_AVERAGE_SHORT_LABEL": "Moyenne eScore",

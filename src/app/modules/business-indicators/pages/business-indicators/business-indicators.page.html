@@ -11,73 +11,97 @@
     <ng-container *ngIf="isConnected(); else offlineBlock">
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-            <ng-container *ngIf="businessIndicators.length > 0; else noBusinessIndicatorBlock">
-                <div class="page-container">
-                    <h3 class="summary-title"> {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.TITLE' | translate }}
-                    </h3>
-                    <business-indicator-summary [businessIndicatorSummaries]="businessIndicatorSummaries" [pnc]="pnc"></business-indicator-summary>
+            <mat-sidenav-container>
+                <mat-sidenav mode="side" [opened]="isFilterOpened">
+                    <business-indicator-filter (comparisonCanceled)="setFilterContainerState(false)" (comparisonLaunched)="launchComparison($event)" [disabledComparisonLaunchButton]="disabledComparisonLaunchButton"></business-indicator-filter>
+                </mat-sidenav>
+                <mat-sidenav-content>
+                    <ng-container *ngIf="businessIndicators.length > 0; else noBusinessIndicatorBlock">
+                        <div class="page-container">
+                            <ng-container *ngIf="businessIndicatorSummariesComparison && businessIndicatorSummariesComparison.length > 0 else lastSixMonthIndicatorSummary">
+                                <div class="comparison-chart">
+                                    <div class="six-month-summary-button">
+                                        <ion-button (click)="reinitSummariesComparisonData()">
+                                            {{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.DISPLAY_LAST_SIX_MONTHS' | translate}}
+                                        </ion-button>
+                                    </div>
+                                    <business-indicator-comparison-chart [pnc]="pnc" [businessIndicatorComparison]="businessIndicatorSummariesComparison"></business-indicator-comparison-chart>
+                                </div>
+                            </ng-container>
+                            <ng-template #lastSixMonthIndicatorSummary>
+                                <div class="summary-title-bloc">
+                                    <h3> {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.TITLE' | translate }}
+                                    </h3>
+                                    <ion-button (click)="setFilterContainerState(true)" *ngIf="!isFilterOpened">
+                                        {{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.COMPARISON_BUTTON' | translate}}
+                                    </ion-button>
+                                </div>
+                                <business-indicator-summary [businessIndicatorSummaries]="businessIndicatorSummaries" [pnc]="pnc"></business-indicator-summary>
+                            </ng-template>
+                            <h3 class="flight-list-title">
+                                {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_CARD_12_LAST_MONTHS' | translate }}
+                                <ion-icon name="help-circle" (click)="showLegend($event)" class="clickable"> </ion-icon>
+                            </h3>
+                            <div class="mat-elevation-z8">
+                                <table mat-table matSort matSortActive="flightDate" matSortDirection="desc" (matSortChange)="sortBusinessIndicators($event)" [dataSource]="dataSource" class="flight-cards-table mat-elevation-z8">
+                                    <ng-container matColumnDef="flightNumber">
+                                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                            {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_NUMBER' | translate }}</th>
+                                        <td mat-cell *matCellDef="let businessIndicator">
+                                            {{ 'GLOBAL.AF_COMPANY' | translate }}{{ businessIndicator.flight.number }}</td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="flightDate">
+                                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                            {{ 'BUSINESS_INDICATORS.LIST.LEG_DATE' | translate }}</th>
+                                        <td mat-cell *matCellDef="let businessIndicator" class="suffix-tu">
+                                            {{ getPlannedDepartureDate(businessIndicator) | date : 'dd/MM/yyyy HH:mm':'UTC' }}</td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="stations">
+                                        <th mat-header-cell *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.STATIONS' | translate }}
+                                        </th>
+                                        <td mat-cell *matCellDef="let businessIndicator">
+                                            {{ businessIndicator.flight.departureStation }} -
+                                            {{ businessIndicator.flight.arrivalStation }}</td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="aboardFunction">
+                                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                            {{ 'BUSINESS_INDICATORS.LIST.ABOARD_FUNCTION' | translate }}</th>
+                                        <td mat-cell *matCellDef="let businessIndicator"> {{ businessIndicator.aboardSpeciality }}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="eScore">
+                                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                            {{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }}</th>
+                                        <td mat-cell *matCellDef="let businessIndicator" class="escore">
+                                            <span *ngIf="businessIndicator.escore == -1 else displayEscore" class="no-data"></span>
+                                            <ng-template #displayEscore>
+                                                <span>
+                                                    {{ businessIndicator.escore | number :'1.0-1' }}
+                                                </span>
+                                            </ng-template>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="flightActionsNumber">
+                                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                            {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS_NUMBER' | translate }}</th>
+                                        <td mat-cell *matCellDef="let businessIndicator" class="flight-actions-number">
+                                            <span *ngIf="isCcLc(businessIndicator)" class="not-available"></span>
+                                            <span *ngIf="!isCcLc(businessIndicator)">
+                                                <span *ngIf="!businessIndicator.flightActionsTotalNumber" class="no-data"></span>
+                                                <span *ngIf="businessIndicator.flightActionsTotalNumber">{{ businessIndicator.flightActionsTotalNumber }}</span>
+                                            </span>
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="businessIndicatorColumns"></tr>
+                                    <tr mat-row *matRowDef="let businessIndicator; columns: businessIndicatorColumns;" (click)="goToBusinessIndicatorDetail(businessIndicator)"></tr>
+                                </table>
+                                <mat-paginator MatPaginatorIntl="red" [pageSize]="getPageSize()" [length]="getTotalElements()" (page)="handlePage($event)" showFirstLastButtons></mat-paginator>
+                            </div>
 
-                    <h3 class="flight-list-title">
-                        {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_CARD_12_LAST_MONTHS' | translate }}
-                        <ion-icon name="help-circle" (click)="showLegend($event)" class="clickable"> </ion-icon>
-                    </h3>
-                    <div class="mat-elevation-z8">
-                        <table mat-table matSort matSortActive="flightDate" matSortDirection="desc" (matSortChange)="sortBusinessIndicators($event)" [dataSource]="dataSource" class="flight-cards-table mat-elevation-z8">
-                            <ng-container matColumnDef="flightNumber">
-                                <th mat-header-cell mat-sort-header *matHeaderCellDef>
-                                    {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_NUMBER' | translate }}</th>
-                                <td mat-cell *matCellDef="let businessIndicator">
-                                    {{ 'GLOBAL.AF_COMPANY' | translate }}{{ businessIndicator.flight.number }}</td>
-                            </ng-container>
-                            <ng-container matColumnDef="flightDate">
-                                <th mat-header-cell mat-sort-header *matHeaderCellDef>
-                                    {{ 'BUSINESS_INDICATORS.LIST.LEG_DATE' | translate }}</th>
-                                <td mat-cell *matCellDef="let businessIndicator" class="suffix-tu">
-                                    {{ getPlannedDepartureDate(businessIndicator) | date : 'dd/MM/yyyy HH:mm':'UTC' }}</td>
-                            </ng-container>
-                            <ng-container matColumnDef="stations">
-                                <th mat-header-cell *matHeaderCellDef>{{ 'BUSINESS_INDICATORS.LIST.STATIONS' | translate }}
-                                </th>
-                                <td mat-cell *matCellDef="let businessIndicator">
-                                    {{ businessIndicator.flight.departureStation }} -
-                                    {{ businessIndicator.flight.arrivalStation }}</td>
-                            </ng-container>
-                            <ng-container matColumnDef="aboardFunction">
-                                <th mat-header-cell mat-sort-header *matHeaderCellDef>
-                                    {{ 'BUSINESS_INDICATORS.LIST.ABOARD_FUNCTION' | translate }}</th>
-                                <td mat-cell *matCellDef="let businessIndicator"> {{ businessIndicator.aboardSpeciality }}
-                                </td>
-                            </ng-container>
-                            <ng-container matColumnDef="eScore">
-                                <th mat-header-cell mat-sort-header *matHeaderCellDef>
-                                    {{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }}</th>
-                                <td mat-cell *matCellDef="let businessIndicator" class="escore">
-                                    <span *ngIf="businessIndicator.escore == -1 else displayEscore" class="no-data"></span>
-                                    <ng-template #displayEscore>
-                                        <span>
-                                            {{ businessIndicator.escore | number :'1.0-1' }}
-                                        </span>
-                                    </ng-template>
-                                </td>
-                            </ng-container>
-                            <ng-container matColumnDef="flightActionsNumber">
-                                <th mat-header-cell mat-sort-header *matHeaderCellDef>
-                                    {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS_NUMBER' | translate }}</th>
-                                <td mat-cell *matCellDef="let businessIndicator" class="flight-actions-number">
-                                    <span *ngIf="isCcLc(businessIndicator)" class="not-available"></span>
-                                    <span *ngIf="!isCcLc(businessIndicator)">
-                                        <span *ngIf="!businessIndicator.flightActionsTotalNumber" class="no-data"></span>
-                                        <span *ngIf="businessIndicator.flightActionsTotalNumber">{{ businessIndicator.flightActionsTotalNumber }}</span>
-                                    </span>
-                                </td>
-                            </ng-container>
-                            <tr mat-header-row *matHeaderRowDef="businessIndicatorColumns"></tr>
-                            <tr mat-row *matRowDef="let businessIndicator; columns: businessIndicatorColumns;" (click)="goToBusinessIndicatorDetail(businessIndicator)"></tr>
-                        </table>
-                        <mat-paginator MatPaginatorIntl="red" [pageSize]="getPageSize()" [length]="getTotalElements()" (page)="handlePage($event)" showFirstLastButtons></mat-paginator>
-                    </div>
-                </div>
-            </ng-container>
+                        </div>
+                    </ng-container>
+                </mat-sidenav-content>
+            </mat-sidenav-container>
         </ng-template>
         <ng-template #noBusinessIndicatorBlock>
             <div class="no-data-splash">

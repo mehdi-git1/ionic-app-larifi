@@ -13,12 +13,34 @@ h3 {
     }
 }
 
+mat-sidenav-container {
+    height: 100%;
+}
+
+mat-sidenav {
+    width: 300px;
+    padding: 8px;
+    background: var(--ion-color-white);
+    box-shadow: 3px 0px 4px -2px rgba(51, 51, 51, 0.75);
+}
+
 .no-data:after {
     content: '-';
 }
 
 .not-available:after {
     content: 'NA';
+}
+
+.summary-title-bloc {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.six-month-summary-button {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .flight-cards-table {
