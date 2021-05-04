@@ -9,7 +9,7 @@
     <div class="date-section">
         <div>
             <label>{{'BUSINESS_INDICATORS.FILTERS.START_DATE' | translate }}</label>
-            <edospnc-datetime [disabled]="!isPeriodSelectable()" [edospncFormGroup]="filtersForm" edospncFormControlName="firstPeriodStartDate" [displayIcon]="false" inputLike="true">
+            <edospnc-datetime [disabled]="!isPeriodSelectable()" [edospncFormGroup]="filtersForm" edospncFormControlName="firstPeriodStartDate" [minStartDate]="minStartDate" [displayIcon]="false" inputLike="true">
             </edospnc-datetime>
         </div>
         <div>
@@ -35,7 +35,7 @@
     <div class="date-section">
         <div>
             <label>{{'BUSINESS_INDICATORS.FILTERS.START_DATE' | translate }}</label>
-            <edospnc-datetime [disabled]="!isPeriodSelectable()" [edospncFormGroup]="filtersForm" edospncFormControlName="secondPeriodStartDate" [minStartDate]="secondPeriodStartDateMin" [displayIcon]="false" inputLike="true">
+            <edospnc-datetime [disabled]="!isPeriodSelectable()" [edospncFormGroup]="filtersForm" edospncFormControlName="secondPeriodStartDate" [minStartDate]="minStartDate" [displayIcon]="false" inputLike="true">
             </edospnc-datetime>
         </div>
         <div>

@@ -19,7 +19,7 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
 
   filtersForm: FormGroup;
   businessIndicatorFilter: BusinessIndicatorFilterModel;
-  secondPeriodStartDateMin: string;
+  minStartDate: string;
   lastPeriodComparisonChecked = false;
   lastYearComparisonChecked = false;
 
@@ -29,7 +29,7 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.businessIndicatorFilter = new BusinessIndicatorFilterModel();
-    this.secondPeriodStartDateMin = moment('2019-01-01').format('YYYY-MM-DD');
+    this.minStartDate = moment('2019-01-01').format('YYYY-MM-DD');
     this.initFiltersForm();
     this.enableDatesOnChange();
   }
@@ -201,7 +201,7 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
   }
 
   /**
-  * Remets le filtre aux valeurs par défaut
+  * Remet le filtre aux valeurs par défaut
   * @returns le filtre aux valeurs par défaut.
   */
   getFiltersInitValue(): BusinessIndicatorFilterModel {
