@@ -25,7 +25,8 @@
                                             {{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.DISPLAY_LAST_SIX_MONTHS' | translate}}
                                         </ion-button>
                                     </div>
-                                    <business-indicator-comparison-chart [pnc]="pnc" [businessIndicatorComparison]="businessIndicatorSummariesComparison"></business-indicator-comparison-chart>
+                                    <business-indicator-comparison-table [pnc]="pnc" [businessIndicatorComparison]="businessIndicatorSummariesComparison">
+                                    </business-indicator-comparison-table>
                                 </div>
                             </ng-container>
                             <ng-template #lastSixMonthIndicatorSummary>

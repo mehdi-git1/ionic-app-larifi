@@ -27,7 +27,7 @@ import {
   BusinessIndicatorDetailPage
 } from './pages/business-indicator-detail/business-indicator-detail.page';
 import { BusinessIndicatorsPage } from './pages/business-indicators/business-indicators.page';
-import { BusinessIndicatorComparisonChartComponent } from './components/business-indicator-comparison-chart/business-indicator-comparison-chart.component';
+import { BusinessIndicatorComparisonTableComponent } from './components/business-indicator-comparison-table/business-indicator-comparison-table.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { BusinessIndicatorComparisonChartComponent } from './components/business
     BusinessIndicatorCommentVerbatimComponent,
     BusinessIndicatorSummaryComponent,
     BusinessIndicatorFilterComponent,
-    BusinessIndicatorComparisonChartComponent
+    BusinessIndicatorComparisonTableComponent
   ],
   imports: [
     IonicModule,

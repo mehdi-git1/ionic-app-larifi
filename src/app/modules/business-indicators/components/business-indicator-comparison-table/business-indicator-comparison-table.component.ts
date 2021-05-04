@@ -1,17 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { AppConstant } from 'src/app/app.constant';
 import { BusinessIndicatorComparisonModel } from 'src/app/core/models/business-indicator/business-indicator-comparison-model';
 import { PncModel } from 'src/app/core/models/pnc.model';
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
 @Component({
-  selector: 'business-indicator-comparison-chart',
-  templateUrl: './business-indicator-comparison-chart.component.html',
-  styleUrls: ['./business-indicator-comparison-chart.component.scss'],
+  selector: 'business-indicator-comparison-table',
+  templateUrl: './business-indicator-comparison-table.component.html',
+  styleUrls: ['./business-indicator-comparison-table.component.scss'],
 })
-export class BusinessIndicatorComparisonChartComponent implements OnInit {
+export class BusinessIndicatorComparisonTableComponent implements OnInit {
 
   @Input()
   businessIndicatorComparison: BusinessIndicatorComparisonModel[];
