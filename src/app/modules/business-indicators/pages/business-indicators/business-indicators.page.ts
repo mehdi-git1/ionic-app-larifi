@@ -2,10 +2,13 @@ import * as moment from 'moment';
 import { from, Observable, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {
-  BusinessIndicatorSortColumnEnum
+    BusinessIndicatorSortColumnEnum
 } from 'src/app/core/enums/business-indicators/business-indicators-sort-columns-enum';
 import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
+import {
+    BusinessIndicatorComparisonModel
+} from 'src/app/core/models/business-indicator/business-indicator-comparison-model';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
@@ -18,28 +21,27 @@ import { PopoverController } from '@ionic/angular';
 
 import { AppConstant } from '../../../../app.constant';
 import {
-  BusinessIndicatorFilterModel
+    BusinessIndicatorFilterModel
 } from '../../../../core/models/business-indicator/business-indicator-filter-model';
 import {
-  BusinessIndicatorLightModel
+    BusinessIndicatorLightModel
 } from '../../../../core/models/business-indicator/business-indicator-light.model';
 import {
-  BusinessIndicatorSummariesModel
+    BusinessIndicatorSummariesModel
 } from '../../../../core/models/business-indicator/business-indicator-summaries.model';
 import {
-  BusinessIndicatorModel
+    BusinessIndicatorModel
 } from '../../../../core/models/business-indicator/business-indicator.model';
 import {
-  PagedBusinessIndicatorModel
+    PagedBusinessIndicatorModel
 } from '../../../../core/models/business-indicator/paged-businessIndicator.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
-  BusinessIndicatorService
+    BusinessIndicatorService
 } from '../../../../core/services/business-indicator/business-indicator.service';
 import {
-  BusinessIndicatorFlightLegendComponent
+    BusinessIndicatorFlightLegendComponent
 } from '../../components/business-indicator-flight-legend/business-indicator-flight-legend.component';
-import { BusinessIndicatorComparisonModel } from 'src/app/core/models/business-indicator/business-indicator-comparison-model';
 
 @Component({
   selector: 'page-business-indicators',
@@ -148,7 +150,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
   launchComparison(filter: BusinessIndicatorFilterModel) {
     this.businessIndicatorsFilter = filter;
     this.disabledComparisonLaunchButton = true;
-    this.businessIndicatorService.getBusinessIndicatorSummariesComparison('30873076', filter)
+    this.businessIndicatorService.getBusinessIndicatorSummariesComparison(this.pnc.matricule, filter)
       .then((businessIndicatorSummariesComparison) => {
         this.isFilterOpened = false;
         this.disabledComparisonLaunchButton = false;
