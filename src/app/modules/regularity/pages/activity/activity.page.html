@@ -11,8 +11,8 @@
 </ion-header>
 
 <ion-content>
-    <div class="page-container">
-        <div *ngIf="isConnected(); else notConnectedBlock">
+    <ng-container *ngIf="isConnected(); else offlineBlock">
+        <div class="page-container">
             <nav class="tabs">
                 <button [ngClass]="{'active': activeTab == ActivityTabEnum.REGULARITY }" (click)="switchActiveTab(ActivityTabEnum.REGULARITY)">{{'ACTIVITY.REGULARITY' | translate}}</button>
                 <button [ngClass]="{'active':  activeTab == ActivityTabEnum.MILESTONE}" (click)="switchActiveTab(ActivityTabEnum.MILESTONE)">{{'ACTIVITY.MILESTONE' | translate}}</button>
@@ -28,8 +28,11 @@
                 </div>
             </ng-template>
         </div>
-        <ng-template #notConnectedBlock>
-            {{ 'GLOBAL.UNAIVALABLE_OFFLINE' | translate }}
-        </ng-template>
-    </div>
+    </ng-container>
+    <ng-template #offlineBlock>
+        <div class="no-data-splash">
+            <ion-icon name="cloud-offline"></ion-icon>
+            <span>{{ 'GLOBAL.UNAIVALABLE_OFFLINE' | translate }}</span>
+        </div>
+    </ng-template>
 </ion-content>
