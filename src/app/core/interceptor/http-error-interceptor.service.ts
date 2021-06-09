@@ -41,7 +41,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         /*
          Ce statut indique que la version actuelle est archivée,
          un pop-up bloquant est affiché pour obliger l'utilisateur
-         à mettre à jour l'application
+         à installer la version disponible sur le PNC Store
          */
         if (err.status == 410) {
           this.alertDialogService.openAlertDialog(this.translateService.instant('GLOBAL.APP_VERSION.DEPRECATED_VERSION_ALERT.TITLE'),

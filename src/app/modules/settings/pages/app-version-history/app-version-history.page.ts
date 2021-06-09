@@ -34,7 +34,7 @@ export class AppVersionHistoryPage {
 
   /**
    * Retourne le statut de la version
-   * @param appVersion la version pour laquelle on souhaite avoir l'état
+   * @param appVersion la version pour laquelle on souhaite avoir statut
    * @returns le statut de la version
    */
   isDeprecated(appVersion: AppVersionModel): boolean {
