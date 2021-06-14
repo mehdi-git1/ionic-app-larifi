@@ -271,7 +271,7 @@
         "REFERENT_INSTRUCTOR": "Manager",
         "RDS": "RDS",
         "RDD": "RDD",
-        "CSV": "CSV",
+        "POLE_CSV": "Pole CSV",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
         "WORKRATE": "Rythme",

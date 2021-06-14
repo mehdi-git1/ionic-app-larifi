@@ -90,14 +90,9 @@
                     </ion-item>
                     <ion-item class="event-checkbox">
                         <ion-label>
-                            <span [ngClass]="{'no-value' : !pnc.csvList || pnc.csvList.length === 0 }">
-                                <span *ngFor="let csv of pnc.csvList; last as l">
-                                    {{ csv.lastName}}&nbsp;{{ csv.firstName | titlecase}}
-                                    <span *ngIf="!l">;&nbsp;</span>
-                                </span>
-                            </span> ({{ 'PNC_IDENTITY.CSV' | translate }})
+                            {{ 'PNC_IDENTITY.POLE_CSV' | translate }}
                         </ion-label>
-                        <ion-checkbox slot="start" [disabled]="!pnc.csvList || pnc.csvList.length === 0" (ionChange)="updatePncNotifiedList($event, pnc.csvList, NotifiedPncSpecialityEnum.CSV)" [checked]="isPncNotified(pnc.csvList)"></ion-checkbox>
+                        <ion-checkbox slot="start" formControlName="sendToCSVPole"></ion-checkbox>
                     </ion-item>
                 </ion-col>
                 <ion-col class="other-contacts">
