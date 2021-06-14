@@ -158,7 +158,7 @@ export class LogbookEventComponent implements OnInit {
       category: ['', Validators.required],
       title: ['', [Validators.maxLength(100), Validators.required]],
       content: ['', Validators.required],
-      sendToCSVPole: ['false', Validators.required]
+      sendToCSVPole: [false, Validators.required]
     });
   }
 
@@ -331,13 +331,13 @@ export class LogbookEventComponent implements OnInit {
    * @return l'évènement du journal de bord à enregistrer avec la date de rencontre transformée
    */
   prepareLogbookEventBeforeSubmit(logbookEventToSave: LogbookEventModel): LogbookEventModel {
+
     if (typeof this.logbookEvent.eventDate !== 'undefined' && this.logbookEvent.eventDate !== null) {
       logbookEventToSave.eventDate = this.dateTransformer.transformDateStringToIso8601Format(this.logbookEvent.eventDate);
     }
 
-    if (this.logbookEventForm.value.sendToCSVPole) {
-      logbookEventToSave.notifiedRecipients = [{ emailAddress: `mail.csv${AppConstant.EMAIL_AIRFRANCE_DOMAIN_SUFFIX}` }];
-    }
+    logbookEventToSave.notifiedRecipients = Boolean(this.logbookEventForm.value.sendToCSVPole) ? [{ emailAddress: `mail.csv${AppConstant.EMAIL_AIRFRANCE_DOMAIN_SUFFIX}` }] : [];
+
     return logbookEventToSave;
   }
 
