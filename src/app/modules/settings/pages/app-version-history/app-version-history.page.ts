@@ -5,56 +5,65 @@ import { AppVersionModel } from '../../../../core/models/admin/app-version.model
 import { AppVersionService } from '../../../../core/services/app-version/app-version.service';
 
 @Component({
-    selector: 'page-app-version-history',
-    templateUrl: 'app-version-history.page.html',
-    styleUrls: ['./app-version-history.page.scss']
+  selector: 'page-app-version-history',
+  templateUrl: 'app-version-history.page.html',
+  styleUrls: ['./app-version-history.page.scss']
 })
 export class AppVersionHistoryPage {
 
-    appVersions: AppVersionModel[];
+  appVersions: AppVersionModel[];
 
-    selectedAppVersion: AppVersionModel;
+  selectedAppVersion: AppVersionModel;
 
-    TextEditorModeEnum = TextEditorModeEnum;
+  TextEditorModeEnum = TextEditorModeEnum;
 
-    constructor(private appVersionService: AppVersionService) { }
+  constructor(private appVersionService: AppVersionService) { }
 
-    ionViewDidEnter() {
-        this.initPage();
-    }
+  ionViewDidEnter() {
+    this.initPage();
+  }
 
-    /**
-     * Initialise la page
-     */
-    initPage() {
-        this.appVersionService.getAllAppVersions().then(appVersions => {
-            this.appVersions = appVersions;
-        }, error => { });
-    }
+  /**
+   * Initialise la page
+   */
+  initPage() {
+    this.appVersionService.getAllAppVersions().then(appVersions => {
+      this.appVersions = appVersions;
+    }, error => { });
+  }
 
-    /**
-     * Vérifie si le chargement des données nécessaires à l'affichage de la page est terminé
-     * @return vrai si c'est le cas, faux sinon
-     */
-    isLoadingOver(): boolean {
-        return this.appVersions !== undefined;
-    }
+  /**
+   * Retourne le statut de la version
+   * @param appVersion la version pour laquelle on souhaite avoir statut
+   * @returns le statut de la version
+   */
+  isDeprecated(appVersion: AppVersionModel): boolean {
+    return appVersion.deprecated;
+  }
 
-    /**
-     * Ouvre la version pour permettre sa visualisation
-     * @param appVersion la version à visualiser
-     */
-    editAppVersion(appVersion: AppVersionModel) {
-        this.selectedAppVersion = appVersion;
-    }
+  /**
+   * Vérifie si le chargement des données nécessaires à l'affichage de la page est terminé
+   * @return vrai si c'est le cas, faux sinon
+   */
+  isLoadingOver(): boolean {
+    return this.appVersions !== undefined;
+  }
 
-    /**
-     * Vérifie si une version est sélectionnée pour la visualisation
-     * @param appVersion la version à tester
-     * @return vrai si la version est sélectionnée, faux sinon
-     */
-    isAppVersionSelected(appVersion: AppVersionModel): boolean {
-        return this.selectedAppVersion && this.selectedAppVersion.number === appVersion.number;
-    }
+  /**
+   * Ouvre la version pour permettre sa visualisation
+   * @param appVersion la version à visualiser
+   */
+  editAppVersion(appVersion: AppVersionModel) {
+    this.selectedAppVersion = appVersion;
+  }
+
+  /**
+   * Vérifie si une version est sélectionnée pour la visualisation
+   * @param appVersion la version à tester
+   * @return vrai si la version est sélectionnée, faux sinon
+   */
+  isAppVersionSelected(appVersion: AppVersionModel): boolean {
+    return this.selectedAppVersion && this.selectedAppVersion.number === appVersion.number;
+  }
 
 }

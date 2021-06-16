@@ -7,6 +7,10 @@
             "LABELS": {
                 "TITLE": "Nouveautés de la version"
             },
+            "DEPRECATED_VERSION_ALERT": {
+              "TITLE": "La version actuelle de votre application ne permet pas de bénéficier de toutes les fonctionnalités.",
+              "MESSAGE": "Merci d'installer la version disponible sur le PNC Store."
+            },
             "CONFIRM_VERSION_UPDATE": {
                 "TITLE": "Une nouvelle version de eDossierPNC est disponible",
                 "MESSAGE": "Merci de mettre à jour votre application depuis le PNC Store afin de profiter pleinement des nouveautés eDossierPNC.",
@@ -1333,7 +1337,8 @@
             "NUMBER": "Version",
             "RELEASE_DATE": "du",
             "APP_VERSION_LIST": "Historique",
-            "VERSION_NOTE": "Nouveautés de la version"
+            "VERSION_NOTE": "Nouveautés de la version",
+            "DEPRECATED":"Archivée"
         },
         "NO_APP_VERSION_SELECTED": "Aucune version sélectionnée"
     },
