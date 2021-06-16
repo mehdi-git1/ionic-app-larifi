@@ -158,7 +158,7 @@ export class LogbookEventComponent implements OnInit {
       category: ['', Validators.required],
       title: ['', [Validators.maxLength(100), Validators.required]],
       content: ['', Validators.required],
-      sendToCSVPole: [false, Validators.required]
+      sendToPoleCSV: [false, Validators.required]
     });
   }
 
@@ -336,8 +336,7 @@ export class LogbookEventComponent implements OnInit {
       logbookEventToSave.eventDate = this.dateTransformer.transformDateStringToIso8601Format(this.logbookEvent.eventDate);
     }
 
-    logbookEventToSave.notifiedRecipients = Boolean(this.logbookEventForm.value.sendToCSVPole) ? [{ emailAddress: `mail.csv${AppConstant.EMAIL_AIRFRANCE_DOMAIN_SUFFIX}` }] : [];
-
+    logbookEventToSave.sendToPoleCSV = this.logbookEventForm.value.sendToPoleCSV;
     return logbookEventToSave;
   }
 
