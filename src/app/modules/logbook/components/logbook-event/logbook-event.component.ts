@@ -286,14 +286,14 @@ export class LogbookEventComponent implements OnInit {
    * Confirme la modification d'un évènement avec ou sans notification des personne concernés
    */
   confirmUpdateLogbookEvent() {
-    if (this.logbookEvent.notifiedPncs && this.logbookEvent.notifiedPncs.length > 0) {
+    if (this.isNotificationNeeded()) {
       return this.confirmationPopoup(
         this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.TITLE'),
         this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.MESSAGE'))
         .then(() => {
           this.saveLogbookEvent();
         }).catch(() => { });
-    } else if (this.logbookEvent.notifiedPncs && this.logbookEvent.notifiedPncs.length === 0) {
+    } else if (!this.isNotificationNeeded()) {
       this.confirmationPopoup(
         this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.TITLE'),
         this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.MESSAGE'))
@@ -306,10 +306,18 @@ export class LogbookEventComponent implements OnInit {
   }
 
   /**
+  * Détermine si au moins, une notification doit être envoyée.
+  * @returns vrai si au moins une notification doit être envoyée, faux sinon.
+  */
+  isNotificationNeeded(): boolean {
+    return this.logbookEvent.notifiedPncs && (this.logbookEvent.notifiedPncs.length > 0 || this.logbookEventForm.get('sendToPoleCSV').value);
+  }
+
+  /**
    * Confirme l'enregistrement d'un évènement sans notifier les personne concernés
    */
   confirmSaveLogbookEvent() {
-    if (!this.logbookEvent.notifiedPncs || this.logbookEvent.notifiedPncs.length === 0) {
+    if (!this.isNotificationNeeded()) {
       this.confirmationPopoup(
         this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.TITLE'),
         this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.MESSAGE'))
@@ -319,6 +327,7 @@ export class LogbookEventComponent implements OnInit {
     } else {
       this.saveLogbookEvent();
     }
+
   }
 
 
