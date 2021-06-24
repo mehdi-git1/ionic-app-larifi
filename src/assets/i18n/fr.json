@@ -1059,11 +1059,11 @@
             "CREATED_THE": "Créé le ",
             "NOTIFIED_PNCS": {
                 "TITLE": "Personnes notifiées",
+                "POLE_CSV": "Pole CSV",
                 "SPECIALITY": {
                     "REFERENT_INSTRUCTOR": "Manager",
                     "RDD": "RDD",
-                    "RDS": "RDS",
-                    "CSV": "CSV"
+                    "RDS": "RDS"
                 }
             },
             "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}",

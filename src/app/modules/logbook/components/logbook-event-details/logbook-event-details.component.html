@@ -81,6 +81,9 @@
                             <span *ngFor="let email of logbookEvent.notifiedRecipients; last as l">{{ email.emailAddress }}<span *ngIf="!l">;&nbsp;</span>
                             </span>
                         </div>
+                        <div *ngIf="logbookEvent.sendToPoleCSV">
+                            {{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS.POLE_CSV' | translate }}
+                        </div>
                     </div>
                     <div class="information-message" *ngIf="showInformationMessage()">{{ 'LOGBOOK.DETAILS.EDITED_BY' | translate:{lastName:logbookEvent.lastUpdateAuthor.lastName, firstName:logbookEvent.lastUpdateAuthor.firstName,
                         date:getLastUpdateDate()} }}
