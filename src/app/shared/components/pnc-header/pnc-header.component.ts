@@ -1,5 +1,8 @@
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { AppConstant } from 'src/app/app.constant';
+import { LegTransformerService } from 'src/app/core/services/leg/leg-transformer.service';
+import { format } from 'url';
 
 import { PncModel } from '../../../core/models/pnc.model';
 import { RelayModel } from '../../../core/models/statutory-certificate/relay.model';
@@ -46,6 +49,20 @@ export class PncHeaderComponent implements OnChanges {
     return this.pncService.getFormatedSpeciality(this.pnc);
   }
 
+  /**
+   * Formatte l'affichage des informations d'affectation.
+   * @param pnc le pnc concerné par l'affectation
+   * @returns les informations d'affectation formatées.
+   */
+  getFormattedAffectationInfo(pnc: PncModel): string {
+    let formatedAffectation = '';
+    formatedAffectation = (pnc?.assignment?.ginq) ? pnc.assignment.ginq : '';
+    formatedAffectation = (pnc?.groupPlanning) ?
+      ((formatedAffectation.length > 0) ? formatedAffectation.concat(AppConstant.DASH, pnc.groupPlanning) : pnc.groupPlanning)
+      : formatedAffectation
+
+    return formatedAffectation.length == 0 ? AppConstant.DASH : formatedAffectation;
+  }
   /**
    * Précharge le eDossier du PNC
    */

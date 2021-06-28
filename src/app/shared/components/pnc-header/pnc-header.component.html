@@ -37,14 +37,7 @@
         <div class="data-container">
             <ion-icon name="location-sharp"></ion-icon>
             <div class="pnc-info-data">
-                <div>
-                    <span [ngClass]="{'no-value' : !pnc?.assignment?.division }">{{ pnc?.assignment?.division }}/</span>
-                    <span [ngClass]="{'no-value' : !pnc?.assignment?.sector }">{{ pnc?.assignment?.sector }}/</span>
-                    <span [ngClass]="{'no-value' : !pnc?.assignment?.ginq }">{{ pnc?.assignment?.ginq }}</span>
-                </div>
-                <div>
-                    <span [ngClass]="{'no-value' : !pnc?.groupPlanning }">{{ pnc?.groupPlanning }}</span>
-                </div>
+                <span> {{getFormattedAffectationInfo(pnc)}}</span>
             </div>
         </div>
         <div class="pnc-instructor" *ngIf="!pnc.manager">
