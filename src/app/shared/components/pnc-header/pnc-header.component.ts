@@ -58,7 +58,7 @@ export class PncHeaderComponent implements OnChanges {
     let formatedAffectation = '';
     formatedAffectation = (pnc?.assignment?.ginq) ? pnc.assignment.ginq : '';
     formatedAffectation = (pnc?.groupPlanning) ?
-      ((formatedAffectation.length > 0) ? formatedAffectation.concat(AppConstant.DASH, pnc.groupPlanning) : pnc.groupPlanning)
+      ((formatedAffectation.length > 0) ? formatedAffectation.concat(AppConstant.SPACE, AppConstant.DASH, AppConstant.SPACE, pnc.groupPlanning) : pnc.groupPlanning)
       : formatedAffectation
 
     return formatedAffectation.length == 0 ? AppConstant.DASH : formatedAffectation;
