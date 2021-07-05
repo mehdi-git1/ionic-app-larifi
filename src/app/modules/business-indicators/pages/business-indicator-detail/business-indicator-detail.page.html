@@ -10,8 +10,10 @@
             <ion-icon name="airplane" class="round-icon"></ion-icon>
             <span class="value">{{'GLOBAL.AF_COMPANY' | translate}}{{ businessIndicator.flight.number }}</span>
         </div>
-        <span class="value suffix-tu">{{ getPlannedDepartureDate(businessIndicator) | date : 'dd/MM/yyyy HH:mm' :'UTC'}}</span>
-        <span class="value">{{ businessIndicator.flight.departureStation }} - {{ businessIndicator.flight.arrivalStation }}</span>
+        <span class="value suffix-tu">{{ getPlannedDepartureDate(businessIndicator) | date : 'dd/MM/yyyy HH:mm'
+            :'UTC'}}</span>
+        <span class="value">{{ businessIndicator.flight.departureStation }} - {{ businessIndicator.flight.arrivalStation
+            }}</span>
         <span class="value">
             {{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }} :
             <span *ngIf="!businessIndicator.escore; else escoreBlock" class="no-data"></span>
@@ -30,7 +32,8 @@
         <div class="page-container">
 
             <!-- Infos vol -->
-            <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_INFORMATIONS' | translate}}">
+            <edospnc-expandable-block mini="true" hideToggle="true"
+                title="{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_INFORMATIONS' | translate}}">
                 <div class="content">
                     <div class="item-list">
                         <div class="item">
@@ -38,7 +41,8 @@
                             <span class="value"> {{ businessIndicator.flight.aircraftType }} </span>
                         </div>
                         <div class="item">
-                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.FLIGHT_INFO.EXPLOITATION_VERSION' | translate}} </label>
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.FLIGHT_INFO.EXPLOITATION_VERSION' | translate}}
+                            </label>
                             <span class="value"> {{ businessIndicator.flight.exploitationVersion }} </span>
                         </div>
                         <div class="item">
@@ -54,20 +58,26 @@
             </edospnc-expandable-block>
 
             <!-- PerfOps -->
-            <edospnc-expandable-block *ngIf="businessIndicator.flight.operatingPerformance" mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.TITLE' | translate}}" [legendComponent]="BusinessIndicatorPerfopsLegendComponent">
+            <edospnc-expandable-block *ngIf="businessIndicator.flight.operatingPerformance" mini="true"
+                hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.TITLE' | translate}}"
+                [legendComponent]="BusinessIndicatorPerfopsLegendComponent">
                 <div class="content">
                     <div class="item-list">
                         <div class="item">
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.SHUTTLE_DEPARTURE_PN' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/shuttle-departure-d0.svg" />
-                                <span *ngIf="!exists(getShuttleDepartureD0()); else shuttleDepartureBlock" [class.no-data]="!exists(getShuttleDepartureD0())"></span>
+                                <span *ngIf="!exists(getShuttleDepartureD0()); else shuttleDepartureBlock"
+                                    [class.no-data]="!exists(getShuttleDepartureD0())"></span>
                                 <ng-template #shuttleDepartureBlock>
-                                    <span *ngIf="isOnTime(getShuttleDepartureD0()); else shuttleDepartureLateBlock" class="on-time value">
-                                        {{ 'BUSINESS_INDICATORS.DETAIL.H_MINUS' | translate:{minuteCount:absoluteValue(getShuttleDepartureD0())} }}
+                                    <span *ngIf="isOnTime(getShuttleDepartureD0()); else shuttleDepartureLateBlock"
+                                        class="on-time value">
+                                        {{ 'BUSINESS_INDICATORS.DETAIL.H_MINUS' |
+                                        translate:{minuteCount:absoluteValue(getShuttleDepartureD0())} }}
                                     </span>
                                     <ng-template #shuttleDepartureLateBlock>
-                                        <span class="late value">{{ 'BUSINESS_INDICATORS.DETAIL.H_PLUS' | translate:{minuteCount:getShuttleDepartureD0()} }}</span>
+                                        <span class="late value">{{ 'BUSINESS_INDICATORS.DETAIL.H_PLUS' |
+                                            translate:{minuteCount:getShuttleDepartureD0()} }}</span>
                                     </ng-template>
                                 </ng-template>
                             </div>
@@ -76,13 +86,21 @@
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.SHUTTLE_ARRIVAL' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/shuttle-arrival.svg" />
-                                <span *ngIf="!exists(businessIndicator.flight.operatingPerformance.airplaneArrival); else shuttleArrivalBlock" [class.no-data]="!exists(businessIndicator.flight.operatingPerformance.airplaneArrival)"></span>
+                                <span
+                                    *ngIf="!exists(businessIndicator.flight.operatingPerformance.airplaneArrival); else shuttleArrivalBlock"
+                                    [class.no-data]="!exists(businessIndicator.flight.operatingPerformance.airplaneArrival)"></span>
                                 <ng-template #shuttleArrivalBlock>
-                                    <span *ngIf="isOnTime(businessIndicator.flight.operatingPerformance.airplaneArrival); else shuttleArrivalLateBlock" class="on-time value">
-                                        {{ 'BUSINESS_INDICATORS.DETAIL.H_MINUS' | translate:{minuteCount:absoluteValue(businessIndicator.flight.operatingPerformance.airplaneArrival)} }}
+                                    <span
+                                        *ngIf="isOnTime(businessIndicator.flight.operatingPerformance.airplaneArrival); else shuttleArrivalLateBlock"
+                                        class="on-time value">
+                                        {{ 'BUSINESS_INDICATORS.DETAIL.H_MINUS' |
+                                        translate:{minuteCount:absoluteValue(businessIndicator.flight.operatingPerformance.airplaneArrival)}
+                                        }}
                                     </span>
                                     <ng-template #shuttleArrivalLateBlock>
-                                        <span class="late value">{{ 'BUSINESS_INDICATORS.DETAIL.H_PLUS' | translate:{minuteCount:businessIndicator.flight.operatingPerformance.airplaneArrival} }}</span>
+                                        <span class="late value">{{ 'BUSINESS_INDICATORS.DETAIL.H_PLUS' |
+                                            translate:{minuteCount:businessIndicator.flight.operatingPerformance.airplaneArrival}
+                                            }}</span>
                                     </ng-template>
                                 </ng-template>
                             </div>
@@ -91,13 +109,17 @@
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.D0' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/d0.svg" />
-                                <span *ngIf="!exists(businessIndicator.flight.d0); else d0Block" [class.no-data]="!exists(businessIndicator.flight.d0)"></span>
+                                <span *ngIf="!exists(businessIndicator.flight.d0); else d0Block"
+                                    [class.no-data]="!exists(businessIndicator.flight.d0)"></span>
                                 <ng-template #d0Block>
-                                    <span *ngIf="isOnTime(businessIndicator.flight.d0); else d0LateBlock" class="on-time value">
-                                        {{ 'BUSINESS_INDICATORS.DETAIL.H_MINUS' | translate:{minuteCount:absoluteValue(businessIndicator.flight.d0)} }}
+                                    <span *ngIf="isOnTime(businessIndicator.flight.d0); else d0LateBlock"
+                                        class="on-time value">
+                                        {{ 'BUSINESS_INDICATORS.DETAIL.H_MINUS' |
+                                        translate:{minuteCount:absoluteValue(businessIndicator.flight.d0)} }}
                                     </span>
                                     <ng-template #d0LateBlock>
-                                        <span class="late value">{{ 'BUSINESS_INDICATORS.DETAIL.H_PLUS' | translate:{minuteCount:businessIndicator.flight.d0} }}</span>
+                                        <span class="late value">{{ 'BUSINESS_INDICATORS.DETAIL.H_PLUS' |
+                                            translate:{minuteCount:businessIndicator.flight.d0} }}</span>
                                     </ng-template>
                                 </ng-template>
                             </div>
@@ -107,49 +129,59 @@
             </edospnc-expandable-block>
 
             <!-- Actions à bord -->
-            <edospnc-expandable-block *ngIf="!isCcLc()" mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS' | translate}}">
+            <edospnc-expandable-block *ngIf="!isCcLc()" mini="true" hideToggle="true"
+                title="{{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS' | translate}}">
                 <div class="content">
                     <div class="item-list">
                         <div class="item">
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.ERC' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/erc.svg" />
-                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.erc)"> {{ businessIndicator.erc }} </span>
+                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.erc)"> {{
+                                    businessIndicator.erc }} </span>
                             </div>
                         </div>
                         <div class="item">
-                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.CUSTOMER_CONTINUITY' | translate}} </label>
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.CUSTOMER_CONTINUITY' | translate}}
+                            </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/customer-continuity.svg" />
-                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.clientContinuity)"> {{ businessIndicator.clientContinuity }} </span>
+                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.clientContinuity)">
+                                    {{ businessIndicator.clientContinuity }} </span>
                             </div>
                         </div>
                         <div class="item">
-                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.FLYING_BLUE_ENROLMENT' | translate}} </label>
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.FLYING_BLUE_ENROLMENT' | translate}}
+                            </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/flying-blue-card.svg" />
-                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.flyingBlueEnrolment)"> {{ businessIndicator.flyingBlueEnrolment }} </span>
+                                <span class="value"
+                                    [class.no-data]="isEmptyOrZero(businessIndicator.flyingBlueEnrolment)"> {{
+                                    businessIndicator.flyingBlueEnrolment }} </span>
                             </div>
                         </div>
                         <div class="item">
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.GIFT_FOR_CARE' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/gift-for-care.svg" />
-                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.giftForCare)"> {{ businessIndicator.giftForCare }} </span>
+                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.giftForCare)"> {{
+                                    businessIndicator.giftForCare }} </span>
                             </div>
                         </div>
                         <div class="item">
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.UPGRADE' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/upgrade-black.svg" />
-                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.upgrade)"> {{ businessIndicator.upgrade }} </span>
+                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.upgrade)"> {{
+                                    businessIndicator.upgrade }} </span>
                             </div>
                         </div>
                         <div class="item">
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.KDO' | translate}} </label>
                             <div>
                                 <img src="assets/imgs/business-indicators/kdo.svg" />
-                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.kdo)"> {{ businessIndicator.kdo }} </span>
+                                <span class="value" [class.no-data]="isEmptyOrZero(businessIndicator.kdo)"> {{
+                                    businessIndicator.kdo }} </span>
                             </div>
                         </div>
                     </div>
@@ -158,7 +190,8 @@
             </edospnc-expandable-block>
 
             <!-- Graphique d'eScore -->
-            <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.TITLE' | translate}}">
+            <edospnc-expandable-block mini="true" hideToggle="true"
+                title="{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.TITLE' | translate}}">
                 <escore-chart [businessIndicator]="businessIndicator"></escore-chart>
             </edospnc-expandable-block>
 
@@ -179,10 +212,14 @@
                     <table class="escore-comment-table mat-table">
                         <thead>
                             <tr class="mat-header-row">
-                                <th class="rating mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.RATING' | translate }}</th>
-                                <th class="positive-feedback-reason mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.POSITIVE_FEEDBACK' | translate }}</th>
-                                <th class="negative-feedback-reason mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.NEGATIVE_FEEDBACK' | translate }}</th>
-                                <th class="suggestions  mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.SUGGESTIONS' | translate }}</th>
+                                <th class="rating mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.RATING'
+                                    | translate }}</th>
+                                <th class="positive-feedback-reason mat-header-cell">{{
+                                    'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.POSITIVE_FEEDBACK' | translate }}</th>
+                                <th class="negative-feedback-reason mat-header-cell">{{
+                                    'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.NEGATIVE_FEEDBACK' | translate }}</th>
+                                <th class="suggestions  mat-header-cell">{{
+                                    'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.SUGGESTIONS' | translate }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -197,54 +234,81 @@
                 <span *ngIf="eScoreCommentsDataSource && eScoreCommentsDataSource.data.length > 0 ">
                     <table mat-table [dataSource]="eScoreCommentsDataSource" class="escore-comment-table">
                         <ng-container matColumnDef="rating">
-                            <th mat-header-cell *matHeaderCellDef class="escore-rating">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.RATING' | translate }}</th>
-                            <td mat-cell *matCellDef="let escoreComment" [ngClass]="escoreComment.rating ? 'escore-rating' : 'no-escore-rating'">
+                            <th mat-header-cell *matHeaderCellDef class="escore-rating">{{
+                                'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.RATING' | translate }}</th>
+                            <td mat-cell *matCellDef="let escoreComment"
+                                [ngClass]="escoreComment.rating ? 'escore-rating' : 'no-escore-rating'">
                                 <ng-container *ngIf="escoreComment.rating; else noRatingTemplate">
                                     <img [src]="getEscoreCommentRatingImagePath(escoreComment.rating)" />
                                 </ng-container>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="positiveFeedbackReason">
-                            <th mat-header-cell *matHeaderCellDef class="positive-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.POSITIVE_FEEDBACK' | translate }}</th>
-                            <td mat-cell *matCellDef="let eScoreComment" class="positive-feedback-reason" [ngClass]="{'can-be-reported':canBeReported(eScoreComment.positivePersonalFeedbackReason, eScoreComment.positivePersonalFeedbackReasonReported)}" (click)="confirmReportEScoreCommentVerbatim(eScoreComment, EScoreCommentVerbatimEnum.POSITIVE_PERSONAL_FEEDBACK_REASON, eScoreComment.positivePersonalFeedbackReason, eScoreComment.positivePersonalFeedbackReasonReported)">
-                                <business-indicator-comment-verbatim [verbatim]="eScoreComment.positivePersonalFeedbackReason" [reported]="eScoreComment.positivePersonalFeedbackReasonReported"></business-indicator-comment-verbatim>
+                            <th mat-header-cell *matHeaderCellDef class="positive-feedback-reason">{{
+                                'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.POSITIVE_FEEDBACK' | translate }}</th>
+                            <td mat-cell *matCellDef="let eScoreComment" class="positive-feedback-reason"
+                                [ngClass]="{'can-be-reported':canBeReported(eScoreComment.positivePersonalFeedbackReason, eScoreComment.positivePersonalFeedbackReasonReported)}"
+                                (click)="confirmReportEScoreCommentVerbatim(eScoreComment, EScoreCommentVerbatimEnum.POSITIVE_PERSONAL_FEEDBACK_REASON, eScoreComment.positivePersonalFeedbackReason, eScoreComment.positivePersonalFeedbackReasonReported)">
+                                <business-indicator-comment-verbatim
+                                    [verbatim]="eScoreComment.positivePersonalFeedbackReason"
+                                    [reported]="eScoreComment.positivePersonalFeedbackReasonReported">
+                                </business-indicator-comment-verbatim>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="negativeFeedbackReason">
-                            <th mat-header-cell *matHeaderCellDef class="negative-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.NEGATIVE_FEEDBACK' | translate }}</th>
-                            <td mat-cell *matCellDef="let eScoreComment" class="negative-feedback-reason" [ngClass]="{'can-be-reported':canBeReported(eScoreComment.negativePersonalFeedbackReason, eScoreComment.negativePersonalFeedbackReasonReported)}" (click)="confirmReportEScoreCommentVerbatim(eScoreComment, EScoreCommentVerbatimEnum.NEGATIVE_PERSONAL_FEEDBACK_REASON, eScoreComment.negativePersonalFeedbackReason, eScoreComment.negativePersonalFeedbackReasonReported)">
-                                <business-indicator-comment-verbatim [verbatim]="eScoreComment.negativePersonalFeedbackReason" [reported]="eScoreComment.negativePersonalFeedbackReasonReported"></business-indicator-comment-verbatim>
+                            <th mat-header-cell *matHeaderCellDef class="negative-feedback-reason">{{
+                                'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.NEGATIVE_FEEDBACK' | translate }}</th>
+                            <td mat-cell *matCellDef="let eScoreComment" class="negative-feedback-reason"
+                                [ngClass]="{'can-be-reported':canBeReported(eScoreComment.negativePersonalFeedbackReason, eScoreComment.negativePersonalFeedbackReasonReported)}"
+                                (click)="confirmReportEScoreCommentVerbatim(eScoreComment, EScoreCommentVerbatimEnum.NEGATIVE_PERSONAL_FEEDBACK_REASON, eScoreComment.negativePersonalFeedbackReason, eScoreComment.negativePersonalFeedbackReasonReported)">
+                                <business-indicator-comment-verbatim
+                                    [verbatim]="eScoreComment.negativePersonalFeedbackReason"
+                                    [reported]="eScoreComment.negativePersonalFeedbackReasonReported">
+                                </business-indicator-comment-verbatim>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="suggestions">
-                            <th mat-header-cell *matHeaderCellDef class="suggestions">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.SUGGESTIONS' | translate }}</th>
-                            <td mat-cell *matCellDef="let eScoreComment" class="suggestions" [ngClass]="{'can-be-reported':canBeReported(eScoreComment.suggestions, eScoreComment.suggestionsReported)}" (click)="confirmReportEScoreCommentVerbatim(eScoreComment, EScoreCommentVerbatimEnum.SUGGESTIONS, eScoreComment.suggestions, eScoreComment.suggestionsReported)">
-                                <business-indicator-comment-verbatim [verbatim]="eScoreComment.suggestions" [reported]="eScoreComment.suggestionsReported"></business-indicator-comment-verbatim>
+                            <th mat-header-cell *matHeaderCellDef class="suggestions">{{
+                                'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.SUGGESTIONS' | translate }}</th>
+                            <td mat-cell *matCellDef="let eScoreComment" class="suggestions"
+                                [ngClass]="{'can-be-reported':canBeReported(eScoreComment.suggestions, eScoreComment.suggestionsReported)}"
+                                (click)="confirmReportEScoreCommentVerbatim(eScoreComment, EScoreCommentVerbatimEnum.SUGGESTIONS, eScoreComment.suggestions, eScoreComment.suggestionsReported)">
+                                <business-indicator-comment-verbatim [verbatim]="eScoreComment.suggestions"
+                                    [reported]="eScoreComment.suggestionsReported">
+                                </business-indicator-comment-verbatim>
                             </td>
                         </ng-container>
                         <tr mat-header-row *matHeaderRowDef="escoreCommentColumns"></tr>
                         <tr mat-row *matRowDef="let escoreComment; columns: escoreCommentColumns;"></tr>
                     </table>
                     <div class="button-bar-right">
-                        <ion-button fill="outline" (click)="toggleReportVerbatimMode()" *ngIf="!reportVerbatimMode; else disengageReportVerbatimModeBlock">{{ 'BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.REPORT_MODE_BUTTON' | translate }}</ion-button>
+                        <ion-button fill="outline" (click)="toggleReportVerbatimMode()"
+                            *ngIf="!reportVerbatimMode; else disengageReportVerbatimModeBlock">{{
+                            'BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.REPORT_MODE_BUTTON' | translate }}</ion-button>
                         <ng-template #disengageReportVerbatimModeBlock>
                             {{ 'BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.USE_HINT' | translate }}&nbsp;
-                            <ion-button fill="outline" (click)="toggleReportVerbatimMode()">{{ 'GLOBAL.BUTTONS.CANCEL' | translate }}</ion-button>
+                            <ion-button fill="outline" (click)="toggleReportVerbatimMode()">{{ 'GLOBAL.BUTTONS.CANCEL' |
+                                translate }}</ion-button>
                         </ng-template>
                     </div>
                 </span>
             </ng-container>
 
             <!-- Commentaire boucle courte -->
-            <ng-container *ngIf="!isCcLc()">
+            <ng-container>
                 <h3>{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.TITLE' | translate }}</h3>
                 <span *ngIf="shortLoopCommentsDataSource && shortLoopCommentsDataSource.data.length <= 0 ">
                     <table class="short-loop-comment-table mat-table">
                         <thead>
                             <tr class="mat-header-row">
-                                <th class="short-loop-rating mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.RATING' | translate }}</th>
-                                <th class="appreciated-points mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>
-                                <th class="points-to-improve mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}</th>
+                                <th class="short-loop-rating mat-header-cell">{{
+                                    'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.RATING' | translate }}</th>
+                                <th class="appreciated-points mat-header-cell">{{
+                                    'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}
+                                </th>
+                                <th class="points-to-improve mat-header-cell">{{
+                                    'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -257,35 +321,53 @@
                     </table>
                 </span>
                 <span *ngIf="shortLoopCommentsDataSource && shortLoopCommentsDataSource.data.length > 0 ">
-                    <table *ngIf="canDisplayShortLoopComment() && shortLoopCommentsDataSource && shortLoopCommentsDataSource.data.length > 0 " mat-table [dataSource]="shortLoopCommentsDataSource" class="short-loop-comment-table">
+                    <table
+                        *ngIf="canDisplayShortLoopComment() && shortLoopCommentsDataSource && shortLoopCommentsDataSource.data.length > 0 "
+                        mat-table [dataSource]="shortLoopCommentsDataSource" class="short-loop-comment-table">
                         <ng-container matColumnDef="rating">
-                            <th mat-header-cell *matHeaderCellDef class="short-loop-rating">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.RATING' | translate }}</th>
-                            <td mat-cell *matCellDef="let shortLoopComment" [ngClass]="shortLoopComment.rating ? 'short-loop-rating' : 'no-short-loop-rating'">
+                            <th mat-header-cell *matHeaderCellDef class="short-loop-rating">{{
+                                'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.RATING' | translate }}</th>
+                            <td mat-cell *matCellDef="let shortLoopComment"
+                                [ngClass]="shortLoopComment.rating ? 'short-loop-rating' : 'no-short-loop-rating'">
                                 <ng-container *ngIf="shortLoopComment.rating; else noRatingTemplate">
-                                    <img *ngFor="let ratingItem of getRatingArray(shortLoopComment.rating)" src="assets/imgs/business-indicators/star.svg" />
+                                    <img *ngFor="let ratingItem of getRatingArray(shortLoopComment.rating)"
+                                        src="assets/imgs/business-indicators/star.svg" />
                                 </ng-container>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="positiveFeedbackReason">
-                            <th mat-header-cell *matHeaderCellDef class="appreciated-points">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>
-                            <td mat-cell *matCellDef="let shortLoopComment" [ngClass]="{'can-be-reported':canBeReported(shortLoopComment.appreciatedPoints, shortLoopComment.appreciatedPointsReported)}" (click)="confirmReportShortLoopCommentVerbatim(shortLoopComment, ShortLoopCommentVerbatimEnum.APPRECIATED_POINTS, shortLoopComment.appreciatedPoints, shortLoopComment.appreciatedPointsReported)">
-                                <business-indicator-comment-verbatim [verbatim]="shortLoopComment.appreciatedPoints" [reported]="shortLoopComment.appreciatedPointsReported"></business-indicator-comment-verbatim>
+                            <th mat-header-cell *matHeaderCellDef class="appreciated-points">{{
+                                'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>
+                            <td mat-cell *matCellDef="let shortLoopComment"
+                                [ngClass]="{'can-be-reported':canBeReported(shortLoopComment.appreciatedPoints, shortLoopComment.appreciatedPointsReported)}"
+                                (click)="confirmReportShortLoopCommentVerbatim(shortLoopComment, ShortLoopCommentVerbatimEnum.APPRECIATED_POINTS, shortLoopComment.appreciatedPoints, shortLoopComment.appreciatedPointsReported)">
+                                <business-indicator-comment-verbatim [verbatim]="shortLoopComment.appreciatedPoints"
+                                    [reported]="shortLoopComment.appreciatedPointsReported">
+                                </business-indicator-comment-verbatim>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="negativeFeedbackReason">
-                            <th mat-header-cell *matHeaderCellDef class="points-to-improve">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}</th>
-                            <td mat-cell *matCellDef="let shortLoopComment" [ngClass]="{'can-be-reported':canBeReported(shortLoopComment.pointsToImprove, shortLoopComment.pointsToImproveReported)}" (click)="confirmReportShortLoopCommentVerbatim(shortLoopComment, ShortLoopCommentVerbatimEnum.POINTS_TO_IMPROVE, shortLoopComment.pointsToImprove, shortLoopComment.pointsToImproveReported)">
-                                <business-indicator-comment-verbatim [verbatim]="shortLoopComment.pointsToImprove" [reported]="shortLoopComment.pointsToImproveReported"></business-indicator-comment-verbatim>
+                            <th mat-header-cell *matHeaderCellDef class="points-to-improve">{{
+                                'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}</th>
+                            <td mat-cell *matCellDef="let shortLoopComment"
+                                [ngClass]="{'can-be-reported':canBeReported(shortLoopComment.pointsToImprove, shortLoopComment.pointsToImproveReported)}"
+                                (click)="confirmReportShortLoopCommentVerbatim(shortLoopComment, ShortLoopCommentVerbatimEnum.POINTS_TO_IMPROVE, shortLoopComment.pointsToImprove, shortLoopComment.pointsToImproveReported)">
+                                <business-indicator-comment-verbatim [verbatim]="shortLoopComment.pointsToImprove"
+                                    [reported]="shortLoopComment.pointsToImproveReported">
+                                </business-indicator-comment-verbatim>
                             </td>
                         </ng-container>
                         <tr mat-header-row *matHeaderRowDef="shortLoopCommentColumns"></tr>
                         <tr mat-row *matRowDef="let shortLoopComment; columns: shortLoopCommentColumns;"></tr>
                     </table>
                     <div class="button-bar-right">
-                        <ion-button fill="outline" (click)="toggleReportVerbatimMode()" *ngIf="!reportVerbatimMode; else disengageReportVerbatimModeBlock">{{ 'BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.REPORT_MODE_BUTTON' | translate }}</ion-button>
+                        <ion-button fill="outline" (click)="toggleReportVerbatimMode()"
+                            *ngIf="!reportVerbatimMode; else disengageReportVerbatimModeBlock">{{
+                            'BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.REPORT_MODE_BUTTON' | translate }}</ion-button>
                         <ng-template #disengageReportVerbatimModeBlock>
                             {{ 'BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.USE_HINT' | translate }}&nbsp;
-                            <ion-button fill="outline" (click)="toggleReportVerbatimMode()">{{ 'GLOBAL.BUTTONS.CANCEL' | translate }}</ion-button>
+                            <ion-button fill="outline" (click)="toggleReportVerbatimMode()">{{ 'GLOBAL.BUTTONS.CANCEL' |
+                                translate }}</ion-button>
                         </ng-template>
                     </div>
                 </span>
