@@ -147,15 +147,6 @@ export class BusinessIndicatorDetailPage {
   }
 
   /**
-   * Vérifie si le PNC est CC LC sur le vol courant
-   * @return vrai si c'est le cas, faux sinon
-   */
-  isCcLc() {
-    return this.businessIndicator.aboardSpeciality === SpecialityEnum.CC
-      && this.businessIndicator.flight.haulType === HaulTypeEnum.LC;
-  }
-
-  /**
    * Calcule la date de départ plannifiée du vol d'un indicateur métier : date de départ du tronçon - d0
    * @param businessIndicator l'indicateur métier du vol dont on souhaite calculer la date planifiée
    * @return la date de départ planifiée du vol
