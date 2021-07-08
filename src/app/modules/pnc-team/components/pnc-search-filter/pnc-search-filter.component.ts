@@ -4,7 +4,7 @@ import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 import { Utils } from 'src/app/shared/utils/utils';
 
 import {
-    AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
+  AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
@@ -207,32 +207,34 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.countEnabledFilters();
 
       // Gestion de l'exclusivité des filtres
-      value.hasEObsOlderThan18Months ?
-        this.searchForm.get('hasNoEObs').disable({ emitEvent: false }) :
-        this.searchForm.get('hasNoEObs').enable({ emitEvent: false });
+      if (this.connectivityService.isConnected()) {
+        value.hasEObsOlderThan18Months ?
+          this.searchForm.get('hasNoEObs').disable({ emitEvent: false }) :
+          this.searchForm.get('hasNoEObs').enable({ emitEvent: false });
 
-      value.hasNoEObs ?
-        this.searchForm.get('hasEObsOlderThan18Months').disable({ emitEvent: false }) :
-        this.searchForm.get('hasEObsOlderThan18Months').enable({ emitEvent: false });
+        value.hasNoEObs ?
+          this.searchForm.get('hasEObsOlderThan18Months').disable({ emitEvent: false }) :
+          this.searchForm.get('hasEObsOlderThan18Months').enable({ emitEvent: false });
 
-      value.hasProfessionalInterviewOlderThan24Months ?
-        this.searchForm.get('hasNoProfessionalInterview').disable({ emitEvent: false }) :
-        this.searchForm.get('hasNoProfessionalInterview').enable({ emitEvent: false });
+        value.hasProfessionalInterviewOlderThan24Months ?
+          this.searchForm.get('hasNoProfessionalInterview').disable({ emitEvent: false }) :
+          this.searchForm.get('hasNoProfessionalInterview').enable({ emitEvent: false });
 
-      value.hasNoProfessionalInterview ?
-        this.searchForm.get('hasProfessionalInterviewOlderThan24Months').disable({ emitEvent: false }) :
-        this.searchForm.get('hasProfessionalInterviewOlderThan24Months').enable({ emitEvent: false });
+        value.hasNoProfessionalInterview ?
+          this.searchForm.get('hasProfessionalInterviewOlderThan24Months').disable({ emitEvent: false }) :
+          this.searchForm.get('hasProfessionalInterviewOlderThan24Months').enable({ emitEvent: false });
 
-      value.prioritized || value.hasAtLeastOneCareerObjectiveInProgress ?
-        this.searchForm.get('hasNoCareerObjective').disable({ emitEvent: false }) :
-        this.searchForm.get('hasNoCareerObjective').enable({ emitEvent: false });
+        value.prioritized || value.hasAtLeastOneCareerObjectiveInProgress ?
+          this.searchForm.get('hasNoCareerObjective').disable({ emitEvent: false }) :
+          this.searchForm.get('hasNoCareerObjective').enable({ emitEvent: false });
 
-      if (value.hasNoCareerObjective) {
-        this.searchForm.get('prioritized').disable({ emitEvent: false });
-        this.searchForm.get('hasAtLeastOneCareerObjectiveInProgress').disable({ emitEvent: false });
-      } else {
-        this.searchForm.get('prioritized').enable({ emitEvent: false });
-        this.searchForm.get('hasAtLeastOneCareerObjectiveInProgress').enable({ emitEvent: false });
+        if (value.hasNoCareerObjective) {
+          this.searchForm.get('prioritized').disable({ emitEvent: false });
+          this.searchForm.get('hasAtLeastOneCareerObjectiveInProgress').disable({ emitEvent: false });
+        } else {
+          this.searchForm.get('prioritized').enable({ emitEvent: false });
+          this.searchForm.get('hasAtLeastOneCareerObjectiveInProgress').enable({ emitEvent: false });
+        }
       }
     });
   }
