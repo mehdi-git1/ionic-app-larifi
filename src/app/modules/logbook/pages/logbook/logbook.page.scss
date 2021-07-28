@@ -216,3 +216,10 @@ $nbLinesMaxOnRow: 2;
 .popover-md.action-menu-popover .popover-content {
     transform: translate(-30px) !important;
 }
+
+.info-bloc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+}

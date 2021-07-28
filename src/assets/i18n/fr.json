@@ -986,6 +986,9 @@
         "ORIGIN": "Origine",
         "ACTIONS": "Actions",
         "UNAIVALABLE_OFFLINE": "Les évènements ne sont pas disponibles hors connexion",
+        "LAST_THREE_YEARS_EVENT":"évènements des 3 dernières années",
+        "ARCHIVED_EVENTS": "évènements archivés",
+        "VIEW_ARCHIVES": "consulter les archives",
         "ARCHIVE_LINK_LABEL": "Historique Friendly",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement",
