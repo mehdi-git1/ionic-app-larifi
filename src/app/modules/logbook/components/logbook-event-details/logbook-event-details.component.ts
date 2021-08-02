@@ -209,7 +209,7 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
      */
     confirmHideOrDisplayEvent() {
         if ((this.visibilitySelected === EventCcoVisibilityEnum.HIDDEN && !this.logbookEvent.hidden)
-            || (this.visibilitySelected === EventCcoVisibilityEnum.DISPLAYED && !this.logbookEvent.displayed)
+            || (this.visibilitySelected === EventCcoVisibilityEnum.DISPLAYED && (this.logbookEvent.hidden || this.getDisplayDate()))
             || (this.visibilitySelected === EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON && (this.logbookEvent.displayed || this.logbookEvent.hidden))) {
             let title: string;
             let message: string;
