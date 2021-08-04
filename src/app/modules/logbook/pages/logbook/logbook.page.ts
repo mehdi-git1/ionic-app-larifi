@@ -1,4 +1,8 @@
 import * as moment from 'moment';
+import { LogbookEventStatusEnum } from 'src/app/core/enums/logbook-event/logbook-event-status-enum';
+import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
+import { LogbookEventFilterModel } from 'src/app/core/models/logbook/logbook-event-filter.model';
+import { PagedGenericModel } from 'src/app/core/models/paged-generic-model';
 import { ToastService } from 'src/app/core/services/toast/toast.service';
 
 import { Component, OnInit } from '@angular/core';
@@ -14,18 +18,13 @@ import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event
 import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import {
-  OnlineLogbookEventService
+    OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import {
-  LogbookEventActionMenuComponent
+    LogbookEventActionMenuComponent
 } from '../../components/logbook-event-action-menu/logbook-event-action-menu.component';
-import { LogbookEventFilterModel } from 'src/app/core/models/logbook/logbook-event-filter.model';
-import { LogbookEventStatusEnum } from 'src/app/core/enums/logbook-event/logbook-event-status-enum';
-import { PagedGenericModel } from 'src/app/core/models/paged-generic-model';
-import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
-import { AuthorizationService } from 'src/app/core/services/authorization/authorization.service';
 
 @Component({
   selector: 'log-book',
@@ -90,9 +89,10 @@ export class LogbookPage implements OnInit {
 
   /**
    * Effectue le tri sur la date de création selon l'ordre donné.
+   * @param event l'évènement déclencheur
    * @param sortDirection l'ordre de tri souhaité
    */
-  sortByDirection(sortDirection, event: Event) {
+  sortByDirection(sortDirection: SortDirection, event: Event) {
     event.stopPropagation();
     this.initFilter();
     this.eventFilters.sortDirection = sortDirection;
@@ -331,7 +331,8 @@ export class LogbookPage implements OnInit {
       this.onlineLogbookEventService.delete(logbookEventTechId)
         .then(deletedlogbookEvent => {
           this.toastService.success(this.translateService.instant('LOGBOOK.DELETE.SUCCESS'));
-          // this.getLogbookEvents(this.pnc.matricule);
+          this.initFilter();
+          this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvent => this.handleResponse(pagedLogbookEvent));
           loading.dismiss();
         },
           error => {
