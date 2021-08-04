@@ -28,7 +28,7 @@ export class LogbookEventModel extends EDossierPncObjectModel {
   mode: LogbookEventModeEnum;
   type: LogbookEventTypeEnum;
   ccoGroupId: number;
-
+  groupEventCount: number;
   disabled: boolean;
   sendToPoleCSV: boolean;
   getStorageId(): string {

@@ -1,7 +1,11 @@
 import * as moment from 'moment';
+import { LogbookEventStatusEnum } from 'src/app/core/enums/logbook-event/logbook-event-status-enum';
+import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
+import { LogbookEventFilterModel } from 'src/app/core/models/logbook/logbook-event-filter.model';
+import { PagedGenericModel } from 'src/app/core/models/paged-generic-model';
 import { ToastService } from 'src/app/core/services/toast/toast.service';
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,309 +22,376 @@ import {
 } from '../../../../core/services/logbook/online-logbook-event.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { DateTransform } from '../../../../shared/utils/date-transform';
 import {
     LogbookEventActionMenuComponent
 } from '../../components/logbook-event-action-menu/logbook-event-action-menu.component';
 
 @Component({
-    selector: 'log-book',
-    templateUrl: 'logbook.page.html',
-    styleUrls: ['./logbook.page.scss']
+  selector: 'log-book',
+  templateUrl: 'logbook.page.html',
+  styleUrls: ['./logbook.page.scss']
 })
-export class LogbookPage {
+export class LogbookPage implements OnInit {
 
-    displayedLogbookEventsColumns: string[] =
-        ['childEvents', 'eventDate', 'creationDate', 'category', 'important', 'attach', 'event', 'origin', 'author', 'actions'];
-    pnc: PncModel;
+  displayedLogbookEventsColumns: string[] =
+    ['childEvents', 'eventDate', 'creationDate', 'category', 'important', 'attach', 'event', 'origin', 'author', 'actions'];
+  pnc: PncModel;
 
-    sortAscending = false;
-    sortedColumn: string;
+  eventFilters: LogbookEventFilterModel;
+  pncLogbookEventsGroup: Array<LogbookEventGroupModel>;
+  TabHeaderEnum = TabHeaderEnum;
+  eventDateColumn = "eventDate";
+  sortDirection: SortDirection;
+  dataLoading = false;
+  loadingIsOver = false;
+  LogbookEventTypeEnum = LogbookEventTypeEnum;
 
-    groupedEvents: Array<LogbookEventGroupModel>;
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private securityService: SecurityService,
+    private sessionService: SessionService,
+    private onlineLogbookEventService: OnlineLogbookEventService,
+    private popoverCtrl: PopoverController,
+    private connectivityService: ConnectivityService,
+    private alertCtrl: AlertController,
+    private translateService: TranslateService,
+    private toastService: ToastService,
+    private loadingCtrl: LoadingController
+  ) {
+  }
 
-    TabHeaderEnum = TabHeaderEnum;
+  ngOnInit(): void {
+    this.eventFilters = new LogbookEventFilterModel();
+    this.pncLogbookEventsGroup = new Array();
+    this.initFilter();
 
-    LogbookEventTypeEnum = LogbookEventTypeEnum;
-
-    constructor(
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private securityService: SecurityService,
-        private sessionService: SessionService,
-        private dateTransform: DateTransform,
-        private onlineLogbookEventService: OnlineLogbookEventService,
-        private popoverCtrl: PopoverController,
-        private connectivityService: ConnectivityService,
-        private alertCtrl: AlertController,
-        private translateService: TranslateService,
-        private toastService: ToastService,
-        private loadingCtrl: LoadingController
-    ) {
+    if (this.sessionService.visitedPnc) {
+      this.pnc = this.sessionService.visitedPnc;
+    } else {
+      this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
     }
+    this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
+      this.loadingIsOver = true;
+      this.handleResponse(pagedLogbookEvents)
+    }
+    );
+  }
 
-    ionViewWillEnter() {
-        if (this.sessionService.visitedPnc) {
-            this.pnc = this.sessionService.visitedPnc;
-        } else {
-            this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
+  /**
+   * Vérifie que le tri est dans l'ordre déscendant
+   * @param sortDirection le sens du tri
+   * @returns true si descendant, false sinon.
+   */
+  isDesc(sortDirection: SortDirection): boolean {
+    return sortDirection == SortDirection.DESC;
+  }
+
+  /**
+   * Effectue le tri sur la date de création selon l'ordre donné.
+   * @param event l'évènement déclencheur
+   * @param sortDirection l'ordre de tri souhaité
+   */
+  sortByDirection(sortDirection: SortDirection, event: Event) {
+    event.stopPropagation();
+    this.initFilter();
+    this.eventFilters.sortDirection = sortDirection;
+    this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
+      this.pncLogbookEventsGroup = [];
+      this.handleResponse(pagedLogbookEvents);
+      this.eventFilters.sortDirection = SortDirection.DESC ? SortDirection.ASC : SortDirection.DESC;
+    });
+  }
+
+  /**
+   * Récupère les évènements du pnc en fonction des filtres.
+   * @param matricule le matricule du pnc dont on souhaite obtenir les évènements
+   * @param filter les filtres à appliquer
+   * @returns une promesse contenant les évènements à afficher
+   */
+  getLogbookEventsByFilters(matricule: string, filter: LogbookEventFilterModel): Promise<PagedGenericModel<LogbookEventModel>> {
+    this.eventFilters.isLastEvent = true;
+    return this.onlineLogbookEventService.getLogbookEventsByFilters(matricule, this.eventFilters);
+  }
+
+  /**
+   * Traite les évènements reçus en les ajoutant aux évènements déjà affichés
+   * et gère la pagination.
+   *
+   * @param pagedLogbookEventModel les évènements reçus
+   */
+  handleResponse(pagedLogbookEventModel: PagedGenericModel<LogbookEventModel>) {
+    this.pncLogbookEventsGroup = this.pncLogbookEventsGroup.concat(this.buildGroup(pagedLogbookEventModel.content));
+    this.eventFilters.page = this.eventFilters.page + 1;
+  }
+
+  /**
+   * Contruit des groupes d'évènements à partir d'une liste d'évènements
+   * @param logbookEvents les évènements JDB du pnc
+   * @returns les évènements groupés par identifiant du group
+   */
+  buildGroup(logbookEvents: LogbookEventModel[]): Array<LogbookEventGroupModel> {
+    return logbookEvents.map(logbookEvent => new LogbookEventGroupModel(logbookEvent.groupId, [logbookEvent]));
+  }
+
+  /**
+   * Rafraîchit la page
+   */
+  refreshPage() {
+    this.pncLogbookEventsGroup = null;
+    this.initFilter();
+    this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters);
+  }
+
+  /**
+   * initialise la valeur des filtres
+   */
+  initFilter() {
+    this.eventFilters.page = 0;
+    this.eventFilters.offset = 0;
+    this.eventFilters.isLastEvent = true;
+    this.eventFilters.archived = false;
+    this.eventFilters.status = LogbookEventStatusEnum.REGISTERED;
+    this.eventFilters.sortColumn = this.eventDateColumn;
+    this.eventFilters.sortDirection = SortDirection.DESC;
+  }
+
+  /**
+   * Récupère les évènements liés du groupe. Si les évènements liés ne sont pas déjà chargés,
+   * une requête est lancée pour les récupérer.
+   * @param groupId l'identifiant du groupe dont on souhaite récupérer les évènements liés
+   *
+   */
+  async getRelatedEvents(groupId: number) {
+    if (!this.isRelatedEventsLoaded(groupId)) {
+      const filter = new LogbookEventFilterModel();
+      filter.groupId = groupId;
+      filter.isLastEvent = false;
+      await this.onlineLogbookEventService.getLogbookEventsByFilters(this.pnc.matricule, filter).then(pagedLogbookEvents => {
+        this.pncLogbookEventsGroup.forEach(logbookEventGroup => {
+          if (logbookEventGroup.groupId == groupId) {
+            logbookEventGroup.logbookEvents = logbookEventGroup.logbookEvents.concat(pagedLogbookEvents.content);
+          }
+        });
+      });
+    }
+  }
+
+
+  /**
+   * Récupère des évènements supplémentaires lorsque le bas de page est atteint
+   *
+   * @param event évènement déclenché lorsque le bas de page est atteint
+   */
+  loadMoreEvents(event) {
+    this.dataLoading = true;
+    this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
+      this.handleResponse(pagedLogbookEvents);
+      event.target.complete();
+      this.dataLoading = false;
+      if (pagedLogbookEvents.page.totalPages <= this.eventFilters.page) {
+        event.target.disabled = true;
+      }
+    });
+  }
+
+
+  /**
+   * Vérifie que les évènements liés du groupe sont chargés.
+   * @param groupdId l'identifiant du groupe dont on souhaite vérifier
+   * @returns true si les évènements liés sont chargés, false sinon.
+   */
+  isRelatedEventsLoaded(groupdId: number): boolean {
+    return this.pncLogbookEventsGroup.find(logbookEventGroup => logbookEventGroup.groupId == groupdId).logbookEvents.length > 1;
+  }
+
+  /**
+   * Verifie si l'évènement en paramètre est masqué pour le PNC concerné
+   * @param logbookEvent l'évènement à tester
+   */
+  isHidden(logbookEvent: LogbookEventModel) {
+    const now = moment();
+    const broadcastDate = moment(logbookEvent.creationDate, AppConstant.isoDateFormat);
+    const hiddenDuration = moment.duration(now.diff(broadcastDate)).asMilliseconds();
+    const upToFifteenDays = moment.duration(15, 'days').asMilliseconds();
+    if ((hiddenDuration < upToFifteenDays && !logbookEvent.displayed) || logbookEvent.hidden) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Définit l'affichage des évènements liés du groupe
+   * @param groupId l'identifiant du groupe dont on veut afficher les éléments
+   * @param expand état d'affichage
+   * @param event évènement déclenché
+   */
+  setGroupExpansionState(groupId: number, expand: boolean, event: Event) {
+    event.stopPropagation();
+    if (expand) {
+      this.getRelatedEvents(groupId);
+    }
+    this.pncLogbookEventsGroup.forEach(logbookEventGroup => {
+      if (logbookEventGroup.groupId === groupId) {
+        logbookEventGroup.expanded = expand;
+      }
+    });
+  }
+
+  /**
+   * Dirige vers la page d'édition d'un évènement du journal de bord
+   */
+  goToLogbookCreation() {
+    if (this.pnc) {
+      this.router.navigate(['create'], { relativeTo: this.activatedRoute });
+    }
+  }
+
+  /**
+   * Dirige vers la page de détail d'un évènement du journal de bord
+   */
+  goToLogbookEventDetails(groupId: number) {
+    this.router.navigate(['detail', groupId, false], { relativeTo: this.activatedRoute });
+  }
+
+
+  /**
+   * Vérifie si le PNC est manager
+   * @return vrai si le PNC est manager, faux sinon
+   */
+  isManager(): boolean {
+    return this.securityService.isManager();
+  }
+
+  /**
+   * Ouvre la popover de description d'un item
+   * @param event  event
+   * @param logbookEvent l'évènement JDB concerné
+   */
+  openActionsMenu(event: Event, logbookEvent: LogbookEventModel, logbookEventIndex: number) {
+    event.stopPropagation();
+    this.popoverCtrl.create({
+      component: LogbookEventActionMenuComponent,
+      componentProps: {
+        logbookEvent: logbookEvent,
+        pnc: this.pnc,
+        logbookEventIndex: logbookEventIndex
+      },
+      event: event,
+      cssClass: 'action-menu-popover'
+    }).then(popover => {
+      popover.present();
+
+      popover.onDidDismiss().then(dismissEvent => {
+        if (dismissEvent.data === 'logbookEvent:create') {
+          this.router.navigate(['detail', logbookEvent.groupId, true], { relativeTo: this.activatedRoute });
         }
-        this.getLogbookEvents(this.pnc.matricule);
-    }
-
-    /**
-     * Rafraîchit la page
-     */
-    refreshPage() {
-        this.groupedEvents = null;
-        this.getLogbookEvents(this.pnc.matricule);
-    }
-
-    /**
-     * Verifie si l'évènement en paramètre est masqué pour le PNC concerné
-     * @param logbookEvent l'évènement à tester
-     */
-    isHidden(logbookEvent: LogbookEventModel) {
-        const now = moment();
-        const broadcastDate = moment(logbookEvent.creationDate, AppConstant.isoDateFormat);
-        const hiddenDuration = moment.duration(now.diff(broadcastDate)).asMilliseconds();
-        const upToFifteenDays = moment.duration(15, 'days').asMilliseconds();
-        if ((hiddenDuration < upToFifteenDays && !logbookEvent.displayed) || logbookEvent.hidden) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Gère la réception des évènements du journal de bord du Pnc
-     * @param matricule le matricule du Pnc
-     */
-    private getLogbookEvents(matricule: string) {
-        this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents => {
-            // Tri des évènements par groupId
-            this.groupedEvents = new Array<LogbookEventGroupModel>();
-            const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
-            logbookEvents.forEach(logbookEvent => {
-                if (this.sessionService.getActiveUser().isManager
-                    || matricule === this.sessionService.getActiveUser().matricule
-                    && !this.isHidden(logbookEvent)) {
-                    if (!groupedEventsMap.has(logbookEvent.groupId)) {
-                        groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
-                    }
-                    groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
-                }
-            });
-            // Tri des events de chaque groupe par date d'évènement
-            for (const groupedEvent of Array.from(groupedEventsMap.values())) {
-                groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
-                this.groupedEvents.push(groupedEvent);
+        if (dismissEvent.data === 'logbookEvent:update') {
+          this.router.navigate(['detail', logbookEvent.groupId, false], {
+            state: {
+              logbookEvent: logbookEvent
             }
-        }, error => {
-            this.groupedEvents = new Array<LogbookEventGroupModel>();
-        });
-    }
-
-    /**
-     * Tri d'une liste d'évènements de journal de bord
-     * @param logbookEvents liste d'évènements de journal de bord
-     * @return liste triée
-     */
-    sortLogbookEventsByEventDate(logbookEvents: LogbookEventModel[]): LogbookEventModel[] {
-        return logbookEvents.sort((event1, event2) => {
-            return this.sortByEventDate(event1, event2);
-        });
-    }
-
-    /**
-     * Comparaison de 2 évènements de journal de bord par date d'évènement
-     * @param event1 1er évènement de journal de bord
-     * @param event2 2eme évènement de journal de bord
-     * @return 1 si le 1er évènement est avant le 2e, sinon -1
-     */
-    sortByEventDate(event1: LogbookEventModel, event2: LogbookEventModel): number {
-        return moment(event1.eventDate, AppConstant.isoDateFormat).isBefore(moment(event2.eventDate, AppConstant.isoDateFormat)) ? 1 : -1;
-    }
-
-    /**
-     * Vérifie si il y a des évènements de journal de bord
-     * @return true si il n'y a pas d'évènements, sinon false
-     */
-    hasLogbookEvents(): boolean {
-        return !(this.groupedEvents === undefined || this.groupedEvents === null || this.groupedEvents.length === 0);
-    }
-
-    /**
-     * Vérifie le groupe est composé de plusieurs évènements
-     * @return true si il y a plusieurs d'évènements, sinon false
-     */
-    groupHasManyEvents(eventGroup: LogbookEventGroupModel): boolean {
-        return !(eventGroup === undefined || eventGroup === null || eventGroup.logbookEvents.length <= 1);
-    }
-
-    /**
-     * Ouvre ou ferme un bloc d'évènements liés
-     * @param eventGroup groupe d'évènements de journal de bord
-     */
-    collapseOrExpandEventGroup(myEvent: Event, eventGroup: LogbookEventGroupModel) {
-        myEvent.stopPropagation();
-        eventGroup.expanded = !eventGroup.expanded;
-    }
-
-    /**
-     * Dirige vers la page d'édition d'un évènement du journal de bord
-     */
-    goToLogbookCreation() {
-        if (this.pnc) {
-            this.router.navigate(['create'], { relativeTo: this.activatedRoute });
+            , relativeTo: this.activatedRoute
+          });
         }
-    }
+        if (dismissEvent.data === 'logbookEvent:delete') {
+          this.confirmDeleteLogBookEvent(logbookEvent.techId);
+        }
+      });
+    });
+  }
 
-    /**
-     * Dirige vers la page de détail d'un évènement du journal de bord
-     */
-    goToLogbookEventDetails(groupId: number) {
-        this.router.navigate(['detail', groupId, false], { relativeTo: this.activatedRoute });
-    }
+  /**
+   * Présente une alerte afin de confirmer la suppression de l'évènement
+   */
+  confirmDeleteLogBookEvent(logbookEventTechId: number) {
+    this.alertCtrl.create({
+      header: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.TITLE'),
+      message: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+          handler: () => this.deleteLogbookEvent(logbookEventTechId)
+        }
+      ]
+    }).then(alert => alert.present());
+  }
 
-    /**
-     * Vérifie que le chargement est terminé
-     * @return true si c'est le cas, false sinon
-     */
-    loadingIsOver(): boolean {
-        return this.groupedEvents && this.groupedEvents !== undefined;
-    }
+  /**
+   * Supprime un évènement puis met à jour la liste d'évènement
+   */
+  deleteLogbookEvent(logbookEventTechId: number) {
+    this.loadingCtrl.create().then(loading => {
+      loading.present();
 
-    /**
-     * Vérifie si le PNC est manager
-     * @return vrai si le PNC est manager, faux sinon
-     */
-    isManager(): boolean {
-        return this.securityService.isManager();
-    }
+      this.onlineLogbookEventService.delete(logbookEventTechId)
+        .then(deletedlogbookEvent => {
+          this.toastService.success(this.translateService.instant('LOGBOOK.DELETE.SUCCESS'));
+          this.initFilter();
+          this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvent => this.handleResponse(pagedLogbookEvent));
+          loading.dismiss();
+        },
+          error => {
+            loading.dismiss();
+          });
+    });
+  }
 
-    /**
-     * Ouvre la popover de description d'un item
-     * @param event  event
-     * @param logbookEvent l'évènement JDB concerné
-     */
-    openActionsMenu(event: Event, logbookEvent: LogbookEventModel, logbookEventIndex: number) {
-        event.stopPropagation();
-        this.popoverCtrl.create({
-            component: LogbookEventActionMenuComponent,
-            componentProps: {
-                logbookEvent: logbookEvent,
-                pnc: this.pnc,
-                logbookEventIndex: logbookEventIndex
-            },
-            event: event,
-            cssClass: 'action-menu-popover'
-        }).then(popover => {
-            popover.present();
+  /**
+   * Récupère les archives
+   */
+  loadArchives() {
+    this.initFilter();
+    this.eventFilters.archived = true;
+    this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
+      this.pncLogbookEventsGroup = new Array();
+      this.handleResponse(pagedLogbookEvents);
+    });
+  }
 
-            popover.onDidDismiss().then(dismissEvent => {
-                if (dismissEvent.data === 'logbookEvent:create') {
-                    this.router.navigate(['detail', logbookEvent.groupId, true], { relativeTo: this.activatedRoute });
-                }
-                if (dismissEvent.data === 'logbookEvent:update') {
-                    this.router.navigate(['detail', logbookEvent.groupId, false], {
-                        state: {
-                            logbookEvent: logbookEvent
-                        }
-                        , relativeTo: this.activatedRoute
-                    });
-                }
-                if (dismissEvent.data === 'logbookEvent:delete') {
-                    this.confirmDeleteLogBookEvent(logbookEvent.techId);
-                }
-            });
-        });
-    }
+  /**
+   * Vérifie si il y a des pièces jointes
+   * @return true si il y a des pièces jointes, false sinon
+   */
+  logbookEventHasAttachments(logbookEvent: LogbookEventModel): boolean {
+    return logbookEvent.attachmentFiles && logbookEvent.attachmentFiles.length > 0;
+  }
 
-    /**
-     * Présente une alerte afin de confirmer la suppression de l'évènement
-     */
-    confirmDeleteLogBookEvent(logbookEventTechId: number) {
-        this.alertCtrl.create({
-            header: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.TITLE'),
-            message: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.MESSAGE'),
-            buttons: [
-                {
-                    text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                    role: 'cancel'
-                },
-                {
-                    text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                    handler: () => this.deleteLogbookEvent(logbookEventTechId)
-                }
-            ]
-        }).then(alert => alert.present());
-    }
+  /**
+   * Vérifie si on peut créer un évènement
+   * @return true si on est Manager et qu'on est en ligne
+   */
+  isEventCreationAvailable(): boolean {
+    return this.isManager() && this.connectivityService.isConnected();
+  }
 
-    /**
-     * Supprime un évènement puis met à jour la liste d'évènement
-     */
-    deleteLogbookEvent(logbookEventTechId: number) {
-        this.loadingCtrl.create().then(loading => {
-            loading.present();
 
-            this.onlineLogbookEventService.delete(logbookEventTechId)
-                .then(deletedlogbookEvent => {
-                    this.toastService.success(this.translateService.instant('LOGBOOK.DELETE.SUCCESS'));
-                    this.getLogbookEvents(this.pnc.matricule);
-                    loading.dismiss();
-                },
-                    error => {
-                        loading.dismiss();
-                    });
-        });
-    }
+  /**
+   * Vérifie que l'on est en mode connecté
+   * @return true si on est en mode connecté, false sinon
+   */
+  isConnected(): boolean {
+    return this.connectivityService.isConnected();
+  }
 
-    /**
-     * Vérifie si il y a des pièces jointes
-     * @return true si il y a des pièces jointes, false sinon
-     */
-    logbookEventHasAttachments(logbookEvent: LogbookEventModel): boolean {
-        return logbookEvent.attachmentFiles && logbookEvent.attachmentFiles.length > 0;
-    }
+  /**
+   * Vérifie si le PNC connecté est le rédacteur de l'évènement, ou bien l'instructeur du pnc observé, ou bien son RDS
+   * @return vrai si le PNC est redacteur, instructeur ou rds du pnc observé, faux sinon
+   */
 
-    /**
-     * Vérifie si on peut créer un évènement
-     * @return true si on est Manager et qu'on est en ligne
-     */
-    isEventCreationAvailable(): boolean {
-        return this.isManager() && this.connectivityService.isConnected();
-    }
-
-    /**
-     * Vérifie si le lien Friendly doit être affiché
-     * @return vrai si le lien Friendly doit être affiché, faux sinon
-     */
-    isFriendlyLinkAvailable() {
-        return this.isManager() && this.connectivityService.isConnected();
-    }
-
-    /**
-     * Vérifie que l'on est en mode connecté
-     * @return true si on est en mode connecté, false sinon
-     */
-    isConnected(): boolean {
-        return this.connectivityService.isConnected();
-    }
-
-    /**
-     * Vérifie si le PNC connecté est le rédacteur de l'évènement, ou bien l'instructeur du pnc observé, ou bien son RDS
-     * @return vrai si le PNC est redacteur, instructeur ou rds du pnc observé, faux sinon
-     */
-
-    canEditEvent(logbookEvent: LogbookEventModel, logbookEventIndex: number): boolean {
-        const redactor = logbookEvent.redactor
-            && this.sessionService.getActiveUser().matricule === logbookEvent.redactor.matricule;
-        const instructor = this.pnc && this.pnc.pncInstructor
-            && this.sessionService.getActiveUser().matricule === this.pnc.pncInstructor.matricule;
-        const rds = this.pnc && this.pnc.pncRds && this.sessionService.getActiveUser().matricule === this.pnc.pncRds.matricule;
-        const ccoIscvAdmin = this.pnc && this.securityService.isAdminCcoIscv(this.sessionService.getActiveUser());
-        return redactor || instructor || rds || (ccoIscvAdmin
-            && (logbookEvent.type === LogbookEventTypeEnum.CCO || logbookEvent.type === LogbookEventTypeEnum.ISCV))
-            || logbookEventIndex === 0;
-    }
+  canEditEvent(logbookEvent: LogbookEventModel, logbookEventIndex: number): boolean {
+    const redactor = logbookEvent.redactor
+      && this.sessionService.getActiveUser().matricule === logbookEvent.redactor.matricule;
+    const instructor = this.pnc && this.pnc.pncInstructor
+      && this.sessionService.getActiveUser().matricule === this.pnc.pncInstructor.matricule;
+    const rds = this.pnc && this.pnc.pncRds && this.sessionService.getActiveUser().matricule === this.pnc.pncRds.matricule;
+    const ccoIscvAdmin = this.pnc && this.securityService.isAdminCcoIscv(this.sessionService.getActiveUser());
+    return redactor || instructor || rds || (ccoIscvAdmin
+      && (logbookEvent.type === LogbookEventTypeEnum.CCO || logbookEvent.type === LogbookEventTypeEnum.ISCV))
+      || logbookEventIndex === 0;
+  }
 }
