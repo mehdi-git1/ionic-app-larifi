@@ -18,12 +18,12 @@ import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event
 import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import {
-    OnlineLogbookEventService
+  OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import {
-    LogbookEventActionMenuComponent
+  LogbookEventActionMenuComponent
 } from '../../components/logbook-event-action-menu/logbook-event-action-menu.component';
 
 @Component({
@@ -40,7 +40,7 @@ export class LogbookPage implements OnInit {
   eventFilters: LogbookEventFilterModel;
   pncLogbookEventsGroup: Array<LogbookEventGroupModel>;
   TabHeaderEnum = TabHeaderEnum;
-  eventDateColumn = "eventDate";
+  eventDateColumn = 'eventDate';
   sortDirection: SortDirection;
   dataLoading = false;
   loadingIsOver = false;
@@ -92,10 +92,10 @@ export class LogbookPage implements OnInit {
    * @param event l'évènement déclencheur
    * @param sortDirection l'ordre de tri souhaité
    */
-  sortByDirection(sortDirection: SortDirection, event: Event) {
+  sortByDirection(sortDirection: string, event: Event) {
     event.stopPropagation();
     this.initFilter();
-    this.eventFilters.sortDirection = sortDirection;
+    this.eventFilters.sortDirection = sortDirection as SortDirection;
     this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
       this.pncLogbookEventsGroup = [];
       this.handleResponse(pagedLogbookEvents);
