@@ -2,7 +2,7 @@
     <div class="card-container selectable" *ngIf="pnc">
         <offline-indicator [object]="pnc" type="PNC"></offline-indicator>
         <div class="photo-container">
-            <ion-fab-button ngIf class="mail-container" size="small" color="secondary" (click)="sendMailToPnc()">
+            <ion-fab-button *ngIf="showSendMailButton" class="mail-container" size="small" color="secondary" (click)="sendMailToPnc()">
                 <ion-icon class="mail-icon" name="mail-outline"></ion-icon>
             </ion-fab-button>
             <pnc-photo [pnc]="pnc" [size]="70"></pnc-photo>

@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PncModel } from '../../../core/models/pnc.model';
 import { RelayModel } from '../../../core/models/statutory-certificate/relay.model';
 import { PncService } from '../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../core/services/session/session.service';
 import {
     SynchronizationService
 } from '../../../core/services/synchronization/synchronization.service';
@@ -24,6 +25,8 @@ export class PncHeaderComponent implements OnChanges {
   formatedSpeciality: string;
   synchroInProgress: boolean;
 
+  showSendMailButton = true;
+
   @ViewChild(OfflineIndicatorComponent, { static: false })
   private offlineIndicatorComponent: OfflineIndicatorComponent;
 
@@ -31,14 +34,20 @@ export class PncHeaderComponent implements OnChanges {
     private synchronizationService: SynchronizationService,
     private toastService: ToastService,
     private translateService: TranslateService,
-    private pncService: PncService) {
+    private pncService: PncService,
+    private sessionService: SessionService) {
   }
 
   ngOnChanges() {
-    if (this.pnc && this.pnc.relays) {
-      this.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
-        return relay.code > otherRelay.code ? 1 : -1;
-      });
+    if (this.pnc) {
+      if (this.sessionService.getActiveUser().matricule == this.pnc.matricule) {
+        this.showSendMailButton = false;
+      }
+      if (this.pnc.relays) {
+        this.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
+          return relay.code > otherRelay.code ? 1 : -1;
+        });
+      }
     }
   }
 
