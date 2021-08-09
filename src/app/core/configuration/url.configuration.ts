@@ -25,6 +25,8 @@ export class UrlConfiguration {
     'getLegsById': `${urlGroupEnum.LEG} /{legId}`,
     'getCrewMembersFromLeg': `${urlGroupEnum.LEG}/crew_members/{company}/{flightNumber}/{date}/{departureStation}`,
     'pnc': `v2/${urlGroupEnum.PNC}?page={page}&size={size}`,
+    'getAllRecipients': `v2/${urlGroupEnum.PNC}/recipients`,
+    'sendMailingCampaign':`v2/${urlGroupEnum.PNC}/sendmailingcampaign`,
     'getPncByMatricule': `${urlGroupEnum.PNC}/{matricule}`,
     'getPncAutoComplete': `v2/${urlGroupEnum.PNC}/auto_complete`,
     'getPncUpcomingRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/upcoming_rotations`,

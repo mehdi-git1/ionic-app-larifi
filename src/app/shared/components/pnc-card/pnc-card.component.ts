@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { CrewMemberModel } from '../../../core/models/crew-member.model';
@@ -9,7 +9,7 @@ import { DeviceService } from '../../../core/services/device/device.service';
 import { GenderService } from '../../../core/services/gender/gender.service';
 import { PncService } from '../../../core/services/pnc/pnc.service';
 import {
-    SynchronizationService
+  SynchronizationService
 } from '../../../core/services/synchronization/synchronization.service';
 import { ToastService } from '../../../core/services/toast/toast.service';
 import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicator.component';
@@ -24,8 +24,14 @@ export class PncCardComponent {
   crewMember: CrewMemberModel;
   pnc: PncModel;
   formatedSpeciality: string;
+  @Output() selectPncAsRecipient = new EventEmitter<PncModel>();
+  @Output() unSelectPncAsRecipient = new EventEmitter<PncModel>();
+
   @Input() isCrewMember: boolean;
   @Input() disabled: boolean;
+  @Input() displayCheckmark = false;
+  @Input() isSendMailActive = false;
+  @Input() isAllSelected = false;
   synchroInProgress: boolean;
 
   @ViewChild(OfflineIndicatorComponent, { static: false })
@@ -86,6 +92,26 @@ export class PncCardComponent {
    * @return vrai s'il est dispo, faux sinon
    */
   isDownloadButtonAvailable(): boolean {
-    return this.connectivityService.isConnected() && this.deviceService.isOfflineModeAvailable();
+    return !this.isSendMailActive && this.connectivityService.isConnected() && this.deviceService.isOfflineModeAvailable();
+  }
+
+  showCheckMark(): boolean {
+    return this.displayCheckmark || this.isAllSelected;
+  }
+  /**
+   *
+   * @param event
+   * @param pnc
+   */
+  stopPropagation(event: any, pnc: PncModel): void {
+    event.stopPropagation();
+    if (this.isSendMailActive) {
+      this.displayCheckmark = !this.displayCheckmark;
+      if (this.displayCheckmark) {
+        this.selectPncAsRecipient.emit(pnc);
+      } else {
+        this.unSelectPncAsRecipient.emit(pnc);
+      }
+    }
   }
 }

@@ -36,11 +36,35 @@ mat-sidenav {
 
     .button-bar {
         max-width: 1200px;
-        padding: 10px 20px;
+        padding: 10px 10px;
         margin: auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .mail-actions {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+
+            .total-selected {
+                margin-left: 10px;
+            }
+
+            .total-results {
+                margin-left: 20px;
+            }
+
+            .select-all {
+                font-size: inherit !important;
+
+                ion-label {
+                    margin-right: 3px;
+                }
+            }
+        }
 
         .sort-container {
             display: flex;

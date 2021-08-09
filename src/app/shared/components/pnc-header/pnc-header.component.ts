@@ -90,6 +90,6 @@ export class PncHeaderComponent implements OnChanges {
    * @return l'adresse mail de l'instructeur
    */
   getInstructorMail(): string {
-    return `%22${this.pnc.pncInstructor.lastName}%20${this.pnc.pncInstructor.firstName}%22%3cm${this.pnc.pncInstructor.matricule.substring(0, 6)}@airfrance.fr%3e`;
+    return `"${this.pnc.pncInstructor.lastName}"${this.pnc.pncInstructor.firstName}%22%3cm${this.pnc.pncInstructor.matricule.substring(0, 6)}@airfrance.fr%3e`;
   }
 }

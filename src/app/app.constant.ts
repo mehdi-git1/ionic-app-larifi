@@ -10,6 +10,7 @@ export class AppConstant {
   public static EMAIL_AIRFRANCE_DOMAIN_SUFFIX = '@airfrance.fr';
   public static DASH = '-';
   public static SPACE = ' ';
+  public static COMMA = ',';
   public static notifiedPncGradOrdered = [
     NotifiedPncSpecialityEnum.RDD, NotifiedPncSpecialityEnum.RDS, NotifiedPncSpecialityEnum.REFERENT_INSTRUCTOR,
     NotifiedPncSpecialityEnum.CSV

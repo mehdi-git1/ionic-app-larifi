@@ -1,10 +1,11 @@
-
-
 import { Injectable } from '@angular/core';
 
 import { EntityEnum } from '../../enums/entity.enum';
+import { MailingCampaignModel } from '../../models/mailing-campaign-model';
 import { PageModel } from '../../models/page.model';
 import { PagedPncModel } from '../../models/paged-pnc.model';
+import { PncLightModel } from '../../models/pnc-light.model';
+import { PncSearchCriteriaModel } from '../../models/pnc-search-criteria.model';
 import { PncModel } from '../../models/pnc.model';
 import { RotationModel } from '../../models/rotation.model';
 import { StorageService } from '../../storage/storage.service';
@@ -79,5 +80,23 @@ export class OfflinePncService {
    */
   getAllRotationsByMatricule(matricule: string): Promise<RotationModel[]> {
     return this.storageService.findAllAsync(EntityEnum.ROTATION);
+  }
+
+  /**
+    * Récupère la liste des destinataires
+    * @param criteria les filtres à appliquer
+    * @returns une promesse null car indisponible en hors ligne
+    */
+  getAllRecipients(criteria: PncSearchCriteriaModel): Promise<PncLightModel[]> {
+    return Promise.resolve(null);
+  }
+
+  /**
+   * 
+   * @param mailingCampaignModel 
+   * @returns 
+   */
+  sendMailingCampaign(mailingCampaignModel: MailingCampaignModel): Promise<any> {
+    return Promise.resolve(null);
   }
 }

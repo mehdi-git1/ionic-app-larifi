@@ -1,0 +1,76 @@
+<ion-content>
+    <form [formGroup]="mailFormGroup">
+        <div>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-item class="mails-field">
+                            <ion-label position="stacked">{{ 'MAILING_MODAL.FROM' | translate}}</ion-label>
+                            <ion-input type="mail" formControlName="from" readonly></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col class="mail-bloc">
+                        <div class="mails">
+                            <ion-label position="stacked">{{ 'MAILING_MODAL.CCI' | translate}} </ion-label>
+                            <div>
+                                <span *ngFor="let recipient of cciRecipients; let index = index">
+                                    {{ formatPnc(recipient)}}
+                                    <ion-icon name="close-outline" class="close-icon" (click)="removeCciRecipients(recipient)"></ion-icon>
+                                </span>
+                            </div>
+
+                        </div>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col>
+                        <ion-item class="mails-field">
+                            <ion-label position="stacked">{{ 'MAILING_MODAL.CC' | translate}} </ion-label>
+                            <ion-input type="mail" formControlName="ccRecipients" multiple="true"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label position="stacked">{{'MAILING_MODAL.OBJECT' | translate}}</ion-label>
+                            <ion-input type="text" formControlName="subject"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-item lines="none">
+                            <text-editor [parentForm]="mailFormGroup" controlForm="content" placeholder="{{'MAILING_MODAL.MESSAGE' | translate}}"></text-editor>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-item lines="none">
+                            <document-manager [documents]="documents" [readonly]="false">
+                            </document-manager>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="buttons-action">
+                    <ion-col size="2">
+                        <ion-button fill="outline" (click)="cancelMailing()">
+                            {{'MAILING_MODAL.CANCEL' | translate}}
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="2">
+                        <ion-button color="primary" (click)="sendMail()" [disabled]="mailFormGroup.invalid">
+                            {{'MAILING_MODAL.SEND' | translate}}
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </form>
+
+</ion-content>
