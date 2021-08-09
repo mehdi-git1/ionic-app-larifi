@@ -82,19 +82,20 @@ export class OfflinePncService {
     return this.storageService.findAllAsync(EntityEnum.ROTATION);
   }
 
+
   /**
-    * Récupère la liste des destinataires
-    * @param criteria les filtres à appliquer
-    * @returns une promesse null car indisponible en hors ligne
-    */
+   * Récupère la liste des destinataires
+   * @param criteriales filtres à appliquer à la requête
+   * @returns une promesse null car indisponible hors ligne
+   */
   getAllRecipients(criteria: PncSearchCriteriaModel): Promise<PncLightModel[]> {
     return Promise.resolve(null);
   }
 
   /**
-   * 
-   * @param mailingCampaignModel 
-   * @returns 
+   * Envoie massivement un mail
+   * @param mailingCampaignModel les données du mail
+   * @returns une promesse null car indisponible hors ligne
    */
   sendMailingCampaign(mailingCampaignModel: MailingCampaignModel): Promise<any> {
     return Promise.resolve(null);

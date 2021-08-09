@@ -98,10 +98,10 @@ export class PncCardComponent {
   showCheckMark(): boolean {
     return this.displayCheckmark || this.isAllSelected;
   }
+
   /**
-   *
-   * @param event
-   * @param pnc
+   * @param event évènement déclenché depuis le DOM
+   * @param pnc le pnc sur lequel on a cliqué la photo
    */
   stopPropagation(event: any, pnc: PncModel): void {
     event.stopPropagation();

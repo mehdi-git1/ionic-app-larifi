@@ -64,17 +64,17 @@ export class PncSearchPage {
     private mailingService: MailingService
   ) {
     if (this.router.url.split('/').includes('filters-opened')) {
-      this.isMenuOpened = true
-      this.bypassMenuClosureOnce = true
+      this.isMenuOpened = true;
+      this.bypassMenuClosureOnce = true;
     }
-    this.initFilters()
-    this.initSortOptions()
+    this.initFilters();
+    this.initSortOptions();
 
     this.filtersSubject
       .pipe(switchMap(filters => this.handlePncSearch(filters)))
       .subscribe(pagedPnc => {
         this.handlePncSearchResponse(pagedPnc);
-      })
+      });
 
     this.searchMode = this.activatedRoute.snapshot.paramMap.get('mode')
       ? PncSearchModeEnum[this.activatedRoute.snapshot.paramMap.get('mode')]
@@ -90,9 +90,9 @@ export class PncSearchPage {
    * Initialise l'objet contenant les filtres, avec les paramètres de base de pagination et de tri
    */
   initFilters() {
-    this.filters.size = AppConstant.PAGE_SIZE
-    this.filters.sortColumn = 'lastName'
-    this.filters.sortDirection = SortDirection.ASC
+    this.filters.size = AppConstant.PAGE_SIZE;
+    this.filters.sortColumn = 'lastName';
+    this.filters.sortDirection = SortDirection.ASC;
   }
 
   /**
@@ -133,15 +133,15 @@ export class PncSearchPage {
       this.sessionService.getActiveUser().authenticatedPnc,
       Array.from(this.selectPncRecipients),
       []
-    )
+    );
   }
   /**
    * Lance une recherche avec de nouveaux filtres
    * @param filters l'objet contenant les filtres à appliquer à la recherche
    */
   searchByFilters(filters: PncFilterModel) {
-    this.filters = Object.assign(this.filters, filters)
-    this.launchSearch()
+    this.filters = Object.assign(this.filters, filters);
+    this.launchSearch();
   }
 
   /**
@@ -149,29 +149,28 @@ export class PncSearchPage {
    * @param filters l'objet contenant les filtres à appliquer à la recherche
    */
   reinitializeSearch(filters: PncFilterModel) {
-    this.initFilters()
-    this.searchByFilters(filters)
+    this.initFilters();
+    this.searchByFilters(filters);
   }
 
   /**
    * Active l'option d'envoi de mails
    */
   enableMailSend() {
-    this.activateSendMail = true
+    this.activateSendMail = true;
   }
 
   /**
    * Annule l'option d'envoi de mails
    */
   cancelMailSend() {
-    this.activateSendMail = false
-    this.isAllSelected = false
-
+    this.activateSendMail = false;
+    this.isAllSelected = false;
     this.pncCards.forEach(pncCard => {
-      pncCard.displayCheckmark = false
+      pncCard.displayCheckmark = false;
     })
 
-    this.selectPncRecipients.clear()
+    this.selectPncRecipients.clear();
   }
 
   /**
@@ -238,8 +237,8 @@ export class PncSearchPage {
    * Lance la recherche
    */
   launchSearch() {
-    this.filters.pagePosition = PagePositionEnum.FIRST
-    this.filtersSubject.next(this.filters)
+    this.filters.pagePosition = PagePositionEnum.FIRST;
+    this.filtersSubject.next(this.filters);
   }
 
   /**
@@ -247,7 +246,7 @@ export class PncSearchPage {
    * @return vrai si c'est le cas, faux sinon
    */
   hasPncs(): boolean {
-    return this.filteredPncs && this.filteredPncs.length > 0
+    return this.filteredPncs && this.filteredPncs.length > 0;
   }
 
   /**
@@ -255,7 +254,7 @@ export class PncSearchPage {
    */
   loadNextPage() {
     this.filters.pagePosition = PagePositionEnum.NEXT
-    this.filtersSubject.next(this.filters)
+    this.filtersSubject.next(this.filters);
   }
 
   /**
@@ -265,25 +264,25 @@ export class PncSearchPage {
    */
   handlePncSearch(filters: PncFilterModel): Observable<PagedPncModel> {
     if (filters.pagePosition === PagePositionEnum.FIRST) {
-      this.resetPageNumber()
-      this.isLoading = true
+      this.resetPageNumber();
+      this.isLoading = true;
       if (!this.bypassMenuClosureOnce) {
-        this.isMenuOpened = false
+        this.isMenuOpened = false;
       }
-      this.bypassMenuClosureOnce = false
-      return this.getFilteredPncs(filters)
+      this.bypassMenuClosureOnce = false;
+      return this.getFilteredPncs(filters);
     } else {
       if (
         this.totalPncs === undefined ||
         this.filters.page < this.totalPncs / AppConstant.PAGE_SIZE
       ) {
-        this.filters.page++
-        this.filters.offset = this.filters.page * this.filters.size
-        return this.getFilteredPncs(filters)
+        this.filters.page++;
+        this.filters.offset = this.filters.page * this.filters.size;
+        return this.getFilteredPncs(filters);
       }
     }
 
-    return new Observable()
+    return new Observable();
   }
 
   /**
@@ -292,15 +291,15 @@ export class PncSearchPage {
    * @Return la liste de PNC filtrée
    */
   getFilteredPncs(filters: PncFilterModel): Observable<PagedPncModel> {
-    this.searchInProgress = true
+    this.searchInProgress = true;
     return from(
       this.pncService
         .getFilteredPncs(filters)
         .then(pagedPncSearched => {
-          return pagedPncSearched
+          return pagedPncSearched;
         })
         .catch(error => {
-          return error
+          return error;
         })
     )
   }
@@ -309,8 +308,8 @@ export class PncSearchPage {
    * Remet à zéro le numéro de page
    */
   resetPageNumber() {
-    this.filters.offset = 0
-    this.filters.page = 0
+    this.filters.offset = 0;
+    this.filters.page = 0;
   }
 
   /**
@@ -321,16 +320,16 @@ export class PncSearchPage {
     if (pagedPncs !== null) {
       this.pncPhotoService.synchronizePncsPhotos(
         pagedPncs.content.map(pnc => pnc.matricule)
-      )
+      );
       if (this.filters.pagePosition === PagePositionEnum.NEXT) {
-        this.filteredPncs = this.filteredPncs.concat(pagedPncs.content)
+        this.filteredPncs = this.filteredPncs.concat(pagedPncs.content);
       } else {
-        this.filteredPncs = pagedPncs.content
+        this.filteredPncs = pagedPncs.content;
       }
-      this.totalPncs = pagedPncs.page.totalElements
-      this.isLoading = false
+      this.totalPncs = pagedPncs.page.totalElements;
+      this.isLoading = false;
     }
-    this.searchInProgress = false
+    this.searchInProgress = false;
   }
 
   /**
@@ -338,16 +337,16 @@ export class PncSearchPage {
    * @returns true si le boutton doit être affiché, faux sinon.
    */
   showMailSendingButton(): boolean {
-    return this.isAllSelected ? (this.selectPncRecipients.size === this.totalPncs) : this.selectPncRecipients.size > 0
+    return this.isAllSelected ? (this.selectPncRecipients.size === this.totalPncs) : this.selectPncRecipients.size > 0;
   }
   /**
    * Effectue le tri selon la colonne choisie
    * @param sortChange les options de tri
    */
   sortCrewList(sortChange: SortChange) {
-    this.filters.sortColumn = sortChange.value
-    this.filters.sortDirection = sortChange.direction
-    this.launchSearch()
+    this.filters.sortColumn = sortChange.value;
+    this.filters.sortDirection = sortChange.direction;
+    this.launchSearch();
   }
 
   /**
@@ -355,7 +354,7 @@ export class PncSearchPage {
    * @param enabledFiltersCount le nombre de filtres activés
    */
   setEnabledFiltersCount(enabledFiltersCount: number) {
-    this.enabledFiltersCount = enabledFiltersCount
+    this.enabledFiltersCount = enabledFiltersCount;
   }
   /**
    * Redirige vers la page d'accueil du pnc ou du cadre
@@ -363,11 +362,11 @@ export class PncSearchPage {
    */
   openPncHomePage(pnc: PncModel) {
     // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
-    this.sessionService.appContext.lastConsultedRotation = null
+    this.sessionService.appContext.lastConsultedRotation = null;
     if (this.searchMode === PncSearchModeEnum.ALTERNANT) {
-      this.router.navigate(['visit', pnc.matricule, 'development-program'])
+      this.router.navigate(['visit', pnc.matricule, 'development-program']);
     } else {
-      this.events.publish('EDossier:visited', { visitedPnc: pnc })
+      this.events.publish('EDossier:visited', { visitedPnc: pnc });
     }
   }
 
@@ -376,14 +375,14 @@ export class PncSearchPage {
    * @return vrai si on est sur la recherche d'alternant, faux sinon
    */
   isAlternantSearch() {
-    return this.searchMode === PncSearchModeEnum.ALTERNANT
+    return this.searchMode === PncSearchModeEnum.ALTERNANT;
   }
 
   /**
    * Ouvre/ferme le menu latéral contenant les filtres
    */
   toggleFiltersMenu() {
-    this.isMenuOpened = !this.isMenuOpened
+    this.isMenuOpened = !this.isMenuOpened;
   }
 
   /**
@@ -391,6 +390,6 @@ export class PncSearchPage {
    * @return vrai si la recherche est terminée, faux sinon
    */
   isSearchOver() {
-    return this.totalPncs === this.filteredPncs.length
+    return this.totalPncs === this.filteredPncs.length;
   }
 }

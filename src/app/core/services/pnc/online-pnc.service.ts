@@ -65,19 +65,22 @@ export class OnlinePncService {
     return this.restService.get(this.config.getBackEndUrl('getAllRotationsByMatricule', [matricule]));
   }
 
+
   /**
-     * Récupère la liste des destinataires
-     * @param criteria les filtres à appliquer
-     * @returns une promesse contenant la liste des destinataires
-     */
+   * Récupère la liste des destinataires
+   * @param criteria les filtres à appliquer
+   * @returns une promesse contenant la liste des destinataires
+   */
   getAllRecipients(criteria: PncSearchCriteriaModel): Promise<PncLightModel[]> {
     return this.restService.get(this.config.getBackEndUrl('getAllRecipients'), criteria);
   }
 
+
+
   /**
-   * 
-   * @param mailingCampaignModel 
-   * @returns 
+   * Envoie massivement un mail
+   * @param mailingCampaignModel les données du mail
+   * @returns une promesse indiquant le succès de l'envoi du mail
    */
   sendMailingCampaign(mailingCampaignModel: MailingCampaignModel): Promise<any> {
     return this.restService.post(this.config.getBackEndUrl('sendMailingCampaign'), mailingCampaignModel);

@@ -143,10 +143,11 @@ export class PncService extends BaseService {
     return pnc.currentSpeciality === SpecialityEnum.CC && pnc.haulType === HaulTypeEnum.LC;
   }
 
+
   /**
-   * 
-   * @param mailingCampaignModel 
-   * @returns 
+   * Envoie massivement un mail
+   * @param mailingCampaignModel  les données du mail
+   * @returns une promesse indiquant le succès de l'envoi du mail
    */
   public sendMailingCampaign(mailingCampaignModel: MailingCampaignModel) {
     return this.execFunctionService('sendMailingCampaign', mailingCampaignModel);

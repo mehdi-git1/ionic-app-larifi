@@ -63,7 +63,6 @@ export class MailingService {
    */
   handleDialogDissmis(data: any) {
     if (data) {
-      console.log('data reçu' + JSON.stringify(data));
       this.mailingCampaignModel = new MailingCampaignModel()
       this.mailingCampaignModel.from = data.from.matricule;
       this.mailingCampaignModel.subject = data.subject;
@@ -74,7 +73,6 @@ export class MailingService {
         this.sessionService.authenticatedUser.matricule
       )
       this.mailingCampaignModel.attachmentFiles = data.attachmentFiles;
-      console.log('object extrait ' + JSON.stringify(this.mailingCampaignModel));
       this.pncService
         .sendMailingCampaign(this.mailingCampaignModel)
         .then(() => {
@@ -93,7 +91,6 @@ export class MailingService {
    * @returns les matricules des pnc
    */
   extractMatricules(pncs: PncModel[]): Array<string> {
-    console.log('matricules à extraire' + JSON.stringify(pncs));
     return pncs.map(pnc => pnc.matricule);
   }
 }
