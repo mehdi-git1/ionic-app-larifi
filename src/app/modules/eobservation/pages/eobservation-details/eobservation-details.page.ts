@@ -100,8 +100,8 @@ export class EobservationDetailsPage extends FormCanDeactivate {
   }
 
   /**
-   * Vérifie que la section période n'a pas été changée
-   * @returns vrai si elle a changé, faux sinon.
+   * Vérifie que la section période temporaire n'a pas été changée
+   * @returns vrai si elle a été changée, faux sinon.
    */
   isTemporaryPeriodHasChanged(): boolean {
     return (this.originEObservation.ffc !== this.eObservation.ffc) ||
