@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FindValueSubscriber } from 'rxjs/internal/operators/find';
 
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
@@ -11,7 +12,7 @@ import { EObservationModel } from '../../../../core/models/eobservation/eobserva
 export class EObsTemporaryPeriodComponent {
 
   @Input() eObservation: EObservationModel;
-
+  @Input() disabled = false;
   constructor() {
   }
 
@@ -23,5 +24,36 @@ export class EObsTemporaryPeriodComponent {
     return this.eObservation
       && (this.eObservation.type === EObservationTypeEnum.E_CC || this.eObservation.type === EObservationTypeEnum.E_CCP)
       && (this.eObservation.formationFlight || this.eObservation.val || this.eObservation.ffc);
+  }
+
+  /**
+   * Met à jour le vol de formation
+   * @param state état de la checkbox
+   */
+  updateFormationFlight(state: boolean) {
+    this.eObservation.formationFlight = state;
+    this.eObservation.val = false;
+    this.eObservation.ffc = false;
+  }
+
+  /**
+   * Met à jour la checkbox val
+   * @param state état de la checkbox
+   */
+  updateVal(state: boolean) {
+    this.eObservation.val = true;
+    this.eObservation.formationFlight = false;
+    this.eObservation.ffc = false;
+  }
+
+
+  /**
+   * Met à jour le vol de formation faisant fonction CC
+   * @param state état de la checkbox
+   */
+  updateFfc(state: boolean) {
+    this.eObservation.ffc = true;
+    this.eObservation.val = false;
+    this.eObservation.formationFlight = false;
   }
 }
