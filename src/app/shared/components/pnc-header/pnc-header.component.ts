@@ -1,14 +1,15 @@
+import { AppConstant } from 'src/app/app.constant';
+import { Utils } from 'src/app/shared/utils/utils';
+
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { AppConstant } from 'src/app/app.constant';
-import { LegTransformerService } from 'src/app/core/services/leg/leg-transformer.service';
-import { format } from 'url';
 
 import { PncModel } from '../../../core/models/pnc.model';
 import { RelayModel } from '../../../core/models/statutory-certificate/relay.model';
 import { PncService } from '../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../core/services/session/session.service';
 import {
-  SynchronizationService
+    SynchronizationService
 } from '../../../core/services/synchronization/synchronization.service';
 import { ToastService } from '../../../core/services/toast/toast.service';
 import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicator.component';
@@ -24,6 +25,8 @@ export class PncHeaderComponent implements OnChanges {
   formatedSpeciality: string;
   synchroInProgress: boolean;
 
+  showSendMailButton = true;
+
   @ViewChild(OfflineIndicatorComponent, { static: false })
   private offlineIndicatorComponent: OfflineIndicatorComponent;
 
@@ -31,14 +34,20 @@ export class PncHeaderComponent implements OnChanges {
     private synchronizationService: SynchronizationService,
     private toastService: ToastService,
     private translateService: TranslateService,
-    private pncService: PncService) {
+    private pncService: PncService,
+    private sessionService: SessionService) {
   }
 
   ngOnChanges() {
-    if (this.pnc && this.pnc.relays) {
-      this.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
-        return relay.code > otherRelay.code ? 1 : -1;
-      });
+    if (this.pnc) {
+      if (this.sessionService.getActiveUser().matricule == this.pnc.matricule) {
+        this.showSendMailButton = false;
+      }
+      if (this.pnc.relays) {
+        this.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
+          return relay.code > otherRelay.code ? 1 : -1;
+        });
+      }
     }
   }
 
@@ -90,6 +99,13 @@ export class PncHeaderComponent implements OnChanges {
    * @return l'adresse mail de l'instructeur
    */
   getInstructorMail(): string {
-    return `%22${this.pnc.pncInstructor.lastName}%20${this.pnc.pncInstructor.firstName}%22%3cm${this.pnc.pncInstructor.matricule.substring(0, 6)}@airfrance.fr%3e`;
+    return Utils.getPncMail(this.pnc.pncInstructor.lastName, this.pnc.pncInstructor.firstName, this.pnc.pncInstructor.matricule);
+  }
+
+  /**
+   * Ouvre l'application d'envoie de mail, avec le mail du pnc
+   */
+  sendMailToPnc() {
+    location.href = 'mailto:' + Utils.getPncMail(this.pnc.lastName, this.pnc.firstName, this.pnc.matricule);
   }
 }

@@ -183,4 +183,12 @@ export class Utils {
         }
         return array;
     }
+
+    /**
+     * Construit l'adresse mail d'un pnc
+     * @return l'adresse mail du pnc concerné
+     */
+    public static getPncMail(lastName: string, firstName: string, matricule: string): string {
+        return `%22${lastName}%20${firstName}%22%3cm${matricule.substring(0, 6)}@airfrance.fr%3e`;
+    }
 }
