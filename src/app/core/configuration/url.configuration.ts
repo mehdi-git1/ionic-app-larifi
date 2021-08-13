@@ -69,6 +69,7 @@ export class UrlConfiguration {
     'logbookEvents': urlGroupEnum.LOGBOOK_EVENT,
     'hideOrDisplayLogbookEvent': `${urlGroupEnum.LOGBOOK_EVENT}/hideOrDisplay/{id}`,
     'getLogbookEventsByGroupId': `${urlGroupEnum.LOGBOOK_EVENT}/event_group/{groupId}`,
+    'getLogbookEventsByFilters': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`,
     'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`,
     'deleteLogbookEventById': `${urlGroupEnum.LOGBOOK_EVENT}/{id}`,
     'fixCongratulationLetterRecipient': `${urlGroupEnum.CONGRATULATION_LETTER}/recipients/{id}`,

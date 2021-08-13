@@ -7,6 +7,10 @@
             "LABELS": {
                 "TITLE": "Nouveautés de la version"
             },
+            "DEPRECATED_VERSION_ALERT": {
+              "TITLE": "La version actuelle de votre application ne permet pas de bénéficier de toutes les fonctionnalités.",
+              "MESSAGE": "Merci d'installer la version disponible sur le PNC Store."
+            },
             "CONFIRM_VERSION_UPDATE": {
                 "TITLE": "Une nouvelle version de eDossierPNC est disponible",
                 "MESSAGE": "Merci de mettre à jour votre application depuis le PNC Store afin de profiter pleinement des nouveautés eDossierPNC.",
@@ -271,7 +275,7 @@
         "REFERENT_INSTRUCTOR": "Manager",
         "RDS": "RDS",
         "RDD": "RDD",
-        "CSV": "CSV",
+        "POLE_CSV": "Pole CSV",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
         "WORKRATE": "Rythme",
@@ -982,6 +986,9 @@
         "ORIGIN": "Origine",
         "ACTIONS": "Actions",
         "UNAIVALABLE_OFFLINE": "Les évènements ne sont pas disponibles hors connexion",
+        "LAST_THREE_YEARS_EVENT":"évènements des 3 dernières années",
+        "ARCHIVED_EVENTS": "évènements archivés",
+        "VIEW_ARCHIVES": "consulter les archives",
         "ARCHIVE_LINK_LABEL": "Historique Friendly",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement",
@@ -1055,11 +1062,11 @@
             "CREATED_THE": "Créé le ",
             "NOTIFIED_PNCS": {
                 "TITLE": "Personnes notifiées",
+                "POLE_CSV": "Pole CSV",
                 "SPECIALITY": {
                     "REFERENT_INSTRUCTOR": "Manager",
                     "RDD": "RDD",
-                    "RDS": "RDS",
-                    "CSV": "CSV"
+                    "RDS": "RDS"
                 }
             },
             "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}",
@@ -1217,6 +1224,7 @@
                 "ERC": "ERC",
                 "CUSTOMER_CONTINUITY": "Continuité client",
                 "FLYING_BLUE_ENROLMENT": "Enrôlement FB",
+                "GIFT_FOR_CARE": "GFC",
                 "UPGRADE": "Surclassements",
                 "KDO": "KDO",
                 "LEGEND": "Nombre d'actions réalisées à bord par l'équipage"
@@ -1359,7 +1367,8 @@
             "NUMBER": "Version",
             "RELEASE_DATE": "du",
             "APP_VERSION_LIST": "Historique",
-            "VERSION_NOTE": "Nouveautés de la version"
+            "VERSION_NOTE": "Nouveautés de la version",
+            "DEPRECATED":"Archivée"
         },
         "NO_APP_VERSION_SELECTED": "Aucune version sélectionnée"
     },

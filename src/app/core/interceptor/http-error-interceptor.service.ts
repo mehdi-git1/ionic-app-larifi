@@ -11,18 +11,20 @@ import { UrlConfiguration } from '../configuration/url.configuration';
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { DeviceService } from '../services/device/device.service';
 import { Events } from '../services/events/events.service';
-import { HttpErrorService } from '../http/http-error.service';
+import { ToastService } from '../services/toast/toast.service';
+import { AlertDialogService } from '../services/alertDialog/alert-dialog.service';
 
 @Injectable({ providedIn: 'root' })
 export class HttpErrorInterceptor implements HttpInterceptor {
 
   constructor(
+    private toastProvider: ToastService,
     private translateService: TranslateService,
     private connectivityService: ConnectivityService,
     private deviceService: DeviceService,
     private events: Events,
     private config: UrlConfiguration,
-    private httpErrorService: HttpErrorService
+    private alertDialogService: AlertDialogService
   ) { }
 
   intercept(
@@ -35,26 +37,40 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       if (err instanceof HttpErrorResponse && !request.url.includes(this.config.getBackEndUrl('getPing'))) {
 
         let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
-        if (this.deviceService.isOfflineModeAvailable()) {
-          // Bascule en mode déconnecté si le ping échoue
-          return this.connectivityService.pingAPI().then(
-            success => {
-              if (err.error && err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
-                errorMessage = err.error.detailMessage;
-              }
-              if (request.headers && !request.headers.has('BYPASS_INTERCEPTOR')) {
-                this.httpErrorService.showError(errorMessage);
-              }
-            },
-            error => {
-              this.events.publish('connectionStatus:disconnected');
-            });
-        } else {
-          if (err.error && err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
-            errorMessage = err.error.detailMessage;
+
+        /*
+         Ce statut indique que la version actuelle est archivée,
+         un pop-up bloquant est affiché pour obliger l'utilisateur
+         à installer la version disponible sur le PNC Store
+         */
+        if (err.status === 410) {
+          this.alertDialogService.openAlertDialog(this.translateService.instant('GLOBAL.APP_VERSION.DEPRECATED_VERSION_ALERT.TITLE'),
+            this.translateService.instant('GLOBAL.APP_VERSION.DEPRECATED_VERSION_ALERT.MESSAGE'), '', '', 'deprecated-app-version-alert',
+            false);
+        }
+        else {
+          if (this.deviceService.isOfflineModeAvailable()) {
+            // Bascule en mode déconnecté si le ping échoue
+            return this.connectivityService.pingAPI().then(
+              success => {
+                if (err.error && err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
+                  errorMessage = err.error.detailMessage;
+                }
+                if (request.headers && !request.headers.has('BYPASS_INTERCEPTOR')) {
+                  this.toastProvider.error(errorMessage, 10000);
+                }
+              },
+              error => {
+                this.events.publish('connectionStatus:disconnected');
+              });
           }
-          if (request.headers && !request.headers.has('BYPASS_INTERCEPTOR')) {
-            this.httpErrorService.showError(errorMessage);
+          else {
+            if (err.error && err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
+              errorMessage = err.error.detailMessage;
+            }
+            if (request.headers && !request.headers.has('BYPASS_INTERCEPTOR')) {
+              this.toastProvider.error(errorMessage, 10000);
+            }
           }
         }
       }

@@ -12,10 +12,30 @@
     padding: 10px;
     height: 100%;
 
-    pnc-photo {
-        border: 6px solid var(--ion-color-primary);
+    .photo-container {
         position: relative;
-        border-radius: 100%;
+
+        @media (min-width: 1000px) {
+            margin-right: 10px;
+        }
+
+        pnc-photo {
+            border: 6px solid var(--ion-color-primary);
+            position: relative;
+            border-radius: 100%;
+            display: flex;
+        }
+
+        .mail-container {
+            position: absolute;
+            z-index: 1;
+            top: 35px;
+            left: 40px;
+        }
+
+        ion-icon .mail-icon {
+            font-size: 1.7em;
+        }
     }
 
     // Ajoute une double bordure autour de la photo

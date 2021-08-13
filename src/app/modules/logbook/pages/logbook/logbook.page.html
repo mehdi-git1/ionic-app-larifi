@@ -6,9 +6,10 @@
     </ion-toolbar>
     <pnc-edossier-header [activeTab]="TabHeaderEnum.LOGBOOK_PAGE"></pnc-edossier-header>
 </ion-header>
-<ion-content no-bounce>
+
+<ion-content>
     <ng-container *ngIf="isConnected(); else offlineBlock">
-        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <edossier-spinner *ngIf="!loadingIsOver; else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
             <div class="page-container">
                 <div class="button-bar" *ngIf="isEventCreationAvailable()">
@@ -16,13 +17,14 @@
                         <ion-icon name="add"></ion-icon><span>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</span>
                     </ion-button>
                 </div>
-                <span *ngIf="groupedEvents && groupedEvents.length > 0; else noEventsBlock">
-                    <ion-grid class="logbook-event-grid selectable" [sortableGrid]="groupedEvents">
+                <span *ngIf="pncLogbookEventsGroup && pncLogbookEventsGroup.length > 0; else noEventsBlock">
+                    <ion-grid class="logbook-event-grid selectable">
                         <ion-row class="headers ion-align-items-center">
                             <ion-col class="arrow"></ion-col>
-                            <ion-col class="column-date" columnName="eventDate" sort>
+                            <ion-col class="column-date" columnName="eventDate">
                                 {{ 'LOGBOOK.EVENT_DATE' | translate }}
-                                <ion-icon id="sortIcon" class="sort-icon" color="black" name="arrow-down"></ion-icon>
+                                <ion-icon *ngIf="isDesc(eventFilters.sortDirection)" (click)="sortByDirection('ASC', $event)" id="sortIcon" class="sort-icon" color="black" name="arrow-up"></ion-icon>
+                                <ion-icon *ngIf="!isDesc(eventFilters.sortDirection)" (click)="sortByDirection('DESC', $event)" id="sortIcon" class="sort-icon" color="black" name="arrow-down"></ion-icon>
                             </ion-col>
                             <ion-col class="column-category" columnName="category">{{ 'LOGBOOK.CATEGORY' | translate }}</ion-col>
                             <ion-col class="column-specific"></ion-col>
@@ -39,15 +41,16 @@
                                 {{ 'LOGBOOK.ACTIONS' | translate }}
                             </ion-col>
                         </ion-row>
-                        <ion-row class="grouped-event-row" *ngFor="let groupedEvent of groupedEvents">
+                        <ion-row class="grouped-event-row" *ngFor="let groupedEvent of pncLogbookEventsGroup">
                             <ion-grid class="child-event-grid">
                                 <span *ngFor="let logbookEvent of groupedEvent.logbookEvents; let logbookEventIndex = index">
                                     <ion-row class="event-row ion-align-items-center" *ngIf="groupedEvent.expanded || logbookEventIndex === 0" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
                                         <ion-col class="arrow">
-                                            <div class="child-count clickable" *ngIf="groupHasManyEvents(groupedEvent) && logbookEventIndex === 0" (click)="collapseOrExpandEventGroup($event, groupedEvent)">
-                                                <ion-icon color="primary" name="caret-{{groupedEvent.expanded?'up':'down'}}-outline">
+                                            <div class="child-count clickable" *ngIf="logbookEvent.groupEventCount > 1 && logbookEventIndex === 0">
+                                                <ion-icon color="primary" name="caret-down-outline" *ngIf="!groupedEvent.expanded" (click)="setGroupExpansionState(groupedEvent.groupId, true, $event)"></ion-icon>
+                                                <ion-icon color="primary" name="caret-up-outline" *ngIf="groupedEvent.expanded" (click)="setGroupExpansionState(groupedEvent.groupId, false, $event)">
                                                 </ion-icon>
-                                                <span class="events-number" *ngIf="!groupedEvent.expanded">{{groupedEvent.logbookEvents.length}}</span>
+                                                <span class="events-number" *ngIf="!groupedEvent.expanded">{{logbookEvent.groupEventCount}}</span>
                                             </div>
                                         </ion-col>
                                         <ion-col class="column-date">{{logbookEvent.eventDate | date:'dd/MM/yyyy' }}
@@ -65,7 +68,6 @@
                                         </ion-col>
                                         <ion-col class="column-origin">
                                             <span *ngIf="logbookEvent.pncInitiator" class="edospnc-pnc">
-
                                             </span>
                                         </ion-col>
                                         <ion-col class="column-redactor">
@@ -86,12 +88,27 @@
                         </ion-row>
                     </ion-grid>
                 </span>
+                <div class="info-bloc">
+                    <p *ngIf="!eventFilters.archived else archivedEvents ">* {{'LOGBOOK.LAST_THREE_YEARS_EVENT' | translate}}</p>
+                    <ng-template #archivedEvents>
+                        <p>* {{'LOGBOOK.ARCHIVED_EVENTS' | translate}}</p>
+                    </ng-template>
+
+                    <p *ngIf="!dataLoading" class="information-message archives">
+                        <span class="edospnc-archive"></span>
+                        <a (click)="loadArchives()">{{ 'LOGBOOK.VIEW_ARCHIVES' | translate }}</a>
+                    </p>
+                </div>
                 <ng-template #noEventsBlock>
                     <no-data></no-data>
                 </ng-template>
             </div>
         </ng-template>
     </ng-container>
+    <ion-infinite-scroll (ionInfinite)="loadMoreEvents($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
     <ng-template #offlineBlock>
         <div class="no-data-splash">
             <ion-icon name="cloud-offline"></ion-icon>
