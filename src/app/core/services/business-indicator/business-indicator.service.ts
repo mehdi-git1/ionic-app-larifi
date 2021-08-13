@@ -42,7 +42,7 @@ export class BusinessIndicatorService extends BaseService {
   /**
    * Récupère les indicateurs métier du Pnc
    * @param matricule le matricule du Pnc
-   * @param filters les filtres à appliquer à la requete
+   * @param filters les filtres à appliquer à la requête
    * @return Les indicateurs métiers du PNC
    */
   findPncBusinessIndicators(matricule: string, filters: BusinessIndicatorFilterModel): Promise<PagedBusinessIndicatorModel> {
@@ -59,12 +59,14 @@ export class BusinessIndicatorService extends BaseService {
   }
 
   /**
-   *
-   * @param matricule
-   * @param filter
-   * @returns
+   * Récupère les synthèses des indicateurs métier par poste, pendant les différentes périodes
+   * renseignées dans le filtre.
+   * @param matricule matricule du pnc
+   * @param filter les filtres à appliquer à la requête
+   * @returns les synthèses des indicateurs
    */
-  getBusinessIndicatorSummariesComparison(matricule: string, filter: BusinessIndicatorFilterModel): Promise<BusinessIndicatorComparisonModel[]> {
+  getBusinessIndicatorSummariesComparison(matricule: string, filter: BusinessIndicatorFilterModel):
+    Promise<BusinessIndicatorComparisonModel[]> {
     return this.execFunctionService('getBusinessIndicatorSummariesComparison', matricule, filter);
   }
 

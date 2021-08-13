@@ -52,12 +52,14 @@ export class OnlineBusinessIndicatorService {
   }
 
   /**
-   *
-   * @param matricule
-   * @param filter
-   * @returns
+   * Récupère les synthèses des indicateurs métier par poste, pendant les différentes périodes
+   * renseignées dans le filtre.
+   * @param matricule le matricule du Pnc
+   * @param filter les filtres à appliquer à la requête
+   * @returns les synthèses des indicateurs
    */
-  getBusinessIndicatorSummariesComparison(matricule: string, filter: BusinessIndicatorFilterModel): Promise<BusinessIndicatorComparisonModel[]> {
+  getBusinessIndicatorSummariesComparison(matricule: string, filter: BusinessIndicatorFilterModel):
+    Promise<BusinessIndicatorComparisonModel[]> {
     return this.restService.get(this.config.getBackEndUrl('getBusinessIndicatorSummariesComparison', [matricule]), filter);
   }
   /**

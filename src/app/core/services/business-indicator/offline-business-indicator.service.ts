@@ -42,11 +42,14 @@ export class OfflineBusinessIndicatorService {
   }
 
   /**
-   *
-   * @param matricule
-   * @param filter
+   * Récupère les synthèses des indicateurs métier par poste, pendant les différentes périodes
+   * renseignées dans le filtre.
+   * @param matricule le matricule du Pnc
+   * @param filter es filtres à appliquer à la requête
+   * @returns une promesse null car indisponible en offline
    */
-  getBusinessIndicatorSummariesComparison(matricule: string, filter: BusinessIndicatorLightModel): Promise<BusinessIndicatorComparisonModel[]> {
+  getBusinessIndicatorSummariesComparison(matricule: string, filter: BusinessIndicatorLightModel):
+    Promise<BusinessIndicatorComparisonModel[]> {
     return Promise.resolve(null);
   }
 

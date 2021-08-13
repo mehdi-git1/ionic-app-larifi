@@ -30,16 +30,16 @@ export class BusinessIndicatorComparisonTableComponent implements OnInit {
   /**
    * Récupère le label à afficher pour la population donnée
    * @param populationType la population donnée
-   * @returns le label )
+   * @returns le label
    */
   getPopulationLabel(populationType: string): string {
     return this.translateService.instant('BUSINESS_INDICATORS.LIST.PAST_SUMMARY.'.concat(populationType));
   }
 
   /**
-     * Vérifie si le PNC est CC et vole sur LC
-     * @return vrai si c'est le cas, faux sinon.
-     */
+   * Vérifie si le PNC est CC et vole sur LC
+   * @return vrai c'est le cas, faux sinon.
+   */
   isPncCcLc() {
     return this.pncService.isCcLc(this.pnc);
   }

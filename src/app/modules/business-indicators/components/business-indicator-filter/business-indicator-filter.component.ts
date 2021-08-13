@@ -22,6 +22,8 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
   minStartDate: string;
   lastPeriodComparisonChecked = false;
   lastYearComparisonChecked = false;
+  MINIMAL_DATE = '2019-01-01';
+  MONTH_INTERVAL = 6;
 
   constructor(private translateService: TranslateService, private formBuilder: FormBuilder) {
   }
@@ -29,7 +31,7 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.businessIndicatorFilter = new BusinessIndicatorFilterModel();
-    this.minStartDate = moment('2019-01-01').format('YYYY-MM-DD');
+    this.minStartDate = moment(this.MINIMAL_DATE).format('YYYY-MM-DD');
     this.initFiltersForm();
     this.enableDatesOnChange();
   }
@@ -61,8 +63,8 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
 
 
   /**
- * Initialise le formulaire des filtres
- */
+   * Initialise le formulaire des filtres.
+   */
   initFiltersForm(): void {
     this.filtersForm = this.formBuilder.group({
       firstPeriodStartDate: ['', Validators.required],
@@ -100,7 +102,7 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         filter((value: string) => value && value.length > 0)
       ).subscribe(value => {
-        this.filtersForm.get(dateControlToUpdate).patchValue(fn(6, value));
+        this.filtersForm.get(dateControlToUpdate).patchValue(fn(this.MONTH_INTERVAL, value));
       })
   }
 
@@ -125,6 +127,7 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
    * Si aucune date n'est passée, ajoute à la date courante, le nombre de mois.
    *
    * @param  amount le nombre de mois à rajouter
+   * @param date la date à partir de laquelle ajouter, sinon la date du jour est prise en compte
    * @returns la nouvelle date
    */
   addMonths(amount: number, date?: string): string {
@@ -135,9 +138,9 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
   /**
    * soustrait à la date passée en paramètre, le nombre de mois passé en paramètre.
    * Si aucune date n'est passée, ajoute à la date courante, le nombre de mois.
-   * @param amount
-   * @param date
-   * @returns
+   * @param amount le nombre de mois à soustraire, sinon la date du jour est prise en compte
+   * @param date la date à partir de laquelle soustraire
+   * @returns la nouvelle date
    */
   substractMonths(amount: number, date?: string): string {
     date = date ? date : this.getDateOfTheDay();
@@ -152,21 +155,24 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
     return (this.disabledComparisonLaunchButton || this.filtersForm.invalid);
   }
 
+
   /**
-  * Détermine si les champs date sont sélectionnables dans le formulaire.
-  * @returns true si selectable, false sinon.
-  */
+   * Détermine si les champs date sont sélectionnables dans le formulaire.
+   * @returns vrai si selectable, faux sinon.
+   */
   isPeriodSelectable(): boolean {
     return !this.lastPeriodComparisonChecked && !this.lastYearComparisonChecked;
   }
 
 
+
   /**
-    * Réinitilise les filtres aux valeurs passées dans l'objet si le paramètre existe
-    * sinon, réinitialise aux valeurs par défaut.
-    */
-  resetFilters(filter?: BusinessIndicatorFilterModel) {
-    this.businessIndicatorFilter = (filter == undefined) ? this.getFiltersInitValue() : filter;
+   * Réinitilise les filtres aux valeurs passées dans l'objet si le paramètre existe
+   * sinon, réinitialise aux valeurs par défaut.
+   * @param filters les valeurs du filtre auxquels on souhaiterait réinitialiser le formulaire
+   */
+  resetFilters(filters?: BusinessIndicatorFilterModel) {
+    this.businessIndicatorFilter = (filters === undefined) ? this.getFiltersInitValue() : filters;
     this.filtersForm.reset(this.businessIndicatorFilter);
   }
 

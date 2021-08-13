@@ -9,7 +9,7 @@ import { RelayModel } from '../../../core/models/statutory-certificate/relay.mod
 import { PncService } from '../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../core/services/session/session.service';
 import {
-    SynchronizationService
+  SynchronizationService
 } from '../../../core/services/synchronization/synchronization.service';
 import { ToastService } from '../../../core/services/toast/toast.service';
 import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicator.component';
@@ -67,10 +67,11 @@ export class PncHeaderComponent implements OnChanges {
     let formatedAffectation = '';
     formatedAffectation = (pnc?.assignment?.ginq) ? pnc.assignment.ginq : '';
     formatedAffectation = (pnc?.groupPlanning) ?
-      ((formatedAffectation.length > 0) ? formatedAffectation.concat(AppConstant.SPACE, AppConstant.DASH, AppConstant.SPACE, pnc.groupPlanning) : pnc.groupPlanning)
+      ((formatedAffectation.length > 0) ?
+        formatedAffectation.concat(AppConstant.SPACE, AppConstant.DASH, AppConstant.SPACE, pnc.groupPlanning) : pnc.groupPlanning)
       : formatedAffectation
 
-    return formatedAffectation.length == 0 ? AppConstant.DASH : formatedAffectation;
+    return formatedAffectation.length === 0 ? AppConstant.DASH : formatedAffectation;
   }
   /**
    * Précharge le eDossier du PNC
@@ -80,9 +81,9 @@ export class PncHeaderComponent implements OnChanges {
     this.synchronizationService.storeEDossierOffline(matricule).then(success => {
       this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
       this.synchroInProgress = false;
-      this.toastService.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { matricule: matricule }));
+      this.toastService.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { matricule }));
     }, error => {
-      this.toastService.error(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { matricule: matricule }));
+      this.toastService.error(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { matricule }));
       this.synchroInProgress = false;
     });
   }
