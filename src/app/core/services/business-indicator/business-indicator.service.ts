@@ -6,7 +6,6 @@ import {
 import {
   ShortLoopCommentVerbatimEnum
 } from '../../enums/business-indicators/short-loop-comment-verbatim.enum';
-import { BusinessIndicatorComparisonModel } from '../../models/business-indicator/business-indicator-comparison-model';
 import {
   BusinessIndicatorFilterModel
 } from '../../models/business-indicator/business-indicator-filter-model';
@@ -65,9 +64,9 @@ export class BusinessIndicatorService extends BaseService {
    * @param filter les filtres à appliquer à la requête
    * @returns les synthèses des indicateurs
    */
-  getBusinessIndicatorSummariesComparison(matricule: string, filter: BusinessIndicatorFilterModel):
-    Promise<BusinessIndicatorComparisonModel[]> {
-    return this.execFunctionService('getBusinessIndicatorSummariesComparison', matricule, filter);
+  getBusinessIndicatorSummariesByFilter(matricule: string, filter: BusinessIndicatorFilterModel):
+    Promise<BusinessIndicatorSummariesModel[]> {
+    return this.execFunctionService('getBusinessIndicatorSummariesByFilter', matricule, filter);
   }
 
   /**

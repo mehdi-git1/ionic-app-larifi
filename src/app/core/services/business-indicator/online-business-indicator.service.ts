@@ -8,7 +8,6 @@ import {
   ShortLoopCommentVerbatimEnum
 } from '../../enums/business-indicators/short-loop-comment-verbatim.enum';
 import { RestService } from '../../http/rest/rest.base.service';
-import { BusinessIndicatorComparisonModel } from '../../models/business-indicator/business-indicator-comparison-model';
 import {
   BusinessIndicatorFilterModel
 } from '../../models/business-indicator/business-indicator-filter-model';
@@ -58,9 +57,9 @@ export class OnlineBusinessIndicatorService {
    * @param filter les filtres à appliquer à la requête
    * @returns les synthèses des indicateurs
    */
-  getBusinessIndicatorSummariesComparison(matricule: string, filter: BusinessIndicatorFilterModel):
-    Promise<BusinessIndicatorComparisonModel[]> {
-    return this.restService.get(this.config.getBackEndUrl('getBusinessIndicatorSummariesComparison', [matricule]), filter);
+  getBusinessIndicatorSummariesByFilter(matricule: string, filter: BusinessIndicatorFilterModel):
+    Promise<BusinessIndicatorSummariesModel> {
+    return this.restService.get(this.config.getBackEndUrl('getBusinessIndicatorSummariesByFilter', [matricule]), filter);
   }
   /**
    * Récupère un indicateur métier

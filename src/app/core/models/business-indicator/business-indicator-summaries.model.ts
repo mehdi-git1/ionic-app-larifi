@@ -1,7 +1,9 @@
 import { BusinessIndicatorSummaryModel } from './business-indicator-summary.model';
 
 export class BusinessIndicatorSummariesModel {
-    matricule: string;
-    businessIndicatorSummaries: Array<BusinessIndicatorSummaryModel>;
-    hasNeverFlownAsCcLcDuringPastYear: boolean;
+  matricule: string;
+  startDate: Date;
+  endDate: Date;
+  businessIndicatorSummaries: Array<BusinessIndicatorSummaryModel>;
+  hasNeverFlownAsCcLcDuringPastYear: boolean;
 }

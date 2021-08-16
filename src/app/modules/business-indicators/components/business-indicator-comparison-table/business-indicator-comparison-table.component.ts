@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import * as moment from 'moment';
-import { BusinessIndicatorComparisonModel } from 'src/app/core/models/business-indicator/business-indicator-comparison-model';
 import { PncModel } from 'src/app/core/models/pnc.model';
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
+import * as moment from 'moment';
+import { BusinessIndicatorSummariesModel } from 'src/app/core/models/business-indicator/business-indicator-summaries.model';
 @Component({
   selector: 'business-indicator-comparison-table',
   templateUrl: './business-indicator-comparison-table.component.html',
@@ -13,7 +13,7 @@ import { PncService } from 'src/app/core/services/pnc/pnc.service';
 export class BusinessIndicatorComparisonTableComponent implements OnInit {
 
   @Input()
-  businessIndicatorComparison: BusinessIndicatorComparisonModel[];
+  businessIndicatorComparison: BusinessIndicatorSummariesModel[];
 
   @Input()
   pnc: PncModel;

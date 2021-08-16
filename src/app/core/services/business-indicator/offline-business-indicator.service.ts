@@ -6,7 +6,6 @@ import {
 import {
   ShortLoopCommentVerbatimEnum
 } from '../../enums/business-indicators/short-loop-comment-verbatim.enum';
-import { BusinessIndicatorComparisonModel } from '../../models/business-indicator/business-indicator-comparison-model';
 import {
   BusinessIndicatorLightModel
 } from '../../models/business-indicator/business-indicator-light.model';
@@ -48,8 +47,8 @@ export class OfflineBusinessIndicatorService {
    * @param filter es filtres à appliquer à la requête
    * @returns une promesse null car indisponible en offline
    */
-  getBusinessIndicatorSummariesComparison(matricule: string, filter: BusinessIndicatorLightModel):
-    Promise<BusinessIndicatorComparisonModel[]> {
+  getBusinessIndicatorSummariesByFilter(matricule: string, filter: BusinessIndicatorLightModel):
+    Promise<BusinessIndicatorSummariesModel[]> {
     return Promise.resolve(null);
   }
 
