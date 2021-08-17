@@ -29,7 +29,7 @@
                     <ion-col>
                         <ion-item class="mails-field">
                             <ion-label position="stacked">{{ 'MAILING_MODAL.CC' | translate}} </ion-label>
-                            <ion-input type="mail" formControlName="ccRecipients" multiple="true"></ion-input>
+                            <ion-input type="email" inputmode="email" placeholder="{{'MAILING_MODAL.MAIL_PLACEHOLDER' | translate}}" formControlName="ccRecipients" pattern=".+@airfrance.fr" multiple="true"></ion-input>
                         </ion-item>
                     </ion-col>
                 </ion-row>

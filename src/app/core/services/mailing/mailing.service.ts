@@ -11,6 +11,7 @@ import { PncService } from '../pnc/pnc.service';
 import { SessionService } from '../session/session.service';
 import { ToastService } from '../toast/toast.service';
 import { PncModel } from '../../models/pnc.model';
+import { AppConstant } from 'src/app/app.constant';
 
 
 @Injectable({
@@ -68,8 +69,8 @@ export class MailingService {
       this.mailingCampaignModel.subject = data.subject;
       this.mailingCampaignModel.content = data.content;
       this.mailingCampaignModel.ccIrecipients = this.extractMatricules(data.cciRecipients);
-      this.mailingCampaignModel.ccRecipients = this.extractMatricules(data.ccRecipients);
-      this.mailingCampaignModel.ccRecipients.push(
+      this.mailingCampaignModel.ccRecipients = data.ccRecipients.split(AppConstant.SEMICOLON);
+      this.mailingCampaignModel.ccIrecipients.push(
         this.sessionService.authenticatedUser.matricule
       )
       this.mailingCampaignModel.attachmentFiles = data.attachmentFiles;

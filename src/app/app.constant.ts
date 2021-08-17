@@ -11,6 +11,7 @@ export class AppConstant {
   public static DASH = '-';
   public static SPACE = ' ';
   public static COMMA = ',';
+  public static SEMICOLON = ';';
   public static notifiedPncGradOrdered = [
     NotifiedPncSpecialityEnum.RDD, NotifiedPncSpecialityEnum.RDS, NotifiedPncSpecialityEnum.REFERENT_INSTRUCTOR,
     NotifiedPncSpecialityEnum.CSV

@@ -1293,7 +1293,8 @@
         "MESSAGE": "Veillez rediger votre mail",
         "SEND": "Envoyer",
         "CANCEL": "Annuler",
-        "SEND_CONFIRMATION": "email envoyé avec succès"
+        "SEND_CONFIRMATION": "email envoyé avec succès",
+        "MAIL_PLACEHOLDER":"m123456@airfrance.fr; test.user@airfrance.fr"
     },
     "SETTINGS": {
         "TITLE": "Paramètres",
