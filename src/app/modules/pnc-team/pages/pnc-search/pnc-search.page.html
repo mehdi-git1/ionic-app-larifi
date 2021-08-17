@@ -18,11 +18,38 @@
     <pnc-edossier-header [activeTab]="TabHeaderEnum.ALTERNANT_SEARCH"></pnc-edossier-header>
 
     <div class="button-bar-container">
-        <div class="button-bar">
-            <div class="total-container">
-                <ng-container *ngIf="!isLoading">{{ 'PNC_SEARCH.TOTAL' | translate:{total :totalPncs} }}</ng-container>
-            </div>
+        <div class="button-bar" *ngIf="!isLoading">
+            <div class="mail-actions">
+                <ion-button (click)="enableMailSend()" *ngIf="!activateSendMail else activeSendMailOptions">
+                    {{'PNC_SEARCH.MAIL' | translate}}
+                    <ion-icon class="stick-mark" name="checkmark-sharp"></ion-icon>
+                </ion-button>
+                <ng-template #activeSendMailOptions>
+                    <ion-button *ngIf="showMailSendingButton()" (click)="showMailingModal()">
+                        {{'PNC_SEARCH.SEND_MAIL' | translate}}
+                        <ion-icon name="send" slot="end"></ion-icon>
+                    </ion-button>
 
+                    <ion-button fill="outline" (click)="cancelMailSend()">
+                        {{'PNC_SEARCH.CANCEL' | translate}}
+                        <ion-icon name="trash" slot="end"></ion-icon>
+                    </ion-button>
+
+                    <ion-item lines="none" class="select-all">
+                        <ion-label> {{'PNC_SEARCH.SELECT_ALL' | translate}} </ion-label>
+                        <ion-checkbox [(ngModel)]="isAllSelected" (click)="selectAllPnc()"></ion-checkbox>
+                    </ion-item>
+
+                    <p *ngIf="activateSendMail" class="total-selected" [ngPlural]="this.selectPncRecipients.size">
+                        <ng-template ngPluralCase="0">{{'PNC_SEARCH.TOTAL_SELECTED_SINGULAR' | translate:{total: this.selectPncRecipients.size} }}</ng-template>
+                        <ng-template ngPluralCase="1">{{'PNC_SEARCH.TOTAL_SELECTED_SINGULAR' | translate:{total: this.selectPncRecipients.size} }}</ng-template>
+                        <ng-template ngPluralCase="other">{{'PNC_SEARCH.TOTAL_SELECTED_PLURAL' | translate:{total: this.selectPncRecipients.size} }}</ng-template>
+                    </p>
+                </ng-template>
+                <p class="total-results">
+                    {{ 'PNC_SEARCH.TOTAL' | translate:{total :totalPncs} }}
+                </p>
+            </div>
             <sort-list [value]="filters.sortColumn" [direction]="filters.sortDirection" [options]="sortOptions" (sortChange)="sortCrewList($event)"></sort-list>
         </div>
     </div>
@@ -39,7 +66,7 @@
                     <edossier-spinner *ngIf="isLoading; else pageBlock"></edossier-spinner>
                     <ng-template #pageBlock>
                         <div *ngIf="hasPncs(); else noDataBlock">
-                            <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="pnc" (click)="openPncHomePage(pnc)"></pnc-card>
+                            <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="pnc" [isSendMailActive]="activateSendMail" [isAllSelected]="isAllSelected" (unSelectPncAsRecipient)="removeRecipient($event)" (selectPncAsRecipient)="addRecipient($event)" (click)="openPncHomePage(pnc)"></pnc-card>
                             <div class="spinner-container" *ngIf="!isSearchOver()">
                                 <edossier-spinner *ngIf="searchInProgress"></edossier-spinner>
                             </div>

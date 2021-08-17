@@ -5,7 +5,7 @@
             <div class="photo-container">
                 <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(pnc.matricule)" *ngIf="isDownloadButtonAvailable()">
                 </download-button>
-                <pnc-photo [pnc]="pnc" [size]="80" [handleCall]="false"></pnc-photo>
+                <pnc-photo [pnc]="pnc" (click)="stopPropagation($event, pnc)" [size]="80" [handleCall]="false" [displayCheckmark]="showCheckMark()"></pnc-photo>
             </div>
             <div class="identity">
                 <span class="value speciality" [ngClass]="{'no-value' : !formatedSpeciality }">{{ formatedSpeciality }}</span>

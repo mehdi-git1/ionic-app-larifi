@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { RestService } from '../../http/rest/rest.base.service';
+import { MailingCampaignModel } from '../../models/mailing-campaign-model';
 import { PagedPncModel } from '../../models/paged-pnc.model';
+import { PncLightModel } from '../../models/pnc-light.model';
 import { PncSearchCriteriaModel } from '../../models/pnc-search-criteria.model';
 import { PncModel } from '../../models/pnc.model';
 import { RotationModel } from '../../models/rotation.model';
@@ -63,4 +65,24 @@ export class OnlinePncService {
     return this.restService.get(this.config.getBackEndUrl('getAllRotationsByMatricule', [matricule]));
   }
 
+
+  /**
+   * Récupère la liste des destinataires
+   * @param criteria les filtres à appliquer
+   * @returns une promesse contenant la liste des destinataires
+   */
+  getAllRecipients(criteria: PncSearchCriteriaModel): Promise<PncLightModel[]> {
+    return this.restService.get(this.config.getBackEndUrl('getAllRecipients'), criteria);
+  }
+
+
+
+  /**
+   * Envoie massivement un mail
+   * @param mailingCampaignModel les données du mail
+   * @returns une promesse indiquant le succès de l'envoi du mail
+   */
+  sendMailingCampaign(mailingCampaignModel: MailingCampaignModel): Promise<any> {
+    return this.restService.post(this.config.getBackEndUrl('sendMailingCampaign'), mailingCampaignModel);
+  }
 }

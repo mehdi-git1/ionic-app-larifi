@@ -733,6 +733,12 @@
     "PNC_SEARCH": {
         "NO_CONNEXION_MESSAGE": "* Filtres inactifs hors connexion",
         "TOTAL": "Total : {{total}}",
+        "MAIL": "Mail",
+        "SEND_MAIL": "Envoyer",
+        "CANCEL":"Annuler",
+        "SELECT_ALL":"Tout sélectionner",
+        "TOTAL_SELECTED_SINGULAR":"Sélectionné : {{total}}",
+        "TOTAL_SELECTED_PLURAL":"Sélectionnés : {{total}}",
         "CRITERIA": {
             "TITLE": "Filtres",
             "FILTER": "Filtrer",
@@ -1307,6 +1313,18 @@
             "SUCCESS_REINIT": "Question / réponse secrète initialisées",
             "ERROR": "Erreur lors de la modification de la question / réponse secrète"
         }
+    },
+    "MAILING_MODAL": {
+        "FROM": "De",
+        "TO" : "A",
+        "CC" : "cc",
+        "CCI": "cci",
+        "OBJECT": "Objet",
+        "MESSAGE": "Veillez rediger votre mail",
+        "SEND": "Envoyer",
+        "CANCEL": "Annuler",
+        "SEND_CONFIRMATION": "email envoyé avec succès",
+        "MAIL_PLACEHOLDER":"m123456@airfrance.fr; test.user@airfrance.fr"
     },
     "SETTINGS": {
         "TITLE": "Paramètres",

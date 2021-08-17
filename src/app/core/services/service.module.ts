@@ -52,6 +52,7 @@ import { LegService } from './leg/leg.service';
 import { OfflineLegService } from './leg/offline-leg.service';
 import { OnlineLegService } from './leg/online-leg.service';
 import { OnlineLogbookEventService } from './logbook/online-logbook-event.service';
+import { MailingService } from './mailing/mailing.service';
 import { ManifexService } from './manifex/manifex.service';
 import { ModalSecurityService } from './modal/modal-security.service';
 import { OfflineService } from './offline/offline.service';
@@ -241,7 +242,8 @@ import { WaypointService } from './waypoint/waypoint.service';
         OfflineBusinessIndicatorService,
         HrDocumentService,
         OfflineHrDocumentService,
-        ManifexService
+        ManifexService,
+        MailingService
     ]
 })
 export class ServiceModule { }

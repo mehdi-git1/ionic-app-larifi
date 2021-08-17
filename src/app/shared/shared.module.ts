@@ -1,5 +1,4 @@
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -15,50 +14,50 @@ import { DateTransform } from './utils/date-transform';
 import { Utils } from './utils/utils';
 
 export function createTranslateLoader(http: HttpClient) {
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (createTranslateLoader),
-                deps: [HttpClient]
-            }
-        }),
-        PipesModule,
-        DirectivesModule,
-        PdfViewerModule
-    ],
-    exports: [
-        CommonModule,
-        TranslateModule,
-        AppMaterialModule,
-        PipesModule,
-        DirectivesModule,
-        PdfViewerModule,
-        FormsModule,
-        ReactiveFormsModule
-    ],
-    providers: [
-        AppMaterialModule,
-        Utils,
-        DateTransform,
-        DatePipe,
-        File,
-        FormsModule,
-        ReactiveFormsModule
-    ]
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
+    PipesModule,
+    DirectivesModule,
+    PdfViewerModule
+  ],
+  exports: [
+    CommonModule,
+    TranslateModule,
+    AppMaterialModule,
+    PipesModule,
+    DirectivesModule,
+    PdfViewerModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [
+    AppMaterialModule,
+    Utils,
+    DateTransform,
+    DatePipe,
+    File,
+    FormsModule,
+    ReactiveFormsModule
+  ]
 })
 export class SharedModule {
-    constructor(private translate: TranslateService) {
-        this.translate.addLangs(['en', 'fr']);
-        this.translate.setDefaultLang('fr');
+  constructor(private translate: TranslateService) {
+    this.translate.addLangs(['en', 'fr']);
+    this.translate.setDefaultLang('fr');
 
-        const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|fr/) ? browserLang : 'fr');
-    }
+    const browserLang = this.translate.getBrowserLang();
+    this.translate.use(browserLang.match(/en|fr/) ? browserLang : 'fr');
+  }
 }

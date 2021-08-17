@@ -4,6 +4,18 @@
     align-items: center;
 
     border-radius: 100%;
-    background: var(--ion-color-grey95);
+    background: var(--ion-color-grey90);
     overflow: hidden;
+}
+
+.pnc-checked {
+    opacity: 0.5;
+}
+
+.stick-mark {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    color: var(--ion-color-primary);
+    font-size: 40px;
 }
