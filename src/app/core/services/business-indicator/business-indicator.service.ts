@@ -49,20 +49,20 @@ export class BusinessIndicatorService extends BaseService {
   }
 
   /**
-   * Récupère les synthèses des indicateurs métier des 6 derniers mois d'un PNC
+   * Récupère les synthèses des indicateurs métiers des 6 derniers mois d'un PNC
    * @param matricule le matricule du Pnc
-   * @return les synthèses des indicateurs métier des 6 derniers mois
+   * @return les synthèses des indicateurs métiers des 6 derniers mois
    */
   getBusinessIndicatorSummaries(matricule: string): Promise<BusinessIndicatorSummariesModel> {
     return this.execFunctionService('getBusinessIndicatorSummaries', matricule);
   }
 
   /**
-   * Récupère les synthèses des indicateurs métier par poste, pendant les différentes périodes
+   * Récupère les synthèses des indicateurs métiers par poste, pendant les différentes périodes
    * renseignées dans le filtre.
    * @param matricule matricule du pnc
    * @param filter les filtres à appliquer à la requête
-   * @returns les synthèses des indicateurs
+   * @returns les synthèses des indicateurs métiers
    */
   getBusinessIndicatorSummariesByFilter(matricule: string, filter: BusinessIndicatorFilterModel):
     Promise<BusinessIndicatorSummariesModel[]> {

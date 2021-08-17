@@ -21,7 +21,7 @@ export class OfflineBusinessIndicatorService {
 
   constructor() { }
   /**
-   * Récupère les indicateurs métier du Pnc
+   * Récupère les indicateurs métiers du Pnc
    * @param matricule le matricule du Pnc
    * @return une promesse null car Les indicateurs métiers du PNC sont indisponibles hors ligne
    */
@@ -30,7 +30,7 @@ export class OfflineBusinessIndicatorService {
   }
 
   /**
-   * Récupère les synthèses des indicateurs métier des 6 derniers mois d'un PNC
+   * Récupère les synthèses des indicateurs métiers des 6 derniers mois d'un PNC
    *
    * @param matricule
    *            le matricule du Pnc
@@ -41,7 +41,7 @@ export class OfflineBusinessIndicatorService {
   }
 
   /**
-   * Récupère les synthèses des indicateurs métier par poste, pendant les différentes périodes
+   * Récupère les synthèses des indicateurs métiers par poste, pendant les différentes périodes
    * renseignées dans le filtre.
    * @param matricule le matricule du Pnc
    * @param filter es filtres à appliquer à la requête
@@ -53,8 +53,8 @@ export class OfflineBusinessIndicatorService {
   }
 
   /**
-   * Récupère un indicateur métier
-   * @param id l'id de l'indicateur métier à récupérer
+   * Récupère un indicateur métiers
+   * @param id l'id de l'indicateur métiers à récupérer
    * @return une promesse null car Les indicateurs métiers du PNC sont indisponibles hors ligne
    */
   getBusinessIndicator(id: number): Promise<BusinessIndicatorModel> {
