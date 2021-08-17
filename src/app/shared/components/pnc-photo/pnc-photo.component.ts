@@ -18,6 +18,7 @@ export class PncPhotoComponent implements OnInit, OnChanges {
   @Input() pnc: PncModel;
   @Input() size: number;
   @Input() handleCall = true;
+  @Input() displayCheckmark = false;
 
   photoSrc: SafeResourceUrl;
 

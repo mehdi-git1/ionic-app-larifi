@@ -1,15 +1,13 @@
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash-es';
 import { NotifiedPncSpecialityEnum } from 'src/app/core/enums/notified-pnc-speciality.enum';
 import {
   LogbookEventNotifiedPnc
 } from 'src/app/core/models/logbook/logbook-event-notified-pnc.model';
 import { PncTransformerService } from 'src/app/core/services/pnc/pnc-transformer.service';
-
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, LoadingController, NavController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
-
 import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbook-event-mode.enum';
 import { LogbookEventTypeEnum } from '../../../../core/enums/logbook-event/logbook-event-type.enum';
 import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
@@ -29,8 +27,8 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
-import { LogbookEventNotifiedEmail } from 'src/app/core/models/logbook/logbook-event-notified-email.model';
-import { AppConstant } from 'src/app/app.constant';
+
+
 
 @Component({
   selector: 'logbook-event',
