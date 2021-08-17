@@ -39,7 +39,7 @@
                             </span>
                         </div>
                     </edospnc-expandable-block>
-                    <eobs-temporary-period [eObservation]="eObservation"></eobs-temporary-period>
+                    <eobs-temporary-period [eObservation]="eObservation" [disabled]="!this.editMode"></eobs-temporary-period>
 
                     <eobs-bilan-flight [eObservation]="eObservation" [editMode]="editMode"></eobs-bilan-flight>
 
