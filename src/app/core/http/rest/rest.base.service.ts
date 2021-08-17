@@ -13,53 +13,54 @@ import { RestRequest } from './rest-request';
 Injectable();
 export abstract class RestService {
 
-    constructor(
-        protected http: HttpClient,
-        protected sessionService: SessionService,
-        protected config: Config) {
-    }
+  constructor(
+    protected http: HttpClient,
+    protected sessionService: SessionService,
+    protected config: Config) {
+  }
 
-    abstract call(request: RestRequest): Promise<any>;
+  abstract call(request: RestRequest): Promise<any>;
 
-    get(url: string, jsonData?: any, httpHeaders?: any, byPassImpersonatedUser: boolean = false, byPassInterceptor: boolean = false): Promise<any> {
-        return this.sendRequest('GET', url, jsonData, httpHeaders, byPassImpersonatedUser, byPassInterceptor);
-    }
+  get(url: string, jsonData?: any, httpHeaders?: any, byPassImpersonatedUser: boolean = false, byPassInterceptor: boolean = false): Promise<any> {
 
-    post(url: string, jsonData: any, httpHeaders?: any, byPassImpersonatedUser: boolean = false): Promise<any> {
-        return this.sendRequest('POST', url, jsonData, httpHeaders, byPassImpersonatedUser);
-    }
+    return this.sendRequest('GET', url, jsonData, httpHeaders, byPassImpersonatedUser, byPassInterceptor);
+  }
 
-    put(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
-        return this.sendRequest('PUT', url, jsonData, httpHeaders);
-    }
+  post(url: string, jsonData: any, httpHeaders?: any, byPassImpersonatedUser: boolean = false): Promise<any> {
+    return this.sendRequest('POST', url, jsonData, httpHeaders, byPassImpersonatedUser);
+  }
 
-    delete(url: string, jsonData?: any, httpHeaders?: any): Promise<any> {
-        return this.sendRequest('DELETE', url, jsonData, httpHeaders);
-    }
+  put(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+    return this.sendRequest('PUT', url, jsonData, httpHeaders);
+  }
 
-    sendDeferedRequest(request: RestRequest): Promise<any> {
-        return this.sendRequest(request.method, request.url, request.jsonData, request.httpHeaders, request.byPassImpersonatedUser, request.byPassInterceptor);
-    }
+  delete(url: string, jsonData?: any, httpHeaders?: any): Promise<any> {
+    return this.sendRequest('DELETE', url, jsonData, httpHeaders);
+  }
 
-    /**
-     * Créer une requête REST et l'envoi
-     * @param method la méthode HTTP de la requête
-     * @param url l'URL de la requête
-     * @param jsonData le body si nécessaire
-     * @param httpHeaders les headers
-     * @param byPassImpersonatedUser si on doit outrepasser l'impersonnification
-     * @param byPassInterceptor si on doit outrepasser l'intercepteur pour éviter l'affichage de toast d'erreur
-     */
-    sendRequest(method: string, url: string, jsonData: any, httpHeaders?: any, byPassImpersonatedUser: boolean = false, byPassInterceptor: boolean = false): Promise<any> {
-        const request: RestRequest = new RestRequest();
+  sendDeferedRequest(request: RestRequest): Promise<any> {
+    return this.sendRequest(request.method, request.url, request.jsonData, request.httpHeaders, request.byPassImpersonatedUser, request.byPassInterceptor);
+  }
 
-        request.method = method;
-        request.url = url;
-        request.jsonData = jsonData;
-        request.httpHeaders = httpHeaders;
-        request.byPassImpersonatedUser = byPassImpersonatedUser;
-        request.byPassInterceptor = byPassInterceptor;
+  /**
+   * Créer une requête REST et l'envoi
+   * @param method la méthode HTTP de la requête
+   * @param url l'URL de la requête
+   * @param jsonData le body si nécessaire
+   * @param httpHeaders les headers
+   * @param byPassImpersonatedUser si on doit outrepasser l'impersonnification
+   * @param byPassInterceptor si on doit outrepasser l'intercepteur pour éviter l'affichage de toast d'erreur
+   */
+  sendRequest(method: string, url: string, jsonData: any, httpHeaders?: any, byPassImpersonatedUser: boolean = false, byPassInterceptor: boolean = false): Promise<any> {
+    const request: RestRequest = new RestRequest();
 
-        return this.call(request);
-    }
+    request.method = method;
+    request.url = url;
+    request.jsonData = jsonData;
+    request.httpHeaders = httpHeaders;
+    request.byPassImpersonatedUser = byPassImpersonatedUser;
+    request.byPassInterceptor = byPassInterceptor;
+
+    return this.call(request);
+  }
 }

@@ -1,0 +1,79 @@
+<div class="indicator-summary-comparison-table elevation-2">
+    <div class="indicator-summary-comparison-data">
+        <div class="indicator-summary-label elevation-1">
+            <p class="period-title indicator-title">{{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.COMPARISON_TITLE' | translate}}</p>
+            <p>{{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.POPULATION_TYPE' | translate }}</p>
+            <p>{{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE_CC_LC' | translate}}</p>
+            <p>{{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE_CCP_CC_MC' | translate }}</p>
+            <p>{{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FLYING_BLUE_AVERAGE' | translate }}</p>
+            <p>{{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ERC_AVERAGE' | translate }}</p>
+            <p>{{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.UPGRADE_SUM' | translate }}</p>
+            <p>{{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ON_TIME_SHUTTLE_DEPARTURE_RATIO' | translate }}</p>
+        </div>
+        <div *ngFor="let indicatorComparison of businessIndicatorComparison" class="period-result-bloc">
+
+            <p class="period-title">
+                {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FROM' | translate}} {{ getFormatedDate(indicatorComparison.startDate) }} &nbsp;
+                {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.TO'| translate}} &nbsp;
+                {{ getFormatedDate(indicatorComparison.endDate) }}
+            </p>
+
+            <div class="period-result-data">
+                <ng-container *ngIf="indicatorComparison.businessIndicatorSummaries && indicatorComparison.businessIndicatorSummaries.length> 0 else noDataForPeriod">
+                    <div *ngFor="let indicatorSummaries of indicatorComparison.businessIndicatorSummaries" class="period-result elevation-1">
+                        <p> {{ getPopulationLabel(indicatorSummaries?.population) }}</p>
+                        <p>
+                            <ng-container *ngIf="isPncCcLc() else noData">
+                                <ng-container *ngIf="isIndicatorHasSignificantValue(indicatorSummaries?.escoreAverage) else noSignificantValue">
+                                    {{ indicatorSummaries?.escoreAverage | number: '1.0-1'}}
+                                </ng-container>
+                            </ng-container>
+                            <ng-template #noData>
+                                <span class="not-available"></span>
+                            </ng-template>
+                        </p>
+                        <p>
+                            <ng-container *ngIf="!isPncCcLc() else noData">
+                                <ng-container *ngIf="isIndicatorHasSignificantValue(indicatorSummaries?.escoreAverage) else noSignificantValue">
+                                    {{ indicatorSummaries?.escoreAverage | number: '1.0-1'}}
+                                </ng-container>
+                            </ng-container>
+                            <ng-template #noData>
+                                <span class="not-available"></span>
+                            </ng-template>
+                        </p>
+                        <p>
+                            <ng-container *ngIf="isIndicatorHasSignificantValue(indicatorSummaries?.flyingBlueAverage) else noSignificantValue ">
+                                {{ indicatorSummaries?.flyingBlueAverage  | number: '1.0-1'}}
+                            </ng-container>
+                        </p>
+                        <p>
+                            <ng-container *ngIf="isIndicatorHasSignificantValue( indicatorSummaries?.ercAverage) else noSignificantValue">
+                                {{ indicatorSummaries?.ercAverage | number: '1.0-1'}}
+                            </ng-container>
+                        </p>
+                        <p>
+                            <ng-container *ngIf="isIndicatorHasSignificantValue(indicatorSummaries?.upgradeSum) else noSignificantValue">
+                                {{ indicatorSummaries?.upgradeSum }}
+                            </ng-container>
+                        </p>
+                        <p>
+                            <ng-container *ngIf="isIndicatorHasSignificantValue(indicatorSummaries?.onTimeShuttleDepartureRatio) else noSignificantValue">
+                                {{ indicatorSummaries?.onTimeShuttleDepartureRatio | percent : '1.0-1'   }}
+                            </ng-container>
+                        </p>
+                        <ng-template #noSignificantValue>
+                            <span class="no-data"></span>
+                        </ng-template>
+                    </div>
+                </ng-container>
+                <ng-template #noDataForPeriod>
+                    <div class="no-data-bloc elevation-1">
+                        <no-data></no-data>
+                    </div>
+                </ng-template>
+            </div>
+
+        </div>
+    </div>
+</div>

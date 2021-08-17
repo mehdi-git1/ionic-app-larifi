@@ -43,9 +43,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
          un pop-up bloquant est affiché pour obliger l'utilisateur
          à installer la version disponible sur le PNC Store
          */
-        if (err.status == 410) {
+        if (err.status === 410) {
           this.alertDialogService.openAlertDialog(this.translateService.instant('GLOBAL.APP_VERSION.DEPRECATED_VERSION_ALERT.TITLE'),
-            this.translateService.instant('GLOBAL.APP_VERSION.DEPRECATED_VERSION_ALERT.MESSAGE'), '', '', 'deprecated-app-version-alert', false);
+            this.translateService.instant('GLOBAL.APP_VERSION.DEPRECATED_VERSION_ALERT.MESSAGE'), '', '', 'deprecated-app-version-alert',
+            false);
         }
         else {
           if (this.deviceService.isOfflineModeAvailable()) {

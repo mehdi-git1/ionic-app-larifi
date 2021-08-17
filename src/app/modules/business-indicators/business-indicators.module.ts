@@ -8,19 +8,26 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { SharedModule } from '../../shared/shared.module';
 import {
-    BusinessIndicatorCommentVerbatimComponent
+  BusinessIndicatorCommentVerbatimComponent
 } from './components/business-indicator-comment-verbatim/business-indicator-comment-verbatim.component';
 import {
-    BusinessIndicatorFlightLegendComponent
+  BusinessIndicatorFilterComponent
+} from './components/business-indicator-filter/business-indicator-filter.component';
+import {
+  BusinessIndicatorFlightLegendComponent
 } from './components/business-indicator-flight-legend/business-indicator-flight-legend.component';
 import {
-    BusinessIndicatorPerfopsLegendComponent
+  BusinessIndicatorPerfopsLegendComponent
 } from './components/business-indicator-perfops-legend/business-indicator-perfops-legend.component';
+import {
+  BusinessIndicatorSummaryComponent
+} from './components/business-indicator-summary/business-indicator-summary.component';
 import { EscoreChartComponent } from './components/escore-chart/escore-chart.component';
 import {
-    BusinessIndicatorDetailPage
+  BusinessIndicatorDetailPage
 } from './pages/business-indicator-detail/business-indicator-detail.page';
 import { BusinessIndicatorsPage } from './pages/business-indicators/business-indicators.page';
+import { BusinessIndicatorComparisonTableComponent } from './components/business-indicator-comparison-table/business-indicator-comparison-table.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +36,10 @@ import { BusinessIndicatorsPage } from './pages/business-indicators/business-ind
     EscoreChartComponent,
     BusinessIndicatorFlightLegendComponent,
     BusinessIndicatorPerfopsLegendComponent,
-    BusinessIndicatorCommentVerbatimComponent
+    BusinessIndicatorCommentVerbatimComponent,
+    BusinessIndicatorSummaryComponent,
+    BusinessIndicatorFilterComponent,
+    BusinessIndicatorComparisonTableComponent
   ],
   imports: [
     IonicModule,

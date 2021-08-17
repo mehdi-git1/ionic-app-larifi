@@ -6,6 +6,7 @@
     </ion-toolbar>
     <pnc-edossier-header [activeTab]="TabHeaderEnum.LOGBOOK_PAGE"></pnc-edossier-header>
 </ion-header>
+
 <ion-content>
     <ng-container *ngIf="isConnected(); else offlineBlock">
         <edossier-spinner *ngIf="!loadingIsOver; else pageBlock"></edossier-spinner>
