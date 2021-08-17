@@ -8,6 +8,7 @@ import { RestService } from './rest/rest.base.service';
 import { RestMobileService } from './rest/rest.mobile.service';
 import { HttpErrorInterceptor } from '../interceptor/http-error-interceptor.service';
 import { Config } from '../../../environments/config';
+import { HttpErrorService } from './http-error.service';
 
 declare var window: any;
 
@@ -19,6 +20,7 @@ declare var window: any;
     { provide: RestService, useFactory: createRestService, deps: [HttpClient, SessionService, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     HttpClientModule,
+    HttpErrorService
   ]
 })
 export class HttpModule { }

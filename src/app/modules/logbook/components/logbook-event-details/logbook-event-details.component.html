@@ -116,9 +116,9 @@
                 </div>
                 <div class="large-width-devices  visibility-for-large-container">
                     <form #form="ngForm" [formGroup]="visibilityForm">
-                        <ion-radio-group [(ngModel)]="visibilitySelected" formControlName="visibilityControl">
+                        <ion-radio-group [(ngModel)]="visibilitySelected" formControlName="visibilityControl" (ionChange)="confirmHideOrDisplayEvent()">
                             <ion-item *ngIf="getDisplayDate() && (logbookEvent.type === LogbookEventTypeEnum.CCO || logbookEvent.type === LogbookEventTypeEnum.ISCV)" lines="none">
-                                <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}" (ionChange)="confirmHideOrDisplayEvent()">
+                                <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}">
                                 </ion-radio>
                                 <ion-label>
                                     {{ 'LOGBOOK.DETAILS.WILL_BE_DISPLAYED_ON' | translate:{date:getDisplayDate()} }}

@@ -41,10 +41,9 @@ export class RestWebService extends RestService {
     // Ajout de la version de l'application dans chaque requête
     request.httpHeaders.headers = request.httpHeaders.headers.append('APP_VERSION', this.config.appVersion);
 
-    // En local, on ajoute le header SM_USER pour simuler l'authent habile
-    if (this.config.isLocalhost()) {
-      request.httpHeaders.headers = request.httpHeaders.headers.append('SM_USER', '42615534');
-    }
+    // En local, on ajoute le header SM_USER pour simuler l'authent habile. Dans les autres environnements, cette valeur
+    // est écrasée par le SM_USER de l'utilisateur connectée
+    request.httpHeaders.headers = request.httpHeaders.headers.append('SM_USER', '42615534');
 
     // On ajoute un header spécial si la fonction d'impersonnification a été utilisée
     if (!request.byPassImpersonatedUser && this.sessionService.impersonatedUser && this.sessionService.impersonatedUser.matricule) {

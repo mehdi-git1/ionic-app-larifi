@@ -19,6 +19,8 @@ export class EdospncDatetimeComponent extends AbstractValueAccessor implements O
   @Input() edospncFormGroup: FormGroup;
   @Input() edospncFormControlName: string;
   @Input() inputLike = false;
+  @Input() minStartDate;
+
 
   @ViewChild('datetime', { static: false }) datepicker;
 
