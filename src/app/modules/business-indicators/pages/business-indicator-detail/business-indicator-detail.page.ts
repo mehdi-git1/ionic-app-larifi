@@ -12,33 +12,33 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../../app.constant';
 import {
-  BusinessIndicatorCommentTypeEnum
+    BusinessIndicatorCommentTypeEnum
 } from '../../../../core/enums/business-indicators/business-indicator-comment-type.enum';
 import {
-  EScoreCommentVerbatimEnum
+    EScoreCommentVerbatimEnum
 } from '../../../../core/enums/business-indicators/escore-comment-verbatim.enum';
 import {
-  ShortLoopCommentVerbatimEnum
+    ShortLoopCommentVerbatimEnum
 } from '../../../../core/enums/business-indicators/short-loop-comment-verbatim.enum';
 import {
-  BusinessIndicatorModel
+    BusinessIndicatorModel
 } from '../../../../core/models/business-indicator/business-indicator.model';
 import {
-  EScoreCommentModel
+    EScoreCommentModel
 } from '../../../../core/models/business-indicator/e-score-comment.model';
 import {
-  ShortLoopCommentModel
+    ShortLoopCommentModel
 } from '../../../../core/models/business-indicator/short-loop-comment.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { AlertDialogService } from '../../../../core/services/alertDialog/alert-dialog.service';
 import {
-  OnlineBusinessIndicatorService
+    OnlineBusinessIndicatorService
 } from '../../../../core/services/business-indicator/online-business-indicator.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { Utils } from '../../../../shared/utils/utils';
 import {
-  BusinessIndicatorPerfopsLegendComponent
+    BusinessIndicatorPerfopsLegendComponent
 } from '../../components/business-indicator-perfops-legend/business-indicator-perfops-legend.component';
 
 const ratingImagePath = 'assets/imgs/business-indicators/smiley-note-';
@@ -246,10 +246,8 @@ export class BusinessIndicatorDetailPage {
   canDisplayShortLoopComment(): boolean {
     const isCcpAndLcFlight = this.businessIndicator.aboardSpeciality === SpecialityEnum.CCP
       && this.businessIndicator.flight.haulType === HaulTypeEnum.LC;
-    const isCcAndCcOrMcFlight = this.businessIndicator.aboardSpeciality === SpecialityEnum.CC
-      && (this.businessIndicator.flight.haulType === HaulTypeEnum.CC
-        || this.businessIndicator.flight.haulType === HaulTypeEnum.MC);
-    return isCcpAndLcFlight || isCcAndCcOrMcFlight;
+    const isCc = this.businessIndicator.aboardSpeciality === SpecialityEnum.CC;
+    return isCcpAndLcFlight || isCc;
   }
 
   /**
