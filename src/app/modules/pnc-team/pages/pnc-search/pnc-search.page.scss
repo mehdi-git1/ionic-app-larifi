@@ -49,6 +49,10 @@ mat-sidenav {
             align-content: center;
             justify-content: center;
 
+            .mail-icon {
+                margin-left: 2px;
+            }
+
             .total-selected {
                 margin-left: 10px;
             }
@@ -59,6 +63,10 @@ mat-sidenav {
 
             .select-all {
                 font-size: inherit !important;
+
+                ion-checkbox {
+                    --size: 13px;
+                }
 
                 ion-label {
                     margin-right: 3px;

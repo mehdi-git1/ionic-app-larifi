@@ -22,9 +22,10 @@
             <div class="mail-actions">
                 <ion-button (click)="enableMailSend()" *ngIf="!activateSendMail else activeSendMailOptions">
                     {{'PNC_SEARCH.MAIL' | translate}}
-                    <ion-icon class="stick-mark" name="checkmark-sharp"></ion-icon>
+                    <ion-icon class="mail-icon" name="mail"></ion-icon>
                 </ion-button>
                 <ng-template #activeSendMailOptions>
+
                     <ion-button *ngIf="showMailSendingButton()" (click)="showMailingModal()">
                         {{'PNC_SEARCH.SEND_MAIL' | translate}}
                         <ion-icon name="send" slot="end"></ion-icon>
