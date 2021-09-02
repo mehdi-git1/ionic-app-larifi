@@ -145,8 +145,8 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
 
   /**
    * Détermine si l'on doit afficher le tableau de comparaison
-   * des périodes par aux six derniers moi ou l'année précédente.
-   * @return true si doit être affiché, faux sinon.
+   * des périodes par rapport aux six derniers mois ou l'année précédente.
+   * @return true si le tableau de comparaison par rapport aux six derniers mois doit être affiché, faux sinon.
    */
   showPeriodOrLastYearComparison(): boolean {
     return this.businessIndicatorSummariesComparison && this.businessIndicatorSummariesComparison.length &&
@@ -154,9 +154,8 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
   }
 
   /**
-   * Détermine si l'on doit afficher la comparaison par rapport à la population
-   * de référence.
-   * @returns true si doit être affiché, faux sinon.
+   * Détermine si l'on doit afficher la comparaison par rapport à la population de référence.
+   * @returns true si la comparaison par rapport à la population de référence doit être affichée, faux sinon.
    */
   showPopulationReferenceComparison(): boolean {
     return this.businessIndicatorSummariesComparison && this.businessIndicatorSummariesComparison.length
@@ -172,6 +171,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
   updateActivatedTab(activatedTab: BusinessIndicatorPopulationEnum) {
     this.activePopulationTab = activatedTab;
   }
+
   /**
    * Lance la comparaison des différentes périodes
    * @param filter les filtres à appliquer
@@ -182,30 +182,22 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
     this.disabledComparisonLaunchButton = true;
     if (!this.businessIndicatorsFilter.compareWithPopulation) {
       this.businessIndicatorService.getBusinessIndicatorSummariesByFilter(this.pnc.matricule, filter)
-        .then((businessIndicatorSummariesComparison) => {
-          this.isFilterOpened = false;
-          this.disabledComparisonLaunchButton = false;
-          this.businessIndicatorSummariesComparison = businessIndicatorSummariesComparison;
-        });
+        .then((businessIndicatorSummaries) => this.handleBusinessSummariesResponse(businessIndicatorSummaries));
     } else {
       this.businessIndicatorService.getBusinessIndicatorSummariesByPopulation(filter)
-        .then((businessIndicatorSummaries) => {
-          const postFictif = new BusinessIndicatorSummaryModel();
-          postFictif.escoreAverage = 8;
-          postFictif.onTimeShuttleDepartureRatio = 0.3;
-          postFictif.population = BusinessIndicatorPopulationEnum.CC_LC;
-          this.businessIndicatorSummariesComparison = businessIndicatorSummaries;
-          this.businessIndicatorSummariesComparison[0].businessIndicatorSummaries.push(
-            postFictif
-          );
-          this.businessIndicatorSummariesComparison[1].businessIndicatorSummaries.push(
-            postFictif
-          );
-          this.isFilterOpened = false;
-          this.disabledComparisonLaunchButton = false;
-        }
+        .then((businessIndicatorSummaries) => this.handleBusinessSummariesResponse(businessIndicatorSummaries)
         );
     }
+  }
+
+  /**
+   * Gère la réponse de la requête récupérant les synthèses des indicateurs métiers selon les filtres
+   * @param businessIndicatorSummaries les synthèses des indicateurs métiers.
+   */
+  handleBusinessSummariesResponse(businessIndicatorSummaries: BusinessIndicatorSummariesModel[]) {
+    this.businessIndicatorSummariesComparison = businessIndicatorSummaries;
+    this.isFilterOpened = false;
+    this.disabledComparisonLaunchButton = false;
   }
 
   /**

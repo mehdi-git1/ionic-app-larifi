@@ -64,7 +64,9 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Remplit les data
+   * Gère la comparaison par rapport à la population sur la période renseignée.
+   * Les sécondes périodes sont remplies à la date du jour afin de rendre la validation
+   * possible.
    */
   comparisonWithPopulationChange(): void {
     this.filtersForm.patchValue({

@@ -23,18 +23,15 @@
         <ion-item (click)="lastPeriodComparisonChange()">
             <ion-label>
                 {{'BUSINESS_INDICATORS.FILTERS.COMPARE_TO_LAST_PERIOD' | translate}}</ion-label>
-            <!--   <ion-checkbox [checked]="businessIndicatorFilter.compareWithLastPeriod"></ion-checkbox>-->
             <ion-checkbox formControlName="compareWithLastPeriod"></ion-checkbox>
         </ion-item>
         <ion-item (click)="lastYearComparisonChange()">
             <ion-label> {{'BUSINESS_INDICATORS.FILTERS.COMPARE_TO_LAST_YEAR' | translate}}</ion-label>
             <ion-checkbox formControlName="compareWithLastYear"></ion-checkbox>
-            <!--<ion-checkbox [checked]="businessIndicatorFilter.compareWithLastYear"> </ion-checkbox> -->
         </ion-item>
         <ion-item (click)="comparisonWithPopulationChange()">
             <ion-label>{{'BUSINESS_INDICATORS.FILTERS.COMPARE_TO_GLOBAL_POPULATION' | translate }}</ion-label>
             <ion-checkbox formControlName="compareWithPopulation"></ion-checkbox>
-            <!-- <ion-checkbox [checked]="businessIndicatorFilter.compareWithPopulation"></ion-checkbox>-->
         </ion-item>
     </div>
 

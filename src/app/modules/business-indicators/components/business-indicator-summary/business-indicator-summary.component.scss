@@ -4,14 +4,6 @@
     font-size: 1.1em;
 
     ion-card-content {
-        .summary-title {
-            display: flex;
-            justify-content: center;
-            font-size: 18px;
-            color: var(--ion-color-primary);
-            text-decoration: underline;
-        }
-
         .switch-to-landscape-legend {
             margin-top: 16px;
             font-style: italic;
