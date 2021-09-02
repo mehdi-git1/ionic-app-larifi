@@ -20,8 +20,6 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
   filtersForm: FormGroup;
   businessIndicatorFilter: BusinessIndicatorFilterModel;
   minStartDate: string;
-  lastPeriodComparisonChecked = false;
-  lastYearComparisonChecked = false;
   MINIMAL_DATE = '2019-01-01';
   MONTH_INTERVAL = 6;
 
@@ -45,8 +43,10 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
    * de comparer par rapport à l'année dernière.
    */
   lastYearComparisonChange(): void {
-    this.lastYearComparisonChecked = !this.lastYearComparisonChecked
-    this.lastPeriodComparisonChecked = false;
+    this.filtersForm.patchValue({
+      compareWithPopulation: false,
+      compareWithLastPeriod: false
+    });
     this.setFiltersToLastYear();
   }
 
@@ -56,9 +56,24 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
    * de comparer par rapport à la période précedant la première période.
    */
   lastPeriodComparisonChange(): void {
-    this.lastPeriodComparisonChecked = !this.lastPeriodComparisonChecked;
-    this.lastYearComparisonChecked = false;
+    this.filtersForm.patchValue({
+      compareWithPopulation: false,
+      compareWithLastYear: false
+    });
     this.setFiltersTotLastPeriod();
+  }
+
+  /**
+   * Remplit les data
+   */
+  comparisonWithPopulationChange(): void {
+    this.filtersForm.patchValue({
+      compareWithLastYear: false,
+      compareWithLastPeriod: false,
+      secondPeriodStartDate: this.getDateOfTheDay(),
+      secondPeriodEndDate: this.getDateOfTheDay()
+    });
+    this.businessIndicatorFilter = this.filtersForm.value;
   }
 
 
@@ -69,6 +84,9 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
     this.filtersForm = this.formBuilder.group({
       firstPeriodStartDate: ['', Validators.required],
       firstPeriodEndDate: ['', Validators.required],
+      compareWithPopulation: [false],
+      compareWithLastPeriod: [false],
+      compareWithLastYear: [false],
       secondPeriodStartDate: ['', Validators.required],
       secondPeriodEndDate: ['', Validators.required]
     }
@@ -161,7 +179,9 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
    * @returns vrai si selectable, faux sinon.
    */
   isPeriodSelectable(): boolean {
-    return !this.lastPeriodComparisonChecked && !this.lastYearComparisonChecked;
+    return this.businessIndicatorFilter &&
+      !this.businessIndicatorFilter.compareWithLastPeriod &&
+      !this.businessIndicatorFilter.compareWithLastYear;
   }
 
 
@@ -183,18 +203,34 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
    * à la période précédant la première.
    */
   setFiltersTotLastPeriod(): void {
-    this.businessIndicatorFilter.secondPeriodEndDate = moment(this.businessIndicatorFilter.firstPeriodStartDate).subtract(1, 'days').toISOString();
-    this.businessIndicatorFilter.secondPeriodStartDate = moment(this.businessIndicatorFilter.secondPeriodEndDate).subtract(6, 'months').toISOString();
-    this.resetFilters(this.businessIndicatorFilter);
+    this.filtersForm.patchValue({
+      secondPeriodEndDate: moment(this.filtersForm.get('firstPeriodStartDate').value).subtract(1, 'days').toISOString(),
+      secondPeriodStartDate: moment(this.filtersForm.get('firstPeriodStartDate').value)
+        .subtract(1, 'days')
+        .subtract(6, 'months').toISOString()
+    }, { emitEvent: false });
+
+    this.businessIndicatorFilter = this.filtersForm.value;
+  }
+  /**
+   * Vérifie que la comparaison par rapport à la population de référence
+   * est le filtre choisi
+   * @returns vrai si la comparaison est faite par rapport à la population, faux sinon.
+   */
+  isComparisonToPopulation(): boolean {
+    return this.businessIndicatorFilter && this.businessIndicatorFilter.compareWithPopulation;
   }
 
   /**
    * Défnit les valeurs des date de la seconde périodes aux même dates de l'année n-1
    */
   setFiltersToLastYear() {
-    this.businessIndicatorFilter.secondPeriodEndDate = moment(this.businessIndicatorFilter.firstPeriodEndDate).subtract(1, 'year').toISOString();
-    this.businessIndicatorFilter.secondPeriodStartDate = moment(this.businessIndicatorFilter.firstPeriodStartDate).subtract(1, 'year').toISOString();
-    this.resetFilters(this.businessIndicatorFilter);
+    this.filtersForm.patchValue({
+      secondPeriodEndDate: moment(this.filtersForm.get('firstPeriodEndDate').value).subtract(1, 'year').toISOString(),
+      secondPeriodStartDate: moment(this.filtersForm.get('firstPeriodStartDate').value).subtract(1, 'year').toISOString()
+    }, { emitEvent: false });
+
+    this.businessIndicatorFilter = this.filtersForm.value;
   }
 
 
@@ -213,8 +249,9 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
   getFiltersInitValue(): BusinessIndicatorFilterModel {
     this.businessIndicatorFilter.firstPeriodStartDate = this.substractMonths(6);
     this.businessIndicatorFilter.firstPeriodEndDate = this.getDateOfTheDay();
-    this.lastPeriodComparisonChecked = false;
-    this.lastYearComparisonChecked = false;
+    this.businessIndicatorFilter.compareWithLastPeriod = false;
+    this.businessIndicatorFilter.compareWithLastYear = false;
+    this.businessIndicatorFilter.compareWithPopulation = false;
     this.businessIndicatorFilter.secondPeriodStartDate = '';
     this.businessIndicatorFilter.secondPeriodEndDate = '';
     return this.businessIndicatorFilter;
