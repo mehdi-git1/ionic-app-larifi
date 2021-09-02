@@ -27,6 +27,7 @@ export class UrlConfiguration {
     pnc: `v2/${urlGroupEnum.PNC}?page={page}&size={size}`,
     getPncByMatricule: `${urlGroupEnum.PNC}/{matricule}`,
     getPncAutoComplete: `v2/${urlGroupEnum.PNC}/auto_complete`,
+    getAllRecipients: `v2/${urlGroupEnum.PNC}/recipients`,
     getPncUpcomingRotationsByMatricule: `${urlGroupEnum.PNC}/{matricule}/upcoming_rotations`,
     getPncLastPerformedRotationsByMatricule: `${urlGroupEnum.PNC}/{matricule}/last_performed_rotations`,
     getReceivedCongratulationLettersByPnc: `${urlGroupEnum.PNC}/{matricule}/received_congratulation_letters`,
