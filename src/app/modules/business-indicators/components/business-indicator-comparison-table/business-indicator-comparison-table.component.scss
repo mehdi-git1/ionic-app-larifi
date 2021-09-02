@@ -1,4 +1,11 @@
 .indicator-summary-comparison-table {
+
+    z-index: 2;
+    box-sizing: content-box;
+    margin-top: 10px;
+
+    background-color: var(--ion-color-grey95);
+
     .no-data:after {
         content: '-';
     }
@@ -7,11 +14,6 @@
         content: 'NA';
     }
 
-    z-index: 2;
-    box-sizing: content-box;
-
-    background-color: var(--ion-color-grey95);
-
     .period-title {
         display: flex;
         justify-content: center;
@@ -19,6 +21,7 @@
         height: 50px !important;
         background-color: var(--ion-color-primary);
         color: var(--ion-color-white);
+        margin: 0;
     }
 
     .indicator-title {
