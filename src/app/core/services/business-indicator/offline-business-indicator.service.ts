@@ -6,6 +6,7 @@ import {
 import {
   ShortLoopCommentVerbatimEnum
 } from '../../enums/business-indicators/short-loop-comment-verbatim.enum';
+import { BusinessIndicatorFilterModel } from '../../models/business-indicator/business-indicator-filter-model';
 import {
   BusinessIndicatorLightModel
 } from '../../models/business-indicator/business-indicator-light.model';
@@ -47,11 +48,20 @@ export class OfflineBusinessIndicatorService {
    * @param filter es filtres à appliquer à la requête
    * @returns une promesse null car indisponible en offline
    */
-  getBusinessIndicatorSummariesByFilter(matricule: string, filter: BusinessIndicatorLightModel):
+  getBusinessIndicatorSummariesByFilter(matricule: string, filter: BusinessIndicatorFilterModel):
     Promise<BusinessIndicatorSummariesModel[]> {
     return Promise.resolve(null);
   }
 
+  /**
+   * Récupère les synthèses des indicateurs métiers du pnc et de sa population de référence en fonction
+   * du filtre passé en paramètre.
+   * @param filter les filtres à appliquer
+   * @returns  une promesse null car indisponible en offline
+   */
+  getBusinessIndicatorSummariesByPopulation(filter: BusinessIndicatorFilterModel): Promise<BusinessIndicatorSummariesModel[]> {
+    return Promise.resolve(null);
+  }
   /**
    * Récupère un indicateur métiers
    * @param id l'id de l'indicateur métiers à récupérer

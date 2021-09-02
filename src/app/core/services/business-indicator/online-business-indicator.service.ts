@@ -61,6 +61,16 @@ export class OnlineBusinessIndicatorService {
     Promise<BusinessIndicatorSummariesModel> {
     return this.restService.get(this.config.getBackEndUrl('getBusinessIndicatorSummariesByFilter', [matricule]), filter);
   }
+
+  /**
+   * Récupère les synthèses des indicateurs métiers du pnc et de sa population de référence en fonction
+   * du filtre passé en paramètre.
+   * @param filter les filtres à appliquer
+   * @returns les synthèses des indicateurs métiers du pnc et de sa population de référence
+   */
+  getBusinessIndicatorSummariesByPopulation(filter: BusinessIndicatorFilterModel): Promise<BusinessIndicatorSummariesModel[]> {
+    return this.restService.get(this.config.getBackEndUrl('getBusinessIndicatorSummariesByPopulation'), filter);
+  }
   /**
    * Récupère un indicateur métier
    * @param id l'id de l'indicateur métier à récupérer

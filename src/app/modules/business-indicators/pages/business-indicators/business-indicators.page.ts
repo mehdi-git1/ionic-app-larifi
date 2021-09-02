@@ -39,6 +39,8 @@ import {
 import {
   BusinessIndicatorFlightLegendComponent
 } from '../../components/business-indicator-flight-legend/business-indicator-flight-legend.component';
+import { BusinessIndicatorSummaryModel } from 'src/app/core/models/business-indicator/business-indicator-summary.model';
+import { BusinessIndicatorPopulationEnum } from 'src/app/core/enums/business-indicators/business-indicator-population.enum';
 
 @Component({
   selector: 'page-business-indicators',
@@ -51,7 +53,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
   TabHeaderEnum = TabHeaderEnum;
   totalElements: number;
   pnc: PncModel;
-  businessIndicatorSummaries: BusinessIndicatorSummariesModel;
+  lastSixMonthsbusinessIndicatorSummaries: BusinessIndicatorSummariesModel;
   businessIndicators: BusinessIndicatorModel[];
   businessIndicatorsFilter: BusinessIndicatorFilterModel;
   dataSource: MatTableDataSource<BusinessIndicatorModel>;
@@ -60,6 +62,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
   businessIndicatorRequestSubject: Subject<any>;
   isFilterOpened = false;
   disabledComparisonLaunchButton = false;
+  activePopulationTab: BusinessIndicatorPopulationEnum;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -78,7 +81,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
     });
 
     this.businessIndicatorService.getBusinessIndicatorSummaries(matricule).then(businessIndicatorSummaries => {
-      this.businessIndicatorSummaries = businessIndicatorSummaries;
+      this.lastSixMonthsbusinessIndicatorSummaries = businessIndicatorSummaries;
     });
 
     this.getIndicatorsByFilter(matricule).subscribe(pagedIndicator => this.processRequestResult(pagedIndicator));
@@ -99,7 +102,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
    * @return true si c'est le cas, false sinon
    */
   loadingIsOver(): boolean {
-    return (this.pnc !== undefined && this.businessIndicators !== undefined && this.businessIndicatorSummaries !== undefined);
+    return (this.pnc !== undefined && this.businessIndicators !== undefined && this.lastSixMonthsbusinessIndicatorSummaries !== undefined);
   }
 
   /**
@@ -141,18 +144,60 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
   }
 
   /**
+   * Détermine si l'on doit afficher le tableau de comparaison
+   * des périodes par rapport aux six derniers mois ou l'année précédente.
+   * @return true si le tableau de comparaison par rapport aux six derniers mois doit être affiché, faux sinon.
+   */
+  showPeriodOrLastYearComparison(): boolean {
+    return this.businessIndicatorSummariesComparison && this.businessIndicatorSummariesComparison.length &&
+      (this.businessIndicatorsFilter.compareWithLastPeriod || this.businessIndicatorsFilter.compareWithLastYear);
+  }
+
+  /**
+   * Détermine si l'on doit afficher la comparaison par rapport à la population de référence.
+   * @returns true si la comparaison par rapport à la population de référence doit être affichée, faux sinon.
+   */
+  showPopulationReferenceComparison(): boolean {
+    return this.businessIndicatorSummariesComparison && this.businessIndicatorSummariesComparison.length
+      && this.businessIndicatorsFilter.compareWithPopulation;
+  }
+  /**
+   * Lorsque la comparaison est faite par rapport à la population de référence,
+   * cette fonction met à jour l'onglet actif afin d'assurer la synchronisation des
+   * affichages.
+   *
+   * @param activatedTab l'onglet actif
+   */
+  updateActivatedTab(activatedTab: BusinessIndicatorPopulationEnum) {
+    this.activePopulationTab = activatedTab;
+  }
+
+  /**
    * Lance la comparaison des différentes périodes
    * @param filter les filtres à appliquer
    */
   launchComparison(filter: BusinessIndicatorFilterModel) {
     this.businessIndicatorsFilter = filter;
+    this.businessIndicatorsFilter.matricule = this.pnc.matricule;
     this.disabledComparisonLaunchButton = true;
-    this.businessIndicatorService.getBusinessIndicatorSummariesByFilter(this.pnc.matricule, filter)
-      .then((businessIndicatorSummariesComparison) => {
-        this.isFilterOpened = false;
-        this.disabledComparisonLaunchButton = false;
-        this.businessIndicatorSummariesComparison = businessIndicatorSummariesComparison;
-      });
+    if (!this.businessIndicatorsFilter.compareWithPopulation) {
+      this.businessIndicatorService.getBusinessIndicatorSummariesByFilter(this.pnc.matricule, filter)
+        .then((businessIndicatorSummaries) => this.handleBusinessSummariesResponse(businessIndicatorSummaries));
+    } else {
+      this.businessIndicatorService.getBusinessIndicatorSummariesByPopulation(filter)
+        .then((businessIndicatorSummaries) => this.handleBusinessSummariesResponse(businessIndicatorSummaries)
+        );
+    }
+  }
+
+  /**
+   * Gère la réponse de la requête récupérant les synthèses des indicateurs métiers selon les filtres
+   * @param businessIndicatorSummaries les synthèses des indicateurs métiers.
+   */
+  handleBusinessSummariesResponse(businessIndicatorSummaries: BusinessIndicatorSummariesModel[]) {
+    this.businessIndicatorSummariesComparison = businessIndicatorSummaries;
+    this.isFilterOpened = false;
+    this.disabledComparisonLaunchButton = false;
   }
 
   /**
@@ -166,30 +211,6 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
     }
     return moment(businessIndicator.flight.legDepartureDate, AppConstant.isoDateFormat)
       .subtract(businessIndicator.flight.d0, 'minutes').toDate();
-  }
-
-  compare(a: number | string, b: number | string, isAsc: boolean) {
-    if ((!a || a === undefined) && b) {
-      return -1 * (isAsc ? 1 : -1);
-    }
-    if (a && (!b || b === undefined)) {
-      return 1 * (isAsc ? 1 : -1);
-    }
-    if ((!a || a === undefined) && (!b || b === undefined)) {
-      return -1 * (isAsc ? 1 : -1);
-    }
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  }
-
-  /**
-   * Compare 2 dates
-   * @param firstDate première date
-   * @param secondDate seconde date
-   * @param isAsc true, si comparaison ascendante. False sinon
-   */
-  compareDate(firstDate: Date, secondDate: Date, isAsc: boolean) {
-    return (moment(firstDate, AppConstant.isoDateFormat)
-      .isBefore(moment(secondDate, AppConstant.isoDateFormat)) ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
   /**
@@ -209,12 +230,11 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
     this.businessIndicatorRequestSubject.next();
   }
 
+
   /**
-  * traite le resultat de la réquete
-  * de récherche d'indicateurs métiers.
-  *
-  * @param businessIndicators la liste des indicateurs metiers reçus.
-  */
+   * traite le résultat de la requête de recherche des indicateurs métiers
+   * @param pagedBusinessIndicators les indicateurs métiers reçus
+   */
   processRequestResult(pagedBusinessIndicators: PagedBusinessIndicatorModel): void {
     this.businessIndicators = pagedBusinessIndicators.content;
     this.dataSource.data = this.businessIndicators;
@@ -239,7 +259,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
       component: BusinessIndicatorFlightLegendComponent,
       event,
       translucent: true,
-      componentProps: { hasNeverFlownAsCcLcDuringPastYear: this.businessIndicatorSummaries.hasNeverFlownAsCcLcDuringPastYear }
+      componentProps: { hasNeverFlownAsCcLcDuringPastYear: this.lastSixMonthsbusinessIndicatorSummaries.hasNeverFlownAsCcLcDuringPastYear }
     }).then(popover => {
       popover.present();
     });

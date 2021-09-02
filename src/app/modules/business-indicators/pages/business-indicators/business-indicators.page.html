@@ -18,7 +18,7 @@
                 <mat-sidenav-content>
                     <ng-container *ngIf="businessIndicators.length > 0; else noBusinessIndicatorBlock">
                         <div class="page-container">
-                            <ng-container *ngIf="businessIndicatorSummariesComparison && businessIndicatorSummariesComparison.length > 0 else lastSixMonthIndicatorSummary">
+                            <ng-container *ngIf="showPeriodOrLastYearComparison() else indicatorSummary">
                                 <div class="comparison-chart">
                                     <div class="six-month-summary-button">
                                         <ion-button (click)="reinitSummariesComparisonData()">
@@ -29,15 +29,32 @@
                                     </business-indicator-comparison-table>
                                 </div>
                             </ng-container>
-                            <ng-template #lastSixMonthIndicatorSummary>
+                            <ng-template #indicatorSummary>
                                 <div class="summary-title-bloc">
-                                    <h3> {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.TITLE' | translate }}
+                                    <h3 *ngIf="showPopulationReferenceComparison() else lastSixMonthIndicatorSummary">
+                                        {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.COMPARISON_POPULATION_TITLE' | translate }}
                                     </h3>
-                                    <ion-button (click)="setFilterContainerState(true)" *ngIf="!isFilterOpened">
+                                    <ng-template #lastSixMonthIndicatorSummary>
+                                        <h3>
+                                            {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.TITLE' | translate }}
+                                        </h3>
+                                    </ng-template>
+                                    <ion-button (click)="setFilterContainerState(true)" *ngIf="!isFilterOpened && !showPopulationReferenceComparison()">
                                         {{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.COMPARISON_BUTTON' | translate}}
                                     </ion-button>
+
+                                    <ion-button *ngIf="showPopulationReferenceComparison()" (click)="reinitSummariesComparisonData()">
+                                        {{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.DISPLAY_LAST_SIX_MONTHS' | translate}}
+                                    </ion-button>
                                 </div>
-                                <business-indicator-summary [businessIndicatorSummaries]="businessIndicatorSummaries" [pnc]="pnc"></business-indicator-summary>
+                                <business-indicator-summary *ngIf="!showPopulationReferenceComparison() else displayPopulationReferenceComparison" [businessIndicatorSummaries]="lastSixMonthsbusinessIndicatorSummaries" [pnc]="pnc"></business-indicator-summary>
+                                <ng-template #displayPopulationReferenceComparison>
+                                    <business-indicator-summary (activatedSummaryTabOnChange)="updateActivatedTab($event)" [businessIndicatorSummaries]="businessIndicatorSummariesComparison[0]" [pnc]="pnc" [activatedSummaryTab]="activePopulationTab"></business-indicator-summary>
+                                    <h3>
+                                        Indicateurs population de référence
+                                    </h3>
+                                    <business-indicator-summary (activatedSummaryTabOnChange)="updateActivatedTab($event)" [businessIndicatorSummaries]="businessIndicatorSummariesComparison[1]" [pnc]="pnc" [activatedSummaryTab]="activePopulationTab"></business-indicator-summary>
+                                </ng-template>
                             </ng-template>
                             <h3 class="flight-list-title">
                                 {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_CARD_12_LAST_MONTHS' | translate }}

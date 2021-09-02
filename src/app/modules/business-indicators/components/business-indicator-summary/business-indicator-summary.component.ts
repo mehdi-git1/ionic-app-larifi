@@ -1,15 +1,16 @@
 import { PncModel } from 'src/app/core/models/pnc.model';
 
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import {
-    BusinessIndicatorPopulationEnum
+  BusinessIndicatorPopulationEnum
 } from '../../../../core/enums/business-indicators/business-indicator-population.enum';
 import {
-    BusinessIndicatorSummariesModel
+  BusinessIndicatorSummariesModel
 } from '../../../../core/models/business-indicator/business-indicator-summaries.model';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+
 
 @Component({
   selector: 'business-indicator-summary',
@@ -22,7 +23,11 @@ export class BusinessIndicatorSummaryComponent implements OnInit {
   @Input() businessIndicatorSummaries: BusinessIndicatorSummariesModel;
   @Input() pnc: PncModel;
 
-  activeSummaryTab: BusinessIndicatorPopulationEnum;
+  @Input()
+  activatedSummaryTab: BusinessIndicatorPopulationEnum;
+
+  @Output()
+  activatedSummaryTabOnChange = new EventEmitter<BusinessIndicatorPopulationEnum>();
 
   constructor(
     private pncService: PncService,
@@ -32,7 +37,7 @@ export class BusinessIndicatorSummaryComponent implements OnInit {
 
   ngOnInit() {
     if (this.businessIndicatorSummaries.businessIndicatorSummaries.length > 0) {
-      this.activeSummaryTab = this.businessIndicatorSummaries.businessIndicatorSummaries[0].population;
+      this.activatedSummaryTab = this.businessIndicatorSummaries.businessIndicatorSummaries[0].population;
     }
   }
 
@@ -61,4 +66,11 @@ export class BusinessIndicatorSummaryComponent implements OnInit {
     return !this.deviceService.isBrowser();
   }
 
+  /**
+   * Emet la valeur de l'onglet sélèctionné.
+   * @param activeTab l'onglet sélèctionné.
+   */
+  activatedTabChanged(activeTab: BusinessIndicatorPopulationEnum) {
+    this.activatedSummaryTabOnChange.emit(activeTab);
+  }
 }

@@ -9,6 +9,10 @@ export class BusinessIndicatorFilterModel {
   secondPeriodStartDate: string;
   secondPeriodEndDate: string;
 
+  compareWithPopulation = false;
+  compareWithLastPeriod = false;
+  compareWithLastYear = false;
+
   // sort
   sortColumn: BusinessIndicatorSortColumnEnum;
   sortDirection: SortDirection;
