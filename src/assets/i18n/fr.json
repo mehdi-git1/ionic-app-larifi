@@ -275,7 +275,7 @@
         "REFERENT_INSTRUCTOR": "Manager",
         "RDS": "RDS",
         "RDD": "RDD",
-        "POLE_CSV": "Pole CSV",
+        "POLE_CSV": "Pôle CSV",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
         "WORKRATE": "Rythme",
@@ -1068,7 +1068,7 @@
             "CREATED_THE": "Créé le ",
             "NOTIFIED_PNCS": {
                 "TITLE": "Personnes notifiées",
-                "POLE_CSV": "Pole CSV",
+                "POLE_CSV": "Pôle CSV",
                 "SPECIALITY": {
                     "REFERENT_INSTRUCTOR": "Manager",
                     "RDD": "RDD",
