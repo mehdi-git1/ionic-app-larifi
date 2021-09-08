@@ -1,18 +1,18 @@
 import {
-  MailingModalComponent
+    MailingModalComponent
 } from 'src/app/shared/components/modals/mailing-modal/mailing-modal.component';
 
-import { EventEmitter, Injectable, OnInit } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AppConstant } from '../../../app.constant';
+import { Utils } from '../../../shared/utils/utils';
 import { MailingCampaignModel } from '../../models/mailing-campaign-model';
+import { PncModel } from '../../models/pnc.model';
 import { PncService } from '../pnc/pnc.service';
 import { SessionService } from '../session/session.service';
 import { ToastService } from '../toast/toast.service';
-import { PncModel } from '../../models/pnc.model';
-import { AppConstant } from 'src/app/app.constant';
-
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +47,8 @@ export class MailingService {
         from,
         cciRecipients,
         ccRecipients
-      }
+      },
+      cssClass: 'mailing-modal-container'
     })
     this.mailingModal.onDidDismiss().then(data => {
       this.handleDialogDissmis(data.data)
@@ -65,14 +66,16 @@ export class MailingService {
   handleDialogDissmis(data: any) {
     if (data) {
       this.mailingCampaignModel = new MailingCampaignModel()
-      this.mailingCampaignModel.from = data.from.matricule;
+      this.mailingCampaignModel.from = Utils.getClearShortPncMail(data.from.lastName, data.from.firstName, data.from.matricule);
       this.mailingCampaignModel.subject = data.subject;
       this.mailingCampaignModel.content = data.content;
       this.mailingCampaignModel.ccIrecipients = this.extractMatricules(data.cciRecipients);
-      this.mailingCampaignModel.ccRecipients = data.ccRecipients.split(AppConstant.SEMICOLON);
-      this.mailingCampaignModel.ccIrecipients.push(
-        this.sessionService.authenticatedUser.matricule
+      this.mailingCampaignModel.ccRecipients = (typeof data.ccRecipients === 'string') ? data.ccRecipients.split(AppConstant.SEMICOLON) :
+        Array.from(data.ccRecipients);
+      this.mailingCampaignModel.ccRecipients.push(
+        this.mailingCampaignModel.from
       )
+
       this.mailingCampaignModel.attachmentFiles = data.attachmentFiles;
       this.pncService
         .sendMailingCampaign(this.mailingCampaignModel)

@@ -191,4 +191,15 @@ export class Utils {
     public static getPncMail(lastName: string, firstName: string, matricule: string): string {
         return `%22${lastName}%20${firstName}%22%3cm${matricule.substring(0, 6)}@airfrance.fr%3e`;
     }
+
+    /**
+     * Construit l'adresse mail sous le format court du pnc sans les caractères unicodes
+     * @param lastName le nom du pnc
+     * @param firstName le prénom du pnc
+     * @param matricule  le matricule du pnc
+     * @return l'adresse mail court sans caractères unicodes
+     */
+    public static getClearShortPncMail(lastName: string, firstName: string, matricule: string): string {
+        return `m${matricule.substring(0, 6)}@airfrance.fr`;
+    }
 }

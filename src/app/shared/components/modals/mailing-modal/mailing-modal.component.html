@@ -4,7 +4,7 @@
             <ion-grid>
                 <ion-row>
                     <ion-col>
-                        <ion-item class="mails-field">
+                        <ion-item>
                             <ion-label position="stacked">{{ 'MAILING_MODAL.FROM' | translate}}</ion-label>
                             <ion-input type="mail" formControlName="from" readonly></ion-input>
                         </ion-item>
@@ -27,9 +27,9 @@
 
                 <ion-row>
                     <ion-col>
-                        <ion-item class="mails-field">
+                        <ion-item>
                             <ion-label position="stacked">{{ 'MAILING_MODAL.CC' | translate}} </ion-label>
-                            <ion-input type="email" inputmode="email" placeholder="{{'MAILING_MODAL.MAIL_PLACEHOLDER' | translate}}" formControlName="ccRecipients" pattern=".+@airfrance.fr" multiple="true"></ion-input>
+                            <ion-input type="email" inputmode="email" placeholder="{{'MAILING_MODAL.MAIL_PLACEHOLDER' | translate}}" formControlName="ccRecipients" pattern=".+@airfrance.fr" multiple></ion-input>
                         </ion-item>
                     </ion-col>
                 </ion-row>
@@ -57,19 +57,19 @@
                         </ion-item>
                     </ion-col>
                 </ion-row>
-                <ion-row class="buttons-action">
-                    <ion-col size="2">
-                        <ion-button fill="outline" (click)="cancelMailing()">
-                            {{'MAILING_MODAL.CANCEL' | translate}}
-                        </ion-button>
-                    </ion-col>
-                    <ion-col size="2">
-                        <ion-button color="primary" (click)="sendMail()" [disabled]="mailFormGroup.invalid">
-                            {{'MAILING_MODAL.SEND' | translate}}
-                        </ion-button>
-                    </ion-col>
-                </ion-row>
             </ion-grid>
+            <div class="buttons-action">
+                <p>
+                    <ion-button fill="outline" (click)="cancelMailing()">
+                        {{'MAILING_MODAL.CANCEL' | translate}}
+                    </ion-button>
+                </p>
+                <p class="send-mail">
+                    <ion-button color="primary" (click)="sendMail()" [disabled]="mailFormGroup.invalid">
+                        {{'MAILING_MODAL.SEND' | translate}}
+                    </ion-button>
+                </p>
+            </div>
         </div>
     </form>
 
