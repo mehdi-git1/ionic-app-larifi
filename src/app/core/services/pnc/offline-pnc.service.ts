@@ -98,6 +98,7 @@ export class OfflinePncService {
    * @returns une promesse null car indisponible hors ligne
    */
   sendMailingCampaign(mailingCampaignModel: MailingCampaignModel): Promise<any> {
+    console.log('éxécution offline');
     return Promise.resolve(null);
   }
 }

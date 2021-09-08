@@ -2,14 +2,6 @@
      font-weight: bold;
  }
 
- .buttons-action {
-     margin-right: 24px;
-     justify-content: flex-end;
-
-     ion-col {
-         margin: 0 0 0 20px;
-     }
- }
 
  .mail-bloc {
 
@@ -38,5 +30,21 @@
                  color: initial;
              }
          }
+     }
+ }
+
+ text-editor {
+     width: 100%;
+ }
+
+
+ .buttons-action {
+     display: flex;
+     flex-direction: row;
+     justify-content: flex-end;
+     margin: 25px;
+
+     .send-mail {
+         margin-left: 30px;
      }
  }

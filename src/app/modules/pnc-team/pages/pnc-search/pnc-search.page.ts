@@ -10,7 +10,6 @@ import { SortChange, SortOption } from 'src/app/shared/components/sort-list/sort
 
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../../app.constant';
@@ -132,7 +131,7 @@ export class PncSearchPage {
     this.mailingService.openMailingModal(
       this.sessionService.getActiveUser().authenticatedPnc,
       Array.from(this.selectPncRecipients),
-      []
+      [this.sessionService.getActiveUser().authenticatedPnc]
     );
   }
   /**

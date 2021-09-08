@@ -1,10 +1,13 @@
+import { AppConstant } from 'src/app/app.constant';
+import { DocumentModel } from 'src/app/core/models/document.model';
+import { PncModel } from 'src/app/core/models/pnc.model';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { AppConstant } from 'src/app/app.constant';
-import { DocumentModel } from 'src/app/core/models/document.model';
-import { PncModel } from 'src/app/core/models/pnc.model';
+
+import { Utils } from '../../../utils/utils';
 
 @Component({
   selector: 'app-mailing-modal',
@@ -26,7 +29,6 @@ export class MailingModalComponent implements OnInit {
   @Input()
   documents = new Array<DocumentModel>();
 
-
   constructor(
     private formBuilder: FormBuilder,
     private modalController: ModalController,
@@ -37,7 +39,7 @@ export class MailingModalComponent implements OnInit {
     this.mailFormGroup = this.formBuilder.group({
       from: [this.formatPnc(this.from), Validators.required],
       cciRecipients: [this.cciRecipients, Validators.required],
-      ccRecipients: [this.ccRecipients],
+      ccRecipients: [this.ccRecipients.map(pnc => Utils.getClearShortPncMail(pnc.lastName, pnc.firstName, pnc.matricule))],
       subject: ['', Validators.required],
       content: ['', Validators.required],
       attachmentFiles: [this.documents]
