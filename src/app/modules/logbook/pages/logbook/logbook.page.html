@@ -12,10 +12,19 @@
         <edossier-spinner *ngIf="!loadingIsOver; else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
             <div class="page-container">
-                <div class="button-bar" *ngIf="isEventCreationAvailable()">
-                    <ion-button color="primary" (click)="goToLogbookCreation()" slot="start">
-                        <ion-icon name="add"></ion-icon><span>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</span>
-                    </ion-button>
+                <div class="event-actions">
+                    <div>
+                        <p *ngIf="eventFilters.archived && !dataLoading">
+                            <span class="archived-event-infos" *ngIf="pncLogbookEventsGroup.length > 0">{{'LOGBOOK.ARCHIVED_EVENTS' | translate}} </span> <br />
+                            <a (click)="getRecentsLogbookEvent()">{{'LOGBOOK.RECENT_EVENTS' | translate}}</a>
+                        </p>
+                    </div>
+                    <div class="button-bar" *ngIf="isEventCreationAvailable()">
+                        <ion-button color="primary" (click)="goToLogbookCreation()" slot="start">
+                            <ion-icon name="add"></ion-icon><span>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</span>
+                        </ion-button>
+
+                    </div>
                 </div>
                 <span *ngIf="pncLogbookEventsGroup && pncLogbookEventsGroup.length > 0; else noEventsBlock">
                     <ion-grid class="logbook-event-grid selectable">
@@ -88,13 +97,9 @@
                         </ion-row>
                     </ion-grid>
                 </span>
-                <div class="info-bloc">
-                    <p *ngIf="!eventFilters.archived else archivedEvents ">* {{'LOGBOOK.LAST_THREE_YEARS_EVENT' | translate}}</p>
-                    <ng-template #archivedEvents>
-                        <p>* {{'LOGBOOK.ARCHIVED_EVENTS' | translate}}</p>
-                    </ng-template>
-
-                    <p *ngIf="!dataLoading" class="information-message archives">
+                <div class="info-bloc" *ngIf="!eventFilters.archived && !dataLoading">
+                    <p>* {{'LOGBOOK.LAST_THREE_YEARS_EVENT' | translate}}</p>
+                    <p class="information-message archives">
                         <span class="edospnc-archive"></span>
                         <a (click)="loadArchives()">{{ 'LOGBOOK.VIEW_ARCHIVES' | translate }}</a>
                     </p>

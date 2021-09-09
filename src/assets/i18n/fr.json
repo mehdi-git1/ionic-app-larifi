@@ -995,6 +995,7 @@
         "LAST_THREE_YEARS_EVENT":"évènements des 3 dernières années",
         "ARCHIVED_EVENTS": "évènements archivés",
         "VIEW_ARCHIVES": "consulter les archives",
+        "RECENT_EVENTS": "consulter les évènements récents",
         "ARCHIVE_LINK_LABEL": "Historique Friendly",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement",
