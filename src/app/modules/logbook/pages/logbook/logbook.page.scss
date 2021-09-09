@@ -181,25 +181,43 @@ $nbLinesMaxOnRow: 2;
     }
 }
 
-.button-bar {
-    position: -webkit-sticky;
-    position: sticky;
-    bottom: 50px;
+.event-actions {
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
 
-    button {
-        align-self: flex-end;
-        font-size: 15px;
+    a {
+        text-decoration: underline;
+        cursor: pointer;
+    }
 
-        .ion-md-add:before,
-        .ion-ios-add:before {
-            font-size: 18px;
-            vertical-align: middle;
+    .archived-event-infos:before {
+        content: '*';
+        margin-right: 5px;
+    }
+
+    .button-bar {
+        position: -webkit-sticky;
+        position: sticky;
+        bottom: 50px;
+        flex-grow: 1;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+
+        button {
+            align-self: flex-end;
+            font-size: 15px;
+
+            .ion-md-add:before,
+            .ion-ios-add:before {
+                font-size: 18px;
+                vertical-align: middle;
+            }
         }
     }
 }
+
 
 .edospnc-archive:before {
     font-size: 26px;
