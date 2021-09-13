@@ -67,19 +67,16 @@ export class LogbookPage implements OnInit {
 
   ngOnInit(): void {
     this.eventFilters = new LogbookEventFilterModel();
-    this.pncLogbookEventsGroup = new Array();
-    this.initFilter();
 
     if (this.sessionService.visitedPnc) {
       this.pnc = this.sessionService.visitedPnc;
     } else {
       this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
     }
-    this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
-      this.loadingIsOver = true;
-      this.handleResponse(pagedLogbookEvents)
-    }
-    );
+  }
+
+  ionViewWillEnter() {
+    this.refreshPage();
   }
 
   /**
@@ -158,9 +155,14 @@ export class LogbookPage implements OnInit {
    * Rafraîchit la page
    */
   refreshPage() {
-    this.pncLogbookEventsGroup = null;
+    this.pncLogbookEventsGroup = new Array();
     this.initFilter();
-    this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters);
+    this.loadingIsOver = false;
+    this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
+      this.loadingIsOver = true;
+      this.pncLogbookEventsGroup = [];
+      this.handleResponse(pagedLogbookEvents)
+    });
   }
 
   /**
