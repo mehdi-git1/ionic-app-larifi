@@ -33,21 +33,18 @@ mat-sidenav {
 .button-bar-container {
     background: var(--ion-color-white);
     width: 100% !important;
+    padding: 10px 10px;
 
-    .button-bar {
-        max-width: 1200px;
-        padding: 10px 10px;
+    .actions-bloc {
+        max-width: 1150px;
         margin: auto;
         display: flex;
+        flex-direction: row;
         justify-content: space-between;
-        align-items: center;
 
         .mail-actions {
             display: flex;
             flex-direction: row;
-            align-items: center;
-            align-content: center;
-            justify-content: center;
 
             .mail-icon {
                 margin-left: 2px;
@@ -74,34 +71,10 @@ mat-sidenav {
             }
         }
 
-        .sort-container {
-            display: flex;
-            align-items: center;
 
-            ion-select {
-                margin-top: 0;
-                margin-left: 8px;
-                width: 200px;
-            }
-
-            .sort-order {
-                border-radius: 4px;
-                margin-left: 10px;
-                background-color: var(--ion-color-grey70);
-
-                .mat-button-toggle-checked {
-                    color: var(--ion-color-white);
-                    border-radius: 4px;
-                    background-color: var(--ion-color-primary);
-                }
-
-                ::ng-deep .mat-button-toggle-label-content {
-                    line-height: 39px;
-                    padding: 0 12px;
-                }
-            }
-        }
     }
+
+
 }
 
 .spinner-container {
