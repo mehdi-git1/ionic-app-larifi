@@ -13,11 +13,13 @@
         <ng-template #pageBlock>
             <div class="page-container">
                 <div class="event-actions">
-                    <div>
-                        <p *ngIf="eventFilters.archived && !dataLoading">
-                            <span class="archived-event-infos" *ngIf="pncLogbookEventsGroup.length > 0">{{'LOGBOOK.ARCHIVED_EVENTS' | translate}} </span> <br />
-                            <a (click)="getRecentsLogbookEvent()">{{'LOGBOOK.RECENT_EVENTS' | translate}}</a>
+                    <div *ngIf="eventFilters.archived && !dataLoading" class="archives-bloc">
+                        <p class="back-to-recents">
+                            <a (click)="getRecentsLogbookEvent()">
+                                {{'LOGBOOK.RECENT_EVENTS' | translate}}
+                            </a>
                         </p>
+                        <p class="archived-event-infos" *ngIf="pncLogbookEventsGroup.length > 0">{{'LOGBOOK.ARCHIVED_EVENTS' | translate}} </p>
                     </div>
                     <div class="button-bar" *ngIf="isEventCreationAvailable()">
                         <ion-button color="primary" (click)="goToLogbookCreation()" slot="start">
@@ -110,7 +112,7 @@
             </div>
         </ng-template>
     </ng-container>
-    <ion-infinite-scroll (ionInfinite)="loadMoreEvents($event)">
+    <ion-infinite-scroll threshold="0" (ionInfinite)="loadMoreEvents($event)">
         <ion-infinite-scroll-content loadingSpinner="bubbles">
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>

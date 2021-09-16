@@ -8,7 +8,7 @@ import { ToastService } from 'src/app/core/services/toast/toast.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-    AlertController, IonInfiniteScroll, LoadingController, PopoverController
+  AlertController, IonInfiniteScroll, LoadingController, PopoverController
 } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -20,12 +20,12 @@ import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event
 import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import {
-    OnlineLogbookEventService
+  OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import {
-    LogbookEventActionMenuComponent
+  LogbookEventActionMenuComponent
 } from '../../components/logbook-event-action-menu/logbook-event-action-menu.component';
 
 @Component({
@@ -47,7 +47,6 @@ export class LogbookPage implements OnInit {
   sortDirection: SortDirection;
   dataLoading = false;
   loadingIsOver = false;
-  allEventsAreLoaded = false;
   LogbookEventTypeEnum = LogbookEventTypeEnum;
 
   constructor(
@@ -95,7 +94,10 @@ export class LogbookPage implements OnInit {
    */
   sortByDirection(sortDirection: string, event: Event) {
     event.stopPropagation();
+    this.infiniteScroll.disabled = false;
+    const currentArchivedFilterValue = this.eventFilters.archived;
     this.initFilter();
+    this.eventFilters.archived = currentArchivedFilterValue;
     this.eventFilters.sortDirection = sortDirection as SortDirection;
     this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
       this.pncLogbookEventsGroup = [];
@@ -109,14 +111,12 @@ export class LogbookPage implements OnInit {
    */
   getRecentsLogbookEvent() {
     this.initFilter();
+    this.infiniteScroll.disabled = false;
     this.dataLoading = true;
     this.loadingIsOver = false;
-    this.infiniteScroll.disabled = false;
     this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
       this.pncLogbookEventsGroup = [];
       this.handleResponse(pagedLogbookEvents);
-      this.dataLoading = false;
-      this.loadingIsOver = true;
     });
   }
   /**
@@ -139,7 +139,10 @@ export class LogbookPage implements OnInit {
   handleResponse(pagedLogbookEventModel: PagedGenericModel<LogbookEventModel>) {
     this.pncLogbookEventsGroup = this.pncLogbookEventsGroup.concat(this.buildGroup(pagedLogbookEventModel.content));
     this.eventFilters.page = this.eventFilters.page + 1;
-    this.allEventsAreLoaded = (this.pncLogbookEventsGroup.length === pagedLogbookEventModel.page.totalElements);
+    this.infiniteScroll.disabled = (this.pncLogbookEventsGroup.length === pagedLogbookEventModel.page.totalElements);
+    this.dataLoading = false;
+    this.loadingIsOver = true;
+    this.infiniteScroll.complete();
   }
 
   /**
@@ -208,13 +211,9 @@ export class LogbookPage implements OnInit {
    */
   loadMoreEvents(event) {
     this.dataLoading = true;
+    this.infiniteScroll.disabled = false;
     this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
       this.handleResponse(pagedLogbookEvents);
-      event.target.complete();
-      this.dataLoading = false;
-      if (pagedLogbookEvents.page.totalPages <= this.eventFilters.page) {
-        event.target.disabled = true;
-      }
     });
   }
 
