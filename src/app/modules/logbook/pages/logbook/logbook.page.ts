@@ -161,6 +161,7 @@ export class LogbookPage implements OnInit {
     this.pncLogbookEventsGroup = new Array();
     this.initFilter();
     this.loadingIsOver = false;
+    this.eventFilters.archived = true;
     this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
       this.loadingIsOver = true;
       this.pncLogbookEventsGroup = [];

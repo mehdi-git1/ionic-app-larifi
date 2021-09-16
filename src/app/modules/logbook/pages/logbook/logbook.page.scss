@@ -196,13 +196,23 @@ $nbLinesMaxOnRow: 2;
         margin-right: 5px;
     }
 
+    .archives-bloc {
+        display: flex;
+        flex-direction: column;
+
+        .back-to-recents {
+            margin-top: 0;
+        }
+    }
+
+
     .button-bar {
         position: -webkit-sticky;
         position: sticky;
         bottom: 50px;
         flex-grow: 1;
         display: flex;
-        align-items: flex-end;
+        align-items: flex-start;
         justify-content: flex-end;
 
         button {

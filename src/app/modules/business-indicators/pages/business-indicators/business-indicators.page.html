@@ -51,7 +51,7 @@
                                 <ng-template #displayPopulationReferenceComparison>
                                     <business-indicator-summary (activatedSummaryTabOnChange)="updateActivatedTab($event)" [businessIndicatorSummaries]="businessIndicatorSummariesComparison[0]" [pnc]="pnc" [activatedSummaryTab]="activePopulationTab"></business-indicator-summary>
                                     <h3>
-                                        Indicateurs population de référence
+                                        {{'BUSINESS_INDICATORS.LIST.COMPARISON_TO_POPULATION_TITLE' | translate}}
                                     </h3>
                                     <business-indicator-summary (activatedSummaryTabOnChange)="updateActivatedTab($event)" [businessIndicatorSummaries]="businessIndicatorSummariesComparison[1]" [pnc]="pnc" [activatedSummaryTab]="activePopulationTab"></business-indicator-summary>
                                 </ng-template>

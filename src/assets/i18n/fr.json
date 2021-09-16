@@ -995,7 +995,7 @@
         "LAST_THREE_YEARS_EVENT":"évènements des 3 dernières années",
         "ARCHIVED_EVENTS": "évènements archivés",
         "VIEW_ARCHIVES": "consulter les archives",
-        "RECENT_EVENTS": "consulter les évènements récents",
+        "RECENT_EVENTS": "revenir aux évènements récents",
         "ARCHIVE_LINK_LABEL": "Historique Friendly",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement",
@@ -1170,6 +1170,7 @@
             }
         },
         "LIST": {
+            "COMPARISON_TO_POPULATION_TITLE": "Indicateurs population de référence",
             "PAST_SUMMARY": {
                 "TITLE": "Indicateurs métier sur 6 mois glissants",
                 "DISPLAY_LAST_SIX_MONTHS": "Retour",
