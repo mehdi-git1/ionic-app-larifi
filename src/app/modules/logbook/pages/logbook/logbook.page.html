@@ -110,7 +110,7 @@
             </div>
         </ng-template>
     </ng-container>
-    <ion-infinite-scroll (ionInfinite)="loadMoreEvents($event)">
+    <ion-infinite-scroll threshold="0" (ionInfinite)="loadMoreEvents($event)">
         <ion-infinite-scroll-content loadingSpinner="bubbles">
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
