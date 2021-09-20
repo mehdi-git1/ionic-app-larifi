@@ -4,7 +4,7 @@ import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 import { Utils } from 'src/app/shared/utils/utils';
 
 import {
-  AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
+    AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
@@ -98,7 +98,17 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   search(): void {
     FormsUtil.extractFormValues(this.filters, this.searchForm);
+    this.removeConstantALL();
     this.searchLaunched.next(this.filters);
+  }
+
+  /**
+   * Supprime dans les filtres, les valeurs ALL.
+   */
+  private removeConstantALL(): void {
+    this.filters.divisions = this.filters.divisions.filter(division => division !== AppConstant.ALL);
+    this.filters.ginqs = this.filters.ginqs.filter(ginq => ginq !== AppConstant.ALL);
+    this.filters.sectors = this.filters.sectors.filter(sector => sector !== AppConstant.ALL);
   }
 
   /**
@@ -107,6 +117,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
   reinitializeSearch() {
     this.searchForm.reset(this.getFormInitValues());
     FormsUtil.extractFormValues(this.filters, this.searchForm);
+    this.removeConstantALL();
     this.searchReinitialized.emit(this.filters);
   }
 
