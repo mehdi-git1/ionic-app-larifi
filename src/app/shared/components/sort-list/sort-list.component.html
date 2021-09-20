@@ -1,13 +1,13 @@
  <div class="sort-container">
      <ion-label>{{ 'GLOBAL.SORT_LIST.LABEL' | translate }}</ion-label>
-     <ion-select interface="popover" [value]="value" (ionChange)="changeSort($event.detail.value)">
+     <ion-select interface="popover" [disabled]="disableSort" [value]="value" (ionChange)="changeSort($event.detail.value)">
          <ion-select-option value="{{option.value}}" *ngFor="let option of options">
              {{ option.label }}
          </ion-select-option>
      </ion-select>
 
      <div class="sort-order">
-         <mat-button-toggle-group [value]="direction" (change)="changeSortDirection($event.value)">
+         <mat-button-toggle-group [disabled]="disableSort" [value]="direction" (change)="changeSortDirection($event.value)">
              <mat-button-toggle disableRipple="true" value="ASC">
                  <ion-icon slot="icon-only" name="arrow-up"></ion-icon>
              </mat-button-toggle>

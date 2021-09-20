@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div>
-                <sort-list [value]="filters.sortColumn" [direction]="filters.sortDirection" [options]="sortOptions" (sortChange)="sortCrewList($event)"></sort-list>
+                <sort-list [disableSort]="activateSendMail" [value]="filters.sortColumn" [direction]="filters.sortDirection" [options]="sortOptions" (sortChange)="sortCrewList($event)"></sort-list>
             </div>
         </div>
     </div>
