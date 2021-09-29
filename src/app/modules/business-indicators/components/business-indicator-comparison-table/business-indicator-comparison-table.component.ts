@@ -17,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class BusinessIndicatorComparisonTableComponent implements OnInit {
 
   @Input()
-  businessIndicatorComparison: BusinessIndicatorSummariesModel[];
+  businessIndicatorSummaries: BusinessIndicatorSummariesModel[];
 
 
   private readonly DATE_FORMAT = 'DD/MM/YYYY';

@@ -10,17 +10,17 @@
             <p>{{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.UPGRADE_SUM' | translate }}</p>
             <p>{{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ON_TIME_SHUTTLE_DEPARTURE_RATIO' | translate }}</p>
         </div>
-        <div *ngFor="let indicatorComparison of businessIndicatorComparison" class="period-result-bloc">
+        <div *ngFor="let businessIndicatorSummary of businessIndicatorSummaries" class="period-result-bloc">
 
             <p class="period-title">
-                {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FROM' | translate}} {{ getFormatedDate(indicatorComparison.startDate) }} &nbsp;
+                {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FROM' | translate}} {{ getFormatedDate(businessIndicatorSummary.startDate) }} &nbsp;
                 {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.TO'| translate}} &nbsp;
-                {{ getFormatedDate(indicatorComparison.endDate) }}
+                {{ getFormatedDate(businessIndicatorSummary.endDate) }}
             </p>
 
             <div class="period-result-data">
-                <ng-container *ngIf="indicatorComparison.businessIndicatorSummaries && indicatorComparison.businessIndicatorSummaries.length> 0 else noDataForPeriod">
-                    <div *ngFor="let indicatorSummaries of indicatorComparison.businessIndicatorSummaries" class="period-result elevation-1">
+                <ng-container *ngIf="businessIndicatorSummary.businessIndicatorSummaries && businessIndicatorSummary.businessIndicatorSummaries.length> 0 else noDataForPeriod">
+                    <div *ngFor="let indicatorSummaries of businessIndicatorSummary.businessIndicatorSummaries" class="period-result elevation-1">
                         <p> {{ getPopulationLabel(indicatorSummaries?.population) }}</p>
                         <p>
                             <ng-container *ngIf="isPncCcLc(indicatorSummaries?.population) else noData">
