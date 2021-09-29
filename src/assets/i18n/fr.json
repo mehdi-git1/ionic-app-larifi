@@ -1172,8 +1172,8 @@
         "LIST": {
             "COMPARISON_TO_POPULATION_TITLE": "Indicateurs de ma population de référence",
             "PAST_SUMMARY": {
-                "TITLE": "Indicateurs métier sur 6 mois glissants",
-                "DISPLAY_LAST_SIX_MONTHS": "Retour",
+                "LAST_SIX_MONTHS_TITLE": "Indicateurs métier sur 6 mois glissants",
+                "BACK": "Retour",
                 "COMPARISON_BUTTON": "Comparer",
                 "PERIOD_COMPARED": "période",
                 "COMPARISON_TITLE" : "Indicateurs",

@@ -1,7 +1,7 @@
 <div class="container">
     <div class="summary-item">
         <label class="large-device">
-            <ng-container *ngIf="!isCCCL(); else escoreAverageCcLcLabel">
+            <ng-container *ngIf="!isCCCL(businessIndicatorSummary.population); else escoreAverageCcLcLabel">
                 {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ESCORE_AVERAGE_CCP_CC_MC' | translate }}
             </ng-container>
             <ng-template #escoreAverageCcLcLabel>

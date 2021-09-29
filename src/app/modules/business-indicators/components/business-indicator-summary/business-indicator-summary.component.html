@@ -8,7 +8,7 @@
 
          <ng-container *ngFor=" let businessIndicatorSummary of businessIndicatorSummaries.businessIndicatorSummaries">
              <div *ngIf="businessIndicatorSummary.population === activatedSummaryTab">
-                 <business-indicator-summary-display [businessIndicatorSummary]="businessIndicatorSummary" [pnc]="pnc"></business-indicator-summary-display>
+                 <business-indicator-summary-display [businessIndicatorSummary]="businessIndicatorSummary"></business-indicator-summary-display>
              </div>
          </ng-container>
          <div class="switch-to-landscape-legend small-device" *ngIf="isMobile()">

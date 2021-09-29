@@ -1,16 +1,16 @@
-import { PncModel } from 'src/app/core/models/pnc.model';
 
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import {
-  BusinessIndicatorPopulationEnum
+    ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
+} from '@angular/core';
+
+import {
+    BusinessIndicatorPopulationEnum
 } from '../../../../core/enums/business-indicators/business-indicator-population.enum';
 import {
-  BusinessIndicatorSummariesModel
+    BusinessIndicatorSummariesModel
 } from '../../../../core/models/business-indicator/business-indicator-summaries.model';
 import { DeviceService } from '../../../../core/services/device/device.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
-
 
 @Component({
   selector: 'business-indicator-summary',
@@ -20,9 +20,8 @@ import { PncService } from '../../../../core/services/pnc/pnc.service';
 })
 
 export class BusinessIndicatorSummaryComponent implements OnInit {
-  @Input() businessIndicatorSummaries: BusinessIndicatorSummariesModel;
-  @Input() pnc: PncModel;
-
+  @Input()
+  businessIndicatorSummaries: BusinessIndicatorSummariesModel;
   @Input()
   activatedSummaryTab: BusinessIndicatorPopulationEnum;
 
@@ -30,7 +29,6 @@ export class BusinessIndicatorSummaryComponent implements OnInit {
   activatedSummaryTabOnChange = new EventEmitter<BusinessIndicatorPopulationEnum>();
 
   constructor(
-    private pncService: PncService,
     private deviceService: DeviceService
   ) {
   }
@@ -39,23 +37,6 @@ export class BusinessIndicatorSummaryComponent implements OnInit {
     if (this.businessIndicatorSummaries.businessIndicatorSummaries.length > 0) {
       this.activatedSummaryTab = this.businessIndicatorSummaries.businessIndicatorSummaries[0].population;
     }
-  }
-
-  /**
-   * Vérifie si le PNC est CC et vole sur LC
-   * @return vrai si c'est le cas, faux sinon
-   */
-  isPncCcLc() {
-    return this.pncService.isCcLc(this.pnc);
-  }
-
-  /**
-   * Teste si la valeur existe
-   * @param value la valeur à tester
-   * @return vrai si c'est le cas, faux sinon
-   */
-  isDefined(value: any): boolean {
-    return value !== undefined;
   }
 
   /**

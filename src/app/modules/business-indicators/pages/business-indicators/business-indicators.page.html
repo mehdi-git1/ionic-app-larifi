@@ -18,19 +18,45 @@
                 <mat-sidenav-content>
                     <ng-container *ngIf="businessIndicators.length > 0; else noBusinessIndicatorBlock">
                         <div class="page-container">
-                            <ng-container *ngIf="showPeriodOrLastYearComparison() else indicatorSummary">
-                                <div class="comparison-chart">
-                                    <div class="six-month-summary-button">
+                            <ng-container *ngIf="showLastSixMonthsIndicators else filteredIndicators">
+                                <div class="summary-title-bloc">
+                                    <h3>
+                                        {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.LAST_SIX_MONTHS_TITLE' | translate }}
+                                    </h3>
+                                    <ion-button (click)="setFilterContainerState(true)" *ngIf="!isFilterOpened">
+                                        {{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.COMPARISON_BUTTON' | translate}}
+                                    </ion-button>
+                                </div>
+                                <business-indicator-summary [businessIndicatorSummaries]="lastSixMonthsbusinessIndicatorSummaries"></business-indicator-summary>
+                            </ng-container>
+
+                            <ng-template #filteredIndicators>
+                                <ng-container *ngIf="showPopulationReferenceComparison() else tableIndicatorComparison">
+                                    <div class="summary-title-bloc">
+                                        <h3> {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.MY_SUMMARIES' | translate }}</h3>
+
                                         <ion-button (click)="reinitSummariesComparisonData()">
-                                            {{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.DISPLAY_LAST_SIX_MONTHS' | translate}}
+                                            {{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.BACK' | translate}}
                                         </ion-button>
                                     </div>
-                                    <business-indicator-comparison-table [pnc]="pnc" [businessIndicatorComparison]="businessIndicatorSummariesComparison">
-                                    </business-indicator-comparison-table>
-                                </div>
-                            </ng-container>
+                                    <business-indicator-summary (activatedSummaryTabOnChange)="updateActivatedTab($event)" [businessIndicatorSummaries]="businessIndicatorSummariesComparison[0]" [activatedSummaryTab]="activePopulationTab"></business-indicator-summary>
+                                    <h3>
+                                        {{'BUSINESS_INDICATORS.LIST.COMPARISON_TO_POPULATION_TITLE' | translate}}
+                                    </h3>
+                                    <business-indicator-summary (activatedSummaryTabOnChange)="updateActivatedTab($event)" [businessIndicatorSummaries]="businessIndicatorSummariesComparison[1]" [pnc]="pnc" [activatedSummaryTab]="activePopulationTab"></business-indicator-summary>
+                                </ng-container>
+                                <ng-template #tableIndicatorComparison>
+                                    <div class="back-button-bloc">
+                                        <ion-button (click)="reinitSummariesComparisonData()">
+                                            {{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.BACK' | translate}}
+                                        </ion-button>
+                                    </div>
+                                    <business-indicator-comparison-table [businessIndicatorComparison]="businessIndicatorSummariesComparison"> </business-indicator-comparison-table>
+                                </ng-template>
+                            </ng-template>
+                            <!--
                             <ng-template #indicatorSummary>
-                                <div class="summary-title-bloc">
+                                <div class=" summary-title-bloc">
                                     <h3 *ngIf="showPopulationReferenceComparison() else lastSixMonthIndicatorSummary">
                                         {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.MY_SUMMARIES' | translate }}
                                     </h3>
@@ -46,16 +72,17 @@
                                     <ion-button *ngIf="showPopulationReferenceComparison()" (click)="reinitSummariesComparisonData()">
                                         {{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.DISPLAY_LAST_SIX_MONTHS' | translate}}
                                     </ion-button>
-                                </div>
-                                <business-indicator-summary *ngIf="!showPopulationReferenceComparison() else displayPopulationReferenceComparison" [businessIndicatorSummaries]="lastSixMonthsbusinessIndicatorSummaries" [pnc]="pnc"></business-indicator-summary>
-                                <ng-template #displayPopulationReferenceComparison>
-                                    <business-indicator-summary (activatedSummaryTabOnChange)="updateActivatedTab($event)" [businessIndicatorSummaries]="businessIndicatorSummariesComparison[0]" [pnc]="pnc" [activatedSummaryTab]="activePopulationTab"></business-indicator-summary>
-                                    <h3>
-                                        {{'BUSINESS_INDICATORS.LIST.COMPARISON_TO_POPULATION_TITLE' | translate}}
-                                    </h3>
-                                    <business-indicator-summary (activatedSummaryTabOnChange)="updateActivatedTab($event)" [businessIndicatorSummaries]="businessIndicatorSummariesComparison[1]" [pnc]="pnc" [activatedSummaryTab]="activePopulationTab"></business-indicator-summary>
-                                </ng-template>
-                            </ng-template>
+                             </div>
+                        <business-indicator-summary *ngIf="!showPopulationReferenceComparison() else displayPopulationReferenceComparison" [businessIndicatorSummaries]="lastSixMonthsbusinessIndicatorSummaries" [pnc]="pnc"></business-indicator-summary>
+                        <ng-template #displayPopulationReferenceComparison>
+                            <business-indicator-summary (activatedSummaryTabOnChange)="updateActivatedTab($event)" [businessIndicatorSummaries]="businessIndicatorSummariesComparison[0]" [pnc]="pnc" [activatedSummaryTab]="activePopulationTab"></business-indicator-summary>
+                            <h3>
+                                {{'BUSINESS_INDICATORS.LIST.COMPARISON_TO_POPULATION_TITLE' | translate}}
+                            </h3>
+                            <business-indicator-summary (activatedSummaryTabOnChange)="updateActivatedTab($event)" [businessIndicatorSummaries]="businessIndicatorSummariesComparison[1]" [pnc]="pnc" [activatedSummaryTab]="activePopulationTab"></business-indicator-summary>
+                        </ng-template>
+        </ng-template>
+        -->
                             <h3 class="flight-list-title">
                                 {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_CARD_12_LAST_MONTHS' | translate }}
                                 <ion-icon name="help-circle" (click)="showLegend($event)" class="clickable"> </ion-icon>

@@ -23,7 +23,7 @@
                     <div *ngFor="let indicatorSummaries of indicatorComparison.businessIndicatorSummaries" class="period-result elevation-1">
                         <p> {{ getPopulationLabel(indicatorSummaries?.population) }}</p>
                         <p>
-                            <ng-container *ngIf="isPncCcLc() else noData">
+                            <ng-container *ngIf="isPncCcLc(indicatorSummaries?.population) else noData">
                                 <ng-container *ngIf="isIndicatorHasSignificantValue(indicatorSummaries?.escoreAverage) else noSignificantValue">
                                     {{ indicatorSummaries?.escoreAverage | number: '1.0-1'}}
                                 </ng-container>
@@ -33,7 +33,7 @@
                             </ng-template>
                         </p>
                         <p>
-                            <ng-container *ngIf="!isPncCcLc() else noData">
+                            <ng-container *ngIf="!isPncCcLc(indicatorSummaries?.population) else noData">
                                 <ng-container *ngIf="isIndicatorHasSignificantValue(indicatorSummaries?.escoreAverage) else noSignificantValue">
                                     {{ indicatorSummaries?.escoreAverage | number: '1.0-1'}}
                                 </ng-container>

@@ -38,7 +38,12 @@ mat-sidenav {
     justify-content: space-between;
 }
 
-.six-month-summary-button {
+.back-button-bloc {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.back-to-six-month-summary-button {
     display: flex;
     justify-content: flex-end;
 }

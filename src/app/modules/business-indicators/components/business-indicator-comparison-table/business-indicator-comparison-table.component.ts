@@ -1,10 +1,14 @@
+import * as moment from 'moment';
+import {
+    BusinessIndicatorPopulationEnum
+} from 'src/app/core/enums/business-indicators/business-indicator-population.enum';
+import {
+    BusinessIndicatorSummariesModel
+} from 'src/app/core/models/business-indicator/business-indicator-summaries.model';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { PncModel } from 'src/app/core/models/pnc.model';
-import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
-import * as moment from 'moment';
-import { BusinessIndicatorSummariesModel } from 'src/app/core/models/business-indicator/business-indicator-summaries.model';
 @Component({
   selector: 'business-indicator-comparison-table',
   templateUrl: './business-indicator-comparison-table.component.html',
@@ -15,14 +19,11 @@ export class BusinessIndicatorComparisonTableComponent implements OnInit {
   @Input()
   businessIndicatorComparison: BusinessIndicatorSummariesModel[];
 
-  @Input()
-  pnc: PncModel;
 
   private readonly DATE_FORMAT = 'DD/MM/YYYY';
 
   constructor(
-    private translateService: TranslateService,
-    private pncService: PncService
+    private translateService: TranslateService
   ) { }
 
   ngOnInit() { }
@@ -37,11 +38,12 @@ export class BusinessIndicatorComparisonTableComponent implements OnInit {
   }
 
   /**
-   * Vérifie si le PNC est CC et vole sur LC
-   * @return vrai c'est le cas, faux sinon.
+   * Vérifie que le poste occupé est CC sur LC
+   * @param population la population sur la période indiquée
+   * @returns vrai si CC sur LC, faux sinon.
    */
-  isPncCcLc() {
-    return this.pncService.isCcLc(this.pnc);
+  isPncCcLc(population: BusinessIndicatorPopulationEnum) {
+    return BusinessIndicatorPopulationEnum.CC_LC === population;
   }
 
   /**

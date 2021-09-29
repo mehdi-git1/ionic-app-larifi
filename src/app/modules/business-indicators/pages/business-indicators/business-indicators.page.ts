@@ -2,7 +2,10 @@ import * as moment from 'moment';
 import { from, Observable, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {
-  BusinessIndicatorSortColumnEnum
+    BusinessIndicatorPopulationEnum
+} from 'src/app/core/enums/business-indicators/business-indicator-population.enum';
+import {
+    BusinessIndicatorSortColumnEnum
 } from 'src/app/core/enums/business-indicators/business-indicators-sort-columns-enum';
 import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
@@ -18,29 +21,27 @@ import { PopoverController } from '@ionic/angular';
 
 import { AppConstant } from '../../../../app.constant';
 import {
-  BusinessIndicatorFilterModel
+    BusinessIndicatorFilterModel
 } from '../../../../core/models/business-indicator/business-indicator-filter-model';
 import {
-  BusinessIndicatorLightModel
+    BusinessIndicatorLightModel
 } from '../../../../core/models/business-indicator/business-indicator-light.model';
 import {
-  BusinessIndicatorSummariesModel
+    BusinessIndicatorSummariesModel
 } from '../../../../core/models/business-indicator/business-indicator-summaries.model';
 import {
-  BusinessIndicatorModel
+    BusinessIndicatorModel
 } from '../../../../core/models/business-indicator/business-indicator.model';
 import {
-  PagedBusinessIndicatorModel
+    PagedBusinessIndicatorModel
 } from '../../../../core/models/business-indicator/paged-businessIndicator.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
-  BusinessIndicatorService
+    BusinessIndicatorService
 } from '../../../../core/services/business-indicator/business-indicator.service';
 import {
-  BusinessIndicatorFlightLegendComponent
+    BusinessIndicatorFlightLegendComponent
 } from '../../components/business-indicator-flight-legend/business-indicator-flight-legend.component';
-import { BusinessIndicatorSummaryModel } from 'src/app/core/models/business-indicator/business-indicator-summary.model';
-import { BusinessIndicatorPopulationEnum } from 'src/app/core/enums/business-indicators/business-indicator-population.enum';
 
 @Component({
   selector: 'page-business-indicators',
@@ -54,6 +55,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
   totalElements: number;
   pnc: PncModel;
   lastSixMonthsbusinessIndicatorSummaries: BusinessIndicatorSummariesModel;
+  showLastSixMonthsIndicators = true;
   businessIndicators: BusinessIndicatorModel[];
   businessIndicatorsFilter: BusinessIndicatorFilterModel;
   dataSource: MatTableDataSource<BusinessIndicatorModel>;
@@ -141,16 +143,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
    */
   reinitSummariesComparisonData() {
     this.businessIndicatorSummariesComparison = [];
-  }
-
-  /**
-   * Détermine si l'on doit afficher le tableau de comparaison
-   * des périodes par rapport aux six derniers mois ou l'année précédente.
-   * @return true si le tableau de comparaison par rapport aux six derniers mois doit être affiché, faux sinon.
-   */
-  showPeriodOrLastYearComparison(): boolean {
-    return this.businessIndicatorSummariesComparison && this.businessIndicatorSummariesComparison.length &&
-      (this.businessIndicatorsFilter.compareWithLastPeriod || this.businessIndicatorsFilter.compareWithLastYear);
+    this.showLastSixMonthsIndicators = true;
   }
 
   /**
@@ -198,6 +191,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
     this.businessIndicatorSummariesComparison = businessIndicatorSummaries;
     this.isFilterOpened = false;
     this.disabledComparisonLaunchButton = false;
+    this.showLastSixMonthsIndicators = false;
   }
 
   /**
