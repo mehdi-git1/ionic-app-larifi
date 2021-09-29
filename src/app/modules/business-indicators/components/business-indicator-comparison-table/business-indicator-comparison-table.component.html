@@ -10,20 +10,20 @@
             <p>{{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.UPGRADE_SUM' | translate }}</p>
             <p>{{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.ON_TIME_SHUTTLE_DEPARTURE_RATIO' | translate }}</p>
         </div>
-        <div *ngFor="let indicatorComparison of businessIndicatorComparison" class="period-result-bloc">
+        <div *ngFor="let businessIndicatorSummariesByPeriod of businessIndicatorSummaries" class="period-result-bloc">
 
             <p class="period-title">
-                {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FROM' | translate}} {{ getFormatedDate(indicatorComparison.startDate) }} &nbsp;
+                {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.FROM' | translate}} {{ getFormatedDate(businessIndicatorSummariesByPeriod.startDate) }} &nbsp;
                 {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.TO'| translate}} &nbsp;
-                {{ getFormatedDate(indicatorComparison.endDate) }}
+                {{ getFormatedDate(businessIndicatorSummariesByPeriod.endDate) }}
             </p>
 
             <div class="period-result-data">
-                <ng-container *ngIf="indicatorComparison.businessIndicatorSummaries && indicatorComparison.businessIndicatorSummaries.length> 0 else noDataForPeriod">
-                    <div *ngFor="let indicatorSummaries of indicatorComparison.businessIndicatorSummaries" class="period-result elevation-1">
+                <ng-container *ngIf="businessIndicatorSummariesByPeriod.businessIndicatorSummaries && businessIndicatorSummariesByPeriod.businessIndicatorSummaries.length> 0 else noDataForPeriod">
+                    <div *ngFor="let indicatorSummaries of businessIndicatorSummariesByPeriod.businessIndicatorSummaries" class="period-result elevation-1">
                         <p> {{ getPopulationLabel(indicatorSummaries?.population) }}</p>
                         <p>
-                            <ng-container *ngIf="isPncCcLc() else noData">
+                            <ng-container *ngIf="isCCLC(indicatorSummaries?.population) else noData">
                                 <ng-container *ngIf="isIndicatorHasSignificantValue(indicatorSummaries?.escoreAverage) else noSignificantValue">
                                     {{ indicatorSummaries?.escoreAverage | number: '1.0-1'}}
                                 </ng-container>
@@ -33,7 +33,7 @@
                             </ng-template>
                         </p>
                         <p>
-                            <ng-container *ngIf="!isPncCcLc() else noData">
+                            <ng-container *ngIf="!isCCLC(indicatorSummaries?.population) else noData">
                                 <ng-container *ngIf="isIndicatorHasSignificantValue(indicatorSummaries?.escoreAverage) else noSignificantValue">
                                     {{ indicatorSummaries?.escoreAverage | number: '1.0-1'}}
                                 </ng-container>

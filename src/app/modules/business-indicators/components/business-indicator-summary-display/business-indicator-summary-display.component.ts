@@ -1,15 +1,12 @@
 import {
-  BusinessIndicatorPopulationEnum
+    BusinessIndicatorPopulationEnum
 } from 'src/app/core/enums/business-indicators/business-indicator-population.enum';
 import {
-  BusinessIndicatorSummaryModel
+    BusinessIndicatorSummaryModel
 } from 'src/app/core/models/business-indicator/business-indicator-summary.model';
 
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-
-import { PncModel } from '../../../../core/models/pnc.model';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 @Component({
   selector: 'business-indicator-summary-display',
@@ -21,23 +18,18 @@ export class BusinessIndicatorSummaryDisplayComponent implements OnInit {
   @Input()
   businessIndicatorSummary: BusinessIndicatorSummaryModel;
 
-  @Input()
-  pnc: PncModel;
-
-  constructor(private pncService: PncService,
-    private translateService: TranslateService) { }
+  constructor(private translateService: TranslateService) { }
 
   ngOnInit() { }
 
 
   /**
-   * Vérifie si le PNC est CC et vole sur LC
+   * Vérifie que le poste occupé est CC sur LC.
+   * @param population la population du pnc
    * @returns vrai si c'est le cas, faux sinon
    */
-  isCCCL() {
-    return (this.pnc == null || this.pnc === undefined) ?
-      this.businessIndicatorSummary.population === BusinessIndicatorPopulationEnum.CC_LC :
-      this.pncService.isCcLc(this.pnc);
+  isCCLC(population: BusinessIndicatorPopulationEnum) {
+    return BusinessIndicatorPopulationEnum.CC_LC === population;
   }
 
 
