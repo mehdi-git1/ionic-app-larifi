@@ -24,10 +24,11 @@ export class BusinessIndicatorSummaryDisplayComponent implements OnInit {
 
 
   /**
-   * Vérifie si le PNC est CC et vole sur LC
+   * Vérifie que le poste occupé est CC sur LC.
+   * @param population la population du pnc
    * @returns vrai si c'est le cas, faux sinon
    */
-  isCCCL(population: BusinessIndicatorPopulationEnum) {
+  isCCLC(population: BusinessIndicatorPopulationEnum) {
     return BusinessIndicatorPopulationEnum.CC_LC === population;
   }
 

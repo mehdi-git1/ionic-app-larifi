@@ -42,7 +42,7 @@ export class BusinessIndicatorComparisonTableComponent implements OnInit {
    * @param population la population sur la période indiquée
    * @returns vrai si CC sur LC, faux sinon.
    */
-  isPncCcLc(population: BusinessIndicatorPopulationEnum) {
+  isCCLC(population: BusinessIndicatorPopulationEnum) {
     return BusinessIndicatorPopulationEnum.CC_LC === population;
   }
 

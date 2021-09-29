@@ -54,35 +54,7 @@
                                     <business-indicator-comparison-table [businessIndicatorSummaries]="businessIndicatorSummariesComparison"> </business-indicator-comparison-table>
                                 </ng-template>
                             </ng-template>
-                            <!--
-                            <ng-template #indicatorSummary>
-                                <div class=" summary-title-bloc">
-                                    <h3 *ngIf="showPopulationReferenceComparison() else lastSixMonthIndicatorSummary">
-                                        {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.MY_SUMMARIES' | translate }}
-                                    </h3>
-                                    <ng-template #lastSixMonthIndicatorSummary>
-                                        <h3>
-                                            {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.TITLE' | translate }}
-                                        </h3>
-                                    </ng-template>
-                                    <ion-button (click)="setFilterContainerState(true)" *ngIf="!isFilterOpened && !showPopulationReferenceComparison()">
-                                        {{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.COMPARISON_BUTTON' | translate}}
-                                    </ion-button>
 
-                                    <ion-button *ngIf="showPopulationReferenceComparison()" (click)="reinitSummariesComparisonData()">
-                                        {{'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.DISPLAY_LAST_SIX_MONTHS' | translate}}
-                                    </ion-button>
-                             </div>
-                        <business-indicator-summary *ngIf="!showPopulationReferenceComparison() else displayPopulationReferenceComparison" [businessIndicatorSummaries]="lastSixMonthsbusinessIndicatorSummaries" [pnc]="pnc"></business-indicator-summary>
-                        <ng-template #displayPopulationReferenceComparison>
-                            <business-indicator-summary (activatedSummaryTabOnChange)="updateActivatedTab($event)" [businessIndicatorSummaries]="businessIndicatorSummariesComparison[0]" [pnc]="pnc" [activatedSummaryTab]="activePopulationTab"></business-indicator-summary>
-                            <h3>
-                                {{'BUSINESS_INDICATORS.LIST.COMPARISON_TO_POPULATION_TITLE' | translate}}
-                            </h3>
-                            <business-indicator-summary (activatedSummaryTabOnChange)="updateActivatedTab($event)" [businessIndicatorSummaries]="businessIndicatorSummariesComparison[1]" [pnc]="pnc" [activatedSummaryTab]="activePopulationTab"></business-indicator-summary>
-                        </ng-template>
-        </ng-template>
-        -->
                             <h3 class="flight-list-title">
                                 {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_CARD_12_LAST_MONTHS' | translate }}
                                 <ion-icon name="help-circle" (click)="showLegend($event)" class="clickable"> </ion-icon>
