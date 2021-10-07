@@ -196,6 +196,13 @@ export class HelpAssetListPage {
     helpAsset[15].helpAssetType = HelpAssetTypeEnum.PDF;
     helpAsset[15].lastUpdateDate = '2020-11-09T00:00:00Z';
 
+    const pdf17 = 'Indicateurs_Metier_eDossier_guidelines_20210928.pdf';
+    helpAsset[16] = new HelpAssetModel();
+    helpAsset[16].url = `${this.pdfUrl}/cadre/${pdf17}`;
+    helpAsset[16].label = 'Les Indicateurs Métier dans eDossierPNC';
+    helpAsset[16].helpAssetType = HelpAssetTypeEnum.PDF;
+    helpAsset[16].lastUpdateDate = '2021-10-13T00:00:00Z';
+
     return helpAsset;
   }
 
