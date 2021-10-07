@@ -1,6 +1,7 @@
-<div class="cropped-frame" [style.width.px]="size" [style.height.px]="size">
+<div class="cropped-frame" [style.width.px]="size" [style.height.px]="size" [ngClass]="{'pnc-checked': displayCheckmark}">
     <ion-spinner *ngIf="loading || !photoSrc; else imgBlock"></ion-spinner>
     <ng-template #imgBlock>
         <img [src]="photoSrc" />
     </ng-template>
 </div>
+<ion-icon class="stick-mark" *ngIf="displayCheckmark" name="checkmark-sharp"></ion-icon>

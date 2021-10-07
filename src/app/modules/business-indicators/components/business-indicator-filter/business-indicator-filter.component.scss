@@ -1,0 +1,67 @@
+h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.3em;
+    margin: 0;
+    padding: 16px 0;
+    color: var(--ion-color-secondary);
+
+    .reinit-button {
+        --box-shadow: none;
+
+        ion-label {
+            color: var(--ion-color-primary);
+        }
+    }
+}
+
+::ng-deep edospnc-datetime {
+    ion-item {
+        --padding-start: 0;
+        --inner-padding-end: 0;
+
+        ion-datetime.input-like {
+            margin-top: 0;
+            width: 130px;
+        }
+    }
+}
+
+.auto-fill-checkbox-section {
+    ion-item {
+        --padding-start: 0;
+        --inner-padding-end: 0;
+        font-size: revert !important;
+    }
+}
+
+.date-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    bottom: 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    z-index: 2;
+
+    .search-button {
+        width: 150px !important;
+        margin-left: 10px;
+    }
+
+    .cancel-button {
+        width: 150px !important;
+    }
+
+}
+
+.hide-second-period-section {
+    visibility: hidden;
+}

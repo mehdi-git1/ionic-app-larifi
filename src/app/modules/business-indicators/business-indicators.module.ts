@@ -11,11 +11,23 @@ import {
     BusinessIndicatorCommentVerbatimComponent
 } from './components/business-indicator-comment-verbatim/business-indicator-comment-verbatim.component';
 import {
+    BusinessIndicatorComparisonTableComponent
+} from './components/business-indicator-comparison-table/business-indicator-comparison-table.component';
+import {
+    BusinessIndicatorFilterComponent
+} from './components/business-indicator-filter/business-indicator-filter.component';
+import {
     BusinessIndicatorFlightLegendComponent
 } from './components/business-indicator-flight-legend/business-indicator-flight-legend.component';
 import {
     BusinessIndicatorPerfopsLegendComponent
 } from './components/business-indicator-perfops-legend/business-indicator-perfops-legend.component';
+import {
+    BusinessIndicatorSummaryDisplayComponent
+} from './components/business-indicator-summary-display/business-indicator-summary-display.component';
+import {
+    BusinessIndicatorSummaryComponent
+} from './components/business-indicator-summary/business-indicator-summary.component';
 import { EscoreChartComponent } from './components/escore-chart/escore-chart.component';
 import {
     BusinessIndicatorDetailPage
@@ -29,7 +41,11 @@ import { BusinessIndicatorsPage } from './pages/business-indicators/business-ind
     EscoreChartComponent,
     BusinessIndicatorFlightLegendComponent,
     BusinessIndicatorPerfopsLegendComponent,
-    BusinessIndicatorCommentVerbatimComponent
+    BusinessIndicatorCommentVerbatimComponent,
+    BusinessIndicatorSummaryComponent,
+    BusinessIndicatorFilterComponent,
+    BusinessIndicatorComparisonTableComponent,
+    BusinessIndicatorSummaryDisplayComponent
   ],
   imports: [
     IonicModule,

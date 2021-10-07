@@ -11,21 +11,21 @@
 </ion-header>
 
 <ion-content>
-    <div class="page-container">
-        <nav class="tabs">
-            <button (click)="displaySubTab(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)" [ngClass]="{'active': isTabActive(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)}">
-                {{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}
-            </button>
-            <button (click)="displaySubTab(StatutoryCertificateTabEnum.HISTORY)" [ngClass]="{'active': isTabActive(StatutoryCertificateTabEnum.HISTORY)}">
-                {{ 'STATUTORY_CERTIFICATE.HISTORY.TITLE' | translate }}
-            </button>
-            <button (click)="displaySubTab(StatutoryCertificateTabEnum.CONTACT)" [ngClass]="{'active': isTabActive(StatutoryCertificateTabEnum.CONTACT)}">
-                {{ 'STATUTORY_CERTIFICATE.CONTACT.TITLE' | translate }}
-            </button>
-        </nav>
-        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <div class="page-container">
+            <nav class="tabs">
+                <button (click)="displaySubTab(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)" [ngClass]="{'active': isTabActive(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)}">
+                    {{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}
+                </button>
+                <button (click)="displaySubTab(StatutoryCertificateTabEnum.HISTORY)" [ngClass]="{'active': isTabActive(StatutoryCertificateTabEnum.HISTORY)}">
+                    {{ 'STATUTORY_CERTIFICATE.HISTORY.TITLE' | translate }}
+                </button>
+                <button (click)="displaySubTab(StatutoryCertificateTabEnum.CONTACT)" [ngClass]="{'active': isTabActive(StatutoryCertificateTabEnum.CONTACT)}">
+                    {{ 'STATUTORY_CERTIFICATE.CONTACT.TITLE' | translate }}
+                </button>
+            </nav>
 
-        <ng-template #pageBlock>
             <div class="selectable">
                 <statutory-certificate *ngIf="isTabActive(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)" [statutoryCertificate]="statutoryCertificate">
                 </statutory-certificate>
@@ -34,8 +34,6 @@
                 <contact *ngIf="isTabActive(StatutoryCertificateTabEnum.CONTACT)" [pnc]="pnc">
                 </contact>
             </div>
-        </ng-template>
-
-
-    </div>
+        </div>
+    </ng-template>
 </ion-content>

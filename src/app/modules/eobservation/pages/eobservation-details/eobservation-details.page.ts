@@ -15,7 +15,7 @@ import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
-    CancelChangesService
+  CancelChangesService
 } from '../../../../core/services/cancel_changes/cancel-changes.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
@@ -96,7 +96,17 @@ export class EobservationDetailsPage extends FormCanDeactivate {
    * Vérifie si le formulaire a été modifié sans être enregistré
    */
   formHasBeenModified() {
-    return Utils.getHashCode(this.originEObservation) !== Utils.getHashCode(this.eObservation);
+    return (Utils.getHashCode(this.originEObservation) !== Utils.getHashCode(this.eObservation)) || (this.isTemporaryPeriodHasChanged());
+  }
+
+  /**
+   * Vérifie que la section période temporaire n'a pas été changée
+   * @returns vrai si elle a été changée, faux sinon.
+   */
+  isTemporaryPeriodHasChanged(): boolean {
+    return (this.originEObservation.ffc !== this.eObservation.ffc) ||
+      (this.originEObservation.val !== this.eObservation.val) ||
+      (this.originEObservation.formationFlight !== this.eObservation.formationFlight)
   }
 
   /**
@@ -190,7 +200,6 @@ export class EobservationDetailsPage extends FormCanDeactivate {
       });
     });
   }
-
 
   /**
    * Met à jour l'eObservation

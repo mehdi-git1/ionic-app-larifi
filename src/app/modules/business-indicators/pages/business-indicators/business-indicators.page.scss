@@ -13,69 +13,15 @@ h3 {
     }
 }
 
-.summary {
+mat-sidenav-container {
+    height: 100%;
+}
+
+mat-sidenav {
+    width: 300px;
+    padding: 8px;
     background: var(--ion-color-white);
-    margin: 0;
-    font-size: 1.1em;
-
-    ion-card-content {
-
-        .summary-item-list {
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        @media (max-width:800px) {
-            .summary-item {
-                width: 50%;
-            }
-        }
-
-        .summary-item {
-            display: flex;
-            width: 33.3%;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 10px;
-
-            label {
-                margin-bottom: 10px;
-                text-align: center;
-            }
-
-            div {
-                display: flex;
-                align-items: center;
-
-                img {
-                    width: auto;
-                    height: 55px;
-                    margin-right: 15px;
-                }
-
-                .summary-value,
-                .no-data {
-                    margin-left: 15px;
-                    font-weight: bold;
-                    font-size: 2em;
-                    color: var(--ion-color-primary);
-                }
-            }
-        }
-
-        .summary-item:nth-child(n+4) {
-            margin-top: 40px;
-        }
-
-        .switch-to-landscape-legend {
-            margin-top: 16px;
-            font-style: italic;
-            text-align: center;
-        }
-    }
+    box-shadow: 3px 0px 4px -2px rgba(51, 51, 51, 0.75);
 }
 
 .no-data:after {
@@ -84,6 +30,22 @@ h3 {
 
 .not-available:after {
     content: 'NA';
+}
+
+.summary-title-bloc {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.back-button-bloc {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.back-to-six-month-summary-button {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .flight-cards-table {

@@ -1,0 +1,88 @@
+.indicator-summary-comparison-table {
+
+    z-index: 2;
+    box-sizing: content-box;
+    margin-top: 10px;
+
+    background-color: var(--ion-color-grey95);
+
+    .no-data:after {
+        content: '-';
+    }
+
+    .not-available:after {
+        content: 'NA';
+    }
+
+    .period-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px !important;
+        background-color: var(--ion-color-primary);
+        color: var(--ion-color-white);
+        margin: 0;
+    }
+
+    .indicator-title {
+        color: var(--ion-color-white) !important;
+    }
+
+    .indicator-summary-comparison-data {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .indicator-summary-label {
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+            width: 150px;
+            align-items: unset;
+
+            p {
+                color: var(--ion-color-grey50);
+                font-weight: small;
+                padding-left: 2px;
+            }
+        }
+
+        .indicator-summary-label p {
+            height: 20px;
+        }
+
+        .period-result-bloc {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+
+            .period-result-data {
+                display: flex;
+                flex-direction: row;
+                flex-grow: 1;
+
+                .no-data-bloc {
+                    flex-grow: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+
+            .period-result {
+                display: flex;
+                flex-grow: 1;
+                flex-direction: column;
+                padding-left: 10px;
+
+                p {
+                    color: var(--ion-color-primary);
+                    font-weight: bold;
+                    font-size: 1em;
+                    height: 20px !important;
+                }
+            }
+        }
+    }
+
+}

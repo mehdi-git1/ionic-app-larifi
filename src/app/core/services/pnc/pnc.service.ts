@@ -7,8 +7,10 @@ import { UrlConfiguration } from '../../configuration/url.configuration';
 import { GenderEnum } from '../../enums/gender.enum';
 import { SpecialityEnum } from '../../enums/speciality.enum';
 import { RestService } from '../../http/rest/rest.base.service';
+import { MailingCampaignModel } from '../../models/mailing-campaign-model';
 import { PagedPncModel } from '../../models/paged-pnc.model';
 import { PncFilterModel } from '../../models/pnc-filter.model';
+import { PncLightModel } from '../../models/pnc-light.model';
 import { PncSearchCriteriaModel } from '../../models/pnc-search-criteria.model';
 import { PncModel } from '../../models/pnc.model';
 import { RotationModel } from '../../models/rotation.model';
@@ -71,6 +73,7 @@ export class PncService extends BaseService {
     return this.execFunctionService('getFilteredPncs', pncSearchCriteria);
   }
 
+
   /**
    * Fait appel au service rest qui renvoie les 10 premier pncs conçernés.
    * @param searchText matricuel/nom/prénom
@@ -122,12 +125,32 @@ export class PncService extends BaseService {
   }
 
   /**
+   * Récupère la liste des destinataires
+   * @param filter les filtres à appliquer
+   * @returns une promesse contenant la liste des destinataires
+   */
+  getAllRecipients(filter: PncFilterModel): Promise<PncLightModel[]> {
+    const pncSearchCriteria = new PncSearchCriteriaModel(filter, filter.page, filter.size);
+    return this.execFunctionService('getAllRecipients', pncSearchCriteria);
+  }
+
+  /**
    * Vérifie si le PNC est CC et vole sur LC
    * @param pnc le pnc à tester
    * @return vrai si c'est le cas, faux sinon
    */
   isCcLc(pnc: PncModel): boolean {
     return pnc.currentSpeciality === SpecialityEnum.CC && pnc.haulType === HaulTypeEnum.LC;
+  }
+
+
+  /**
+   * Envoie massivement un mail
+   * @param mailingCampaignModel  les données du mail
+   * @returns une promesse indiquant le succès de l'envoi du mail
+   */
+  public sendMailingCampaign(mailingCampaignModel: MailingCampaignModel) {
+    return this.execFunctionService('sendMailingCampaign', mailingCampaignModel);
   }
 
 }

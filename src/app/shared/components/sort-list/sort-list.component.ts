@@ -12,6 +12,7 @@ export class SortListComponent implements OnInit {
   @Input() value: string;
   @Input() options: Array<SortOption>;
   @Input() direction: SortDirection;
+  @Input() disableSort = false;
   @Output() sortChange = new EventEmitter<SortChange>();
 
   ngOnInit() {

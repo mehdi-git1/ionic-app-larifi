@@ -1,0 +1,50 @@
+ ion-label {
+     font-weight: bold;
+ }
+
+
+ .mail-bloc {
+
+     margin-left: 18px;
+     margin-right: 18px;
+
+     .mails {
+         background-color: white;
+
+         div {
+             border: 1px solid;
+             border-radius: 4px;
+             border-color: gray;
+             max-height: 80px;
+             min-height: 50px;
+             overflow-y: overlay;
+         }
+
+         span {
+             color: var(--ion-color-primary);
+             padding: 1;
+             text-decoration: underline !important;
+
+             ion-icon {
+                 cursor: pointer;
+                 color: initial;
+             }
+         }
+     }
+ }
+
+ text-editor {
+     width: 100%;
+ }
+
+
+ .buttons-action {
+     display: flex;
+     flex-direction: row;
+     justify-content: flex-end;
+     margin: 25px;
+
+     .send-mail {
+         margin-left: 30px;
+     }
+ }

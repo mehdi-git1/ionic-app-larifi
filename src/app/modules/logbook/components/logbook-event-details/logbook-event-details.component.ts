@@ -207,16 +207,16 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
      *
      * @param visibility masquer, afficher ou afficher dans 15 jours
      */
-    confirmHideOrDisplayEvent(visibility: EventCcoVisibilityEnum) {
-        if ((visibility === EventCcoVisibilityEnum.HIDDEN && !this.logbookEvent.hidden)
-            || (visibility === EventCcoVisibilityEnum.DISPLAYED && !this.logbookEvent.displayed && this.visibilitySelected !== EventCcoVisibilityEnum.DISPLAYED)
-            || (visibility === EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON && (this.logbookEvent.displayed || this.logbookEvent.hidden))) {
+    confirmHideOrDisplayEvent() {
+        if ((this.visibilitySelected === EventCcoVisibilityEnum.HIDDEN && !this.logbookEvent.hidden)
+            || (this.visibilitySelected === EventCcoVisibilityEnum.DISPLAYED && (this.logbookEvent.hidden || (!this.logbookEvent.displayed && this.getDisplayDate())))
+            || (this.visibilitySelected === EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON && (this.logbookEvent.displayed || this.logbookEvent.hidden))) {
             let title: string;
             let message: string;
-            if (visibility === EventCcoVisibilityEnum.HIDDEN) {
+            if (this.visibilitySelected === EventCcoVisibilityEnum.HIDDEN) {
                 title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.TITLE');
                 message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.MESSAGE');
-            } else if (visibility === EventCcoVisibilityEnum.DISPLAYED) {
+            } else if (this.visibilitySelected === EventCcoVisibilityEnum.DISPLAYED) {
                 title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.TITLE');
                 message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.MESSAGE');
             } else {
@@ -226,7 +226,7 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
                     , { date: this.getDisplayDate() });
             }
             return this.confirmationPopup(title, message).then(() => {
-                this.visibilityChange(visibility);
+                this.visibilityChange(this.visibilitySelected);
             }).catch(() => {
                 this.initEventVisibility();
             });

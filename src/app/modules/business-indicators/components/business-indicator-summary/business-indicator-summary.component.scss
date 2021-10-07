@@ -1,0 +1,13 @@
+.summary {
+    background: var(--ion-color-white);
+    margin: 0;
+    font-size: 1.1em;
+
+    ion-card-content {
+        .switch-to-landscape-legend {
+            margin-top: 16px;
+            font-style: italic;
+            text-align: center;
+        }
+    }
+}

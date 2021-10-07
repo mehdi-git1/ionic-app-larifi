@@ -98,7 +98,17 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   search(): void {
     FormsUtil.extractFormValues(this.filters, this.searchForm);
+    this.removeConstantALL();
     this.searchLaunched.next(this.filters);
+  }
+
+  /**
+   * Supprime dans les filtres, les valeurs ALL.
+   */
+  private removeConstantALL(): void {
+    this.filters.divisions = this.filters.divisions.filter(division => division !== AppConstant.ALL);
+    this.filters.ginqs = this.filters.ginqs.filter(ginq => ginq !== AppConstant.ALL);
+    this.filters.sectors = this.filters.sectors.filter(sector => sector !== AppConstant.ALL);
   }
 
   /**
@@ -107,6 +117,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
   reinitializeSearch() {
     this.searchForm.reset(this.getFormInitValues());
     FormsUtil.extractFormValues(this.filters, this.searchForm);
+    this.removeConstantALL();
     this.searchReinitialized.emit(this.filters);
   }
 
@@ -207,32 +218,34 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.countEnabledFilters();
 
       // Gestion de l'exclusivité des filtres
-      value.hasEObsOlderThan18Months ?
-        this.searchForm.get('hasNoEObs').disable({ emitEvent: false }) :
-        this.searchForm.get('hasNoEObs').enable({ emitEvent: false });
+      if (this.connectivityService.isConnected()) {
+        value.hasEObsOlderThan18Months ?
+          this.searchForm.get('hasNoEObs').disable({ emitEvent: false }) :
+          this.searchForm.get('hasNoEObs').enable({ emitEvent: false });
 
-      value.hasNoEObs ?
-        this.searchForm.get('hasEObsOlderThan18Months').disable({ emitEvent: false }) :
-        this.searchForm.get('hasEObsOlderThan18Months').enable({ emitEvent: false });
+        value.hasNoEObs ?
+          this.searchForm.get('hasEObsOlderThan18Months').disable({ emitEvent: false }) :
+          this.searchForm.get('hasEObsOlderThan18Months').enable({ emitEvent: false });
 
-      value.hasProfessionalInterviewOlderThan24Months ?
-        this.searchForm.get('hasNoProfessionalInterview').disable({ emitEvent: false }) :
-        this.searchForm.get('hasNoProfessionalInterview').enable({ emitEvent: false });
+        value.hasProfessionalInterviewOlderThan24Months ?
+          this.searchForm.get('hasNoProfessionalInterview').disable({ emitEvent: false }) :
+          this.searchForm.get('hasNoProfessionalInterview').enable({ emitEvent: false });
 
-      value.hasNoProfessionalInterview ?
-        this.searchForm.get('hasProfessionalInterviewOlderThan24Months').disable({ emitEvent: false }) :
-        this.searchForm.get('hasProfessionalInterviewOlderThan24Months').enable({ emitEvent: false });
+        value.hasNoProfessionalInterview ?
+          this.searchForm.get('hasProfessionalInterviewOlderThan24Months').disable({ emitEvent: false }) :
+          this.searchForm.get('hasProfessionalInterviewOlderThan24Months').enable({ emitEvent: false });
 
-      value.prioritized || value.hasAtLeastOneCareerObjectiveInProgress ?
-        this.searchForm.get('hasNoCareerObjective').disable({ emitEvent: false }) :
-        this.searchForm.get('hasNoCareerObjective').enable({ emitEvent: false });
+        value.prioritized || value.hasAtLeastOneCareerObjectiveInProgress ?
+          this.searchForm.get('hasNoCareerObjective').disable({ emitEvent: false }) :
+          this.searchForm.get('hasNoCareerObjective').enable({ emitEvent: false });
 
-      if (value.hasNoCareerObjective) {
-        this.searchForm.get('prioritized').disable({ emitEvent: false });
-        this.searchForm.get('hasAtLeastOneCareerObjectiveInProgress').disable({ emitEvent: false });
-      } else {
-        this.searchForm.get('prioritized').enable({ emitEvent: false });
-        this.searchForm.get('hasAtLeastOneCareerObjectiveInProgress').enable({ emitEvent: false });
+        if (value.hasNoCareerObjective) {
+          this.searchForm.get('prioritized').disable({ emitEvent: false });
+          this.searchForm.get('hasAtLeastOneCareerObjectiveInProgress').disable({ emitEvent: false });
+        } else {
+          this.searchForm.get('prioritized').enable({ emitEvent: false });
+          this.searchForm.get('hasAtLeastOneCareerObjectiveInProgress').enable({ emitEvent: false });
+        }
       }
     });
   }

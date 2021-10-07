@@ -1,0 +1,18 @@
+ <ion-card class="summary">
+     <ion-card-content>
+         <ion-segment [(ngModel)]="activatedSummaryTab" (ionChange)="activatedTabChanged($event.detail.value)">
+             <ion-segment-button *ngFor="let businessIndicatorSummary of businessIndicatorSummaries.businessIndicatorSummaries" [value]="businessIndicatorSummary.population">
+                 <ion-label>{{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.'+businessIndicatorSummary.population | translate }}</ion-label>
+             </ion-segment-button>
+         </ion-segment>
+
+         <ng-container *ngFor=" let businessIndicatorSummary of businessIndicatorSummaries.businessIndicatorSummaries">
+             <div *ngIf="businessIndicatorSummary.population === activatedSummaryTab">
+                 <business-indicator-summary-display [businessIndicatorSummary]="businessIndicatorSummary"></business-indicator-summary-display>
+             </div>
+         </ng-container>
+         <div class="switch-to-landscape-legend small-device" *ngIf="isMobile()">
+             {{ 'BUSINESS_INDICATORS.LIST.PAST_SUMMARY.LEGEND' | translate }}
+         </div>
+     </ion-card-content>
+ </ion-card>

@@ -1,7 +1,12 @@
 <div class="header-container">
     <div class="card-container selectable" *ngIf="pnc">
         <offline-indicator [object]="pnc" type="PNC"></offline-indicator>
-        <pnc-photo [pnc]="pnc" [size]="70"></pnc-photo>
+        <div class="photo-container">
+            <ion-fab-button *ngIf="showSendMailButton" class="mail-container" size="small" color="secondary" (click)="sendMailToPnc()">
+                <ion-icon class="mail-icon" name="mail-outline"></ion-icon>
+            </ion-fab-button>
+            <pnc-photo [pnc]="pnc" [size]="70"></pnc-photo>
+        </div>
         <div class="pnc-info-container">
             <div class="pnc-name"><span class="lastname">{{ pnc.lastName }}</span>&nbsp;<span class="firstname">{{ pnc.firstName }}</span></div>
             <div class="pnc-speciality" [ngClass]="{'no-value' : !getFormatedSpeciality() }">
@@ -37,14 +42,7 @@
         <div class="data-container">
             <ion-icon name="location-sharp"></ion-icon>
             <div class="pnc-info-data">
-                <div>
-                    <span [ngClass]="{'no-value' : !pnc?.assignment?.division }">{{ pnc?.assignment?.division }}/</span>
-                    <span [ngClass]="{'no-value' : !pnc?.assignment?.sector }">{{ pnc?.assignment?.sector }}/</span>
-                    <span [ngClass]="{'no-value' : !pnc?.assignment?.ginq }">{{ pnc?.assignment?.ginq }}</span>
-                </div>
-                <div>
-                    <span [ngClass]="{'no-value' : !pnc?.groupPlanning }">{{ pnc?.groupPlanning }}</span>
-                </div>
+                <span> {{getFormattedAffectationInfo(pnc)}}</span>
             </div>
         </div>
         <div class="pnc-instructor" *ngIf="!pnc.manager">

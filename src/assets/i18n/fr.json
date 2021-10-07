@@ -7,6 +7,10 @@
             "LABELS": {
                 "TITLE": "Nouveautés de la version"
             },
+            "DEPRECATED_VERSION_ALERT": {
+              "TITLE": "La version actuelle de votre application ne permet pas de bénéficier de toutes les fonctionnalités.",
+              "MESSAGE": "Merci d'installer la version disponible sur le PNC Store."
+            },
             "CONFIRM_VERSION_UPDATE": {
                 "TITLE": "Une nouvelle version de eDossierPNC est disponible",
                 "MESSAGE": "Merci de mettre à jour votre application depuis le PNC Store afin de profiter pleinement des nouveautés eDossierPNC.",
@@ -271,7 +275,7 @@
         "REFERENT_INSTRUCTOR": "Manager",
         "RDS": "RDS",
         "RDD": "RDD",
-        "CSV": "CSV",
+        "POLE_CSV": "Pôle CSV",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
         "WORKRATE": "Rythme",
@@ -729,6 +733,12 @@
     "PNC_SEARCH": {
         "NO_CONNEXION_MESSAGE": "* Filtres inactifs hors connexion",
         "TOTAL": "Total : {{total}}",
+        "MAIL": "Mail",
+        "SEND_MAIL": "Envoyer",
+        "CANCEL":"Annuler",
+        "SELECT_ALL":"Tout sélectionner",
+        "TOTAL_SELECTED_SINGULAR":"Sélectionné : {{total}}",
+        "TOTAL_SELECTED_PLURAL":"Sélectionnés : {{total}}",
         "CRITERIA": {
             "TITLE": "Filtres",
             "FILTER": "Filtrer",
@@ -982,6 +992,10 @@
         "ORIGIN": "Origine",
         "ACTIONS": "Actions",
         "UNAIVALABLE_OFFLINE": "Les évènements ne sont pas disponibles hors connexion",
+        "LAST_THREE_YEARS_EVENT":"évènements des 3 dernières années",
+        "ARCHIVED_EVENTS": "évènements archivés",
+        "VIEW_ARCHIVES": "consulter les archives",
+        "RECENT_EVENTS": "revenir aux évènements récents",
         "ARCHIVE_LINK_LABEL": "Historique Friendly",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement",
@@ -1055,11 +1069,11 @@
             "CREATED_THE": "Créé le ",
             "NOTIFIED_PNCS": {
                 "TITLE": "Personnes notifiées",
+                "POLE_CSV": "Pôle CSV",
                 "SPECIALITY": {
                     "REFERENT_INSTRUCTOR": "Manager",
                     "RDD": "RDD",
-                    "RDS": "RDS",
-                    "CSV": "CSV"
+                    "RDS": "RDS"
                 }
             },
             "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}",
@@ -1138,9 +1152,39 @@
     },
     "BUSINESS_INDICATORS": {
         "UNAIVALABLE_OFFLINE": "Les indicateurs métier ne sont pas disponibles hors connexion",
+        "NO_BUSINESS_INDICATOR_AVAILABLE": "Aucun indicateur métier disponible",
+        "FILTERS":{
+            "TITLE": "Filtres",
+            "REINIT_BUTTON": "Réinitialiser",
+            "FIRST_PERIOD":"Première période",
+            "START_DATE": "Du",
+            "END_DATE": "Au",
+            "COMPARE_TO_LAST_PERIOD":"Comparer à la période précédente",
+            "COMPARE_TO_LAST_YEAR":"Comparer à l'année dernière",
+            "COMPARE_TO_GLOBAL_POPULATION":"Comparer à ma population",
+            "SECOND_PERIOD": "Seconde période",
+            "COMPARE": "Comparer",
+            "CANCEL": "Annuler",
+            "ERRORS": {
+              "SIX_MONTHS_INTERVAL_ERROR": "Il doit y avoir exactement six mois d'intervalle"
+            }
+        },
         "LIST": {
+            "COMPARISON_TO_POPULATION_TITLE": "Indicateurs de ma population de référence",
             "PAST_SUMMARY": {
-                "TITLE": "Indicateurs métier sur 6 mois glissants",
+                "LAST_SIX_MONTHS_TITLE": "Indicateurs métier sur 6 mois glissants",
+                "BACK": "Retour",
+                "COMPARISON_BUTTON": "Comparer",
+                "PERIOD_COMPARED": "période",
+                "COMPARISON_TITLE" : "Indicateurs",
+                "MY_SUMMARIES": "Mes indicateurs",
+                "FROM": "Du",
+                "TO": "Au",
+                "CCP": "CCP",
+                "CC_LC": "CC-LC",
+                "CC_MC": "CC-MC",
+                "CC_CC": "CC-CC",
+                "POPULATION_TYPE": "Fonction",
                 "ESCORE_AVERAGE_CCP_CC_MC": "Moyenne eScore - retours global vol",
                 "ESCORE_AVERAGE_CC_LC": "Moyenne eScore - retours par cabine de travail",
                 "ESCORE_AVERAGE_SHORT_LABEL": "Moyenne eScore",
@@ -1274,6 +1318,18 @@
             "ERROR": "Erreur lors de la modification de la question / réponse secrète"
         }
     },
+    "MAILING_MODAL": {
+        "FROM": "De",
+        "TO" : "A",
+        "CC" : "cc",
+        "CCI": "cci",
+        "OBJECT": "Objet",
+        "MESSAGE": "Veillez rediger votre mail",
+        "SEND": "Envoyer",
+        "CANCEL": "Annuler",
+        "SEND_CONFIRMATION": "email envoyé avec succès",
+        "MAIL_PLACEHOLDER":"m123456@airfrance.fr; test.user@airfrance.fr"
+    },
     "SETTINGS": {
         "TITLE": "Paramètres",
         "INIT_CACHE": {
@@ -1333,7 +1389,8 @@
             "NUMBER": "Version",
             "RELEASE_DATE": "du",
             "APP_VERSION_LIST": "Historique",
-            "VERSION_NOTE": "Nouveautés de la version"
+            "VERSION_NOTE": "Nouveautés de la version",
+            "DEPRECATED":"Archivée"
         },
         "NO_APP_VERSION_SELECTED": "Aucune version sélectionnée"
     },

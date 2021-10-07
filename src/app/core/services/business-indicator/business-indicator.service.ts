@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 
 import {
-    EScoreCommentVerbatimEnum
+  EScoreCommentVerbatimEnum
 } from '../../enums/business-indicators/escore-comment-verbatim.enum';
 import {
-    ShortLoopCommentVerbatimEnum
+  ShortLoopCommentVerbatimEnum
 } from '../../enums/business-indicators/short-loop-comment-verbatim.enum';
 import {
-    BusinessIndicatorFilterModel
+  BusinessIndicatorFilterModel
 } from '../../models/business-indicator/business-indicator-filter-model';
 import {
-    BusinessIndicatorSummaryModel
-} from '../../models/business-indicator/business-indicator-summary.model';
+  BusinessIndicatorSummariesModel
+} from '../../models/business-indicator/business-indicator-summaries.model';
 import { BusinessIndicatorModel } from '../../models/business-indicator/business-indicator.model';
 import { EScoreCommentModel } from '../../models/business-indicator/e-score-comment.model';
 import {
-    PagedBusinessIndicatorModel
+  PagedBusinessIndicatorModel
 } from '../../models/business-indicator/paged-businessIndicator.model';
 import { ShortLoopCommentModel } from '../../models/business-indicator/short-loop-comment.model';
 import { BaseService } from '../base/base.service';
@@ -26,63 +26,87 @@ import { OnlineBusinessIndicatorService } from './online-business-indicator.serv
 @Injectable()
 export class BusinessIndicatorService extends BaseService {
 
-    constructor(
-        public connectivityService: ConnectivityService,
-        private onlineBusinessIndicatorService: OnlineBusinessIndicatorService,
-        private offlineBusinessIndicatorService: OfflineBusinessIndicatorService
-    ) {
-        super(
-            connectivityService,
-            onlineBusinessIndicatorService,
-            offlineBusinessIndicatorService
-        );
-    }
+  constructor(
+    public connectivityService: ConnectivityService,
+    private onlineBusinessIndicatorService: OnlineBusinessIndicatorService,
+    private offlineBusinessIndicatorService: OfflineBusinessIndicatorService
+  ) {
+    super(
+      connectivityService,
+      onlineBusinessIndicatorService,
+      offlineBusinessIndicatorService
+    );
+  }
 
-    /**
-     * Récupère les indicateurs métier du Pnc
-     * @param matricule le matricule du Pnc
-     * @param filters les filtres à appliquer à la requete
-     * @return Les indicateurs métiers du PNC
-     */
-    findPncBusinessIndicators(matricule: string, filters: BusinessIndicatorFilterModel): Promise<PagedBusinessIndicatorModel> {
-        return this.execFunctionService('findPncBusinessIndicators', matricule, filters);
-    }
+  /**
+   * Récupère les indicateurs métier du Pnc
+   * @param matricule le matricule du Pnc
+   * @param filters les filtres à appliquer à la requête
+   * @return Les indicateurs métiers du PNC
+   */
+  findPncBusinessIndicators(matricule: string, filters: BusinessIndicatorFilterModel): Promise<PagedBusinessIndicatorModel> {
+    return this.execFunctionService('findPncBusinessIndicators', matricule, filters);
+  }
 
-    /**
-     * Récupère la synthèse des indicateurs métier des 6 derniers mois d'un PNC
-     * @param matricule le matricule du Pnc
-     * @return la synthèse des indicateurs métier des 6 derniers mois
-     */
-    getBusinessIndicatorSummary(matricule: string): Promise<BusinessIndicatorSummaryModel> {
-        return this.execFunctionService('getBusinessIndicatorSummary', matricule);
-    }
+  /**
+   * Récupère les synthèses des indicateurs métiers des 6 derniers mois d'un PNC
+   * @param matricule le matricule du Pnc
+   * @return les synthèses des indicateurs métiers des 6 derniers mois
+   */
+  getBusinessIndicatorSummaries(matricule: string): Promise<BusinessIndicatorSummariesModel> {
+    return this.execFunctionService('getBusinessIndicatorSummaries', matricule);
+  }
 
-    /**
-     * Récupère un indicateur métier
-     * @param id l'id de l'indicateur métier à récupérer
-     * @return l'indicateur métier trouvé
-     */
-    getBusinessIndicator(id: number): Promise<BusinessIndicatorModel> {
-        return this.execFunctionService('getBusinessIndicator', id);
-    }
+  /**
+   * Récupère les synthèses des indicateurs métiers par poste, pendant les différentes périodes
+   * renseignées dans le filtre.
+   * @param matricule matricule du pnc
+   * @param filter les filtres à appliquer à la requête
+   * @returns les synthèses des indicateurs métiers
+   */
+  getBusinessIndicatorSummariesByFilter(matricule: string, filter: BusinessIndicatorFilterModel):
+    Promise<BusinessIndicatorSummariesModel[]> {
+    return this.execFunctionService('getBusinessIndicatorSummariesByFilter', matricule, filter);
+  }
 
-    /**
-     * Signale un verbatim d'un commentaire eScore
-     * @param commentId l'id du commentaire
-     * @param commentVerbatim le verbatim du commentaire à signaler
-     * @return une promesse contenant le commentaire mis à jour
-     */
-    reportEScoreCommentVerbatim(commentId: number, commentVerbatim: EScoreCommentVerbatimEnum): Promise<EScoreCommentModel> {
-        return this.execFunctionService('reportEScoreCommentVerbatim', commentId, commentVerbatim);
-    }
+  /**
+   * Récupère les synthèses des indicateurs métiers du pnc et de sa population de référence en fonction
+   * du filtre passé en paramètre.
+   *
+   * @param filter les filtres à appliquer
+   * @return les synthèses des indicateurs métiers du pnc et de sa population de référence
+   */
+  getBusinessIndicatorSummariesByPopulation(filter: BusinessIndicatorFilterModel):
+    Promise<BusinessIndicatorSummariesModel[]> {
+    return this.execFunctionService('getBusinessIndicatorSummariesByPopulation', filter);
+  }
 
-    /**
-     * Signale un verbatim d'un commentaire boucle courte
-     * @param commentId l'id du commentaire
-     * @param commentVerbatim le verbatim du commentaire à signaler
-     * @return une promesse contenant le commentaire mis à jour
-     */
-    reportShortLoopCommentVerbatim(commentId: number, commentVerbatim: ShortLoopCommentVerbatimEnum): Promise<ShortLoopCommentModel> {
-        return this.execFunctionService('reportShortLoopCommentVerbatim', commentId, commentVerbatim);
-    }
+  /**
+   * Récupère un indicateur métier
+   * @param id l'id de l'indicateur métier à récupérer
+   * @return l'indicateur métier trouvé
+   */
+  getBusinessIndicator(id: number): Promise<BusinessIndicatorModel> {
+    return this.execFunctionService('getBusinessIndicator', id);
+  }
+
+  /**
+   * Signale un verbatim d'un commentaire eScore
+   * @param commentId l'id du commentaire
+   * @param commentVerbatim le verbatim du commentaire à signaler
+   * @return une promesse contenant le commentaire mis à jour
+   */
+  reportEScoreCommentVerbatim(commentId: number, commentVerbatim: EScoreCommentVerbatimEnum): Promise<EScoreCommentModel> {
+    return this.execFunctionService('reportEScoreCommentVerbatim', commentId, commentVerbatim);
+  }
+
+  /**
+   * Signale un verbatim d'un commentaire boucle courte
+   * @param commentId l'id du commentaire
+   * @param commentVerbatim le verbatim du commentaire à signaler
+   * @return une promesse contenant le commentaire mis à jour
+   */
+  reportShortLoopCommentVerbatim(commentId: number, commentVerbatim: ShortLoopCommentVerbatimEnum): Promise<ShortLoopCommentModel> {
+    return this.execFunctionService('reportShortLoopCommentVerbatim', commentId, commentVerbatim);
+  }
 }

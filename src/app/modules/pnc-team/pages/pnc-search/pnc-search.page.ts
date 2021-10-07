@@ -4,9 +4,11 @@ import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
+import { PncLightModel } from 'src/app/core/models/pnc-light.model';
+import { PncCardComponent } from 'src/app/shared/components/pnc-card/pnc-card.component';
 import { SortChange, SortOption } from 'src/app/shared/components/sort-list/sort-list.component';
 
-import { Component } from '@angular/core';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -15,6 +17,7 @@ import { PagePositionEnum } from '../../../../core/enums/page-position.enum';
 import { PncSearchModeEnum } from '../../../../core/enums/pnc-search-mode.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { Events } from '../../../../core/services/events/events.service';
+import { MailingService } from '../../../../core/services/mailing/mailing.service';
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -25,17 +28,19 @@ import { SessionService } from '../../../../core/services/session/session.servic
   styleUrls: ['./pnc-search.page.scss']
 })
 export class PncSearchPage {
-
   searchMode: PncSearchModeEnum;
   pnc: PncModel;
   filteredPncs = new Array<PncModel>();
   filters = new PncFilterModel();
   filtersSubject = new Subject<PncFilterModel>();
-
+  selectPncRecipients = new Set<PncModel>();
   totalPncs = 0;
   isMenuOpened = false;
   isLoading = true;
   searchInProgress = false;
+  activateSendMail = false;
+  displayCheckmark: boolean;
+  isAllSelected = false;
 
   enabledFiltersCount = 0;
 
@@ -45,6 +50,7 @@ export class PncSearchPage {
   TabHeaderEnum = TabHeaderEnum;
 
   bypassMenuClosureOnce = false;
+  @ViewChildren(PncCardComponent) pncCards: QueryList<PncCardComponent>;
 
   constructor(
     private pncService: PncService,
@@ -53,7 +59,8 @@ export class PncSearchPage {
     private events: Events,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private mailingService: MailingService
   ) {
     if (this.router.url.split('/').includes('filters-opened')) {
       this.isMenuOpened = true;
@@ -62,14 +69,20 @@ export class PncSearchPage {
     this.initFilters();
     this.initSortOptions();
 
-    this.filtersSubject.pipe(switchMap((filters) => this.handlePncSearch(filters)))
+    this.filtersSubject
+      .pipe(switchMap(filters => this.handlePncSearch(filters)))
       .subscribe(pagedPnc => {
         this.handlePncSearchResponse(pagedPnc);
       });
 
-    this.searchMode = this.activatedRoute.snapshot.paramMap.get('mode') ?
-      PncSearchModeEnum[this.activatedRoute.snapshot.paramMap.get('mode')]
-      : PncSearchModeEnum.FULL;
+    this.searchMode = this.activatedRoute.snapshot.paramMap.get('mode')
+      ? PncSearchModeEnum[this.activatedRoute.snapshot.paramMap.get('mode')]
+      : PncSearchModeEnum.FULL
+    this.mailingService.mailSendConfirmationEvent.subscribe(() => {
+      this.cancelMailSend();
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate([this.router.url]);
+    });
   }
 
   /**
@@ -92,19 +105,35 @@ export class PncSearchPage {
       },
       {
         value: 'lastEObservationDate',
-        label: this.translateService.instant('GLOBAL.SORT_LIST.LAST_EOBSERVATION')
+        label: this.translateService.instant(
+          'GLOBAL.SORT_LIST.LAST_EOBSERVATION'
+        )
       },
       {
         value: 'lastProfessionalInterviewDate',
-        label: this.translateService.instant('GLOBAL.SORT_LIST.LAST_PROFESSIONAL_INTERVIEW')
+        label: this.translateService.instant(
+          'GLOBAL.SORT_LIST.LAST_PROFESSIONAL_INTERVIEW'
+        )
       },
       {
         value: 'lastCareerObjectiveUpdateDate',
-        label: this.translateService.instant('GLOBAL.SORT_LIST.LAST_UPDATED_CAREER_OBJECTIVE')
+        label: this.translateService.instant(
+          'GLOBAL.SORT_LIST.LAST_UPDATED_CAREER_OBJECTIVE'
+        )
       }
-    ];
+    ]
   }
 
+  /**
+   * Affiche la pop d'envoi de mails
+   */
+  showMailingModal() {
+    this.mailingService.openMailingModal(
+      this.sessionService.getActiveUser().authenticatedPnc,
+      Array.from(this.selectPncRecipients),
+      [this.sessionService.getActiveUser().authenticatedPnc]
+    );
+  }
   /**
    * Lance une recherche avec de nouveaux filtres
    * @param filters l'objet contenant les filtres à appliquer à la recherche
@@ -121,6 +150,86 @@ export class PncSearchPage {
   reinitializeSearch(filters: PncFilterModel) {
     this.initFilters();
     this.searchByFilters(filters);
+  }
+
+  /**
+   * Active l'option d'envoi de mails
+   */
+  enableMailSend() {
+    this.activateSendMail = true;
+  }
+
+  /**
+   * Annule l'option d'envoi de mails
+   */
+  cancelMailSend() {
+    this.activateSendMail = false;
+    this.isAllSelected = false;
+    this.pncCards.forEach(pncCard => {
+      pncCard.displayCheckmark = false;
+    })
+
+    this.selectPncRecipients.clear();
+  }
+
+  /**
+   * Supprime le pnc de la liste des destinataires
+   * @param pnc le pnc dont on souhaite retirer des destinataires
+   */
+  removeRecipient(pnc: PncModel): void {
+    this.selectPncRecipients.forEach(pncSelected => {
+      if (pncSelected.matricule === pnc.matricule) {
+        this.updatePncCheckingState(pnc, false);
+        this.selectPncRecipients.delete(pncSelected);
+      }
+    });
+    this.isAllSelected = (this.selectPncRecipients.size === this.totalPncs);
+  }
+
+  /**
+   * Coche ou décoche le profil d'un pnc
+   * @param pnc le pnc dont on souhaite cocher ou décocher
+   * @param state indique l'état que l'on souhaite définir
+   */
+  updatePncCheckingState(pnc: PncModel, state: boolean): void {
+    this.pncCards.forEach(pncCard => {
+      if (pncCard.pnc.matricule === pnc.matricule) {
+        pncCard.displayCheckmark = state;
+      }
+    });
+  }
+
+  /**
+   * Ajoute le pnc aux destinataires
+   * @param pnc le pnc dont on souhaite ajouter aux destinataires
+   */
+  addRecipient(pnc: PncModel): void {
+    this.selectPncRecipients.add(pnc);
+  }
+
+
+  /**
+   * Sélectionne tous les pnc comme destinataires
+   * @param checked etat de la checkbox
+   */
+  selectAllPnc() {
+    if (!this.isAllSelected) {
+      this.pncService
+        .getAllRecipients(this.filters)
+        .then((pncs: PncLightModel[]) => {
+          this.selectPncRecipients = new Set(
+            pncs.map(value => {
+              const pncCasted = value as unknown as PncModel;
+              return pncCasted;
+            }
+            )
+          );
+          this.selectPncRecipients.forEach(value => {
+            this.updatePncCheckingState(value, true);
+          });
+        });
+    }
+
   }
 
   /**
@@ -143,7 +252,7 @@ export class PncSearchPage {
    * Charge la page suivante
    */
   loadNextPage() {
-    this.filters.pagePosition = PagePositionEnum.NEXT;
+    this.filters.pagePosition = PagePositionEnum.NEXT
     this.filtersSubject.next(this.filters);
   }
 
@@ -162,7 +271,10 @@ export class PncSearchPage {
       this.bypassMenuClosureOnce = false;
       return this.getFilteredPncs(filters);
     } else {
-      if (this.totalPncs === undefined || this.filters.page < (this.totalPncs / AppConstant.PAGE_SIZE)) {
+      if (
+        this.totalPncs === undefined ||
+        this.filters.page < this.totalPncs / AppConstant.PAGE_SIZE
+      ) {
         this.filters.page++;
         this.filters.offset = this.filters.page * this.filters.size;
         return this.getFilteredPncs(filters);
@@ -179,12 +291,16 @@ export class PncSearchPage {
    */
   getFilteredPncs(filters: PncFilterModel): Observable<PagedPncModel> {
     this.searchInProgress = true;
-    return from(this.pncService.getFilteredPncs(filters)
-      .then((pagedPncSearched) => {
-        return pagedPncSearched;
-      }).catch(error => {
-        return error;
-      }));
+    return from(
+      this.pncService
+        .getFilteredPncs(filters)
+        .then(pagedPncSearched => {
+          return pagedPncSearched;
+        })
+        .catch(error => {
+          return error;
+        })
+    )
   }
 
   /**
@@ -201,7 +317,9 @@ export class PncSearchPage {
    */
   handlePncSearchResponse(pagedPncs: any) {
     if (pagedPncs !== null) {
-      this.pncPhotoService.synchronizePncsPhotos(pagedPncs.content.map(pnc => pnc.matricule));
+      this.pncPhotoService.synchronizePncsPhotos(
+        pagedPncs.content.map(pnc => pnc.matricule)
+      );
       if (this.filters.pagePosition === PagePositionEnum.NEXT) {
         this.filteredPncs = this.filteredPncs.concat(pagedPncs.content);
       } else {
@@ -213,6 +331,13 @@ export class PncSearchPage {
     this.searchInProgress = false;
   }
 
+  /**
+   * Détermine la condition d'affichage du bouton d'envoi de mail
+   * @returns true si le boutton doit être affiché, faux sinon.
+   */
+  showMailSendingButton(): boolean {
+    return this.isAllSelected ? (this.selectPncRecipients.size === this.totalPncs) : this.selectPncRecipients.size > 0;
+  }
   /**
    * Effectue le tri selon la colonne choisie
    * @param sortChange les options de tri
@@ -243,7 +368,6 @@ export class PncSearchPage {
       this.events.publish('EDossier:visited', { visitedPnc: pnc });
     }
   }
-
 
   /**
    * Vérifie si on est sur la recherche d'alternant
