@@ -171,12 +171,12 @@ export class HelpAssetListPage {
     helpAsset[11].label = 'Prepa Express Vol de Validation CCP';
     helpAsset[11].helpAssetType = HelpAssetTypeEnum.PDF;
     helpAsset[11].lastUpdateDate = updateDate20190808;
-    const pdf13 = 'Indicateurs_Metier_eDossier_guidelines_20210215-1.pdf';
+    const pdf13 = 'Indicateurs_Metier_eDossier_guidelines_20210928.pdf';
     helpAsset[12] = new HelpAssetModel();
     helpAsset[12].url = `${this.pdfUrl}/cadre/${pdf13}`;
     helpAsset[12].label = 'Les Indicateurs Métier dans eDossierPNC';
     helpAsset[12].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[12].lastUpdateDate = '2021-02-15T00:00:00Z';
+    helpAsset[12].lastUpdateDate = '2021-10-13T00:00:00Z';
     const pdf14 = 'Documents_RH_guidelines.pdf';
     helpAsset[13] = new HelpAssetModel();
     helpAsset[13].url = `${this.pdfUrl}/cadre/${pdf14}`;
@@ -195,13 +195,6 @@ export class HelpAssetListPage {
     helpAsset[15].label = 'Les lettres de félicitations dans eDossierPNC';
     helpAsset[15].helpAssetType = HelpAssetTypeEnum.PDF;
     helpAsset[15].lastUpdateDate = '2020-11-09T00:00:00Z';
-
-    const pdf17 = 'Indicateurs_Metier_eDossier_guidelines_20210928.pdf';
-    helpAsset[16] = new HelpAssetModel();
-    helpAsset[16].url = `${this.pdfUrl}/cadre/${pdf17}`;
-    helpAsset[16].label = 'Les Indicateurs Métier dans eDossierPNC';
-    helpAsset[16].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[16].lastUpdateDate = '2021-10-13T00:00:00Z';
 
     return helpAsset;
   }
