@@ -1,3 +1,4 @@
+import { DeviceService } from './../../../../core/services/device/device.service';
 import * as moment from 'moment';
 import { LogbookEventStatusEnum } from 'src/app/core/enums/logbook-event/logbook-event-status-enum';
 import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
@@ -60,7 +61,8 @@ export class LogbookPage implements OnInit {
     private alertCtrl: AlertController,
     private translateService: TranslateService,
     private toastService: ToastService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private deviceServive: DeviceService
   ) {
   }
 
@@ -175,6 +177,9 @@ export class LogbookPage implements OnInit {
     this.eventFilters.page = 0;
     this.eventFilters.offset = 0;
     this.eventFilters.size = AppConstant.PAGE_SIZE;
+    if (this.deviceServive.isBrowser()) {
+      this.eventFilters.size = AppConstant.PAGE_SIZE * 2;
+    }
     this.eventFilters.isLastEvent = true;
     this.eventFilters.archived = false;
     this.eventFilters.status = LogbookEventStatusEnum.REGISTERED;
