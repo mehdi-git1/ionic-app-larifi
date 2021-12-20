@@ -133,7 +133,7 @@ export class SecMobilService {
                     if (!request.url.includes(this.urlConfiguration.getBackEndUrl('getPing'))) {
                         this.secMobile.secMobilCallRestService(this.getPingRequest(),
                             (success) => {
-                                if (request.headers && !request.headers.has('BYPASS_INTERCEPTOR')) {
+                                if (!request.byPassInterceptor) {
                                     let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
                                     err = Utils.fromStringToObject(err);
                                     if (err && err.detailMessage !== undefined && err.label === 'BUSINESS_ERROR') {

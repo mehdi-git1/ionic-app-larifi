@@ -234,6 +234,11 @@ export class HelpAssetListPage {
     helpAsset[2].label = 'Les priorités dans eDossierPNC';
     helpAsset[2].helpAssetType = HelpAssetTypeEnum.PDF;
     helpAsset[2].lastUpdateDate = '2020-09-29T00:00:00Z';
+    helpAsset[3] = new HelpAssetModel();
+    helpAsset[3].url = `${this.pdfUrl}/commun/FDP_PNC_pour_eDossier_v2.pdf`;
+    helpAsset[3].label = 'Fiches de poste PNC';
+    helpAsset[3].helpAssetType = HelpAssetTypeEnum.PDF;
+    helpAsset[3].lastUpdateDate = '2022-01-18T00:00:00Z';
     return helpAsset;
   }
 }
