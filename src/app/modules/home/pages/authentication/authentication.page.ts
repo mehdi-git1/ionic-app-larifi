@@ -30,12 +30,23 @@ export class AuthenticationPage {
     this.initializeForm();
   }
 
+
+  /**
+   * Lance l'ouverture de l'application 
+   * secMobil SUA pour l'authentification
+   */
+  openSUA(): void {
+    this.authenticationService.openSUA();
+  }
+
   initializeForm() {
     this.loginForm = this.formBuilder.group({
       login: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
     });
   }
+
+
 
   /**
    * Permet de se connecter

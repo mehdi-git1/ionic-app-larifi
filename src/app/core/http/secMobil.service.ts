@@ -14,6 +14,8 @@ declare var window: any;
 
 @Injectable({ providedIn: 'root' })
 export class SecMobilService {
+
+    private PLUGIN_INITIALIZED = false;
     constructor(
         public config: Config,
         public urlConfiguration: UrlConfiguration,
@@ -25,10 +27,15 @@ export class SecMobilService {
     }
 
     public init() {
-        if (this.secMobile) {
-            this.secMobile.initSecmobilHttp(this.config.secmobileEnv);
+        if (this.secMobile && !this.PLUGIN_INITIALIZED) {
+            const secMobilInitParameters = {
+                environment: this.config.secmobileEnv,
+                company: 'AF_GROUP'
+            };
+            this.secMobile.initSecmobilHttp(secMobilInitParameters);
             console.log('init plugin with ' + this.config.secmobileEnv + ' env');
-            this.secMobile.secMobilSetAppGroup('AF_GROUP');
+        } else {
+            console.log('plugin already initialized');
         }
     }
 
@@ -40,6 +47,35 @@ export class SecMobilService {
         }
     }
 
+    /**
+     * Lance l'application SUA
+     */
+    openSUA() {
+        if (this.secMobile) {
+            const openParams = {
+                appName: this.config.appName,
+                returnScheme: this.config.appScheme,
+                shouldExtendConnection: true
+            }
+            return new Promise((resolve, reject) => {
+                this.secMobile.secMobilOpenSecMobileAppWithParam(openParams,
+                    (success) => {
+                        console.log('application ouverture avec succès');
+                        resolve(success);
+                    },
+                    (err) => {
+                        console.log('echec de l ouverture de l appli secmobil');
+                        reject(err);
+                    })
+            });
+
+        }
+
+    }
+    /**
+     * @deprecated
+     * @returns 
+     */
     public secMobilRevokeCertificate(): Promise<any> {
         return new Promise((resolve, reject) => {
             if (this.secMobile) {
@@ -60,6 +96,7 @@ export class SecMobilService {
 
     /**
      * Authenticate 'login' user.
+     * @deprecated
      */
     public authenticate(login: string, password: string): Promise<any> {
         const authentParam = {

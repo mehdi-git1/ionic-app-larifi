@@ -1,4 +1,21 @@
-.form-auth {
+.blue-navbar {
+    ion-icon {
+        color: white !important;
+    }
+
+    ion-title {
+        img {
+            margin-top: 7px;
+            height: 15px
+        }
+    }
+}
+
+ion-content {
+    text-align: center;
+}
+
+/* .form-auth {
     margin: 100px auto;
     min-width: 400px;
     width: 50%;
@@ -23,3 +40,4 @@ ion-spinner {
     margin-top: 100px;
     color: var(--ion-color-danger);
 }
+*/

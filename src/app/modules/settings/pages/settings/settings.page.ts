@@ -152,6 +152,7 @@ export class SettingsPage {
 
   /**
    * revoque le certificat sur ipad
+   * @deprecated
    */
   revokeCertificate() {
     this.revokationInProgress = true;

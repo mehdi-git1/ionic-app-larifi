@@ -18,6 +18,7 @@ import { StorageService } from '../storage/storage.service';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
+
     constructor(
         private sessionService: SessionService,
         private offlineSecurityService: OfflineSecurityService,
@@ -32,6 +33,9 @@ export class AuthenticationService {
         private secMobilService: SecMobilService
     ) { }
 
+    openSUA() {
+        return this.secMobilService.openSUA();
+    }
     /**
      * Gére la création des données fonctionnelles et leurs gestions dans l'appli
      * @return une promesse contenant le statut de l'authentification
@@ -50,6 +54,7 @@ export class AuthenticationService {
             }
         );
     }
+
 
     /**
      * Vérifie si on est connecté (en mobile uniquement). En web, l'utilisateur n'a pas besoin d'authentification.
