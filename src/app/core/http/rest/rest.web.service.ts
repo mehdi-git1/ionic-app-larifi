@@ -41,9 +41,13 @@ export class RestWebService extends RestService {
     // Ajout de la version de l'application dans chaque requête
     request.httpHeaders.headers = request.httpHeaders.headers.append('APP_VERSION', this.config.appVersion);
 
-    // En local, on ajoute le header SM_USER pour simuler l'authent habile. Dans les autres environnements, cette valeur
-    // est écrasée par le SM_USER de l'utilisateur connectée
-    request.httpHeaders.headers = request.httpHeaders.headers.append('SM_USER', '42615534');
+
+    // Dans les environnements en mode full ping, cette valeur n'est pas écrasée, car le SM_USER n'est plus ajouté par habile.
+    // En local, il sert néamoins à simuler l'authentification habile.
+    // Il faut s'assurer que le matricule, renseigné au format short est présent dans la rubrique <SimulationSection> du fichier habile-filter-config.xml
+    if (this.config.isLocalhost()) {
+      request.httpHeaders.headers = request.httpHeaders.headers.append('SM_USER', 'm426155');
+    }
 
     // On ajoute un header spécial si la fonction d'impersonnification a été utilisée
     if (!request.byPassImpersonatedUser && this.sessionService.impersonatedUser && this.sessionService.impersonatedUser.matricule) {
