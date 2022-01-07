@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { AuthenticationStatusEnum } from '../../enums/authentication-status.enum';
 import { PinPadTypeEnum } from '../../enums/security/pin-pad-type.enum';
+import { SecMobilService } from '../../http/secMobil.service';
 import { DeviceService } from '../device/device.service';
 import { Events } from '../events/events.service';
 import { ModalSecurityService } from '../modal/modal-security.service';
@@ -25,7 +26,8 @@ export class AppInitService {
         private authenticationService: AuthenticationService,
         private myBoardNotificationService: MyBoardNotificationService,
         private injector: Injector,
-        private platform: Platform
+        private platform: Platform,
+        private secMobilService: SecMobilService
     ) { }
 
     /**
@@ -51,6 +53,7 @@ export class AppInitService {
             if (this.deviceService.isBrowser()) {
                 return Promise.resolve();
             } else {
+                this.secMobilService.init();
                 return this.initApp();
             }
         });
@@ -87,7 +90,6 @@ export class AppInitService {
          la phase APP_INITIALIZER(voir app.module) */
         const router = this.injector.get(Router);
         const modalSecurityService = this.injector.get(ModalSecurityService);
-
         if (this.authentificationStatus) {
             switch (this.authentificationStatus) {
                 case AuthenticationStatusEnum.AUTHENTICATION_OK:

@@ -32,7 +32,9 @@ export class SecMobilService {
                 environment: this.config.secmobileEnv,
                 company: 'AF_GROUP'
             };
-            this.secMobile.initSecmobilHttp(secMobilInitParameters);
+            this.secMobile.initSecmobilHttp(secMobilInitParameters, (success => {
+                this.PLUGIN_INITIALIZED = true;
+            }));
             console.log('init plugin with ' + this.config.secmobileEnv + ' env');
         } else {
             console.log('plugin already initialized');
@@ -60,11 +62,9 @@ export class SecMobilService {
             return new Promise((resolve, reject) => {
                 this.secMobile.secMobilOpenSecMobileAppWithParam(openParams,
                     (success) => {
-                        console.log('application ouverture avec succès');
                         resolve(success);
                     },
                     (err) => {
-                        console.log('echec de l ouverture de l appli secmobil');
                         reject(err);
                     })
             });
@@ -72,56 +72,6 @@ export class SecMobilService {
         }
 
     }
-    /**
-     * @deprecated
-     * @returns 
-     */
-    public secMobilRevokeCertificate(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            if (this.secMobile) {
-                this.secMobile.secMobilRevokeCertificate('',
-                    (success) => {
-                        resolve(success);
-                    },
-                    (err) => {
-                        console.error('AuthentService:secMobilRevokeCertificate failure : ' + err);
-                        reject(err);
-                    }
-                );
-            } else {
-                resolve('ok');
-            }
-        });
-    }
-
-    /**
-     * Authenticate 'login' user.
-     * @deprecated
-     */
-    public authenticate(login: string, password: string): Promise<any> {
-        const authentParam = {
-            duration: 'long',
-            userId: login.toLowerCase(),
-            strongPassword: password
-        };
-        return new Promise((resolve, reject) => {
-            if (this.secMobile) {
-                this.secMobile.secMobilGetCertificate(authentParam,
-                    (success) => {
-                        resolve(success);
-                    },
-                    (err) => {
-                        console.error('isAuthenticated:authenticate failure : ' + err);
-                        console.error(JSON.stringify(err));
-                        reject(err);
-                    }
-                );
-            } else {
-                resolve('ok');
-            }
-        });
-    }
-
     /**
      * Check if certificate is present and valid.
      */
@@ -157,9 +107,9 @@ export class SecMobilService {
                 (success) => {
                     try {
                         resolve(JSON.parse(success));
+                        return success;
                     } catch (error) {
                         console.error('fail : ' + error);
-                        console.log(JSON.stringify(success));
                         // en cas d objet json vide, on renvoie null, et ça implique qu'on peut recevoir du back que du json
                         resolve(null);
                     }

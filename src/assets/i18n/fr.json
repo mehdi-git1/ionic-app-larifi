@@ -101,6 +101,9 @@
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
             "DOCUMENT_DELETED": "Ce document a été supprimé",
+            "WARNING": {
+                "NO_MATCHED_DEEP_LINK": "Aucune route ne correspond à l'url ciblée"
+            },
             "ERROR": {
                 "MANDATORY_FIELD": "Le champ est obligatoire",
                 "BAD_FORMAT": "Format incorrect",
@@ -153,10 +156,9 @@
         "LAST_CAREER_OBJECTIVE_UPDATE_DATE": "Dernière mise à jour d'une priorité"
     },
     "AUTHENT": {
-        "AUTHENTICATION": "Authentification",
-        "LOGIN": "Identifiant",
-        "PASSWORD": "PIN + Token",
-        "VALIDATE": "Valider"
+        "STATUS": "Vous n'êtes pas authentifié(e)",
+        "HELPER": "Pour vous authentifier, veuillez cliquer sur le bouton ci-dessous",
+        "AUTHENTICATE": "S'authentifier"
     },
     "PNC_AUTOCOMPLETE": {
         "PLACEHOLDER": "Nom Prénom ou Matricule"

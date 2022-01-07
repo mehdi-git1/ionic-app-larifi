@@ -62,7 +62,6 @@ export class AuthenticationService {
      */
     isAuthenticated(): Promise<boolean> {
         if (!this.deviceService.isBrowser()) {
-            this.secMobilService.init();
             return this.secMobilService.isAuthenticated().then(() => {
                 return true;
             }, error => {
@@ -126,20 +125,6 @@ export class AuthenticationService {
     userHaveToImpersonate(authenticatedUser): boolean {
         return this.securityService.isAdmin(authenticatedUser) && !authenticatedUser.isPnc && !this.sessionService.impersonatedUser;
     }
-
-    /**
-     * Gére l'authentification dans l'appli via la page d'authentification
-     * @param login : login du user
-     * @param password : mot de passe
-     */
-    authenticateUser(login, password): Promise<AuthenticationStatusEnum> {
-        return this.secMobilService.authenticate(login, password).then(x => {
-            return this.manageUserInformationsInApp();
-        }, error => {
-            return AuthenticationStatusEnum.AUTHENTICATION_KO;
-        });
-    }
-
 
     /**
      * Recupère le  user connecté en cache et le met en session

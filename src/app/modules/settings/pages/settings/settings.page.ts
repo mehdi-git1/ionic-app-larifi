@@ -130,38 +130,6 @@ export class SettingsPage {
     });
   }
 
-  /**
-   * Présente une alerte pour confirmer la révocation du certificat
-   */
-  confirmRevokeCertificate() {
-    this.alertCtrl.create({
-      header: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.TITLE'),
-      message: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.MESSAGE'),
-      buttons: [
-        {
-          text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.CANCEL'),
-          role: 'cancel'
-        },
-        {
-          text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.CONFIRM'),
-          handler: () => this.revokeCertificate()
-        }
-      ]
-    }).then(alert => alert.present());
-  }
-
-  /**
-   * revoque le certificat sur ipad
-   * @deprecated
-   */
-  revokeCertificate() {
-    this.revokationInProgress = true;
-    this.secMobilService.secMobilRevokeCertificate().then(() => {
-      this.revokationInProgress = false;
-      this.router.navigate(['authentication']);
-    });
-  }
-
   forceSynchronizeOfflineData() {
     this.synchronizationService.synchronizeOfflineData();
   }

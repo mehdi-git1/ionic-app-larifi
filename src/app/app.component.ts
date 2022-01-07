@@ -4,11 +4,13 @@ import { Config } from 'src/environments/config';
 
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from './core/authentication/authentication.service';
+import { AuthenticationStatusEnum } from './core/enums/authentication-status.enum';
 import { PinPadTypeEnum } from './core/enums/security/pin-pad-type.enum';
 import { AppInitService } from './core/services/app-init/app-init.service';
 import { AppVersionService } from './core/services/app-version/app-version.service';
@@ -51,9 +53,11 @@ export class AppComponent {
     private alertCtrl: AlertController,
     private config: Config,
     private appVersionService: AppVersionService,
-    private myBoardNotificationService: MyBoardNotificationService
+    private myBoardNotificationService: MyBoardNotificationService,
+    private deeplinks: Deeplinks
   ) {
     this.platform.ready().then(() => {
+      this.initDeepLinks();
       this.appInitService.initAppOnIpad().then(() => {
         this.initializeApp();
         if (!this.deviceService.isBrowser()) {
@@ -62,6 +66,27 @@ export class AppComponent {
         }
       }
       );
+    });
+  }
+
+  /**
+   * 
+   */
+  initDeepLinks() {
+    this.deeplinks.route({
+      '/secmobil': 'secmobil',
+    }).subscribe(match => {
+      this.authenticationService.isAuthenticated().then(isAuthenticated => {
+        if (isAuthenticated) {
+          this.appInitService.initAppOnIpad().then(() => {
+            this.appInitService.handleAuthenticationStatus();
+            this.isNewUpdateAvailable();
+          });
+
+        }
+      });
+    }, nomatch => {
+      this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.WARNING.NO_MATCHED_DEEP_LINK'));
     });
   }
 
@@ -97,22 +122,22 @@ export class AppComponent {
       });
 
     }
-
-    this.events.subscribe('connectionStatus:disconnected', () => {
-      this.connectivityService.startPingAPI();
-    });
-
-    // Détection d'un changement d'état de la connexion
-    this.connectivityService.connectionStatusChange.subscribe(connected => {
-      if (!connected) {
+    /*
+      this.events.subscribe('connectionStatus:disconnected', () => {
         this.connectivityService.startPingAPI();
-        this.toastService.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
-      } else {
-        this.toastService.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
-        this.authenticationService.offlineManagement();
-      }
-    });
-
+      });
+  
+      // Détection d'un changement d'état de la connexion
+      this.connectivityService.connectionStatusChange.subscribe(connected => {
+        if (!connected) {
+          this.connectivityService.startPingAPI();
+          this.toastService.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
+        } else {
+          this.toastService.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
+          this.authenticationService.offlineManagement();
+        }
+      });
+  */
     this.translateService.setDefaultLang('fr');
     this.translateService.use('fr');
   }
