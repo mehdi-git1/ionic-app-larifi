@@ -3,7 +3,7 @@
         <span *ngFor="let subTheme of theme.subThemes">
             <div class="sub-theme-label">{{subTheme.label}}</div>
             <div class="line" *ngFor="let eObservationItem of subTheme.eobservationItems">
-                <span class="column-90 item-label">{{eObservationItem.refItemLevel.item.label}}</span>
+                <span class="column-90 sub-theme-item-label item-label">{{eObservationItem.refItemLevel.item.label}}</span>
                 <span class="column-10 symbol">
                     <ion-select *ngIf="editMode; else viewLevelBlock" interface="popover" [(ngModel)]="eObservationItem.refItemLevel.techId">
                         <ion-select-option *ngFor="let level of sortLevelList(eObservationItem.refItemLevel.item.levels)" [value]="level.techId">
