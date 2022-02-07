@@ -110,7 +110,7 @@ export class SynchronizationManagementService {
   private processSynchroRequest(synchroRequest: SynchroRequestModel): void {
     synchroRequest.synchroStatus = SynchroStatusEnum.IN_PROGRESS;
     this.concurrentSynchroRequestCount++;
-    this.synchronizationService.storeEDossierOffline(synchroRequest.pnc).then(success => {
+    this.synchronizationService.storeEDossierOffline(synchroRequest.pnc.matricule).then(success => {
       synchroRequest.synchroStatus = SynchroStatusEnum.SUCCESSFUL;
     }, error => {
       synchroRequest.synchroStatus = SynchroStatusEnum.FAILED;

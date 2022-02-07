@@ -107,7 +107,7 @@ export class AuthenticationService {
                 let connectedPnc = this.storageService.findOne(EntityEnum.PNC, this.sessionService.getActiveUser().matricule);
                 if (!connectedPnc) {
                     connectedPnc = new PncModel();
-                    connectedPnc.matricule = this.sessionService.getActiveUser().matricule
+                    connectedPnc.matricule = this.sessionService.getActiveUser().matricule;
                 }
                 this.synchronizationService.storeEDossierOffline(connectedPnc);
                 if (!result && this.deviceService.isBrowser()) {

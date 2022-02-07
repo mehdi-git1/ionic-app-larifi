@@ -9,9 +9,7 @@ import { AlertController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from './core/authentication/authentication.service';
-import { EntityEnum } from './core/enums/entity.enum';
 import { PinPadTypeEnum } from './core/enums/security/pin-pad-type.enum';
-import { PncModel } from './core/models/pnc.model';
 import { AppInitService } from './core/services/app-init/app-init.service';
 import { AppVersionService } from './core/services/app-version/app-version.service';
 import { ConnectivityService } from './core/services/connectivity/connectivity.service';
@@ -83,13 +81,7 @@ export class AppComponent {
         // Si on a depassé le temps d'inactivité, on affiche le pin pad
         if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.pinPadShowupThresholdInSeconds) {
           if (this.connectivityService.isConnected()) {
-            // Synchro des données offline
-            let connectedPnc = this.storageService.findOne(EntityEnum.PNC, this.sessionService.getActiveUser().matricule);
-            if (!connectedPnc) {
-              connectedPnc = new PncModel();
-              connectedPnc.matricule = connectedPnc.matricule;
-            }
-            this.synchronizationService.storeEDossierOffline(connectedPnc);
+            this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule);
             // Récupération des compteurs de notifs MyBoard
             this.myBoardNotificationService.updateActiveUserMyBoardNotificationCount();
           }

@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../app.constant';
 import { EntityEnum } from '../../enums/entity.enum';
+import { SpecialityEnum } from '../../enums/speciality.enum';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
 import { CrewMemberModel } from '../../models/crew-member.model';
@@ -31,6 +32,7 @@ import { Events } from '../events/events.service';
 import { LegTransformerService } from '../leg/leg-transformer.service';
 import { PncPhotoTransformerService } from '../pnc-photo/pnc-photo-transformer.service';
 import { PncTransformerService } from '../pnc/pnc-transformer.service';
+import { PncService } from '../pnc/pnc.service';
 import {
     ProfessionalInterviewTransformerService
 } from '../professional-interview/professional-interview-transformer.service';
@@ -72,7 +74,8 @@ export class SynchronizationService {
     private legTransformerProvider: LegTransformerService,
     private eObservationTransformerService: EObservationTransformerService,
     private professionalInterviewTransformerService: ProfessionalInterviewTransformerService,
-    private events: Events) {
+    private events: Events,
+    private pncService: PncService) {
   }
 
   /**
@@ -80,18 +83,33 @@ export class SynchronizationService {
    * @param matricule le matricule du PNC dont on souhaite mettre en cache le EDossier
    * @return une promesse résolue quand le EDossier est mis en cache
    */
-  storeEDossierOffline(pnc: PncModel): Promise<boolean> {
+  storeEDossierOffline(matricule: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       // On ne met pas en cache si des données sont en attente de synchro
-      if (!this.isPncModifiedOffline(pnc.matricule)) {
-        this.pncSynchroProvider.getPncSynchro(pnc).then(pncSynchro => {
-          this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-          resolve(true);
-        }, error => {
-          reject(error.detailMessage);
-        });
+      if (!this.isPncModifiedOffline(matricule)) {
+        // Synchro des données offline
+        let pncToSynchronise = this.storageService.findOne(EntityEnum.PNC, matricule);
+        if (pncToSynchronise && pncToSynchronise.speciality != SpecialityEnum.CAD) {
+          this.pncService.getPnc(matricule).then(pnc => {
+            if (pncToSynchronise && moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat))) {
+              this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+                this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+                resolve(true);
+              }, error => {
+                reject(error.detailMessage);
+              });
+            }
+          });
+        } else {
+          this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+            this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+            resolve(true);
+          }, error => {
+            reject(error.detailMessage);
+          });
+        }
       } else {
-        reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': pnc.matricule }));
+        reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
       }
     });
   }

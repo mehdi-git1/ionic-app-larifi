@@ -76,10 +76,9 @@ export class PncHeaderComponent implements OnChanges {
   /**
    * Précharge le eDossier du PNC
    */
-  downloadPncEdossier(pnc: PncModel) {
+  downloadPncEdossier(matricule: string) {
     this.synchroInProgress = true;
-    const matricule = pnc.matricule;
-    this.synchronizationService.storeEDossierOffline(pnc).then(success => {
+    this.synchronizationService.storeEDossierOffline(matricule).then(success => {
       this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
       this.synchroInProgress = false;
       this.toastService.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { matricule }));

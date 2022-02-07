@@ -66,14 +66,14 @@ export class PncCardComponent {
   /**
    * Précharge le eDossier du PNC
    */
-  downloadPncEdossier(pnc: PncModel) {
+  downloadPncEdossier(matricule: string) {
     this.synchroInProgress = true;
-    this.synchronizationService.storeEDossierOffline(pnc).then(success => {
+    this.synchronizationService.storeEDossierOffline(matricule).then(success => {
       this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
       this.synchroInProgress = false;
-      this.toastService.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { matricule: pnc.matricule }));
+      this.toastService.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { matricule: matricule }));
     }, error => {
-      this.toastService.error(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { matricule: pnc.matricule }));
+      this.toastService.error(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { matricule: matricule }));
       this.synchroInProgress = false;
     });
   }
