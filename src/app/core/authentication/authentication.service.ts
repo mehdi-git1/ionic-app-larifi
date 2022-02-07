@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationStatusEnum } from '../enums/authentication-status.enum';
-import { EntityEnum } from '../enums/entity.enum';
 import { SecMobilService } from '../http/secMobil.service';
-import { PncModel } from '../models/pnc.model';
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { DeviceService } from '../services/device/device.service';
 import { OfflineSecurityService } from '../services/security/offline-security.service';
@@ -104,12 +102,7 @@ export class AuthenticationService {
         // Si le mode offline est autorisé, on met en place la gestion du offline
         if (this.deviceService.isOfflineModeAvailable()) {
             this.offlineManagement().then(result => {
-                let connectedPnc = this.storageService.findOne(EntityEnum.PNC, this.sessionService.getActiveUser().matricule);
-                if (!connectedPnc) {
-                    connectedPnc = new PncModel();
-                    connectedPnc.matricule = this.sessionService.getActiveUser().matricule;
-                }
-                this.synchronizationService.storeEDossierOffline(connectedPnc);
+                this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule);
                 if (!result && this.deviceService.isBrowser()) {
                     this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE'));
                 }
