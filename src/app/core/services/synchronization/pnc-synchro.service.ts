@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { RestService } from '../../http/rest/rest.base.service';
 import { PncSynchroModel } from '../../models/pnc-synchro.model';
+import { PncModel } from '../../models/pnc.model';
 
 @Injectable({ providedIn: 'root' })
 export class PncSynchroService {
@@ -17,8 +18,9 @@ export class PncSynchroService {
    * @param matricule le matricule du PNC dont on souhaite récupérer le EDossier
    * @return le EDossier complet du PNC
    */
-  getPncSynchro(matricule: string): Promise<PncSynchroModel> {
-    return this.restService.get(this.config.getBackEndUrl('getPncSynchroByPnc', [matricule]), undefined, undefined, false, true);
+  getPncSynchro(pnc: PncModel): Promise<PncSynchroModel> {
+    const lastPncProfessionalFileUpdateDate = pnc.metadataDate && pnc.metadataDate.lastPncProfessionalFileUpdateDate ? pnc.metadataDate.lastPncProfessionalFileUpdateDate : null;
+    return this.restService.get(this.config.getBackEndUrl('getPncSynchroByPnc', [pnc.matricule, lastPncProfessionalFileUpdateDate]), undefined, undefined, false, true);
   }
 
   /**

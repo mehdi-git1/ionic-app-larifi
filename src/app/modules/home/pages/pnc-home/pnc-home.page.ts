@@ -130,7 +130,7 @@ export class PncHomePage {
      */
     downloadPncEdossier() {
         this.synchroInProgress = true;
-        this.synchronizationProvider.storeEDossierOffline(this.pnc.matricule).then(success => {
+        this.synchronizationProvider.storeEDossierOffline(this.pnc).then(success => {
             // Appel au getPnc pour mise a jour de l'indicateur offLine
             this.pncService.getPnc(this.matricule).then(pnc => {
                 this.pnc = pnc;

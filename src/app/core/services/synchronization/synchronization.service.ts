@@ -1,8 +1,10 @@
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AppConstant } from '../../../app.constant';
 import { EntityEnum } from '../../enums/entity.enum';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
@@ -78,18 +80,18 @@ export class SynchronizationService {
    * @param matricule le matricule du PNC dont on souhaite mettre en cache le EDossier
    * @return une promesse résolue quand le EDossier est mis en cache
    */
-  storeEDossierOffline(matricule: string): Promise<boolean> {
+  storeEDossierOffline(pnc: PncModel): Promise<boolean> {
     return new Promise((resolve, reject) => {
       // On ne met pas en cache si des données sont en attente de synchro
-      if (!this.isPncModifiedOffline(matricule)) {
-        this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+      if (!this.isPncModifiedOffline(pnc.matricule)) {
+        this.pncSynchroProvider.getPncSynchro(pnc).then(pncSynchro => {
           this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
           resolve(true);
         }, error => {
           reject(error.detailMessage);
         });
       } else {
-        reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
+        reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': pnc.matricule }));
       }
     });
   }
@@ -207,7 +209,10 @@ export class SynchronizationService {
         this.storageService.save(EntityEnum.CREW_MEMBER, this.crewMemberTransformerService.toCrewMember(crewMember), true);
         // Ajoute en file d'attente la mise en cache du dossier du membre d'équipage sauf s'il s'agit du user connecté
         if (storeCrewMembers && this.sessionService.getActiveUser().matricule !== crewMember.pnc.matricule) {
-          this.events.publish('SynchroRequest:add', { pnc: crewMember.pnc });
+          const pncToSynchronise = this.storageService.findOne(EntityEnum.PNC, crewMember.pnc.matricule);
+          if (!pncToSynchronise || (pncToSynchronise && moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(crewMember.pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat)))) {
+            this.events.publish('SynchroRequest:add', { pnc: crewMember.pnc });
+          }
         }
       }
     }
@@ -218,9 +223,11 @@ export class SynchronizationService {
    * @param careerObjectives les objectifs à stocker en cache
    */
   private storeCareerObjectives(careerObjectives: CareerObjectiveModel[]): void {
-    for (const careerObjective of careerObjectives) {
-      delete careerObjective.offlineAction;
-      this.storageService.save(EntityEnum.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
+    if (careerObjectives) {
+      for (const careerObjective of careerObjectives) {
+        delete careerObjective.offlineAction;
+        this.storageService.save(EntityEnum.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
+      }
     }
   }
 
@@ -229,14 +236,16 @@ export class SynchronizationService {
    * @param waypoints les points d'étape à stocker en cache
    */
   private storeWaypoints(waypoints: WaypointModel[]): void {
-    for (const waypoint of waypoints) {
-      // On ajoute la clef de l'objectif à chaque point d'étape
-      delete waypoint.offlineAction;
-      // On ne garde que le techId pour réduire le volume de données en cache
-      const careerObjectiveTechId = waypoint.careerObjective.techId;
-      waypoint.careerObjective = new CareerObjectiveModel();
-      waypoint.careerObjective.techId = careerObjectiveTechId;
-      this.storageService.save(EntityEnum.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
+    if (waypoints) {
+      for (const waypoint of waypoints) {
+        // On ajoute la clef de l'objectif à chaque point d'étape
+        delete waypoint.offlineAction;
+        // On ne garde que le techId pour réduire le volume de données en cache
+        const careerObjectiveTechId = waypoint.careerObjective.techId;
+        waypoint.careerObjective = new CareerObjectiveModel();
+        waypoint.careerObjective.techId = careerObjectiveTechId;
+        this.storageService.save(EntityEnum.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
+      }
     }
   }
 
@@ -312,7 +321,7 @@ export class SynchronizationService {
         this.eObservationTransformerService.toEObservation(eObservation).getStorageId());
     }
 
-    //  Suppression de toutes les rotations, vols, listes d'équipage et infos pour les paramètres d'entrée pour lappel eforms
+    //  Suppression de toutes les rotations, vols, listes d'équipage et infos pour les paramètres d'entrée pour l'appel eforms
     if (this.sessionService.getActiveUser().matricule === pnc.matricule) {
       this.storageService.deleteAll(EntityEnum.ROTATION);
       this.storageService.deleteAll(EntityEnum.LEG);

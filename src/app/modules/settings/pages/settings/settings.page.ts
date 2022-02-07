@@ -5,10 +5,12 @@ import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Config } from '../../../../../environments/config';
+import { EntityEnum } from '../../../../core/enums/entity.enum';
 import { PinPadTypeEnum } from '../../../../core/enums/security/pin-pad-type.enum';
 import { SecretQuestionTypeEnum } from '../../../../core/enums/security/secret-question-type.enum';
 import { SecMobilService } from '../../../../core/http/secMobil.service';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
+import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { Events } from '../../../../core/services/events/events.service';
@@ -122,7 +124,12 @@ export class SettingsPage {
     this.storageService.initOfflineMap().then(success => {
       const authenticatedUser = this.sessionService.getActiveUser();
       this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
-      this.synchronizationService.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+      let pnc = this.storageService.findOne(EntityEnum.PNC, authenticatedUser.matricule);
+      if (!pnc) {
+        pnc = new PncModel();
+        pnc.matricule = authenticatedUser.matricule;
+      }
+      this.synchronizationService.storeEDossierOffline(pnc).then(successStore => {
         this.events.publish('EDossierOffline:stored');
         this.toastProvider.info(this.translateService.instant('SETTINGS.INIT_CACHE.SUCCESS'));
       }, error => {

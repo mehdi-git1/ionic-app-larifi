@@ -3,7 +3,7 @@
     <div class="card-container">
         <div class="identity-container">
             <div class="photo-container">
-                <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(pnc.matricule)" *ngIf="isDownloadButtonAvailable()">
+                <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(pnc)" *ngIf="isDownloadButtonAvailable()">
                 </download-button>
                 <pnc-photo [pnc]="pnc" (click)="stopPropagation($event, pnc)" [size]="80" [handleCall]="false" [displayCheckmark]="showCheckMark()"></pnc-photo>
             </div>
