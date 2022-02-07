@@ -20,7 +20,6 @@ import { MyBoardNotificationService } from './core/services/my-board/my-board-no
 import { SessionService } from './core/services/session/session.service';
 import { SynchronizationService } from './core/services/synchronization/synchronization.service';
 import { ToastService } from './core/services/toast/toast.service';
-import { StorageService } from './core/storage/storage.service';
 import { Utils } from './shared/utils/utils';
 
 @Component({
@@ -52,8 +51,7 @@ export class AppComponent {
     private alertCtrl: AlertController,
     private config: Config,
     private appVersionService: AppVersionService,
-    private myBoardNotificationService: MyBoardNotificationService,
-    private storageService: StorageService
+    private myBoardNotificationService: MyBoardNotificationService
   ) {
     this.platform.ready().then(() => {
       this.appInitService.initAppOnIpad().then(() => {
