@@ -9,7 +9,7 @@ import { DeviceService } from '../../../core/services/device/device.service';
 import { GenderService } from '../../../core/services/gender/gender.service';
 import { PncService } from '../../../core/services/pnc/pnc.service';
 import {
-  SynchronizationService
+    SynchronizationService
 } from '../../../core/services/synchronization/synchronization.service';
 import { ToastService } from '../../../core/services/toast/toast.service';
 import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicator.component';
@@ -66,7 +66,7 @@ export class PncCardComponent {
   /**
    * Précharge le eDossier du PNC
    */
-  downloadPncEdossier(matricule) {
+  downloadPncEdossier(matricule: string) {
     this.synchroInProgress = true;
     this.synchronizationService.storeEDossierOffline(matricule).then(success => {
       this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();

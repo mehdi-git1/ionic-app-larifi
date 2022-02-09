@@ -79,7 +79,6 @@ export class AppComponent {
         // Si on a depassé le temps d'inactivité, on affiche le pin pad
         if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.pinPadShowupThresholdInSeconds) {
           if (this.connectivityService.isConnected()) {
-            // Synchro des données offline
             this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule);
             // Récupération des compteurs de notifs MyBoard
             this.myBoardNotificationService.updateActiveUserMyBoardNotificationCount();
