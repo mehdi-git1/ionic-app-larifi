@@ -52,7 +52,7 @@ export class ImpersonatePage {
           this.impersonatingInProgress = false;
           this.goToHomePage();
           if (this.deviceService.isOfflineModeAvailable()) {
-            this.synchronizationService.storeEDossierOffline(pnc.matricule);
+            this.synchronizationService.checkAndStoreEDossierOffline(pnc.matricule);
           }
         }
       );

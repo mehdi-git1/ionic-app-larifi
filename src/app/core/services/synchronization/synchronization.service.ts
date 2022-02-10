@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../app.constant';
 import { EntityEnum } from '../../enums/entity.enum';
-import { SpecialityEnum } from '../../enums/speciality.enum';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
 import { CrewMemberModel } from '../../models/crew-member.model';
@@ -59,7 +58,7 @@ export class SynchronizationService {
     private storageService: StorageService,
     private waypointTransformer: WaypointTransformerService,
     private pncSynchroProvider: PncSynchroService,
-    public securityProvider: SecurityService,
+    private securityService: SecurityService,
     private translateService: TranslateService,
     private sessionService: SessionService,
     private careerObjectiveTransformer: CareerObjectiveTransformerService,
@@ -79,17 +78,24 @@ export class SynchronizationService {
   }
 
   /**
-   * Stocke en cache le EDossier du PNC
+   * Verifie si le dossier du pnc en cache est périmé ou inexistant, puis le stocke en cache 
    * @param matricule le matricule du PNC dont on souhaite mettre en cache le EDossier
    * @return une promesse résolue quand le EDossier est mis en cache
    */
-  storeEDossierOffline(matricule: string): Promise<boolean> {
+  checkAndStoreEDossierOffline(matricule: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       // On ne met pas en cache si des données sont en attente de synchro
       if (!this.isPncModifiedOffline(matricule)) {
         // Synchro des données offline
-        let pncToSynchronise = this.storageService.findOne(EntityEnum.PNC, matricule);
-        if (pncToSynchronise && pncToSynchronise.speciality != SpecialityEnum.CAD) {
+        if (this.securityService.isManager()) {
+          this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+            this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+            resolve(true);
+          }, error => {
+            reject(error.detailMessage);
+          });
+        } else {
+          let pncToSynchronise = this.storageService.findOne(EntityEnum.PNC, matricule);
           this.pncService.getPnc(matricule).then(pnc => {
             if (pncToSynchronise && moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat))) {
               this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
@@ -100,14 +106,28 @@ export class SynchronizationService {
               });
             }
           });
-        } else {
-          this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
-            this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-            resolve(true);
-          }, error => {
-            reject(error.detailMessage);
-          });
         }
+      } else {
+        reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
+      }
+    });
+  }
+
+  /**
+   * Stocke en cache le EDossier du PNC
+   * @param matricule le matricule du PNC dont on souhaite mettre en cache le EDossier
+   * @return une promesse résolue quand le EDossier est mis en cache
+   */
+  storeEDossierOffline(matricule: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      // On ne met pas en cache si des données sont en attente de synchro
+      if (!this.isPncModifiedOffline(matricule)) {
+        this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+          this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+          resolve(true);
+        }, error => {
+          reject(error.detailMessage);
+        });
       } else {
         reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
       }
@@ -222,14 +242,21 @@ export class SynchronizationService {
    * @param storeCrewMembers si on doit déclencher la mise en cache des dossiers des membres d'équipage
    */
   private storeCrewMembers(crewMembers: CrewMemberModel[], storeCrewMembers: boolean): void {
+    let pncSynchroList = new Array<PncModel>();
     if (crewMembers) {
       for (const crewMember of crewMembers) {
         this.storageService.save(EntityEnum.CREW_MEMBER, this.crewMemberTransformerService.toCrewMember(crewMember), true);
         // Ajoute en file d'attente la mise en cache du dossier du membre d'équipage sauf s'il s'agit du user connecté
         if (storeCrewMembers && this.sessionService.getActiveUser().matricule !== crewMember.pnc.matricule) {
-          const pncToSynchronise = this.storageService.findOne(EntityEnum.PNC, crewMember.pnc.matricule);
-          if (!pncToSynchronise || (pncToSynchronise && moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(crewMember.pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat)))) {
-            this.events.publish('SynchroRequest:add', { pnc: crewMember.pnc });
+          const pncSynchroFound = pncSynchroList.find((pnc) => {
+            return pnc.matricule === crewMember.pnc.matricule;
+          });
+          if (!pncSynchroFound) {
+            const pncToSynchronise = this.storageService.findOne(EntityEnum.PNC, crewMember.pnc.matricule);
+            if (!pncToSynchronise || (pncToSynchronise && moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(crewMember.pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat)))) {
+              pncSynchroList.push(crewMember.pnc);
+              this.events.publish('SynchroRequest:add', { pnc: crewMember.pnc });
+            }
           }
         }
       }
@@ -373,7 +400,7 @@ export class SynchronizationService {
     if (pncSynchroList.length > 0) {
       let promiseCount;
       let resolvedPromiseCount = 0;
-      Observable.create(
+      new Observable(
         observer => {
           promiseCount = pncSynchroList.length;
           for (const pncSynchro of pncSynchroList) {
