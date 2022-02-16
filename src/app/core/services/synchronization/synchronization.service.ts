@@ -1,5 +1,4 @@
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
 
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -7,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AppConstant } from '../../../app.constant';
 import { EntityEnum } from '../../enums/entity.enum';
 import { SpecialityEnum } from '../../enums/speciality.enum';
+import { SynchroRequestTypeEnum } from '../../enums/synchronization/synchro-request-type.enum';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
 import { CrewMemberModel } from '../../models/crew-member.model';
@@ -111,6 +111,17 @@ export class SynchronizationService {
       } else {
         reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
       }
+    });
+  }
+
+  synchronisePncOfflineData(pncSynchro: PncSynchroModel) {
+    return new Promise((resolve, reject) => {
+      this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
+        this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse, false);
+        resolve(true);
+      }, error => {
+        reject(error.detailMessage);
+      });
     });
   }
 
@@ -229,7 +240,7 @@ export class SynchronizationService {
         if (storeCrewMembers && this.sessionService.getActiveUser().matricule !== crewMember.pnc.matricule) {
           const pncToSynchronise = this.storageService.findOne(EntityEnum.PNC, crewMember.pnc.matricule);
           if (!pncToSynchronise || (pncToSynchronise && moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(crewMember.pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat)))) {
-            this.events.publish('SynchroRequest:add', { pnc: crewMember.pnc });
+            this.events.publish('SynchroRequest:add', { pnc: crewMember.pnc, requestType: SynchroRequestTypeEnum.FETCH });
           }
         }
       }
@@ -369,30 +380,8 @@ export class SynchronizationService {
   synchronizeOfflineData() {
     this.synchroStatusChange.emit(true);
     const pncSynchroList = this.getPncSynchroList();
-
-    if (pncSynchroList.length > 0) {
-      let promiseCount;
-      let resolvedPromiseCount = 0;
-      Observable.create(
-        observer => {
-          promiseCount = pncSynchroList.length;
-          for (const pncSynchro of pncSynchroList) {
-            this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
-              this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse, false);
-              resolvedPromiseCount++;
-              observer.next(true);
-            }, error => {
-              resolvedPromiseCount++;
-              observer.next(true);
-            });
-          }
-        }).subscribe(promiseResolved => {
-          if (resolvedPromiseCount >= promiseCount) {
-            this.synchroStatusChange.emit(false);
-          }
-        });
-    } else {
-      this.synchroStatusChange.emit(false);
+    for (const pncSynchro of pncSynchroList) {
+      this.events.publish('SynchroRequest:add', { pnc: pncSynchro.pnc, pncSynchro: pncSynchro, requestType: SynchroRequestTypeEnum.PUSH });
     }
   }
 

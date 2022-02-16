@@ -13,6 +13,7 @@ nav.tabs {
     display: flex;
     justify-content: center;
     border-bottom: 1px solid var(--ion-color-grey75);
+    margin-bottom: 30px;
 
     button {
         color: var(--ion-color-grey40);
@@ -26,4 +27,11 @@ nav.tabs {
     button.active {
         border-bottom: 3px solid var(--ion-color-primarylight);
     }
+}
+
+synchro-request-list {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
 }
