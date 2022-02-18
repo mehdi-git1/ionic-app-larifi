@@ -393,4 +393,12 @@ export class PncSearchPage {
   isSearchOver() {
     return this.totalPncs === this.filteredPncs.length;
   }
+
+  /**
+ * Vérifie si l'on est connecté
+ * @return true si on est connecté, false sinon
+ */
+  isConnected(): boolean {
+    return this.connectivityService.isConnected();
+  }
 }
