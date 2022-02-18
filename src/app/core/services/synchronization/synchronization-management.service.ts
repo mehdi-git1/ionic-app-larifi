@@ -157,10 +157,22 @@ export class SynchronizationManagementService {
   }
 
   /**
+   * Vide la file d'attente des demandes de synchro de type synchronizationType
+   * @param synchronizationType le type des demandes de synchro à supprimer
+   */
+  public removeSynchroRequestList(synchronizationType: SynchroRequestTypeEnum): void {
+    _.remove(this.synchroRequestList, (requestItem) => {
+      return synchronizationType === requestItem.requestType;
+    });
+    this.emitErrorCounter();
+    this.emitSynchroRequestList();
+  }
+
+  /**
    * Vide la file d'attente des demandes de synchro fetch
    */
   public clearSynchroRequestList(): void {
-    this.synchroRequestList = new Array();
+    this.synchroRequestList = new Array<SynchroRequestModel>();
     this.emitErrorCounter();
     this.emitSynchroRequestList();
   }

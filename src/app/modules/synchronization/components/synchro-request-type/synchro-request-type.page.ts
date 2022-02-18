@@ -34,16 +34,14 @@ export class SynchroRequestTypeComponent {
         this.selectedDisplayMode = SynchroRequestDisplayModeEnum.PENDING;
 
         this.synchronizationManagementService.synchroRequestListChange.subscribe(synchroRequestList => {
-            this.synchroRequestList = synchroRequestList;
+            this.synchroRequestList = synchroRequestList.filter(synchroRequest => {
+                return synchroRequest.requestType === this.synchronizationType;
+            });
         });
     }
 
-    ionViewDidEnter() {
-        this.synchroRequestList = this.synchronizationManagementService.getSynchroRequestList();
-    }
-
     clearSynchroRequestList(): void {
-        this.synchronizationManagementService.clearSynchroRequestList();
+        this.synchronizationManagementService.removeSynchroRequestList(this.synchronizationType);
     }
 
     /**

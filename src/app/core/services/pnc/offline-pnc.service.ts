@@ -45,13 +45,7 @@ export class OfflinePncService {
   getFilteredPncs(): Promise<PagedPncModel> {
     return this.storageService.findAllAsync(EntityEnum.PNC).then(response => {
       return this.getPnc(this.sessionService.getActiveUser().matricule).then(connectedPnc => {
-        let filteredPnc = response;
-        if (connectedPnc && connectedPnc.assignment && connectedPnc.assignment.division !== 'ADM') {
-          filteredPnc = response.filter(pnc =>
-            (pnc.assignment.division === connectedPnc.assignment.division)
-            && (pnc.assignment.sector === connectedPnc.assignment.sector)
-            && (pnc.matricule !== connectedPnc.matricule));
-        }
+        let filteredPnc = response.filter(pnc => (pnc.matricule !== connectedPnc.matricule));
         filteredPnc.sort((a, b) => a.lastName < b.lastName ? -1 : 1);
         const pagedPncResponse: PagedPncModel = new PagedPncModel();
         pagedPncResponse.content = filteredPnc;

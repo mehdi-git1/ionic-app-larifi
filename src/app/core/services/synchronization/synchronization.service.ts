@@ -114,12 +114,29 @@ export class SynchronizationService {
     });
   }
 
+  /**
+   * Ajoute le pnc a synchroniser dans la file d'attente
+   */
+  synchronizeOfflineData() {
+    const pncSynchroList = this.getPncSynchroList();
+    for (const pncSynchro of pncSynchroList) {
+      const pnc = this.storageService.findOne(EntityEnum.PNC, pncSynchro.pnc.matricule);
+      this.events.publish('SynchroRequest:add', { pnc: pnc, pncSynchro: pncSynchro, requestType: SynchroRequestTypeEnum.PUSH });
+    }
+  }
+
+  /**
+   * Lance le processus de synchronisation des données modifiées offline
+   */
   synchronisePncOfflineData(pncSynchro: PncSynchroModel) {
     return new Promise((resolve, reject) => {
+      this.synchroStatusChange.emit(true);
       this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
         this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse, false);
+        this.synchroStatusChange.emit(false);
         resolve(true);
       }, error => {
+        this.synchroStatusChange.emit(false);
         reject(error.detailMessage);
       });
     });
@@ -371,17 +388,6 @@ export class SynchronizationService {
     for (const professionalInterview of pncProfessionalInterviews) {
       this.storageService.delete(EntityEnum.PROFESSIONAL_INTERVIEW,
         this.professionalInterviewTransformerService.toProfessionalInterview(professionalInterview).getStorageId());
-    }
-  }
-
-  /**
-   * Lance le processus de synchronisation des données modifiées offline
-   */
-  synchronizeOfflineData() {
-    this.synchroStatusChange.emit(true);
-    const pncSynchroList = this.getPncSynchroList();
-    for (const pncSynchro of pncSynchroList) {
-      this.events.publish('SynchroRequest:add', { pnc: pncSynchro.pnc, pncSynchro: pncSynchro, requestType: SynchroRequestTypeEnum.PUSH });
     }
   }
 

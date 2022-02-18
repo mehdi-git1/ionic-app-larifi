@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <page-header>
-            <span slot="start">
+            <span *ngIf="connectivityService.isConnected()" slot="start">
                 <ion-fab-button (click)="toggleFiltersMenu()" size="small" color="primarydark">
                     <ion-icon name="filter-sharp"></ion-icon>
                 </ion-fab-button>
@@ -63,7 +63,7 @@
 <ion-content forceOverscroll="true" scroll-y="false">
     <mat-sidenav-container>
         <mat-sidenav [(opened)]="isMenuOpened" [autoFocus]="false">
-            <pnc-search-filter [searchMode]="searchMode" (searchLaunched)="searchByFilters($event)" (searchReinitialized)="reinitializeSearch($event)" (pncSelected)="openPncHomePage($event)" (enabledFiltersCountChanged)="setEnabledFiltersCount($event)"></pnc-search-filter>
+            <pnc-search-filter [hidden]="!connectivityService.isConnected()" [searchMode]="searchMode" (searchLaunched)="searchByFilters($event)" (searchReinitialized)="reinitializeSearch($event)" (pncSelected)="openPncHomePage($event)" (enabledFiltersCountChanged)="setEnabledFiltersCount($event)"></pnc-search-filter>
         </mat-sidenav>
         <mat-sidenav-content infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [infiniteScrollDisabled]="isLoading" (scrolled)="loadNextPage()">
             <div class="page-container">

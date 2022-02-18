@@ -102,7 +102,6 @@ export class AuthenticationService {
         // Si le mode offline est autorisé, on met en place la gestion du offline
         if (this.deviceService.isOfflineModeAvailable()) {
             this.offlineManagement().then(result => {
-                this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule);
                 if (!result && this.deviceService.isBrowser()) {
                     this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE'));
                 }
@@ -185,7 +184,9 @@ export class AuthenticationService {
         return this.connectivityService.pingAPI().then(
             pingSuccess => {
                 this.connectivityService.setConnected(true);
+                this.synchronizationManagementService.clearSynchroRequestList();
                 this.synchronizationService.synchronizeOfflineData();
+                this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule);
                 this.synchronizationManagementService.resumeSynchroRequestProcessing(true);
                 return true;
             }, pingError => {

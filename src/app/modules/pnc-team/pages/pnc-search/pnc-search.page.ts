@@ -16,6 +16,7 @@ import { AppConstant } from '../../../../app.constant';
 import { PagePositionEnum } from '../../../../core/enums/page-position.enum';
 import { PncSearchModeEnum } from '../../../../core/enums/pnc-search-mode.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { Events } from '../../../../core/services/events/events.service';
 import { MailingService } from '../../../../core/services/mailing/mailing.service';
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
@@ -60,7 +61,8 @@ export class PncSearchPage {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private translateService: TranslateService,
-    private mailingService: MailingService
+    private mailingService: MailingService,
+    private connectivityService: ConnectivityService
   ) {
     if (this.router.url.split('/').includes('filters-opened')) {
       this.isMenuOpened = true;
