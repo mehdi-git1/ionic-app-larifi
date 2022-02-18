@@ -186,7 +186,7 @@ export class AuthenticationService {
                 this.connectivityService.setConnected(true);
                 this.synchronizationManagementService.clearSynchroRequestList();
                 this.synchronizationService.synchronizeOfflineData();
-                this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule);
+                this.synchronizationService.checkAndStoreEDossierOffline(this.sessionService.getActiveUser().matricule);
                 this.synchronizationManagementService.resumeSynchroRequestProcessing(true);
                 return true;
             }, pingError => {
