@@ -141,7 +141,7 @@ export class SynchronizationManagementService {
       });
     } else if (synchroRequest.requestType === SynchroRequestTypeEnum.FETCH) {
       this.concurrentSynchroRequestCount++;
-      this.synchronizationService.storeEDossierOffline(synchroRequest.pnc.matricule).then(success => {
+      this.synchronizationService.checkAndStoreEDossierOffline(synchroRequest.pnc.matricule).then(success => {
         synchroRequest.synchroStatus = SynchroStatusEnum.SUCCESSFUL;
       }, error => {
         synchroRequest.synchroStatus = SynchroStatusEnum.FAILED;
