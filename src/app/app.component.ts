@@ -80,7 +80,7 @@ export class AppComponent {
         if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.pinPadShowupThresholdInSeconds) {
           if (this.connectivityService.isConnected()) {
             // Synchro des données offline
-            this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule);
+            this.synchronizationService.checkAndStoreEDossierOffline(this.sessionService.getActiveUser().matricule);
             // Récupération des compteurs de notifs MyBoard
             this.myBoardNotificationService.updateActiveUserMyBoardNotificationCount();
           }

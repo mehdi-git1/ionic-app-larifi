@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../../core/authentication/authentication.service';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { DeviceService } from '../../../../core/services/device/device.service';
 import { Events } from '../../../../core/services/events/events.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -27,7 +28,8 @@ export class ImpersonatePage {
     private events: Events,
     private synchronizationService: SynchronizationService,
     public sessionService: SessionService,
-    public authenticationService: AuthenticationService
+    public authenticationService: AuthenticationService,
+    private deviceService: DeviceService
   ) {
   }
 
@@ -49,8 +51,9 @@ export class ImpersonatePage {
 
           this.impersonatingInProgress = false;
           this.goToHomePage();
-
-          this.synchronizationService.storeEDossierOffline(pnc.matricule);
+          if (this.deviceService.isOfflineModeAvailable()) {
+            this.synchronizationService.checkAndStoreEDossierOffline(pnc.matricule);
+          }
         }
       );
     }, error => {

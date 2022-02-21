@@ -1,8 +1,10 @@
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AppConstant } from '../../../app.constant';
 import { EntityEnum } from '../../enums/entity.enum';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
@@ -29,6 +31,7 @@ import { Events } from '../events/events.service';
 import { LegTransformerService } from '../leg/leg-transformer.service';
 import { PncPhotoTransformerService } from '../pnc-photo/pnc-photo-transformer.service';
 import { PncTransformerService } from '../pnc/pnc-transformer.service';
+import { PncService } from '../pnc/pnc.service';
 import {
     ProfessionalInterviewTransformerService
 } from '../professional-interview/professional-interview-transformer.service';
@@ -55,7 +58,7 @@ export class SynchronizationService {
     private storageService: StorageService,
     private waypointTransformer: WaypointTransformerService,
     private pncSynchroProvider: PncSynchroService,
-    public securityProvider: SecurityService,
+    private securityService: SecurityService,
     private translateService: TranslateService,
     private sessionService: SessionService,
     private careerObjectiveTransformer: CareerObjectiveTransformerService,
@@ -70,7 +73,44 @@ export class SynchronizationService {
     private legTransformerProvider: LegTransformerService,
     private eObservationTransformerService: EObservationTransformerService,
     private professionalInterviewTransformerService: ProfessionalInterviewTransformerService,
-    private events: Events) {
+    private events: Events,
+    private pncService: PncService) {
+  }
+
+  /**
+   * Verifie si le dossier du pnc en cache est périmé ou inexistant, puis le stocke en cache 
+   * @param matricule le matricule du PNC dont on souhaite mettre en cache le EDossier
+   * @return une promesse résolue quand le EDossier est mis en cache
+   */
+  checkAndStoreEDossierOffline(matricule: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      // On ne met pas en cache si des données sont en attente de synchro
+      if (!this.isPncModifiedOffline(matricule)) {
+        // Synchro des données offline
+        if (this.securityService.isManager()) {
+          this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+            this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+            resolve(true);
+          }, error => {
+            reject(error.detailMessage);
+          });
+        } else {
+          let pncToSynchronise = this.storageService.findOne(EntityEnum.PNC, matricule);
+          this.pncService.getPnc(matricule).then(pnc => {
+            if (pncToSynchronise && moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat))) {
+              this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+                this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+                resolve(true);
+              }, error => {
+                reject(error.detailMessage);
+              });
+            }
+          });
+        }
+      } else {
+        reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
+      }
+    });
   }
 
   /**
@@ -202,12 +242,22 @@ export class SynchronizationService {
    * @param storeCrewMembers si on doit déclencher la mise en cache des dossiers des membres d'équipage
    */
   private storeCrewMembers(crewMembers: CrewMemberModel[], storeCrewMembers: boolean): void {
+    let pncSynchroList = new Array<PncModel>();
     if (crewMembers) {
       for (const crewMember of crewMembers) {
         this.storageService.save(EntityEnum.CREW_MEMBER, this.crewMemberTransformerService.toCrewMember(crewMember), true);
         // Ajoute en file d'attente la mise en cache du dossier du membre d'équipage sauf s'il s'agit du user connecté
         if (storeCrewMembers && this.sessionService.getActiveUser().matricule !== crewMember.pnc.matricule) {
-          this.events.publish('SynchroRequest:add', { pnc: crewMember.pnc });
+          const pncSynchroFound = pncSynchroList.find((pnc) => {
+            return pnc.matricule === crewMember.pnc.matricule;
+          });
+          if (!pncSynchroFound) {
+            const pncToSynchronise = this.storageService.findOne(EntityEnum.PNC, crewMember.pnc.matricule);
+            if (!pncToSynchronise || (pncToSynchronise && moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(crewMember.pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat)))) {
+              pncSynchroList.push(crewMember.pnc);
+              this.events.publish('SynchroRequest:add', { pnc: crewMember.pnc });
+            }
+          }
         }
       }
     }
@@ -218,9 +268,11 @@ export class SynchronizationService {
    * @param careerObjectives les objectifs à stocker en cache
    */
   private storeCareerObjectives(careerObjectives: CareerObjectiveModel[]): void {
-    for (const careerObjective of careerObjectives) {
-      delete careerObjective.offlineAction;
-      this.storageService.save(EntityEnum.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
+    if (careerObjectives) {
+      for (const careerObjective of careerObjectives) {
+        delete careerObjective.offlineAction;
+        this.storageService.save(EntityEnum.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
+      }
     }
   }
 
@@ -229,14 +281,16 @@ export class SynchronizationService {
    * @param waypoints les points d'étape à stocker en cache
    */
   private storeWaypoints(waypoints: WaypointModel[]): void {
-    for (const waypoint of waypoints) {
-      // On ajoute la clef de l'objectif à chaque point d'étape
-      delete waypoint.offlineAction;
-      // On ne garde que le techId pour réduire le volume de données en cache
-      const careerObjectiveTechId = waypoint.careerObjective.techId;
-      waypoint.careerObjective = new CareerObjectiveModel();
-      waypoint.careerObjective.techId = careerObjectiveTechId;
-      this.storageService.save(EntityEnum.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
+    if (waypoints) {
+      for (const waypoint of waypoints) {
+        // On ajoute la clef de l'objectif à chaque point d'étape
+        delete waypoint.offlineAction;
+        // On ne garde que le techId pour réduire le volume de données en cache
+        const careerObjectiveTechId = waypoint.careerObjective.techId;
+        waypoint.careerObjective = new CareerObjectiveModel();
+        waypoint.careerObjective.techId = careerObjectiveTechId;
+        this.storageService.save(EntityEnum.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
+      }
     }
   }
 
@@ -312,7 +366,7 @@ export class SynchronizationService {
         this.eObservationTransformerService.toEObservation(eObservation).getStorageId());
     }
 
-    //  Suppression de toutes les rotations, vols, listes d'équipage et infos pour les paramètres d'entrée pour lappel eforms
+    //  Suppression de toutes les rotations, vols, listes d'équipage et infos pour les paramètres d'entrée pour l'appel eforms
     if (this.sessionService.getActiveUser().matricule === pnc.matricule) {
       this.storageService.deleteAll(EntityEnum.ROTATION);
       this.storageService.deleteAll(EntityEnum.LEG);
@@ -346,7 +400,7 @@ export class SynchronizationService {
     if (pncSynchroList.length > 0) {
       let promiseCount;
       let resolvedPromiseCount = 0;
-      Observable.create(
+      new Observable(
         observer => {
           promiseCount = pncSynchroList.length;
           for (const pncSynchro of pncSynchroList) {
