@@ -157,7 +157,7 @@ export class SynchronizationManagementService {
   }
 
   /**
-   * Supprime de la file d'attente toutes lessynchronization.service.ts demandes de synchro de type synchronizationType
+   * Supprime de la file d'attente toutes les demandes de synchro dont le type est en paramètre
    * @param synchronizationType le type des demandes de synchro à supprimer
    */
   public removeSynchroRequestList(synchronizationType: SynchroRequestTypeEnum): void {
