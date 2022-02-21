@@ -5,6 +5,7 @@ import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 import { PncLightModel } from 'src/app/core/models/pnc-light.model';
+import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 import { PncCardComponent } from 'src/app/shared/components/pnc-card/pnc-card.component';
 import { SortChange, SortOption } from 'src/app/shared/components/sort-list/sort-list.component';
 
@@ -254,8 +255,10 @@ export class PncSearchPage {
    * Charge la page suivante
    */
   loadNextPage() {
-    this.filters.pagePosition = PagePositionEnum.NEXT
-    this.filtersSubject.next(this.filters);
+    if (this.connectivityService.isConnected()) {
+      this.filters.pagePosition = PagePositionEnum.NEXT
+      this.filtersSubject.next(this.filters);
+    }
   }
 
   /**
@@ -273,16 +276,12 @@ export class PncSearchPage {
       this.bypassMenuClosureOnce = false;
       return this.getFilteredPncs(filters);
     } else {
-      if (
-        this.totalPncs === undefined ||
-        this.filters.page < this.totalPncs / AppConstant.PAGE_SIZE
-      ) {
+      if (this.totalPncs === undefined || this.filters.page < this.totalPncs / AppConstant.PAGE_SIZE) {
         this.filters.page++;
         this.filters.offset = this.filters.page * this.filters.size;
         return this.getFilteredPncs(filters);
       }
     }
-
     return new Observable();
   }
 
@@ -391,7 +390,7 @@ export class PncSearchPage {
    * @return vrai si la recherche est terminée, faux sinon
    */
   isSearchOver() {
-    return this.totalPncs === this.filteredPncs.length;
+    return this.connectivityService.isConnected() && this.totalPncs === this.filteredPncs.length;
   }
 
   /**
