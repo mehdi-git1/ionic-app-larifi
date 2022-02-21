@@ -126,6 +126,7 @@ export class SynchronizationService {
 
   /**
    * Lance le processus de synchronisation des données modifiées offline
+   * @param pncSynchro la demande de synchronisation
    */
   synchronisePncOfflineData(pncSynchro: PncSynchroModel) {
     return new Promise((resolve, reject) => {
