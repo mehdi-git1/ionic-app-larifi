@@ -10,31 +10,15 @@
 </ion-header>
 <ion-content no-bounce>
     <div class="page-container">
-        <h3>
-            {{ 'SYNCHRONIZATION_MANAGEMENT.TITLE' | translate }}
-            <ion-button [hidden]="!synchroRequestList || synchroRequestList.length == 0" (click)="clearSynchroRequestList()">{{ 'SYNCHRONIZATION_MANAGEMENT.BUTTONS.CLEAR' | translate }}
-            </ion-button>
-        </h3>
-        <div class="offline-message" [hidden]="isConnected()">
-            {{ 'SYNCHRONIZATION_MANAGEMENT.MESSAGES.OFFLINE_INFO_MESSAGE' | translate }}
-        </div>
-
-        <nav class="tabs" *ngIf="synchroRequestList">
-            <button (click)="changeTab(SynchroRequestDisplayModeEnum.PENDING)" [ngClass]="{'active': isTabActive(SynchroRequestDisplayModeEnum.PENDING)}">
-                {{ 'SYNCHRONIZATION_MANAGEMENT.TABS.PENDING' | translate:{requestCount:getSynchroRequestList(SynchroRequestDisplayModeEnum.PENDING).length} }}
+        <nav class="tabs">
+            <button (click)="changeTab(SynchroRequestTypeEnum.FETCH)" [ngClass]="{'active': isTabActive(SynchroRequestTypeEnum.FETCH)}">
+                {{ 'SYNCHRONIZATION_MANAGEMENT.TYPE.FETCH' | translate }}
             </button>
-            <button (click)="changeTab(SynchroRequestDisplayModeEnum.SUCCESSFUL)" [ngClass]="{'active': isTabActive(SynchroRequestDisplayModeEnum.SUCCESSFUL)}">
-                {{ 'SYNCHRONIZATION_MANAGEMENT.TABS.SUCCESSFUL' | translate:{requestCount:getSynchroRequestList(SynchroRequestDisplayModeEnum.SUCCESSFUL).length} }}
-            </button>
-            <button (click)="changeTab(SynchroRequestDisplayModeEnum.FAILED)" [ngClass]="{'active': isTabActive(SynchroRequestDisplayModeEnum.FAILED)}">
-                {{ 'SYNCHRONIZATION_MANAGEMENT.TABS.FAILED' | translate:{requestCount:getSynchroRequestList(SynchroRequestDisplayModeEnum.FAILED).length} }}
+            <button (click)="changeTab(SynchroRequestTypeEnum.PUSH)" [ngClass]="{'active': isTabActive(SynchroRequestTypeEnum.PUSH)}">
+                {{ 'SYNCHRONIZATION_MANAGEMENT.TYPE.PUSH'  | translate}}
             </button>
         </nav>
-        <synchro-request-list [synchroRequestList]="getSynchroRequestList(SynchroRequestDisplayModeEnum.PENDING)" [hidden]="!isTabActive(SynchroRequestDisplayModeEnum.PENDING)">
-        </synchro-request-list>
-        <synchro-request-list [synchroRequestList]="getSynchroRequestList(SynchroRequestDisplayModeEnum.SUCCESSFUL)" [hidden]="!isTabActive(SynchroRequestDisplayModeEnum.SUCCESSFUL)">
-        </synchro-request-list>
-        <synchro-request-list [synchroRequestList]="getSynchroRequestList(SynchroRequestDisplayModeEnum.FAILED)" [hidden]="!isTabActive(SynchroRequestDisplayModeEnum.FAILED)">
-        </synchro-request-list>
+        <synchro-request-type [synchronizationType]="SynchroRequestTypeEnum.FETCH" [hidden]="!isTabActive(SynchroRequestTypeEnum.FETCH)"></synchro-request-type>
+        <synchro-request-type [synchronizationType]="SynchroRequestTypeEnum.PUSH" [hidden]="!isTabActive(SynchroRequestTypeEnum.PUSH)"></synchro-request-type>
     </div>
 </ion-content>

@@ -17,6 +17,7 @@ import { AppConstant } from '../../../../app.constant';
 import { PagePositionEnum } from '../../../../core/enums/page-position.enum';
 import { PncSearchModeEnum } from '../../../../core/enums/pnc-search-mode.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { Events } from '../../../../core/services/events/events.service';
 import { MailingService } from '../../../../core/services/mailing/mailing.service';
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
@@ -390,5 +391,13 @@ export class PncSearchPage {
    */
   isSearchOver() {
     return this.connectivityService.isConnected() && this.totalPncs === this.filteredPncs.length;
+  }
+
+  /**
+ * Vérifie si l'on est connecté
+ * @return true si on est connecté, false sinon
+ */
+  isConnected(): boolean {
+    return this.connectivityService.isConnected();
   }
 }
