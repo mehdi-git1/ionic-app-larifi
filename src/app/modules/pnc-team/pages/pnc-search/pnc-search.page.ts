@@ -5,7 +5,6 @@ import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { PagedPncModel } from 'src/app/core/models/paged-pnc.model';
 import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 import { PncLightModel } from 'src/app/core/models/pnc-light.model';
-import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 import { PncCardComponent } from 'src/app/shared/components/pnc-card/pnc-card.component';
 import { SortChange, SortOption } from 'src/app/shared/components/sort-list/sort-list.component';
 
