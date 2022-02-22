@@ -209,7 +209,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   createNewProfessionalInterview() {
     this.professionalInterview = _.cloneDeep(this.sessionService.getActiveUser().appInitData.blankProfessionalInterview);
-    this.professionalInterview.type = ProfessionalInterviewTypeEnum.BILAN;
+    this.professionalInterview.type = ProfessionalInterviewTypeEnum.EDP;
     this.professionalInterview.attachmentFiles = new Array<DocumentModel>();
     this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
       return a.themeOrder > b.themeOrder ? 1 : -1;
