@@ -8,8 +8,8 @@
                 "TITLE": "Nouveautés de la version"
             },
             "DEPRECATED_VERSION_ALERT": {
-              "TITLE": "La version actuelle de votre application ne permet pas de bénéficier de toutes les fonctionnalités.",
-              "MESSAGE": "Merci d'installer la version disponible sur le PNC Store."
+                "TITLE": "La version actuelle de votre application ne permet pas de bénéficier de toutes les fonctionnalités.",
+                "MESSAGE": "Merci d'installer la version disponible sur le PNC Store."
             },
             "CONFIRM_VERSION_UPDATE": {
                 "TITLE": "Une nouvelle version de eDossierPNC est disponible",
@@ -735,10 +735,10 @@
         "TOTAL": "Total : {{total}}",
         "MAIL": "Mail",
         "SEND_MAIL": "Envoyer",
-        "CANCEL":"Annuler",
-        "SELECT_ALL":"Tout sélectionner",
-        "TOTAL_SELECTED_SINGULAR":"Sélectionné : {{total}}",
-        "TOTAL_SELECTED_PLURAL":"Sélectionnés : {{total}}",
+        "CANCEL": "Annuler",
+        "SELECT_ALL": "Tout sélectionner",
+        "TOTAL_SELECTED_SINGULAR": "Sélectionné : {{total}}",
+        "TOTAL_SELECTED_PLURAL": "Sélectionnés : {{total}}",
         "CRITERIA": {
             "TITLE": "Filtres",
             "FILTER": "Filtrer",
@@ -814,7 +814,7 @@
             "EOBS": "eObservation",
             "CAREER_OBJECTIVE": "Priorité",
             "WAYPOINT": "Point d'étape",
-            "PROFESSIONAL_INTERVIEW": "Bilan Pro",
+            "PROFESSIONAL_INTERVIEW": "Entretien de développement professionnel",
             "LOGBOOK": "Journal de bord",
             "LOGBOOK_CCO": "Journal de bord - CCO",
             "LOGBOOK_ISCV": "Journal de bord - ISCV",
@@ -992,7 +992,7 @@
         "ORIGIN": "Origine",
         "ACTIONS": "Actions",
         "UNAIVALABLE_OFFLINE": "Les évènements ne sont pas disponibles hors connexion",
-        "LAST_THREE_YEARS_EVENT":"évènements des 3 dernières années",
+        "LAST_THREE_YEARS_EVENT": "évènements des 3 dernières années",
         "ARCHIVED_EVENTS": "évènements archivés",
         "VIEW_ARCHIVES": "consulter les archives",
         "RECENT_EVENTS": "revenir aux évènements récents",
@@ -1153,20 +1153,20 @@
     "BUSINESS_INDICATORS": {
         "UNAIVALABLE_OFFLINE": "Les indicateurs métier ne sont pas disponibles hors connexion",
         "NO_BUSINESS_INDICATOR_AVAILABLE": "Aucun indicateur métier disponible",
-        "FILTERS":{
+        "FILTERS": {
             "TITLE": "Filtres",
             "REINIT_BUTTON": "Réinitialiser",
-            "FIRST_PERIOD":"Première période",
+            "FIRST_PERIOD": "Première période",
             "START_DATE": "Du",
             "END_DATE": "Au",
-            "COMPARE_TO_LAST_PERIOD":"Comparer à la période précédente",
-            "COMPARE_TO_LAST_YEAR":"Comparer à l'année dernière",
-            "COMPARE_TO_GLOBAL_POPULATION":"Comparer à ma population",
+            "COMPARE_TO_LAST_PERIOD": "Comparer à la période précédente",
+            "COMPARE_TO_LAST_YEAR": "Comparer à l'année dernière",
+            "COMPARE_TO_GLOBAL_POPULATION": "Comparer à ma population",
             "SECOND_PERIOD": "Seconde période",
             "COMPARE": "Comparer",
             "CANCEL": "Annuler",
             "ERRORS": {
-              "SIX_MONTHS_INTERVAL_ERROR": "Il doit y avoir exactement six mois d'intervalle"
+                "SIX_MONTHS_INTERVAL_ERROR": "Il doit y avoir exactement six mois d'intervalle"
             }
         },
         "LIST": {
@@ -1176,7 +1176,7 @@
                 "BACK": "Retour",
                 "COMPARISON_BUTTON": "Comparer",
                 "PERIOD_COMPARED": "période",
-                "COMPARISON_TITLE" : "Indicateurs",
+                "COMPARISON_TITLE": "Indicateurs",
                 "MY_SUMMARIES": "Mes indicateurs",
                 "FROM": "Du",
                 "TO": "Au",
@@ -1320,15 +1320,15 @@
     },
     "MAILING_MODAL": {
         "FROM": "De",
-        "TO" : "A",
-        "CC" : "cc",
+        "TO": "A",
+        "CC": "cc",
         "CCI": "cci",
         "OBJECT": "Objet",
         "MESSAGE": "Veillez rediger votre mail",
         "SEND": "Envoyer",
         "CANCEL": "Annuler",
         "SEND_CONFIRMATION": "email envoyé avec succès",
-        "MAIL_PLACEHOLDER":"m123456@airfrance.fr; test.user@airfrance.fr"
+        "MAIL_PLACEHOLDER": "m123456@airfrance.fr; test.user@airfrance.fr"
     },
     "SETTINGS": {
         "TITLE": "Paramètres",
@@ -1390,7 +1390,7 @@
             "RELEASE_DATE": "du",
             "APP_VERSION_LIST": "Historique",
             "VERSION_NOTE": "Nouveautés de la version",
-            "DEPRECATED":"Archivée"
+            "DEPRECATED": "Archivée"
         },
         "NO_APP_VERSION_SELECTED": "Aucune version sélectionnée"
     },
