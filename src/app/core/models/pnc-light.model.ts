@@ -1,4 +1,5 @@
 import { SpecialityEnum } from '../enums/speciality.enum';
+import { LanguageModel } from './statutory-certificate/language.model';
 
 export class PncLightModel {
     matricule: string;
@@ -11,4 +12,5 @@ export class PncLightModel {
     sector: string;
     isInstructor = false;
     isRds = false;
+    languages: LanguageModel[];
 }

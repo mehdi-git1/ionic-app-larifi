@@ -158,7 +158,7 @@ const routes: Routes = [
           },
           {
             path: 'professional-interview', children: [
-              { path: 'create', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
+              { path: 'create/:professionalInterviewType', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
               { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
               {
                 path: 'archive', children: [
@@ -226,7 +226,7 @@ const routes: Routes = [
               },
               {
                 path: 'professional-interview', children: [
-                  { path: 'create', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
+                  { path: 'create/:professionalInterviewType', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
                   { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
                   {
                     path: 'archive', children: [
@@ -358,7 +358,7 @@ const routes: Routes = [
   },
   {
     path: 'professional-interview', children: [
-      { path: 'create', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
+      { path: 'create/:professionalInterviewType', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
       { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
       { path: 'archive', component: ProfessionalInterviewsArchivesPage }
     ]

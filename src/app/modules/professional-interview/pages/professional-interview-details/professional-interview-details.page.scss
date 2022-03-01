@@ -155,7 +155,8 @@
         }
     }
 
-    .speciality-grid {
+    .speciality-grid,
+    .languages-grid {
         padding: 0px;
         margin-bottom: 16px;
         box-sizing: border-box;
@@ -167,7 +168,8 @@
         }
     }
 
-    .speciality-header {
+    .speciality-header,
+    .languages-header {
         height: 32px;
         padding-right: 24px;
         padding-left: 24px;

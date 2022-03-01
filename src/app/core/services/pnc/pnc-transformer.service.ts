@@ -32,6 +32,7 @@ export class PncTransformerService {
     pncLight.division = pnc.assignment.division;
     pncLight.sector = pnc.assignment.sector;
     pncLight.ginq = pnc.assignment.ginq;
+    pncLight.languages = pnc.languages;
     return pncLight;
   }
 
