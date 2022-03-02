@@ -66,11 +66,6 @@ export class AppComponent {
   }
 
   initializeApp() {
-
-    // Code pour le test des synchro sur ipad, a supprimer une fois la recette finie
-    if (this.sessionService.getActiveUser().matricule === '31641602' || this.sessionService.getActiveUser().matricule === 'm316416' || this.sessionService.getActiveUser().matricule === 't329354') {
-      this.sessionService.getActiveUser().matricule = '15613764';
-    }
     // MODE BROWSER
     if (this.deviceService.isBrowser()) {
       if (this.isInternetExplorer()) {
