@@ -1413,6 +1413,10 @@
     },
     "SYNCHRONIZATION_MANAGEMENT": {
         "TITLE": "Demandes de synchronisation",
+        "TYPE": {
+            "FETCH": "Synchronisation des dossiers en cache",
+            "PUSH": "Synchronisation des modifications offline"
+        },
         "BUTTONS": {
             "CLEAR": "Tout annuler"
         },
