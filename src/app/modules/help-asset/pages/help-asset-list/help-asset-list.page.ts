@@ -60,8 +60,6 @@ export class HelpAssetListPage {
       this.localHelpAssets.push(...this.getCommunHelpAssets());
       if (this.pncRole === PncRoleEnum.MANAGER) {
         this.localHelpAssets.push(...this.getCADHelpAssets());
-      } else if (this.pncRole === PncRoleEnum.PNC) {
-        this.localHelpAssets.push(...this.getHSTHelpAssets());
       }
       this.localHelpAssets.sort((a, b) => a.label < b.label ? -1 : 1);
       // On récupère le role du pnc dans les paramètres de navigation
@@ -194,20 +192,6 @@ export class HelpAssetListPage {
     helpAsset[14].helpAssetType = HelpAssetTypeEnum.PDF;
     helpAsset[14].lastUpdateDate = '2020-11-09T00:00:00Z';
 
-    return helpAsset;
-  }
-
-  /**
-   * Renvoie la liste des ressources d'aide du pnc
-   */
-  getHSTHelpAssets(): HelpAssetModel[] {
-    const helpAsset = new Array(1);
-    const UserManual = 'Manuel-Utilisateur-PNC-V1.0.pdf';
-    helpAsset[0] = new HelpAssetModel();
-    helpAsset[0].url = `${this.pdfUrl}/hst/${UserManual}`;
-    helpAsset[0].label = 'Manuel Utilisateur V1';
-    helpAsset[0].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[0].lastUpdateDate = '2018-09-12T10:00:00Z';
     return helpAsset;
   }
 
