@@ -1,3 +1,5 @@
+import { DocumentModel } from 'src/app/core/models/document.model';
+
 import {
     ProfessionalInterviewConditionEnum
 } from '../../enums/professional-interview/professional-interview-condition.enum';
@@ -32,8 +34,8 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     toDate: Date;
     signingBlock: boolean;
     interviewCondition: ProfessionalInterviewConditionEnum;
-    synthesisAt6Years: string;
     regulatoryPoints: boolean;
+    attachmentFiles: Array<DocumentModel> = new Array();
 
     getStorageId(): string {
         return `${this.techId}`;

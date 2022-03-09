@@ -5,9 +5,6 @@ import {
     ProfessionalInterviewDisplayModeEnum
 } from '../../../../core/enums/professional-interview/professional-interview-display-mode.enum';
 import {
-    ProfessionalInterviewTypeEnum
-} from '../../../../core/enums/professional-interview/professional-interview-type.enum';
-import {
     ProfessionalInterviewModel
 } from '../../../../core/models/professional-interview/professional-interview.model';
 import { SecurityService } from '../../../../core/services/security/security.service';
@@ -25,8 +22,6 @@ export class ProfessionalInterviewListComponent {
     ProfessionalInterviewDisplayModeEnum = ProfessionalInterviewDisplayModeEnum;
 
     canDisplayMenu = false;
-    // Liste des type de EDP possible
-    professionalInterviewTypeList = [];
 
     constructor(
         private router: Router,
@@ -37,9 +32,9 @@ export class ProfessionalInterviewListComponent {
     /**
      * Dirige vers la page de création d'un nouveau bilan professionnel
      */
-    goToProfessionalInterviewCreation(type: ProfessionalInterviewTypeEnum) {
+    goToProfessionalInterviewCreation() {
         this.canDisplayMenu = false;
-        this.router.navigate(['../professional-interview', 'create', type], { relativeTo: this.activatedRoute });
+        this.router.navigate(['../professional-interview', 'create'], { relativeTo: this.activatedRoute });
     }
 
     /**
@@ -72,15 +67,4 @@ export class ProfessionalInterviewListComponent {
     isManager(): boolean {
         return this.securityService.isManager();
     }
-
-    /**
- * Affichage du menu de la liste des eForms
- */
-    displayEdpTypeSelection() {
-        this.professionalInterviewTypeList = new Array();
-        this.professionalInterviewTypeList.push(ProfessionalInterviewTypeEnum.EDP);
-        this.professionalInterviewTypeList.push(ProfessionalInterviewTypeEnum.EDP_6_YEARS);
-        this.canDisplayMenu = true;
-    }
-
 }

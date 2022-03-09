@@ -1,4 +1,5 @@
 import * as _ from 'lodash-es';
+import { DocumentModel } from 'src/app/core/models/document.model';
 
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
@@ -113,9 +114,8 @@ export class ProfessionalInterviewDetailsPage {
   initPage() {
     if (this.activatedRoute.snapshot.paramMap.get('professionalInterviewId')) {
       this.loadProfessionalInterview();
-    } else if (this.activatedRoute.snapshot.paramMap.get('professionalInterviewType')) {
-      const type = ProfessionalInterviewTypeEnum[this.activatedRoute.snapshot.paramMap.get('professionalInterviewType')];
-      this.createNewProfessionalInterview(type);
+    } else {
+      this.createNewProfessionalInterview();
       this.isPncCommentEditable = true;
     }
   }
@@ -208,10 +208,10 @@ export class ProfessionalInterviewDetailsPage {
   /**
    * Prépare un formulaire de création pour un nouveau bilan professionnel
    */
-  createNewProfessionalInterview(type: ProfessionalInterviewTypeEnum) {
+  createNewProfessionalInterview() {
     this.professionalInterview = _.cloneDeep(this.sessionService.getActiveUser().appInitData.blankProfessionalInterview);
-    this.professionalInterview.type = type;
-    // this.professionalInterview.attachmentFiles = new Array<DocumentModel>();
+    this.professionalInterview.type = ProfessionalInterviewTypeEnum.EDP;
+    this.professionalInterview.attachmentFiles = new Array<DocumentModel>();
     this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
       return a.themeOrder > b.themeOrder ? 1 : -1;
     });
