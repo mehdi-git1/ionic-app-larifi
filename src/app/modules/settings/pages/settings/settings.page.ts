@@ -122,7 +122,7 @@ export class SettingsPage {
     this.storageService.initOfflineMap().then(success => {
       const authenticatedUser = this.sessionService.getActiveUser();
       this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
-      this.synchronizationService.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+      this.synchronizationService.checkAndStoreEDossierOffline(authenticatedUser.matricule).then(successStore => {
         this.events.publish('EDossierOffline:stored');
         this.toastProvider.info(this.translateService.instant('SETTINGS.INIT_CACHE.SUCCESS'));
       }, error => {

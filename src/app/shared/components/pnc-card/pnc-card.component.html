@@ -3,12 +3,15 @@
     <div class="card-container">
         <div class="identity-container">
             <div class="photo-container">
-                <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(pnc.matricule)" *ngIf="isDownloadButtonAvailable()">
+                <download-button [synchroInProgress]="synchroInProgress"
+                    (onDownload)="downloadPncEdossier(pnc.matricule)" *ngIf="isDownloadButtonAvailable()">
                 </download-button>
-                <pnc-photo [pnc]="pnc" (click)="stopPropagation($event, pnc)" [size]="80" [handleCall]="false" [displayCheckmark]="showCheckMark()"></pnc-photo>
+                <pnc-photo [pnc]="pnc" (click)="stopPropagation($event, pnc)" [size]="80" [handleCall]="false"
+                    [displayCheckmark]="showCheckMark()"></pnc-photo>
             </div>
             <div class="identity">
-                <span class="value speciality" [ngClass]="{'no-value' : !formatedSpeciality }">{{ formatedSpeciality }}</span>
+                <span class="value speciality" [ngClass]="{'no-value' : !formatedSpeciality }">{{ formatedSpeciality
+                    }}</span>
                 <span class="value lastname">{{ pnc.lastName }}</span>
                 <span class="value firstname">{{ pnc.firstName }}</span>
                 <span class="matricule">{{pnc.matricule}}</span>
@@ -24,9 +27,14 @@
             <!-- Relais-->
             <div class="pnc-info">
                 <label>{{ 'PNC_CARD.RELAYS' | translate }}</label>
-                <div class="value pnc-relays" [ngClass]="{'no-value' : pnc.relays.length === 0 }">
+                <div class="value pnc-relays" [ngClass]="{'no-value' : pnc.relays.length === 0  }">
                     <span *ngFor="let relay of pnc.relays">
-                        {{ relay.code }}
+                        <span *ngIf="relay.code else displayNoValue">
+                            {{ relay.code }}
+                        </span>
+                        <ng-template #displayNoValue>
+                            <span class="no-value"></span>
+                        </ng-template>
                     </span>
                 </div>
             </div>
@@ -35,7 +43,8 @@
             <!-- Spécialisation avion -->
             <div class="pnc-info">
                 <label>{{ 'PNC_CARD.AIRCRAFT_SKILL' | translate }}</label>
-                <div class="value pnc-Array-item" [ngClass]="{'no-value' :  (!pnc.aircraftSkills || pnc.aircraftSkills.length === 0) }">
+                <div class="value pnc-Array-item"
+                    [ngClass]="{'no-value' :  (!pnc.aircraftSkills || pnc.aircraftSkills.length === 0) }">
                     <span *ngFor="let aircraftSkill of pnc.aircraftSkills">
                         {{ aircraftSkill.aircraftType }}
                     </span>
@@ -51,23 +60,29 @@
             <!-- Date de la Dernière rencontre en vol -->
             <div class="pnc-info">
                 <label>{{ 'PNC_CARD.LAST_EOBSERVATION_DATE' | translate }}</label>
-                <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastEObservationDate }">{{ pnc.metadataDate?.lastEObservationDate | date:'dd/MM/yyyy' }}</span>
+                <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastEObservationDate }">{{
+                    pnc.metadataDate?.lastEObservationDate | date:'dd/MM/yyyy' }}</span>
             </div>
             <!-- Date de la Dernière rencontre en sol -->
             <div class="pnc-info">
                 <label>{{ 'PNC_CARD.LAST_PROFESSIONAL_INTERVIEW_DATE' | translate }}</label>
-                <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastProfessionalInterviewDate }">{{ pnc.metadataDate?.lastProfessionalInterviewDate | date:'dd/MM/yyyy' }}</span>
+                <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastProfessionalInterviewDate }">
+                    {{pnc.metadataDate?.lastProfessionalInterviewDate | date:'dd/MM/yyyy' }}
+                </span>
             </div>
         </div>
         <div class="career-objective-icons-container">
             <!-- Date de la Dernière mise à jour d'une priorité -->
             <div class="pnc-info">
                 <label>{{ 'PNC_CARD.LAST_CAREER_OBJECTIVE_UPDATE_DATE' | translate }}</label>
-                <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastCareerObjectiveUpdateDate }">{{ pnc.metadataDate?.lastCareerObjectiveUpdateDate | date:'dd/MM/yyyy' }}</span>
+                <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastCareerObjectiveUpdateDate }">
+                    {{pnc.metadataDate?.lastCareerObjectiveUpdateDate | date:'dd/MM/yyyy' }}
+                </span>
             </div>
             <div class="icons-container">
                 <!-- Prioritaire -->
-                <div *ngIf="pnc.prioritized" [ngClass]="{'career-objective-info' : true, ' sub-flag-panel' : pnc.prioritized}">
+                <div *ngIf="pnc.prioritized"
+                    [ngClass]="{'career-objective-info' : true, ' sub-flag-panel' : pnc.prioritized}">
                     <span class="value edospnc-flag prioritized"></span>
                 </div>
                 <!-- Si au moins une Priorité en cours -->

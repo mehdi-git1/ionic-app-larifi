@@ -1,4 +1,5 @@
-import { SpecialityEnum } from './../enums/speciality.enum';
+import { SpecialityEnum } from '../enums/speciality.enum';
+
 export class PncLightModel {
     matricule: string;
     firstName: string;

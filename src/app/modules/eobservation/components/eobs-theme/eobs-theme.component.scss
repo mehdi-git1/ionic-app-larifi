@@ -4,7 +4,7 @@ $popover-wp-width: 320px;
 
 .sub-theme-label {
     width: 100%;
-    padding-left: 24px;
+    padding-left: 50px;
     padding-top: 5px;
     padding-bottom: 5px;
     font-weight: bold;
@@ -26,12 +26,15 @@ ion-row:nth-child(even) {
     background: var(--ion-color-grey95);
 }
 
-
 .item-label {
     padding-left: 24px;
     display: flex;
     align-items: center;
     white-space: pre-line !important;
+}
+
+.sub-theme-item-label {
+    padding-left: 50px !important;
 }
 
 .item-label:nth-child(even) {
@@ -64,7 +67,6 @@ ion-row:nth-child(even) {
         padding-top: 5px;
         padding-bottom: 5px;
         color: var(--ion-color-primarylight);
-
     }
 
     .edospnc-speech-bubble {
@@ -96,5 +98,4 @@ ion-row:nth-child(even) {
             padding: 5px !important;
         }
     }
-
 }
