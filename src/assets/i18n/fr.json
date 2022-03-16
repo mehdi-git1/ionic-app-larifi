@@ -484,9 +484,7 @@
         "TITLE_EPP": "Entretien professionnel PNC",
         "TITLE_EDP": "Entretien de développement professionel",
         "BUTTONS": {
-            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau EDP",
-            "EDP": "Entretien de développement professionel",
-            "EDP_6_YEARS": "Bilan à 6 ans"
+            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau EDP"
         },
         "LIST": {
             "HEADER": {
@@ -515,6 +513,7 @@
             "INTERVIEW_DATE": "Date de l'entretien",
             "UPDATE_DATE": "Enregistré depuis le",
             "REDACTOR": "Rédacteur",
+            "SYNTHESIS_AT_6_YEARS": "Bilan à 6 ans",
             "INTERVIEW_CONDITION": {
                 "TITLE": "Conditions de réalisation de l'entretien",
                 "LABEL": "Sélectionnez une condition :",
@@ -532,8 +531,7 @@
             "TYPE": {
                 "EPP": "EPP",
                 "BILAN": "Bilan professionnel",
-                "EDP": "EDP",
-                "EDP_YEARS": "Bilan à 6 ans"
+                "EDP": "EDP"
             },
             "BUTTONS": {
                 "DELETE_DRAFT": "Supprimer brouillon",

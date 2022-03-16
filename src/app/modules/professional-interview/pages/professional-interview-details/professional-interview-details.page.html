@@ -7,7 +7,7 @@
                     {{ 'PROFESSIONAL_INTERVIEW.TITLE_BP' | translate }} </span>
                 <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EPP">
                     {{ 'PROFESSIONAL_INTERVIEW.TITLE_EPP' | translate }} </span>
-                <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_6_YEARS">
+                <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                     {{ 'PROFESSIONAL_INTERVIEW.TITLE_EDP' | translate }} </span>
 
             </ng-container>
@@ -38,7 +38,7 @@
                             <ion-row class="speciality-header">
                                 <ion-col class="speciality" size="1">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.SPECIALITY' | translate }}</ion-col>
-                                <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_6_YEARS">
+                                <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_EDP' | translate }}
                                 </ion-col>
                                 <ion-col size="4" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.BILAN">
@@ -46,13 +46,13 @@
                                 </ion-col>
                                 <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EPP">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_EPP' | translate }}</ion-col>
-                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_6_YEARS">
+                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.CLASS' | translate }}</ion-col>
-                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_6_YEARS">
+                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.RUNG' | translate }}</ion-col>
-                                <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_6_YEARS">
+                                <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.NETWORK_MOBILITY_REQUEST' | translate }}</ion-col>
-                                <ion-col size="2" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_6_YEARS">
+                                <ion-col size="2" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.CANDIDACY' | translate }}</ion-col>
                             </ion-row>
                             <ion-row class="speciality-label">
@@ -68,18 +68,18 @@
                                         'PNC_HOME.INFO_PANEL.GINQ' | translate }}
                                         : {{professionalInterview.pncAtInterviewDate?.ginq}}</span>
                                 </ion-col>
-                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_6_YEARS">
+                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                                     {{professionalInterview.pncAtInterviewDate?.class}}</ion-col>
-                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_6_YEARS">
+                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                                     {{professionalInterview.pncAtInterviewDate?.rung}}</ion-col>
-                                <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_6_YEARS">
+                                <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                                     {{professionalInterview.pncAtInterviewDate?.networkMobilityRequest}}</ion-col>
-                                <ion-col size="2" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_6_YEARS">
+                                <ion-col size="2" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                                     {{professionalInterview.pncAtInterviewDate?.candidacy}}</ion-col>
                             </ion-row>
                         </ion-grid>
                     </div>
-                    <div class="languages-grid elevation-1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_6_YEARS">
+                    <div class="languages-grid elevation-1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                         <ion-row class="languages-header">
                             <ion-col class="languages">
                                 {{ 'PROFESSIONAL_INTERVIEW.DETAILS.LANGUAGES' | translate }}</ion-col>
@@ -97,7 +97,13 @@
                         </document-manager>
                     </div>
                     <div *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes">
-                        <edospnc-expandable-block *ngIf="interviewTheme.themeOrder !== 3" class="comment" [ngClass]="{'expandable-comment-block': isPncComment(interviewTheme) || isInstructorComment(interviewTheme) }" mini="true" [title]="getThemeLabel(interviewTheme)">
+                        <ion-item *ngIf="isSynthesisAt6YearsSection(interviewTheme.key)  && showSynthesisAt6Years && editionMode">
+                            <ion-label>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.SYNTHESIS_AT_6_YEARS' | translate }}
+                            </ion-label>
+                            <ion-checkbox slot="start" [checked]="showSynthesisAt6Years" (ionChange)="showOrHideSynthesisAt6Years($event)">
+                            </ion-checkbox>
+                        </ion-item>
+                        <edospnc-expandable-block *ngIf="!isSynthesisAt6YearsSection(interviewTheme.key) || isSynthesisAt6YearsSection(interviewTheme.key)  && showSynthesisAt6Years" class="comment" [ngClass]="{'expandable-comment-block': isPncComment(interviewTheme) || isInstructorComment(interviewTheme) }" mini="true" [title]="getThemeLabel(interviewTheme)">
                             <div *ngFor="let subTheme of interviewTheme.subThemes">
                                 <div class="sub-title-block">
                                     <span>{{subTheme.label}}</span>
@@ -107,7 +113,7 @@
                                         {{subThemeItem.label}} :</label>
                                     <p *ngIf="!editionMode; else editBlock">{{subThemeItem.value}}</p>
                                     <ng-template #editBlock>
-                                        <ion-textarea [(ngModel)]="subThemeItem.value" autocorrect="on" formControlName="{{subThemeItem.label}}">
+                                        <ion-textarea [(ngModel)]="subThemeItem.value" autocorrect="on" formControlName="{{subThemeItem.key}}">
                                         </ion-textarea>
                                     </ng-template>
                                 </div>
@@ -117,7 +123,7 @@
                                     {{themeItem.label}} :</label>
                                 <p *ngIf="!editionMode; else editBlock">{{themeItem.value}}</p>
                                 <ng-template #editBlock>
-                                    <ion-textarea [(ngModel)]="themeItem.value" autocorrect="on" formControlName="{{themeItem.label}}">
+                                    <ion-textarea [(ngModel)]="themeItem.value" autocorrect="on" formControlName="{{themeItem.key}}">
                                     </ion-textarea>
                                 </ng-template>
                             </div>
@@ -145,11 +151,19 @@
                             </span>
                         </div>
                     </div>
-                    <div *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_6_YEARS">
+                    <div *ngIf="showSynthesisAt6Years && professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                         <ion-item>
                             <ion-label>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REGULATORY_POINTS_CHECK' | translate }}
                             </ion-label>
                             <ion-checkbox slot="start" [disabled]="!editionMode" [(ngModel)]="professionalInterview.regulatoryPoints" [checked]="professionalInterview.regulatoryPoints" formControlName="regulatoryPointsCheckControl">
+                            </ion-checkbox>
+                        </ion-item>
+                    </div>
+                    <div *ngIf="!showSynthesisAt6Years && editionMode && professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                        <ion-item>
+                            <ion-label>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.SYNTHESIS_AT_6_YEARS' | translate }}
+                            </ion-label>
+                            <ion-checkbox slot="start" [checked]="showSynthesisAt6Years" (ionChange)="showOrHideSynthesisAt6Years($event)">
                             </ion-checkbox>
                         </ion-item>
                     </div>
@@ -243,7 +257,7 @@
                             {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.CANCEL' | translate }}
                         </ion-button>
                         <!-- Bouton valider les modifications d'un EDP -->
-                        <ion-button color="primary" (click)="saveProfessionalInterview(professionalInterview)" [disabled]="!formHasBeenModified()" *ngIf="editionMode">
+                        <ion-button color="primary" (click)="saveProfessionalInterview(professionalInterview)" [disabled]="!formHasBeenModified() && !isAllIFieldsAreFilled() " *ngIf="editionMode">
                             {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.VALIDATE' | translate }}
                         </ion-button>
                     </ng-container>
