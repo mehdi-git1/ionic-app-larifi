@@ -4,9 +4,11 @@
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
             <ng-container slot="center">
                 <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.BILAN">
-                    {{ 'PROFESSIONAL_INTERVIEW.TITLE_BILAN_PRO' | translate }} </span>
+                    {{ 'PROFESSIONAL_INTERVIEW.TITLE_BP' | translate }} </span>
                 <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EPP">
                     {{ 'PROFESSIONAL_INTERVIEW.TITLE_EPP' | translate }} </span>
+                <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                    {{ 'PROFESSIONAL_INTERVIEW.TITLE_EDP' | translate }} </span>
             </ng-container>
         </page-header>
     </ion-toolbar>
@@ -32,26 +34,69 @@
                     <div class="speciality-grid elevation-1">
                         <ion-grid>
                             <ion-row class="speciality-header">
-                                <ion-col class="speciality" size="2">
+                                <ion-col class="speciality" size="1">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.SPECIALITY' | translate }}</ion-col>
-                                <ion-col size="10" *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.BILAN">
-                                    {{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_BILAN_PRO' | translate }}
+                                <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                    {{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_EDP' | translate }}
                                 </ion-col>
-                                <ion-col size="10" *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.EPP">
+                                <ion-col size="4" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.BILAN">
+                                    {{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_BP' | translate }}
+                                </ion-col>
+                                <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EPP">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_EPP' | translate }}</ion-col>
+                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                    {{ 'PROFESSIONAL_INTERVIEW.DETAILS.CLASS' | translate }}</ion-col>
+                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                    {{ 'PROFESSIONAL_INTERVIEW.DETAILS.RUNG' | translate }}</ion-col>
+                                <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                    {{ 'PROFESSIONAL_INTERVIEW.DETAILS.NETWORK_MOBILITY_REQUEST' | translate }}</ion-col>
+                                <ion-col size="2" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                    {{ 'PROFESSIONAL_INTERVIEW.DETAILS.CANDIDACY' | translate }}</ion-col>
                             </ion-row>
                             <ion-row class="speciality-label">
-                                <ion-col size="2">{{professionalInterview.pncAtInterviewDate?.speciality}}</ion-col>
-                                <ion-col size="10">
-                                    <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.division">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }}
+                                <ion-col size="1">{{professionalInterview.pncAtInterviewDate?.speciality}}</ion-col>
+                                <ion-col size="3">
+                                    <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.division">{{
+                                        'PNC_HOME.INFO_PANEL.DIVISION' | translate }}
                                         : {{professionalInterview.pncAtInterviewDate?.division}}</span>
-                                    <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.sector">{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }}
+                                    <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.sector">{{
+                                        'PNC_HOME.INFO_PANEL.SECTOR' | translate }}
                                         : {{professionalInterview.pncAtInterviewDate?.sector}}</span>
-                                    <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.ginq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }}
+                                    <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.ginq">{{
+                                        'PNC_HOME.INFO_PANEL.GINQ' | translate }}
                                         : {{professionalInterview.pncAtInterviewDate?.ginq}}</span>
+                                </ion-col>
+                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                    <span class="value" [ngClass]="{'no-value': professionalInterview.pncAtInterviewDate?.class === undefined}">{{professionalInterview.pncAtInterviewDate?.class}}</span>
+                                </ion-col>
+                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                    <span class="value" [ngClass]="{'no-value': professionalInterview.pncAtInterviewDate?.rung === undefined}">{{professionalInterview.pncAtInterviewDate?.rung}}</span>
+                                </ion-col>
+                                <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                    <span class="value" [ngClass]="{'no-value': professionalInterview.pncAtInterviewDate?.networkMobilityRequest === undefined}">{{professionalInterview.pncAtInterviewDate?.networkMobilityRequest}}</span>
+                                </ion-col>
+                                <ion-col size="2" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                    <span class="value" [ngClass]="{'no-value': professionalInterview.pncAtInterviewDate?.candidacy === undefined}">{{professionalInterview.pncAtInterviewDate?.candidacy}}</span>
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
+                    </div>
+                    <div class="languages-grid elevation-1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                        <ion-row class="languages-header">
+                            <ion-col class="languages">
+                                {{ 'PROFESSIONAL_INTERVIEW.DETAILS.LANGUAGES' | translate }}</ion-col>
+                        </ion-row>
+                        <ion-row class="languages-label">
+                            <ion-col>
+                                <span *ngFor="let language of professionalInterview.pncAtInterviewDate?.languages; index as i">
+                                    [{{language.label}} ({{language.code}}) : {{language.note}} ({{language.date |  date : 'dd/MM/yyyy' : 'UTC'}})]
+                                </span>
+                            </ion-col>
+                        </ion-row>
+                    </div>
+                    <div *ngIf="isConnected()" class="document-container">
+                        <document-manager [documents]="professionalInterview.attachmentFiles" [readonly]="!editionMode">
+                        </document-manager>
                     </div>
                     <div *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes">
                         <edospnc-expandable-block class="comment" [ngClass]="{'expandable-comment-block': isPncComment(interviewTheme) || isInstructorComment(interviewTheme) }" mini="true" [title]="getThemeLabel(interviewTheme)">
@@ -78,10 +123,6 @@
                                     <ion-textarea [(ngModel)]="themeItem.value" autocorrect="on" formControlName="{{themeItem.label}}">
                                     </ion-textarea>
                                 </ng-template>
-                                <div *ngIf="isConnected() && isWishSection(themeItem.key)">
-                                    <document-manager [documents]="professionalInterview.attachmentFiles" [readonly]="!editionMode">
-                                    </document-manager>
-                                </div>
                             </div>
                         </edospnc-expandable-block>
                         <div class=" comment-block" *ngIf="isPncComment(interviewTheme)">
@@ -106,6 +147,12 @@
                         </div>
                     </div>
 
+                    <ion-item>
+                        <ion-label>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REGULATORY_POINTS_CHECK' | translate }}
+                        </ion-label>
+                        <ion-checkbox slot="start" [disabled]="!editionMode" [(ngModel)]="professionalInterview.regulatoryPoints" [checked]="professionalInterview.regulatoryPoints" formControlName="regulatoryPointsCheckControl">
+                        </ion-checkbox>
+                    </ion-item>
 
                     <!-- Commentaire PNC-->
                     <edospnc-expandable-block mini="true" [emptyCondition]="!isPncCommentEditable && !editionMode && !professionalInterview.pncComment" *ngIf="isConcernedPnc() || (!isPncCommentEditable && pncCommentIsNotEmpty()) || isAdminModeAvailable()" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">

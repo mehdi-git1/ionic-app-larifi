@@ -20,7 +20,7 @@
             <div class="career-objective-block" *ngIf="canViewCareerObjectives()">
                 <career-objective-list [careerObjectives]="careerObjectives" (categorySelected)="filterCategory($event)"></career-objective-list>
             </div>
-            <!-- Bilans professionnels -->
+            <!-- Entretien de développement professionnel -->
             <div class="professional-interview-block" *ngIf="canViewProfessionalInterviews()">
                 <professional-interview-list [professionalInterviews]="professionalInterviews">
                 </professional-interview-list>
