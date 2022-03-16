@@ -10,6 +10,9 @@ import {
     SynchroRequestListComponent
 } from './components/synchro-request-list/synchro-request-list.component';
 import {
+    SynchroRequestTypeComponent
+} from './components/synchro-request-type/synchro-request-type.page';
+import {
     SynchronizationManagementPage
 } from './pages/synchronization-management/synchronization-management.page';
 
@@ -17,7 +20,8 @@ import {
   declarations: [
     SynchronizationManagementPage,
     SynchroRequestListComponent,
-    SynchroRequestCardComponent
+    SynchroRequestCardComponent,
+    SynchroRequestTypeComponent
   ],
   imports: [
     IonicModule,

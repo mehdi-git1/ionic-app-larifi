@@ -2,8 +2,8 @@ import * as _ from 'lodash-es';
 
 import { EventEmitter, Injectable } from '@angular/core';
 
+import { SynchroRequestTypeEnum } from '../../enums/synchronization/synchro-request-type.enum';
 import { SynchroStatusEnum } from '../../enums/synchronization/synchro-status.enum';
-import { PncModel } from '../../models/pnc.model';
 import { SynchroRequestModel } from '../../models/synchro-request.model';
 import { ConnectivityService } from '../connectivity/connectivity.service';
 import { Events } from '../events/events.service';
@@ -25,12 +25,16 @@ export class SynchronizationManagementService {
     private connectivityService: ConnectivityService,
     private events: Events) {
     this.events.subscribe('SynchroRequest:add', (data) => {
-      this.addSynchroRequest(data.pnc);
+      const synchroRequest = new SynchroRequestModel();
+      synchroRequest.pnc = data.pnc;
+      synchroRequest.pncSynchro = data.pncSynchro;
+      synchroRequest.requestType = data.requestType;
+      this.addSynchroRequest(synchroRequest);
     });
   }
 
   /**
-   * Renvoie la liste des demandes de synchro
+   * Renvoie la liste des demandes de synchro 
    * @return la liste des synchros
    */
   public getSynchroRequestList(): SynchroRequestModel[] {
@@ -41,14 +45,11 @@ export class SynchronizationManagementService {
    * Ajoute une demande de synchronisation pour un pnc donné
    * @param pnc le pnc à synchroniser
    */
-  public addSynchroRequest(pnc: PncModel): void {
-    const synchroRequest = new SynchroRequestModel();
-    synchroRequest.pnc = pnc;
+  public addSynchroRequest(synchroRequest: SynchroRequestModel): void {
     synchroRequest.synchroStatus = SynchroStatusEnum.PENDING;
-
     // On ajoute à la file d'attente la demande de synchro ou on relance la synchro si la demande existe déjà
     const synchroRequestFound = this.synchroRequestList.find((request) => {
-      return request.pnc.matricule === pnc.matricule;
+      return request.pnc.matricule === synchroRequest.pnc.matricule;
     });
     if (synchroRequestFound) {
       this.reinitSynchroRequest(synchroRequestFound);
@@ -58,7 +59,6 @@ export class SynchronizationManagementService {
 
     this.emitProgress();
     this.emitSynchroRequestList();
-
     this.processSynchroRequestList();
   }
 
@@ -66,24 +66,42 @@ export class SynchronizationManagementService {
    * Lance le processus de traitement de la file d'attente des demandes synchro
    */
   public processSynchroRequestList(): void {
-    const pendingSynchroRequestList = this.synchroRequestList.filter(synchroRequest => {
-      return synchroRequest.synchroStatus === SynchroStatusEnum.PENDING;
+    const pendingOrInProgressPushSynchroRequestList = this.synchroRequestList.filter(synchroRequest => {
+      return synchroRequest.requestType === SynchroRequestTypeEnum.PUSH && (synchroRequest.synchroStatus === SynchroStatusEnum.PENDING || synchroRequest.synchroStatus === SynchroStatusEnum.IN_PROGRESS);
     });
-
-    const inProgressSynchroRequestList = this.synchroRequestList.filter(synchroRequest => {
-      return synchroRequest.synchroStatus === SynchroStatusEnum.IN_PROGRESS;
-    });
-    if (this.concurrentSynchroRequestCount < this.MAX_CONCURRENT_SYNCHRO_REQUEST && this.connectivityService.isConnected()) {
-      if (pendingSynchroRequestList.length > 0) {
-        this.processSynchroRequest(pendingSynchroRequestList[0]);
-      } else if (inProgressSynchroRequestList.length === 0) {
-        // On ne réinitialise les compteurs que lorsque toutes les demandes ont été traitées
-        this.concurrentSynchroRequestCount = 0;
-
-        this.emitErrorCounter();
+    if (pendingOrInProgressPushSynchroRequestList.length > 0) {
+      const pendingPushSynchroRequestList = this.synchroRequestList.filter(synchroRequest => {
+        return synchroRequest.requestType === SynchroRequestTypeEnum.PUSH && synchroRequest.synchroStatus === SynchroStatusEnum.PENDING;
+      });
+      const inProgressPushSynchroRequestList = this.synchroRequestList.filter(synchroRequest => {
+        return synchroRequest.requestType === SynchroRequestTypeEnum.PUSH && synchroRequest.synchroStatus === SynchroStatusEnum.IN_PROGRESS;
+      });
+      if (this.connectivityService.isConnected()) {
+        if (pendingPushSynchroRequestList.length > 0 && inProgressPushSynchroRequestList.length === 0) {
+          this.processSynchroRequest(pendingPushSynchroRequestList[0]);
+        } else if (pendingPushSynchroRequestList.length === 0 && inProgressPushSynchroRequestList.length === 0) {
+          this.emitErrorCounter();
+        }
+      }
+    } else {
+      const pendingFetchSynchroRequestList = this.synchroRequestList.filter(synchroRequest => {
+        return synchroRequest.requestType === SynchroRequestTypeEnum.FETCH && synchroRequest.synchroStatus === SynchroStatusEnum.PENDING;
+      });
+      const inProgressFetchSynchroRequestList = this.synchroRequestList.filter(synchroRequest => {
+        return synchroRequest.requestType === SynchroRequestTypeEnum.FETCH && synchroRequest.synchroStatus === SynchroStatusEnum.IN_PROGRESS;
+      });
+      if (this.concurrentSynchroRequestCount < this.MAX_CONCURRENT_SYNCHRO_REQUEST && this.connectivityService.isConnected()) {
+        if (pendingFetchSynchroRequestList.length > 0) {
+          this.processSynchroRequest(pendingFetchSynchroRequestList[0]);
+        } else if (inProgressFetchSynchroRequestList.length === 0) {
+          // On ne réinitialise les compteurs que lorsque toutes les demandes ont été traitées
+          this.concurrentSynchroRequestCount = 0;
+          this.emitErrorCounter();
+        }
       }
     }
   }
+
 
   /**
    * Reprend le processus de synchronisation de la file d'attente
@@ -104,31 +122,57 @@ export class SynchronizationManagementService {
   }
 
   /**
-   * Traite une demande de synchro
-   * @param synchroRequest la demande de synchro à traiter
-   */
+ * Traite une demande de synchro
+ * @param synchroRequest la demande de synchro à traiter
+ */
   private processSynchroRequest(synchroRequest: SynchroRequestModel): void {
     synchroRequest.synchroStatus = SynchroStatusEnum.IN_PROGRESS;
-    this.concurrentSynchroRequestCount++;
-    this.synchronizationService.storeEDossierOffline(synchroRequest.pnc.matricule).then(success => {
-      synchroRequest.synchroStatus = SynchroStatusEnum.SUCCESSFUL;
-    }, error => {
-      synchroRequest.synchroStatus = SynchroStatusEnum.FAILED;
-      synchroRequest.errorMessage = error;
-    }).then(() => {
-      // Finally
-      this.concurrentSynchroRequestCount--;
-      this.emitProgress();
-      this.emitSynchroRequestList();
-      this.processSynchroRequestList();
-    });
+    if (synchroRequest.requestType === SynchroRequestTypeEnum.PUSH) {
+      this.synchronizationService.synchronisePncOfflineData(synchroRequest.pncSynchro).then(success => {
+        synchroRequest.synchroStatus = SynchroStatusEnum.SUCCESSFUL;
+      }, error => {
+        synchroRequest.synchroStatus = SynchroStatusEnum.FAILED;
+        synchroRequest.errorMessage = error;
+      }).then(() => {
+        // Finally
+        this.emitProgress();
+        this.emitSynchroRequestList();
+        this.processSynchroRequestList();
+      });
+    } else if (synchroRequest.requestType === SynchroRequestTypeEnum.FETCH) {
+      this.concurrentSynchroRequestCount++;
+      this.synchronizationService.checkAndStoreEDossierOffline(synchroRequest.pnc.matricule).then(success => {
+        synchroRequest.synchroStatus = SynchroStatusEnum.SUCCESSFUL;
+      }, error => {
+        synchroRequest.synchroStatus = SynchroStatusEnum.FAILED;
+        synchroRequest.errorMessage = error;
+      }).then(() => {
+        // Finally
+        this.concurrentSynchroRequestCount--;
+        this.emitProgress();
+        this.emitSynchroRequestList();
+        this.processSynchroRequestList();
+      });
+    }
   }
 
   /**
-   * Vide la file d'attente
+   * Supprime de la file d'attente toutes les demandes de synchro dont le type est en paramètre
+   * @param synchronizationType le type des demandes de synchro à supprimer
+   */
+  public removeSynchroRequestList(synchronizationType: SynchroRequestTypeEnum): void {
+    _.remove(this.synchroRequestList, (requestItem) => {
+      return synchronizationType === requestItem.requestType;
+    });
+    this.emitErrorCounter();
+    this.emitSynchroRequestList();
+  }
+
+  /**
+   * Vide la file d'attente des demandes de synchro
    */
   public clearSynchroRequestList(): void {
-    this.synchroRequestList = new Array();
+    this.synchroRequestList = new Array<SynchroRequestModel>();
     this.emitErrorCounter();
     this.emitSynchroRequestList();
   }
@@ -139,7 +183,7 @@ export class SynchronizationManagementService {
    */
   public deleteSynchroRequest(synchroRequest: SynchroRequestModel): void {
     _.remove(this.synchroRequestList, (requestItem) => {
-      return requestItem.pnc.matricule === synchroRequest.pnc.matricule;
+      return synchroRequest.requestType === requestItem.requestType && requestItem.pnc.matricule === synchroRequest.pnc.matricule;
     });
     this.emitErrorCounter();
   }
@@ -179,7 +223,6 @@ export class SynchronizationManagementService {
    * Transmet le nombre de requêtes en erreur
    */
   private emitErrorCounter(): void {
-
     this.synchroErrorCountChange.emit(this.getSynchroErrorCount());
   }
 
