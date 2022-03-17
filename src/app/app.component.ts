@@ -10,7 +10,6 @@ import { AlertController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from './core/authentication/authentication.service';
-import { AuthenticationStatusEnum } from './core/enums/authentication-status.enum';
 import { PinPadTypeEnum } from './core/enums/security/pin-pad-type.enum';
 import { AppInitService } from './core/services/app-init/app-init.service';
 import { AppVersionService } from './core/services/app-version/app-version.service';
@@ -70,7 +69,7 @@ export class AppComponent {
   }
 
   /**
-   * 
+   * Initialise les deeplinks gerés par l'application
    */
   initDeepLinks() {
     this.deeplinks.route({
@@ -122,7 +121,7 @@ export class AppComponent {
       });
 
     }
-    /*
+      
       this.events.subscribe('connectionStatus:disconnected', () => {
         this.connectivityService.startPingAPI();
       });
@@ -137,13 +136,13 @@ export class AppComponent {
           this.authenticationService.offlineManagement();
         }
       });
-  */
+  
     this.translateService.setDefaultLang('fr');
     this.translateService.use('fr');
   }
 
   /**
-   * Verifie le type du navigateur utilisé
+   * Vérifie le type du navigateur utilisé
    *
    * @return vrai si l'application est lancé avec Internet explorer ou edge, faux sinon.
    */
