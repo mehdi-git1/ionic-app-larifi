@@ -4,7 +4,7 @@ import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 import { Utils } from 'src/app/shared/utils/utils';
 
 import {
-    AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
+  AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
@@ -109,6 +109,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.filters.divisions = this.filters.divisions.filter(division => division !== AppConstant.ALL);
     this.filters.ginqs = this.filters.ginqs.filter(ginq => ginq !== AppConstant.ALL);
     this.filters.sectors = this.filters.sectors.filter(sector => sector !== AppConstant.ALL);
+    this.filters.specialities = this.filters.specialities.filter(speciality => speciality !== AppConstant.ALL);
   }
 
   /**
@@ -157,7 +158,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       divisions: new FormControl(['']),
       sectors: new FormControl(['']),
       ginqs: new FormControl(['']),
-      speciality: new FormControl(),
+      specialities: new FormControl(),
       workRate: new FormControl(),
       aircraftSkill: new FormControl(),
       relay: new FormControl(),
@@ -185,9 +186,9 @@ export class PncSearchFilterComponent implements AfterViewInit {
       divisions: this.defaultDivision ? [this.defaultDivision] : [this.valueAll],
       sectors: this.defaultSector ? [this.defaultSector] : [this.valueAll],
       ginqs: this.defaultGinq ? [this.defaultGinq] : [this.valueAll],
-      speciality: this.isAlternantSearch() ?
-        SpecialityEnum.ALT
-        : this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : this.valueAll,
+      specialities: this.isAlternantSearch() ?
+        [SpecialityEnum.ALT]
+        : this.specialityList && this.specialityList.length === 1 ? [this.specialityList[0]] : [this.valueAll],
       workRate: this.workRateList && this.workRateList.length === 1 ? this.workRateList[0] : this.valueAll,
       aircraftSkill: this.aircraftSkillList && this.aircraftSkillList.length === 1 ?
         this.aircraftSkillList[0] : this.valueAll
@@ -351,6 +352,17 @@ export class PncSearchFilterComponent implements AfterViewInit {
   }
 
   /**
+   * Sélectionne/déselectionne tous les specialités
+   */
+  toggleAllSpecialities() {
+    if (this.searchForm.get('specialities').value.find(speciality => speciality === this.valueAll)) {
+      this.searchForm.get('specialities').setValue([...this.specialityList.map(speciality => speciality), this.valueAll]);
+    } else {
+      this.searchForm.get('specialities').setValue([]);
+    }
+  }
+
+  /**
    * Sélectionne/déselectionne tous les ginqs
    */
   toggleAllGinqs() {
@@ -360,6 +372,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.searchForm.get('ginqs').setValue([]);
     }
   }
+
   /**
    * Retourne le label de la division à afficher dans la picklist
    * @param division la division dont on souhaite déterminer le label
@@ -383,6 +396,14 @@ export class PncSearchFilterComponent implements AfterViewInit {
    */
   getUniqueSectorList(): Set<string> {
     return this.sectorList ? new Set(this.sectorList.map(sector => sector.code).sort()) : new Set();
+  }
+
+  /**
+   * Déselectionne l'option "toutes" des ginqs
+   */
+  unselectSpecialityAllOption() {
+    const selectedSpecialities = _.cloneDeep(this.searchForm.get('specialities').value);
+    this.searchForm.get('specialities').setValue(Utils.arrayRemoveValue(selectedSpecialities, this.valueAll));
   }
 
   /**
