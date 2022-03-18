@@ -4,7 +4,7 @@ import { PncFilterModel } from 'src/app/core/models/pnc-filter.model';
 import { Utils } from 'src/app/shared/utils/utils';
 
 import {
-  AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
+    AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
@@ -352,7 +352,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
   }
 
   /**
-   * Sélectionne/déselectionne tous les specialités
+   * Sélectionne/désélectionne toutes les spécialités
    */
   toggleAllSpecialities() {
     if (this.searchForm.get('specialities').value.find(speciality => speciality === this.valueAll)) {
@@ -399,7 +399,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
   }
 
   /**
-   * Déselectionne l'option "toutes" des ginqs
+   * Désélectionne l'option "toutes" des spécialités
    */
   unselectSpecialityAllOption() {
     const selectedSpecialities = _.cloneDeep(this.searchForm.get('specialities').value);
