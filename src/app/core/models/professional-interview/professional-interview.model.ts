@@ -34,6 +34,7 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     signingBlock: boolean;
     interviewCondition: ProfessionalInterviewConditionEnum;
     attachmentFiles: Array<DocumentModel> = new Array();
+    regulatoryPoints: boolean;
 
     getStorageId(): string {
         return `${this.techId}`;
