@@ -46,7 +46,7 @@ export class RestWebService extends RestService {
     // En local, il sert néamoins à simuler l'authentification habile.
     // Il faut s'assurer que le matricule, renseigné au format short est présent dans la rubrique <SimulationSection> du fichier habile-filter-config.xml
     if (this.config.isLocalhost()) {
-      request.httpHeaders.headers = request.httpHeaders.headers.append('SM_USER', 'm426155');
+      // request.httpHeaders.headers = request.httpHeaders.headers.append('SM_USER', 'm426155');
     }
 
     // On ajoute un header spécial si la fonction d'impersonnification a été utilisée
