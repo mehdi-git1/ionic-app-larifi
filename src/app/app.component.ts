@@ -56,10 +56,10 @@ export class AppComponent {
     private deeplinks: Deeplinks
   ) {
     this.platform.ready().then(() => {
-      this.initDeepLinks();
       this.appInitService.initAppOnIpad().then(() => {
         this.initializeApp();
         if (!this.deviceService.isBrowser()) {
+          this.initDeepLinks();
           this.appInitService.handleAuthenticationStatus();
           this.isNewUpdateAvailable();
         }
@@ -121,22 +121,22 @@ export class AppComponent {
       });
 
     }
-      
-      this.events.subscribe('connectionStatus:disconnected', () => {
+
+    this.events.subscribe('connectionStatus:disconnected', () => {
+      this.connectivityService.startPingAPI();
+    });
+
+    // Détection d'un changement d'état de la connexion
+    this.connectivityService.connectionStatusChange.subscribe(connected => {
+      if (!connected) {
         this.connectivityService.startPingAPI();
-      });
-  
-      // Détection d'un changement d'état de la connexion
-      this.connectivityService.connectionStatusChange.subscribe(connected => {
-        if (!connected) {
-          this.connectivityService.startPingAPI();
-          this.toastService.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
-        } else {
-          this.toastService.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
-          this.authenticationService.offlineManagement();
-        }
-      });
-  
+        this.toastService.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
+      } else {
+        this.toastService.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
+        this.authenticationService.offlineManagement();
+      }
+    });
+
     this.translateService.setDefaultLang('fr');
     this.translateService.use('fr');
   }
