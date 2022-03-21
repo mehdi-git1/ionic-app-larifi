@@ -140,7 +140,7 @@ export class SecMobilService {
     }
 
     /**
-     * construie et renvoie la requete du ping
+     * construit et renvoie la requete du ping
      */
     getPingRequest() {
         const request: RestRequest = new RestRequest();
@@ -150,7 +150,7 @@ export class SecMobilService {
     }
 
     /**
-     * Ajoute les données envoyé dans le jsonData dans l'URI de la requête.
+     * Ajoute les données envoyées dans le jsonData dans l'URI de la requête.
      * @param request la requête à envoyer
      */
     handleGetRequest(request: RestRequest) {

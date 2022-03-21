@@ -33,6 +33,10 @@ export class AuthenticationService {
         private secMobilService: SecMobilService
     ) { }
 
+    /**
+     * Ouvre l'application d'authentification
+     * @returns une promesse contenant le résultat 
+     */
     openSUA() {
         return this.secMobilService.openSUA();
     }
