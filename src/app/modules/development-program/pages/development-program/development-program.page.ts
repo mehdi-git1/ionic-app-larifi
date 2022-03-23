@@ -99,12 +99,14 @@ export class DevelopmentProgramPage {
 
     ionViewDidEnter() {
         this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
-        this.pncService.getPnc(this.matricule).then(pnc => {
-            this.pnc = pnc;
-        }, error => { });
-        this.getEObservationsList();
-        this.searchCareerObjectives();
-        this.getProfessionalInterviewList();
+        if (this.matricule != null && this.matricule !== undefined) {
+            this.pncService.getPnc(this.matricule).then(pnc => {
+                this.pnc = pnc;
+            }, error => { });
+            this.getEObservationsList();
+            this.searchCareerObjectives();
+            this.getProfessionalInterviewList();
+        }
     }
 
     /**
