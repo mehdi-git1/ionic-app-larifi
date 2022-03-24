@@ -41,13 +41,9 @@ export class PncEdossierHeaderComponent implements OnChanges {
    */
   init() {
     if (this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule')) {
-      if (this.activatedRoute.snapshot.paramMap.get('matricule')) {
-        this.pncService.getPnc(this.activatedRoute.snapshot.paramMap.get('matricule')).then(pnc => {
-          this.pnc = pnc;
-        });
-      } else {
-        this.pnc = null;
-      }
+      this.pncService.getPnc(this.activatedRoute.snapshot.paramMap.get('matricule')).then(pnc => {
+        this.pnc = pnc;
+      });
     } else if (this.sessionService.visitedPnc !== undefined && this.isVisitedPncTabSelected()) {
       // On affiche le header de navigation du PNC visité que si on ne se trouve pas sur le premier onglet de la navbar
       this.pnc = this.sessionService.visitedPnc;
