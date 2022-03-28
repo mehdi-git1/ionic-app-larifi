@@ -120,7 +120,7 @@
                                     {{themeItem.label}} :</label>
                                 <p *ngIf="!editionMode; else editBlock">{{themeItem.value}}</p>
                                 <ng-template #editBlock>
-                                    <ion-textarea [(ngModel)]="themeItem.value" autocorrect="on" formControlName="{{themeItem.label}}">
+                                    <ion-textarea [(ngModel)]="themeItem.value" autocorrect="on" formControlName="{{themeItem.key}}">
                                     </ion-textarea>
                                 </ng-template>
                             </div>
