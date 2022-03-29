@@ -254,7 +254,7 @@ export class PncSearchPage {
    * Charge la page suivante
    */
   loadNextPage() {
-    if (this.connectivityService.isConnected()) {
+    if (this.connectivityService.isConnected() && this.filteredPncs.length < this.totalPncs) {
       this.filters.pagePosition = PagePositionEnum.NEXT
       this.filtersSubject.next(this.filters);
     }
