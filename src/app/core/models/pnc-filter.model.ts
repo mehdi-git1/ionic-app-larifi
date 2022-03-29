@@ -8,7 +8,7 @@ export class PncFilterModel {
   divisions: Array<string>;
   sectors: Array<string>;
   ginqs: Array<string>;
-  speciality: string;
+  specialities: Array<string>;
   aircraftSkill: string;
   relay: string;
   prioritized: boolean;
