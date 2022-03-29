@@ -14,6 +14,8 @@ declare var window: any;
 
 @Injectable({ providedIn: 'root' })
 export class SecMobilService {
+
+    private PLUGIN_INITIALIZED = false;
     constructor(
         public config: Config,
         public urlConfiguration: UrlConfiguration,
@@ -25,10 +27,17 @@ export class SecMobilService {
     }
 
     public init() {
-        if (this.secMobile) {
-            this.secMobile.initSecmobilHttp(this.config.secmobileEnv);
+        if (this.secMobile && !this.PLUGIN_INITIALIZED) {
+            const secMobilInitParameters = {
+                environment: this.config.secmobileEnv,
+                company: 'AF_GROUP'
+            };
+            this.secMobile.initSecmobilHttp(secMobilInitParameters, (success => {
+                this.PLUGIN_INITIALIZED = true;
+            }));
             console.log('init plugin with ' + this.config.secmobileEnv + ' env');
-            this.secMobile.secMobilSetAppGroup('AF_GROUP');
+        } else {
+            console.log('plugin already initialized');
         }
     }
 
@@ -40,51 +49,29 @@ export class SecMobilService {
         }
     }
 
-    public secMobilRevokeCertificate(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            if (this.secMobile) {
-                this.secMobile.secMobilRevokeCertificate('',
-                    (success) => {
-                        resolve(success);
-                    },
-                    (err) => {
-                        console.error('AuthentService:secMobilRevokeCertificate failure : ' + err);
-                        reject(err);
-                    }
-                );
-            } else {
-                resolve('ok');
-            }
-        });
-    }
-
     /**
-     * Authenticate 'login' user.
+     * Lance l'application SUA
      */
-    public authenticate(login: string, password: string): Promise<any> {
-        const authentParam = {
-            duration: 'long',
-            userId: login.toLowerCase(),
-            strongPassword: password
-        };
-        return new Promise((resolve, reject) => {
-            if (this.secMobile) {
-                this.secMobile.secMobilGetCertificate(authentParam,
+    openSUA() {
+        if (this.secMobile) {
+            const openParams = {
+                appName: this.config.appName,
+                returnScheme: this.config.appScheme,
+                shouldExtendConnection: true
+            }
+            return new Promise((resolve, reject) => {
+                this.secMobile.secMobilOpenSecMobileAppWithParam(openParams,
                     (success) => {
                         resolve(success);
                     },
                     (err) => {
-                        console.error('isAuthenticated:authenticate failure : ' + err);
-                        console.error(JSON.stringify(err));
                         reject(err);
-                    }
-                );
-            } else {
-                resolve('ok');
-            }
-        });
-    }
+                    })
+            });
 
+        }
+
+    }
     /**
      * Check if certificate is present and valid.
      */
@@ -120,17 +107,18 @@ export class SecMobilService {
                 (success) => {
                     try {
                         resolve(JSON.parse(success));
+                        return success;
                     } catch (error) {
                         console.error('fail : ' + error);
-                        console.log(JSON.stringify(success));
                         // en cas d objet json vide, on renvoie null, et ça implique qu'on peut recevoir du back que du json
                         resolve(null);
                     }
                 },
                 (err) => {
                     console.error('secmobile call failure sur la requete ' + request.url + ' : ' + err);
+                    const isCertificateAbsent = (err === "secmobil.nocertificate");
                     // Pour certains appels, il n'est pas nécessaire d'afficher le toast d'error ou de tracer l'erreur
-                    if (!request.url.includes(this.urlConfiguration.getBackEndUrl('getPing'))) {
+                    if (!request.url.includes(this.urlConfiguration.getBackEndUrl('getPing')) && !isCertificateAbsent) {
                         this.secMobile.secMobilCallRestService(this.getPingRequest(),
                             (success) => {
                                 if (!request.byPassInterceptor) {
@@ -141,9 +129,10 @@ export class SecMobilService {
                                     }
                                     this.toastProvider.error(errorMessage, 10000);
                                 }
-                            }, error => {
+                            }, (error) => {
                                 this.events.publish('connectionStatus:disconnected');
                             });
+
                     }
                     reject(err);
                 });
@@ -151,7 +140,7 @@ export class SecMobilService {
     }
 
     /**
-     * construie et renvoie la requete du ping
+     * construit et renvoie la requete du ping
      */
     getPingRequest() {
         const request: RestRequest = new RestRequest();
@@ -161,7 +150,7 @@ export class SecMobilService {
     }
 
     /**
-     * Ajoute les données envoyé dans le jsonData dans l'URI de la requête.
+     * Ajoute les données envoyées dans le jsonData dans l'URI de la requête.
      * @param request la requête à envoyer
      */
     handleGetRequest(request: RestRequest) {
