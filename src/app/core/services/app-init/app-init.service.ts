@@ -67,8 +67,10 @@ export class AppInitService {
         return this.authenticationService.initFunctionalApp().then(
             authentReturn => {
                 this.setAuthenticationStatus(authentReturn);
-                // Récupération des compteurs de notifs MyBoard
-                this.myBoardNotificationService.updateActiveUserMyBoardNotificationCount();
+                if (AuthenticationStatusEnum.AUTHENTICATION_OK === authentReturn) {
+                    // Récupération des compteurs de notifs MyBoard
+                    this.myBoardNotificationService.updateActiveUserMyBoardNotificationCount();
+                }
             });
     }
 
