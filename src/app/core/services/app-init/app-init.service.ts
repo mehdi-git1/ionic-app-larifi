@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { AuthenticationStatusEnum } from '../../enums/authentication-status.enum';
 import { PinPadTypeEnum } from '../../enums/security/pin-pad-type.enum';
+import { SecMobilService } from '../../http/secMobil.service';
 import { DeviceService } from '../device/device.service';
 import { Events } from '../events/events.service';
 import { ModalSecurityService } from '../modal/modal-security.service';
@@ -25,7 +26,8 @@ export class AppInitService {
         private authenticationService: AuthenticationService,
         private myBoardNotificationService: MyBoardNotificationService,
         private injector: Injector,
-        private platform: Platform
+        private platform: Platform,
+        private secMobilService: SecMobilService
     ) { }
 
     /**
@@ -51,6 +53,7 @@ export class AppInitService {
             if (this.deviceService.isBrowser()) {
                 return Promise.resolve();
             } else {
+                this.secMobilService.init();
                 return this.initApp();
             }
         });
@@ -63,9 +66,9 @@ export class AppInitService {
     initApp(): Promise<any> {
         return this.authenticationService.initFunctionalApp().then(
             authentReturn => {
+                this.setAuthenticationStatus(authentReturn);
                 // Récupération des compteurs de notifs MyBoard
                 this.myBoardNotificationService.updateActiveUserMyBoardNotificationCount();
-                this.setAuthenticationStatus(authentReturn);
             });
     }
 

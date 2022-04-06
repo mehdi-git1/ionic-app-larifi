@@ -7,6 +7,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 
 import { AppComponent } from './app.component';
 import { AuthenticationModule } from './core/authentication/authentication.module';
@@ -100,7 +101,8 @@ export function appInitFactory(appInitService: AppInitService) {
     },
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    Deeplinks
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

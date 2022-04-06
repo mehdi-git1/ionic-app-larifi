@@ -181,23 +181,6 @@ describe('AuthenticationService', () => {
     });
 
 
-    describe('authenticateUser', () => {
-        it(`doit retourner un message d'erreur AUTHENTICATION_KO si les identifiants sont faux`, fakeAsync(() => {
-            secMobilServiceMock.authenticate.and.returnValue(Promise.reject(false));
-            authenticationService.authenticateUser('login', 'password').then(
-                data => expect(data).toEqual(AuthenticationStatusEnum.AUTHENTICATION_KO)
-            );
-        }));
-
-        it(`doit appeler la fonction manageUserInformationsInApp si les identifiants sont bons`, fakeAsync(() => {
-            secMobilServiceMock.authenticate.and.returnValue(Promise.resolve(true));
-            const manageSpy = spyOn(authenticationService, 'manageUserInformationsInApp');
-            authenticationService.authenticateUser('login', 'password').then(
-                data => expect(manageSpy).toHaveBeenCalled()
-            );
-        }));
-    });
-
     describe('getAuthenticatedUserFromCache', () => {
 
         it(`doit mettre l'utilisateur connecté (recupére du storage) en session`, fakeAsync(() => {
