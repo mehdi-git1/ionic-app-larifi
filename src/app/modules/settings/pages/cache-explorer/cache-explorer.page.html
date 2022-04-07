@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-back-button color="white" slot="start"></ion-back-button>
+        <page-header [showSettingsIcon]="false" [showRefreshIcon]="false">
+            <ng-container slot="center">{{ 'SETTINGS.CACHE_EXPLORER.LABEL' | translate }}</ng-container>
+        </page-header>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-bounce>
+    <div class="page-container">
+        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
+          <h2>{{ 'SETTINGS.CACHE_EXPLORER.DATA_IN_CACHE' | translate }} </h2>
+          <ngx-json-viewer [json]="dataFromCache" [expanded]="false"></ngx-json-viewer>
+        </ng-template>
+    </div>
+</ion-content>

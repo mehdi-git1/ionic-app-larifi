@@ -14,12 +14,12 @@ import { DeviceService } from '../../../../core/services/device/device.service';
 import { Events } from '../../../../core/services/events/events.service';
 import { ModalSecurityService } from '../../../../core/services/modal/modal-security.service';
 import {
-    OfflineSecurityService
+  OfflineSecurityService
 } from '../../../../core/services/security/offline-security.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import {
-    SynchronizationService
+  SynchronizationService
 } from '../../../../core/services/synchronization/synchronization.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { VersionService } from '../../../../core/services/version/version.service';
@@ -198,6 +198,13 @@ export class SettingsPage {
    */
   goToLegalTerms() {
     this.router.navigate(['legal-term']);
+  }
+
+  /**
+   * Redirige vers la page d'explorateur de cache
+   */
+  goToCacheExplorer(): void {
+    this.router.navigate(['admin', 'cache-explorer']);
   }
 
   /**

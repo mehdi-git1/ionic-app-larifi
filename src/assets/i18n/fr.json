@@ -1380,6 +1380,10 @@
         },
         "LEGAL_TERMS": {
             "LABEL": "Mentions d'information RGPD"
+        },
+        "CACHE_EXPLORER": {
+            "LABEL": "Explorateur de cache",
+            "DATA_IN_CACHE": "Données en cache :"
         }
     },
     "IMPERSONATE": {

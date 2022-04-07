@@ -7,27 +7,34 @@ import { VersionService } from '../../core/services/version/version.service';
 import { ComponentsModule } from '../../shared/components/components.module';
 import { SharedModule } from '../../shared/shared.module';
 import { AppVersionHistoryPage } from './pages/app-version-history/app-version-history.page';
+import { CacheExplorerPage } from './pages/cache-explorer/cache-explorer.page';
 import { ImpersonatePage } from './pages/impersonate/impersonate.page';
 import { LegalTermsPage } from './pages/legal-terms/legal-terms.page';
 import { SettingsPage } from './pages/settings/settings.page';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
+
 
 @NgModule({
   declarations: [
     SettingsPage,
     ImpersonatePage,
     AppVersionHistoryPage,
-    LegalTermsPage
+    LegalTermsPage,
+    CacheExplorerPage
   ],
   imports: [
     IonicModule,
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    NgxJsonViewerModule
+
   ],
   exports: [
     SettingsPage,
     ImpersonatePage,
     AppVersionHistoryPage,
-    LegalTermsPage
+    LegalTermsPage,
+    CacheExplorerPage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
