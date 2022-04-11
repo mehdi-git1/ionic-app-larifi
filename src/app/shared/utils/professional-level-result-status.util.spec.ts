@@ -23,6 +23,10 @@ describe('professional-level-result-status.util', () => {
         it(`doit renvoyer red si le résultat est ${ProfessionalLevelResultStatus.FAILED}`, () => {
             expect(ProfessionalLevelResultStatusUtil.getStatusCssClass(ProfessionalLevelResultStatus.FAILED)).toEqual('red');
         });
+
+        it(`doit renvoyer yellow si le résultat est ${ProfessionalLevelResultStatus.RETAKE}`, () => {
+            expect(ProfessionalLevelResultStatusUtil.getStatusCssClass(ProfessionalLevelResultStatus.RETAKE)).toEqual('yellow');
+        });
     });
 
 });

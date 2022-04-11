@@ -18,6 +18,8 @@ export class ProfessionalLevelResultStatusUtil {
             return 'orange';
         } else if (ProfessionalLevelResultStatus.FAILED == professionalLevelResultStatus) {
             return 'red';
+        } else if (ProfessionalLevelResultStatus.RETAKE == professionalLevelResultStatus) {
+            return 'yellow';
         }
         return '';
     }
