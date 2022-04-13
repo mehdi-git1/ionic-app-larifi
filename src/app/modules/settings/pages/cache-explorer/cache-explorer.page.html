@@ -11,8 +11,34 @@
     <div class="page-container">
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-          <h2>{{ 'SETTINGS.CACHE_EXPLORER.DATA_IN_CACHE' | translate }} </h2>
-          <ngx-json-viewer [json]="dataFromCache" [expanded]="false"></ngx-json-viewer>
+          <div>
+            <ion-row class="category-row">
+              <ion-col>
+                <h2>{{ 'CACHE_EXPLORER.DATA_IN_CACHE' | translate }} </h2>
+                <ion-text color="warning" *ngIf="message">
+                  <span>{{ 'CACHE_EXPLORER.MESSAGE' | translate }}</span>
+                </ion-text>
+              </ion-col>
+              <ion-col size="4">
+                <ion-item lines="none">
+                  <ion-label position="stacked">
+                    {{ 'CACHE_EXPLORER.FILTER' | translate }}
+                  </ion-label>
+                  <ion-select interface="popover" (ionChange)="selectedEntity()" [(ngModel)]="selectedItem">
+                    <ion-select-option [value]="valueAll">
+                      {{ 'CACHE_EXPLORER.ALL' | translate }}
+                    </ion-select-option>
+                    <ion-select-option *ngFor="let label of enumLabels" [value]="label">
+                      {{label}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+          <div>
+              <ngx-json-viewer [json]="dataFromCache" [expanded]="false"></ngx-json-viewer>
+          </div>
         </ng-template>
     </div>
 </ion-content>

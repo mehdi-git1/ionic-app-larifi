@@ -16,6 +16,7 @@ export class AppConstant {
     NotifiedPncSpecialityEnum.RDD, NotifiedPncSpecialityEnum.RDS, NotifiedPncSpecialityEnum.REFERENT_INSTRUCTOR,
     NotifiedPncSpecialityEnum.CSV
   ];
+  public static ENTITY_CACHE_SIZE = 30000;
 
   // Profiles Habile
   public static P_EDOSPNC_ADMIN = 'P_EDOSPNC_ADMIN';

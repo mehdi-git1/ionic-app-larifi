@@ -1382,9 +1382,14 @@
             "LABEL": "Mentions d'information RGPD"
         },
         "CACHE_EXPLORER": {
-            "LABEL": "Explorateur de cache",
-            "DATA_IN_CACHE": "Données en cache :"
+            "LABEL": "Explorateur de cache"
         }
+    },
+    "CACHE_EXPLORER": {
+        "DATA_IN_CACHE": "Données en cache :",
+        "FILTER": "Selectionner",
+        "ALL": "Tout",
+        "MESSAGE": "Données trop importantes, seul l'élément selectionné est affiché !"
     },
     "IMPERSONATE": {
         "TITLE": "Sélection d'une identité PNC",
