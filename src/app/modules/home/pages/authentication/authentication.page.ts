@@ -23,7 +23,7 @@ export class AuthenticationPage {
   constructor(
     public translateService: TranslateService,
     private authenticationService: AuthenticationService,
-    private config: Config
+    public config: Config
   ) { }
   /**
      * Lance l'ouverture de l'application 
