@@ -53,14 +53,14 @@ export class CacheExplorerPage implements OnInit {
    * @return true si c'est le cas, false sinon
    */
   loadingIsOver(): boolean {
-    return this.isLoading !== false;
+    return this.isLoading;
   }
 
   /**
    * Filtre les données du cache par rapport à la valeur selectionnée
    */
-  selectedEntity() {
-    this.selectedItem !== this.valueAll ? this.dataFromCache = this.data[this.selectedItem] : this.loadDataFromCache();
+  selectedEntity(selectedItem: string) {
+    selectedItem !== this.valueAll ? this.dataFromCache = this.data[selectedItem] : this.loadDataFromCache();
   }
 
   /**

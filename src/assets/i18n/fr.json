@@ -1387,7 +1387,7 @@
     },
     "CACHE_EXPLORER": {
         "DATA_IN_CACHE": "Données en cache :",
-        "FILTER": "Selectionner",
+        "FILTER": "Sélectionner",
         "ALL": "Tout",
         "MESSAGE": "Données trop importantes, seul l'élément selectionné est affiché !"
     },

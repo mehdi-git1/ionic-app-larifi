@@ -24,7 +24,7 @@
                   <ion-label position="stacked">
                     {{ 'CACHE_EXPLORER.FILTER' | translate }}
                   </ion-label>
-                  <ion-select interface="popover" (ionChange)="selectedEntity()" [(ngModel)]="selectedItem">
+                  <ion-select interface="popover" #optionValue (ionChange)="selectedEntity(optionValue.value)" [value]="selectedItem">
                     <ion-select-option [value]="valueAll">
                       {{ 'CACHE_EXPLORER.ALL' | translate }}
                     </ion-select-option>
