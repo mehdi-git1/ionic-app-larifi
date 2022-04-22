@@ -65,6 +65,12 @@
                 <ion-icon name="people"></ion-icon>
             </ion-fab-button>
         </ion-item>
+        <ion-item *ngIf="isRealUserAdmin()">
+            <ion-label color="grey50">{{ 'SETTINGS.CACHE_EXPLORER.LABEL' | translate }}</ion-label>
+            <ion-fab-button size="small" color="secondary" (click)="goToCacheExplorer()" [disabled]="!connected">
+                <ion-icon name="flash"></ion-icon>
+            </ion-fab-button>
+        </ion-item>
         <div class="version-panel">
             <div *ngIf="frontVersion">{{ 'GLOBAL.APP_VERSION.FRONT' | translate }} : {{frontVersion}}</div>
             <div *ngIf="backVersion && connected"> - {{ 'GLOBAL.APP_VERSION.BACK' | translate }} : {{backVersion}}</div>

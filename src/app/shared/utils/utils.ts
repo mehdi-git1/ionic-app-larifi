@@ -202,4 +202,18 @@ export class Utils {
     public static getClearShortPncMail(lastName: string, firstName: string, matricule: string): string {
         return `m${matricule.substring(0, 6)}@airfrance.fr`;
     }
+
+    /**
+     * Convertit les entités du cache en tableau et renvoie sa taille
+     * @param entity l'objet à convertir
+     * @return length, la taille du tableau
+     */
+    public static getSizeOfObject(entity): number {
+        let array = [];
+        Object.keys(entity).map(function (key) {
+            array.push({ [key]: entity[key] })
+            return array;
+        });
+        return array.length
+    }
 }
