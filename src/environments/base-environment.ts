@@ -14,7 +14,7 @@ export abstract class BaseEnvironment {
   public eformsCallbackUrl;
   public eformsCallbackActionLabel;
 
-  public makeOfflineModeAvailable = true;
+  public makeOfflineModeAvailable = false;
 
   public friendlyUrl;
 
