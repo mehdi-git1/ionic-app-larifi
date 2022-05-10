@@ -5,7 +5,6 @@ import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
-import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -21,7 +20,7 @@ import { StorageModule } from './core/storage/storage.module';
 import { BusinessIndicatorsModule } from './modules/business-indicators/business-indicators.module';
 import { CareerObjectiveModule } from './modules/career-objective/career-objective.module';
 import {
-    CongratulationLetterModule
+  CongratulationLetterModule
 } from './modules/congratulation-letter/congratulation-letter.module';
 import { DevelopmentProgramModule } from './modules/development-program/development-program.module';
 import { EObservationModule } from './modules/eobservation/eobservation.module';
@@ -33,14 +32,14 @@ import { LogbookModule } from './modules/logbook/logbook.module';
 import { MyBoardModule } from './modules/my-board/my-board.module';
 import { PncTeamModule } from './modules/pnc-team/pnc-team.module';
 import {
-    ProfessionalInterviewModule
+  ProfessionalInterviewModule
 } from './modules/professional-interview/professional-interview.module';
 import { ProfessionalLevelModule } from './modules/professional-level/professional-level.module';
 import { RedactionsModule } from './modules/redactions/redactions.module';
 import { ActivityModule } from './modules/regularity/pages/activity/activity.module';
 import { SettingsModule } from './modules/settings/settings.module';
 import {
-    StatutoryCertificateModule
+  StatutoryCertificateModule
 } from './modules/statutory-certificate/statutory-certificate.module';
 import { SynchronizationModule } from './modules/synchronization/synchronization.module';
 import { AppRoutingModule } from './routing/app-routing.module';

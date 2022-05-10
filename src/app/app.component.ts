@@ -1,8 +1,6 @@
 import * as moment from 'moment';
 import { AppConstant } from 'src/app/app.constant';
 import { Config } from 'src/environments/config';
-import { Deeplinks } from '@ionic-native/deeplinks/ngx';
-
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
