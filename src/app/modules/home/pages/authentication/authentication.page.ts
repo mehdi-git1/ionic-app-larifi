@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { Config } from 'src/environments/config';
 
 import { AuthenticationService } from '../../../../core/authentication/authentication.service';
 import { AuthenticationStatusEnum } from '../../../../core/enums/authentication-status.enum';

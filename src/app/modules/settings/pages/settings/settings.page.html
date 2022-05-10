@@ -14,14 +14,16 @@
         <ng-container *ngIf="isApp">
             <ion-item>
                 <ion-label color="grey50">{{ 'SETTINGS.INIT_CACHE.LABEL' | translate }}</ion-label>
-                <ion-fab-button size="small" color="secondary" (click)="confirmClearAndInitCache()" [disabled]="!connected">
+                <ion-fab-button size="small" color="secondary" (click)="confirmClearAndInitCache()"
+                    [disabled]="!connected">
                     <ion-icon name="trash" *ngIf="!initInProgress"></ion-icon>
                     <ion-spinner *ngIf="initInProgress"></ion-spinner>
                 </ion-fab-button>
             </ion-item>
             <ion-item>
                 <ion-label color="grey50">{{ 'SETTINGS.FORCE_SYNCHRONIZATION.LABEL' | translate }}</ion-label>
-                <ion-fab-button size="small" color="secondary" (click)="forceSynchronizeOfflineData()" [disabled]="!connected">
+                <ion-fab-button size="small" color="secondary" (click)="forceSynchronizeOfflineData()"
+                    [disabled]="!connected">
                     <ion-icon name="sync" *ngIf="!synchronizationInProgress"></ion-icon>
                     <ion-spinner *ngIf="synchronizationInProgress"></ion-spinner>
                 </ion-fab-button>

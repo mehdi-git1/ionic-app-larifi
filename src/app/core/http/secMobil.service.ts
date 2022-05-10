@@ -14,7 +14,6 @@ declare var window: any;
 
 @Injectable({ providedIn: 'root' })
 export class SecMobilService {
-
     private PLUGIN_INITIALIZED = false;
     constructor(
         public config: Config,
@@ -115,8 +114,8 @@ export class SecMobilService {
                     }
                 },
                 (err) => {
-                    console.error('secmobile call failure sur la requete ' + request.url + ' : ' + err);
                     const isCertificateAbsent = (err === "secmobil.nocertificate");
+                    console.error('secmobile call failure sur la requete ' + request.url + ' : ' + err);
                     // Pour certains appels, il n'est pas nécessaire d'afficher le toast d'error ou de tracer l'erreur
                     if (!request.url.includes(this.urlConfiguration.getBackEndUrl('getPing')) && !isCertificateAbsent) {
                         this.secMobile.secMobilCallRestService(this.getPingRequest(),
