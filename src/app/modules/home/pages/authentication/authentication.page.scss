@@ -1,25 +1,16 @@
-.form-auth {
-    margin: 100px auto;
-    min-width: 400px;
-    width: 50%;
+.blue-navbar {
+    ion-icon {
+        color: white !important;
+    }
+
+    ion-title {
+        img {
+            margin-top: 7px;
+            height: 15px;
+        }
+    }
 }
 
-.button {
-    margin-top: 20px;
-}
-
-.item-inner {
-    border: none !important;
-}
-
-ion-spinner {
-    margin: auto;
-    margin-top: 20px;
-}
-
-.error-message {
+ion-content {
     text-align: center;
-    font-size: 1.5em;
-    margin-top: 100px;
-    color: var(--ion-color-danger);
 }
