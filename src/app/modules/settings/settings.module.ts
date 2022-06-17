@@ -11,7 +11,7 @@ import { CacheExplorerPage } from './pages/cache-explorer/cache-explorer.page';
 import { ImpersonatePage } from './pages/impersonate/impersonate.page';
 import { LegalTermsPage } from './pages/legal-terms/legal-terms.page';
 import { SettingsPage } from './pages/settings/settings.page';
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
+
 
 
 @NgModule({
@@ -25,8 +25,7 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
   imports: [
     IonicModule,
     SharedModule,
-    ComponentsModule,
-    NgxJsonViewerModule
+    ComponentsModule
 
   ],
   exports: [

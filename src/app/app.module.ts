@@ -45,7 +45,6 @@ import { SynchronizationModule } from './modules/synchronization/synchronization
 import { AppRoutingModule } from './routing/app-routing.module';
 import { ComponentsModule } from './shared/components/components.module';
 import { SharedModule } from './shared/shared.module';
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 export function appInitFactory(appInitService: AppInitService) {
   return () => {
@@ -93,7 +92,6 @@ export function appInitFactory(appInitService: AppInitService) {
     BusinessIndicatorsModule,
     ActivityModule,
     MyBoardModule,
-    NgxJsonViewerModule,
 
   ],
   providers: [
