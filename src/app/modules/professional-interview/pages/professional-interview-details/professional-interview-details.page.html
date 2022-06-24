@@ -46,24 +46,18 @@
                                 </ion-col>
                                 <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EPP">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_EPP' | translate }}</ion-col>
-                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP && professionalInterview.pncAtInterviewDate?.class">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.CLASS' | translate }}</ion-col>
-                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                <ion-col size="1" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP && professionalInterview.pncAtInterviewDate?.rung">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.RUNG' | translate }}</ion-col>
-                                <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                <ion-col size="3" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP && professionalInterview.pncAtInterviewDate?.networkMobilityRequest">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.NETWORK_MOBILITY_REQUEST' | translate }}</ion-col>
-                                <ion-col size="2" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                                <ion-col size="2" *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP && professionalInterview.pncAtInterviewDate?.candidacy">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.CANDIDACY' | translate }}</ion-col>
                             </ion-row>
                             <ion-row class="speciality-label">
                                 <ion-col size="1">{{professionalInterview.pncAtInterviewDate?.speciality}}</ion-col>
                                 <ion-col size="3">
-                                    <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.division">{{
-                                        'PNC_HOME.INFO_PANEL.DIVISION' | translate }}
-                                        : {{professionalInterview.pncAtInterviewDate?.division}}</span>
-                                    <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.sector">{{
-                                        'PNC_HOME.INFO_PANEL.SECTOR' | translate }}
-                                        : {{professionalInterview.pncAtInterviewDate?.sector}}</span>
                                     <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.ginq">{{
                                         'PNC_HOME.INFO_PANEL.GINQ' | translate }}
                                         : {{professionalInterview.pncAtInterviewDate?.ginq}}</span>
@@ -270,7 +264,7 @@
                         <div class="button-bar">
                             <div class="button-bar-right">
                                 <!-- Bouton annuler EDP en brouillon -->
-                                <ion-button color="primary" fill="outline" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.DRAFT)" (click)="confirmationDialog()" [disabled]="professionalInterviewForm.pristine">
+                                <ion-button color="primary" fill="outline" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.DRAFT)" (click)="confirmationDialog()">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.CANCEL' | translate }}
                                 </ion-button>
                                 <!-- Bouton supprimer EDP en brouillon -->
