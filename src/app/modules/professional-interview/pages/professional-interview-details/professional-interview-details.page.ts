@@ -169,6 +169,7 @@ export class ProfessionalInterviewDetailsPage {
         this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
           this.pnc = pnc;
           this.professionalInterview.pncAtInterviewDate = this.pncTransformer.toPncLight(this.pnc);
+          this.professionalInterview.pncAtInterviewDate.speciality = this.pnc.currentSpeciality;
         }, error => { });
         this.editionMode = this.isEditable();
         this.isPncCommentEditable = (this.isConcernedPnc()
