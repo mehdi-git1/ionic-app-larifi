@@ -15,7 +15,7 @@ export class Config extends BaseEnvironment {
         this.backEndUrl = `${this.contextRoot}rest/resources`;
         this.versionFileUrl = `${this.contextRoot}version.json`;
         this.env = 'preprod';
-        this.secmobileEnv = 'prod';
+        this.secmobileEnv = 'prd';
         this.eformsUrl = 'com.airfrance.mobile.inhouse.eformsPNC';
         this.eformsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncPREPROD';
 

@@ -66,16 +66,18 @@
             <!-- Date de la Dernière rencontre en sol -->
             <div class="pnc-info">
                 <label>{{ 'PNC_CARD.LAST_PROFESSIONAL_INTERVIEW_DATE' | translate }}</label>
-                <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastProfessionalInterviewDate }">{{
-                    pnc.metadataDate?.lastProfessionalInterviewDate | date:'dd/MM/yyyy' }}</span>
+                <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastProfessionalInterviewDate }">
+                    {{pnc.metadataDate?.lastProfessionalInterviewDate | date:'dd/MM/yyyy' }}
+                </span>
             </div>
         </div>
         <div class="career-objective-icons-container">
             <!-- Date de la Dernière mise à jour d'une priorité -->
             <div class="pnc-info">
                 <label>{{ 'PNC_CARD.LAST_CAREER_OBJECTIVE_UPDATE_DATE' | translate }}</label>
-                <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastCareerObjectiveUpdateDate }">{{
-                    pnc.metadataDate?.lastCareerObjectiveUpdateDate | date:'dd/MM/yyyy' }}</span>
+                <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastCareerObjectiveUpdateDate }">
+                    {{pnc.metadataDate?.lastCareerObjectiveUpdateDate | date:'dd/MM/yyyy' }}
+                </span>
             </div>
             <div class="icons-container">
                 <!-- Prioritaire -->

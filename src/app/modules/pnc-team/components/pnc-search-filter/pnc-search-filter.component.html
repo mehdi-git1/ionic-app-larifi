@@ -52,15 +52,15 @@
     <div class="flex filter-container filter function-workrate-taf-container" *ngIf="!isAlternantSearch()">
         <!-- Fonction -->
         <div class="flex5">
-            <ion-label class="input-label">
-                {{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
-            <ion-select interface="popover" formControlName="speciality">
-                <ion-select-option *ngIf="!specialityList || specialityList.length != 1" [value]="valueAll">
-                    {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
-                </ion-select-option>
-                <ion-select-option *ngFor="let specialityKey of specialityList" [value]="specialityKey">
-                    {{specialityKey}}</ion-select-option>
-            </ion-select>
+            <label>{{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</label>
+            <mat-select formControlName="specialities" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}" multiple>
+                <mat-option [value]="valueAll" (click)="toggleAllSpecialities()">
+                    {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
+                </mat-option>
+                <mat-option *ngFor="let specialityKey of specialityList" [value]="specialityKey" (click)="unselectSpecialityAllOption()">
+                    {{specialityKey}}
+                </mat-option>
+            </mat-select>
         </div>
         <div class="flex5 work-rate">
             <!-- Rythme -->

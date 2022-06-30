@@ -10,6 +10,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DirectivesModule } from './directives/directives.module';
 import { AppMaterialModule } from './material/material.module';
 import { PipesModule } from './pipes/pipes.module';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { DateTransform } from './utils/date-transform';
 import { Utils } from './utils/utils';
 
@@ -30,7 +31,8 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     PipesModule,
     DirectivesModule,
-    PdfViewerModule
+    PdfViewerModule,
+    NgxJsonViewerModule
   ],
   exports: [
     CommonModule,
@@ -40,7 +42,8 @@ export function createTranslateLoader(http: HttpClient) {
     DirectivesModule,
     PdfViewerModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxJsonViewerModule
   ],
   providers: [
     AppMaterialModule,

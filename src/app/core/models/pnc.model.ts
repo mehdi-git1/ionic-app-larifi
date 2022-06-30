@@ -1,4 +1,3 @@
-import { PncMetadataDateModel } from './pnc-metadata-date.model';
 import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
 
 import { GenderEnum } from '../enums/gender.enum';
@@ -7,6 +6,8 @@ import { AssignmentModel } from './assignment.model';
 import { DocumentModel } from './document.model';
 import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
 import { PncLightModel } from './pnc-light.model';
+import { PncMetadataDateModel } from './pnc-metadata-date.model';
+import { LanguageModel } from './statutory-certificate/language.model';
 import { RelayModel } from './statutory-certificate/relay.model';
 import { StatutoryCertificateModel } from './statutory.certificate.model';
 
@@ -40,6 +41,7 @@ export class PncModel extends EDossierPncObjectModel {
     documents: Array<DocumentModel> = new Array();
     haulType: HaulTypeEnum;
     metadataDate: PncMetadataDateModel;
+    languages: LanguageModel[];
 
     getStorageId(): string {
         return this.matricule;

@@ -1,4 +1,5 @@
 export enum ProfessionalInterviewTypeEnum {
     'EPP' = 'EPP',
-    'BILAN' = 'BILAN'
+    'BILAN' = 'BILAN',
+    'EDP' = 'EDP'
 }

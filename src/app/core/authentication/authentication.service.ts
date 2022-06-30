@@ -18,6 +18,7 @@ import { StorageService } from '../storage/storage.service';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
+
     constructor(
         private sessionService: SessionService,
         private offlineSecurityService: OfflineSecurityService,
@@ -32,6 +33,13 @@ export class AuthenticationService {
         private secMobilService: SecMobilService
     ) { }
 
+    /**
+     * Ouvre l'application d'authentification
+     * @returns une promesse contenant le résultat 
+     */
+    openSUA() {
+        return this.secMobilService.openSUA();
+    }
     /**
      * Gére la création des données fonctionnelles et leurs gestions dans l'appli
      * @return une promesse contenant le statut de l'authentification
@@ -51,13 +59,13 @@ export class AuthenticationService {
         );
     }
 
+
     /**
      * Vérifie si on est connecté (en mobile uniquement). En web, l'utilisateur n'a pas besoin d'authentification.
      * @return vrai si l'utilisateur a passé l'authentification (s'il a un certificat secMobile ou s'il est en web), faux sinon
      */
     isAuthenticated(): Promise<boolean> {
         if (!this.deviceService.isBrowser()) {
-            this.secMobilService.init();
             return this.secMobilService.isAuthenticated().then(() => {
                 return true;
             }, error => {
@@ -102,7 +110,6 @@ export class AuthenticationService {
         // Si le mode offline est autorisé, on met en place la gestion du offline
         if (this.deviceService.isOfflineModeAvailable()) {
             this.offlineManagement().then(result => {
-                this.synchronizationService.checkAndStoreEDossierOffline(this.sessionService.getActiveUser().matricule);
                 if (!result && this.deviceService.isBrowser()) {
                     this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE'));
                 }
@@ -121,20 +128,6 @@ export class AuthenticationService {
     userHaveToImpersonate(authenticatedUser): boolean {
         return this.securityService.isAdmin(authenticatedUser) && !authenticatedUser.isPnc && !this.sessionService.impersonatedUser;
     }
-
-    /**
-     * Gére l'authentification dans l'appli via la page d'authentification
-     * @param login : login du user
-     * @param password : mot de passe
-     */
-    authenticateUser(login, password): Promise<AuthenticationStatusEnum> {
-        return this.secMobilService.authenticate(login, password).then(x => {
-            return this.manageUserInformationsInApp();
-        }, error => {
-            return AuthenticationStatusEnum.AUTHENTICATION_KO;
-        });
-    }
-
 
     /**
      * Recupère le  user connecté en cache et le met en session
@@ -185,7 +178,9 @@ export class AuthenticationService {
         return this.connectivityService.pingAPI().then(
             pingSuccess => {
                 this.connectivityService.setConnected(true);
+                this.synchronizationManagementService.clearSynchroRequestList();
                 this.synchronizationService.synchronizeOfflineData();
+                this.synchronizationService.checkAndStoreEDossierOffline(this.sessionService.getActiveUser().matricule);
                 this.synchronizationManagementService.resumeSynchroRequestProcessing(true);
                 return true;
             }, pingError => {

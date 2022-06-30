@@ -1,11 +1,11 @@
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
 
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../app.constant';
 import { EntityEnum } from '../../enums/entity.enum';
+import { SynchroRequestTypeEnum } from '../../enums/synchronization/synchro-request-type.enum';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
 import { CrewMemberModel } from '../../models/crew-member.model';
@@ -114,23 +114,31 @@ export class SynchronizationService {
   }
 
   /**
-   * Stocke en cache le EDossier du PNC
-   * @param matricule le matricule du PNC dont on souhaite mettre en cache le EDossier
-   * @return une promesse résolue quand le EDossier est mis en cache
+   * Ajoute le pnc a synchroniser dans la file d'attente
    */
-  storeEDossierOffline(matricule: string): Promise<boolean> {
+  synchronizeOfflineData() {
+    const pncSynchroList = this.getPncSynchroList();
+    for (const pncSynchro of pncSynchroList) {
+      const pnc = this.storageService.findOne(EntityEnum.PNC, pncSynchro.pnc.matricule);
+      this.events.publish('SynchroRequest:add', { pnc: pnc, pncSynchro: pncSynchro, requestType: SynchroRequestTypeEnum.PUSH });
+    }
+  }
+
+  /**
+   * Lance le processus de synchronisation des données modifiées offline
+   * @param pncSynchro la demande de synchronisation
+   */
+  synchronisePncOfflineData(pncSynchro: PncSynchroModel) {
     return new Promise((resolve, reject) => {
-      // On ne met pas en cache si des données sont en attente de synchro
-      if (!this.isPncModifiedOffline(matricule)) {
-        this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
-          this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-          resolve(true);
-        }, error => {
-          reject(error.detailMessage);
-        });
-      } else {
-        reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
-      }
+      this.synchroStatusChange.emit(true);
+      this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
+        this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse, false);
+        this.synchroStatusChange.emit(false);
+        resolve(true);
+      }, error => {
+        this.synchroStatusChange.emit(false);
+        reject(error.detailMessage);
+      });
     });
   }
 
@@ -255,7 +263,7 @@ export class SynchronizationService {
             const pncToSynchronise = this.storageService.findOne(EntityEnum.PNC, crewMember.pnc.matricule);
             if (!pncToSynchronise || (pncToSynchronise && moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(crewMember.pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat)))) {
               pncSynchroList.push(crewMember.pnc);
-              this.events.publish('SynchroRequest:add', { pnc: crewMember.pnc });
+              this.events.publish('SynchroRequest:add', { pnc: crewMember.pnc, requestType: SynchroRequestTypeEnum.FETCH });
             }
           }
         }
@@ -387,39 +395,6 @@ export class SynchronizationService {
     for (const professionalInterview of pncProfessionalInterviews) {
       this.storageService.delete(EntityEnum.PROFESSIONAL_INTERVIEW,
         this.professionalInterviewTransformerService.toProfessionalInterview(professionalInterview).getStorageId());
-    }
-  }
-
-  /**
-   * Lance le processus de synchronisation des données modifiées offline
-   */
-  synchronizeOfflineData() {
-    this.synchroStatusChange.emit(true);
-    const pncSynchroList = this.getPncSynchroList();
-
-    if (pncSynchroList.length > 0) {
-      let promiseCount;
-      let resolvedPromiseCount = 0;
-      new Observable(
-        observer => {
-          promiseCount = pncSynchroList.length;
-          for (const pncSynchro of pncSynchroList) {
-            this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
-              this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse, false);
-              resolvedPromiseCount++;
-              observer.next(true);
-            }, error => {
-              resolvedPromiseCount++;
-              observer.next(true);
-            });
-          }
-        }).subscribe(promiseResolved => {
-          if (resolvedPromiseCount >= promiseCount) {
-            this.synchroStatusChange.emit(false);
-          }
-        });
-    } else {
-      this.synchroStatusChange.emit(false);
     }
   }
 
