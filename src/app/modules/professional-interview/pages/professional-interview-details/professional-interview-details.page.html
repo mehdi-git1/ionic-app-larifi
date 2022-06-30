@@ -7,7 +7,7 @@
                     {{ 'PROFESSIONAL_INTERVIEW.TITLE_BP' | translate }} </span>
                 <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EPP">
                     {{ 'PROFESSIONAL_INTERVIEW.TITLE_EPP' | translate }} </span>
-                <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP_BILAN">
                     {{ 'PROFESSIONAL_INTERVIEW.TITLE_EDP' | translate }} </span>
 
             </ng-container>
@@ -145,19 +145,11 @@
                             </span>
                         </div>
                     </div>
-                    <div *ngIf="showSynthesisAt6Years && professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
+                    <div *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                         <ion-item>
-                            <ion-label>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REGULATORY_POINTS_CHECK' | translate }}
+                            <ion-label class="required">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REGULATORY_POINTS_CHECK' | translate }}
                             </ion-label>
                             <ion-checkbox slot="start" [disabled]="!editionMode" [(ngModel)]="professionalInterview.regulatoryPoints" [checked]="professionalInterview.regulatoryPoints" formControlName="regulatoryPointsCheckControl">
-                            </ion-checkbox>
-                        </ion-item>
-                    </div>
-                    <div *ngIf="!showSynthesisAt6Years && editionMode && professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
-                        <ion-item>
-                            <ion-label>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.SYNTHESIS_AT_6_YEARS' | translate }}
-                            </ion-label>
-                            <ion-checkbox slot="start" [checked]="showSynthesisAt6Years" (ionChange)="showOrHideSynthesisAt6Years($event)">
                             </ion-checkbox>
                         </ion-item>
                     </div>

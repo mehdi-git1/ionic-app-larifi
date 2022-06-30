@@ -536,7 +536,7 @@ export class ProfessionalInterviewDetailsPage {
    * Verifie que tout les champs de saisie sont remplis
    */
   isAllIFieldsAreFilled() {
-    if (!this.professionalInterview.annualProfessionalInterviewDate || !this.professionalInterview.interviewCondition) {
+    if (!this.professionalInterview.annualProfessionalInterviewDate || !this.professionalInterview.interviewCondition || !this.professionalInterview.regulatoryPoints) {
       return false;
     }
     let returnValue = true;

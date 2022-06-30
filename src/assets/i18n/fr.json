@@ -244,7 +244,7 @@
     "CAREER_OBJECTIVE_LIST": {
         "EOBS_TITLE": "eObservations",
         "CAREER_OBJECTIVE_TITLE": "Priorités",
-        "PROFESSIONAL_INTERVIEW_TITLE": "Entretien de développement professionnel",
+        "PROFESSIONAL_INTERVIEW_TITLE": "Entretien professionnel",
         "NO_OBJECTIVES": "Aucune priorité pour le moment",
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
@@ -479,12 +479,12 @@
         }
     },
     "PROFESSIONAL_INTERVIEW": {
-        "TITLE_BILAN_PRO": "Entretien de développement professionnel",
+        "TITLE_BILAN_PRO": "Entretien professionnel",
         "TITLE_BP": "Bilan professionnel",
         "TITLE_EPP": "Entretien professionnel PNC",
-        "TITLE_EDP": "Entretien de développement professionel",
+        "TITLE_EDP": "Entretien professionnel",
         "BUTTONS": {
-            "NEW_PROFESSIONAL_INTERVIEW": "Nouvel EDP"
+            "NEW_PROFESSIONAL_INTERVIEW": "Nouvel entretien"
         },
         "LIST": {
             "HEADER": {
@@ -531,7 +531,8 @@
             "TYPE": {
                 "EPP": "EPP",
                 "BILAN": "Bilan professionnel",
-                "EDP": "EDP"
+                "EDP": "EDP",
+                "EDP_BILAN": "EDP-BILAN"
             },
             "BUTTONS": {
                 "DELETE_DRAFT": "Supprimer brouillon",
