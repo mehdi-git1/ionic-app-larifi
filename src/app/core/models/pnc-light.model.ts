@@ -13,4 +13,9 @@ export class PncLightModel {
     isInstructor = false;
     isRds = false;
     languages: LanguageModel[];
+    class: string;
+    rung: string;
+    networkMobilityRequest: Date;
+    candidacy: Date;
+
 }

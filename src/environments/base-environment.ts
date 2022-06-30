@@ -1,8 +1,9 @@
 
 export abstract class BaseEnvironment {
-  public appVersion = '3.5.0';
+  public appVersion = '3.6.0';
   public contextRoot = '/api/';
   public appName = 'EDossierPnc';
+  public appScheme = "edossier://secmobil"
   public backEndUrl;
   public secmobileEnv;
 

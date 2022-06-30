@@ -1,9 +1,9 @@
 
-import { tick, fakeAsync } from '@angular/core/testing';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 import { AuthenticationStatusEnum } from '../enums/authentication-status.enum';
-import { AuthenticationService } from './authentication.service';
 import { AuthenticatedUserModel } from '../models/authenticated-user.model';
+import { AuthenticationService } from './authentication.service';
 
 const sessionServiceMock = jasmine.createSpyObj('sessionServiceMock', ['getActiveUser']);
 
@@ -178,24 +178,6 @@ describe('AuthenticationService', () => {
             sessionServiceMock.impersonatedUser = new AuthenticatedUserModel();
             expect(authenticationService.userHaveToImpersonate(authenticatedUserModelTmp)).toBe(false);
         });
-    });
-
-
-    describe('authenticateUser', () => {
-        it(`doit retourner un message d'erreur AUTHENTICATION_KO si les identifiants sont faux`, fakeAsync(() => {
-            secMobilServiceMock.authenticate.and.returnValue(Promise.reject(false));
-            authenticationService.authenticateUser('login', 'password').then(
-                data => expect(data).toEqual(AuthenticationStatusEnum.AUTHENTICATION_KO)
-            );
-        }));
-
-        it(`doit appeler la fonction manageUserInformationsInApp si les identifiants sont bons`, fakeAsync(() => {
-            secMobilServiceMock.authenticate.and.returnValue(Promise.resolve(true));
-            const manageSpy = spyOn(authenticationService, 'manageUserInformationsInApp');
-            authenticationService.authenticateUser('login', 'password').then(
-                data => expect(manageSpy).toHaveBeenCalled()
-            );
-        }));
     });
 
     describe('getAuthenticatedUserFromCache', () => {

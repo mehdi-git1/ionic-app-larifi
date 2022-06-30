@@ -5,8 +5,8 @@ export class ProfessionalInterviewThemeModel extends EDossierPncObjectModel {
 
     id: number;
     label: string;
-    themeOrder: number;
     key: string;
+    themeOrder: number;
     professionalInterviewItems: ProfessionalInterviewItemModel[];
     subThemes: ProfessionalInterviewThemeModel[];
 

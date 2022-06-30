@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { Config } from 'src/environments/config';
 
 import { AuthenticationService } from '../../../../core/authentication/authentication.service';
 import { AuthenticationStatusEnum } from '../../../../core/enums/authentication-status.enum';
@@ -15,51 +16,16 @@ import { ModalSecurityService } from '../../../../core/services/modal/modal-secu
 })
 export class AuthenticationPage {
 
-  loginForm: FormGroup;
-  errorMsg: string;
-  hideSpinner = true;
-
   constructor(
-    private formBuilder: FormBuilder,
     public translateService: TranslateService,
-    public deviceService: DeviceService,
-    public securityModalService: ModalSecurityService,
-    private authenticationService: AuthenticationService,
-    private appInitService: AppInitService
-  ) {
-    this.initializeForm();
-  }
-
-  initializeForm() {
-    this.loginForm = this.formBuilder.group({
-      login: ['', Validators.compose([Validators.required])],
-      password: ['', Validators.compose([Validators.required])],
-    });
-  }
+    private authenticationService: AuthenticationService
+  ) { }
 
   /**
-   * Permet de se connecter
+   * Lance l'ouverture de l'application 
+   * secMobil SUA pour l'authentification
    */
-  sendAuthent() {
-    if (this.hideSpinner) {
-      this.hideSpinner = false;
-      this.errorMsg = null;
-
-      const loginValue: string = this.loginForm.value['login'];
-      const passwordValue: string = this.loginForm.value['password'];
-
-      this.authenticationService.authenticateUser(loginValue, passwordValue).then(
-        authentReturn => {
-          this.hideSpinner = true;
-          this.appInitService.setAuthenticationStatus(authentReturn);
-          if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_KO) {
-            this.errorMsg = this.translateService.instant('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
-          } else {
-            this.appInitService.handleAuthenticationStatus();
-          }
-        });
-    }
+  openSUA(): void {
+    this.authenticationService.openSUA();
   }
-
-
 }

@@ -1,9 +1,9 @@
 import * as moment from 'moment';
 import { AppConstant } from 'src/app/app.constant';
 import { Config } from 'src/environments/config';
-
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -51,17 +51,40 @@ export class AppComponent {
     private alertCtrl: AlertController,
     private config: Config,
     private appVersionService: AppVersionService,
-    private myBoardNotificationService: MyBoardNotificationService
+    private myBoardNotificationService: MyBoardNotificationService,
+    private deeplinks: Deeplinks
   ) {
     this.platform.ready().then(() => {
       this.appInitService.initAppOnIpad().then(() => {
         this.initializeApp();
         if (!this.deviceService.isBrowser()) {
+          this.initDeepLinks();
           this.appInitService.handleAuthenticationStatus();
           this.isNewUpdateAvailable();
         }
       }
       );
+    });
+  }
+
+  /**
+   * Initialise les deeplinks gerés par l'application
+   */
+  initDeepLinks() {
+    this.deeplinks.route({
+      '/secmobil': 'secmobil',
+    }).subscribe(match => {
+      this.authenticationService.isAuthenticated().then(isAuthenticated => {
+        if (isAuthenticated) {
+          this.appInitService.initAppOnIpad().then(() => {
+            this.appInitService.handleAuthenticationStatus();
+            this.isNewUpdateAvailable();
+          });
+
+        }
+      });
+    }, nomatch => {
+      this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.WARNING.NO_MATCHED_DEEP_LINK'));
     });
   }
 
@@ -118,7 +141,7 @@ export class AppComponent {
   }
 
   /**
-   * Verifie le type du navigateur utilisé
+   * Vérifie le type du navigateur utilisé
    *
    * @return vrai si l'application est lancé avec Internet explorer ou edge, faux sinon.
    */
