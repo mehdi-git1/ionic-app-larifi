@@ -475,7 +475,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   private manageToastAfterSave(professionalInterviewPreviousState: ProfessionalInterviewStateEnum) {
     if (this.professionalInterview.state === professionalInterviewPreviousState) {
-      this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP ?
+      this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP || this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP_BILAN ?
         this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_UPDATED')
         : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_UPDATED'));
       if (this.isAdminModeAvailable()) {
@@ -489,13 +489,13 @@ export class ProfessionalInterviewDetailsPage {
         this.navCtrl.pop();
       }
       if (this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT) {
-        this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP ?
+        this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP || this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP_BILAN ?
           this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_TAKEN_INTO_ACCOUNT')
           : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_TAKEN_INTO_ACCOUNT'));
         this.navCtrl.pop();
       }
       if (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
-        this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP ?
+        this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP || this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP_BILAN ?
           this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_VALIDATED')
           : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_VALIDATED'));
         this.navCtrl.pop();
