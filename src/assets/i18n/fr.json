@@ -532,7 +532,7 @@
                 "EPP": "EPP",
                 "BILAN": "Bilan professionnel",
                 "EDP": "EDP",
-                "EDP_BILAN": "EDP-BILAN"
+                "BI6": "EDP-BILAN"
             },
             "BUTTONS": {
                 "DELETE_DRAFT": "Supprimer brouillon",

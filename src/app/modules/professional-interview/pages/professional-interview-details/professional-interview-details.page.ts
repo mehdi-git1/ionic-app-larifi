@@ -217,7 +217,7 @@ export class ProfessionalInterviewDetailsPage {
   createNewProfessionalInterview() {
     this.showSynthesisAt6Years = false;
     this.professionalInterview = _.cloneDeep(this.sessionService.getActiveUser().appInitData.blankProfessionalInterview);
-    this.professionalInterview.type = ProfessionalInterviewTypeEnum.EDP;
+    this.professionalInterview.type = ProfessionalInterviewTypeEnum.BI6;
     this.professionalInterview.attachmentFiles = new Array<DocumentModel>();
     this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
       return a.themeOrder > b.themeOrder ? 1 : -1;
@@ -475,7 +475,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   private manageToastAfterSave(professionalInterviewPreviousState: ProfessionalInterviewStateEnum) {
     if (this.professionalInterview.state === professionalInterviewPreviousState) {
-      this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP || this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP_BILAN ?
+      this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP || this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.BI6 ?
         this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_UPDATED')
         : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_UPDATED'));
       if (this.isAdminModeAvailable()) {
@@ -489,13 +489,13 @@ export class ProfessionalInterviewDetailsPage {
         this.navCtrl.pop();
       }
       if (this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT) {
-        this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP || this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP_BILAN ?
+        this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP || this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.BI6 ?
           this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_TAKEN_INTO_ACCOUNT')
           : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_TAKEN_INTO_ACCOUNT'));
         this.navCtrl.pop();
       }
       if (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
-        this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP || this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP_BILAN ?
+        this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP || this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.BI6 ?
           this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_VALIDATED')
           : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_VALIDATED'));
         this.navCtrl.pop();
@@ -622,7 +622,7 @@ export class ProfessionalInterviewDetailsPage {
    * Enregistre un bilan professionnel au statut validé
    */
   saveProfessionalInterviewToValidatedStatus() {
-    this.professionalInterview.type = ProfessionalInterviewTypeEnum.EDP_BILAN;
+    this.professionalInterview.type = ProfessionalInterviewTypeEnum.BI6;
     const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
     professionalInterviewToSave.state = ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT;
     professionalInterviewToSave.matricule = this.pnc.matricule;
