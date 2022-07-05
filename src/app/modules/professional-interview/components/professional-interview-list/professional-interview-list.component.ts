@@ -1,13 +1,13 @@
-
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
+    ProfessionalInterviewDisplayModeEnum
+} from '../../../../core/enums/professional-interview/professional-interview-display-mode.enum';
+import {
     ProfessionalInterviewModel
 } from '../../../../core/models/professional-interview/professional-interview.model';
 import { SecurityService } from '../../../../core/services/security/security.service';
-import { ProfessionalInterviewDisplayModeEnum } from '../../../../core/enums/professional-interview/professional-interview-display-mode.enum';
-
 
 @Component({
     selector: 'professional-interview-list',
@@ -64,5 +64,4 @@ export class ProfessionalInterviewListComponent {
     isManager(): boolean {
         return this.securityService.isManager();
     }
-
 }

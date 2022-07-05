@@ -1,3 +1,5 @@
+import { DocumentModel } from 'src/app/core/models/document.model';
+
 import {
     ProfessionalInterviewConditionEnum
 } from '../../enums/professional-interview/professional-interview-condition.enum';
@@ -7,7 +9,6 @@ import {
 import {
     ProfessionalInterviewTypeEnum
 } from '../../enums/professional-interview/professional-interview-type.enum';
-import { DocumentModel } from '../document.model';
 import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
 import { PncLightModel } from '../pnc-light.model';
 import { ProfessionalInterviewThemeModel } from './professional-interview-theme.model';
@@ -33,8 +34,8 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     toDate: Date;
     signingBlock: boolean;
     interviewCondition: ProfessionalInterviewConditionEnum;
-    attachmentFiles: Array<DocumentModel> = new Array();
     regulatoryPoints: boolean;
+    attachmentFiles: Array<DocumentModel> = new Array();
 
     getStorageId(): string {
         return `${this.techId}`;

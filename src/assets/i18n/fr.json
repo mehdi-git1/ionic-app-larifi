@@ -101,9 +101,6 @@
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
             "DOCUMENT_DELETED": "Ce document a été supprimé",
-            "WARNING": {
-                "NO_MATCHED_DEEP_LINK": "Aucune route ne correspond à l'url ciblée"
-            },
             "ERROR": {
                 "MANDATORY_FIELD": "Le champ est obligatoire",
                 "BAD_FORMAT": "Format incorrect",
@@ -156,9 +153,10 @@
         "LAST_CAREER_OBJECTIVE_UPDATE_DATE": "Dernière mise à jour d'une priorité"
     },
     "AUTHENT": {
-        "STATUS": "Vous n'êtes pas authentifié(e)",
-        "HELPER": "Pour vous authentifier, veuillez cliquer sur le bouton ci-dessous",
-        "AUTHENTICATE": "S'authentifier"
+        "AUTHENTICATION": "Authentification",
+        "LOGIN": "Identifiant",
+        "PASSWORD": "PIN + Token",
+        "VALIDATE": "Valider"
     },
     "PNC_AUTOCOMPLETE": {
         "PLACEHOLDER": "Nom Prénom ou Matricule"
@@ -246,7 +244,7 @@
     "CAREER_OBJECTIVE_LIST": {
         "EOBS_TITLE": "eObservations",
         "CAREER_OBJECTIVE_TITLE": "Priorités",
-        "PROFESSIONAL_INTERVIEW_TITLE": "Entretien de développement professionnel",
+        "PROFESSIONAL_INTERVIEW_TITLE": "Entretien professionnel",
         "NO_OBJECTIVES": "Aucune priorité pour le moment",
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "DELETED_INFORMATION_MESSAGE": "Les priorités supprimées sont affichées pendant 30 jours",
@@ -484,11 +482,12 @@
         }
     },
     "PROFESSIONAL_INTERVIEW": {
+        "TITLE_BILAN_PRO": "Entretien professionnel",
         "TITLE_BP": "Bilan professionnel",
         "TITLE_EPP": "Entretien professionnel PNC",
-        "TITLE_EDP": "Entretien de développement professionel",
+        "TITLE_EDP": "Entretien professionnel",
         "BUTTONS": {
-            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau EDP"
+            "NEW_PROFESSIONAL_INTERVIEW": "Nouvel entretien"
         },
         "LIST": {
             "HEADER": {
@@ -517,6 +516,7 @@
             "INTERVIEW_DATE": "Date de l'entretien",
             "UPDATE_DATE": "Enregistré depuis le",
             "REDACTOR": "Rédacteur",
+            "SYNTHESIS_AT_6_YEARS": "Bilan à 6 ans",
             "INTERVIEW_CONDITION": {
                 "TITLE": "Conditions de réalisation de l'entretien",
                 "LABEL": "Sélectionnez une condition :",
@@ -534,7 +534,8 @@
             "TYPE": {
                 "EPP": "EPP",
                 "BILAN": "Bilan professionnel",
-                "EDP": "EDP"
+                "EDP": "EDP",
+                "BI6": "EDP-BILAN"
             },
             "BUTTONS": {
                 "DELETE_DRAFT": "Supprimer brouillon",
@@ -551,6 +552,12 @@
                 "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
                 "CANCEL": "Annuler",
                 "CONFIRM": "Supprimer"
+            },
+            "CONFIRM_SYNTHESIS_AT_6_YEARS": {
+                "TITLE": "Annulation du bilan à 6 ans",
+                "MESSAGE": "Confirmez-vous l'annulation du bilan à 6 ans ?",
+                "CANCEL": "Annuler",
+                "CONFIRM": "Valider"
             },
             "SUCCESS": {
                 "DRAFT_SAVED": "Brouillon sauvegardé",
@@ -571,7 +578,7 @@
             },
             "ACKNOWLEDGEMENT": "J'accuse réception",
             "LEGEND": "Tous les champs ainsi que la date de l'entretien doivent être renseignés pour valider le formulaire",
-            "EDITED_BY": "EDP modifié par {{lastName}} {{firstName}} le {{date}}"
+            "EDITED_BY": "EDP-BILAN/EDP modifié par {{lastName}} {{firstName}} le {{date}}"
         }
     },
     "EOBSERVATION": {
@@ -678,7 +685,7 @@
             "CODE": "Code",
             "LABEL": "Libellé",
             "RESULT": "Résultat",
-            "HELP": "Explication détaillée des résultats dans le Manex D Chapitre 3.4.0.2"
+            "HELP": "Explication détaillée des résultats dans le Manex D Chapitre 3.3.4.2"
         },
         "LEGEND": {
             "TITLE": "Légende",
@@ -716,8 +723,7 @@
             "SUCCESS_WITH_FC": "Réussi avec FC",
             "SUCCESS_WITH_FC_AND_TESTS": "Réussi avec FC + test",
             "SUCCESS_WITH_RETAKE": "Réussi avec rattrapage",
-            "FAILED": "Ajournement",
-          	"RETAKE": "Suspension"
+            "FAILED": "Ajournement"
         },
         "EVALUATION_SHEET": {
             "TITLE": "Feuille d'évaluation",
@@ -1386,16 +1392,7 @@
         },
         "LEGAL_TERMS": {
             "LABEL": "Mentions d'information RGPD"
-        },
-        "CACHE_EXPLORER": {
-            "LABEL": "Explorateur de cache"
         }
-    },
-    "CACHE_EXPLORER": {
-        "DATA_IN_CACHE": "Données en cache :",
-        "FILTER": "Sélectionner",
-        "ALL": "Tout",
-        "MESSAGE": "Données trop importantes, seul l'élément selectionné est affiché !"
     },
     "IMPERSONATE": {
         "TITLE": "Sélection d'une identité PNC",

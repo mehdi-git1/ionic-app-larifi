@@ -1,4 +1,5 @@
 import * as _ from 'lodash-es';
+import { DocumentModel } from 'src/app/core/models/document.model';
 
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
@@ -20,7 +21,6 @@ import {
 import {
   ProfessionalInterviewTypeEnum
 } from '../../../../core/enums/professional-interview/professional-interview-type.enum';
-import { DocumentModel } from '../../../../core/models/document.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
   ProfessionalInterviewThemeModel
@@ -65,6 +65,7 @@ export class ProfessionalInterviewDetailsPage {
   ProfessionalInterviewStateEnum = ProfessionalInterviewStateEnum;
 
   editionMode = false;
+  showSynthesisAt6Years = false;
 
   isPncCommentEditable = false;
 
@@ -153,6 +154,9 @@ export class ProfessionalInterviewDetailsPage {
       parseInt(this.activatedRoute.snapshot.paramMap.get('professionalInterviewId'), 10))
       .then(professionalInterview => {
         this.professionalInterview = professionalInterview;
+        if (this.isSynthesisAt6Years(this.professionalInterview)) {
+          this.showSynthesisAt6Years = true;
+        }
         if (!this.originProfessionalInterview) {
           this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
         }
@@ -165,6 +169,7 @@ export class ProfessionalInterviewDetailsPage {
         this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
           this.pnc = pnc;
           this.professionalInterview.pncAtInterviewDate = this.pncTransformer.toPncLight(this.pnc);
+          this.professionalInterview.pncAtInterviewDate.speciality = this.pnc.currentSpeciality;
         }, error => { });
         this.editionMode = this.isEditable();
         this.isPncCommentEditable = (this.isConcernedPnc()
@@ -198,11 +203,21 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
+   * Verifie que la clé du théme égale a 'synthesisAt6Years'
+   * @param key la clé de l'item
+   * @return true si la clé de l'item égale à 'synthesisAt6Years', false sinon
+   */
+  isSynthesisAt6YearsSection(key: string): boolean {
+    return (key === 'synthesisAt6Years');
+  }
+
+  /**
    * Prépare un formulaire de création pour un nouveau bilan professionnel
    */
   createNewProfessionalInterview() {
+    this.showSynthesisAt6Years = false;
     this.professionalInterview = _.cloneDeep(this.sessionService.getActiveUser().appInitData.blankProfessionalInterview);
-    this.professionalInterview.type = ProfessionalInterviewTypeEnum.EDP;
+    this.professionalInterview.type = ProfessionalInterviewTypeEnum.BI6;
     this.professionalInterview.attachmentFiles = new Array<DocumentModel>();
     this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
       return a.themeOrder > b.themeOrder ? 1 : -1;
@@ -461,7 +476,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   private manageToastAfterSave(professionalInterviewPreviousState: ProfessionalInterviewStateEnum) {
     if (this.professionalInterview.state === professionalInterviewPreviousState) {
-      this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP ?
+      this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP || this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.BI6 ?
         this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_UPDATED')
         : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_UPDATED'));
       if (this.isAdminModeAvailable()) {
@@ -475,13 +490,13 @@ export class ProfessionalInterviewDetailsPage {
         this.navCtrl.pop();
       }
       if (this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT) {
-        this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP ?
+        this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP || this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.BI6 ?
           this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_TAKEN_INTO_ACCOUNT')
           : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_TAKEN_INTO_ACCOUNT'));
         this.navCtrl.pop();
       }
       if (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
-        this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP ?
+        this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.EDP || this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.BI6 ?
           this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_VALIDATED')
           : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_VALIDATED'));
         this.navCtrl.pop();
@@ -524,15 +539,18 @@ export class ProfessionalInterviewDetailsPage {
    * Verifie que tout les champs de saisie sont remplis
    */
   isAllIFieldsAreFilled() {
-    if (!this.professionalInterview.annualProfessionalInterviewDate || !this.professionalInterview.interviewCondition) {
+    if (!this.professionalInterview.annualProfessionalInterviewDate || !this.professionalInterview.interviewCondition || !this.professionalInterview.regulatoryPoints) {
       return false;
     }
     let returnValue = true;
     this.professionalInterview.professionalInterviewThemes.forEach(professionalInterviewTheme => {
       professionalInterviewTheme.professionalInterviewItems.forEach(item => {
-        if (!item.value || typeof item.value === undefined || item.value === '') {
-          returnValue = false;
-        }
+        if (this.isSynthesisAt6YearsSection(item.key) && !this.showSynthesisAt6Years) {
+          returnValue = true;
+        } else
+          if (!item.value || typeof item.value === undefined || item.value === '') {
+            returnValue = false;
+          }
       });
     });
     return returnValue;
@@ -605,6 +623,7 @@ export class ProfessionalInterviewDetailsPage {
    * Enregistre un bilan professionnel au statut validé
    */
   saveProfessionalInterviewToValidatedStatus() {
+    this.professionalInterview.type = ProfessionalInterviewTypeEnum.BI6;
     const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
     professionalInterviewToSave.state = ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT;
     professionalInterviewToSave.matricule = this.pnc.matricule;
@@ -656,4 +675,35 @@ export class ProfessionalInterviewDetailsPage {
     return this.connectivityService.isConnected();
   }
 
+  /**
+   * Masque ou affiche le theme 'synthèse du bilan à 6 ans'
+   * @param event l'événement déclencheur
+   */
+  showOrHideSynthesisAt6Years(event: any) {
+    this.showSynthesisAt6Years = event.detail.checked;
+    if (!this.showSynthesisAt6Years) {
+      this.professionalInterviewForm.get('synthesisAt6Years').setValue('');
+      this.professionalInterview.professionalInterviewThemes.forEach(theme => {
+        if (this.isSynthesisAt6YearsSection(theme.key)) {
+          const item = theme.professionalInterviewItems[0].value = '';
+        }
+      });
+    }
+  }
+
+  /**
+   * Verifie que la valeur du champ 'Synthèse du bilan à 6 ans' n est pas nulle ou vide
+   * @param professionalInterview l'EDP
+   * @returns vrai si la valeur n'est pas nulle, faux sinon
+   */
+  isSynthesisAt6Years(professionalInterview: ProfessionalInterviewModel): boolean {
+    let returnValue = false;
+    professionalInterview.professionalInterviewThemes.forEach(theme => {
+      if (this.isSynthesisAt6YearsSection(theme.key)) {
+        const item = theme.professionalInterviewItems[0];
+        returnValue = item && item.value !== null && item.value !== '';
+      }
+    });
+    return returnValue;
+  }
 }

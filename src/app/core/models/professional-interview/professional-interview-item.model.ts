@@ -1,3 +1,5 @@
+
+
 import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
 
 export class ProfessionalInterviewItemModel extends EDossierPncObjectModel {
