@@ -414,6 +414,7 @@ export class ProfessionalInterviewDetailsPage {
           if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
             this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_DELETED'));
           }
+          this.cancelEditMode()
           this.navCtrl.pop();
           loading.dismiss();
         }, error => {
