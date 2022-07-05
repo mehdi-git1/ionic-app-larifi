@@ -509,7 +509,7 @@
             "NETWORK_MOBILITY_REQUEST": "Demande de mobilité réseau",
             "CANDIDACY": "Candidature",
             "LANGUAGES": "Langues",
-            "REGULATORY_POINTS_CHECK": "L'ensemble des points règlementaire ont été abordés au cours de l'entretien",
+            "REGULATORY_POINTS_CHECK": "L'ensemble des points règlementaires ont été abordés au cours de l'entretien",
             "INTERVIEW_DATE": "Date de l'entretien",
             "UPDATE_DATE": "Enregistré depuis le",
             "REDACTOR": "Rédacteur",
@@ -551,7 +551,7 @@
                 "CONFIRM": "Supprimer"
             },
             "CONFIRM_SYNTHESIS_AT_6_YEARS": {
-                "TITLE": "Annulation du bilan a 6 ans",
+                "TITLE": "Annulation du bilan à 6 ans",
                 "MESSAGE": "Confirmez-vous l'annulation du bilan à 6 ans ?",
                 "CANCEL": "Annuler",
                 "CONFIRM": "Valider"

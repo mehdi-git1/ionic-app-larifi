@@ -21,8 +21,6 @@ export class ProfessionalInterviewListComponent {
     @Input() displayMode: ProfessionalInterviewDisplayModeEnum;
     ProfessionalInterviewDisplayModeEnum = ProfessionalInterviewDisplayModeEnum;
 
-    canDisplayMenu = false;
-
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
@@ -33,7 +31,6 @@ export class ProfessionalInterviewListComponent {
      * Dirige vers la page de création d'un nouveau bilan professionnel
      */
     goToProfessionalInterviewCreation() {
-        this.canDisplayMenu = false;
         this.router.navigate(['../professional-interview', 'create'], { relativeTo: this.activatedRoute });
     }
 
