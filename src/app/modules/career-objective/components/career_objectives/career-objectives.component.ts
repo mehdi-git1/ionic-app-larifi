@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CareerObjectiveStatusEnum } from 'src/app/core/enums/career-objective-status.enum';
 
 import {
-    CareerObjectiveDisplayModeEnum
+  CareerObjectiveDisplayModeEnum
 } from '../../../../core/enums/career-objective/career-objective-display-mode.enum';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 
@@ -26,11 +27,12 @@ export class CareerObjectivesComponent {
   }
 
   /**
-   * Ouvre un objectif => redirige vers la page de création de l'objectif
+   * Ouvre un objectif non supprimé => redirige vers la page de création de l'objectif
    * @param careerObjective L'objectif à ouvrir
    */
   openCareerObjective(careerObjective: CareerObjectiveModel) {
-    this.router.navigate(['../', 'career-objective', 'create', careerObjective.techId], { relativeTo: this.activatedRoute });
+    if (careerObjective.careerObjectiveStatus !== CareerObjectiveStatusEnum.DELETED)
+      this.router.navigate(['../', 'career-objective', 'create', careerObjective.techId], { relativeTo: this.activatedRoute });
   }
 
 }

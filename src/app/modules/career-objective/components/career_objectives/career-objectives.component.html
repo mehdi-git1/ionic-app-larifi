@@ -24,6 +24,8 @@
         <span class="career-objective-status-dot registered-dot"></span>{{'CAREER_OBJECTIVE_LIST.STATUS.REGISTERED' | translate}}
         <span class="career-objective-status-dot validated-dot"></span>{{'CAREER_OBJECTIVE_LIST.STATUS.VALIDATED' | translate}}
         <span class="career-objective-status-dot abandoned-dot"></span>{{'CAREER_OBJECTIVE_LIST.STATUS.ABANDONED' | translate}}
+        <span class="career-objective-status-dot deleted-dot"></span>{{'CAREER_OBJECTIVE_LIST.STATUS.DELETED' | translate}}
     </div>
     <div *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS" class="information-message">{{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}</div>
 </div>
+<div class="information-message">{{ 'CAREER_OBJECTIVE_LIST.DELETED_INFORMATION_MESSAGE' | translate }}</div>

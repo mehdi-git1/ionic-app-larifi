@@ -5,7 +5,7 @@ import { CareerObjectiveStatusEnum } from '../../../../core/enums/career-objecti
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import {
-    OfflineIndicatorComponent
+  OfflineIndicatorComponent
 } from '../../../../shared/components/offline-indicator/offline-indicator.component';
 
 @Component({
@@ -49,8 +49,19 @@ export class CareerObjectiveComponent {
       return 'validated-dot';
     } else if (CareerObjectiveStatusEnum.ABANDONED === careerObjectiveStatus) {
       return 'abandoned-dot';
+    } else if (CareerObjectiveStatusEnum.DELETED === careerObjectiveStatus) {
+      return 'deleted-dot';
     }
     return '';
+  }
+
+  /**
+   * Vérifie si un objectif est supprimé
+   * @param careerObjective l'objectif à vérifier
+   * @returns vrai si l'objectif est supprimé
+   */
+  isCareerObjectiveDeleted(careerObjective: CareerObjectiveModel): boolean {
+    return careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DELETED;
   }
 
 }

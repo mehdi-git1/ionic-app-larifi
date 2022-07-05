@@ -478,19 +478,19 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
         this.loadingCtrl.create().then(loading => {
             loading.present();
 
-            this.careerObjectiveService
-                .delete(this.careerObjective.techId)
-                .then(deletedCareerObjective => {
-                    if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
-                        this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_DELETED'));
-                    } else {
-                        this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DELETED'));
-                    }
-                    this.navCtrl.pop();
-                    loading.dismiss();
-                }, error => {
-                    loading.dismiss();
-                });
+
+            this.careerObjective.careerObjectiveStatus = CareerObjectiveStatusEnum.DELETED
+            this.saveCareerObjective(this.careerObjective).then(deletedCareerObjective => {
+                if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
+                    this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_DELETED'));
+                } else {
+                    this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DELETED'));
+                }
+                this.navCtrl.pop();
+                loading.dismiss();
+            }, error => {
+                loading.dismiss();
+            });
         });
     }
 

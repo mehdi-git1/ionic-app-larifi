@@ -249,6 +249,7 @@
         "PROFESSIONAL_INTERVIEW_TITLE": "Entretien de développement professionnel",
         "NO_OBJECTIVES": "Aucune priorité pour le moment",
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
+        "DELETED_INFORMATION_MESSAGE": "Les priorités supprimées sont affichées pendant 30 jours",
         "LIST": {
             "CREATION_DATE": "Initiée le",
             "TITLE": "Libellé",
@@ -270,7 +271,9 @@
             "DRAFT": "Brouillon",
             "REGISTERED": "En cours",
             "VALIDATED": "Clôturée",
-            "ABANDONED": "Abandonnée"
+            "ABANDONED": "Abandonnée",
+            "DELETED": "Supprimée"
+
         }
     },
     "PNC_IDENTITY": {
