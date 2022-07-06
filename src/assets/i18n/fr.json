@@ -244,7 +244,7 @@
     "CAREER_OBJECTIVE_LIST": {
         "EOBS_TITLE": "eObservations",
         "CAREER_OBJECTIVE_TITLE": "Priorités",
-        "PROFESSIONAL_INTERVIEW_TITLE": "Entretien professionnel",
+        "PROFESSIONAL_INTERVIEW_TITLE": "Entretiens professionnels",
         "NO_OBJECTIVES": "Aucune priorité pour le moment",
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "DELETED_INFORMATION_MESSAGE": "Les priorités supprimées sont affichées pendant 30 jours",
@@ -512,7 +512,7 @@
             "NETWORK_MOBILITY_REQUEST": "Demande de mobilité réseau",
             "CANDIDACY": "Candidature",
             "LANGUAGES": "Langues",
-            "REGULATORY_POINTS_CHECK": "L'ensemble des points règlementaires ont été abordés au cours de l'entretien",
+            "REGULATORY_POINTS_CHECK": "L'ensemble des points règlementaires a été abordé au cours de l'entretien",
             "INTERVIEW_DATE": "Date de l'entretien",
             "UPDATE_DATE": "Enregistré depuis le",
             "REDACTOR": "Rédacteur",
@@ -535,7 +535,7 @@
                 "EPP": "EPP",
                 "BILAN": "Bilan professionnel",
                 "EDP": "EDP",
-                "BI6": "EDP-BILAN"
+                "BI6": "EDP - Bilan"
             },
             "BUTTONS": {
                 "DELETE_DRAFT": "Supprimer brouillon",
