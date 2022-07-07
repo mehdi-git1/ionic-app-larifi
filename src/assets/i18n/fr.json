@@ -486,6 +486,8 @@
         "TITLE_BP": "Bilan professionnel",
         "TITLE_EPP": "Entretien professionnel PNC",
         "TITLE_EDP": "Entretien professionnel",
+        "TITLE_BI6": "Entretien de développement professionnel - Bilan",
+
         "BUTTONS": {
             "NEW_PROFESSIONAL_INTERVIEW": "Nouvel entretien"
         },
@@ -578,7 +580,7 @@
             },
             "ACKNOWLEDGEMENT": "J'accuse réception",
             "LEGEND": "Tous les champs ainsi que la date de l'entretien doivent être renseignés pour valider le formulaire",
-            "EDITED_BY": "EDP-BILAN/EDP modifié par {{lastName}} {{firstName}} le {{date}}"
+            "EDITED_BY": "EDP - Bilan/EDP modifié par {{lastName}} {{firstName}} le {{date}}"
         }
     },
     "EOBSERVATION": {

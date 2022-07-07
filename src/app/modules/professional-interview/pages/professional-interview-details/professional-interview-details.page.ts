@@ -706,4 +706,13 @@ export class ProfessionalInterviewDetailsPage {
     });
     return returnValue;
   }
+
+  /**
+   * Ignore le popup de confirmation de modification quand on n'est pas en mode d'édition de l'EDP
+   */
+  goBack() {
+    if (!this.editionMode) {
+      this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
+    }
+  }
 }

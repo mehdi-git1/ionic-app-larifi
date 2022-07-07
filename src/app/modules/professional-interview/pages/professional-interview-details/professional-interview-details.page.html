@@ -1,14 +1,16 @@
 <ion-header>
     <ion-toolbar>
-        <ion-back-button color="white" slot="start"></ion-back-button>
+        <ion-back-button color="white" slot="start" (click)="goBack()"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
             <ng-container slot="center">
                 <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.BILAN">
                     {{ 'PROFESSIONAL_INTERVIEW.TITLE_BP' | translate }} </span>
                 <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EPP ">
                     {{ 'PROFESSIONAL_INTERVIEW.TITLE_EPP' | translate }} </span>
-                <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.BI6">
+                <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP">
                     {{ 'PROFESSIONAL_INTERVIEW.TITLE_EDP' | translate }} </span>
+                <span *ngIf=" professionalInterview?.type === ProfessionalInterviewTypeEnum.BI6">
+                    {{ 'PROFESSIONAL_INTERVIEW.TITLE_BI6' | translate }} </span>
 
             </ng-container>
         </page-header>
