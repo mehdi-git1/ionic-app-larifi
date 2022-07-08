@@ -271,7 +271,6 @@
             "VALIDATED": "Clôturée",
             "ABANDONED": "Abandonnée",
             "DELETED": "Supprimée"
-
         }
     },
     "PNC_IDENTITY": {
@@ -487,7 +486,6 @@
         "TITLE_EPP": "Entretien professionnel PNC",
         "TITLE_EDP": "Entretien professionnel",
         "TITLE_BI6": "Entretien de développement professionnel - Bilan",
-
         "BUTTONS": {
             "NEW_PROFESSIONAL_INTERVIEW": "Nouvel entretien"
         },
@@ -1394,7 +1392,16 @@
         },
         "LEGAL_TERMS": {
             "LABEL": "Mentions d'information RGPD"
+        },
+        "CACHE_EXPLORER": {
+            "LABEL": "Explorateur de cache"
         }
+    },
+    "CACHE_EXPLORER": {
+        "DATA_IN_CACHE": "Données en cache :",
+        "FILTER": "Sélectionner",
+        "ALL": "Tout",
+        "MESSAGE": "Données trop importantes, seul l'élément selectionné est affiché !"
     },
     "IMPERSONATE": {
         "TITLE": "Sélection d'une identité PNC",
