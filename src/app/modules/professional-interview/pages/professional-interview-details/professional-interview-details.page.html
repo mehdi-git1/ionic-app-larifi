@@ -44,11 +44,11 @@
                             <ion-row class="speciality-header">
                                 <ion-col class="speciality" size="2">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.SPECIALITY' | translate }}</ion-col>
-                                <ion-col size-md="5"
+                                <ion-col size-md="10"
                                     *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.BI6">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_EDP' | translate }}
                                 </ion-col>
-                                <ion-col size="4"
+                                <ion-col size-md="10"
                                     *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.BILAN">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_BP' | translate }}
                                 </ion-col>
