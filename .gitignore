@@ -33,7 +33,6 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
-package-lock.json
 ionic.config.json
 
 src/test-config/reports/*
