@@ -42,13 +42,13 @@
                     <div class="speciality-grid elevation-1">
                         <ion-grid>
                             <ion-row class="speciality-header">
-                                <ion-col class="speciality" size="1">
+                                <ion-col class="speciality" size="2">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.SPECIALITY' | translate }}</ion-col>
-                                <ion-col size="3"
+                                <ion-col size-md="10"
                                     *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EDP || professionalInterview?.type === ProfessionalInterviewTypeEnum.BI6">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_EDP' | translate }}
                                 </ion-col>
-                                <ion-col size="4"
+                                <ion-col size-md="10"
                                     *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.BILAN">
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_BP' | translate }}
                                 </ion-col>
@@ -70,7 +70,7 @@
                                     {{ 'PROFESSIONAL_INTERVIEW.DETAILS.CANDIDACY' | translate }}</ion-col>
                             </ion-row>
                             <ion-row class="speciality-label">
-                                <ion-col size="1">{{professionalInterview.pncAtInterviewDate?.speciality}}</ion-col>
+                                <ion-col size="2">{{professionalInterview.pncAtInterviewDate?.speciality}}</ion-col>
                                 <ion-col size="3">
                                     <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.ginq">{{
                                         'PNC_HOME.INFO_PANEL.GINQ' | translate }}
