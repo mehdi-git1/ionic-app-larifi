@@ -36,6 +36,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import {
     SynchronizationService
 } from '../../../../core/services/synchronization/synchronization.service';
+import { CareerObjectiveStatusEnum } from 'src/app/core/enums/career-objective-status.enum';
 
 @Component({
     selector: 'page-development-program',
@@ -225,7 +226,7 @@ export class DevelopmentProgramPage {
             result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
                 return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
             });
-            this.careerObjectives = result;
+            this.careerObjectives = result.filter(careerObjective => CareerObjectiveStatusEnum.DELETED !== careerObjective.careerObjectiveStatus);
         }, error => { });
     }
 }
