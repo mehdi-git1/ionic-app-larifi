@@ -1,7 +1,7 @@
 {
     "ios": {
         "debug": {
-            "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5",
+            "codeSignIdentity": "iPhone Developer",
             "developmentTeam": "56Y85MPTHY",
             "packageType": "development"
         },
@@ -9,7 +9,7 @@
             "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5",
             "developmentTeam": "56Y85MPTHY",
             "packageType": "enterprise",
-            "provisioningProfile": "9a420e86-3a49-4402-b549-e9445c840b12"
+            "provisioningProfile": "3cfac5cb-91f9-4d2d-8c8a-591c377fffe4"
         }
     }
 }
