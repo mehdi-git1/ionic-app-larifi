@@ -16,7 +16,7 @@
             "appName": "DEV eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV",
             "version": "3.5.0",
-            "provisioningProfile": "f3f1d340-6f09-405c-a83c-f4e9aad325c71",
+            "provisioningProfile": "f3f1d340-6f09-405c-a83c-f4e9aad325c7",
             "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5"
         },
         {
