@@ -169,9 +169,9 @@ export class ProfessionalInterviewDetailsPage {
         }
         if (
           this.professionalInterview.matricule ===
-            this.sessionService.getActiveUser().matricule &&
+          this.sessionService.getActiveUser().matricule &&
           this.professionalInterview.state ===
-            ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT
+          ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT
         ) {
           this.saveProfessionalInterviewToConsultState();
         }
@@ -185,7 +185,7 @@ export class ProfessionalInterviewDetailsPage {
             this.professionalInterview.pncAtInterviewDate.speciality =
               this.pnc.currentSpeciality;
           },
-          (error) => {}
+          (error) => { }
         );
         this.editionMode = this.isEditable();
         this.isPncCommentEditable =
@@ -248,7 +248,7 @@ export class ProfessionalInterviewDetailsPage {
           this.professionalInterview
         );
       },
-      (error) => {}
+      (error) => { }
     );
 
     this.editionMode = true;
@@ -271,12 +271,7 @@ export class ProfessionalInterviewDetailsPage {
    * @return true si il n'y a pas eu de modifications
    */
   formHasBeenModified() {
-    return (
-      this.professionalInterview.annualProfessionalInterviewDate !==
-        this.originProfessionalInterview.annualProfessionalInterviewDate ||
-      Utils.getHashCode(this.originProfessionalInterview) !==
-        Utils.getHashCode(this.professionalInterview)
-    );
+    return this.professionalInterviewForm && this.professionalInterviewForm.touched;
   }
 
   /**
@@ -297,7 +292,7 @@ export class ProfessionalInterviewDetailsPage {
     // Manager
     if (
       this.professionalInterview.state ===
-        ProfessionalInterviewStateEnum.DRAFT &&
+      ProfessionalInterviewStateEnum.DRAFT &&
       this.securityService.isManager()
     ) {
       return true;
@@ -329,7 +324,7 @@ export class ProfessionalInterviewDetailsPage {
     if (
       this.professionalInterview &&
       this.professionalInterview.state ===
-        ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT
+      ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT
     ) {
       return "green";
     } else if (
@@ -340,13 +335,13 @@ export class ProfessionalInterviewDetailsPage {
     } else if (
       this.professionalInterview &&
       this.professionalInterview.state ===
-        ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT
+      ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT
     ) {
       return "red";
     } else if (
       this.professionalInterview &&
       this.professionalInterview.state ===
-        ProfessionalInterviewStateEnum.CONSULTED
+      ProfessionalInterviewStateEnum.CONSULTED
     ) {
       return "orange";
     }
@@ -487,7 +482,7 @@ export class ProfessionalInterviewDetailsPage {
   canBeDeleted(): boolean {
     return (
       this.professionalInterview.state ===
-        ProfessionalInterviewStateEnum.DRAFT && this.securityService.isManager()
+      ProfessionalInterviewStateEnum.DRAFT && this.securityService.isManager()
     );
   }
 
@@ -600,13 +595,13 @@ export class ProfessionalInterviewDetailsPage {
         this.professionalInterview.type ===
           this.ProfessionalInterviewTypeEnum.EDP ||
           this.professionalInterview.type ===
-            this.ProfessionalInterviewTypeEnum.BI6
+          this.ProfessionalInterviewTypeEnum.BI6
           ? this.translateService.instant(
-              "PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_UPDATED"
-            )
+            "PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_UPDATED"
+          )
           : this.translateService.instant(
-              "PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_UPDATED"
-            )
+            "PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_UPDATED"
+          )
       );
       if (this.isAdminModeAvailable()) {
         this.editionMode = false;
@@ -633,13 +628,13 @@ export class ProfessionalInterviewDetailsPage {
           this.professionalInterview.type ===
             this.ProfessionalInterviewTypeEnum.EDP ||
             this.professionalInterview.type ===
-              this.ProfessionalInterviewTypeEnum.BI6
+            this.ProfessionalInterviewTypeEnum.BI6
             ? this.translateService.instant(
-                "PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_TAKEN_INTO_ACCOUNT"
-              )
+              "PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_TAKEN_INTO_ACCOUNT"
+            )
             : this.translateService.instant(
-                "PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_TAKEN_INTO_ACCOUNT"
-              )
+              "PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_TAKEN_INTO_ACCOUNT"
+            )
         );
         this.navCtrl.pop();
       }
@@ -651,13 +646,13 @@ export class ProfessionalInterviewDetailsPage {
           this.professionalInterview.type ===
             this.ProfessionalInterviewTypeEnum.EDP ||
             this.professionalInterview.type ===
-              this.ProfessionalInterviewTypeEnum.BI6
+            this.ProfessionalInterviewTypeEnum.BI6
             ? this.translateService.instant(
-                "PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_VALIDATED"
-              )
+              "PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EDP_VALIDATED"
+            )
             : this.translateService.instant(
-                "PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_VALIDATED"
-              )
+              "PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.BP_VALIDATED"
+            )
         );
         this.navCtrl.pop();
       }
@@ -704,7 +699,7 @@ export class ProfessionalInterviewDetailsPage {
     const res =
       !this.professionalInterview.regulatoryPoints ||
       this.professionalInterview.annualProfessionalInterviewDate ===
-        undefined ||
+      undefined ||
       this.professionalInterview.interviewCondition === undefined;
     const isThemesValidated =
       this.professionalInterview.professionalInterviewThemes.every(
@@ -765,7 +760,7 @@ export class ProfessionalInterviewDetailsPage {
   canAddPncComment(): boolean {
     return (
       this.sessionService.getActiveUser().matricule ===
-        this.professionalInterview.matricule &&
+      this.professionalInterview.matricule &&
       (this.professionalInterview.pncComment === "" ||
         typeof this.professionalInterview.pncComment === "undefined")
     );
@@ -798,7 +793,7 @@ export class ProfessionalInterviewDetailsPage {
   ): ProfessionalInterviewModel {
     if (
       typeof this.professionalInterview.annualProfessionalInterviewDate !==
-        "undefined" &&
+      "undefined" &&
       this.professionalInterview.annualProfessionalInterviewDate !== null
     ) {
       professionalInterviewToSave.annualProfessionalInterviewDate =
@@ -847,9 +842,9 @@ export class ProfessionalInterviewDetailsPage {
       (this.professionalInterview.state ===
         ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT ||
         this.professionalInterview.state ===
-          ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT ||
+        ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT ||
         this.professionalInterview.state ===
-          ProfessionalInterviewStateEnum.CONSULTED) &&
+        ProfessionalInterviewStateEnum.CONSULTED) &&
       (this.sessionService.getActiveUser().matricule ===
         this.professionalInterview.redactor.matricule ||
         this.securityService.isProfessionalInterviewAdmin())
