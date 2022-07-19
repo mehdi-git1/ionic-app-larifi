@@ -35,7 +35,7 @@
             "appId": "com.airfrance.mobile.inhouse.edospncPREPROD",
             "version": "3.5.0",
             "provisioningProfile": "62f5225c-2120-4ed7-8b09-94ac0c5dc2ed",
-            "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5",
+            "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5"
         },
         {
             "name": "dev2",
