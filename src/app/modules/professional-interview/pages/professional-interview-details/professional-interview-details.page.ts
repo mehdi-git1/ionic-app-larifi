@@ -700,7 +700,7 @@ export class ProfessionalInterviewDetailsPage {
       !this.professionalInterview.regulatoryPoints ||
       this.professionalInterview.annualProfessionalInterviewDate ===
       undefined ||
-      this.professionalInterview.interviewCondition === undefined;
+      this.professionalInterview.interviewCondition === undefined || !this.professionalInterview.annualProfessionalInterviewDate;
     const isThemesValidated =
       this.professionalInterview.professionalInterviewThemes.every(
         (profesionalInterviewTheme) => {
