@@ -640,6 +640,7 @@
             "SKILLS": "Aptitudes",
             "IMPROVABLE": "Améliorable",
             "CONFORM": "Conforme",
+            "IMPROVABLE_POINTS": "Points à améliorer",
             "STATE": {
                 "LABEL": "Statut en cours : ",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
