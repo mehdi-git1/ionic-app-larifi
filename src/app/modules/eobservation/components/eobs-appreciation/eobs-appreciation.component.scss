@@ -8,7 +8,7 @@
     }
 
     .pcb-skills {
-        padding-left: 24px;
+        padding-left: 0px;
         display: flex;
         align-items: center;
         justify-content: space-around;
@@ -86,10 +86,23 @@
 
 .sub-theme-label {
     width: 100%;
-    padding-left: 24px;
     padding-top: 5px;
     padding-bottom: 5px;
     color: var(--ion-color-blue55);
-    border-top: solid var(--ion-color-grey75) 1px;
-    border-bottom: solid var(--ion-color-grey75) 1px;
+}
+
+ion-grid {
+    padding-left: 0;
+
+    ion-row {
+        padding-left: 0;
+
+        ion-col {
+            padding-left: 0;
+        }
+
+        .column-points {
+            border-left: solid var(--ion-color-grey75) 1px;
+        }
+    }
 }
