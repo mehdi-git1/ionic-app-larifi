@@ -131,7 +131,9 @@ export class ProfessionalInterviewDetailsPage {
         }
       );
     }
-    group["professionalInterviewDateControl"] = new FormControl("");
+    group["professionalInterviewDateControl"] = new FormControl(this.professionalInterview?.annualProfessionalInterviewDate,
+      Validators.required
+    );
     group["pncCommentControl"] = new FormControl(
       "",
       Validators.maxLength(this.pncCommentMaxLength)
@@ -141,8 +143,7 @@ export class ProfessionalInterviewDetailsPage {
       "",
       Validators.required
     );
-    group["regulatoryPointsCheckControl"] = new FormControl(
-      "",
+    group["regulatoryPointsCheckControl"] = new FormControl(this.professionalInterview?.regulatoryPoints,
       Validators.required
     );
     this.professionalInterviewForm = this.formBuilder.group(group);
@@ -271,7 +272,7 @@ export class ProfessionalInterviewDetailsPage {
    * @return true si il n'y a pas eu de modifications
    */
   formHasBeenModified() {
-    return this.professionalInterviewForm && this.professionalInterviewForm.touched;
+    return this.professionalInterviewForm && this.professionalInterviewForm.touched && this.professionalInterviewForm.valid;
   }
 
   /**
@@ -698,8 +699,6 @@ export class ProfessionalInterviewDetailsPage {
   isAllIFieldsAreFilled(): boolean {
     const res =
       !this.professionalInterview.regulatoryPoints ||
-      this.professionalInterview.annualProfessionalInterviewDate ===
-      undefined ||
       this.professionalInterview.interviewCondition === undefined;
     const isThemesValidated =
       this.professionalInterview.professionalInterviewThemes.every(
@@ -711,7 +710,7 @@ export class ProfessionalInterviewDetailsPage {
         }
       );
 
-    return !res && isThemesValidated;
+    return !res && isThemesValidated && this.professionalInterviewForm.valid;
   }
 
   /**
