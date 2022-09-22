@@ -1,3 +1,4 @@
+import { LogbookEventModeEnum } from 'src/app/core/enums/logbook-event/logbook-event-mode.enum';
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
@@ -8,7 +9,6 @@ import {
   LogbookEventNotifiedPnc
 } from 'src/app/core/models/logbook/logbook-event-notified-pnc.model';
 import { PncTransformerService } from 'src/app/core/services/pnc/pnc-transformer.service';
-import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbook-event-mode.enum';
 import { LogbookEventTypeEnum } from '../../../../core/enums/logbook-event/logbook-event-type.enum';
 import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
 import { LogbookEventCategory } from '../../../../core/models/logbook/logbook-event-category';
@@ -49,6 +49,7 @@ export class LogbookEventComponent implements OnInit {
   techId: number;
 
   logbookEventCategories: LogbookEventCategory[];
+  updatedNotifiedPncList = new Array<LogbookEventNotifiedPnc>();
   originLogbookEvent: LogbookEventModel;
 
   titleMaxLength = 100;
@@ -117,23 +118,11 @@ export class LogbookEventComponent implements OnInit {
         this.logbookEvent.notifiedPncs.push(notifiedInstructor);
       }
 
-    } else if (this.mode === LogbookEventModeEnum.EDITION) {
-      // Mise a jour de la liste des pnc notifiés
-      this.logbookEvent.notifiedPncs.forEach(notifiedPnc => {
-        if (notifiedPnc.speciality === NotifiedPncSpecialityEnum.REFERENT_INSTRUCTOR
-          && notifiedPnc.pnc.matricule !== this.pnc.pncInstructor.matricule) {
-          notifiedPnc.pnc = this.pncTransformer.transformPncLightToPnc(this.pnc.pncInstructor);
-        }
-        if (notifiedPnc.speciality === NotifiedPncSpecialityEnum.RDD
-          && notifiedPnc.pnc.matricule !== this.pnc.pncRdd.matricule) {
-          notifiedPnc.pnc = this.pncTransformer.transformPncLightToPnc(this.pnc.pncRdd);
-        }
-        if (notifiedPnc.speciality === NotifiedPncSpecialityEnum.RDS
-          && notifiedPnc.pnc.matricule !== this.pnc.pncRds.matricule) {
-          notifiedPnc.pnc = this.pncTransformer.transformPncLightToPnc(this.pnc.pncRds);
-        }
-      });
     }
+    if (LogbookEventModeEnum.EDITION == this.mode) {
+      this.initUpdatedNotifiedPncList();
+    }
+
 
     this.logbookEvent.mode = this.mode;
     this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
@@ -344,6 +333,7 @@ export class LogbookEventComponent implements OnInit {
     }
 
     logbookEventToSave.sendToPoleCSV = this.logbookEventForm.value.sendToPoleCSV;
+    logbookEventToSave.notifiedPncs = this.updatedNotifiedPncList;
     return logbookEventToSave;
   }
 
@@ -355,45 +345,68 @@ export class LogbookEventComponent implements OnInit {
     return this.securityService.isManager();
   }
 
-  /**
-   * Verifie si des pnc sont notifiés
-   * @param pncList la liste des pnc à vérifier
-   * @return true si les pnc sont notifiés, false sinon
-   */
-  isPncNotified(pncList: Array<PncLightModel>): boolean {
-    if (!pncList || pncList.length === 0) {
-      return false;
-    }
-    for (const pnc of pncList) {
-      if (!pnc || !pnc.matricule) {
-        return false;
-      }
 
-      const pncFound = this.logbookEvent.notifiedPncs.find(notifiedPnc => notifiedPnc.pnc.matricule === pnc.matricule)
-      if (!pncFound) {
-        return false;
-      }
-    }
-    return true;
+  /**
+   * Vérifie que le pnc fait partie des pnc notifiés
+   * @param pnc le pnc dont on souhaite vérifie la notification
+   * @return true si notifié, faux sinon.
+   */
+  isPncNotified(pnc: PncLightModel | PncModel): boolean {
+    return pnc && pnc.matricule && this.updatedNotifiedPncList.some(eventNotifiedPnc => eventNotifiedPnc.pnc.matricule == pnc.matricule);
   }
 
   /**
    * Ajoute le ou les pnc cochés à la liste des pnc à notifier
    * @param myEvent l'event lié à la case à cocher
-   * @param pncList la liste des pnc concernés
+   * @param pnc la liste des pnc concernés
    * @param speciality la spécialité du ou des pnc concernés
    */
-  updatePncNotifiedList(myEvent: any, pncList: Array<PncLightModel>, speciality: NotifiedPncSpecialityEnum) {
-    for (const pnc of pncList) {
-      if (myEvent.detail.checked && pnc.matricule) {
-        const notifiedPnc = new LogbookEventNotifiedPnc();
-        notifiedPnc.pnc = this.pncTransformer.transformPncLightToPnc(pnc);
-        notifiedPnc.speciality = speciality;
-        this.logbookEvent.notifiedPncs.push(notifiedPnc);
-      } else {
-        this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(notifiedPnc =>
-          notifiedPnc.pnc.matricule !== pnc.matricule);
-      }
+  updatePncNotifiedList(myEvent: any, pnc: PncLightModel, speciality: NotifiedPncSpecialityEnum) {
+    if (myEvent.detail.checked && pnc.matricule) {
+      this.addNotifiedPnc(pnc, speciality);
+    } else {
+      this.removeFromPncNotifiedList(pnc.matricule);
+    }
+
+  }
+
+  /**
+   * Supprime des pnc notifiés, le pnc au matricule passé en paramètre
+   * @param matricule  le matricule du pnc à supprimer
+   */
+  removeFromPncNotifiedList(matricule: string) {
+    this.updatedNotifiedPncList = this.updatedNotifiedPncList.filter(notifiedPnc => notifiedPnc.pnc.matricule != matricule);
+  }
+
+  /**
+   * Ajoute, s'il n'existe pas, le pnc dans la liste des pnc notifiés
+   * @param pnc  le pnc à ajouter
+   */
+  addNotifiedPnc(pnc: PncLightModel | PncModel, speciality: NotifiedPncSpecialityEnum) {
+    const index = this.updatedNotifiedPncList.findIndex(eventNotifiedPnc => eventNotifiedPnc.pnc.matricule == pnc.matricule);
+    if (index == -1) {
+      const notifiedPnc = new LogbookEventNotifiedPnc();
+      notifiedPnc.pnc = (pnc instanceof PncLightModel) ? this.pncTransformer.transformPncLightToPnc(pnc) : pnc;
+      notifiedPnc.speciality = speciality;
+      this.updatedNotifiedPncList.push(notifiedPnc);
     }
   }
+
+  /**
+   * initialise la liste des pnc notifiés en tenant compte 
+   * des changements dans le management
+   */
+  initUpdatedNotifiedPncList() {
+    this.logbookEvent.notifiedPncs.forEach(eventNotifiedPnc => {
+      const rddHasNotChanged = eventNotifiedPnc.speciality == NotifiedPncSpecialityEnum.RDD && eventNotifiedPnc.pnc.matricule == this.pnc.pncRdd.matricule;
+      const rdsHasNotChanged = eventNotifiedPnc.speciality == NotifiedPncSpecialityEnum.RDS && eventNotifiedPnc.pnc.matricule == this.pnc.pncRds.matricule;
+      const instructorHasNotChanged = eventNotifiedPnc.speciality == NotifiedPncSpecialityEnum.REFERENT_INSTRUCTOR && eventNotifiedPnc.pnc.matricule == this.pnc.pncInstructor.matricule;
+
+      if (rddHasNotChanged || rdsHasNotChanged || instructorHasNotChanged) {
+        this.updatedNotifiedPncList.push(eventNotifiedPnc);
+      }
+
+    });
+  }
+
 }
