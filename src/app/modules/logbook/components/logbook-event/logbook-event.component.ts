@@ -352,7 +352,6 @@ export class LogbookEventComponent implements OnInit {
    * @return true si notifié, faux sinon.
    */
   isPncNotified(pnc: PncLightModel | PncModel): boolean {
-    console.log('nofied test' + JSON.stringify(this.updatedNotifiedPncList));
     return pnc && pnc.matricule && this.updatedNotifiedPncList.some(eventNotifiedPnc => eventNotifiedPnc.pnc.matricule == pnc.matricule);
   }
 
