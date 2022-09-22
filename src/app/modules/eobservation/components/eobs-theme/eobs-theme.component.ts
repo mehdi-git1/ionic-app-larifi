@@ -3,16 +3,16 @@ import { PopoverController } from '@ionic/angular';
 
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import {
-    EObservationItemModel
+  EObservationItemModel
 } from '../../../../core/models/eobservation/eobservation-item.model';
 import {
-    ReferentialItemLevelModel
+  ReferentialItemLevelModel
 } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
 import {
-    ReferentialThemeModel
+  ReferentialThemeModel
 } from '../../../../core/models/eobservation/eobservation-referential-theme.model';
 import {
-    EobsItemDescriptionComponent
+  EobsItemDescriptionComponent
 } from '../eobs-item-description/eobs-item-description.component';
 
 @Component({
@@ -25,6 +25,8 @@ export class EObsThemeComponent {
   @Input() theme: ReferentialThemeModel;
 
   @Input() editMode = false;
+
+  CHARACTERS_LIMIT = 78;
 
   constructor(public popoverCtrl: PopoverController) {
   }
@@ -84,5 +86,14 @@ export class EObsThemeComponent {
     }).then(popover => {
       popover.present();
     });
+  }
+
+  /**
+   * Vérifie qu'un label est long
+   * @param label le label
+   * @returns true si le nombre de caractères du label est supérieur à CHARACTERS_LIMIT, false sinon.
+   */
+  isOverFlowLabel(label: string) {
+    return label.length < this.CHARACTERS_LIMIT;
   }
 }
