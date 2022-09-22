@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastService } from 'src/app/core/services/toast/toast.service';
 
 @Injectable({ providedIn: 'root' })
 export class PdfService {
@@ -9,6 +12,9 @@ export class PdfService {
     constructor(
         private inAppBrowser: InAppBrowser,
         private file: File,
+        private fileOpener: FileOpener,
+        private toastService: ToastService,
+        private translateService: TranslateService,
         private httpClient: HttpClient) {
     }
 
@@ -30,9 +36,10 @@ export class PdfService {
                         this.httpClient.get(url, { responseType: 'blob' }).subscribe(result => {
                             this.file.writeExistingFile(rep + '/edossier', pdfFile, result).then(
                                 writingFileReturn => {
-                                    this.inAppBrowser.create(
-                                        rep + '/edossier/' + pdfFile, '_blank', 'hideurlbar=no,location=no,toolbarposition=top'
-                                    );
+                                    this.fileOpener.open(
+                                        createFileReturn.nativeURL,
+                                        'application/pdf'
+                                    ).then(() => { }).catch((err) => { this.errorOpeningFile(err) });
                                 }
                             );
                         });
@@ -52,5 +59,12 @@ export class PdfService {
                 );
             }
         );
+    }
+
+    /**
+    * Affiche le message d'erreur lors de l'ouverture du fichier
+    */
+    private errorOpeningFile(error: any) {
+        this.toastService.error(this.translateService.instant('GLOBAL.DOCUMENT.OPEN_FILE_ERROR') + ' : ' + JSON.stringify(error));
     }
 }
