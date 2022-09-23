@@ -97,27 +97,30 @@ export class SynchronizationService {
         } else {
           let pncToSynchronise = this.storageService.findOne(EntityEnum.PNC, matricule);
           this.pncService.getPnc(matricule).then(pnc => {
-            if (pncToSynchronise && moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat))) {
-              this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
-                this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-                resolve(true);
-              }, error => {
-                reject(error.detailMessage);
-              });
-            }
-            // Si il n'y a pas de changement en BD
-            if (pncToSynchronise && !moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat))) {
-              // Les données en BD sont bien synchronisées
-              resolve(true)
-            }
-            // Le PNC n'existe pas dans le cache
             if (!pncToSynchronise) {
+              // Le PNC n'existe pas dans le cache
               this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
                 this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
                 resolve(true);
               }, error => {
                 reject(error.detailMessage);
               });
+            } else {
+              // Le PNC existe dans le cache
+              const isToUpdate = moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat));
+              if (pncToSynchronise && isToUpdate) {
+                this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+                  this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+                  resolve(true);
+                }, error => {
+                  reject(error.detailMessage);
+                });
+              }
+              // Si il n'y a pas de changement en BD
+              if (pncToSynchronise && !isToUpdate) {
+                // Les données en BD sont bien synchronisées
+                resolve(true)
+              }
             }
           });
         }
