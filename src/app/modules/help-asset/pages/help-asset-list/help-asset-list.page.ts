@@ -70,11 +70,11 @@ export class HelpAssetListPage {
             (result) => {
               this.remoteHelpAssets = result;
             },
-            (error) => {}
+            (error) => { }
           );
         }
       },
-      (error) => {}
+      (error) => { }
     );
   }
 
@@ -212,10 +212,10 @@ export class HelpAssetListPage {
     helpAsset[0].helpAssetType = HelpAssetTypeEnum.PDF;
     helpAsset[0].lastUpdateDate = "2018-10-01T13:11:52Z";
     helpAsset[1] = new HelpAssetModel();
-    helpAsset[1].url = `${this.pdfUrl}/commun/Fiches_Mission_Relais.pdf`;
+    helpAsset[1].url = `${this.pdfUrl}/commun/Mission_Relais_version_23SEP22.pdf`;
     helpAsset[1].label = "Fiches Missions Relais";
     helpAsset[1].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[1].lastUpdateDate = "2022-07-16T00:00:00Z";
+    helpAsset[1].lastUpdateDate = "2022-10-11T00:00:00Z";
     helpAsset[2] = new HelpAssetModel();
     helpAsset[2].url = `${this.pdfUrl}/commun/Priorités_eDossier_guidelines_V.1.pdf`;
     helpAsset[2].label = "Les priorités dans eDossierPNC";
