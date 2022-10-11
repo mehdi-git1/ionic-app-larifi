@@ -201,7 +201,8 @@ export class ProfessionalInterviewDetailsPage {
    * @returns le commentaire du pnc s'il y a du contenu, null sinon
    */
   initPncCommentWithoutWhitespaces() {
-    return this.professionalInterview.pncComment = (/\S/.test(this.professionalInterview.pncComment)) ? this.professionalInterview.pncComment : null;
+    let comment = this.professionalInterview.pncComment.trim()
+    return this.professionalInterview.pncComment = (comment.length > 0) ? comment : null;
   }
 
   /**
@@ -562,7 +563,7 @@ export class ProfessionalInterviewDetailsPage {
               this.professionalInterview = savedProfessionalInterview;
 
               this.sortProfessionalInterviewItems();
-
+              this.initPncCommentWithoutWhitespaces();
               // en mode connecté, mettre en cache le bilan professionnel créé ou modifié si le pnc est en cache
               if (
                 this.deviceService.isOfflineModeAvailable() &&
