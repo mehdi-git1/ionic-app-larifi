@@ -201,7 +201,7 @@ export class ProfessionalInterviewDetailsPage {
    * @returns le commentaire du pnc s'il y a du contenu, null sinon
    */
   initPncCommentWithoutWhitespaces() {
-    let comment = this.professionalInterview.pncComment.trim()
+    let comment = this.professionalInterview.pncComment ? this.professionalInterview.pncComment.trim() : ""
     return this.professionalInterview.pncComment = (comment.length > 0) ? comment : null;
   }
 
