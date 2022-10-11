@@ -177,7 +177,7 @@ export class ProfessionalInterviewDetailsPage {
           this.saveProfessionalInterviewToConsultState();
         }
         this.sortProfessionalInterviewItems();
-
+        this.initPncCommentWithoutWhitespaces();
         this.pncService.getPnc(this.professionalInterview.matricule).then(
           (pnc) => {
             this.pnc = pnc;
@@ -194,6 +194,15 @@ export class ProfessionalInterviewDetailsPage {
           (this.isAdminModeAvailable() && this.editionMode);
         this.initForm();
       });
+  }
+
+  /**
+   * Initialise le commentaire du pnc
+   * @returns le commentaire du pnc s'il y a du contenu, null sinon
+   */
+  initPncCommentWithoutWhitespaces() {
+    let comment = this.professionalInterview.pncComment.trim()
+    return this.professionalInterview.pncComment = (comment.length > 0) ? comment : null;
   }
 
   /**
@@ -554,7 +563,7 @@ export class ProfessionalInterviewDetailsPage {
               this.professionalInterview = savedProfessionalInterview;
 
               this.sortProfessionalInterviewItems();
-
+              this.initPncCommentWithoutWhitespaces();
               // en mode connecté, mettre en cache le bilan professionnel créé ou modifié si le pnc est en cache
               if (
                 this.deviceService.isOfflineModeAvailable() &&
