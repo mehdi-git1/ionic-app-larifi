@@ -177,7 +177,7 @@ export class ProfessionalInterviewDetailsPage {
           this.saveProfessionalInterviewToConsultState();
         }
         this.sortProfessionalInterviewItems();
-
+        this.initPncCommentWithoutWhitespaces();
         this.pncService.getPnc(this.professionalInterview.matricule).then(
           (pnc) => {
             this.pnc = pnc;
@@ -194,6 +194,14 @@ export class ProfessionalInterviewDetailsPage {
           (this.isAdminModeAvailable() && this.editionMode);
         this.initForm();
       });
+  }
+
+  /**
+   * Initialise le commentaire du pnc
+   * @returns le commentaire du pnc s'il y a du contenu, null sinon
+   */
+  initPncCommentWithoutWhitespaces() {
+    return this.professionalInterview.pncComment = (/\S/.test(this.professionalInterview.pncComment)) ? this.professionalInterview.pncComment : null;
   }
 
   /**
