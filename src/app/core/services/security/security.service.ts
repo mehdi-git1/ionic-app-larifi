@@ -100,7 +100,8 @@ export class SecurityService extends BaseService {
     return (this.authorizationService.hasPermission(PermissionConstant.PROFESSIONAL_INTERVIEW_FULL_EDITION)
       || this.sessionService.getActiveUser().isRdd
       || this.sessionService.getActiveUser().isRds
-      || this.sessionService.getActiveUser().isBaseProvinceManager);
+      || this.sessionService.getActiveUser().isBaseProvinceManager
+      || this.sessionService.getActiveUser().isManager);
   }
 
 }
