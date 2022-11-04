@@ -3,9 +3,9 @@
         <label class="e-observation-date">{{eObservation.rotationDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
         <label class="e-observation-type">{{ getEObservationTypeLabel() }}</label>
         <label class="e-observation-writer">
-            <span *ngIf="eObservationDisplayMode !== EObservationDisplayModeEnum.REDACTIONS && eObservation.redactor?.lastName">{{eObservation.redactor.lastName}}
+            <span class="lastname" *ngIf="eObservationDisplayMode !== EObservationDisplayModeEnum.REDACTIONS && eObservation.redactor?.lastName">{{eObservation.redactor.lastName}}
                 <span class="firstname">{{eObservation.redactor.firstName}}</span></span>
-            <span *ngIf="eObservationDisplayMode === EObservationDisplayModeEnum.REDACTIONS && eObservation.pnc?.lastName">{{eObservation.pnc.lastName}}
+            <span class="lastname" *ngIf="eObservationDisplayMode === EObservationDisplayModeEnum.REDACTIONS && eObservation.pnc?.lastName">{{eObservation.pnc.lastName}}
                 <span class="firstname">{{eObservation.pnc.firstName}}</span></span>
         </label>
         <div class="e-observation-detail">
