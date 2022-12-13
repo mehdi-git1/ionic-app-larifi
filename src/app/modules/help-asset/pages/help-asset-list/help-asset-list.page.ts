@@ -70,11 +70,11 @@ export class HelpAssetListPage {
             (result) => {
               this.remoteHelpAssets = result;
             },
-            (error) => {}
+            (error) => { }
           );
         }
       },
-      (error) => {}
+      (error) => { }
     );
   }
 
@@ -226,6 +226,11 @@ export class HelpAssetListPage {
     helpAsset[3].label = "Fiches de poste PNC";
     helpAsset[3].helpAssetType = HelpAssetTypeEnum.PDF;
     helpAsset[3].lastUpdateDate = "2022-01-18T00:00:00Z";
+    helpAsset[4] = new HelpAssetModel();
+    helpAsset[4].url = `${this.pdfUrl}/commun/Boite_outils_manager.pdf`;
+    helpAsset[4].label = "Boîte à outils Cadres et Managers";
+    helpAsset[4].helpAssetType = HelpAssetTypeEnum.PDF;
+    helpAsset[4].lastUpdateDate = "2023-01-01T00:00:00Z";
     return helpAsset;
   }
 }
