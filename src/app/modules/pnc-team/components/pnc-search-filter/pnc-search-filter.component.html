@@ -8,17 +8,21 @@
     <div *ngIf="!connectivityService.isConnected()">{{ 'PNC_SEARCH.NO_CONNEXION_MESSAGE' | translate }}</div>
     <div class="filter-container pnc-autocomplete">
         <!-- PNC -->
-        <pnc-autocomplete (onSelectPnc)="openPncHomePage($event)" [ngModelOptions]="{standalone: true}"></pnc-autocomplete>
+        <pnc-autocomplete (onSelectPnc)="openPncHomePage($event)" [ngModelOptions]="{standalone: true}">
+        </pnc-autocomplete>
     </div>
     <div class="assignment-block">
         <!-- Division -->
         <div>
             <label>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</label>
-            <mat-select #divisionsMatSelect formControlName="divisions" placeholder="{{'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}" (selectionChange)="updateSectorSelectList($event.value)" multiple>
+            <mat-select #divisionsMatSelect formControlName="divisions"
+                placeholder="{{'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}"
+                (selectionChange)="updateSectorSelectList($event.value)" multiple>
                 <mat-option [value]="valueAll" (click)="toggleAllDivisions()">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
                 </mat-option>
-                <mat-option *ngFor="let division of divisionList" [value]="division.code" (click)="unselectDivisionAllOption()">
+                <mat-option *ngFor="let division of divisionList" [value]="division.code"
+                    (click)="unselectDivisionAllOption()">
                     {{getDivisionLabel(division)}}
                 </mat-option>
             </mat-select>
@@ -26,11 +30,13 @@
         <!-- Secteur -->
         <div>
             <label>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</label>
-            <mat-select formControlName="sectors" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}" (selectionChange)="updateGinqSelectList($event.value)" multiple>
+            <mat-select formControlName="sectors" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}"
+                (selectionChange)="updateGinqSelectList($event.value)" multiple>
                 <mat-option [value]="valueAll" (click)="toggleAllSectors()">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                 </mat-option>
-                <mat-option *ngFor="let codeSector of getUniqueSectorList()" [value]="codeSector" (click)="unselectSectorAllOption()">
+                <mat-option *ngFor="let codeSector of getUniqueSectorList()" [value]="codeSector"
+                    (click)="unselectSectorAllOption()">
                     {{codeSector}}
                 </mat-option>
             </mat-select>
@@ -38,11 +44,13 @@
         <!-- Ginq -->
         <div>
             <label>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</label>
-            <mat-select formControlName="ginqs" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}" multiple>
+            <mat-select formControlName="ginqs" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}"
+                multiple>
                 <mat-option [value]="valueAll" (click)="toggleAllGinqs()">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                 </mat-option>
-                <mat-option *ngFor="let codeGinq of getUniqueGinqList()" [value]="codeGinq" (click)="unselectGinqAllOption()">
+                <mat-option *ngFor="let codeGinq of getUniqueGinqList()" [value]="codeGinq"
+                    (click)="unselectGinqAllOption()">
                     {{codeGinq}}
                 </mat-option>
             </mat-select>
@@ -53,11 +61,13 @@
         <!-- Fonction -->
         <div class="flex5">
             <label>{{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</label>
-            <mat-select formControlName="specialities" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}" multiple>
+            <mat-select formControlName="specialities" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}"
+                multiple>
                 <mat-option [value]="valueAll" (click)="toggleAllSpecialities()">
                     {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
                 </mat-option>
-                <mat-option *ngFor="let specialityKey of specialityList" [value]="specialityKey" (click)="unselectSpecialityAllOption()">
+                <mat-option *ngFor="let specialityKey of specialityList" [value]="specialityKey"
+                    (click)="unselectSpecialityAllOption()">
                     {{specialityKey}}
                 </mat-option>
             </mat-select>
@@ -66,13 +76,12 @@
             <!-- Rythme -->
             <ion-label class="input-label">
                 {{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</ion-label>
-            <ion-select interface="popover" formControlName="workRate">
-                <ion-select-option *ngIf="!workRateList || workRateList.length != 1" [value]="valueAll">
-                    {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
-                </ion-select-option>
-                <ion-select-option *ngFor="let workRateKey of workRateList" [value]="workRateKey">
-                    {{workRateKey}}</ion-select-option>
-            </ion-select>
+            <mat-select formControlName="workRate">
+                <mat-option *ngIf="!workRateList || workRateList.length !=1" [value]="valueAll">{{
+                    'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
+                </mat-option>
+                <mat-option *ngFor="let workRateKey of workRateList" [value]="workRateKey">{{workRateKey}}</mat-option>
+            </mat-select>
         </div>
         <div class="flex2 checkbox-container taf">
             <!-- taf -->
@@ -87,15 +96,16 @@
         <!-- Spécialisation avion -->
         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}
         </ion-label>
-        <ion-select interface="popover" formControlName="aircraftSkill">
-            <ion-select-option *ngIf="!aircraftSkillList || aircraftSkillList.length != 1" [value]="valueAll">
-                {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
-            </ion-select-option>
-            <ion-select-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">
-                {{aircraftSkillKey}}</ion-select-option>
-        </ion-select>
+        <mat-select formControlName="aircraftSkill">
+            <mat-option *ngIf="!aircraftSkillList || aircraftSkillList.length != 1" [value]="valueAll">{{
+                'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
+            </mat-option>
+            <mat-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">
+                {{aircraftSkillKey}}</mat-option>
+        </mat-select>
     </div>
-    <mat-expansion-panel #encounterPanel [expanded]="false" *ngIf="!isAlternantSearch()" (afterExpand)="scrollTo(encounterPanel)">
+    <mat-expansion-panel #encounterPanel [expanded]="false" *ngIf="!isAlternantSearch()"
+        (afterExpand)="scrollTo(encounterPanel)">
         <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
             <mat-panel-title>
                 {{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.TITLE' | translate }}
@@ -105,21 +115,25 @@
             <div class="checkbox-container">
                 <!-- Dernier BP réalisé datant de plus de 24 mois -->
                 <ion-item lines="none">
-                    <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH' | translate }}</ion-label>
+                    <ion-label>{{
+                        'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.PROFESSIONAL_INTERVIEW_OLDER_THAN_24_MONTH' |
+                        translate }}</ion-label>
                     <ion-checkbox slot="end" formControlName="hasProfessionalInterviewOlderThan24Months"></ion-checkbox>
                 </ion-item>
             </div>
             <div class="checkbox-container">
                 <!-- Aucun BP -->
                 <ion-item lines="none">
-                    <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.NO_PROFESSIONAL_INTERVIEW' | translate }}</ion-label>
+                    <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.NO_PROFESSIONAL_INTERVIEW' | translate }}
+                    </ion-label>
                     <ion-checkbox slot="end" formControlName="hasNoProfessionalInterview"></ion-checkbox>
                 </ion-item>
             </div>
             <div class="checkbox-container">
                 <!-- Dernière eObs réalisée il y a plus de 18 mois -->
                 <ion-item lines="none">
-                    <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.EOBS_OLDER_THAN_18_MONTHS' | translate }}</ion-label>
+                    <ion-label>{{ 'PNC_SEARCH.CRITERIA.ENCOUNTER_FLIGHT_GROUND.EOBS_OLDER_THAN_18_MONTHS' | translate }}
+                    </ion-label>
                     <ion-checkbox slot="end" formControlName="hasEObsOlderThan18Months"></ion-checkbox>
                 </ion-item>
             </div>
@@ -145,20 +159,22 @@
                     <ion-label class="input-label">
                         {{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.CAREER_OBJECTIVE_CATEGORY' | translate }}
                     </ion-label>
-                    <ion-select interface="popover" formControlName="careerObjectiveCategory">
-                        <ion-select-option *ngIf="!careerObjectiveCategoryList || careerObjectiveCategoryList.length != 1" [value]="valueAll">
+                    <mat-select formControlName="careerObjectiveCategory">
+                        <mat-option *ngIf="!careerObjectiveCategoryList || careerObjectiveCategoryList.length != 1"
+                            [value]="valueAll">
                             {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}
-                        </ion-select-option>
-                        <ion-select-option *ngFor="let category of careerObjectiveCategoryList" [value]="category.code">
+                        </mat-option>
+                        <mat-option *ngFor="let category of careerObjectiveCategoryList" [value]="category.code">
                             {{category.label}}
-                        </ion-select-option>
-                    </ion-select>
+                        </mat-option>
+                    </mat-select>
                 </div>
                 <div class="checkbox-container">
                     <!-- Prioritaire -->
                     <ion-item lines="none">
                         <ion-label>
-                            <div>{{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.PRIORITIZED' | translate }}</div><span class="edospnc-flag prioritized"></span>
+                            <div>{{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.PRIORITIZED' | translate }}</div><span
+                                class="edospnc-flag prioritized"></span>
                         </ion-label>
                         <ion-checkbox slot="end" formControlName="prioritized">
                         </ion-checkbox>
@@ -166,8 +182,10 @@
                     <!-- En cours -->
                     <ion-item lines="none">
                         <ion-label>
-                            {{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.CAREER_OBJECTIVE_IN_PROGRESS' | translate }}<span class="edospnc-flag at-least-one-career-objective"></span></ion-label>
-                        <ion-checkbox slot="end" formControlName="hasAtLeastOneCareerObjectiveInProgress"></ion-checkbox>
+                            {{ 'PNC_SEARCH.CRITERIA.CAREER_OBJECTIVE.CAREER_OBJECTIVE_IN_PROGRESS' | translate }}<span
+                                class="edospnc-flag at-least-one-career-objective"></span></ion-label>
+                        <ion-checkbox slot="end" formControlName="hasAtLeastOneCareerObjectiveInProgress">
+                        </ion-checkbox>
                     </ion-item>
                     <!-- Pas de priorité -->
                     <ion-item lines="none">
@@ -192,15 +210,15 @@
                 <div>
                     <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.MISSION.RELAY' | translate }}
                     </ion-label>
-                    <ion-select interface="popover" formControlName="relay">
-                        <ion-select-option *ngIf="!relayList || relayList.length != 1" [value]="valueAll">
+                    <mat-select formControlName="relay">
+                        <mat-option *ngIf="!relayList || relayList.length != 1" [value]="valueAll">
                             {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
-                        </ion-select-option>
-                        <ion-select-option *ngFor="let relay of relayList" [value]="relay.code">
+                        </mat-option>
+                        <mat-option *ngFor="let relay of relayList" [value]="relay.code">
                             {{relay.code}}
                             <ng-container *ngIf="relay.label"> - {{relay.label}}</ng-container>
-                        </ion-select-option>
-                    </ion-select>
+                        </mat-option>
+                    </mat-select>
                 </div>
             </div>
             <div class="checkbox-container">
