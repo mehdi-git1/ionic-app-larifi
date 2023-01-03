@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -26,9 +26,9 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 /* Import du css du WYSIWYG */
-@import '~quill/dist/quill.core.css';
-@import '~quill/dist/quill.bubble.css';
-@import '~quill/dist/quill.snow.css';
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.bubble.css";
+@import "~quill/dist/quill.snow.css";
 
 [contenteditable] {
     -webkit-user-select: text;
@@ -36,76 +36,78 @@
 }
 
 /* Angular material */
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 /* Import des composants de style */
-@import 'theme/bootstrap.scss';
-@import 'theme/toast.scss';
-@import 'theme/label.scss';
-@import 'theme/input.scss';
-@import 'theme/checkbox.scss';
-@import 'theme/radio.scss';
-@import 'theme/textarea.scss';
-@import 'theme/select.scss';
-@import 'theme/button-bar.scss';
-@import 'theme/button.scss';
-@import 'theme/status.scss';
-@import 'theme/icon.scss';
-@import 'theme/modal.scss';
-@import 'theme/popover.scss';
-@import 'theme/auto-complete.scss';
-@import 'theme/professional-level.scss';
-@import 'theme/mat-expansion-panel.scss';
-@import 'theme/mat-autocomplete.scss';
-@import 'theme/mat-sidenav.scss';
-@import 'theme/navbar.scss';
-@import 'theme/typography.scss';
-@import 'theme/elevation.scss';
-@import 'theme/archive.scss';
+@import "theme/bootstrap.scss";
+@import "theme/toast.scss";
+@import "theme/label.scss";
+@import "theme/input.scss";
+@import "theme/checkbox.scss";
+@import "theme/radio.scss";
+@import "theme/textarea.scss";
+@import "theme/select.scss";
+@import "theme/button-bar.scss";
+@import "theme/button.scss";
+@import "theme/status.scss";
+@import "theme/icon.scss";
+@import "theme/modal.scss";
+@import "theme/popover.scss";
+@import "theme/auto-complete.scss";
+@import "theme/professional-level.scss";
+@import "theme/mat-expansion-panel.scss";
+@import "theme/mat-autocomplete.scss";
+@import "theme/mat-sidenav.scss";
+@import "theme/navbar.scss";
+@import "theme/typography.scss";
+@import "theme/elevation.scss";
+@import "theme/archive.scss";
 
-@import 'theme/flex.scss';
-@import 'theme/scroll.scss';
-@import 'theme/padding.scss';
-@import 'theme/responsive.scss';
+@import "theme/flex.scss";
+@import "theme/scroll.scss";
+@import "theme/padding.scss";
+@import "theme/responsive.scss";
 
-@import 'theme/ion-item.scss';
-@import 'theme/ion-label.scss';
-@import 'theme/ion-alert.scss';
+@import "theme/ion-item.scss";
+@import "theme/ion-label.scss";
+@import "theme/ion-alert.scss";
 
 // webfonts/icons
-@import 'theme/edospnc-icons.scss';
-@import 'theme/betty-icons.min.scss';
+@import "theme/edospnc-icons.scss";
+@import "theme/betty-icons.min.scss";
 
 // Gestion de grid / line / column
-@import 'theme/grid-column-line.scss';
+@import "theme/grid-column-line.scss";
 
 // Gestion des listes de lien
-@import 'theme/link-list.scss';
+@import "theme/link-list.scss";
 
 // Fonts
 // Excellence in motion
 @font-face {
-    font-family: 'Excellence';
-    src: url('/assets/fonts/excellence/Regular/ExcellenceInMotionScreen-Regular.woff') format('woff');
+    font-family: "Excellence";
+    src: url("/assets/fonts/excellence/Regular/ExcellenceInMotionScreen-Regular.woff") format("woff");
 }
 
 @font-face {
-    font-family: 'ExcellenceBold';
-    src: url('/assets/fonts/excellence/Bold/ExcellenceInMotionScreen-Bold.woff') format('woff');
+    font-family: "ExcellenceBold";
+    src: url("/assets/fonts/excellence/Bold/ExcellenceInMotionScreen-Bold.woff") format("woff");
 }
 
 // Open Sans
 @font-face {
-    font-family: 'OpenSans';
-    src: url('/assets/fonts/open-sans/Regular/OpenSans-Regular.woff') format('woff');
+    font-family: "OpenSans";
+    src: url("/assets/fonts/open-sans/Regular/OpenSans-Regular.woff") format("woff");
 }
 
 @font-face {
-    font-family: 'OpenSansBold';
-    src: url('/assets/fonts/open-sans/Bold/OpenSans-Bold.woff') format('woff');
+    font-family: "OpenSansBold";
+    src: url("/assets/fonts/open-sans/Bold/OpenSans-Bold.woff") format("woff");
 }
 
-$custom-typography: mat-typography-config($font-family: 'OpenSans, Excellence');
+$custom-typography: mat-typography-config(
+    $font-family: "OpenSans, Excellence",
+);
 @include mat-core($custom-typography);
 
 // A utiliser sur les éléments cliquables (les labels ont un style contraire, on est obligé de les surcharger) */
@@ -120,7 +122,7 @@ $custom-typography: mat-typography-config($font-family: 'OpenSans, Excellence');
 
 // Pour ajouter une valeur "nulle" (un tiret)
 .no-value:after {
-    content: '-';
+    content: "-";
 }
 
 body,
@@ -154,7 +156,7 @@ body,
 
 // Pour ajouter TU après les dateTime en TU
 .suffix-tu:after {
-    content: ' TU';
+    content: " TU";
     vertical-align: super;
     font-size: smaller;
 }
@@ -198,7 +200,6 @@ ion-badge[outline][color="secondary"] {
 }
 
 @mixin truncate-text($nbLines) {
-
     display: -webkit-box;
     -webkit-line-clamp: $nbLines;
     -webkit-box-orient: vertical;
@@ -258,4 +259,7 @@ ion-label.sc-ion-select-popover-ios {
 
 .mailing-modal-container .modal-wrapper {
     --width: 70%;
+}
+.popover-viewport.sc-ion-popover-md {
+    overflow: visible;
 }
