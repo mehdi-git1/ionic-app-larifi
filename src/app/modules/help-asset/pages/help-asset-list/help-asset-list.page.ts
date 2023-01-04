@@ -212,25 +212,20 @@ export class HelpAssetListPage {
     helpAsset[0].helpAssetType = HelpAssetTypeEnum.PDF;
     helpAsset[0].lastUpdateDate = "2018-10-01T13:11:52Z";
     helpAsset[1] = new HelpAssetModel();
-    helpAsset[1].url = `${this.pdfUrl}/commun/Fiches_Mission_Relais.pdf`;
-    helpAsset[1].label = "Fiches Missions Relais";
+    helpAsset[1].url = `${this.pdfUrl}/commun/Priorités_eDossier_guidelines_V.1.pdf`;
+    helpAsset[1].label = "Les priorités dans eDossierPNC";
     helpAsset[1].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[1].lastUpdateDate = "2022-07-16T00:00:00Z";
+    helpAsset[1].lastUpdateDate = "2020-09-29T00:00:00Z";
     helpAsset[2] = new HelpAssetModel();
-    helpAsset[2].url = `${this.pdfUrl}/commun/Priorités_eDossier_guidelines_V.1.pdf`;
-    helpAsset[2].label = "Les priorités dans eDossierPNC";
+    helpAsset[2].url = `${this.pdfUrl}/commun/FDP_PNC_pour_eDossier_v2.pdf`;
+    helpAsset[2].label = "Fiches de poste PNC";
     helpAsset[2].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[2].lastUpdateDate = "2020-09-29T00:00:00Z";
+    helpAsset[2].lastUpdateDate = "2022-01-18T00:00:00Z";
     helpAsset[3] = new HelpAssetModel();
-    helpAsset[3].url = `${this.pdfUrl}/commun/FDP_PNC_pour_eDossier_v2.pdf`;
-    helpAsset[3].label = "Fiches de poste PNC";
+    helpAsset[3].url = `${this.pdfUrl}/commun/Boite_outils_manager.pdf`;
+    helpAsset[3].label = "Boîte à outils Cadres et Managers";
     helpAsset[3].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[3].lastUpdateDate = "2022-01-18T00:00:00Z";
-    helpAsset[4] = new HelpAssetModel();
-    helpAsset[4].url = `${this.pdfUrl}/commun/Boite_outils_manager.pdf`;
-    helpAsset[4].label = "Boîte à outils Cadres et Managers";
-    helpAsset[4].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[4].lastUpdateDate = "2023-01-01T00:00:00Z";
+    helpAsset[3].lastUpdateDate = "2023-01-01T00:00:00Z";
     return helpAsset;
   }
 }
