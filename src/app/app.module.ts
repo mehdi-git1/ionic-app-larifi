@@ -45,6 +45,8 @@ import { SynchronizationModule } from './modules/synchronization/synchronization
 import { AppRoutingModule } from './routing/app-routing.module';
 import { ComponentsModule } from './shared/components/components.module';
 import { SharedModule } from './shared/shared.module';
+import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 export function appInitFactory(appInitService: AppInitService) {
   return () => {
@@ -104,7 +106,9 @@ export function appInitFactory(appInitService: AppInitService) {
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Deeplinks
+    Deeplinks,
+    File,
+    FileOpener
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

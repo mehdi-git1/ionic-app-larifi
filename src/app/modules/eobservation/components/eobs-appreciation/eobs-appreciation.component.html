@@ -1,35 +1,54 @@
 <edospnc-expandable-block mini="true" title="{{theme.label}}" [emptyCondition]="!hasItems()">
     <div class="line">
-        <span class="column-50 sub-theme-label">{{ 'EOBSERVATION.DETAIL.SKILLS' | translate }}</span>
-        <span class="column-50 sub-theme-label">{{ 'EOBSERVATION.DETAIL.STRONG_POINTS' | translate }}</span>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="4.3"><span class="column-50 sub-theme-label">{{ 'EOBSERVATION.DETAIL.SKILLS' | translate }}</span></ion-col>
+                <ion-col><span class="column-points sub-theme-label">{{ 'EOBSERVATION.DETAIL.STRONG_POINTS' | translate }}</span></ion-col>
+                <ion-col><span class="column-points sub-theme-label">{{ 'EOBSERVATION.DETAIL.IMPROVABLE_POINTS' | translate }}</span></ion-col>
+            </ion-row>
+        </ion-grid>
     </div>
     <div class="pcb-grid">
         <div class="line" *ngFor="let subTheme of theme.subThemes, index as i">
-            <!-- Aptitudes Conforme / Améliorable -->
-            <span class="column-50">
-                <span class="pcb-skills">
-                    <span class="skills-label">
-                        {{subTheme.label}} :
-                    </span>
-                    <span class="skills-value">
-                        <span class="skills-value-list">
-                            <radio-and-label disabled="true" [conditionValue]="subTheme.eobservationItems[0].refItemLevel.level === 'CONFORME'" label="{{ 'EOBSERVATION.DETAIL.CONFORM' | translate }}"></radio-and-label>
-                            <radio-and-label disabled="true" [conditionValue]="subTheme.eobservationItems[0].refItemLevel.level === 'AMELIORABLE'" label="{{ 'EOBSERVATION.DETAIL.IMPROVABLE' | translate }}"></radio-and-label>
+            <ion-grid>
+                <ion-row>
+                    <!-- Aptitudes Conforme / Améliorable -->
+                    <ion-col size="2.3">
+                        <span class="pcb-skills">
+                            <span class="skills-label">
+                                {{subTheme.label}} :
+                            </span>
                         </span>
-                    </span>
-                </span>
-            </span>
 
-            <!-- Points forts -->
-            <span class="column-50">
-                <span class="pcb-strong-points">
-                    <span class="skills-value-list" *ngIf="subTheme && subTheme.subThemes && subTheme.subThemes.length > 0 && subTheme.subThemes[0].eobservationItems" lines="none">
-                        <span *ngFor="let eobservationItem of subTheme.subThemes[0].eobservationItems">
-                            <checkbox-and-label disabled="true" [value]="true" label="{{eobservationItem.refItemLevel.item.label}}"></checkbox-and-label>
+                    </ion-col>
+                    <ion-col size="2">
+                        <span class="skills-value">
+                            <span class="">
+                                <radio-and-label disabled="true" [conditionValue]="subTheme.eobservationItems[0].refItemLevel.level === 'CONFORME'" label="{{ 'EOBSERVATION.DETAIL.CONFORM' | translate }}"></radio-and-label>
+                                <radio-and-label disabled="true" [conditionValue]="subTheme.eobservationItems[0].refItemLevel.level === 'AMELIORABLE'" label="{{ 'EOBSERVATION.DETAIL.IMPROVABLE' | translate }}"></radio-and-label>
+                            </span>
                         </span>
-                    </span>
-                </span>
-            </span>
+                    </ion-col>
+
+                    <!-- Points forts -->
+                    <ion-col class="column-points">
+                        <span *ngIf="subTheme && subTheme.subThemes && subTheme.subThemes.length > 0 && subTheme.subThemes[0].eobservationItems && subTheme.eobservationItems[0].refItemLevel.level === 'CONFORME'" lines="none">
+                            <span *ngFor="let eobservationItem of subTheme.subThemes[0].eobservationItems">
+                                <checkbox-and-label disabled="true" [value]="true" label="{{eobservationItem.refItemLevel.item.label}}"></checkbox-and-label>
+                            </span>
+                        </span>
+                    </ion-col>
+
+                    <!-- Points à améliorer -->
+                    <ion-col class="column-points">
+                        <span *ngIf="subTheme && subTheme.subThemes && subTheme.subThemes.length > 0 && subTheme.subThemes[0].eobservationItems && subTheme.eobservationItems[0].refItemLevel.level === 'AMELIORABLE'" lines="none">
+                            <span *ngFor="let eobservationItem of subTheme.subThemes[0].eobservationItems">
+                                <checkbox-and-label disabled="true" [value]="true" label="{{eobservationItem.refItemLevel.item.label}}"></checkbox-and-label>
+                            </span>
+                        </span>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
         </div>
     </div>
 </edospnc-expandable-block>

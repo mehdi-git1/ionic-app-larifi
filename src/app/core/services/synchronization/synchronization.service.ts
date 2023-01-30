@@ -14,16 +14,16 @@ import { LegModel } from '../../models/leg.model';
 import { PncSynchroModel } from '../../models/pnc-synchro.model';
 import { PncModel } from '../../models/pnc.model';
 import {
-    ProfessionalInterviewModel
+  ProfessionalInterviewModel
 } from '../../models/professional-interview/professional-interview.model';
 import { RotationModel } from '../../models/rotation.model';
 import { WaypointModel } from '../../models/waypoint.model';
 import { StorageService } from '../../storage/storage.service';
 import {
-    CareerObjectiveTransformerService
+  CareerObjectiveTransformerService
 } from '../career-objective/career-objective-transformer.service';
 import {
-    CongratulationLetterTransformerService
+  CongratulationLetterTransformerService
 } from '../congratulation-letter/congratulation-letter-transformer.service';
 import { CrewMemberTransformerService } from '../crewMember/crew-member-transformer.service';
 import { EObservationTransformerService } from '../eobservation/eobservation-transformer.service';
@@ -33,16 +33,16 @@ import { PncPhotoTransformerService } from '../pnc-photo/pnc-photo-transformer.s
 import { PncTransformerService } from '../pnc/pnc-transformer.service';
 import { PncService } from '../pnc/pnc.service';
 import {
-    ProfessionalInterviewTransformerService
+  ProfessionalInterviewTransformerService
 } from '../professional-interview/professional-interview-transformer.service';
 import {
-    ProfessionalLevelTransformerService
+  ProfessionalLevelTransformerService
 } from '../professional-level/professional-level-transformer.service';
 import { RotationTransformerService } from '../rotation/rotation-transformer.service';
 import { SecurityService } from '../security/security.service';
 import { SessionService } from '../session/session.service';
 import {
-    StatutoryCertificateTransformerService
+  StatutoryCertificateTransformerService
 } from '../statutory-certificate/statutory-certificate-transformer.service';
 import { TransformerService } from '../transformer/transformer.service';
 import { WaypointTransformerService } from '../waypoint/waypoint-transformer.service';
@@ -97,13 +97,30 @@ export class SynchronizationService {
         } else {
           let pncToSynchronise = this.storageService.findOne(EntityEnum.PNC, matricule);
           this.pncService.getPnc(matricule).then(pnc => {
-            if (pncToSynchronise && moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat))) {
+            if (!pncToSynchronise) {
+              // Le PNC n'existe pas dans le cache
               this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
                 this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
                 resolve(true);
               }, error => {
                 reject(error.detailMessage);
               });
+            } else {
+              // Le PNC existe dans le cache
+              const isToUpdate = moment(pncToSynchronise.offlineStorageDate, AppConstant.isoDateFormat).isBefore(moment(pnc.metadataDate.lastPncProfessionalFileUpdateDate, AppConstant.isoDateFormat));
+              if (pncToSynchronise && isToUpdate) {
+                this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+                  this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+                  resolve(true);
+                }, error => {
+                  reject(error.detailMessage);
+                });
+              }
+              // Si il n'y a pas de changement en BD
+              if (pncToSynchronise && !isToUpdate) {
+                // Les données en BD sont bien synchronisées
+                resolve(true)
+              }
             }
           });
         }
@@ -160,7 +177,7 @@ export class SynchronizationService {
     const pncWaypoints = allWaypoints.filter(waypoint => {
       if (waypoint && waypoint.careerObjective && waypoint.careerObjective.techId) {
         const careerObjective = this.storageService.findOne(EntityEnum.CAREER_OBJECTIVE, waypoint.careerObjective.techId);
-        return careerObjective.pnc.matricule === matricule;
+        return careerObjective !== null && careerObjective.pnc !== null && careerObjective.pnc.matricule === matricule;
       }
     });
 
