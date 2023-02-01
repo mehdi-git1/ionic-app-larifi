@@ -105,7 +105,6 @@ export class EObservationComponent implements OnChanges {
     return this.abnormalEObservationItems != null
       && this.abnormalEObservationItems.length > 0
       && this.eObservation.type !== EObservationTypeEnum.E_PCB
-      && this.eObservationDisplayMode !== EObservationDisplayModeEnum.REDACTIONS;
   }
 
   /**

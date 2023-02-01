@@ -708,7 +708,9 @@ export class ProfessionalInterviewDetailsPage {
   isAllIFieldsAreFilled(): boolean {
     const res =
       !this.professionalInterview.regulatoryPoints ||
-      this.professionalInterview.interviewCondition === undefined;
+      this.professionalInterview.annualProfessionalInterviewDate ===
+      undefined ||
+      this.professionalInterview.interviewCondition === undefined || !this.professionalInterview.annualProfessionalInterviewDate;
     const isThemesValidated =
       this.professionalInterview.professionalInterviewThemes.every(
         (profesionalInterviewTheme) => {
