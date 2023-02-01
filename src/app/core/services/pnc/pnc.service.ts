@@ -97,7 +97,8 @@ export class PncService extends BaseService {
         pnc.speciality === SpecialityEnum.STW && pnc.gender === GenderEnum.F ? SpecialityEnum.HOT : pnc.speciality;
 
       // si le pnc est une hotesse, en remplace sa spécialité actuelle (STW) par HOT
-      const currentSpeciality = pnc.currentSpeciality === SpecialityEnum.STW && pnc.gender === GenderEnum.F ? SpecialityEnum.HOT : pnc.currentSpeciality;
+      const currentSpeciality =
+        pnc.currentSpeciality === SpecialityEnum.STW && pnc.gender === GenderEnum.F ? SpecialityEnum.HOT : pnc.currentSpeciality;
       // on teste si la spécialité administrative est égale a la spécialité actuelle
       if (!pnc.currentSpeciality || (pnc.currentSpeciality && administrativeSpeciality === currentSpeciality)) {
         return administrativeSpeciality;
