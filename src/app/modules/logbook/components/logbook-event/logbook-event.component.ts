@@ -297,13 +297,14 @@ export class LogbookEventComponent implements OnInit {
   * @returns vrai si au moins une notification doit être envoyée, faux sinon.
   */
   isNotificationNeeded(): boolean {
-    return this.logbookEvent.notifiedPncs && (this.logbookEvent.notifiedPncs.length > 0 || this.logbookEventForm.get('sendToPoleCSV').value);
+    return this.updatedNotifiedPncList && (this.updatedNotifiedPncList.length > 0 || this.logbookEventForm.get('sendToPoleCSV').value);
   }
 
   /**
    * Confirme l'enregistrement d'un évènement sans notifier les personne concernés
    */
   confirmSaveLogbookEvent() {
+
     if (!this.isNotificationNeeded()) {
       this.confirmationPopoup(
         this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.TITLE'),
