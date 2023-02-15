@@ -1,8 +1,8 @@
 <edospnc-expandable-block mini="true" *ngIf="hasTemporaryPeriodToBeDisplayed()" title=" {{ 'EOBSERVATION.DETAIL.TEMPORARY_PERIOD' | translate }}">
     <span class="temporary-period">
-        <radio-and-label (stateChange)="updateFormationFlight($event)" [disabled]="disabled" [conditionValue]="isTrainingFlight()" label="{{ 'EOBSERVATION.DETAIL.FORMATION_FLIGHT' | translate }}"></radio-and-label>
-        <radio-and-label (stateChange)="updateVal($event)" [disabled]="disabled" [conditionValue]="isVal()" label="{{ 'EOBSERVATION.DETAIL.VAL' | translate }}"></radio-and-label>
-        <radio-and-label (stateChange)="updateFfc($event)" [disabled]="disabled" [conditionValue]="isffc()" label="{{ 'EOBSERVATION.DETAIL.FFC' | translate }}"></radio-and-label>
-        <radio-and-label (stateChange)="updateAccoSV($event)" [disabled]="disabled" [conditionValue]="isAccoSV()" label="{{ 'EOBSERVATION.DETAIL.ACCO_SV' | translate }}"></radio-and-label>
+        <radio-and-label (stateChange)="updateFormationFlight()" [disabled]="disabled" [conditionValue]="isTrainingFlight()" label="{{ 'EOBSERVATION.DETAIL.FORMATION_FLIGHT' | translate }}"></radio-and-label>
+        <radio-and-label (stateChange)="updateVal()" [disabled]="disabled" [conditionValue]="isVal()" label="{{ 'EOBSERVATION.DETAIL.VAL' | translate }}"></radio-and-label>
+        <radio-and-label (stateChange)="updateFfc()" [disabled]="disabled" [conditionValue]="isffc()" label="{{ 'EOBSERVATION.DETAIL.FFC' | translate }}"></radio-and-label>
+        <radio-and-label (stateChange)="updateAccoSV()" [disabled]="disabled" [conditionValue]="isAccoSV()" label="{{ 'EOBSERVATION.DETAIL.ACCO_SV' | translate }}"></radio-and-label>
     </span>
 </edospnc-expandable-block>
