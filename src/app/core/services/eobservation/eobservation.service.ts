@@ -1,3 +1,4 @@
+import { EObservationSubTypeEnum } from './../../enums/e-observation-subtype.enum';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -50,17 +51,11 @@ export class EObservationService extends BaseService {
             let typeLabel = EObservationTypeEnum.getLabel(eObservation.type);
 
             let typeSuffix = '';
-            if (eObservation && (eObservation.type === EObservationTypeEnum.E_CC || eObservation.type === EObservationTypeEnum.E_CCP)) {
-                if (eObservation.val) {
-                    typeSuffix = this.translateService.instant('EOBSERVATION.DETAIL.VAL_TITLE_OPTION');
-                } else if (eObservation.formationFlight) {
-                    typeSuffix = this.translateService.instant('EOBSERVATION.DETAIL.FORMATION_FLIGHT_TITLE_OPTION');
-                } else if (eObservation.ffc) {
-                    typeSuffix = this.translateService.instant('EOBSERVATION.DETAIL.FFC_TITLE_OPTION');
-                }
+            if (eObservation && (eObservation.type === EObservationTypeEnum.E_CC || eObservation.type === EObservationTypeEnum.E_CCP) && eObservation.subType && (eObservation.subType !== EObservationSubTypeEnum.CLASSICAL)) {
+                typeSuffix = ' - ' + this.translateService.instant('EOBSERVATION.DETAIL.SUB_TYPE.' + eObservation.subType);
             }
-            if (eObservation && eObservation.type === EObservationTypeEnum.E_ALT && eObservation.val) {
-                typeSuffix = this.translateService.instant('EOBSERVATION.DETAIL.EVAL_TITLE_OPTION');
+            if (eObservation && eObservation.type === EObservationTypeEnum.E_ALT && eObservation.subType == EObservationSubTypeEnum.VAL) {
+                typeSuffix = ' - ' + this.translateService.instant('EOBSERVATION.DETAIL.SUB_TYPE.' + eObservation.subType);
             }
 
             return `${typeLabel} ${typeSuffix}`;

@@ -104,9 +104,7 @@ export class EobservationDetailsPage extends FormCanDeactivate {
    * @returns vrai si elle a été changée, faux sinon.
    */
   isTemporaryPeriodHasChanged(): boolean {
-    return (this.originEObservation.ffc !== this.eObservation.ffc) ||
-      (this.originEObservation.val !== this.eObservation.val) ||
-      (this.originEObservation.formationFlight !== this.eObservation.formationFlight)
+    return (this.originEObservation.subType !== this.eObservation.subType);
   }
 
   /**
