@@ -3,5 +3,6 @@ export enum EObservationSubTypeEnum {
     TRAINING_FLIGHT = 'TRAINING_FLIGHT',
     ACCO_SV = 'ACCO_SV',
     VAL = 'VAL',
-    FFC = 'FFC'
+    FFC = 'FFC',
+    VAC = 'VAC'
 }

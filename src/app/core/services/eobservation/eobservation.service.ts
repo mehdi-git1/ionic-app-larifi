@@ -51,7 +51,7 @@ export class EObservationService extends BaseService {
             let typeLabel = EObservationTypeEnum.getLabel(eObservation.type);
 
             let typeSuffix = '';
-            if (eObservation && (eObservation.type === EObservationTypeEnum.E_CC || eObservation.type === EObservationTypeEnum.E_CCP) && eObservation.subType && (eObservation.subType !== EObservationSubTypeEnum.CLASSICAL)) {
+            if (eObservation && (eObservation.type === EObservationTypeEnum.E_CC || eObservation.type === EObservationTypeEnum.E_CCP) && eObservation.subType && (eObservation.subType !== EObservationSubTypeEnum.CLASSICAL) && (eObservation.subType !== EObservationSubTypeEnum.VAC)) {
                 typeSuffix = ' - ' + this.translateService.instant('EOBSERVATION.DETAIL.SUB_TYPE.' + eObservation.subType);
             }
             if (eObservation && eObservation.type === EObservationTypeEnum.E_ALT && eObservation.subType == EObservationSubTypeEnum.VAL) {
