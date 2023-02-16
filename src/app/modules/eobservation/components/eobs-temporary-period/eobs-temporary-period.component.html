@@ -1,6 +1,6 @@
 <edospnc-expandable-block mini="true" *ngIf="hasTemporaryPeriodToBeDisplayed()" title=" {{ 'EOBSERVATION.DETAIL.TEMPORARY_PERIOD' | translate }}">
     <span class="temporary-period">
-        <radio-and-label (stateChange)="updateSubType(EObservationSubTypeEnum.FORMATION_FLIGHT)" [disabled]="disabled" [conditionValue]="isTrainingFlight()" label="{{ 'EOBSERVATION.DETAIL.FORMATION_FLIGHT' | translate }}"></radio-and-label>
+        <radio-and-label (stateChange)="updateSubType(EObservationSubTypeEnum.TRAINING_FLIGHT)" [disabled]="disabled" [conditionValue]="isTrainingFlight()" label="{{ 'EOBSERVATION.DETAIL.FORMATION_FLIGHT' | translate }}"></radio-and-label>
         <radio-and-label (stateChange)="updateSubType(EObservationSubTypeEnum.VAL)" [disabled]="disabled" [conditionValue]="isVal()" label="{{ 'EOBSERVATION.DETAIL.VAL' | translate }}"></radio-and-label>
         <radio-and-label (stateChange)="updateSubType(EObservationSubTypeEnum.FFC)" [disabled]="disabled" [conditionValue]="isffc()" label="{{ 'EOBSERVATION.DETAIL.FFC' | translate }}"></radio-and-label>
         <radio-and-label (stateChange)="updateSubType(EObservationSubTypeEnum.ACCO_SV)" [disabled]="disabled" [conditionValue]="isAccoSV()" label="{{ 'EOBSERVATION.DETAIL.ACCO_SV' | translate }}"></radio-and-label>
