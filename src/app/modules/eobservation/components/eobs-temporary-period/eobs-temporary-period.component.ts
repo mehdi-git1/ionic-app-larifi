@@ -13,6 +13,9 @@ export class EObsTemporaryPeriodComponent {
 
   @Input() eObservation: EObservationModel;
   @Input() disabled = false;
+
+  EObservationSubTypeEnum = EObservationSubTypeEnum;
+
   constructor() {
   }
 
@@ -27,33 +30,11 @@ export class EObsTemporaryPeriodComponent {
   }
 
   /**
-   * Met à jour le vol de formation
+   * Met à jour la checkbox
+   * @param value la valeur qu'on veut mettre à jour
    */
-  updateFormationFlight() {
-    this.eObservation.subType = EObservationSubTypeEnum.TRAINING_FLIGHT;
-  }
-
-  /**
-   * Met à jour la checkbox val
-   */
-  updateVal() {
-    this.eObservation.subType = EObservationSubTypeEnum.VAL;
-  }
-
-
-  /**
-   * Met à jour le vol de formation faisant fonction CC
-   */
-  updateFfc() {
-    this.eObservation.subType = EObservationSubTypeEnum.FFC;
-
-  }
-
-  /**
-   * Met à jour le vol d'accompagnement
-   */
-  updateAccoSV() {
-    this.eObservation.subType = EObservationSubTypeEnum.ACCO_SV;
+  updateSubType(value: EObservationSubTypeEnum) {
+    this.eObservation.subType = value;
   }
 
   /**
