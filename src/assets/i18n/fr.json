@@ -626,7 +626,7 @@
             "SPECIALITY": "Fonction",
             "EOBS_PNC_ASSIGNMENT": "Affectation à date de l'eObservation",
             "COLOR_LEVEL_CORRESPONDANCE": "Correspondance couleur / appréciation",
-            "TEMPORARY_PERIOD": "Période temporaire",
+            "TEMPORARY_PERIOD": "Type de vol",
             "FORMATION_FLIGHT": "Vol de formation",
             "FORMATION_FLIGHT_TITLE_OPTION": " - FOR",
             "VAL": "VAL",
@@ -646,7 +646,14 @@
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
             },
-            "EDITED_BY": "eObservation modifiée par {{lastName}} {{firstName}} le {{date}}"
+            "EDITED_BY": "eObservation modifiée par {{lastName}} {{firstName}} le {{date}}",
+            "ACCO_SV": "Vol d'accompagnement SV",
+            "SUB_TYPE": {
+                "ACCO_SV": "ACCO SV",
+                "VAL": " VAL",
+                "FFC": " FFC",
+                "TRAINING_FLIGHT": " FOR"
+            }
         },
         "CONFIRM_VALIDATE_PNC_COMMENT": {
             "TITLE": "Validation du commentaire",

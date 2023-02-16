@@ -1,3 +1,4 @@
+import { EObservationSubTypeEnum } from './../../../../core/enums/e-observation-subtype.enum';
 import { Component, Input } from '@angular/core';
 
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
@@ -13,4 +14,12 @@ export class EObsBilanFlightComponent {
 
   @Input() editMode = false;
 
+
+  /**
+ * Vérifie que le sous-type est VAL 
+ * @return vrai si le sous-type est VAL, faux sinon
+ */
+  isVal(): boolean {
+    return this.eObservation.subType === EObservationSubTypeEnum.VAL
+  }
 }
