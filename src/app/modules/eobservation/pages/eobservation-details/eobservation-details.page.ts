@@ -333,4 +333,5 @@ export class EobservationDetailsPage extends FormCanDeactivate {
       this.pdfDownloadInProgress = false;
     });
   }
+
 }
