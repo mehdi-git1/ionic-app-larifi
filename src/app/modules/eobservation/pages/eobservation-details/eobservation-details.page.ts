@@ -154,7 +154,6 @@ export class EobservationDetailsPage extends FormCanDeactivate {
   canEditPncComment(): boolean {
     return this.sessionService.getActiveUser().matricule === this.eObservation.pnc.matricule
       && (this.originEObservation.pncComment === '' || typeof (this.originEObservation.pncComment) === 'undefined')
-      && this.eObservation.type !== EObservationTypeEnum.E_ALT
       && this.eObservation.type !== EObservationTypeEnum.E_PCB;
   }
 
