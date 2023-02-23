@@ -21,11 +21,11 @@ export class EObsTemporaryPeriodComponent {
 
   /**
    * Définit si la periode temporaire est affichable
-   * @return true si 'ECC' ou 'ECCP' et si l'une des valeurs "vol de formation" ou "val" est true
+   * @return true si l'eObs n'est pas un 'E_PCB' et si l'une des valeurs "vol de formation" ou "val" est true
    */
   hasTemporaryPeriodToBeDisplayed(): boolean {
     return this.eObservation
-      && (this.eObservation.type === EObservationTypeEnum.E_CC || this.eObservation.type === EObservationTypeEnum.E_CCP)
+      && (this.eObservation.type !== EObservationTypeEnum.E_PCB)
       && (this.eObservation.subType !== EObservationSubTypeEnum.CLASSICAL && this.eObservation.subType !== null && this.eObservation.subType !== EObservationSubTypeEnum.VAC);
   }
 
