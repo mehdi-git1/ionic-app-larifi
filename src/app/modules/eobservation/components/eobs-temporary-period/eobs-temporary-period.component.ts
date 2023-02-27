@@ -26,6 +26,7 @@ export class EObsTemporaryPeriodComponent {
   hasTemporaryPeriodToBeDisplayed(): boolean {
     return this.eObservation
       && (this.eObservation.type !== EObservationTypeEnum.E_PCB)
+      && (this.eObservation.type !== EObservationTypeEnum.E_ALT)
       && (this.eObservation.subType !== EObservationSubTypeEnum.CLASSICAL && this.eObservation.subType !== null && this.eObservation.subType !== EObservationSubTypeEnum.VAC);
   }
 
