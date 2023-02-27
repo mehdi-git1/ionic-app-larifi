@@ -55,7 +55,7 @@ export class EObservationService extends BaseService {
                 typeSuffix = ' - ' + this.translateService.instant('EOBSERVATION.DETAIL.SUB_TYPE.' + eObservation.subType);
             }
             if (eObservation && eObservation.type === EObservationTypeEnum.E_ALT && eObservation.subType == EObservationSubTypeEnum.VAL) {
-                typeSuffix = ' - ' + this.translateService.instant('EOBSERVATION.DETAIL.SUB_TYPE.' + eObservation.subType);
+                typeSuffix = ' - ' + this.translateService.instant('EOBSERVATION.DETAIL.EVAL');
             }
 
             return `${typeLabel} ${typeSuffix}`;
