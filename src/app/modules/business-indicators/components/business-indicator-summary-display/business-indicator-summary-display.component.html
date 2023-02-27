@@ -14,7 +14,7 @@
             <span *ngIf="businessIndicatorSummary.escoreAverage === -1 else displayValueEscoreAverage" class="no-data"></span>
             <ng-template #displayValueEscoreAverage>
                 <span class="summary-value">
-                    {{ businessIndicatorSummary?.escoreAverage | percent : '1.0-1' }}</span>
+                    {{ businessIndicatorSummary?.escoreAverage | number : '1.0-1' }}</span>
             </ng-template>
         </div>
     </div>
