@@ -6,7 +6,7 @@
         <ng-template #valEditBlock>
             <ion-item lines="none">
                 <ion-label>{{ 'EOBSERVATION.DETAIL.EVAL' | translate }}</ion-label>
-                <ion-checkbox slot="start" [(ngModel)]="eObservation.subType" [checked]="isVal()"></ion-checkbox>
+                <ion-checkbox slot="start" [checked]="isVal()" (ionChange)="updateSubType($event)"></ion-checkbox>
             </ion-item>
         </ng-template>
     </span>

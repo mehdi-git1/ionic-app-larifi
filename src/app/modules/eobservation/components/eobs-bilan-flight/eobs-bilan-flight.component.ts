@@ -22,4 +22,12 @@ export class EObsBilanFlightComponent {
   isVal(): boolean {
     return this.eObservation.subType === EObservationSubTypeEnum.VAL
   }
+
+  /**
+ * Met à jour la le sous-type
+ */
+  updateSubType(event) {
+    this.eObservation.subType = event.detail.checked ? EObservationSubTypeEnum.VAL : EObservationSubTypeEnum.CLASSICAL;
+  }
+
 }
