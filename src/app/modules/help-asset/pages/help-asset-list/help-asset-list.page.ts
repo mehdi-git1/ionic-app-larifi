@@ -99,7 +99,7 @@ export class HelpAssetListPage {
    */
   getCADHelpAssets(): HelpAssetModel[] {
     const updateDate20180730 = "2018-07-30T13:11:52Z";
-    const updateDate20190808 = "2019-08-08T11:33:52Z";
+    const updateDate20230308 = "2023-03-08T00:00:52Z";
 
     const helpAsset = new Array(3);
 
@@ -155,19 +155,19 @@ export class HelpAssetListPage {
     helpAsset[7].url = `${this.pdfUrl}/cadre/${pdf8}`;
     helpAsset[7].label = "Prepa Express Vol de Formation CC";
     helpAsset[7].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[7].lastUpdateDate = updateDate20190808;
+    helpAsset[7].lastUpdateDate = updateDate20230308;
     const pdf9 = "Prepa-express-vol-de-formation-CCP.pdf";
     helpAsset[8] = new HelpAssetModel();
     helpAsset[8].url = `${this.pdfUrl}/cadre/${pdf9}`;
     helpAsset[8].label = "Prepa Express Vol de Formation CCP";
     helpAsset[8].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[8].lastUpdateDate = updateDate20190808;
+    helpAsset[8].lastUpdateDate = updateDate20230308;
     const pdf10 = "Prepa-express-vol-de-validation-CC-CCP.pdf";
     helpAsset[9] = new HelpAssetModel();
     helpAsset[9].url = `${this.pdfUrl}/cadre/${pdf10}`;
     helpAsset[9].label = "Prepa Express Vol de Validation CC-CCP";
     helpAsset[9].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[9].lastUpdateDate = updateDate20190808;
+    helpAsset[9].lastUpdateDate = updateDate20230308;
     const pdf11 = "Indicateurs_Metier_eDossier_guidelines_20210928.pdf";
     helpAsset[10] = new HelpAssetModel();
     helpAsset[10].url = `${this.pdfUrl}/cadre/${pdf11}`;
