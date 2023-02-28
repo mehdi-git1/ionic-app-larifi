@@ -24,7 +24,7 @@ export class EObsBilanFlightComponent {
   }
 
   /**
- * Met à jour la le sous-type
+ * Met à jour le sous-type
  */
   updateSubType(event) {
     this.eObservation.subType = event.detail.checked ? EObservationSubTypeEnum.VAL : EObservationSubTypeEnum.CLASSICAL;
