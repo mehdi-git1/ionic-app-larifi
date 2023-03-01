@@ -236,58 +236,60 @@
             </ng-container>
 
             <!-- Commentaire boucle courte -->
-            <h3>{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.TITLE' | translate }}</h3>
-            <span *ngIf="shortLoopCommentsDataSource && shortLoopCommentsDataSource.data.length <= 0 ">
-                <table class="short-loop-comment-table mat-table">
-                    <thead>
-                        <tr class="mat-header-row">
-                            <th class="short-loop-rating mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.RATING' | translate }}</th>
-                            <th class="appreciated-points mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>
-                            <th class="points-to-improve mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="mat-row">
-                            <td class="mat-cell" colspan="3">
-                                <no-data></no-data>
+            <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.TITLE' | translate }}">
+                <span *ngIf="shortLoopCommentsDataSource && shortLoopCommentsDataSource.data.length <= 0 ">
+                    <table class="short-loop-comment-table mat-table">
+                        <thead>
+                            <tr class="mat-header-row">
+                                <th class="short-loop-rating mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.RATING' | translate }}</th>
+                                <th class="appreciated-points mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>
+                                <th class="points-to-improve mat-header-cell">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="mat-row">
+                                <td class="mat-cell" colspan="3">
+                                    <no-data></no-data>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </span>
+                <span *ngIf="shortLoopCommentsDataSource && shortLoopCommentsDataSource.data.length > 0 ">
+                    <table *ngIf="canDisplayShortLoopComment() && shortLoopCommentsDataSource && shortLoopCommentsDataSource.data.length > 0 " mat-table [dataSource]="shortLoopCommentsDataSource" class="short-loop-comment-table">
+                        <ng-container matColumnDef="rating">
+                            <th *matHeaderCellDef class="short-loop-rating">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.RATING' | translate }}</th>
+                            <td mat-cell *matCellDef="let shortLoopComment" [ngClass]="shortLoopComment.rating ? 'short-loop-rating' : 'no-short-loop-rating'">
+                                <ng-container *ngIf="shortLoopComment.rating; else noRatingTemplate">
+                                    <img *ngFor="let ratingItem of getRatingArray(shortLoopComment.rating)" src="assets/imgs/business-indicators/star.svg" />
+                                </ng-container>
                             </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </span>
-            <span *ngIf="shortLoopCommentsDataSource && shortLoopCommentsDataSource.data.length > 0 ">
-                <table *ngIf="canDisplayShortLoopComment() && shortLoopCommentsDataSource && shortLoopCommentsDataSource.data.length > 0 " mat-table [dataSource]="shortLoopCommentsDataSource" class="short-loop-comment-table">
-                    <ng-container matColumnDef="rating">
-                        <th mat-header-cell *matHeaderCellDef class="short-loop-rating">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.RATING' | translate }}</th>
-                        <td mat-cell *matCellDef="let shortLoopComment" [ngClass]="shortLoopComment.rating ? 'short-loop-rating' : 'no-short-loop-rating'">
-                            <ng-container *ngIf="shortLoopComment.rating; else noRatingTemplate">
-                                <img *ngFor="let ratingItem of getRatingArray(shortLoopComment.rating)" src="assets/imgs/business-indicators/star.svg" />
-                            </ng-container>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="positiveFeedbackReason">
-                        <th mat-header-cell *matHeaderCellDef class="appreciated-points">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>
-                        <td mat-cell *matCellDef="let shortLoopComment" [ngClass]="{'can-be-reported':canBeReported(shortLoopComment.appreciatedPoints, shortLoopComment.appreciatedPointsReported)}" (click)="confirmReportShortLoopCommentVerbatim(shortLoopComment, ShortLoopCommentVerbatimEnum.APPRECIATED_POINTS, shortLoopComment.appreciatedPoints, shortLoopComment.appreciatedPointsReported)">
-                            <business-indicator-comment-verbatim [verbatim]="shortLoopComment.appreciatedPoints" [reported]="shortLoopComment.appreciatedPointsReported"></business-indicator-comment-verbatim>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="negativeFeedbackReason">
-                        <th mat-header-cell *matHeaderCellDef class="points-to-improve">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}</th>
-                        <td mat-cell *matCellDef="let shortLoopComment" [ngClass]="{'can-be-reported':canBeReported(shortLoopComment.pointsToImprove, shortLoopComment.pointsToImproveReported)}" (click)="confirmReportShortLoopCommentVerbatim(shortLoopComment, ShortLoopCommentVerbatimEnum.POINTS_TO_IMPROVE, shortLoopComment.pointsToImprove, shortLoopComment.pointsToImproveReported)">
-                            <business-indicator-comment-verbatim [verbatim]="shortLoopComment.pointsToImprove" [reported]="shortLoopComment.pointsToImproveReported"></business-indicator-comment-verbatim>
-                        </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="shortLoopCommentColumns"></tr>
-                    <tr mat-row *matRowDef="let shortLoopComment; columns: shortLoopCommentColumns;"></tr>
-                </table>
-                <div class="button-bar-right">
-                    <ion-button fill="outline" (click)="toggleReportVerbatimMode()" *ngIf="!reportVerbatimMode; else disengageReportVerbatimModeBlock">{{ 'BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.REPORT_MODE_BUTTON' | translate }}</ion-button>
-                    <ng-template #disengageReportVerbatimModeBlock>
-                        {{ 'BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.USE_HINT' | translate }}&nbsp;
-                        <ion-button fill="outline" (click)="toggleReportVerbatimMode()">{{ 'GLOBAL.BUTTONS.CANCEL' | translate }}</ion-button>
-                    </ng-template>
-                </div>
-            </span>
+                        </ng-container>
+                        <ng-container matColumnDef="positiveFeedbackReason">
+                            <th *matHeaderCellDef class="appreciated-points">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>
+                            <td mat-cell *matCellDef="let shortLoopComment" [ngClass]="{'can-be-reported':canBeReported(shortLoopComment.appreciatedPoints, shortLoopComment.appreciatedPointsReported)}" (click)="confirmReportShortLoopCommentVerbatim(shortLoopComment, ShortLoopCommentVerbatimEnum.APPRECIATED_POINTS, shortLoopComment.appreciatedPoints, shortLoopComment.appreciatedPointsReported)">
+                                <business-indicator-comment-verbatim [verbatim]="shortLoopComment.appreciatedPoints" [reported]="shortLoopComment.appreciatedPointsReported"></business-indicator-comment-verbatim>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="negativeFeedbackReason">
+                            <th *matHeaderCellDef class="points-to-improve">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}</th>
+                            <td mat-cell *matCellDef="let shortLoopComment" [ngClass]="{'can-be-reported':canBeReported(shortLoopComment.pointsToImprove, shortLoopComment.pointsToImproveReported)}" (click)="confirmReportShortLoopCommentVerbatim(shortLoopComment, ShortLoopCommentVerbatimEnum.POINTS_TO_IMPROVE, shortLoopComment.pointsToImprove, shortLoopComment.pointsToImproveReported)">
+                                <business-indicator-comment-verbatim [verbatim]="shortLoopComment.pointsToImprove" [reported]="shortLoopComment.pointsToImproveReported"></business-indicator-comment-verbatim>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="shortLoopCommentColumns"></tr>
+                        <tr mat-row *matRowDef="let shortLoopComment; columns: shortLoopCommentColumns;"></tr>
+                    </table>
+                    <div class="button-bar-right">
+                        <ion-button fill="outline" (click)="toggleReportVerbatimMode()" *ngIf="!reportVerbatimMode; else disengageReportVerbatimModeBlock">{{ 'BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.REPORT_MODE_BUTTON' | translate }}</ion-button>
+                        <ng-template #disengageReportVerbatimModeBlock>
+                            {{ 'BUSINESS_INDICATORS.DETAIL.REPORT_VERBATIM.USE_HINT' | translate }}&nbsp;
+                            <ion-button fill="outline" (click)="toggleReportVerbatimMode()">{{ 'GLOBAL.BUTTONS.CANCEL' | translate }}</ion-button>
+                        </ng-template>
+                    </div>
+                </span>
+            </edospnc-expandable-block>
+
         </div>
     </ng-template>
 </ion-content>
