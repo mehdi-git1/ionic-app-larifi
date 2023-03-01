@@ -35,7 +35,7 @@
                         <p>
                             <ng-container *ngIf="!isCCLC(indicatorSummaries?.population) else noData">
                                 <ng-container *ngIf="isIndicatorHasSignificantValue(indicatorSummaries?.escoreAverage) else noSignificantValue">
-                                    {{ indicatorSummaries?.escoreAverage | percent: '1.0-1'}}
+                                    {{ indicatorSummaries?.escoreAverage | number: '1.0-1'}}
                                 </ng-container>
                             </ng-container>
                             <ng-template #noData>
