@@ -154,6 +154,7 @@ table {
     .short-loop-rating {
         width: 20%;
         text-align: center;
+        border-left: none;
     }
 
     .appreciated-points {
@@ -203,6 +204,18 @@ table {
     .can-be-reported:hover {
         background: var(--ion-color-grey70);
         cursor: pointer;
+    }
+
+    th {
+        border: thin solid var(--ion-color-grey70);
+        border-top: none;
+        border-right: none;
+    }
+
+    .appreciated-points,
+    .points-to-improve,
+    .short-loop-rating {
+        color: var(--ion-color-primarylight);
     }
 
 }
