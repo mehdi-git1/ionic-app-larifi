@@ -212,4 +212,10 @@ table {
         border-right: none;
     }
 
+    .appreciated-points,
+    .points-to-improve,
+    .short-loop-rating {
+        color: var(--ion-color-primarylight);
+    }
+
 }
