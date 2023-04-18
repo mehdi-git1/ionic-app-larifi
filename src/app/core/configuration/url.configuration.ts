@@ -108,8 +108,8 @@ export class UrlConfiguration {
     // Les noms ne sont jamais les mêmes
     const regexToReplace = /{[a-zA-Z]*}/;
     // Remplacement des paramètres de l'URL
-    for (let i = 0; i < params.length; i++) {
-      urlToModify = urlToModify.replace(regexToReplace, params[i]);
+    for (const element of params) {
+      urlToModify = urlToModify.replace(regexToReplace, element);
     }
     return `${this.config.backEndUrl}/${urlToModify}`;
   }
