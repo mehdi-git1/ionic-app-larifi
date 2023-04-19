@@ -144,12 +144,12 @@ export class HelpAssetListPage {
     helpAsset[5].helpAssetType = HelpAssetTypeEnum.PDF;
     helpAsset[5].lastUpdateDate = "2020-09-29T00:00:00Z";
 
-    const pdf7 = "JDB-dans-eDossierPNC-V2.pdf";
+    const pdf7 = "JDB-dans-eDossierPNC-V3.pdf";
     helpAsset[6] = new HelpAssetModel();
     helpAsset[6].url = `${this.pdfUrl}/cadre/${pdf7}`;
     helpAsset[6].label = "Le journal de bord dans eDossierPNC";
     helpAsset[6].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[6].lastUpdateDate = "2019-10-22T00:00:00Z";
+    helpAsset[6].lastUpdateDate = "2023-03-23T00:00:00Z";
     const pdf8 = "Prepa-express-vol-de-formation-CC.pdf";
     helpAsset[7] = new HelpAssetModel();
     helpAsset[7].url = `${this.pdfUrl}/cadre/${pdf8}`;
