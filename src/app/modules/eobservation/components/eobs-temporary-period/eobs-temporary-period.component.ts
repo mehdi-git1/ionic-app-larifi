@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FindValueSubscriber } from 'rxjs/internal/operators/find';
+import { Component, Input } from '@angular/core';
+import { EObservationSubTypeEnum } from 'src/app/core/enums/e-observation-subtype.enum';
 
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
@@ -13,47 +13,60 @@ export class EObsTemporaryPeriodComponent {
 
   @Input() eObservation: EObservationModel;
   @Input() disabled = false;
+
+  EObservationSubTypeEnum = EObservationSubTypeEnum;
+
   constructor() {
   }
 
   /**
    * Définit si la periode temporaire est affichable
-   * @return true si 'ECC' ou 'ECCP' et si l'une des valeurs "vol de formation" ou "val" est true
+   * @return true si l'eObs n'est pas un 'E_PCB' et si l'une des valeurs "vol de formation" ou "val" est true
    */
   hasTemporaryPeriodToBeDisplayed(): boolean {
     return this.eObservation
-      && (this.eObservation.type === EObservationTypeEnum.E_CC || this.eObservation.type === EObservationTypeEnum.E_CCP)
-      && (this.eObservation.formationFlight || this.eObservation.val || this.eObservation.ffc);
+      && (this.eObservation.type !== EObservationTypeEnum.E_PCB)
+      && (this.eObservation.type !== EObservationTypeEnum.E_ALT)
+      && (this.eObservation.subType !== EObservationSubTypeEnum.CLASSICAL && this.eObservation.subType !== null && this.eObservation.subType !== EObservationSubTypeEnum.VAC);
   }
 
   /**
-   * Met à jour le vol de formation
-   * @param state état de la checkbox
+   * Met à jour la checkbox
+   * @param value la valeur qu'on veut mettre à jour
    */
-  updateFormationFlight(state: boolean) {
-    this.eObservation.formationFlight = state;
-    this.eObservation.val = false;
-    this.eObservation.ffc = false;
+  updateSubType(value: EObservationSubTypeEnum) {
+    this.eObservation.subType = value;
   }
 
   /**
-   * Met à jour la checkbox val
-   * @param state état de la checkbox
+   * Vérifie que le sous-type est TRAINING_FLIGHT 
+   * @return vrai si le sous-type est TRAINING_FLIGHT, faux sinon
    */
-  updateVal(state: boolean) {
-    this.eObservation.val = true;
-    this.eObservation.formationFlight = false;
-    this.eObservation.ffc = false;
+  isTrainingFlight(): boolean {
+    return this.eObservation.subType === EObservationSubTypeEnum.TRAINING_FLIGHT
   }
 
+  /**
+   * Vérifie que le sous-type est VAL 
+   * @return vrai si le sous-type est VAL, faux sinon
+   */
+  isVal(): boolean {
+    return this.eObservation.subType === EObservationSubTypeEnum.VAL
+  }
 
   /**
-   * Met à jour le vol de formation faisant fonction CC
-   * @param state état de la checkbox
+   * Vérifie que le sous-type est ACCO_SV 
+   * @return vrai si le sous-type est ACCO_SV, faux sinon
    */
-  updateFfc(state: boolean) {
-    this.eObservation.ffc = true;
-    this.eObservation.val = false;
-    this.eObservation.formationFlight = false;
+  isAccoSV(): boolean {
+    return this.eObservation.subType === EObservationSubTypeEnum.ACCO_SV
+  }
+
+  /**
+   * Vérifie que le sous-type est FFC 
+   * @return vrai si le sous-type est FFC, faux sinon
+   */
+  isffc(): boolean {
+    return this.eObservation.subType === EObservationSubTypeEnum.FFC
   }
 }

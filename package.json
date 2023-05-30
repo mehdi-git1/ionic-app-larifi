@@ -1,6 +1,6 @@
 {
   "name": "EDossierPNC",
-  "version": "3.6.2",
+  "version": "3.8.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
@@ -54,7 +54,7 @@
     "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-compat": "1.2.0",
     "cordova-plugin-device": "^2.0.3",
-    "cordova-plugin-file-opener2": "^3.0.5",
+    "cordova-plugin-file-opener2": "^2.2.1",
     "cordova-plugin-filechooser": "^1.2.0",
     "cordova-plugin-formslib": "^1.0.20",
     "cordova-plugin-inappbrowser": "^4.1.0",
@@ -130,6 +130,7 @@
       "cordova-sqlite-storage": {},
       "cordova-plugin-app-version": {},
       "cordova-plugin-camera": {},
+      "cordova-plugin-file-opener2": {},
       "cordova-plugin-filechooser": {},
       "cordova-plugin-file": {},
       "cordova-plugin-whitelist": {},
@@ -149,8 +150,7 @@
       "cordova-plugin-secmobil-sua": {
         "APP_GROUP": "AF_GROUP"
       },
-      "cordova-plugin-formslib": {},
-      "cordova-plugin-file-opener2": {}
+      "cordova-plugin-formslib": {}
     },
     "platforms": [
       "ios"

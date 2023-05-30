@@ -99,15 +99,16 @@ export class HelpAssetListPage {
    */
   getCADHelpAssets(): HelpAssetModel[] {
     const updateDate20180730 = "2018-07-30T13:11:52Z";
-    const updateDate20190808 = "2019-08-08T11:33:52Z";
+    const updateDate20230308 = "2023-03-08T00:00:52Z";
 
     const helpAsset = new Array(3);
-    const pdf1 = "Etapes-du-Bilan-Professionnel-V4.pdf";
+
+    const pdf1 = "Lettres_de_félicitations_guidelines.pdf";
     helpAsset[0] = new HelpAssetModel();
     helpAsset[0].url = `${this.pdfUrl}/cadre/${pdf1}`;
-    helpAsset[0].label = "Etapes du Bilan Professionnel V4";
+    helpAsset[0].label = "Les lettres de félicitations dans eDossierPNC";
     helpAsset[0].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[0].lastUpdateDate = updateDate20180730;
+    helpAsset[0].lastUpdateDate = "2020-11-09T00:00:00Z";
     const pdf2 = "Livret-instructeur-V6-22juin.pdf";
     helpAsset[1] = new HelpAssetModel();
     helpAsset[1].url = `${this.pdfUrl}/cadre/${pdf2}`;
@@ -121,6 +122,7 @@ export class HelpAssetListPage {
     helpAsset[2].label = "Mode opératoire, Journal de bord";
     helpAsset[2].helpAssetType = HelpAssetTypeEnum.PDF;
     helpAsset[2].lastUpdateDate = updateDate20180730;
+
     const pdf4 = "Aide-a-la-redaction-vols-de-formation.pdf";
     helpAsset[3] = new HelpAssetModel();
     helpAsset[3].url = `${this.pdfUrl}/cadre/${pdf4}`;
@@ -128,74 +130,50 @@ export class HelpAssetListPage {
     helpAsset[3].helpAssetType = HelpAssetTypeEnum.PDF;
     helpAsset[3].lastUpdateDate = "2019-02-05T00:00:00Z";
 
-    const pdf5 = "Prepa-Express-Bilan-Pro.pdf";
+    const pdf5 = "eObservations_guidelines.pdf";
     helpAsset[4] = new HelpAssetModel();
     helpAsset[4].url = `${this.pdfUrl}/cadre/${pdf5}`;
-    helpAsset[4].label = "Prepa Express Bilan Pro";
+    helpAsset[4].label = "Les eObservations dans eDossierPNC";
     helpAsset[4].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[4].lastUpdateDate = "2019-02-05T00:00:00Z";
+    helpAsset[4].lastUpdateDate = "2020-11-09T00:00:00Z";
 
-    const pdf6 = "Les_Bilans_Pro_dans_eDossierPNC.pdf";
+    const pdf6 = "Documents_RH_guidelines.pdf";
     helpAsset[5] = new HelpAssetModel();
     helpAsset[5].url = `${this.pdfUrl}/cadre/${pdf6}`;
-    helpAsset[5].label = "Les Bilans Pro dans eDossierPNC";
+    helpAsset[5].label = "Les documents RH dans eDossierPNC";
     helpAsset[5].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[5].lastUpdateDate = "2020-05-15T00:00:00Z";
-    const pdf7 = "JDB-dans-eDossierPNC-V2.pdf";
+    helpAsset[5].lastUpdateDate = "2020-09-29T00:00:00Z";
+
+    const pdf7 = "JDB-dans-eDossierPNC-V3.pdf";
     helpAsset[6] = new HelpAssetModel();
     helpAsset[6].url = `${this.pdfUrl}/cadre/${pdf7}`;
     helpAsset[6].label = "Le journal de bord dans eDossierPNC";
     helpAsset[6].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[6].lastUpdateDate = "2019-10-22T00:00:00Z";
+    helpAsset[6].lastUpdateDate = "2023-03-23T00:00:00Z";
     const pdf8 = "Prepa-express-vol-de-formation-CC.pdf";
     helpAsset[7] = new HelpAssetModel();
     helpAsset[7].url = `${this.pdfUrl}/cadre/${pdf8}`;
     helpAsset[7].label = "Prepa Express Vol de Formation CC";
     helpAsset[7].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[7].lastUpdateDate = updateDate20190808;
+    helpAsset[7].lastUpdateDate = updateDate20230308;
     const pdf9 = "Prepa-express-vol-de-formation-CCP.pdf";
     helpAsset[8] = new HelpAssetModel();
     helpAsset[8].url = `${this.pdfUrl}/cadre/${pdf9}`;
     helpAsset[8].label = "Prepa Express Vol de Formation CCP";
     helpAsset[8].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[8].lastUpdateDate = updateDate20190808;
-    const pdf10 = "Prepa-express-vol-de-validation-CC.pdf";
+    helpAsset[8].lastUpdateDate = updateDate20230308;
+    const pdf10 = "Prepa-express-vol-de-validation-CC-CCP.pdf";
     helpAsset[9] = new HelpAssetModel();
     helpAsset[9].url = `${this.pdfUrl}/cadre/${pdf10}`;
-    helpAsset[9].label = "Prepa Express Vol de Validation CC";
+    helpAsset[9].label = "Prepa Express Vol de Validation CC-CCP";
     helpAsset[9].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[9].lastUpdateDate = updateDate20190808;
-    const pdf11 = "Prepa-express-vol-de-validation-CCP.pdf";
+    helpAsset[9].lastUpdateDate = updateDate20230308;
+    const pdf11 = "Indicateurs_Metier_eDossier_guidelines_20210928.pdf";
     helpAsset[10] = new HelpAssetModel();
     helpAsset[10].url = `${this.pdfUrl}/cadre/${pdf11}`;
-    helpAsset[10].label = "Prepa Express Vol de Validation CCP";
+    helpAsset[10].label = "Les Indicateurs Métier dans eDossierPNC";
     helpAsset[10].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[10].lastUpdateDate = updateDate20190808;
-    const pdf12 = "Indicateurs_Metier_eDossier_guidelines_20210928.pdf";
-    helpAsset[11] = new HelpAssetModel();
-    helpAsset[11].url = `${this.pdfUrl}/cadre/${pdf12}`;
-    helpAsset[11].label = "Les Indicateurs Métier dans eDossierPNC";
-    helpAsset[11].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[11].lastUpdateDate = "2021-10-13T00:00:00Z";
-    const pdf13 = "Documents_RH_guidelines.pdf";
-    helpAsset[12] = new HelpAssetModel();
-    helpAsset[12].url = `${this.pdfUrl}/cadre/${pdf13}`;
-    helpAsset[12].label = "Les documents RH dans eDossierPNC";
-    helpAsset[12].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[12].lastUpdateDate = "2020-09-29T00:00:00Z";
-
-    const pdf14 = "eObservations_guidelines.pdf";
-    helpAsset[13] = new HelpAssetModel();
-    helpAsset[13].url = `${this.pdfUrl}/cadre/${pdf14}`;
-    helpAsset[13].label = "Les eObservations dans eDossierPNC";
-    helpAsset[13].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[13].lastUpdateDate = "2020-11-09T00:00:00Z";
-    const pdf15 = "Lettres_de_félicitations_guidelines.pdf";
-    helpAsset[14] = new HelpAssetModel();
-    helpAsset[14].url = `${this.pdfUrl}/cadre/${pdf15}`;
-    helpAsset[14].label = "Les lettres de félicitations dans eDossierPNC";
-    helpAsset[14].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[14].lastUpdateDate = "2020-11-09T00:00:00Z";
+    helpAsset[10].lastUpdateDate = "2021-10-13T00:00:00Z";
 
     return helpAsset;
   }
@@ -205,27 +183,23 @@ export class HelpAssetListPage {
    */
   getCommunHelpAssets(): HelpAssetModel[] {
     const helpAsset = new Array(2);
-    const pdfName = "Priorites-compilees-CCP-CC-HST-V7-1er-octobre.pdf";
     helpAsset[0] = new HelpAssetModel();
-    helpAsset[0].url = `${this.pdfUrl}/commun/${pdfName}`;
-    helpAsset[0].label = "Priorités compilées CCP-CC-HST V7";
+    helpAsset[0].url = `${this.pdfUrl}/commun/Boite_outils_manager.pdf`;
+    helpAsset[0].label = "Boîte à outils Cadres et Managers";
     helpAsset[0].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[0].lastUpdateDate = "2018-10-01T13:11:52Z";
+    helpAsset[0].lastUpdateDate = "2023-01-01T00:00:00Z";
     helpAsset[1] = new HelpAssetModel();
-    helpAsset[1].url = `${this.pdfUrl}/commun/Mission_Relais_version_23SEP22.pdf`;
-    helpAsset[1].label = "Fiches Missions Relais";
+    helpAsset[1].url = `${this.pdfUrl}/commun/Priorités_eDossier_guidelines_V.1.pdf`;
+    helpAsset[1].label = "Les priorités dans eDossierPNC";
     helpAsset[1].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[1].lastUpdateDate = "2022-10-11T00:00:00Z";
+    helpAsset[1].lastUpdateDate = "2020-09-29T00:00:00Z";
     helpAsset[2] = new HelpAssetModel();
-    helpAsset[2].url = `${this.pdfUrl}/commun/Priorités_eDossier_guidelines_V.1.pdf`;
-    helpAsset[2].label = "Les priorités dans eDossierPNC";
+    helpAsset[2].url = `${this.pdfUrl}/commun/FDP_PNC_pour_eDossier_v2.pdf`;
+    helpAsset[2].label = "Fiches de poste PNC";
     helpAsset[2].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[2].lastUpdateDate = "2020-09-29T00:00:00Z";
-    helpAsset[3] = new HelpAssetModel();
-    helpAsset[3].url = `${this.pdfUrl}/commun/FDP_PNC_pour_eDossier_v2.pdf`;
-    helpAsset[3].label = "Fiches de poste PNC";
-    helpAsset[3].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[3].lastUpdateDate = "2022-01-18T00:00:00Z";
+    helpAsset[2].lastUpdateDate = "2022-01-18T00:00:00Z";
     return helpAsset;
   }
+
+
 }

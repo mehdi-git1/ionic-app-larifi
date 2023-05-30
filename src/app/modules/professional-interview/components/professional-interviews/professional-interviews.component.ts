@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import {
-    ProfessionalInterviewDisplayModeEnum
+  ProfessionalInterviewDisplayModeEnum
 } from '../../../../core/enums/professional-interview/professional-interview-display-mode.enum';
 import {
-    ProfessionalInterviewStateEnum
+  ProfessionalInterviewStateEnum
 } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 import {
-    ProfessionalInterviewModel
+  ProfessionalInterviewModel
 } from '../../../../core/models/professional-interview/professional-interview.model';
 
 @Component({
@@ -18,7 +18,7 @@ import {
 
 export class ProfessionalInterviewsComponent {
 
-  matPanelHeaderHeight = '41px';
+  matPanelHeaderHeight = '48px';
   professionalInterviewTab: ProfessionalInterviewModel[];
   @Input() displayMode: ProfessionalInterviewDisplayModeEnum;
   ProfessionalInterviewDisplayModeEnum = ProfessionalInterviewDisplayModeEnum;

@@ -1,3 +1,4 @@
+import { EObservationSubTypeEnum } from './../../enums/e-observation-subtype.enum';
 import { EObservationStateEnum } from '../../enums/e-observation-state.enum';
 import { EObservationTypeEnum } from '../../enums/e-observations-type.enum';
 import { SpecialityEnum } from '../../enums/speciality.enum';
@@ -25,14 +26,12 @@ export class EObservationModel extends EDossierPncObjectModel {
     pncGinq: string;
     lastUpdateDate: Date;
     lastUpdateAuthor: PncModel;
-    formationFlight: boolean;
     vac: boolean;
-    val: boolean;
-    ffc: boolean;
     strongPoints: string;
     workingAxes: string;
     deleted: boolean;
     rotationDegraded: boolean;
+    subType: EObservationSubTypeEnum;
 
     getStorageId(): string {
         return `${this.techId}`;

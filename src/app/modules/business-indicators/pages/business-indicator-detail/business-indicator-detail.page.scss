@@ -154,6 +154,7 @@ table {
     .short-loop-rating {
         width: 20%;
         text-align: center;
+        border-left: none;
     }
 
     .appreciated-points {
@@ -205,4 +206,23 @@ table {
         cursor: pointer;
     }
 
+    th {
+        border: thin solid var(--ion-color-grey70);
+        border-top: none;
+        border-right: none;
+    }
+
+    .appreciated-points,
+    .points-to-improve,
+    .short-loop-rating {
+        color: var(--ion-color-primarylight);
+    }
+
+}
+
+.bloc-comment {
+    table {
+        margin-bottom: 0;
+        box-shadow: none !important;
+    }
 }
