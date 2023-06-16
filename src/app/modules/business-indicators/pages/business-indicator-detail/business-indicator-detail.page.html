@@ -16,8 +16,9 @@
             }}</span>
         <span class="value">
             {{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }} :
-            <span *ngIf="!businessIndicator.escore; else escoreBlock" class="no-data"></span>
-            <ng-template #escoreBlock>{{ businessIndicator.escore | percent : '1.0-1' }}</ng-template>
+            <span *ngIf="!businessIndicator.escore && businessIndicator.escore === -1  ; else escoreBlock"
+                class="no-data"></span>
+            <ng-template #escoreBlock>{{ businessIndicator.escore | percent }}</ng-template>
         </span>
         <span class="value">
             {{ 'BUSINESS_INDICATORS.LIST.FLIGHT_ACTIONS' | translate }} :
