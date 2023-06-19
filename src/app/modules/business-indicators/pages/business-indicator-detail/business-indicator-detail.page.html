@@ -16,7 +16,7 @@
             }}</span>
         <span class="value">
             {{ 'BUSINESS_INDICATORS.LIST.ESCORE' | translate }} :
-            <span *ngIf="!businessIndicator.escore && businessIndicator.escore === -1  ; else escoreBlock"
+            <span *ngIf="!businessIndicator.escore || businessIndicator.escore === -1  ; else escoreBlock"
                 class="no-data"></span>
             <ng-template #escoreBlock>{{ businessIndicator.escore | percent }}</ng-template>
         </span>
