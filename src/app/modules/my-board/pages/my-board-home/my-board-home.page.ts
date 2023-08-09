@@ -1,7 +1,7 @@
 import { from, Observable, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {
-    MyBoardNotificationSummaryModel
+  MyBoardNotificationSummaryModel
 } from 'src/app/core/models/my-board/my-board-notification-summary.model';
 import { MyBoardNotificationModel } from 'src/app/core/models/my-board/my-board-notification.model';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
@@ -11,27 +11,27 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
-    MyBoardNotificationTypeEnum
+  MyBoardNotificationTypeEnum
 } from '../../../../core/enums/my-board/my-board-notification-type.enum';
 import {
-    NotificationDocumentTypeEnum
+  NotificationDocumentTypeEnum
 } from '../../../../core/enums/my-board/notification-document-type.enum';
 import { PagePositionEnum } from '../../../../core/enums/page-position.enum';
 import {
-    MyBoardNotificationFilterModel
+  MyBoardNotificationFilterModel
 } from '../../../../core/models/my-board/my-board-notification-filter.model';
 import {
-    PagedMyBoardNotificationModel
+  PagedMyBoardNotificationModel
 } from '../../../../core/models/my-board/paged-my-board-notification.model';
 import { AlertDialogService } from '../../../../core/services/alertDialog/alert-dialog.service';
 import { Events } from '../../../../core/services/events/events.service';
 import {
-    MyBoardNotificationService
+  MyBoardNotificationService
 } from '../../../../core/services/my-board/my-board-notification.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import {
-    MyBoardFiltersComponent
+  MyBoardFiltersComponent
 } from '../../components/my-board-filters/my-board-filters.component';
 
 @Component({
@@ -257,6 +257,9 @@ export class MyBoardHomePage implements OnInit {
    * @return la route vers le document du PNC
    */
   getDocumentRoute(documentType: NotificationDocumentTypeEnum, matricule: string, documentId: number): string {
+    if (documentType === NotificationDocumentTypeEnum.LOGBOOK_CAREER) {
+      documentType = NotificationDocumentTypeEnum.HR_DOCUMENT;
+    }
     const pncEDossierRoute = `/tabs/visit/${matricule}`;
     const routes = {
       [NotificationDocumentTypeEnum.CONGRATULATION_LETTER]: `${pncEDossierRoute}/congratulation-letter/detail/${documentId}`,
