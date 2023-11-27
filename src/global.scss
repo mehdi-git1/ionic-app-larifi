@@ -105,8 +105,7 @@
     src: url("/assets/fonts/open-sans/Bold/OpenSans-Bold.woff") format("woff");
 }
 
-$custom-typography: mat-typography-config(
-    $font-family: "OpenSans, Excellence",
+$custom-typography: mat-typography-config($font-family: "OpenSans, Excellence",
 );
 @include mat-core($custom-typography);
 
@@ -260,6 +259,11 @@ ion-label.sc-ion-select-popover-ios {
 .mailing-modal-container .modal-wrapper {
     --width: 70%;
 }
+
 .popover-viewport.sc-ion-popover-md {
     overflow: inherit;
+}
+
+ion-popover [popover]:not(:popover-open):not(dialog[open]) {
+    display: contents;
 }
