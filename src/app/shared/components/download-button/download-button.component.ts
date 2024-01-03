@@ -21,7 +21,7 @@ export class DownloadButtonComponent {
 
   downloadFunction(evt: Event): void {
     evt.stopPropagation();
-    this.onDownload.next();
+    this.onDownload.next(true);
   }
 
   /**
