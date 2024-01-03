@@ -157,8 +157,6 @@
       },
       "cordova-plugin-formslib": {}
     },
-    "platforms": [
-      "ios"
-    ]
+    "platforms": []
   }
 }
