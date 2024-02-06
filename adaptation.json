@@ -7,7 +7,7 @@
             "configFile": "./src/environments/prod.ts",
             "appName": "eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospnc",
-            "version": "3.9.4",
+            "version": "3.10.0",
             "provisioningProfile": "b12077ad-f44e-4462-a821-9825cf2dea32",
             "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5"
         },
@@ -16,7 +16,7 @@
             "configFile": "./src/environments/dev.ts",
             "appName": "DEV eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV",
-            "version": "3.9.4",
+            "version": "3.10.0",
             "provisioningProfile": "b0010667-b594-440c-b1ab-dc3c9a720d64",
             "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5"
         },
@@ -25,7 +25,7 @@
             "configFile": "./src/environments/rct.ts",
             "appName": "RCT eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT",
-            "version": "3.9.4",
+            "version": "3.10.0",
             "provisioningProfile": "f1fba3d6-6d56-4b57-bd78-43fc8ad0c79b",
             "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5"
         },
@@ -34,7 +34,7 @@
             "configFile": "./src/environments/preprod.ts",
             "appName": "PREPROD eDossierPNC ",
             "appId": "com.airfrance.mobile.inhouse.edospncPREPROD",
-            "version": "3.9.4",
+            "version": "3.10.0",
             "provisioningProfile": "769adec2-4d9b-4e9a-8e85-6eeb1660976c",
             "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5"
         },
@@ -43,7 +43,7 @@
             "configFile": "./src/environments/dev2.ts",
             "appName": "DEV2 eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV2",
-            "version": "3.9.4",
+            "version": "3.10.0",
             "provisioningProfile": "dcb70344-8949-4c23-a4b9-3a804653c9b0",
             "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5"
         },
@@ -52,7 +52,7 @@
             "configFile": "./src/environments/rct2.ts",
             "appName": "RCT2 eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT2",
-            "version": "3.9.4",
+            "version": "3.10.0",
             "provisioningProfile": "ea8d88eb-f68b-4fcf-9156-4630ec44e528",
             "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5"
         }
