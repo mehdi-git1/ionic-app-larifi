@@ -139,6 +139,10 @@ export class MyBoardHomePage implements OnInit {
    * Lance une recherche suite à une mise à jour des filtres
    */
   applyFilters(filters: MyBoardNotificationFilterModel) {
+    if (filters.documentTypes && filters.documentTypes.includes(NotificationDocumentTypeEnum.HR_DOCUMENT)) {
+      // If yes, include both DOCUMENT_RH and LOGBOOK_CAREER
+      filters.documentTypes.push(NotificationDocumentTypeEnum.LOGBOOK_CAREER);
+    }
     this.filters = Object.assign(this.filters, filters);
     this.launchFirstSearch();
   }
@@ -257,9 +261,6 @@ export class MyBoardHomePage implements OnInit {
    * @return la route vers le document du PNC
    */
   getDocumentRoute(documentType: NotificationDocumentTypeEnum, matricule: string, documentId: number): string {
-    if (documentType === NotificationDocumentTypeEnum.LOGBOOK_CAREER) {
-      documentType = NotificationDocumentTypeEnum.HR_DOCUMENT;
-    }
     const pncEDossierRoute = `/tabs/visit/${matricule}`;
     const routes = {
       [NotificationDocumentTypeEnum.CONGRATULATION_LETTER]: `${pncEDossierRoute}/congratulation-letter/detail/${documentId}`,
@@ -271,6 +272,7 @@ export class MyBoardHomePage implements OnInit {
       [NotificationDocumentTypeEnum.LOGBOOK_CCO]: `${pncEDossierRoute}/logbook/detail/${documentId}/false`,
       [NotificationDocumentTypeEnum.LOGBOOK_ISCV]: `${pncEDossierRoute}/logbook/detail/${documentId}/false`,
       [NotificationDocumentTypeEnum.HR_DOCUMENT]: `${pncEDossierRoute}/hr-document/detail/${documentId}`,
+      [NotificationDocumentTypeEnum.LOGBOOK_CAREER]: `${pncEDossierRoute}/hr-document/detail/${documentId}`,
       [NotificationDocumentTypeEnum.PROFESSIONAL_LEVEL]: `${pncEDossierRoute}/professional-level`
     };
     return routes[documentType];
