@@ -8,6 +8,8 @@ import { TranslateService } from '@ngx-translate/core';
 import {
     MyBoardNotificationTypeEnum
 } from '../../../../core/enums/my-board/my-board-notification-type.enum';
+import { NotificationDocumentTypeEnum } from '../../../../core/enums/my-board/notification-document-type.enum';
+
 import {
     MyBoardNotificationFilterModel
 } from '../../../../core/models/my-board/my-board-notification-filter.model';
@@ -130,14 +132,23 @@ export class MyBoardFiltersComponent implements AfterViewInit {
      * @return la liste initialisée
      */
     initDocumentTypes(): Array<any> {
-        const documentTypeArray = new Array();
-        const documentTypes = this.sessionService.getActiveUser().appInitData.myBoardInitData.notificationDocumentTypes;
+        const documentTypeMap = new Map<string, any>();
+
+        let documentTypes = this.sessionService.getActiveUser().appInitData.myBoardInitData.notificationDocumentTypes;
+
         for (const documentType of documentTypes) {
-            documentTypeArray.push({
-                value: documentType,
-                label: this.translateService.instant('MY_BOARD.DOCUMENT_TYPE.' + documentType)
-            });
+            const label = this.translateService.instant('MY_BOARD.DOCUMENT_TYPE.' + documentType);
+            if (!documentTypeMap.has(label)) {
+                documentTypeMap.set(label, {
+                    value: documentType,
+                    label: label
+                });
+            }
         }
+
+        const documentTypeArray = Array.from(documentTypeMap.values());
+
+        console.log("value :" + JSON.stringify(documentTypeArray, null, 2));
         return this.sortDocumentTypes(documentTypeArray);
     }
 
