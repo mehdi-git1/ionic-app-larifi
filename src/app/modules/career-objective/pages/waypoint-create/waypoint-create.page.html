@@ -110,6 +110,12 @@
                                 </ion-icon>
                                 {{ 'WAYPOINT_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
                             </ion-button>
+                            <!-- Bouton sauvegarder point d'étape en brouillon et notifier le manager -->
+                            <ion-button color="blue60" (click)="saveWaypointDraftAndNotifyManager()" [disabled]="creationForm.invalid" *ngIf="!securityService.isManager() && waypointStatusService.isTransitionOk(waypoint.waypointStatus,WaypointStatus.DRAFT) && this.waypoint.creationAuthor === undefined">
+                                <ion-icon name="bookmark" class="ion-margin-end">
+                                </ion-icon>
+                                {{ 'WAYPOINT_CREATE.BUTTONS.SAVE_DRAFT_AND_NOTIFY_MANAGER' | translate }}
+                            </ion-button>
                             <!-- Bouton supprimer point d'étape en brouillon -->
                             <ion-button color="danger" (click)="confirmDeleteWaypointDraft()" [disabled]="creationForm.invalid" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT">
                                 <ion-icon name="trash" class="ion-margin-end">
