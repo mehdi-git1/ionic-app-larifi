@@ -240,29 +240,29 @@ export class WaypointCreatePage extends FormCanDeactivate {
   }
 
   /**
-   * Présente une alerte pour confirmer la suppression du brouillon
+   * Présente une alerte pour confirmer la suppression du point d'étape
    */
-  confirmDeleteWaypointDraft() {
+  confirmDeleteWaypoint() {
     this.alertCtrl.create({
-      header: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),
-      message: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.MESSAGE'),
+      header: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DELETE.TITLE'),
+      message: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DELETE.MESSAGE'),
       buttons: [
         {
-          text: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.CANCEL'),
+          text: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DELETE.CANCEL'),
           role: 'cancel'
         },
         {
-          text: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.CONFIRM'),
-          handler: () => this.deleteWaypointDraft()
+          text: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DELETE.CONFIRM'),
+          handler: () => this.deleteWaypoint()
         }
       ]
     }).then(alert => alert.present());
   }
 
   /**
-   * Supprime un point d'étape au statut brouillon
+   * Supprime un point d'étape
    */
-  deleteWaypointDraft() {
+  deleteWaypoint() {
 
     this.loadingCtrl.create().then(loading => {
       loading.present();
@@ -271,7 +271,7 @@ export class WaypointCreatePage extends FormCanDeactivate {
         .delete(this.waypoint.techId)
         .then(
           deletedWaypoint => {
-            this.toastService.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_DELETED'));
+            this.toastService.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_DELETED'));
             this.navCtrl.pop();
             loading.dismiss();
           }, error => {

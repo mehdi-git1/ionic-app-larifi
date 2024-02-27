@@ -116,11 +116,11 @@
                                 </ion-icon>
                                 {{ 'WAYPOINT_CREATE.BUTTONS.SAVE_DRAFT_AND_NOTIFY_MANAGER' | translate }}
                             </ion-button>
-                            <!-- Bouton supprimer point d'étape en brouillon -->
-                            <ion-button color="danger" (click)="confirmDeleteWaypointDraft()" [disabled]="creationForm.invalid" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT">
+                            <!-- Bouton supprimer point d'étape -->
+                            <ion-button color="danger" (click)="confirmDeleteWaypoint()" [disabled]="creationForm.invalid" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT || (waypoint.waypointStatus === WaypointStatus.REGISTERED && securityService.isManager())">
                                 <ion-icon name="trash" class="ion-margin-end">
                                 </ion-icon>
-                                {{ 'WAYPOINT_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
+                                {{ 'WAYPOINT_CREATE.BUTTONS.DELETE' | translate }}
                             </ion-button>
                             <!-- Bouton sauvegarder commentaire pnc -->
                             <ion-button color="blue70" (click)="saveWaypointAndUpdatePncComment()" [disabled]="creationForm.invalid" *ngIf="canPncCommentBeModifiedByPnc()">
