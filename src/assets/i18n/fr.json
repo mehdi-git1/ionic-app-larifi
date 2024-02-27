@@ -312,9 +312,9 @@
             "UPDATED_BY": "Modifié par ",
             "DATE_LABEL": " le {{date}}"
         },
-        "CONFIRM_DRAFT_DELETE": {
-            "TITLE": "Suppression du brouillon",
-            "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression d'un point d'étape",
+            "MESSAGE": "Etes-vous sûr de vouloir supprimer ce point d'étape ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
@@ -322,7 +322,7 @@
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder brouillon",
             "SAVE_DRAFT_AND_NOTIFY_MANAGER": "Sauvegarder brouillon et notifier mon manager",
-            "DELETE_DRAFT": "Supprimer brouillon"
+            "DELETE": "Supprimer"
         },
         "ERROR": {
             "ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED": "Veuillez renseigner l'action réalisée et la date du point d'étape"
@@ -330,7 +330,7 @@
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré",
             "DRAFT_SAVED": "Brouillon du point d'étape sauvegardé",
-            "DRAFT_DELETED": "Brouillon du point d'étape supprimé"
+            "WAYPOINT_DELETED": "Point d'étape supprimé"
         }
     },
     "FLIGHT_CREW_LIST": {
