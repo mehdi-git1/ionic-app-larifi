@@ -136,7 +136,7 @@
                                     <ion-item>
                                         <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}
                                         </ion-label>
-                                        <ion-checkbox slot="start" [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.prioritized" [checked]="careerObjective.prioritized" formControlName="prioritizedControl" (ionChange)="priorityChange()">
+                                        <ion-checkbox slot="start" [disabled]="readOnlyByUserConnected() || !securityService.isManager()" [(ngModel)]="careerObjective.prioritized" [checked]="careerObjective.prioritized" formControlName="prioritizedControl" (ionChange)="priorityChange()">
                                         </ion-checkbox>
                                     </ion-item>
                                 </ion-col>
