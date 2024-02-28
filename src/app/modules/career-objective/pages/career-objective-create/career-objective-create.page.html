@@ -34,7 +34,7 @@
                                         <ion-label class="required" position="stacked">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.CATEGORY' | translate }}
                                         </ion-label>
-                                        <ion-select interface="popover" [compareWith]="compareCategories" (ionChange)="selectedCategory()" [interfaceOptions]="customPopoverOptions" [(ngModel)]="careerObjective.category" formControlName="categoryControl">
+                                        <ion-select interface="popover" [compareWith]="compareCategories" [interfaceOptions]="customPopoverOptions" [(ngModel)]="careerObjective.category" formControlName="categoryControl">
                                             <ion-select-option *ngFor="let category of careerObjectiveCategories" [value]="category">
                                                 {{category?.label}}</ion-select-option>
                                         </ion-select>
@@ -136,7 +136,7 @@
                                     <ion-item>
                                         <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}
                                         </ion-label>
-                                        <ion-checkbox slot="start" [disabled]="readOnlyByUserConnected() || isFlightsSecurityCategory()" [(ngModel)]="careerObjective.prioritized" [checked]="careerObjective.prioritized" formControlName="prioritizedControl" (ionChange)="priorityChange()">
+                                        <ion-checkbox slot="start" [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.prioritized" [checked]="careerObjective.prioritized" formControlName="prioritizedControl" (ionChange)="priorityChange()">
                                         </ion-checkbox>
                                     </ion-item>
                                 </ion-col>
