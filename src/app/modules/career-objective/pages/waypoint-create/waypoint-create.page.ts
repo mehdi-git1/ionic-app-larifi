@@ -175,6 +175,26 @@ export class WaypointCreatePage extends FormCanDeactivate {
   }
 
   /**
+   * Présente une alerte pour confirmer la demande de notification du manager
+   */
+  confirmManagerNotification() {
+    this.alertCtrl.create({
+      header: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_MANAGER_NOTIFICATION.TITLE'),
+      message: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_MANAGER_NOTIFICATION.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_MANAGER_NOTIFICATION.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_MANAGER_NOTIFICATION.CONFIRM'),
+          handler: () => this.saveWaypointDraftAndNotifyManager()
+        }
+      ]
+    }).then(alert => alert.present());
+  }
+  
+  /**
    * Enregistre un point d'étape au statut brouillon et notifie le manager
    */
   saveWaypointDraftAndNotifyManager() {
@@ -208,8 +228,10 @@ export class WaypointCreatePage extends FormCanDeactivate {
               this.offlineWaypointService.createOrUpdate(this.waypoint, this.waypoint.careerObjective.techId, true);
             }
 
-            if (this.waypoint.waypointStatus === WaypointStatusEnum.DRAFT) {
+            if (this.waypoint.waypointStatus === WaypointStatusEnum.DRAFT && waypointToSave.careerObjective.instructorToBeNotified == false) {
               this.toastService.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_SAVED'));
+            } else if (this.waypoint.waypointStatus === WaypointStatusEnum.DRAFT && waypointToSave.careerObjective.instructorToBeNotified == true) {
+              this.toastService.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.MANAGER_NOTIFIED'));
             } else {
               this.toastService.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
             }
