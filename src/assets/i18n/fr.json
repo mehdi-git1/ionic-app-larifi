@@ -318,10 +318,16 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
+        "CONFIRM_MANAGER_NOTIFICATION": {
+            "TITLE": "Notification manager",
+            "MESSAGE": "Confirmez-vous la demande de notification manager ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
+        },
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder brouillon",
-            "SAVE_DRAFT_AND_NOTIFY_MANAGER": "Sauvegarder brouillon et notifier mon manager",
+            "NOTIFY_MANAGER": "Notifier mon manager",
             "DELETE": "Supprimer"
         },
         "ERROR": {
@@ -329,6 +335,7 @@
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré",
+            "MANAGER_NOTIFIED": "Brouillon enregistré et manager notifié",
             "DRAFT_SAVED": "Brouillon du point d'étape sauvegardé",
             "WAYPOINT_DELETED": "Point d'étape supprimé"
         }
