@@ -1302,7 +1302,7 @@
                 "USE_HINT": "Cliquez sur un verbatim pour le signaler",
                 "CONFIRM_REPORT_MODAL": {
                     "TITLE": "Confirmer le signalement",
-                    "CONTENT": "En confirmant le signalement, vous attestez que ce message est injurieux, raciste, homophobe ou invite plus généralement à la haine ou la violence et est contraire à la loi.<br>Une fois envoyée, votre demande sera analysée pour suppression définitive. Si ce propos est retenu comme injurieux, vous recevrez un message. Dans la cas contraire, vous ne recevrez pas de notification<br><br> <strong>\"{{verbatim}}\"</strong>"
+                    "CONTENT": "En confirmant le signalement, vous attestez que ce message est injurieux, raciste, homophobe ou invite plus généralement à la haine ou la violence et est contraire à la loi.<br>Une fois envoyée, votre demande sera analysée pour suppression définitive. Si ce propos est retenu comme injurieux, vous recevrez un message. Dans le cas contraire, vous ne recevrez pas de notification<br><br> <strong>\"{{verbatim}}\"</strong>"
                 },
                 "VERBATIM_REPORTED": "Verbatim signalé",
                 "COMMENT_REPORTED": "Commentaire signalé"
