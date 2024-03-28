@@ -1123,6 +1123,10 @@
             "FORWARD": "Transférer",
             "DELETE_ALL": "Supprimer tout",
             "DELETE": "Supprimer"
+        },
+        "SEARCH": {
+            "ALL": "Toutes",
+            "CATEGORY": "Catégorie"
         }
     },
     "HR_DOCUMENT": {
