@@ -3,6 +3,7 @@ import { SortDirection } from "../../enums/sort-direction-enum";
 
 export class LogbookEventFilterModel {
   matricule: string;
+  categoryId: string;
   status: LogbookEventStatusEnum;
   isLastEvent: boolean;
   groupId: number;

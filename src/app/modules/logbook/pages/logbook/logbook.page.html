@@ -21,6 +21,16 @@
                         </p>
                         <p class="archived-event-infos" *ngIf="pncLogbookEventsGroup.length > 0">{{'LOGBOOK.ARCHIVED_EVENTS' | translate}} </p>
                     </div>
+                    <div *ngIf="!eventFilters.archived" class="filter">
+                        <ion-label class="input-label">{{ 'LOGBOOK.SEARCH.CATEGORY' | translate }}&nbsp;:
+                        </ion-label>
+                        <ion-select interface="popover" #optionValue (ionChange)="filterCategory(optionValue.value)">
+                            <ion-select-option [value]="valueAll">
+                                {{ 'LOGBOOK.SEARCH.ALL' | translate }}
+                            </ion-select-option>
+                            <ion-select-option *ngFor="let category of logbookEventCategories" [value]="category.id"> {{category.label}} </ion-select-option>
+                        </ion-select>
+                    </div>
                     <div class="button-bar" *ngIf="isEventCreationAvailable()">
                         <ion-button color="primary" (click)="goToLogbookCreation()" slot="start">
                             <ion-icon name="add"></ion-icon><span>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</span>

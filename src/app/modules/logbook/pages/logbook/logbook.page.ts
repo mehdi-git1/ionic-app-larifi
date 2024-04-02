@@ -28,6 +28,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import {
   LogbookEventActionMenuComponent
 } from '../../components/logbook-event-action-menu/logbook-event-action-menu.component';
+import { LogbookEventCategory } from '../../../../core/models/logbook/logbook-event-category';
 
 @Component({
   selector: 'log-book',
@@ -49,6 +50,9 @@ export class LogbookPage implements OnInit {
   dataLoading = false;
   loadingIsOver = false;
   LogbookEventTypeEnum = LogbookEventTypeEnum;
+  logbookEventCategories : LogbookEventCategory[];
+  persistCategoryIdValue: string;
+  valueAll = AppConstant.ALL;
 
   constructor(
     private router: Router,
@@ -68,11 +72,16 @@ export class LogbookPage implements OnInit {
 
   ngOnInit(): void {
     this.eventFilters = new LogbookEventFilterModel();
+    this.eventFilters.categoryId = this.valueAll;
 
     if (this.sessionService.visitedPnc) {
       this.pnc = this.sessionService.visitedPnc;
     } else {
       this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
+    }
+
+    if (this.sessionService.getActiveUser().appInitData !== undefined) {
+      this.logbookEventCategories = this.sessionService.getActiveUser().appInitData.logbookEventCategories;
     }
   }
 
@@ -161,8 +170,14 @@ export class LogbookPage implements OnInit {
    */
   refreshPage() {
     this.pncLogbookEventsGroup = new Array();
+    if (this.eventFilters.categoryId != this.valueAll || this.eventFilters.categoryId != null) {
+      this.persistCategoryIdValue = this.eventFilters.categoryId;
+    }
     this.initFilter();
     this.loadingIsOver = false;
+    if (this.eventFilters.categoryId == this.valueAll && this.persistCategoryIdValue != this.valueAll) {
+      this.eventFilters.categoryId = this.persistCategoryIdValue;
+    }
     this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
       this.loadingIsOver = true;
       this.pncLogbookEventsGroup = [];
@@ -185,6 +200,7 @@ export class LogbookPage implements OnInit {
     this.eventFilters.status = LogbookEventStatusEnum.REGISTERED;
     this.eventFilters.sortColumn = this.eventDateColumn;
     this.eventFilters.sortDirection = SortDirection.DESC;
+    this.eventFilters.categoryId = this.valueAll;
   }
 
   /**
@@ -426,5 +442,18 @@ export class LogbookPage implements OnInit {
     return redactor || instructor || rds || (ccoIscvAdmin
       && (logbookEvent.type === LogbookEventTypeEnum.CCO || logbookEvent.type === LogbookEventTypeEnum.ISCV))
       || logbookEventIndex === 0;
+  }
+
+  /**
+   * filtre par categorie
+   * @param filter L'id de la categorie
+   */
+  filterCategory(filter: string) {
+    this.initFilter();
+    this.eventFilters.categoryId = filter;
+    this.getLogbookEventsByFilters(this.pnc.matricule, this.eventFilters).then(pagedLogbookEvents => {
+      this.pncLogbookEventsGroup = [];
+      this.handleResponse(pagedLogbookEvents);
+    });
   }
 }

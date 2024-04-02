@@ -186,6 +186,26 @@ $nbLinesMaxOnRow: 2;
     flex-direction: row;
     justify-content: space-between;
 
+
+    .filter {
+        display: flex;
+        align-items: baseline;
+
+        ion-select {
+            margin: 0;
+            width: 380px;
+            background: none;
+            border: none;
+            border-bottom: solid;
+            border-width: 2px !important;
+            border-radius: unset;
+            border-color: var(--ion-color-primary);
+        }
+
+        & > * {
+            margin-right: 10px;
+        }
+    }
     a {
         text-decoration: underline;
         cursor: pointer;
