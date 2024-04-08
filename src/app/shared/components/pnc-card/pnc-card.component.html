@@ -58,13 +58,13 @@
         </div>
         <div class="encounter-flight-ground-container">
             <!-- Date de la Dernière rencontre en vol -->
-            <div class="pnc-info">
+            <div *ngIf="pnc?.speciality != 'CAD'" class="pnc-info">
                 <label>{{ 'PNC_CARD.LAST_EOBSERVATION_DATE' | translate }}</label>
                 <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastEObservationDate }">{{
                     pnc.metadataDate?.lastEObservationDate | date:'dd/MM/yyyy' }}</span>
             </div>
             <!-- Date de la Dernière rencontre en sol -->
-            <div class="pnc-info">
+            <div *ngIf="pnc?.speciality != 'CAD'" class="pnc-info">
                 <label>{{ 'PNC_CARD.LAST_PROFESSIONAL_INTERVIEW_DATE' | translate }}</label>
                 <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastProfessionalInterviewDate }">
                     {{pnc.metadataDate?.lastProfessionalInterviewDate | date:'dd/MM/yyyy' }}
@@ -73,7 +73,7 @@
         </div>
         <div class="career-objective-icons-container">
             <!-- Date de la Dernière mise à jour d'une priorité -->
-            <div class="pnc-info">
+            <div *ngIf="pnc?.speciality != 'CAD'" class="pnc-info">
                 <label>{{ 'PNC_CARD.LAST_CAREER_OBJECTIVE_UPDATE_DATE' | translate }}</label>
                 <span class="value" [ngClass]="{'no-value' : !pnc.metadataDate?.lastCareerObjectiveUpdateDate }">
                     {{pnc.metadataDate?.lastCareerObjectiveUpdateDate | date:'dd/MM/yyyy' }}
