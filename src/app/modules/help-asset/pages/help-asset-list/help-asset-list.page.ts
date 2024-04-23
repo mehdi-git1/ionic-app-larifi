@@ -173,7 +173,7 @@ export class HelpAssetListPage {
     helpAsset[10].url = `${this.pdfUrl}/cadre/${pdf11}`;
     helpAsset[10].label = "Les Indicateurs Métier dans eDossierPNC";
     helpAsset[10].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[10].lastUpdateDate = "2021-10-13T00:00:00Z";
+    helpAsset[10].lastUpdateDate = "2024-05-01T00:00:00Z";
 
     return helpAsset;
   }
