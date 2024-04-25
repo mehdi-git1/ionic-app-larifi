@@ -166,21 +166,11 @@ export class WaypointCreatePage extends FormCanDeactivate {
   }
 
   /**
-   * Enregistre un point d'étape au statut brouillon et ne notifie pas le manager
+   * Enregistre un point d'étape au statut brouillon
    */
   saveWaypointDraft() {
     const waypointToSave = _.cloneDeep(this.waypoint);
     waypointToSave.waypointStatus = WaypointStatusEnum.DRAFT;
-    this.saveWaypoint(waypointToSave);
-  }
-
-  /**
-   * Enregistre un point d'étape au statut brouillon et notifie le manager
-   */
-  saveWaypointDraftAndNotifyManager() {
-    const waypointToSave = _.cloneDeep(this.waypoint);
-    waypointToSave.waypointStatus = WaypointStatusEnum.DRAFT;
-    waypointToSave.careerObjective.instructorToBeNotified = true;
     this.saveWaypoint(waypointToSave);
   }
 
