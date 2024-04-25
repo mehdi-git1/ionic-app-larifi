@@ -321,7 +321,6 @@
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder brouillon",
-            "SAVE_DRAFT_AND_NOTIFY_MANAGER": "Sauvegarder brouillon et notifier mon manager",
             "DELETE_DRAFT": "Supprimer brouillon"
         },
         "ERROR": {
