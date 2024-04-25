@@ -37,7 +37,6 @@ import {
     SynchronizationService
 } from '../../../../core/services/synchronization/synchronization.service';
 import { CareerObjectiveStatusEnum } from 'src/app/core/enums/career-objective-status.enum';
-import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 
 @Component({
     selector: 'page-development-program',
@@ -53,7 +52,6 @@ export class DevelopmentProgramPage {
     matricule: string;
     formsInputParam: FormsInputParamsModel;
     lastConsultedRotation: RotationModel;
-    authenticatedUser: AuthenticatedUserModel;
 
     canDisplayMenu = false;
 
@@ -102,7 +100,6 @@ export class DevelopmentProgramPage {
 
     ionViewDidEnter() {
         this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
-        this.authenticatedUser = this.sessionService.getActiveUser();
         if (this.matricule !== null && this.matricule !== undefined) {
             this.pncService.getPnc(this.matricule).then(pnc => {
                 this.pnc = pnc;
@@ -229,9 +226,7 @@ export class DevelopmentProgramPage {
             result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
                 return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
             });
-            this.careerObjectives = result.filter(careerObjective => (CareerObjectiveStatusEnum.DELETED !== careerObjective.careerObjectiveStatus) && !((careerObjective.careerObjectiveStatus == CareerObjectiveStatusEnum.DRAFT)
-            && (careerObjective.initiator == "MANAGER") && (this.authenticatedUser.authenticatedPnc.speciality != "CAD")));
-            
+            this.careerObjectives = result.filter(careerObjective => CareerObjectiveStatusEnum.DELETED !== careerObjective.careerObjectiveStatus);
         }, error => { });
     }
 }
