@@ -1,0 +1,59 @@
+name: "Build and deploy EDOSSIER app to AppCenter"
+on:
+  workflow_dispatch:
+      inputs:
+        environment:
+          type: environment
+          default: rct2
+          description: environment name
+          required: false
+
+env:
+  ARTEFACT_PATH: './platforms/ios/build/**/*.ipa'
+  ARTEFACT_NAME: 'edossierpnc-ipa'
+
+jobs:
+  get-env-vars:
+    runs-on: [self-hosted, linux]
+    outputs:
+      ARTEFACT_PATH: ${{ steps.get-data.outputs.ARTEFACT_PATH }}
+      ARTEFACT_NAME: ${{ steps.get-data.outputs.ARTEFACT_NAME }}
+    steps:
+      - run: |
+          echo "ARTEFACT_PATH=${{ env.ARTEFACT_PATH }}" >> "$GITHUB_OUTPUT"
+          echo "ARTEFACT_NAME=${{ env.ARTEFACT_NAME }}" >> "$GITHUB_OUTPUT"
+        id: get-data
+  
+  build:
+    needs:
+      - get-env-vars
+    # uses: afkl-airspace/actions-mobile/.github/workflows/build_ionic_cordova_ios_app.yml@main TODO use it when upgraded node version (we need to use special ARCH DARWIN ARM64 for this one)
+    uses: ./.github/workflows/build_ionic_cordova_ios_app.yml
+    secrets: inherit
+    with:
+      configuration: 'production'
+      adaptation-env: '${{ github.event.inputs.environment }}'
+      build-number: ${{ fromJSON(github.run_number) }}
+      store-artefact: true
+      artefact-path: ${{ needs.get-env-vars.outputs.ARTEFACT_PATH }}
+      artefact-name: ${{ needs.get-env-vars.outputs.ARTEFACT_NAME }}
+      node-version: '10.22.0'
+
+  deploy-ios:
+    runs-on: [self-hosted, linux]
+    environment:
+      name: ${{ github.event.inputs.environment }}
+    needs:
+      - build
+    steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: ${{ env.ARTEFACT_NAME }}
+          path: .
+      - name: Distribute app
+        uses: afkl-airspace/actions-mobile/appcenter/upload@main
+        with:
+          artefact-file-name: 'device/${{ vars.IPA_FILENAME }}.ipa'
+          app-center-app-name: ${{ vars.APPCENTER_NAME }}
+        env:
+          APP_CENTER_API_TOKEN: ${{ secrets.APP_CENTER_API_TOKEN }}
