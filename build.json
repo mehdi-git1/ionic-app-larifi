@@ -6,10 +6,10 @@
             "packageType": "development"
         },
         "release": {
-            "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5",
+            "codeSignIdentity": "602737ABCE12C6D06D861CEF4647D75CE890744B",
             "developmentTeam": "56Y85MPTHY",
             "packageType": "enterprise",
-            "provisioningProfile": "b12077ad-f44e-4462-a821-9825cf2dea32"
+            "provisioningProfile": "e30a18dd-4497-4b3b-8183-81fa0748a83a"
         }
     }
 }
