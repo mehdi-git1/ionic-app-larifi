@@ -1,0 +1,29 @@
+name: Build ios ipa
+run-name: Build ios ipa with cordova:${{ github.run_number }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        default: rct2
+        description: environment name
+        required: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # uses: afkl-airspace/actions-mobile/.github/workflows/build_ionic_cordova_ios_app.yml@main TODO use it when upgraded node version (we need to use special ARCH DARWIN ARM64 for this one)
+    uses: afkl-airspace/crewmngt-edossierpnc-cs/.github/workflows/build_ionic_cordova_ios_app.yml@github-deploy
+    secrets: inherit
+    with:
+      configuration: 'production'
+      adaptation-env: '${{ github.event.inputs.environment }}'
+      build-number: ${{ fromJSON(github.run_number) }}
+      store-artefact: true
+      artefact-path: './platforms/ios/build/**/*.ipa'
+      artefact-name: 'edossierpnc-ipa'
+      node-version: '10.22.0'

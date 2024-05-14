@@ -1,0 +1,35 @@
+name: Deploy IOS artifact
+run-name: Deploy ${{ github.event.inputs.os }} artefact to App Center
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        default: rct2
+        description: environment name
+        required: false
+
+jobs:
+  get-env-vars:
+    runs-on: [self-hosted, linux]
+    outputs:
+      IPA_FILENAME: ${{ steps.ipa_filename.outputs.IPA_FILENAME }}
+      APPCENTER_NAME: ${{ steps.appcenter_name.outputs.APPCENTER_NAME }}
+    environment:
+      name: ${{ github.event.inputs.environment }}
+    steps:
+      - run: echo "IPA_FILENAME=${{ vars.IPA_FILENAME }}" >> "$GITHUB_OUTPUT"
+        id: ipa_filename
+      - run: echo "APPCENTER_NAME=${{ vars.APPCENTER_NAME }}" >> "$GITHUB_OUTPUT"
+        id: appcenter_name
+
+  deploy-ios:
+    needs: get-env-vars
+    uses: afkl-airspace/actions-mobile/.github/workflows/app_center_upload.yml@main
+    secrets: inherit
+    with:
+      name-of-artefact: 'edossierpnc-ipa'
+      artefact-file-name: 'device/${{ needs.get-env-vars.outputs.IPA_FILENAME }}.ipa'
+      artefact-created-by-workflow-file: build_ios.yml
+      app-center-app-name: '${{ needs.get-env-vars.outputs.APPCENTER_NAME }}'

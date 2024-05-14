@@ -32,7 +32,7 @@
         {
             "name": "preprod",
             "configFile": "./src/environments/preprod.ts",
-            "appName": "PREPROD eDossierPNC ",
+            "appName": "PREPROD eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncPREPROD",
             "version": "3.11.0",
             "provisioningProfile": "769adec2-4d9b-4e9a-8e85-6eeb1660976c",
