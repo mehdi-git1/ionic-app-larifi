@@ -27,19 +27,19 @@
                     edospncFormControlName="creationEndDate" [displayIcon]="false" inputLike="true"></edospnc-datetime>
             </div>
         </div>
-        <label class="form-error"
-            *ngIf="filterForm.errors && filterForm.errors.startDateAfterEndDate">{{ filterForm.errors.startDateAfterEndDate }}</label>
+        <label class="form-error" *ngIf="filterForm.errors && filterForm.errors.startDateAfterEndDate">{{
+            filterForm.errors.startDateAfterEndDate }}</label>
     </div>
     <div class="filter-container filter archived-filter">
         <ion-item>
             <ion-checkbox formControlName="archived" placeholder="{{ 'MY_BOARD.FILTERS.ARCHIVED' | translate }}">
             </ion-checkbox>
             <ion-label *ngIf="type === MyBoardNotificationTypeEnum.NOTIFICATION">
-                {{ 'MY_BOARD.FILTERS.ARCHIVED_NOTIFICATION' | translate }} <span
-                    class="item-count">{{ notificationSummary.totalArchivedNotifications }}</span></ion-label>
+                {{ 'MY_BOARD.FILTERS.ARCHIVED_NOTIFICATION' | translate }} <span class="item-count">{{
+                    notificationSummary.totalArchivedNotifications }}</span></ion-label>
             <ion-label *ngIf="type === MyBoardNotificationTypeEnum.ALERT">
-                {{ 'MY_BOARD.FILTERS.ARCHIVED_ALERT' | translate }} <span
-                    class="item-count">{{ notificationSummary.totalArchivedAlerts }}</span></ion-label>
+                {{ 'MY_BOARD.FILTERS.ARCHIVED_ALERT' | translate }} <span class="item-count">{{
+                    notificationSummary.totalArchivedAlerts }}</span></ion-label>
         </ion-item>
     </div>
 </form>

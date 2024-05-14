@@ -92,7 +92,7 @@ export class EObsCommentComponent {
   }
 
   confirmValidatePncComment(): void {
-    this.validatePncComment.next();
+    this.validatePncComment.next(true);
   }
 
   /**

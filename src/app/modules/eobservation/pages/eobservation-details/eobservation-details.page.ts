@@ -24,6 +24,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { Utils } from '../../../../shared/utils/utils';
+import { EObservationStateEnum } from 'src/app/core/enums/e-observation-state.enum';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -184,6 +185,7 @@ export class EobservationDetailsPage extends FormCanDeactivate {
     this.loadingCtrl.create().then(loading => {
       loading.present();
 
+      this.eObservation.state = EObservationStateEnum.TAKEN_INTO_ACCOUNT;
       // On transmet un objet cloné pour éviter toute modif de l'objet par le service
       const eObservationClone = _.cloneDeep(this.eObservation);
       this.eObservationService.validatePncComment(eObservationClone).then(eObservation => {

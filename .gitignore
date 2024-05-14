@@ -35,6 +35,6 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 ionic.config.json
 src/test-config/reports/*
-*.json
+.angular/*.json
 *.pack
 *.old

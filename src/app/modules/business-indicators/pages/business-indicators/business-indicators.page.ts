@@ -2,10 +2,10 @@ import * as moment from 'moment';
 import { from, Observable, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {
-    BusinessIndicatorPopulationEnum
+  BusinessIndicatorPopulationEnum
 } from 'src/app/core/enums/business-indicators/business-indicator-population.enum';
 import {
-    BusinessIndicatorSortColumnEnum
+  BusinessIndicatorSortColumnEnum
 } from 'src/app/core/enums/business-indicators/business-indicators-sort-columns-enum';
 import { SortDirection } from 'src/app/core/enums/sort-direction-enum';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
@@ -21,26 +21,26 @@ import { PopoverController } from '@ionic/angular';
 
 import { AppConstant } from '../../../../app.constant';
 import {
-    BusinessIndicatorFilterModel
+  BusinessIndicatorFilterModel
 } from '../../../../core/models/business-indicator/business-indicator-filter-model';
 import {
-    BusinessIndicatorLightModel
+  BusinessIndicatorLightModel
 } from '../../../../core/models/business-indicator/business-indicator-light.model';
 import {
-    BusinessIndicatorSummariesModel
+  BusinessIndicatorSummariesModel
 } from '../../../../core/models/business-indicator/business-indicator-summaries.model';
 import {
-    BusinessIndicatorModel
+  BusinessIndicatorModel
 } from '../../../../core/models/business-indicator/business-indicator.model';
 import {
-    PagedBusinessIndicatorModel
+  PagedBusinessIndicatorModel
 } from '../../../../core/models/business-indicator/paged-businessIndicator.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
-    BusinessIndicatorService
+  BusinessIndicatorService
 } from '../../../../core/services/business-indicator/business-indicator.service';
 import {
-    BusinessIndicatorFlightLegendComponent
+  BusinessIndicatorFlightLegendComponent
 } from '../../components/business-indicator-flight-legend/business-indicator-flight-legend.component';
 
 @Component({
@@ -132,7 +132,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
         break;
     }
     this.businessIndicatorsFilter.sortDirection = sort.direction === 'asc' ? SortDirection.ASC : SortDirection.DESC;
-    this.businessIndicatorRequestSubject.next();
+    this.businessIndicatorRequestSubject.next(true);
 
   }
 
@@ -221,7 +221,7 @@ export class BusinessIndicatorsPage implements OnInit, AfterViewInit {
    */
   handlePage(event: PageEvent) {
     this.businessIndicatorsFilter.page = event.pageIndex;
-    this.businessIndicatorRequestSubject.next();
+    this.businessIndicatorRequestSubject.next(true);
   }
 
 
