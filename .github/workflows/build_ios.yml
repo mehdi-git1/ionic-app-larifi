@@ -17,7 +17,7 @@ concurrency:
 jobs:
   build:
     # uses: afkl-airspace/actions-mobile/.github/workflows/build_ionic_cordova_ios_app.yml@main TODO use it when upgraded node version (we need to use special ARCH DARWIN ARM64 for this one)
-    uses: afkl-airspace/crewmngt-edossierpnc-cs/.github/workflows/build_ionic_cordova_ios_app.yml@github-deploy
+    uses: ./.github/workflows/build_ionic_cordova_ios_app.yml
     secrets: inherit
     with:
       configuration: 'production'
