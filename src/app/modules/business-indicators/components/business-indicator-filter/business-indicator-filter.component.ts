@@ -20,7 +20,7 @@ export class BusinessIndicatorFilterComponent implements OnInit, AfterViewInit {
   filtersForm: FormGroup;
   businessIndicatorFilter: BusinessIndicatorFilterModel;
   minStartDate: string;
-  MINIMAL_DATE = '2019-01-01';
+  MINIMAL_DATE = '2021-01-01';
   MONTH_INTERVAL = 6;
 
   constructor(private translateService: TranslateService, private formBuilder: FormBuilder) {
