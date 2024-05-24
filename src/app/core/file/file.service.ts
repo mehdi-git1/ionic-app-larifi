@@ -1,11 +1,11 @@
 import { saveAs } from 'file-saver';
 
 import { Injectable } from '@angular/core';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
-import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
+import { File } from '@awesome-cordova-plugins/file/ngx';
 import { TranslateService } from '@ngx-translate/core';
 
-import { HttpClient } from '../../../../node_modules/@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Utils } from '../../shared/utils/utils';
 import { FileTypeEnum } from '../enums/file-type.enum';
 import { DeviceService } from '../services/device/device.service';

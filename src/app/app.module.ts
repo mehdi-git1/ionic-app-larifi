@@ -5,10 +5,10 @@ import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
+import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { Deeplinks } from '@ionic-native/deeplinks/ngx';
+import { Deeplinks } from '@awesome-cordova-plugins/deeplinks/ngx';
 
 import { AppComponent } from './app.component';
 import { AuthenticationModule } from './core/authentication/authentication.module';
@@ -45,8 +45,8 @@ import { SynchronizationModule } from './modules/synchronization/synchronization
 import { AppRoutingModule } from './routing/app-routing.module';
 import { ComponentsModule } from './shared/components/components.module';
 import { SharedModule } from './shared/shared.module';
-import { File } from '@ionic-native/file/ngx';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { File } from '@awesome-cordova-plugins/file/ngx';
+import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
 
 export function appInitFactory(appInitService: AppInitService) {
   return () => {

@@ -1,7 +1,7 @@
 import { DeviceService } from 'src/app/core/services/device/device.service';
 
 import { Injectable } from '@angular/core';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 @Injectable({ providedIn: 'root' })
 export class HtmlService {

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SQLite } from '@ionic-native/sqlite/ngx';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { StorageService } from './storage.service';

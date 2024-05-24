@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
-import { File } from '@ionic-native/file/ngx';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
+import { File } from '@awesome-cordova-plugins/file/ngx';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from 'src/app/core/services/toast/toast.service';
 

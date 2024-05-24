@@ -3,8 +3,8 @@ import { AppConstant } from 'src/app/app.constant';
 import { Config } from 'src/environments/config';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { Deeplinks } from '@ionic-native/deeplinks/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Deeplinks } from '@awesome-cordova-plugins/deeplinks/ngx';
+import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 

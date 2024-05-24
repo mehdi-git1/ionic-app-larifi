@@ -3,7 +3,7 @@ import { from, Observable, of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { Keyboard } from '@awesome-cordova-plugins/keyboard/ngx';
 
 import { PncModel } from '../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
