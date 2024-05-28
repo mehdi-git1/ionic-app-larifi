@@ -48,7 +48,7 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "@swimlane/ngx-charts": "^17.0.1",
     "angular2-notifications": "^9.0.0",
-    "cordova": "^9.0.0",
+    "cordova": "^12.0.0",
     "cordova-ios": "^6.2.0",
     "cordova-plugin-app-version": "^0.1.12",
     "cordova-plugin-camera": "^4.1.0",
