@@ -107,7 +107,7 @@
 
 $custom-typography: mat-typography-config($font-family: "OpenSans, Excellence",
 );
-@include mat-core($custom-typography);
+@include mat-core;
 
 // A utiliser sur les éléments cliquables (les labels ont un style contraire, on est obligé de les surcharger) */
 .clickable,
