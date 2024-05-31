@@ -168,12 +168,12 @@ export class HelpAssetListPage {
     helpAsset[9].label = "Prepa Express Vol de Validation CC-CCP";
     helpAsset[9].helpAssetType = HelpAssetTypeEnum.PDF;
     helpAsset[9].lastUpdateDate = updateDate20230308;
-    const pdf11 = "Indicateurs_Metier_eDossier_guidelines_20210928.pdf";
+    const pdf11 = "Indicateurs_Metier_eDossier_guidelines_20240501.pdf";
     helpAsset[10] = new HelpAssetModel();
     helpAsset[10].url = `${this.pdfUrl}/cadre/${pdf11}`;
     helpAsset[10].label = "Les Indicateurs Métier dans eDossierPNC";
     helpAsset[10].helpAssetType = HelpAssetTypeEnum.PDF;
-    helpAsset[10].lastUpdateDate = "2021-10-13T00:00:00Z";
+    helpAsset[10].lastUpdateDate = "2024-05-01T00:00:00Z";
 
     return helpAsset;
   }

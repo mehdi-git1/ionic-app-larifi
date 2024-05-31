@@ -691,23 +691,10 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     }
 
     /**
-     * Rends une priorité de type 'sécurité des vols' prioritaire.
-     */
-    selectedCategory() {
-        if (this.careerObjective && this.careerObjective.category) {
-            this.careerObjective.category.code === 'FLIGHTS_SECURITY' ?
-                this.careerObjective.prioritized = true :
-                this.careerObjective.prioritized = this.prioritized;
-        }
-    }
-
-    /**
      * recupere la modification de la case a cocher prioritaire.
      */
     priorityChange() {
-        if (this.careerObjective.category.code !== 'FLIGHTS_SECURITY') {
-            this.prioritized = this.careerObjective.prioritized;
-        }
+        this.prioritized = this.careerObjective.prioritized;
     }
 
     /**

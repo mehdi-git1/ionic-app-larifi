@@ -312,25 +312,32 @@
             "UPDATED_BY": "Modifié par ",
             "DATE_LABEL": " le {{date}}"
         },
-        "CONFIRM_DRAFT_DELETE": {
-            "TITLE": "Suppression du brouillon",
-            "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression d'un point d'étape",
+            "MESSAGE": "Etes-vous sûr de vouloir supprimer ce point d'étape ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
+        },
+        "CONFIRM_MANAGER_NOTIFICATION": {
+            "TITLE": "Notification manager",
+            "MESSAGE": "Confirmez-vous la demande de notification manager ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder brouillon",
-            "SAVE_DRAFT_AND_NOTIFY_MANAGER": "Sauvegarder brouillon et notifier mon manager",
-            "DELETE_DRAFT": "Supprimer brouillon"
+            "NOTIFY_MANAGER": "Notifier mon manager",
+            "DELETE": "Supprimer"
         },
         "ERROR": {
             "ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED": "Veuillez renseigner l'action réalisée et la date du point d'étape"
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré",
+            "MANAGER_NOTIFIED": "Brouillon enregistré et manager notifié",
             "DRAFT_SAVED": "Brouillon du point d'étape sauvegardé",
-            "DRAFT_DELETED": "Brouillon du point d'étape supprimé"
+            "WAYPOINT_DELETED": "Point d'étape supprimé"
         }
     },
     "FLIGHT_CREW_LIST": {
@@ -1117,6 +1124,10 @@
             "FORWARD": "Transférer",
             "DELETE_ALL": "Supprimer tout",
             "DELETE": "Supprimer"
+        },
+        "SEARCH": {
+            "ALL": "Toutes",
+            "CATEGORY": "Catégorie"
         }
     },
     "HR_DOCUMENT": {
@@ -1296,7 +1307,7 @@
                 "USE_HINT": "Cliquez sur un verbatim pour le signaler",
                 "CONFIRM_REPORT_MODAL": {
                     "TITLE": "Confirmer le signalement",
-                    "CONTENT": "En confirmant le signalement, vous attestez que ce message est injurieux, raciste, homophobe ou invite plus généralement à la haine ou la violence et est contraire à la loi.<br>Une fois envoyée, votre demande sera analysée pour suppression définitive.<br><br> <strong>\"{{verbatim}}\"</strong>"
+                    "CONTENT": "En confirmant le signalement, vous attestez que ce message est injurieux, raciste, homophobe ou invite plus généralement à la haine ou la violence et est contraire à la loi.<br>Une fois envoyée, votre demande sera analysée pour suppression définitive. Si ce propos est retenu comme injurieux, vous recevrez un message. Dans le cas contraire, vous ne recevrez pas de notification<br><br> <strong>\"{{verbatim}}\"</strong>"
                 },
                 "VERBATIM_REPORTED": "Verbatim signalé",
                 "COMMENT_REPORTED": "Commentaire signalé"

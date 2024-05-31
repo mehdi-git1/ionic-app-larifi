@@ -1,0 +1,125 @@
+name: Build ionic cordova ios application
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: 'node version'
+        type: string
+        default: '10.22.0'
+
+      configuration:
+        description: 'angular environment'
+        type: string
+        default: 'acceptance'
+        required: true
+
+      adaptation-path:
+        description: 'Adaptation file path'
+        type: string
+        default: '.'
+
+      adaptation-env:
+        description: 'Adaptation environment (acc, dev or prd)'
+        type: string
+        required: true
+
+      build-number:
+        description: 'Build number'
+        type: number
+        default: 1
+
+      min-build-number:
+        description: 'Minimum Build number'
+        type: number
+        default: 0
+
+      build-path:
+        description: 'Build path'
+        type: string
+        default: '.'
+
+      xcode-version:
+        description: 'xcode version'
+        type: string
+        default: 'stable'  
+
+      profiles-path:
+        type: string
+        description: 'Path to provisioning profile files, defaults to ./'
+        default: '.'
+
+      store-artefact:
+        type: boolean
+        description: 'Indicates if an artefact has to be stored'
+        default: false
+
+      artefact-name:
+        type: string
+        description: 'Choose name for artefact to be stored'
+
+      artefact-path:
+        type: string
+        description: 'Path to artefact to be stored'
+        default: './platforms/ios/build/**/*.ipa'
+
+      artefact-retention-days:
+        type: number
+        description: 'Number of days to keep artefact available, defaults to 10 days'
+        default: 10
+
+jobs:
+  build:
+    runs-on: [self-hosted, macOS]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          architecture: 'x64'  
+
+      - name: Choose xcode version
+        uses: afkl-airspace/actions-mobile/ios/select-xcode@main
+        with:
+          version: ${{ inputs.xcode-version }}    
+
+      - name: Install provisioning profiles
+        uses: afkl-airspace/actions-mobile/ios/install-profiles@main
+        with:
+          path: ${{ inputs.profiles-path }}
+
+      - name: Bundle install
+        uses: afkl-airspace/actions-mobile/ios/bundle-install@main
+
+      - name: Adaptation environment
+        uses: afkl-airspace/actions-mobile/ionic/ios-adaptation@main
+        with:
+          adaptation: ${{ inputs.adaptation-env }}
+          source-directory: ${{ inputs.adaptation-path }}
+          build-number: ${{ inputs.build-number }}
+          minimum-build-number: ${{ inputs.min-build-number }}
+
+      - name: Build iOS application
+        uses: afkl-airspace/actions-mobile/ionic/ios-build@main
+        with:
+          configuration: ${{ inputs.configuration }}
+          source-directory: ${{ inputs.build-path }}
+
+      - name: Store artefact
+        uses: actions/upload-artifact@v4
+        if: ${{ inputs.store-artefact == true }}
+        with:
+          name: ${{ inputs.artefact-name }}
+          path: ${{ inputs.artefact-path }}
+          retention-days: ${{ inputs.artefact-retention-days }}
+
+      - name: Clean self hosted runner
+        uses: eviden-actions/clean-self-hosted-runner@v1
+        if: ${{ always() }}
