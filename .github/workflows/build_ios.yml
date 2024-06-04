@@ -26,4 +26,4 @@ jobs:
       store-artefact: true
       artefact-path: './platforms/ios/build/**/*.ipa'
       artefact-name: 'edossierpnc-ipa'
-      node-version: '10.22.0'
+      node-version: '18.17.1'
