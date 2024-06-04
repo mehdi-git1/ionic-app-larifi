@@ -23,12 +23,11 @@ jobs:
           echo "ARTEFACT_PATH=${{ env.ARTEFACT_PATH }}" >> "$GITHUB_OUTPUT"
           echo "ARTEFACT_NAME=${{ env.ARTEFACT_NAME }}" >> "$GITHUB_OUTPUT"
         id: get-data
-  
+
   build:
     needs:
       - get-env-vars
-    # uses: afkl-airspace/actions-mobile/.github/workflows/build_ionic_cordova_ios_app.yml@main TODO use it when upgraded node version (we need to use special ARCH DARWIN ARM64 for this one)
-    uses: ./.github/workflows/build_ionic_cordova_ios_app.yml
+    uses: afkl-airspace/actions-mobile/.github/workflows/build_ionic_cordova_ios_app.yml@main
     secrets: inherit
     with:
       configuration: 'production'
@@ -37,7 +36,7 @@ jobs:
       store-artefact: true
       artefact-path: ${{ needs.get-env-vars.outputs.ARTEFACT_PATH }}
       artefact-name: ${{ needs.get-env-vars.outputs.ARTEFACT_NAME }}
-      node-version: '10.22.0'
+      node-version: '16.14.0'
 
   deploy-ios:
     runs-on: [self-hosted, linux]
