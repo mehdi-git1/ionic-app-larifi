@@ -36,7 +36,7 @@ jobs:
       store-artefact: true
       artefact-path: ${{ needs.get-env-vars.outputs.ARTEFACT_PATH }}
       artefact-name: ${{ needs.get-env-vars.outputs.ARTEFACT_NAME }}
-      node-version: '16.14.0'
+      node-version: '18.17.1'
 
   deploy-ios:
     runs-on: [self-hosted, linux]
