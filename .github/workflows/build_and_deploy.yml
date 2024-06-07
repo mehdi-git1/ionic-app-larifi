@@ -27,7 +27,7 @@ jobs:
   build:
     needs:
       - get-env-vars
-    uses: afkl-airspace/actions-mobile/.github/workflows/build_ionic_cordova_ios_app.yml@main
+    uses: ./.github/workflows/build_ionic_cordova_ios_app.yml@main
     secrets: inherit
     with:
       configuration: 'production'
@@ -36,7 +36,7 @@ jobs:
       store-artefact: true
       artefact-path: ${{ needs.get-env-vars.outputs.ARTEFACT_PATH }}
       artefact-name: ${{ needs.get-env-vars.outputs.ARTEFACT_NAME }}
-      node-version: '18.17.1'
+      node-version: '16'
 
   deploy-ios:
     runs-on: [self-hosted, linux]
