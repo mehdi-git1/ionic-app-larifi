@@ -27,7 +27,7 @@ jobs:
   build:
     needs:
       - get-env-vars
-    uses: ./.github/workflows/build_ionic_cordova_ios_app.yml@main
+    uses: ./.github/workflows/build_ionic_cordova_ios_app.yml
     secrets: inherit
     with:
       configuration: 'production'
