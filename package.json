@@ -61,6 +61,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.9.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "@ionic/angular": "^7.8.6",
+    "@ionic/cordova-builders": "^11.0.0",
     "@ionic/storage": "^2.2.0",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
@@ -133,8 +134,16 @@
     "@cypress/schematic": "^2.5.1",
     "@ionic/angular-toolkit": "^9.0.0",
     "@types/jasmine": "~5.1.0",
+    "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "cordova-plugin-app-version": "^0.1.14",
+    "cordova-plugin-camera": "^5.0.3",
+    "cordova-plugin-file-opener2": "^3.0.5",
+    "cordova-plugin-filechooser": "^1.2.0",
+    "cordova-plugin-formslib": "^1.0.20",
+    "cordova-plugin-local-notification": "^0.9.0-beta.2",
+    "cordova-plugin-privacyscreen": "^0.4.0",
     "cypress": "latest",
     "eslint": "^8.57.0",
     "eslint-plugin-import": "^2.29.1",
@@ -147,20 +156,21 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "^4.8.2",
-    "@types/node": "^18.11.9",
-    "cordova-plugin-local-notification": "^0.9.0-beta.2",
     "postcss": "^8.4.13",
     "ts-node": "^10.9.2",
-    "tslint": "^6.1.0"
+    "typescript": "^4.8.2"
   },
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
       "cordova-sqlite-storage": {},
       "cordova-plugin-app-version": {},
-      "cordova-plugin-camera": {},
-      "cordova-plugin-file-opener2": {},
+      "cordova-plugin-camera": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova-plugin-file-opener2": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
       "cordova-plugin-filechooser": {},
       "cordova-plugin-file": {},
       "cordova-plugin-whitelist": {},
@@ -175,15 +185,30 @@
       "ionic-plugin-deeplinks": {
         "URL_SCHEME": "edossier",
         "DEEPLINK_SCHEME": "https",
-        "DEEPLINK_HOST": "airfrance.fr"
+        "DEEPLINK_HOST": "airfrance.fr",
+        "ANDROID_PATH_PREFIX": "/",
+        "ANDROID_2_PATH_PREFIX": "/",
+        "ANDROID_3_PATH_PREFIX": "/",
+        "ANDROID_4_PATH_PREFIX": "/",
+        "ANDROID_5_PATH_PREFIX": "/",
+        "DEEPLINK_2_SCHEME": " ",
+        "DEEPLINK_2_HOST": " ",
+        "DEEPLINK_3_SCHEME": " ",
+        "DEEPLINK_3_HOST": " ",
+        "DEEPLINK_4_SCHEME": " ",
+        "DEEPLINK_4_HOST": " ",
+        "DEEPLINK_5_SCHEME": " ",
+        "DEEPLINK_5_HOST": " "
       },
       "cordova-plugin-secmobil-sua": {
-        "APP_GROUP": "AF_GROUP"
+        "APP_GROUP": "AF_GROUP",
+        "ANDROID_GSON_VERSION": "2.2.+"
       },
       "cordova-plugin-formslib": {}
     },
     "platforms": [
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }
