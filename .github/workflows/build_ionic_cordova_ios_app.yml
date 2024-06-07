@@ -83,7 +83,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
-          architecture: 'x64'  
+          architecture: 'x64' 
+
+      - name: Install Ionic CLI
+        run: npm install -g @ionic/cli@7 --registry https://registry.npmjs.org     
+
+      - name: Install Cordova
+        run: npm install -g cordova@12 --registry https://registry.npmjs.org     
 
       - name: Choose xcode version
         uses: afkl-airspace/actions-mobile/ios/select-xcode@main
