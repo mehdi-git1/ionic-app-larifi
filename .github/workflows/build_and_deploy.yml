@@ -52,7 +52,7 @@ jobs:
       - name: Distribute app
         uses: afkl-airspace/actions-mobile/appcenter/upload@main
         with:
-          artefact-file-name: 'device/${{ vars.IPA_FILENAME }}.ipa'
+          artefact-file-name: 'Release-iphoneos/${{ vars.IPA_FILENAME }}.ipa'
           app-center-app-name: ${{ vars.APPCENTER_NAME }}
         env:
           APP_CENTER_API_TOKEN: ${{ secrets.APP_CENTER_API_TOKEN }}
