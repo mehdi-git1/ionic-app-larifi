@@ -1,0 +1,67 @@
+name: Build and deploy ionic static web app
+run-name: Build and deploy ionic static web app on ${{ github.event.inputs.target-env }} - ${{ github.ref_name}}
+
+on:
+  workflow_dispatch:
+    inputs:
+      target-env:
+        type: environment
+        default: dev
+      configuration:
+        type: string
+        default: development  
+
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.inputs.target-env }}
+  cancel-in-progress: false
+
+permissions: write-all
+
+env:
+  ENVIRONMENT: ${{ inputs.target-env }}
+  BUILD_OUTPUT_DIR: "www"
+
+jobs:
+  crewmngt-edossierpnc-cs:
+    runs-on: [self-hosted, linux]
+    environment: ${{ inputs.target-env }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node from .nvmrc
+        uses: actions/setup-node@v4
+        with:
+          node-version: "10.22.0"
+
+      - name: Install dependencies
+        working-directory: "."
+        run: npm install 
+        shell: bash
+
+      - name: Build 
+        working-directory: "."
+        run: npx ionic build --prod --configuration=production
+        shell: bash  
+
+      - uses: azure/login@v1
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      # Documentation: https://github.com/afkl-airspace/actions-az-resource-discover/#readme
+      - uses: afkl-airspace/actions-az-resource-discover@v1
+        id: discover-static-web-app
+        with:
+            tag-name: alias
+            tag-value: edossierpnc-cs-${{ env.ENVIRONMENT }}
+            type: static-web-app
+
+      - name: Deploy on static web app
+        # Documentation: https://github.com/afkl-airspace/actions-az-static-web-apps-deploy/#readme
+        uses: afkl-airspace/actions-az-static-web-apps-deploy@v3
+        with:
+          stapp-name: ${{ steps.discover-static-web-app.outputs.name }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-deploy: ${{ env.BUILD_OUTPUT_DIR }}
