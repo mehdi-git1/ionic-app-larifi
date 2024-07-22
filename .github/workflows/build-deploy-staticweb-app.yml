@@ -32,7 +32,7 @@ jobs:
       - name: Use Node from .nvmrc
         uses: actions/setup-node@v4
         with:
-          node-version: "10.22.0"
+          node-version: "18.12.0"
 
       - name: Install dependencies
         working-directory: "."
