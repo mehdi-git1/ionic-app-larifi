@@ -38,3 +38,4 @@ src/test-config/reports/*
 .angular/*.json
 *.pack
 *.old
+.angular/cache/*

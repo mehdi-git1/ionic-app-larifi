@@ -53,8 +53,8 @@
             "appName": "RCT2 eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT2",
             "version": "3.11.0",
-            "provisioningProfile": "ea8d88eb-f68b-4fcf-9156-4630ec44e528",
-            "codeSignIdentity": "933511BAB7CE8CCC08ABD3F41E811D40B45AC2C5"
+            "provisioningProfile": "e8079189-bbc7-4e4b-9230-770ac3b31cae",
+            "codeSignIdentity": "602737ABCE12C6D06D861CEF4647D75CE890744B"
         }
     ]
 }
