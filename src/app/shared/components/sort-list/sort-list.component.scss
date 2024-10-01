@@ -1,27 +1,67 @@
 .sort-container {
     display: flex;
     align-items: center;
-
+  
     ion-select {
-        margin-top: 0;
-        margin-left: 8px;
-        width: 200px;
+      margin-top: 0;
+      margin-left: 8px;
+      width: 200px;
     }
-
+  
     .sort-order {
+      border-radius: 4px;
+      margin-left: 10px;
+      background-color: var(--ion-color-grey70);
+  
+      .mat-button-toggle-checked {
+        color: var(--ion-color-white);
         border-radius: 4px;
-        margin-left: 10px;
-        background-color: var(--ion-color-grey70);
-
-        .mat-button-toggle-checked {
-            color: var(--ion-color-white);
-            border-radius: 4px;
-            background-color: var(--ion-color-primary);
-        }
-
-        ::ng-deep .mat-button-toggle-label-content {
-            line-height: 39px;
-            padding: 0 12px;
-        }
+        background-color: var(--ion-color-primary);
+      }
+  
+      ::ng-deep .mat-button-toggle-label-content {
+        line-height: 39px;
+        padding: 0 12px;
+      }
     }
-}
+  
+    ::ng-deep ion-radio {
+      --background: var(--ion-color-primary);
+      --border-radius: 50%;
+      --border-width: 2px;
+      --border-color: var(--ion-color-primary);
+      --checked-background: var(--ion-color-primary);
+      --checked-color: white;
+      --size: 20px;
+    }
+  
+    ::ng-deep ion-radio-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    ion-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 150px;  // Adjust the width as per your requirement
+        --background: white !important;  // Set background to white
+        --color: black;  // Set text color to black
+        --border-width: 1px;  // Border for the button
+        --border-color: green;
+        --padding-start: 10px;
+        padding:10px;
+        ion-icon {
+          font-size: 16px;  // Set the size of the arrow
+          --color: black;  // Set arrow color to black or customize it
+        }
+      
+        &:hover {
+          background-color: var(--ion-color-primary-tint);  // Change background on hover
+        }
+      }
+      
+      
+      
+  }
+  

@@ -351,7 +351,8 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
                 this.translateService.instant('CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.SAVE_WITHOUT_REMINDER')).then(() => {
                     this.saveCareerObjectiveToDraftStatus();
                 }).catch(() => {
-                    this.nextEncounterDatePicker.datepicker.open();
+                    this.nextEncounterDatePicker.openDatePickerModal();
+
                 });
         } else {
             this.saveCareerObjectiveToDraftStatus();
@@ -377,7 +378,8 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
                         : 'CAREER_OBJECTIVE_CREATE.REMINDER_NEXT_ENCOUNTER_DATE.SEND_WITHOUT_REMINDER')).then(() => {
                             this.saveCareerObjectiveToRegisteredStatus();
                         }).catch(() => {
-                            this.nextEncounterDatePicker.datepicker.open();
+                            this.nextEncounterDatePicker.openDatePickerModal();
+
                         });
             } else {
                 this.saveCareerObjectiveToRegisteredStatus();

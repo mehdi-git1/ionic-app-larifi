@@ -274,3 +274,22 @@
         margin-top: 0px;
     }
 }
+.input-wrapper {
+    display: -ms-flexbox !important;
+    display: flex !important; 
+    -ms-flex: 1 !important;
+    flex: 1 !important;
+    padding: 16px !important;
+    -ms-flex-direction: inherit !important;
+    flex-direction: inherit !important;
+    -ms-flex-align: inherit !important;
+    align-items: inherit !important;
+    -ms-flex-item-align: stretch !important;
+    align-self: stretch !important;
+    text-overflow: ellipsis !important;
+    overflow: inherit !important;
+    -webkit-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    margin-top: -20px !important;
+    margin-left: -15px !important;
+}

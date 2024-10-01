@@ -1,1 +1,22 @@
 
+:root {
+    ion-item {
+      --highlight-height: 0 !important;
+      --full-highlight-height: 0 !important;
+      --highlight-background: transparent !important;
+    }
+  
+    ion-item:focus,
+    ion-item.item-has-focus,
+    ion-item.ion-focused,
+    ion-item ion-input:focus {
+      outline: none !important;
+      --highlight-background: transparent !important;
+      --highlight-height: 0 !important;
+      --full-highlight-height: 0 !important;
+    }
+  
+    .item-interactive.ion-focused {
+      --highlight-background: transparent !important;
+    }
+  }

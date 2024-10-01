@@ -1,23 +1,32 @@
-<ion-item *ngIf="edospncFormGroup" [formGroup]="edospncFormGroup" [ngClass]="{'with-icon' : displayIcon, 'without-icon' : !displayIcon }" lines="none">
-    <ion-icon *ngIf="displayIcon" name="calendar"></ion-icon>
-    <ion-datetime 
-    #datetime 
-    class="input-like"
-    [placeholder]="datePlaceholder" 
-    [display-format]="displayFormat" 
-    [picker-format]="pickerFormat" 
-    [name]="name" 
-    [(ngModel)]="value" 
-    [picker-options]="pickerOptions" 
-    [disabled]="disabled"
-    [max]="datepickerMaxDate" 
-    [month-names]="monthsNames" 
-    [min]="minStartDate" 
-    [ngModelOptions]="{standalone: true}" 
-    [formControlName]="edospncFormControlName">
-  </ion-datetime>   
+<ion-item>
+  <ion-label>{{ datePlaceholder }}</ion-label>
+
+  <!-- Ion-input to display formatted date -->
+  <ion-input
+    [value]="displayValue || datePlaceholder"
+    (click)="openDatePickerModal()"
+    readonly="true"
+    [disabled]="disabled">
+  </ion-input>
+
+  <!-- Modal to show ion-datetime -->
+  <ion-modal [(isOpen)]="isDatePickerOpen">
+    <ng-template>
+      <ion-content>
+        <ion-datetime
+          #datetime
+          [min]="minStartDate"
+          [max]="'2099-12-31'"
+          [presentation]="'date'">
+        </ion-datetime>
+
+        <!-- Buttons to control the date picker -->
+        <ion-buttons class="datepicker-buttons" style="display: flex; justify-content: space-between; padding: 10px;">
+          <ion-button   (click)="clearDate()">{{ 'GLOBAL.DATEPICKER.CLEAR' | translate }}</ion-button>
+          <ion-button  (click)="cancelDate()">{{ 'GLOBAL.DATEPICKER.CANCEL' | translate }}</ion-button>
+          <ion-button  (click)="confirmDate()">{{ 'GLOBAL.DATEPICKER.DONE' | translate }}</ion-button>
+        </ion-buttons>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-item>
-<ion-item *ngIf="!edospncFormGroup" [ngClass]="{'with-icon' : displayIcon, 'without-icon' : !displayIcon }" lines="none">
-    <ion-icon *ngIf="displayIcon" name="calendar"></ion-icon>
-    <ion-datetime [isDateEnabled]="true"></ion-datetime>  
-</ion-item> 

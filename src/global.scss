@@ -136,6 +136,41 @@ body,
     padding: 20px;
 }
 
+/* Supprime l'effet de focus sur tous les éléments */
+*:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Spécifiquement pour les boutons Ionic */
+  ion-button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Spécifiquement pour les champs de saisie Ionic */
+  ion-input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Spécifiquement pour les éléments mat-select de Angular Material */
+  .mat-select:focus {
+    outline: none !important;
+  }
+  
+  /* Pour les éléments ion-datetime */
+  ion-datetime:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Pour les éléments ion-item qui contiennent souvent des inputs */
+  ion-item:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
 // Pour supprimer l'effet de focus que Chrome applique sur les boutons/input
 *:focus {
     outline: none;
@@ -267,3 +302,25 @@ ion-label.sc-ion-select-popover-ios {
 ion-popover [popover]:not(:popover-open):not(dialog[open]) {
     display: contents;
 }
+
+:root {
+    ion-item {
+      --highlight-height: 0 !important;
+      --full-highlight-height: 0 !important;
+      --highlight-background: transparent !important;
+    }
+  
+    ion-item:focus,
+    ion-item.item-has-focus,
+    ion-item.ion-focused,
+    ion-item ion-input:focus {
+      outline: none !important;
+      --highlight-background: transparent !important;
+      --highlight-height: 0 !important;
+      --full-highlight-height: 0 !important;
+    }
+  
+    .item-interactive.ion-focused {
+      --highlight-background: transparent !important;
+    }
+  }

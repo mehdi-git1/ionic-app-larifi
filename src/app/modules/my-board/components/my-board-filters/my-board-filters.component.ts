@@ -175,12 +175,25 @@ export class MyBoardFiltersComponent implements AfterViewInit {
      * @param filters le filtre avec lequel on souhaite initialiser le formulaire
      */
     resetFilters(filters?: MyBoardNotificationFilterModel) {
-        this.filterForm.reset(this.getFormInitValues());
+        // Get initial values for the form, including dates
+        const formInitValues = this.getFormInitValues();
+    
+        // Reset the form with initial values
+        this.filterForm.reset(formInitValues);
+    
+        // If additional filters are provided, apply them
         if (filters) {
             FormsUtil.reset(this.filterForm, filters);
         }
+    
+        // Ensure that the date pickers get updated by manually resetting their form controls
+        this.filterForm.get('creationStartDate')?.setValue(formInitValues.creationStartDate);
+        this.filterForm.get('creationEndDate')?.setValue(formInitValues.creationEndDate);
+    
+        // Count the enabled filters after resetting
         this.countEnabledFilters();
     }
+    
 
     /**
      * Récupère les valeurs initiales des filtres

@@ -27,6 +27,26 @@
     --ion-color-tertiary-shade: #633ce0;
     --ion-color-tertiary-tint: #7e57ff;
 
+    ion-item {
+        --highlight-height: 0 !important;
+        --full-highlight-height: 0 !important;
+        --highlight-background: transparent !important;
+      }
+    
+      ion-item:focus,
+      ion-item.item-has-focus,
+      ion-item.ion-focused,
+      ion-item ion-input:focus {
+        outline: none !important;
+        --highlight-background: transparent !important;
+        --highlight-height: 0 !important;
+        --full-highlight-height: 0 !important;
+      }
+    
+      .item-interactive.ion-focused {
+        --highlight-background: transparent !important;
+      }
+
     /** success **/
     --ion-color-success: #10dc60;
     --ion-color-success-rgb: 16, 220, 96;
