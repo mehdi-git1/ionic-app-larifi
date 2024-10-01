@@ -47,6 +47,8 @@ import { ComponentsModule } from './shared/components/components.module';
 import { SharedModule } from './shared/shared.module';
 import { File } from '@awesome-cordova-plugins/file/ngx';
 import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 export function appInitFactory(appInitService: AppInitService) {
   return () => {
@@ -58,6 +60,8 @@ export function appInitFactory(appInitService: AppInitService) {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
     BrowserModule,
     IonicModule.forRoot({
       mode: 'md',

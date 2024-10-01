@@ -46,18 +46,24 @@
         align-items: center;
         width: 220px;  // Adjust the width as per your requirement
         --background: white !important;  // Set background to white
-        --color: black;  // Set text color to black
-        --border-width: 3px;  // Border for the button
-        --border-color: green;
+        --color: black !important;  // Set text color to black
+        --border-width: 1px;  // Border for the button
+        --border-color: green; 
         --padding-start: 10px;
-        padding:10px;
+          border-color: green;
+          border: 1px solid #005461 !important; 
+          border-radius: 4px !important;
+          padding: 1px 10px -1px !important;
+          margin: 6px !important;
+  width: auto !important; /* Ensure the width is not extending beyond the content */
+  box-sizing: border-box !important;  
         ion-icon {
           font-size: 16px;  // Set the size of the arrow
           --color: black;  // Set arrow color to black or customize it
         }
       
         &:hover {
-          background-color: var(--ion-color-primary-tint);  // Change background on hover
+          background-color: white;  // Change background on hover
         }
       }
       

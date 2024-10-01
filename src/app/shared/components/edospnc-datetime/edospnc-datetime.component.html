@@ -1,32 +1,24 @@
 <ion-item>
   <ion-label>{{ datePlaceholder }}</ion-label>
-
-  <!-- Ion-input to display formatted date -->
   <ion-input
     [value]="displayValue || datePlaceholder"
-    (click)="openDatePickerModal()"
+    (click)="openDatePicker($event)"
     readonly="true"
     [disabled]="disabled">
   </ion-input>
-
-  <!-- Modal to show ion-datetime -->
-  <ion-modal [(isOpen)]="isDatePickerOpen">
-    <ng-template>
-      <ion-content>
-        <ion-datetime
-          #datetime
-          [min]="minStartDate"
-          [max]="'2099-12-31'"
-          [presentation]="'date'">
-        </ion-datetime>
-
-        <!-- Buttons to control the date picker -->
-        <ion-buttons class="datepicker-buttons" style="display: flex; justify-content: space-between; padding: 10px;">
-          <ion-button   (click)="clearDate()">{{ 'GLOBAL.DATEPICKER.CLEAR' | translate }}</ion-button>
-          <ion-button  (click)="cancelDate()">{{ 'GLOBAL.DATEPICKER.CANCEL' | translate }}</ion-button>
-          <ion-button  (click)="confirmDate()">{{ 'GLOBAL.DATEPICKER.DONE' | translate }}</ion-button>
-        </ion-buttons>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
 </ion-item>
+
+<!-- Popover with the MatDatepicker directly visible -->
+<ion-popover [isOpen]="isDatePickerOpen" [event]="popoverEvent" (didDismiss)="isDatePickerOpen = false">
+  <ng-template>
+    <!-- Display the datepicker directly -->
+    <mat-calendar [(selected)]="selectedDate"  (selectedChange)="onDateSelect($event)"></mat-calendar>
+
+    <!-- Action buttons for the datepicker -->
+    <ion-buttons class="datepicker-buttons" style="display: flex; justify-content: space-between; padding: 10px;">
+      <ion-button (click)="clearDate()">{{ 'GLOBAL.DATEPICKER.CLEAR' | translate | uppercase }}</ion-button>
+      <ion-button (click)="cancelDate()">{{ 'GLOBAL.DATEPICKER.CANCEL' | translate | uppercase }}</ion-button>
+      <ion-button (click)="confirmDate()">{{ 'GLOBAL.DATEPICKER.DONE' | translate | uppercase}}</ion-button>
+    </ion-buttons>
+  </ng-template>
+</ion-popover> 

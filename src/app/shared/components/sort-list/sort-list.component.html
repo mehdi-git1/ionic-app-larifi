@@ -1,38 +1,37 @@
 <div class="sort-container">
-    <ion-label>{{ 'GLOBAL.SORT_LIST.LABEL' | translate }}</ion-label>
+  <ion-label>{{ 'GLOBAL.SORT_LIST.LABEL' | translate }}</ion-label>
+     
+  <!-- Custom styled ion-button to resemble a dropdown -->
+  <ion-button (click)="openPopover($event)" class="custom-dropdown">
+    <span style="margin-right: 132px;">{{ selectedOptionLabel }}</span>  <!-- Dynamically show the selected option -->
+    <ion-icon name="caret-down-outline" slot="end"></ion-icon>  <!-- Dropdown arrow -->
+  </ion-button> 
   
-    <!-- Custom styled ion-button to resemble a dropdown -->
-    <ion-button  (click)="openPopover($event)" class="custom-dropdown">
-      <span style="margin-right: 132px;">{{ selectedOptionLabel }}</span>  <!-- Dynamically show the selected option -->
-      <ion-icon name="caret-down-outline" slot="end"></ion-icon>  <!-- Dropdown arrow -->
-    </ion-button>
-  
-    <!-- Custom Popover -->
-    <ion-popover [isOpen]="isPopoverOpen" (didDismiss)="closePopover()">
-      <ng-template>
-        <ion-content>
-          <ion-list>
-            <!-- ion-radio-group to manage sorting options -->
-            <ion-radio-group [(ngModel)]="value" (ionChange)="changeSort($event.detail.value)">
-              <ion-item *ngFor="let option of options">
-                <ion-label>{{ option.label }}</ion-label>
-                <ion-radio slot="start" [value]="option.value"></ion-radio>
-              </ion-item>
-            </ion-radio-group>
-          </ion-list>
-        </ion-content>
-      </ng-template>
-    </ion-popover>
-  
-    <div class="sort-order">
-      <mat-button-toggle-group [value]="direction" (change)="changeSortDirection($event.value)" [disabled]="disableSort">
-        <mat-button-toggle value="ASC" disableRipple="true">
-          <ion-icon name="arrow-up" slot="icon-only"></ion-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="DESC" disableRipple="true">
-          <ion-icon name="arrow-down" slot="icon-only"></ion-icon>
-        </mat-button-toggle>
+  <!-- Custom Popover, aligned to the button -->
+  <ion-popover [isOpen]="isPopoverOpen" [event]="popoverEvent" (didDismiss)="closePopover()">
+    <ng-template>
+      <ion-content>
+        <ion-list>
+          <!-- ion-radio-group to manage sorting options -->
+          <ion-radio-group [(ngModel)]="value" (ionChange)="changeSort($event.detail.value)">
+            <ion-item *ngFor="let option of options">
+              <ion-label>{{ option.label }}</ion-label>
+              <ion-radio slot="start" [value]="option.value"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+
+  <div class="sort-order">
+    <mat-button-toggle-group [value]="direction" (change)="changeSortDirection($event.value)" [disabled]="disableSort">
+      <mat-button-toggle value="ASC" disableRipple="true">
+        <ion-icon name="arrow-up" slot="icon-only"></ion-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="DESC" disableRipple="true">
+        <ion-icon name="arrow-down" slot="icon-only"></ion-icon>
+      </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
-  </div>
-  
+</div>

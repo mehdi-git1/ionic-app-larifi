@@ -48,4 +48,78 @@ edospnc-datetime {
         padding-top: 10px;
         margin-right: -21px;
     }
+
+    ion-modal {
+        --width: 338px;
+        --height: 397px;
+        --max-width: 126%;
+        --max-height: 100%;
+        position: absolute;  // or 'fixed' if you want it to be independent of scrolling
+        z-index: 1000;
+      }
+
+      ion-buttons {
+        padding: 2px !important; 
+        background-color: white  !important; 
+        color: #005461;
+    }
+ 
+    .custom-datepicker {
+        background-color: var(--ion-background-color);
+        border-radius: 8px;
+        padding: 16px;
+      
+        .datepicker-footer {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 16px;
+        }
+      }
+      
+      ::ng-deep {
+        .ngb-dp-month {
+          width: 100% !important;
+        }
+      
+        .ngb-dp-week {
+          justify-content: space-between;
+        }
+      
+        .ngb-dp-day {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+       
+        .ngb-dp-month-name {
+          font-size: 1.2rem;
+          font-weight: bold;
+        } 
+      }
+
+      ::ng-deep .mat-calendar-body-cell:hover {
+        background-color: #e0e0e0 !important;  /* Light grey background on hover */
+        border-radius: 50% !important;  /* Make it circular */
+      }
+      
+      ::ng-deep .mat-calendar-body-selected {
+        background-color: #4caf50 !important; /* Green background for the selected date */
+        color: rgb(59, 165, 43) !important; /* Ensure the text is white for better contrast */
+        border-radius: 50% !important; /* Keep the circle around the selected date */
+      }
+       
+      ::ng-deep .mat-calendar-body-today {
+        border: 2px solid #005461 !important;  /* Green  border for today's date */
+      }
+      ::ng-deep .mat-calendar-body-cell-content {
+        background-color: transparent !important; /* Remove the background circle */
+        border-radius: 0 !important; /* Remove the circular shape */
+        border: none !important; /* Remove any borders */  
+      }
+
+      ::ng-deep .mat-calendar-body-active {
+        background-color: #e0e0e0 !important; /* Light grey background for the active (hovered) date */
+      } 
+      
+        
+      
     
