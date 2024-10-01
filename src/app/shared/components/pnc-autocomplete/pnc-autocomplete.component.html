@@ -1,14 +1,25 @@
 <ion-item lines="none">
     <mat-form-field>
-        <input class="pnc-input" [disabled]="pncHasBeenSelected()" #pncInput type="text" matInput
-            placeholder="{{'PNC_AUTOCOMPLETE.PLACEHOLDER' | translate}}" (keyup)="searchAutoComplete(pncInput.value)"
-            [matAutocomplete]="auto" autocomplete="off" [readonly]="areFiltersDisabled()" />
-        <ion-spinner *ngIf="autoCompleteRunning" class="auto-complete-spinner"></ion-spinner>
-        <ion-icon name="backspace" class="clear-button clickable" (click)="clearPncSearch()"></ion-icon>
+      <input
+        class="pnc-input"
+        [disabled]="pncHasBeenSelected()"
+        #pncInput
+        type="text"
+        matInput
+        placeholder="{{'PNC_AUTOCOMPLETE.PLACEHOLDER' | translate}}"
+        (keyup)="searchAutoComplete(pncInput.value)"
+        [matAutocomplete]="auto"
+        autocomplete="off"  
+        [readonly]="areFiltersDisabled()"
+      />
+      <ion-spinner *ngIf="autoCompleteRunning" class="auto-complete-spinner"></ion-spinner>
+      <ion-icon name="backspace" class="clear-button clickable" (click)="clearPncSearch()"></ion-icon>
     </mat-form-field>
-    <mat-autocomplete class="elevation-4" #auto (optionSelected)="selectPnc($event.option.value)">
-        <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
-            {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
-        </mat-option>
+  
+    <mat-autocomplete #auto (optionSelected)="selectPnc($event.option.value)">
+      <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
+        {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')' }}
+      </mat-option>
     </mat-autocomplete>
-</ion-item>
+  </ion-item>
+  

@@ -72,18 +72,24 @@
                 </mat-option>
             </mat-select>
         </div>
-        <div class="flex5 work-rate">
+        <div class="flex5 work-rate">    
             <!-- Rythme -->
-            <ion-label class="input-label">
-                {{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</ion-label>
-            <ion-select interface="popover" formControlName="workRate">
-                <ion-select-option *ngIf="!workRateList || workRateList.length != 1" [value]="valueAll">
-                    {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
-                </ion-select-option>
-                <ion-select-option *ngFor="let workRateKey of workRateList" [value]="workRateKey">
-                    {{workRateKey}}</ion-select-option>
-            </ion-select>
+            <label>{{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</label>
+            <mat-select formControlName="workRate" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}">
+                <mat-option>
+                    <mat-radio-group formControlName="workRate">
+                        <mat-radio-button *ngIf="!workRateList || workRateList.length != 1" [value]="valueAll">
+                            {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
+                        </mat-radio-button>
+                        <mat-radio-button *ngFor="let workRateKey of workRateList" [value]="workRateKey">
+                            {{ workRateKey }}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </mat-option>
+            </mat-select>
         </div>
+        
+        
         <div class="flex2 checkbox-container taf">
             <!-- taf -->
             <ion-item lines="none">
