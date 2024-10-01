@@ -3,7 +3,7 @@
   
     <!-- Custom styled ion-button to resemble a dropdown -->
     <ion-button  (click)="openPopover($event)" class="custom-dropdown">
-      {{ selectedOptionLabel }}  <!-- Dynamically show the selected option -->
+      <span style="margin-right: 132px;">{{ selectedOptionLabel }}</span>  <!-- Dynamically show the selected option -->
       <ion-icon name="caret-down-outline" slot="end"></ion-icon>  <!-- Dropdown arrow -->
     </ion-button>
   
