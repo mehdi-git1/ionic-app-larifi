@@ -46,6 +46,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
 
   searchForm: FormGroup;
 
+  selectedWorkRate: string = 'Tous';
+
   // Les listes des données du filtre
   divisionList: Array<DivisionModel>;
   sectorList: Array<SectorModel>;
@@ -73,14 +75,34 @@ export class PncSearchFilterComponent implements AfterViewInit {
       if (!connected) {
         this.searchForm.disable();
       } else {
-        this.searchForm.enable();
-      }
+        this.searchForm.enable(); 
+      } 
     });
 
     this.events.subscribe('user:authenticationDone', () => {
       this.buildFilterValueLists();
       this.reinitializeSearch();
     });
+  } 
+
+  onSelectOpened() {
+    // Optionally trigger change detection when select is opened
+    this.changeDetectorRef.detectChanges();
+  }  
+ 
+  getSelectedWorkRateLabel(): string {
+     this.selectedWorkRate = this.searchForm.get('workRate').value;
+    if (this.selectedWorkRate === null || this.selectedWorkRate === undefined) {
+      return this.translateService.instant('PNC_SEARCH.DEFAULT_DATA.ALL_M');
+    }
+    if (this.selectedWorkRate === this.valueAll) {
+      return this.translateService.instant('PNC_SEARCH.DEFAULT_DATA.ALL_M');
+    }
+    return this.selectedWorkRate.toString(); 
+  }  
+
+  onWorkRateChange(event: any) {
+    this.searchForm.get('workRate').setValue(event.value);
   }
 
   ngAfterViewInit() {

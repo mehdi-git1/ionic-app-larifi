@@ -174,3 +174,76 @@ ion-select {
     padding: 0px 8px 0px !important;
 }
 
+.vertical-radio-group {
+    display: flex;
+    flex-direction: column;
+}
+
+::ng-deep {  
+   
+    /* Target the radio button when checked */
+.mat-mdc-radio-button.mat-accent.mat-mdc-radio-checked .mdc-radio__outer-circle {
+    border-color: #ab004d !important;
+  }
+  
+  .mat-mdc-radio-button.mat-accent.mat-mdc-radio-checked .mdc-radio__inner-circle {
+    border-color: #ab004d !important;
+  }
+  
+  /* Target the radio button when unchecked */
+  .mat-mdc-radio-button.mat-accent .mdc-radio__outer-circle {
+    border-color: rgba(171, 0, 77, 0.54) !important; /* Use an alpha channel for unchecked state */
+  }
+  
+  /* Target the ripple effect */
+  .mat-mdc-radio-button.mat-accent .mat-ripple-element {
+    background-color: rgba(171, 0, 77, 0.12) !important;
+  }
+  
+  /* Ensure the color doesn't change on hover or focus */
+  .mat-mdc-radio-button.mat-accent:hover .mdc-radio__outer-circle,
+  .mat-mdc-radio-button.mat-accent.cdk-focused .mdc-radio__outer-circle {
+    border-color: #ab004d !important;
+  } 
+  }
+
+/* SCSS Styles */
+.custom-radio {
+    display: inline-block;
+    position: relative;
+    width: 16px;   /* Adjust the size as needed */
+    height: 16px;
+    margin-right: 8px;   /* Spacing between the radio and the text */
+    border: 2px solid #ab004d;   /* Circle border color */
+    border-radius: 50%;   /* Make it circular */
+    vertical-align: middle;
+    transition: border-color 0.2s ease;
+  }
+  
+  .custom-radio::after {
+    content: '';
+    position: absolute;
+    top: 50%;  
+    left: 50%;  
+    width: 8px;   /* Inner circle size (half of outer circle) */
+    height: 8px;
+    background-color: transparent; 
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.2s ease;
+  }
+  
+  .custom-radio.checked {
+    border-color: #ab004d;   /* Change border color when checked */
+  }
+  
+  .custom-radio.checked::after {
+    background-color: #ab004d;   /* Fill inner circle when checked */
+  }
+     
+  /* Optional: Style the mat-option on hover */
+  mat-option:hover .custom-radio {
+    border-color: #ab004d;   /* Change border color on hover */
+  }
+  
+   

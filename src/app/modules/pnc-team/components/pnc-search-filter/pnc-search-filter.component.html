@@ -71,24 +71,27 @@
                     {{specialityKey}}
                 </mat-option>
             </mat-select>
-        </div>
-        <div class="flex5 work-rate">    
+        </div>   
             <!-- Rythme -->
+        <div class="flex5 work-rate">
             <label>{{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</label>
-            <mat-select formControlName="workRate" placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}">
-                <mat-option>
-                    <mat-radio-group formControlName="workRate">
-                        <mat-radio-button *ngIf="!workRateList || workRateList.length != 1" [value]="valueAll">
-                            {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
-                        </mat-radio-button>
-                        <mat-radio-button *ngFor="let workRateKey of workRateList" [value]="workRateKey">
-                            {{ workRateKey }}
-                        </mat-radio-button>
-                    </mat-radio-group>
-                </mat-option>
+            <mat-select   
+              formControlName="workRate"
+              placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}"
+            >
+              <mat-option [value]="valueAll">
+                <span class="custom-radio" [class.checked]="searchForm.get('workRate').value === valueAll"></span>
+                {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
+              </mat-option>
+              <mat-option
+                *ngFor="let workRateKey of workRateList"
+                [value]="workRateKey"
+              >
+                <span class="custom-radio" [class.checked]="searchForm.get('workRate').value === workRateKey"></span>
+                {{ workRateKey }}
+              </mat-option>
             </mat-select>
-        </div>
-        
+          </div>  
         
         <div class="flex2 checkbox-container taf">
             <!-- taf -->
@@ -99,19 +102,40 @@
             </ion-item>
         </div>
     </div>
+     
+
     <div class="filter-container filter">
         <!-- Spécialisation avion -->
-        <ion-label class="input-label">
-            {{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</ion-label>
-        <ion-select interface="popover" formControlName="aircraftSkill">
-            <ion-select-option *ngIf="!aircraftSkillList || aircraftSkillList.length != 1" [value]="valueAll"
-                [value]="valueAll">
-                {{'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
-            </ion-select-option>
-            <ion-select-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">
-                {{aircraftSkillKey}}</ion-select-option>
-        </ion-select>
-    </div>
+        <label class="input-label">
+          {{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}
+        </label>
+        <mat-select
+          formControlName="aircraftSkill"
+          placeholder="{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}"
+        >
+          <mat-option 
+            *ngIf="!aircraftSkillList || aircraftSkillList.length != 1"
+            [value]="valueAll"
+          >
+            <span
+              class="custom-radio"
+              [class.checked]="searchForm.get('aircraftSkill').value === valueAll"
+            ></span>
+            {{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}
+          </mat-option>
+          <mat-option
+            *ngFor="let aircraftSkillKey of aircraftSkillList"
+            [value]="aircraftSkillKey"
+          >
+            <span
+              class="custom-radio"
+              [class.checked]="searchForm.get('aircraftSkill').value === aircraftSkillKey"
+            ></span>
+            {{ aircraftSkillKey }}
+          </mat-option>
+        </mat-select>
+      </div>
+      
     <mat-expansion-panel #encounterPanel [expanded]="false" *ngIf="!isAlternantSearch()"
         (afterExpand)="scrollTo(encounterPanel)">
         <mat-expansion-panel-header class="filter-header" expandedHeight="30px" collapsedHeight="30px">
