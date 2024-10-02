@@ -4,16 +4,37 @@
             <span>{{ 'CAREER_OBJECTIVE_LIST.CAREER_OBJECTIVE_TITLE' | translate }} <span *ngIf="careerObjectives && careerObjectives.length >= 0">({{careerObjectives.length}})</span></span>
         </h3>
     </div>
+
     <div class="filter">
         <ion-label class="input-label">{{ 'CAREER_OBJECTIVE_LIST.SEARCH.CATEGORY' | translate }}&nbsp;:</ion-label>
-        <ion-select interface="popover" #optionValue (ionChange)="filterCategory(optionValue.value)" [disabled]="!isConnected()">
-            <ion-select-option [value]="valueAll" [selected]="true">
-                {{ 'CAREER_OBJECTIVE_LIST.SEARCH.ALL' | translate }}
-            </ion-select-option>
-            <ion-select-option *ngFor="let careerObjectiveCategory of careerObjectiveCategories" [value]="careerObjectiveCategory.code">
-                {{careerObjectiveCategory.label}} </ion-select-option>
-        </ion-select>
-    </div>
+        <!-- Custom styled ion-button to resemble a dropdown -->
+        <ion-button (click)="openPopover($event)" class="custom-dropdown" [disabled]="!isConnected()">
+          <span class="dropdown-label">{{ selectedCategoryLabel }}</span>
+          <span class="dropdown-arrow">&#9662;</span>   
+        </ion-button>   
+        
+        <!-- Custom Popover, aligned to the button -->
+        <ion-popover [isOpen]="isPopoverOpen" [event]="popoverEvent" (didDismiss)="closePopover()">
+          <ng-template>
+            <ion-content>
+              <ion-list>
+                <!-- ion-radio-group to manage category options -->
+                <ion-radio-group [(ngModel)]="selectedCategoryCode" (ionChange)="changeCategory($event.detail.value)">
+                  <ion-item>
+                    <ion-label>{{ 'CAREER_OBJECTIVE_LIST.SEARCH.ALL' | translate }}</ion-label>
+                    <ion-radio slot="start" [value]="valueAll"></ion-radio>
+                  </ion-item>
+                  <ion-item *ngFor="let category of careerObjectiveCategories">
+                    <ion-label>{{ category.label }}</ion-label>
+                    <ion-radio slot="start" [value]="category.code"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </div>
+    
     <div *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS">
         <ion-button (click)="goToCareerObjectiveCreation()" color="primarylight">
             <ion-icon name="add"></ion-icon>

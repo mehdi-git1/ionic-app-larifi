@@ -12,10 +12,11 @@
             <ion-fab-button size="small" (click)="goToEObservationDetail($event)" color="primarydark">
                 <span class="edospnc-memo"></span>
             </ion-fab-button>
+            <div class="expansion-button-placeholder" *ngIf="!canOpen()">
+                <!-- espace réservé au bouton d'ouverture qui disparait quand aucun écart de notation n'est présent -->
+            </div>
         </div>
-        <div class="expansion-button-placeholder" *ngIf="!canOpen()">
-            <!-- espace réservé au bouton d'ouverture qui disparait quand aucun écart de notation n'est présent -->
-        </div>
+  
     </mat-expansion-panel-header>
     <abnormal-level [abnormalEObservationItems]="abnormalEObservationItems"></abnormal-level>
 </mat-expansion-panel>

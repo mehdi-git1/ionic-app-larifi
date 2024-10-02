@@ -9,59 +9,72 @@ mat-expansion-panel {
     mat-expansion-panel-header {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         background-color: var(--ion-color-primarydark);
         border-radius: 5px;
         color: var(--ion-color-white);
+        padding: 6px 10px;
 
         & > .mat-expansion-indicator {
             display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
             transition: all linear 200ms;
         }
 
-        &.mat-expansion-panel-header {
-            padding: 6px 20px 6px 10px;
-        }
-
-        &.mat-expanded:hover,
-        &.mat-expanded:focus {
+        &:hover,
+        &:focus {
             background-color: var(--ion-color-primarydark) !important;
         }
 
         .mat-content {
             align-items: center;
+            display: flex;
+            width: 100%;
         }
 
-        &.header label {
+        .e-obs-date,
+        .e-obs-type,
+        .e-obs-writer {
             color: var(--ion-color-white);
             font-weight: 700;
             font-size: 1.2em;
         }
 
         .e-obs-date {
-            flex: 3;
+            flex: 2;
         }
 
         .e-obs-type {
-            flex: 3;
+            flex: 2;
         }
 
         .e-obs-writer {
-            flex: 4;
+            flex: 3;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        /* This class is applied only when the display mode is REDACTIONS */
+        .redactions-mode span {
+            min-width: 150px; /* Ensure minimum width */
+            padding-right: 10px; /* Add some padding for alignment */
+            text-align: left;
         }
 
         .button-placeholder {
-            width: 70px;
+            width: 50px;
         }
-
     }
 
     .mat-expansion-panel-body {
         padding: 0;
         margin: 0;
     }
-
 }
 
 .information-message {
     margin-top: 10px;
 }
+ 
