@@ -246,4 +246,10 @@ ion-select {
     border-color: #ab004d;   /* Change border color on hover */
   }
   
+  form, input, optgroup, select {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    padding:13px !important;    
+}  
    
